@@ -23,9 +23,9 @@ namespace jcTB
 			this.resources = resources;
 			this.resCode = resCode;
 			this.ie = ie;
-			//build = new Thread(new ThreadStart(BuildLand));
-			//build.Name = buildName;
-			//build.Start();
+			build = new Thread(new ThreadStart(BuildLand));
+			build.Name = buildName;
+			build.Start();
 		}
 
 		private void BuildLand()

@@ -6,7 +6,17 @@ namespace jcTBLib
 {
 	public class jcTBL
 	{
-		public static bool isSimulation = true;
+		public static bool isSimulation = false;
+
+		/// <summary>
+		/// ID of resource that should be build as next
+		/// </summary>
+		public static Int32 idToBuild = 1;
+
+		/// <summary>
+		/// Count of all resources needed for build
+		/// </summary>
+		public static Int32 minNeededValue = 999999;
 
 		public static int WantedLevel
 		{

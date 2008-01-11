@@ -74,11 +74,6 @@ namespace jcTB
 
 				Resources.ShowNeededResources(serverName, resources,ie);
 
-				Timer myTimer = new Timer();
-				myTimer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
-				myTimer.Interval = 10000;
-				myTimer.Start();
-
 				Timer myTimerBrowse = new Timer();
 				myTimerBrowse.Elapsed += new ElapsedEventHandler(ChangePages);
 				myTimerBrowse.Interval = 60000;
@@ -101,16 +96,16 @@ namespace jcTB
 						}
 						ie.Dispose();
 					}
-						#endregion
-						#region Resources
+					#endregion
+					#region Resources
 
 					else if (userInput.Equals("resources"))
 					{
 						Console.WriteLine(resources);
 						Resources.ShowNeededResources(serverName, resources, ie);
 					}
-						#endregion
-						#region Jobs
+					#endregion
+					#region Jobs
 
 					else if (userInput.Equals("jobs"))
 					{
@@ -130,8 +125,8 @@ namespace jcTB
 							}
 						}
 					}
-						#endregion
-						#region Kill
+					#endregion
+					#region Kill
 
 					else if (userInput.Equals("kill"))
 					{
@@ -151,8 +146,8 @@ namespace jcTB
 							}
 						}
 					}
-						#endregion
-						#region Build
+					#endregion
+					#region Build
 
 					else if (userInput.Length > 5)
 					{
@@ -219,14 +214,14 @@ namespace jcTB
 							Console.WriteLine("Unknown Command!");
 						}
 					}
-						#endregion
-						#region Help
+					#endregion
+					#region Help
 
 					else if (userInput.Equals("help"))
 					{
 						Console.WriteLine(jcTBL.ShowHelp());
 					}
-						#endregion
+					#endregion
 
 					else
 					{
@@ -243,13 +238,9 @@ namespace jcTB
 
 		private static void ChangePages(object sender, ElapsedEventArgs e)
 		{
+			Console.WriteLine("Browsing...");
 			ie.GoTo(jcTBL.GetConfig("urlResources"));
 			ie.GoTo(jcTBL.GetConfig("urlTown"));
-		}
-
-		private static void DisplayTimeEvent(object sender, ElapsedEventArgs e)
-		{
-			Console.Write(".");
 		}
 	}
 }
