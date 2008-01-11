@@ -268,20 +268,33 @@ namespace jcTBLib
 		public override string ToString()
 		{
 			StringBuilder resources = new StringBuilder();
-			//resources.Append("Resources\n");
-			resources.AppendFormat("Warehouse Max : {0}\n", warehouseMax);
-			resources.AppendFormat("Granary Max   : {0}\n", granaryMax);
-			resources.AppendFormat("CropRate      : {0}\n", cropRate);
-			resources.AppendFormat("Wood          : {0,-5} {1,5}/h\n", woodCount, woodPerHour);
-			resources.AppendFormat("Clay          : {0,-5} {1,5}/h\n", clayCount, clayPerHour);
-			resources.AppendFormat("Iron          : {0,-5} {1,5}/h\n", ironCount, ironPerHour);
-			resources.AppendFormat("Crop          : {0,-5} {1,5}/h\n", cropCount, cropPerHour);
-			resources.AppendFormat("WoodLevel     : [ {0}]\n", jcTBL.GetLevel2String(woodLandLevels));
-			resources.AppendFormat("ClayLevel     : [ {0}]\n", jcTBL.GetLevel2String(clayLandLevels));
-			resources.AppendFormat("IronLevel     : [ {0}]\n", jcTBL.GetLevel2String(ironLandLevels));
-			resources.AppendFormat("CropLevel     : [ {0}]\n", jcTBL.GetLevel2String(cropLandLevels));
+			resources.Append("\n     Current Resources\n");
+			resources.AppendFormat("     Warehouse Max : {0}\n", warehouseMax);
+			resources.AppendFormat("     Granary Max   : {0}\n", granaryMax);
+			resources.AppendFormat("     CropRate      : {0}\n", cropRate);
+			resources.AppendFormat("     Wood          : {0,-5} {1,5}/h\n", woodCount, woodPerHour);
+			resources.AppendFormat("     Clay          : {0,-5} {1,5}/h\n", clayCount, clayPerHour);
+			resources.AppendFormat("     Iron          : {0,-5} {1,5}/h\n", ironCount, ironPerHour);
+			resources.AppendFormat("     Crop          : {0,-5} {1,5}/h\n", cropCount, cropPerHour);
+			resources.AppendFormat("     WoodLevel     : [ {0}]\n", jcTBL.GetLevel2String(woodLandLevels, false));
+			resources.AppendFormat("     ClayLevel     : [ {0}]\n", jcTBL.GetLevel2String(clayLandLevels, false));
+			resources.AppendFormat("     IronLevel     : [ {0}]\n", jcTBL.GetLevel2String(ironLandLevels, false));
+			resources.AppendFormat("     CropLevel     : [ {0}]\n", jcTBL.GetLevel2String(cropLandLevels, false));
 
 			return resources.ToString();
+		}
+
+		public static void ShowNeededResources(String serverName, Resources resources, IE ie)
+		{
+			Console.WriteLine("     Needed Resources For Upgrade");
+			Console.WriteLine("     ID\t   Wood\t   Clay\t   Iron\t   Crop\t People");
+			Console.WriteLine("     ------------------------------------------");
+			for (int i = 1; i < 19; i++)
+			{
+				resources.SetNeededResources(serverName + "build.php?id=", i, ie);
+				Console.WriteLine("{0,7}\t{1}", i, jcTBL.GetLevel2String(resources.NeededResources[i - 1], true));
+			}
+			Console.WriteLine();
 		}
 	}
 }
