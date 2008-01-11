@@ -1,0 +1,14 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+jcTB is used to see your resources on travian game.
+More will follow.
+
+
+= Details =
+
+Commands:
+help
+resources
+quit
