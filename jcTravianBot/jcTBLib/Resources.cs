@@ -66,24 +66,24 @@ namespace jcTBLib
 		{
 			neededResources = new int[][]
 				{
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
-					new int[] { 0, 0, 0, 0, 0 }, 
-					new int[] { 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
+					new int[] { 0, 0, 0, 0, 0, 0 }, 
+					new int[] { 0, 0, 0, 0, 0, 0 },
 				};
 
 			if (!jcTBL.isSimulation)
@@ -232,13 +232,19 @@ namespace jcTBLib
 			return "0/0";
 		}
 
+		/// <summary>
+		/// Gets All needed resources for all Resource lands
+		/// </summary>
+		/// <param name="landURL">ur of the land</param>
+		/// <param name="id">id of the resource land [1-18]</param>
+		/// <param name="ie"><see cref="IE"/></param>
+		/// 
 		public void SetNeededResources(String landURL, Int32 id, IE ie)
 		{
 			if (!jcTBL.isSimulation)
 			{
 				ie.GoTo(landURL+id);
-#warning move setting to config file!
-				if (ie.ContainsText("Trenutna proizvodnja:"))
+				if (ie.ContainsText(jcTBL.GetConfig("neededResourcesSearchString")))
 				{
 					//<table class="f10"><tr><td><img class="res" src="img/un/r/1.gif">520 | <img class="res" src="img/un/r/2.gif">1300 | <img class="res" src="img/un/r/3.gif">650 | <img class="res" src="img/un/r/4.gif">780 | <img class="res" src="img/un/r/5.gif">2 | <img class="clock" src="img/un/a/clock.gif" width="18" height="12"> 1:13:10</td></tr></table>
 					Int32 tableCount = ie.Tables.Length;
@@ -248,10 +254,14 @@ namespace jcTBLib
 						if (innerText.Contains("|"))
 						{
 							String[] neededResSplitter = innerText.Split('|');
+							Int32 totalNeeded = 0;
 							for (int j = 0; j < 5; j++)
 							{
-								NeededResources[id - 1][j] = Int32.Parse(neededResSplitter[j]);
+								Int32 resValue = Int32.Parse(neededResSplitter[j]);
+								NeededResources[id - 1][j] = resValue;
+								totalNeeded += resValue;
 							}
+							NeededResources[id - 1][5] = totalNeeded;
 							break;
 						}
 					}
@@ -284,11 +294,18 @@ namespace jcTBLib
 			return resources.ToString();
 		}
 
+		/// <summary>
+		/// Shows Needed Resources to Console
+		/// </summary>
+		/// <param name="serverName">Server name</param>
+		/// <param name="resources"><see cref="Resources"/></param>
+		/// <param name="ie"><see cref="IE"/></param>
+		/// 
 		public static void ShowNeededResources(String serverName, Resources resources, IE ie)
 		{
 			Console.WriteLine("     Needed Resources For Upgrade");
-			Console.WriteLine("     ID\t   Wood\t   Clay\t   Iron\t   Crop\t People");
-			Console.WriteLine("     ------------------------------------------");
+			Console.WriteLine("     ID\t   Wood\t   Clay\t   Iron\t   Crop\t People\t  Total");
+			Console.WriteLine("     --------------------------------------------------");
 			for (int i = 1; i < 19; i++)
 			{
 				resources.SetNeededResources(serverName + "build.php?id=", i, ie);
