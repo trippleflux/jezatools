@@ -262,6 +262,11 @@ namespace jcTBLib
 								totalNeeded += resValue;
 							}
 							NeededResources[id - 1][5] = totalNeeded;
+							if (jcTBL.minNeededValue > totalNeeded)
+							{
+								jcTBL.minNeededValue = totalNeeded;
+								jcTBL.idToBuild = id;
+							}
 							break;
 						}
 					}
@@ -311,6 +316,8 @@ namespace jcTBLib
 				resources.SetNeededResources(serverName + "build.php?id=", i, ie);
 				Console.WriteLine("{0,7}\t{1}", i, jcTBL.GetLevel2String(resources.NeededResources[i - 1], true));
 			}
+			Console.WriteLine();
+			Console.WriteLine("     First Resource For Upgrade is Land With ID " + jcTBL.idToBuild);
 			Console.WriteLine();
 		}
 	}
