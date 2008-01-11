@@ -72,11 +72,7 @@ namespace jcTB
 				Console.WriteLine(resources);
 				/* Print Resources*/
 
-				for (int i = 1; i < 19; i++)
-				{
-					resources.SetNeededResources(serverName + "build.php?id=", i, ie);
-					Console.WriteLine("ID " + i + " - " + jcTBL.GetLevel2String(resources.NeededResources[i-1]));
-				}
+				Resources.ShowNeededResources(serverName, resources,ie);
 
 				Timer myTimer = new Timer();
 				myTimer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
@@ -111,6 +107,7 @@ namespace jcTB
 					else if (userInput.Equals("resources"))
 					{
 						Console.WriteLine(resources);
+						Resources.ShowNeededResources(serverName, resources, ie);
 					}
 						#endregion
 						#region Jobs

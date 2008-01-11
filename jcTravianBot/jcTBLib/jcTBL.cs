@@ -6,7 +6,7 @@ namespace jcTBLib
 {
 	public class jcTBL
 	{
-		public static bool isSimulation = false;
+		public static bool isSimulation = true;
 
 		public static int WantedLevel
 		{
@@ -166,14 +166,22 @@ namespace jcTBLib
 		/// Conversts Array of Integers to String
 		/// </summary>
 		/// <param name="resLand">Int32[] Array</param>
+		/// <param name="lineUp"><c>true</c> if it should be formated</param>
 		/// <returns>String of Integers</returns>
 		/// 
-		public static StringBuilder GetLevel2String(Int32[] resLand)
+		public static StringBuilder GetLevel2String(Int32[] resLand, bool lineUp)
 		{
 			StringBuilder level2String = new StringBuilder();
 			for (int i = 0; i < resLand.Length; i++)
 			{
-				level2String.AppendFormat("{0} ", resLand[i]);
+				if (lineUp)
+				{
+					level2String.AppendFormat("{0,7}\t", resLand[i]);
+				}
+				else
+				{
+					level2String.AppendFormat("{0} ", resLand[i]);
+				}
 			}
 			return level2String;
 		}
