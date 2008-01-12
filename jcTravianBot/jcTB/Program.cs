@@ -101,6 +101,7 @@ namespace jcTB
 
 					else if (userInput.Equals("resources"))
 					{
+						resources = new Resources(ie);
 						Console.WriteLine(resources);
 						Resources.ShowNeededResources(serverName, resources, ie);
 					}
