@@ -76,10 +76,10 @@ namespace jcTB
 
 				Resources.ShowNeededResources(serverName, resources,ie);
 
-				Timer myTimerBrowse = new Timer();
-				myTimerBrowse.Elapsed += new ElapsedEventHandler(ChangePages);
-				myTimerBrowse.Interval = 120000;
-				myTimerBrowse.Start();
+				//Timer myTimerBrowse = new Timer();
+				//myTimerBrowse.Elapsed += new ElapsedEventHandler(ChangePages);
+				//myTimerBrowse.Interval = 120000;
+				//myTimerBrowse.Start();
 
 				do
 				{
@@ -242,23 +242,34 @@ namespace jcTB
 		private static void ChangePages(object sender, ElapsedEventArgs e)
 		{
 			counter++;
+			Log log = new Log("C:\\jcTB.trace");
 			Console.WriteLine("Current Resources : {0}", jcTBL.GetLevel2String(resources.CurProduction, false));
+			log.Write("ChangePages " + counter);
 			if (jcTBL.CanWeBuild(resources, jcTBL.idToBuild))
 			{
+				log.Write("We can Build...");
 				String buildURL = String.Format("{0}build.php?id={1}", jcTBL.GetConfig("urlServerName"), jcTBL.idToBuild);
-				ie = new IE();
-				ie.GoTo(buildURL);
-				Console.WriteLine("Building ID {0} [{1}] -> {2}", jcTBL.idToBuild, jcTBL.GetNameFromID(jcTBL.idToBuild), buildURL);
-				for (int i = 0; i < ie.Links.Length; i++)
+				using (ie = new IE(buildURL))
 				{
-					if (ie.Links[i].Text.StartsWith(jcTBL.GetConfig("updateURLText")))
+					ie.AutoClose = true;
+					ie.ShowWindow(NativeMethods.WindowShowStyle.Show);
+					ie.GoTo(buildURL);
+					log.Write("buildURL = " + buildURL);
+					Console.WriteLine("Building ID {0} [{1}] -> {2}", jcTBL.idToBuild, jcTBL.GetNameFromID(jcTBL.idToBuild), buildURL);
+					for (int i = 0; i < ie.Links.Length; i++)
 					{
-						ie.Links[i].Click();
+						log.Write(counter + " ie.Links["+i+"].Text = " + ie.Links[i].Text);
+						if (ie.Links[i].Text.StartsWith(jcTBL.GetConfig("updateURLText")))
+						{
+							log.Write("Clicking Here... " + ie.Links[i].Text);
+							ie.Links[i].Click();
+						}
 					}
 				}
 			}
 			else
 			{
+				log.Write("We cant Build yet...");
 				Console.WriteLine("ID {0} [{1}] Is Waiting For Building...",
 					jcTBL.idToBuild,
 					jcTBL.GetNameFromID(jcTBL.idToBuild));
@@ -266,7 +277,7 @@ namespace jcTB
 			//Console.WriteLine("Browsing...");
 			ie.GoTo(jcTBL.GetConfig("urlResources"));
 			//ie.GoTo(jcTBL.GetConfig("urlTown"));
-			if (counter > 10)
+			if (counter > 5)
 			{
 				Resources.UpdateNeededResources(false, ie, resources, jcTBL.GetConfig("urlServerName"));
 				counter = 0;
