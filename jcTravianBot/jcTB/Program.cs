@@ -3,12 +3,16 @@ using System.Reflection;
 using System.Timers;
 using WatiN.Core;
 using jcTBLib;
+using Timer=System.Timers.Timer;
 
 namespace jcTB
 {
 	public class Program
 	{
 		static IE ie = new IE();
+		static Resources resources = null;
+
+		private static Int32 counter = 0;
 
 		[STAThread]
 		private static void Main()
@@ -33,14 +37,12 @@ namespace jcTB
 				IE.Settings.WaitForCompleteTimeOut = 120;
 				IE.Settings.WaitUntilExistsTimeOut = 120;
 				ie.AutoClose = true;
-				ie.ShowWindow(NativeMethods.WindowShowStyle.Hide);
+				ie.ShowWindow(NativeMethods.WindowShowStyle.Show);
 
 				/// <summary>
 				/// Thread For Build Land
 				/// </summary>
 				Build buildThread = null;
-
-				Resources resources = null;
 
 				#region Connect To Server
 
@@ -76,7 +78,7 @@ namespace jcTB
 
 				Timer myTimerBrowse = new Timer();
 				myTimerBrowse.Elapsed += new ElapsedEventHandler(ChangePages);
-				myTimerBrowse.Interval = 60000;
+				myTimerBrowse.Interval = 120000;
 				myTimerBrowse.Start();
 
 				do
@@ -150,71 +152,71 @@ namespace jcTB
 					#endregion
 					#region Build
 
-					else if (userInput.Length > 5)
-					{
-						if (userInput.Substring(0, 5).Equals("build"))
-						{
-							if (jcTBL.BuildThreadIndex > 0)
-							{
-								Console.WriteLine("Allready Building...");
-							}
-							else
-							{
-								Int32 returnCode = BuildCheck.CheckCommand(userInput, resources);
-								switch(returnCode)
-								{
+					//else if (userInput.Length > 5)
+					//{
+					//    if (userInput.Substring(0, 5).Equals("build"))
+					//    {
+					//        if (jcTBL.BuildThreadIndex > 0)
+					//        {
+					//            Console.WriteLine("Allready Building...");
+					//        }
+					//        else
+					//        {
+					//            Int32 returnCode = BuildCheck.CheckCommand(userInput, resources);
+					//            switch(returnCode)
+					//            {
 									
-									case (int) Codes.BuildCheckCodes.minLevelAllreadyReached:
-										{
-											Console.WriteLine("Resource Allready At Wanted Level!");
-											break;
-										}
+					//                case (int) Codes.BuildCheckCodes.minLevelAllreadyReached:
+					//                    {
+					//                        Console.WriteLine("Resource Allready At Wanted Level!");
+					//                        break;
+					//                    }
 
-									case (int)Codes.BuildCheckCodes.buildLandWOOD:
-										{
-											buildThread = new Build(userInput, resources, Codes.ResourceCodes.WOOD, ie);
-											jcTBL.BuildThreadIndex++;
+					//                case (int)Codes.BuildCheckCodes.buildLandWOOD:
+					//                    {
+					//                        buildThread = new Build(userInput, resources, Codes.ResourceCodes.WOOD, ie);
+					//                        jcTBL.BuildThreadIndex++;
 
-											break;
-										}
+					//                        break;
+					//                    }
 
-									case (int)Codes.BuildCheckCodes.buildLandCLAY:
-										{
-											buildThread = new Build(userInput, resources, Codes.ResourceCodes.CLAY, ie);
-											jcTBL.BuildThreadIndex++;
+					//                case (int)Codes.BuildCheckCodes.buildLandCLAY:
+					//                    {
+					//                        buildThread = new Build(userInput, resources, Codes.ResourceCodes.CLAY, ie);
+					//                        jcTBL.BuildThreadIndex++;
 
-											break;
-										}
+					//                        break;
+					//                    }
 
-									case (int)Codes.BuildCheckCodes.buildLandIRON:
-										{
-											buildThread = new Build(userInput, resources, Codes.ResourceCodes.IRON, ie);
-											jcTBL.BuildThreadIndex++;
+					//                case (int)Codes.BuildCheckCodes.buildLandIRON:
+					//                    {
+					//                        buildThread = new Build(userInput, resources, Codes.ResourceCodes.IRON, ie);
+					//                        jcTBL.BuildThreadIndex++;
 
-											break;
-										}
+					//                        break;
+					//                    }
 
-									case (int)Codes.BuildCheckCodes.buildLandCROP:
-										{
-											buildThread = new Build(userInput, resources, Codes.ResourceCodes.CROP, ie);
-											jcTBL.BuildThreadIndex++;
+					//                case (int)Codes.BuildCheckCodes.buildLandCROP:
+					//                    {
+					//                        buildThread = new Build(userInput, resources, Codes.ResourceCodes.CROP, ie);
+					//                        jcTBL.BuildThreadIndex++;
 
-											break;
-										}
+					//                        break;
+					//                    }
 
-									default:
-										{
-											Console.WriteLine("Unknown Command!");
-											break;
-										}
-								}
-							}
-						}
-						else
-						{
-							Console.WriteLine("Unknown Command!");
-						}
-					}
+					//                default:
+					//                    {
+					//                        Console.WriteLine("Unknown Command!");
+					//                        break;
+					//                    }
+					//            }
+					//        }
+					//    }
+					//    else
+					//    {
+					//        Console.WriteLine("Unknown Command!");
+					//    }
+					//}
 					#endregion
 					#region Help
 
@@ -239,9 +241,37 @@ namespace jcTB
 
 		private static void ChangePages(object sender, ElapsedEventArgs e)
 		{
-			Console.WriteLine("Browsing...");
+			counter++;
+			Console.WriteLine("Current Resources : {0}", jcTBL.GetLevel2String(resources.CurProduction, false));
+			if (jcTBL.CanWeBuild(resources, jcTBL.idToBuild))
+			{
+				String buildURL = String.Format("{0}build.php?id={1}", jcTBL.GetConfig("urlServerName"), jcTBL.idToBuild);
+				ie = new IE();
+				ie.GoTo(buildURL);
+				Console.WriteLine("Building ID {0} [{1}] -> {2}", jcTBL.idToBuild, jcTBL.GetNameFromID(jcTBL.idToBuild), buildURL);
+				for (int i = 0; i < ie.Links.Length; i++)
+				{
+					if (ie.Links[i].Text.StartsWith(jcTBL.GetConfig("updateURLText")))
+					{
+						ie.Links[i].Click();
+					}
+				}
+			}
+			else
+			{
+				Console.WriteLine("ID {0} [{1}] Is Waiting For Building...",
+					jcTBL.idToBuild,
+					jcTBL.GetNameFromID(jcTBL.idToBuild));
+			}
+			//Console.WriteLine("Browsing...");
 			ie.GoTo(jcTBL.GetConfig("urlResources"));
-			ie.GoTo(jcTBL.GetConfig("urlTown"));
+			//ie.GoTo(jcTBL.GetConfig("urlTown"));
+			if (counter > 10)
+			{
+				Resources.UpdateNeededResources(false, ie, resources, jcTBL.GetConfig("urlServerName"));
+				counter = 0;
+				Console.WriteLine("Updating Needed Resources...");
+			}
 		}
 	}
 }
