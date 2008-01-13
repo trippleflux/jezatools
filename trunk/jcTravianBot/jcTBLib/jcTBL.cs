@@ -9,6 +9,16 @@ namespace jcTBLib
 		public static bool isSimulation = false;
 
 		/// <summary>
+		/// If CropRate (maxPpl - currPpl) is below this value, Crop land will be build first.
+		/// </summary>
+		public static Int32 minCropRate = Int32.Parse(jcTBL.GetConfig("minCropRate"));
+
+		/// <summary>
+		/// if NOT <see cref="minCropRate"/> set this to true and build cropland.
+		/// </summary>
+		public static bool buildCrop = false;
+
+		/// <summary>
 		/// ID of resource that should be build as next
 		/// </summary>
 		public static Int32 idToBuild = 1;
@@ -34,10 +44,10 @@ namespace jcTBLib
 
 		private static String resourceName = "N/A";
 
-		public static Int32[] woodIds = { 1, 3, 14, 17 };
-		public static Int32[] clayIds = { 5, 6, 16, 18 };
-		public static Int32[] ironIds = { 4, 7, 10, 11 };
-		public static Int32[] cropIds = { 2, 8, 9, 12, 13, 15 };
+		public static Int32[] woodIds = {1, 3, 14, 17};
+		public static Int32[] clayIds = {5, 6, 16, 18};
+		public static Int32[] ironIds = {4, 7, 10, 11};
+		public static Int32[] cropIds = {2, 8, 9, 12, 13, 15};
 
 		public static int BuildThreadIndex
 		{
@@ -186,7 +196,7 @@ namespace jcTBLib
 			{
 				if (lineUp)
 				{
-					level2String.AppendFormat("{0,7}\t", resLand[i]);
+					level2String.AppendFormat("{0,7}", resLand[i]);
 				}
 				else
 				{
@@ -281,6 +291,65 @@ namespace jcTBLib
 					}
 			}
 			return res;
+		}
+
+		/// <summary>
+		/// Gets the name of the resource land from its ID
+		/// </summary>
+		/// <param name="id">resource and ID</param>
+		/// <returns>Name</returns>
+		/// 
+		public static String GetNameFromID(Int32 id)
+		{
+			if (CheckForIDInList(id, woodIds))
+				return "WOOD";
+			if (CheckForIDInList(id, clayIds))
+				return "CLAY";
+			if (CheckForIDInList(id, ironIds))
+				return "IRON";
+			else
+				return "CROP";
+		}
+
+		/// <summary>
+		/// Checks if ID is in Array
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="resIDs"></param>
+		/// <returns></returns>
+		private static bool CheckForIDInList(Int32 id, Int32[] resIDs)
+		{
+			bool isThere = false;
+			for (int i = 0; i < resIDs.Length; i++)
+			{
+				if (id == resIDs[i])
+				{
+					isThere = true;
+					break;
+				}
+			}
+			return isThere;
+		}
+
+		/// <summary>
+		/// Checks If We Can Build Resource
+		/// </summary>
+		/// <param name="res"></param>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		/// 
+		public static bool CanWeBuild(Resources res, Int32 id)
+		{
+			bool canBuild = true;
+			for (int i = 0; i < res.CurProduction.Length; i++)
+			{
+				if (res.NeededResources[id-1][i] > res.CurProduction[i])
+				{
+					canBuild = false;
+					break;
+				}
+			}
+			return canBuild;
 		}
 	}
 }

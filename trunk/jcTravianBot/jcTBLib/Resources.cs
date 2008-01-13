@@ -21,6 +21,21 @@ namespace jcTBLib
 		private Int32 ironPerHour = 0;
 		private Int32 cropPerHour = 0;
 
+		public int CurPeople
+		{
+			get { return curPeople; }
+			set { curPeople = value; }
+		}
+
+		public int MaxPeople
+		{
+			get { return maxPeople; }
+			set { maxPeople = value; }
+		}
+
+		private Int32 curPeople = 0;
+		private Int32 maxPeople = 0;
+
 		public int[] WoodLandLevels
 		{
 			get { return woodLandLevels; }
@@ -58,12 +73,21 @@ namespace jcTBLib
 
 		private Int32[][] neededResources;
 
+		public int[] CurProduction
+		{
+			get { return curProduction; }
+			set { curProduction = value; }
+		}
+
+		private Int32[] curProduction = {0, 0, 0, 0, 0};
+
 		/// <summary>
 		/// Finds All Resources.
 		/// </summary>
 		/// <param name="ie"><see cref="WatiN.Core.IE"/></param>
 		public Resources(IE ie)
 		{
+			ie.GoTo(jcTBL.GetConfig("urlResources"));
 			neededResources = new int[][]
 				{
 					new int[] { 0, 0, 0, 0, 0, 0 }, 
@@ -99,10 +123,10 @@ namespace jcTBLib
 				String ironText = ie.TableCell(Find.ById("l2")).Text;
 				String cropText = ie.TableCell(Find.ById("l1")).Text;
 
-				woodCount = Int32.Parse(woodText.Split('/')[0]);
-				clayCount = Int32.Parse(clayText.Split('/')[0]);
-				ironCount = Int32.Parse(ironText.Split('/')[0]);
-				cropCount = Int32.Parse(cropText.Split('/')[0]);
+				woodCount = curProduction[0] = Int32.Parse(woodText.Split('/')[0]);
+				clayCount = curProduction[1] = Int32.Parse(clayText.Split('/')[0]);
+				ironCount = curProduction[2] = Int32.Parse(ironText.Split('/')[0]);
+				cropCount = curProduction[3] = Int32.Parse(cropText.Split('/')[0]);
 
 				warehouseMax = Int32.Parse(woodText.Split('/')[1]);
 				granaryMax = Int32.Parse(cropText.Split('/')[1]);
@@ -127,6 +151,16 @@ namespace jcTBLib
 				ironPerHour = GetResourceValue(html, ironRegEx);
 				cropPerHour = GetResourceValue(html, cropRegEx);
 				cropRate = GetResourceString(html, cropRateRegEx);
+				
+				String[] cropSplit = cropRate.Split('/');
+				curPeople = Int32.Parse(cropSplit[0]);
+				maxPeople = Int32.Parse(cropSplit[1]);
+				curProduction[4] = (maxPeople - curPeople);
+
+				if (curProduction[4] < jcTBL.minCropRate)
+				{
+					jcTBL.buildCrop = true;
+				}
 
 				Int32 areasCount = ie.Areas.Length;
 				for (int i = 0; i < areasCount; i++)
@@ -309,16 +343,38 @@ namespace jcTBLib
 		public static void ShowNeededResources(String serverName, Resources resources, IE ie)
 		{
 			Console.WriteLine("     Needed Resources For Upgrade");
-			Console.WriteLine("     ID\t   Wood\t   Clay\t   Iron\t   Crop\t People\t  Total");
-			Console.WriteLine("     --------------------------------------------------");
+			Console.WriteLine("     ID  Resource   Wood   Clay   Iron   Crop People  Total\t");
+			Console.WriteLine("    --------------------------------------------------------");
+			UpdateNeededResources(true, ie, resources, serverName);
+			Console.WriteLine();
+			if (jcTBL.buildCrop)
+			{
+				jcTBL.idToBuild = jcTBL.FindMinimum(resources.CropLandLevels);
+			}
+			Console.WriteLine("     First Resource For Upgrade is Land With ID " + jcTBL.idToBuild);
+			Console.WriteLine();
+		}
+
+		/// <summary>
+		/// Updates Needed Resources
+		/// </summary>
+		/// <param name="toConsole"><c>true</c> if message should be shown to console</param>
+		/// <param name="ie"><see cref="IE"/></param>
+		/// <param name="resources"><see cref="Resources"/></param>
+		/// <param name="serverName">Server name</param>
+		/// 
+		public static void UpdateNeededResources(bool toConsole, IE ie, Resources resources, string serverName)
+		{
 			for (int i = 1; i < 19; i++)
 			{
 				resources.SetNeededResources(serverName + "build.php?id=", i, ie);
-				Console.WriteLine("{0,7}\t{1}", i, jcTBL.GetLevel2String(resources.NeededResources[i - 1], true));
+				if (toConsole)
+				{
+					Console.WriteLine("     {0,2} {2,9}{1}", i, jcTBL.GetLevel2String(resources.NeededResources[i - 1], true),
+					                  jcTBL.GetNameFromID(i));
+				}
 			}
-			Console.WriteLine();
-			Console.WriteLine("     First Resource For Upgrade is Land With ID " + jcTBL.idToBuild);
-			Console.WriteLine();
+			ie.GoTo(jcTBL.GetConfig("urlResources"));
 		}
 	}
 }
