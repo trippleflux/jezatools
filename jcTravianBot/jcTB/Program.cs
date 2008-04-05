@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Timers;
 using WatiN.Core;
 using jcTBLib;
-using Timer=System.Timers.Timer;
 
 namespace jcTB
 {
@@ -283,6 +282,19 @@ namespace jcTB
 				counter = 0;
 				Console.WriteLine("Updating Needed Resources...");
 			}
+		}
+	}
+
+	internal class Log
+	{
+		public Log(string s)
+		{
+			//throw new EXCEPTION();
+		}
+
+		public void Write(string s)
+		{
+			//throw new EXCEPTION();
 		}
 	}
 }
