@@ -8,7 +8,7 @@ namespace jcTBot
 {
 	public class Find
 	{
-		public static string TextBoxName(InternetExplorer ie, string type)
+		public static string InputTagByType(InternetExplorer ie, string type)
 		{
 			String name = "xxxx";
 			IHTMLDocument3 doc3 = (IHTMLDocument3)ie.Document;
