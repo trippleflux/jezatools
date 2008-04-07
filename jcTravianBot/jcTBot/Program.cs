@@ -18,7 +18,7 @@ namespace jcTBot
 			ie.Navigate(url, ref nil, ref nil, ref nil, ref nil);
 			WaitForComplete(ie);
 
-			String name = Find.TextBoxName(ie, "text");
+			String name = Find.InputTagByType(ie, "text");
 			Console.WriteLine(name);
 
 			String value = Find.TextBoxValue(ie, "text", name);
@@ -81,7 +81,7 @@ namespace jcTBot
 			ie.Navigate(url, ref nil, ref nil, ref nil, ref nil);
 			WaitForComplete(ie);
 
-			String name = Find.TextBoxName(ie, "text");
+			String name = Find.InputTagByType(ie, "text");
 			Console.WriteLine(name);
 
 			String value = Find.TextBoxValue(ie, "text", name);
