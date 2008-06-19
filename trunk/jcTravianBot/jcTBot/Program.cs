@@ -44,6 +44,7 @@ namespace jcTBot
 					{
 						Console.WriteLine("Failed To LogIn!!!");
 						Console.WriteLine(bodyData);
+						myDoc = Login(ie, loginUrl, loginUsername, loginPassword);
 					}
 
 					Timer timer = new Timer(Tick);
