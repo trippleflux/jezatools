@@ -1,9 +1,8 @@
 using System;
+using System.IO;
 using System.Threading;
-using System.Timers;
 using mshtml;
 using SHDocVw;
-using Timer=System.Threading.Timer;
 
 namespace jcTBot
 {
@@ -17,66 +16,53 @@ namespace jcTBot
 			//const String buildingUrl = @"http://s3.travian.si/dorf2.php";
 			const String loginUsername = "jezonsky";
 			const String loginPassword = "pimpek";
+			const string fileAttacks = @"c:\attacks.txt";
+			const string fileResources = @"c:\resources.txt";
 
+			HTMLDocument myDoc;
 			try
 			{
 				InternetExplorer ie = new InternetExplorerClass();
-				HTMLDocument myDoc;
-				String bodyData;
-				bool logedIn = false;
 
 				myDoc = Login(ie, loginUrl, loginUsername, loginPassword);
 
-				bodyData = myDoc.body.innerText;
-				logedIn = IsLogenIn(bodyData, logedIn);
-				//Console.WriteLine(bodyData.Trim());
-				//Console.WriteLine("***********");
-				//Console.WriteLine(myDoc.body.innerHTML);
+				String bodyData = myDoc.body.innerText;
+				bool logedIn = IsLogenIn(bodyData);
 
-				int i = 0;
 				do
 				{
-					if (logedIn)
+					if (!logedIn)
 					{
-						Console.WriteLine("LogedIn!");
+						Console.Write("Not Loged In!!!");
+						Console.WriteLine(bodyData);
+						Login(ie, loginUrl, loginUsername, loginPassword);
 					}
 					else
 					{
-						Console.WriteLine("Failed To LogIn!!!");
-						Console.WriteLine(bodyData);
-						myDoc = Login(ie, loginUrl, loginUsername, loginPassword);
+						using (StreamReader sr = new StreamReader(fileAttacks))
+						{
+							String line = sr.ReadLine();
+							if (line.StartsWith("#"))
+							{
+								continue;
+							}
+							String[] sections = line.Split('|');
+							String time = sections[0];
+							String destinationX = sections[1];
+							String destinationZ = sections[2];
+							String attackType = sections[3];
+							String troops = sections[4];
+							String villageID = sections[5];
+						}
 					}
 
-					Timer timer = new Timer(Tick);
-					//System.Timers.Timer myTimerBrowse = new System.Timers.Timer();
-					//myTimerBrowse.Elapsed += ChangePages;
-					//myTimerBrowse.Interval = 60000;
-					//myTimerBrowse.Start();
-
-					//String userInput;
-					//userInput = Console.ReadLine().ToLower();
-					//#region Quit Program
-					//if (userInput.Equals("exit") ||
-					//    userInput.Equals("quit"))
-					//{
-					//    Console.WriteLine("QUIT");
-					//    break;
-					//}
-					//#endregion
-
-					Thread.Sleep(10000);
-					Console.WriteLine(i);
-					myDoc = Browse(resourcesUrl, ie, myDoc);
+					Thread.Sleep(60000);
+					myDoc = Browse(resourcesUrl, ie);
 					bodyData = myDoc.body.innerText;
-					logedIn = IsLogenIn(bodyData, logedIn);
-					i++;
-					//if (i>80)
-					//{
-					//    i = 0;
-					//}
+					logedIn = IsLogenIn(bodyData);
+
 				} while (true);
 
-				//myTimerBrowse.Stop();
 			}
 			catch (Exception ex)
 			{
@@ -89,7 +75,7 @@ namespace jcTBot
 			return 0;
 		}
 
-		private static HTMLDocument Browse(String resourcesUrl, InternetExplorer ie, HTMLDocument myDoc)
+		private static HTMLDocument Browse(String resourcesUrl, IWebBrowser2 ie)
 		{
 			object flags = null;
 			object headers = null;
@@ -97,24 +83,23 @@ namespace jcTBot
 			object data = null;
 			ie.Navigate(resourcesUrl, ref flags, ref name, ref data, ref headers);
 			WaitForComplete(ie);
-			myDoc = (HTMLDocument)ie.Document;
+			HTMLDocument myDoc = (HTMLDocument)ie.Document;
 			return myDoc;
 		}
 
-		private static bool IsLogenIn(String bodyData, bool logedIn)
+		private static bool IsLogenIn(String bodyData)
 		{
-			Console.WriteLine("LogIn Check!");
-			logedIn = false;
+			//Console.WriteLine("LogIn Check... ");
+			bool isLogedIn = false;
 			if (bodyData.Contains("Proizvodnja:"))
 			{
-				logedIn = true;
+				isLogedIn = true;
 			}
-			return logedIn;
+			return isLogedIn;
 		}
 
 		private static HTMLDocument Login(InternetExplorer ie, string loginUrl, string loginUsername, string loginPassword)
 		{
-			HTMLDocument myDoc;
 			object nil = null;
 			ie.Navigate(loginUrl, ref nil, ref nil, ref nil, ref nil);
 			WaitForComplete(ie);
@@ -124,8 +109,9 @@ namespace jcTBot
 			//Console.WriteLine("Username TextBox Name = '" + loginUsernameTextBoxName + "'");
 			//String loginUsernameTextBoxValue = Find.TextBoxValue(ie, "text", loginUsernameTextBoxName);
 			//Console.WriteLine("Username TextBox Value = '" + loginUsernameTextBoxValue + "'");
-			myDoc = (HTMLDocument)ie.Document;
-			HTMLInputElement loginUsernameTextBox = (HTMLInputElement)myDoc.all.item(loginUsernameTextBoxName, 0);
+			HTMLDocument myDoc = (HTMLDocument)ie.Document;
+			HTMLInputElement loginUsernameTextBox = 
+				(HTMLInputElement)myDoc.all.item(loginUsernameTextBoxName, 0);
 			loginUsernameTextBox.value = loginUsername;
 			//String loginUsernameTextBoxNewValue = Find.TextBoxValue(ie, "text", loginUsernameTextBoxName);
 			//Console.WriteLine("Username TextBox Value = '" + loginUsernameTextBoxNewValue + "'");
@@ -135,7 +121,8 @@ namespace jcTBot
 			//String loginPasswordTextBoxValue = Find.TextBoxValue(ie, "password", loginPasswordTextBoxName);
 			//Console.WriteLine("Password TextBox Value = '" + loginPasswordTextBoxValue + "'");
 			myDoc = (HTMLDocument)ie.Document;
-			HTMLInputElement loginPasswordTextBox = (HTMLInputElement)myDoc.all.item(loginPasswordTextBoxName, 0);
+			HTMLInputElement loginPasswordTextBox = 
+				(HTMLInputElement)myDoc.all.item(loginPasswordTextBoxName, 0);
 			loginPasswordTextBox.value = loginPassword;
 			//String loginPasswordTextBoxNewValue = Find.TextBoxValue(ie, "password", loginPasswordTextBoxName);
 			//Console.WriteLine("Password TextBox Value = '" + loginPasswordTextBoxNewValue + "'");
@@ -143,7 +130,8 @@ namespace jcTBot
 			String loginImageButtonName = Find.InputTagByType(ie, "image");
 			//Console.WriteLine("Login Image Name = '" + loginImageButtonName + "'");
 			myDoc = (HTMLDocument)ie.Document;
-			HTMLInputElement loginImageButton = (HTMLInputElement)myDoc.all.item(loginImageButtonName, 0);
+			HTMLInputElement loginImageButton = 
+				(HTMLInputElement)myDoc.all.item(loginImageButtonName, 0);
 			loginImageButton.click();
 			WaitForComplete(ie);
 			return myDoc;
@@ -153,19 +141,9 @@ namespace jcTBot
 		{
 			do
 			{
-				//Console.WriteLine("-" + i++);
 				Thread.Sleep(500);
 			} while (ieWAIT.ReadyState != tagREADYSTATE.READYSTATE_COMPLETE);
 		}
 
-		static void Tick(object state)
-		{
-			Console.WriteLine("Tick Ticked at {0:HH:mm:ss.fff}", DateTime.Now);
-		}
-
-		private static void ChangePages(object sender, ElapsedEventArgs e)
-		{
-			Console.WriteLine("ChangePages Ticked at {0:HH:mm:ss.fff}", DateTime.Now);
-		}
 	}
 }
