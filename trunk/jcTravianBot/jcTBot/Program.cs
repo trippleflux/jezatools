@@ -1,5 +1,7 @@
 using System;
+using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading;
 using mshtml;
 using SHDocVw;
@@ -14,16 +16,17 @@ namespace jcTBot
 			const String loginUrl = @"http://s3.travian.si/login.php";
 			const String resourcesUrl = @"http://s3.travian.si/dorf1.php";
 			//const String buildingUrl = @"http://s3.travian.si/dorf2.php";
+			const String sendUnits = "http://s3.travian.si/a2b.php";
 			const String loginUsername = "jezonsky";
 			const String loginPassword = "pimpek";
 			const string fileAttacks = @"c:\attacks.txt";
-			const string fileResources = @"c:\resources.txt";
+			//const string fileResources = @"c:\resources.txt";
 
-			HTMLDocument myDoc;
 			try
 			{
 				InternetExplorer ie = new InternetExplorerClass();
 
+				HTMLDocument myDoc;
 				myDoc = Login(ie, loginUrl, loginUsername, loginPassword);
 
 				String bodyData = myDoc.body.innerText;
@@ -31,6 +34,7 @@ namespace jcTBot
 
 				do
 				{
+					//Console.WriteLine("1");
 					if (!logedIn)
 					{
 						Console.Write("Not Loged In!!!");
@@ -39,24 +43,60 @@ namespace jcTBot
 					}
 					else
 					{
+						//Console.WriteLine("2");
 						using (StreamReader sr = new StreamReader(fileAttacks))
 						{
-							String line = sr.ReadLine();
-							if (line.StartsWith("#"))
+							//Console.WriteLine("3");
+							while (sr.Peek() >= 0)
 							{
-								continue;
+								String line = sr.ReadLine();
+								//Console.WriteLine(line);
+								if (!line.StartsWith("#"))
+								{
+									String[] sections = line.Split('|');
+									String time = sections[0];
+									//String sourceX = sections[1];
+									//String sourceY = sections[2];
+									String destinationX = sections[3];
+									String destinationY = sections[4];
+									String attackType = sections[5];
+									String[] troopList = sections[6].Split(',');
+									String villageID = sections[7];
+									String attackID = sections[8];
+									String enabled = sections[10];
+									String timenow = DateTime.Now.ToString("HH:mm");
+									if ( (enabled.Equals("1")) && (timenow.Equals(time)) )
+									{
+										Console.WriteLine("timenow=" + timenow);
+										Random rnd = new Random();
+										Int32 parA = rnd.Next(10001, 99999);
+										StringBuilder troops = new StringBuilder();
+										for (int t=0;t<11;t++)
+										{
+											troops.AppendFormat("&t{0}={1}", (t + 1), troopList[t]);
+										}
+										String parPost = 
+											String.Format(CultureInfo.InvariantCulture, 
+											"id=39&a={0}&c={1}&kid={2}{3}{4}",
+											parA, 
+											attackType, 
+											CovertXY(Int32.Parse(destinationX), Int32.Parse(destinationY)),
+											troops,
+											attackID
+											);
+										Console.WriteLine(parPost);
+										object flags = null;
+										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
+										object name = null;
+										object data = ASCIIEncoding.ASCII.GetBytes(parPost); ;
+										ie.Navigate(sendUnits + villageID, ref flags, ref name, ref data, ref headers);
+									}
+								}
 							}
-							String[] sections = line.Split('|');
-							String time = sections[0];
-							String destinationX = sections[1];
-							String destinationZ = sections[2];
-							String attackType = sections[3];
-							String troops = sections[4];
-							String villageID = sections[5];
 						}
+						Thread.Sleep(60000);
 					}
 
-					Thread.Sleep(60000);
 					myDoc = Browse(resourcesUrl, ie);
 					bodyData = myDoc.body.innerText;
 					logedIn = IsLogenIn(bodyData);
@@ -73,6 +113,11 @@ namespace jcTBot
 				Console.WriteLine("EXIT");
 			}
 			return 0;
+		}
+
+		private static Int32 CovertXY(Int32 x, Int32 y)
+		{
+			return ((x + 401) + ((400 - y) * 801));
 		}
 
 		private static HTMLDocument Browse(String resourcesUrl, IWebBrowser2 ie)
