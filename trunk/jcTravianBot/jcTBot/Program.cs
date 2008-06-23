@@ -13,10 +13,10 @@ namespace jcTBot
 		[STAThread]
 		public static int Main(string[] args)
 		{
-			const String loginUrl = @"http://s3.travian.si/login.php";
-			const String resourcesUrl = @"http://s3.travian.si/dorf1.php";
-			//const String buildingUrl = @"http://s3.travian.si/dorf2.php";
-			const String sendUnits = "http://s3.travian.si/a2b.php";
+			const String loginUrl = @"http://s1.travian.si/login.php";
+			const String resourcesUrl = @"http://s1.travian.si/dorf1.php";
+			//const String buildingUrl = @"http://s1.travian.si/dorf2.php";
+			const String sendUnits = "http://s1.travian.si/a2b.php";
 			const String loginUsername = "jezonsky";
 			const String loginPassword = "pimpek";
 			const string fileAttacks = @"c:\attacks.txt";
@@ -26,8 +26,7 @@ namespace jcTBot
 			{
 				InternetExplorer ie = new InternetExplorerClass();
 
-				HTMLDocument myDoc;
-				myDoc = Login(ie, loginUrl, loginUsername, loginPassword);
+				HTMLDocument myDoc = Login(ie, loginUrl, loginUsername, loginPassword);
 
 				String bodyData = myDoc.body.innerText;
 				bool logedIn = IsLogenIn(bodyData);
@@ -51,7 +50,7 @@ namespace jcTBot
 							{
 								String line = sr.ReadLine();
 								//Console.WriteLine(line);
-								if (!line.StartsWith("#"))
+								if ((!line.StartsWith("#")) && (line.Length > 5))
 								{
 									String[] sections = line.Split('|');
 									String time = sections[0];
@@ -88,7 +87,7 @@ namespace jcTBot
 										object flags = null;
 										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 										object name = null;
-										object data = ASCIIEncoding.ASCII.GetBytes(parPost); ;
+										object data = Encoding.ASCII.GetBytes(parPost); 
 										ie.Navigate(sendUnits + villageID, ref flags, ref name, ref data, ref headers);
 									}
 								}
