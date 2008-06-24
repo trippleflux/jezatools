@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -8,19 +9,17 @@ using SHDocVw;
 
 namespace jcTBot
 {
-	internal class Program
+	public class Program
 	{
 		[STAThread]
 		public static int Main(string[] args)
 		{
-			const String loginUrl = @"http://s1.travian.si/login.php";
-			const String resourcesUrl = @"http://s1.travian.si/dorf1.php";
-			//const String buildingUrl = @"http://s1.travian.si/dorf2.php";
-			const String sendUnits = "http://s1.travian.si/a2b.php";
-			const String loginUsername = "jezonsky";
-			const String loginPassword = "pimpek";
-			const string fileAttacks = @"c:\attacks.txt";
-			//const string fileResources = @"c:\resources.txt";
+			String loginUrl = ConfigurationManager.AppSettings["loginUrl"];
+			String resourcesUrl = ConfigurationManager.AppSettings["resourcesUrl"];
+			String sendUnitsUrl = ConfigurationManager.AppSettings["sendUnitsUrl"];
+			String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
+			String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
+			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
 
 			try
 			{
@@ -88,7 +87,7 @@ namespace jcTBot
 										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 										object name = null;
 										object data = Encoding.ASCII.GetBytes(parPost); 
-										ie.Navigate(sendUnits + villageID, ref flags, ref name, ref data, ref headers);
+										ie.Navigate(sendUnitsUrl + villageID, ref flags, ref name, ref data, ref headers);
 									}
 								}
 							}
