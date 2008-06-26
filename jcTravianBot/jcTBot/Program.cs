@@ -16,10 +16,12 @@ namespace jcTBot
 		{
 			String loginUrl = ConfigurationManager.AppSettings["loginUrl"];
 			String resourcesUrl = ConfigurationManager.AppSettings["resourcesUrl"];
+			String buildingsUrl = ConfigurationManager.AppSettings["buildingsUrl"];
 			String sendUnitsUrl = ConfigurationManager.AppSettings["sendUnitsUrl"];
 			String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
 			String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
 			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
+			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
 
 			try
 			{
@@ -32,7 +34,6 @@ namespace jcTBot
 
 				do
 				{
-					//Console.WriteLine("1");
 					if (!logedIn)
 					{
 						Console.Write("Not Loged In!!!");
@@ -41,14 +42,12 @@ namespace jcTBot
 					}
 					else
 					{
-						//Console.WriteLine("2");
+						#region attacks
 						using (StreamReader sr = new StreamReader(fileAttacks))
 						{
-							//Console.WriteLine("3");
 							while (sr.Peek() >= 0)
 							{
 								String line = sr.ReadLine();
-								//Console.WriteLine(line);
 								if ((!line.StartsWith("#")) && (line.Length > 5))
 								{
 									String[] sections = line.Split('|');
@@ -82,7 +81,7 @@ namespace jcTBot
 											troops,
 											attackID
 											);
-										Console.WriteLine(parPost);
+										Console.WriteLine("ATTACK:" + parPost);
 										object flags = null;
 										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 										object name = null;
@@ -92,9 +91,61 @@ namespace jcTBot
 								}
 							}
 						}
+						#endregion
+						
+						#region distribution
+						using (StreamReader sr = new StreamReader(fileDistribution))
+						{
+							while (sr.Peek() >= 0)
+							{
+								String line = sr.ReadLine();
+								if ((!line.StartsWith("#")) && (line.Length > 5))
+								{
+									//id=33&r1=&r2=750&r3=1500&r4=&dname=&x=-27&y=-71&s1.x=26&s1.y=13&s1=ok
+									String[] sections = line.Split('|');
+									String time = sections[0];
+									//String sourceX = sections[1];
+									//String sourceY = sections[2];
+									String destinationX = sections[3];
+									String destinationY = sections[4];
+									String marketId = sections[5];
+									String[] resourcesList = sections[6].Split(',');
+									String distributionID = sections[7];
+									String enabled = sections[8];
+									String timenow = DateTime.Now.ToString("HH:mm");
+									if ((enabled.Equals("1")) && (timenow.Equals(time)))
+									{
+										StringBuilder resources = new StringBuilder();
+										for (int r = 0; r < 4; r++)
+										{
+											resources.AppendFormat("&r{0}={1}", (r + 1), resourcesList[r]);
+										}
+										String parPost =
+											String.Format(CultureInfo.InvariantCulture,
+											              "id={0}{1}$dname=&x={2}&y={3}{4}",
+											              marketId,
+											              resources,
+											              destinationX,
+											              destinationY,
+											              distributionID
+												);
+										Console.WriteLine("SEND:" + parPost);
+										object flags = null;
+										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
+										object name = null;
+										object data = Encoding.ASCII.GetBytes(parPost);
+										ie.Navigate(buildingsUrl, ref flags, ref name, ref data, ref headers);
+									}
+								}
+							}
+						}
+
+						#endregion
+
 						Thread.Sleep(60000);
 					}
 
+					Browse(buildingsUrl, ie);
 					myDoc = Browse(resourcesUrl, ie);
 					bodyData = myDoc.body.innerText;
 					logedIn = IsLogenIn(bodyData);
