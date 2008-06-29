@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
@@ -16,12 +17,16 @@ namespace jcTBot
 		{
 			String loginUrl = ConfigurationManager.AppSettings["loginUrl"];
 			String resourcesUrl = ConfigurationManager.AppSettings["resourcesUrl"];
+			String resourcesBuildUrl = ConfigurationManager.AppSettings["resourcesBuildUrl"];
 			String buildingsUrl = ConfigurationManager.AppSettings["buildingsUrl"];
 			String sendUnitsUrl = ConfigurationManager.AppSettings["sendUnitsUrl"];
-			String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
-			String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
+			//String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
+			//String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
+			String loginUsername = "jezonsky";
+			String loginPassword = "pimpek";
 			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
 			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
+			String fileResources = ConfigurationManager.AppSettings["fileResources"];
 
 			try
 			{
@@ -31,7 +36,8 @@ namespace jcTBot
 
 				String bodyData = myDoc.body.innerText;
 				bool logedIn = IsLogenIn(bodyData);
-
+				
+				int i = 0;
 				do
 				{
 					if (!logedIn)
@@ -142,13 +148,74 @@ namespace jcTBot
 
 						#endregion
 
+						#region resources
+						//<h1><b>Žitno polje Stopnja 6</b></h1>
+						//String headName;
+						//myDoc = Browse("http://s1.travian.si/build.php?id=1", ie);
+						//headName = Find.TagByName(ie, "h1");
+						//Console.WriteLine("headName=" + headName);
+						//myDoc = Browse("http://s1.travian.si/build.php?id=2", ie);
+						//headName = Find.TagByName(ie, "h1");
+						//Console.WriteLine("headName=" + headName);
+						//myDoc = Browse("http://s1.travian.si/build.php?id=3", ie);
+						//headName = Find.TagByName(ie, "h1");
+						//Console.WriteLine("headName=" + headName);
+						ArrayList resourcesCollection = new ArrayList();
+
+						for (int r = 1; r < 19; r++)
+						{
+							String headName;
+							myDoc = Browse(resourcesBuildUrl + "?id=" + r, ie);
+							headName = Find.TagByName(ie, "h1");
+							String[] resColl = headName.Split(' ');
+							//Console.WriteLine(r + "\theadName=" + headName);
+							String resource = null;
+							resource = GetResourceName(headName, resource);
+							resourcesCollection.Add(r + "|" + resource + "|" + resColl[resColl.Length - 1]);
+						}
+
+						foreach (string col in resourcesCollection)
+						{
+							Console.WriteLine(col);
+						}
+
+						using (StreamReader sr = new StreamReader(fileResources))
+						{
+							while (sr.Peek() >= 0)
+							{
+								String line = sr.ReadLine();
+								if ((!line.StartsWith("#")) && (line.Length > 5))
+								{
+									//villageID|resource|level|||
+									//Gozdar
+									//Zitno polje
+									//Rudnik zeleza
+									//Glinokop
+									String[] sections = line.Split('|');
+									String villageID = sections[0];
+									String resourceName = sections[1];
+									Int32 resourceLevel = Int32.Parse(sections[2]);
+
+
+								}
+							}
+						}
+
+						#endregion
+
 						Thread.Sleep(60000);
 					}
-
+					break;
 					Browse(buildingsUrl, ie);
 					myDoc = Browse(resourcesUrl, ie);
 					bodyData = myDoc.body.innerText;
 					logedIn = IsLogenIn(bodyData);
+					
+					i++;
+					if ( i > 100 )
+					{
+						i = 0;
+					}
 
 				} while (true);
 
@@ -162,6 +229,27 @@ namespace jcTBot
 				Console.WriteLine("EXIT");
 			}
 			return 0;
+		}
+
+		private static string GetResourceName(string headName, string resource)
+		{
+			if (headName.StartsWith("Gozdar"))
+			{
+				resource = "WOOD";
+			}
+			else if (headName.IndexOf("polje") > -1)
+			{
+				resource = "CROP";
+			}
+			else if (headName.StartsWith("Rudnik"))
+			{
+				resource = "IRON";
+			}
+			else
+			{
+				resource = "CLAY";
+			}
+			return resource;
 		}
 
 		private static Int32 CovertXY(Int32 x, Int32 y)
