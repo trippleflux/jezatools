@@ -8,6 +8,27 @@ namespace jcTBot
 {
 	public class Find
 	{
+		public static string TagByName(InternetExplorer ie, String tagName)
+		{
+			String name = "xxxx";
+			IHTMLDocument3 doc3 = (IHTMLDocument3)ie.Document;
+			IHTMLElementCollection coll = doc3.getElementsByTagName(tagName);
+			foreach (IHTMLElement elm in coll)
+			{
+				name = elm.innerText;
+				//Console.WriteLine("name=" + name);
+			}
+			return name;
+		}
+
+		
+		/// <summary>
+		/// Finds <input> TAG by type
+		/// </summary>
+		/// <param name="ie"><see cref="InternetExplorer"/></param>
+		/// <param name="type">Attribute 'type'</param>
+		/// <returns>Attribute 'name'</returns>
+		/// 
 		public static string InputTagByType(InternetExplorer ie, string type)
 		{
 			String name = "xxxx";
