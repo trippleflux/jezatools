@@ -36,7 +36,14 @@ namespace jcTBot
 
 				String bodyData = myDoc.body.innerText;
 				bool logedIn = IsLogenIn(bodyData);
-				
+				if (!logedIn)
+				{
+					Console.Write("Not Loged In!!!");
+					Console.WriteLine(bodyData);
+					Login(ie, loginUrl, loginUsername, loginPassword);
+					return 0;
+				}
+
 				int i = 0;
 				do
 				{
@@ -65,9 +72,10 @@ namespace jcTBot
 									String attackType = sections[5];
 									String[] troopList = sections[6].Split(',');
 									String villageID = sections[7];
-									String attackID = sections[8];
-									String enabled = sections[10];
+									//String attackID = sections[8];
+									String enabled = sections[9];
 									String timenow = DateTime.Now.ToString("HH:mm");
+									//Console.WriteLine(timenow + "//" + line);
 									if ( (enabled.Equals("1")) && (timenow.Equals(time)) )
 									{
 										Console.WriteLine("timenow=" + timenow);
@@ -78,6 +86,17 @@ namespace jcTBot
 										{
 											troops.AppendFormat("&t{0}={1}", (t + 1), troopList[t]);
 										}
+										/*
+										 * if i understund this .... :)
+										 * 
+										 * tolko teoria, mas tam vsak este volania js fcie xy(), 
+										 * ktora sa mi nepaci uz koli jej nazvu :Very Happy. 
+										 * Ale ak nerobi ziadne vylomeniny, 
+										 * tak ti staci premennu s1.x naplnat nahodnymi cislami od 0 do 79 
+										 * a s1.y nahodnymi cislami od 0 do 19 (popripade konstantami)... a mas pokoj										 
+										 */
+										String attackID = 
+											String.Format("&s1.x={0}&s1.y={1}", rnd.Next(0, 79), rnd.Next(0, 19));
 										String parPost = 
 											String.Format(CultureInfo.InvariantCulture, 
 											"id=39&a={0}&c={1}&kid={2}{3}{4}",
@@ -93,6 +112,8 @@ namespace jcTBot
 										object name = null;
 										object data = Encoding.ASCII.GetBytes(parPost); 
 										ie.Navigate(sendUnitsUrl + villageID, ref flags, ref name, ref data, ref headers);
+										WaitForComplete(ie);
+										Thread.Sleep(500);
 									}
 								}
 							}
@@ -110,14 +131,13 @@ namespace jcTBot
 									//id=33&r1=&r2=750&r3=1500&r4=&dname=&x=-27&y=-71&s1.x=26&s1.y=13&s1=ok
 									String[] sections = line.Split('|');
 									String time = sections[0];
-									//String sourceX = sections[1];
-									//String sourceY = sections[2];
-									String destinationX = sections[3];
-									String destinationY = sections[4];
-									String marketId = sections[5];
-									String[] resourcesList = sections[6].Split(',');
-									String distributionID = sections[7];
-									String enabled = sections[8];
+									String destinationX = sections[1];
+									String destinationY = sections[2];
+									String marketId = sections[3];
+									String[] resourcesList = sections[4].Split(',');
+									//String distributionID = sections[7];
+									String villageID = sections[5];
+									String enabled = sections[6];
 									String timenow = DateTime.Now.ToString("HH:mm");
 									if ((enabled.Equals("1")) && (timenow.Equals(time)))
 									{
@@ -126,6 +146,9 @@ namespace jcTBot
 										{
 											resources.AppendFormat("&r{0}={1}", (r + 1), resourcesList[r]);
 										}
+										Random rnd = new Random();
+										String distributionID = 
+											String.Format("&s1.x={0}&s1.y={1}", rnd.Next(0, 79), rnd.Next(0, 19));
 										String parPost =
 											String.Format(CultureInfo.InvariantCulture,
 											              "id={0}{1}$dname=&x={2}&y={3}{4}",
@@ -140,7 +163,7 @@ namespace jcTBot
 										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 										object name = null;
 										object data = Encoding.ASCII.GetBytes(parPost);
-										ie.Navigate(buildingsUrl, ref flags, ref name, ref data, ref headers);
+										ie.Navigate(buildingsUrl + villageID, ref flags, ref name, ref data, ref headers);
 									}
 								}
 							}
@@ -148,64 +171,65 @@ namespace jcTBot
 
 						#endregion
 
-						#region resources
-						//<h1><b>Žitno polje Stopnja 6</b></h1>
-						//String headName;
-						//myDoc = Browse("http://s1.travian.si/build.php?id=1", ie);
-						//headName = Find.TagByName(ie, "h1");
-						//Console.WriteLine("headName=" + headName);
-						//myDoc = Browse("http://s1.travian.si/build.php?id=2", ie);
-						//headName = Find.TagByName(ie, "h1");
-						//Console.WriteLine("headName=" + headName);
-						//myDoc = Browse("http://s1.travian.si/build.php?id=3", ie);
-						//headName = Find.TagByName(ie, "h1");
-						//Console.WriteLine("headName=" + headName);
-						ArrayList resourcesCollection = new ArrayList();
+						//#region resources
+						////<h1><b>Žitno polje Stopnja 6</b></h1>
+						////String headName;
+						////myDoc = Browse("http://s1.travian.si/build.php?id=1", ie);
+						////headName = Find.TagByName(ie, "h1");
+						////Console.WriteLine("headName=" + headName);
+						////myDoc = Browse("http://s1.travian.si/build.php?id=2", ie);
+						////headName = Find.TagByName(ie, "h1");
+						////Console.WriteLine("headName=" + headName);
+						////myDoc = Browse("http://s1.travian.si/build.php?id=3", ie);
+						////headName = Find.TagByName(ie, "h1");
+						////Console.WriteLine("headName=" + headName);
+						//ArrayList resourcesCollection = new ArrayList();
 
-						for (int r = 1; r < 19; r++)
-						{
-							String headName;
-							myDoc = Browse(resourcesBuildUrl + "?id=" + r, ie);
-							headName = Find.TagByName(ie, "h1");
-							String[] resColl = headName.Split(' ');
-							//Console.WriteLine(r + "\theadName=" + headName);
-							String resource = null;
-							resource = GetResourceName(headName, resource);
-							resourcesCollection.Add(r + "|" + resource + "|" + resColl[resColl.Length - 1]);
-						}
+						//for (int r = 1; r < 19; r++)
+						//{
+						//    String headName;
+						//    myDoc = Browse(resourcesBuildUrl + "?id=" + r, ie);
+						//    headName = Find.TagByName(ie, "h1");
+						//    String[] resColl = headName.Split(' ');
+						//    //Console.WriteLine(r + "\theadName=" + headName);
+						//    String resource = null;
+						//    resource = GetResourceName(headName, resource);
+						//    resourcesCollection.Add(r + "|" + resource + "|" + resColl[resColl.Length - 1]);
+						//}
 
-						foreach (string col in resourcesCollection)
-						{
-							Console.WriteLine(col);
-						}
+						//foreach (string col in resourcesCollection)
+						//{
+						//    Console.WriteLine(col);
+						//}
 
-						using (StreamReader sr = new StreamReader(fileResources))
-						{
-							while (sr.Peek() >= 0)
-							{
-								String line = sr.ReadLine();
-								if ((!line.StartsWith("#")) && (line.Length > 5))
-								{
-									//villageID|resource|level|||
-									//Gozdar
-									//Zitno polje
-									//Rudnik zeleza
-									//Glinokop
-									String[] sections = line.Split('|');
-									String villageID = sections[0];
-									String resourceName = sections[1];
-									Int32 resourceLevel = Int32.Parse(sections[2]);
+						//using (StreamReader sr = new StreamReader(fileResources))
+						//{
+						//    while (sr.Peek() >= 0)
+						//    {
+						//        String line = sr.ReadLine();
+						//        if ((!line.StartsWith("#")) && (line.Length > 5))
+						//        {
+						//            //villageID|resource|level|||
+						//            //Gozdar
+						//            //Zitno polje
+						//            //Rudnik zeleza
+						//            //Glinokop
+						//            String[] sections = line.Split('|');
+						//            String villageID = sections[0];
+						//            String resourceName = sections[1];
+						//            Int32 resourceLevel = Int32.Parse(sections[2]);
 
 
-								}
-							}
-						}
+						//        }
+						//    }
+						//}
 
-						#endregion
+						//#endregion
 
 						Thread.Sleep(60000);
 					}
-					break;
+
+					Console.Write(".");
 					Browse(buildingsUrl, ie);
 					myDoc = Browse(resourcesUrl, ie);
 					bodyData = myDoc.body.innerText;
@@ -282,16 +306,22 @@ namespace jcTBot
 
 		private static HTMLDocument Login(InternetExplorer ie, string loginUrl, string loginUsername, string loginPassword)
 		{
+			Console.WriteLine("Login to '"+loginUrl+"' as '"+loginUsername+"' ('"+loginPassword+"')");
 			object nil = null;
 			ie.Navigate(loginUrl, ref nil, ref nil, ref nil, ref nil);
 			WaitForComplete(ie);
-
+			//Console.WriteLine(ie.Document);
 			//Find username textbox
+			HTMLDocument myDoc = (HTMLDocument)ie.Document;
 			String loginUsernameTextBoxName = Find.InputTagByType(ie, "text");
+			if (loginUsernameTextBoxName.Equals("xxxx"))
+			{
+				Console.WriteLine(myDoc.body.innerText);
+				return myDoc;
+			}
 			//Console.WriteLine("Username TextBox Name = '" + loginUsernameTextBoxName + "'");
 			//String loginUsernameTextBoxValue = Find.TextBoxValue(ie, "text", loginUsernameTextBoxName);
 			//Console.WriteLine("Username TextBox Value = '" + loginUsernameTextBoxValue + "'");
-			HTMLDocument myDoc = (HTMLDocument)ie.Document;
 			HTMLInputElement loginUsernameTextBox = 
 				(HTMLInputElement)myDoc.all.item(loginUsernameTextBoxName, 0);
 			loginUsernameTextBox.value = loginUsername;
