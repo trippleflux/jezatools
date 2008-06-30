@@ -36,6 +36,7 @@ namespace jcTBot
 			IHTMLElementCollection coll = doc3.getElementsByTagName("input");
 			foreach (IHTMLElement elm in coll)
 			{
+				//Console.WriteLine(elm.getAttribute("type", 0).ToString().ToLower());
 				if (elm.getAttribute("type", 0).ToString().ToLower() == type)
 				{
 					name = elm.getAttribute("name", 0).ToString();
