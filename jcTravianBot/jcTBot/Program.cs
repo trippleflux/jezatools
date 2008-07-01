@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
@@ -26,13 +25,15 @@ namespace jcTBot
 			//String loginPassword = "pimpek";
 			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
 			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
-			String fileResources = ConfigurationManager.AppSettings["fileResources"];
+			//String fileResources = ConfigurationManager.AppSettings["fileResources"];
 			String fileBuildings = ConfigurationManager.AppSettings["fileBuildings"];
 
-			const bool enableAttacks = true;
-			const bool enableDistribution = true;
-			const bool enableResources = false;
-			const bool enableBuildings = true;
+			bool enableAttacks = Boolean.Parse(ConfigurationManager.AppSettings["enableAttacks"]);
+			bool enableDistribution = Boolean.Parse(ConfigurationManager.AppSettings["enableDistribution"]);
+			//bool enableResources = Boolean.Parse(ConfigurationManager.AppSettings["enableResources"]);
+			bool enableBuildings = Boolean.Parse(ConfigurationManager.AppSettings["enableBuildings"]);
+			//bool enableAutoBuildResources = Boolean.Parse(ConfigurationManager.AppSettings["enableAutoBuildResources"]);
+
 			try
 			{
 				InternetExplorer ie = new InternetExplorerClass();
@@ -178,60 +179,9 @@ namespace jcTBot
 
 						#endregion
 
-						//#region resources
-						////<h1><b>Žitno polje Stopnja 6</b></h1>
-						////String headName;
-						////myDoc = Browse("http://s1.travian.si/build.php?id=1", ie);
-						////headName = Find.TagByName(ie, "h1");
-						////Console.WriteLine("headName=" + headName);
-						////myDoc = Browse("http://s1.travian.si/build.php?id=2", ie);
-						////headName = Find.TagByName(ie, "h1");
-						////Console.WriteLine("headName=" + headName);
-						////myDoc = Browse("http://s1.travian.si/build.php?id=3", ie);
-						////headName = Find.TagByName(ie, "h1");
-						////Console.WriteLine("headName=" + headName);
-						//ArrayList resourcesCollection = new ArrayList();
+						#region resources
 
-						//for (int r = 1; r < 19; r++)
-						//{
-						//    String headName;
-						//    myDoc = Browse(resourcesBuildUrl + "?id=" + r, ie);
-						//    headName = Find.TagByName(ie, "h1");
-						//    String[] resColl = headName.Split(' ');
-						//    //Console.WriteLine(r + "\theadName=" + headName);
-						//    String resource = null;
-						//    resource = GetResourceName(headName, resource);
-						//    resourcesCollection.Add(r + "|" + resource + "|" + resColl[resColl.Length - 1]);
-						//}
-
-						//foreach (string col in resourcesCollection)
-						//{
-						//    Console.WriteLine(col);
-						//}
-
-						//using (StreamReader sr = new StreamReader(fileResources))
-						//{
-						//    while (sr.Peek() >= 0)
-						//    {
-						//        String line = sr.ReadLine();
-						//        if ((!line.StartsWith("#")) && (line.Length > 5))
-						//        {
-						//            //villageID|resource|level|||
-						//            //Gozdar
-						//            //Zitno polje
-						//            //Rudnik zeleza
-						//            //Glinokop
-						//            String[] sections = line.Split('|');
-						//            String villageID = sections[0];
-						//            String resourceName = sections[1];
-						//            Int32 resourceLevel = Int32.Parse(sections[2]);
-
-
-						//        }
-						//    }
-						//}
-
-						//#endregion
+						#endregion
 
 						#region buildings
 						using (StreamReader sr = new StreamReader(fileBuildings))
@@ -280,8 +230,14 @@ namespace jcTBot
 					}
 
 					Console.Write(".");
+
 					Browse(buildingsUrl, ie);
 					myDoc = Browse(resourcesUrl, ie);
+					if (myDoc == null)
+					{
+						Console.WriteLine("Hm...");
+						return 0;
+					}
 					bodyData = myDoc.body.innerText;
 					logedIn = IsLogenIn(bodyData);
 					
@@ -303,27 +259,6 @@ namespace jcTBot
 				Console.WriteLine("EXIT");
 			}
 			return 0;
-		}
-
-		private static string GetResourceName(string headName, string resource)
-		{
-			if (headName.StartsWith("Gozdar"))
-			{
-				resource = "WOOD";
-			}
-			else if (headName.IndexOf("polje") > -1)
-			{
-				resource = "CROP";
-			}
-			else if (headName.StartsWith("Rudnik"))
-			{
-				resource = "IRON";
-			}
-			else
-			{
-				resource = "CLAY";
-			}
-			return resource;
 		}
 
 		private static Int32 CovertXY(Int32 x, Int32 y)
