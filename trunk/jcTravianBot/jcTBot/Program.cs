@@ -20,19 +20,19 @@ namespace jcTBot
 			String resourcesBuildUrl = ConfigurationManager.AppSettings["resourcesBuildUrl"];
 			String buildingsUrl = ConfigurationManager.AppSettings["buildingsUrl"];
 			String sendUnitsUrl = ConfigurationManager.AppSettings["sendUnitsUrl"];
-			//String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
-			//String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
-			String loginUsername = "jezonsky";
-			String loginPassword = "pimpek";
+			String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
+			String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
+			//String loginUsername = "jezonsky";
+			//String loginPassword = "pimpek";
 			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
 			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
 			String fileResources = ConfigurationManager.AppSettings["fileResources"];
 			String fileBuildings = ConfigurationManager.AppSettings["fileBuildings"];
 
-			bool enableAttacks = true;
-			bool enableDistribution = false;
-			bool enableResources = false;
-			bool enableBuildings = true;
+			const bool enableAttacks = true;
+			const bool enableDistribution = true;
+			const bool enableResources = false;
+			const bool enableBuildings = true;
 			try
 			{
 				InternetExplorer ie = new InternetExplorerClass();
@@ -100,8 +100,8 @@ namespace jcTBot
 										 * tak ti staci premennu s1.x naplnat nahodnymi cislami od 0 do 79 
 										 * a s1.y nahodnymi cislami od 0 do 19 (popripade konstantami)... a mas pokoj										 
 										 */
-										String attackID = 
-											String.Format("&s1.x={0}&s1.y={1}", rnd.Next(0, 79), rnd.Next(0, 19));
+										String attackID =
+											String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19));
 										String parPost = 
 											String.Format(CultureInfo.InvariantCulture, 
 											"id=39&a={0}&c={1}&kid={2}{3}{4}",
@@ -152,11 +152,11 @@ namespace jcTBot
 											resources.AppendFormat("&r{0}={1}", (r + 1), resourcesList[r]);
 										}
 										Random rnd = new Random();
-										String distributionID = 
-											String.Format("&s1.x={0}&s1.y={1}", rnd.Next(0, 79), rnd.Next(0, 19));
+										String distributionID =
+											String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19));
 										String parPost =
 											String.Format(CultureInfo.InvariantCulture,
-											              "id={0}{1}$dname=&x={2}&y={3}{4}",
+											              "id={0}{1}&dname=&x={2}&y={3}{4}",
 											              marketId,
 											              resources,
 											              destinationX,
