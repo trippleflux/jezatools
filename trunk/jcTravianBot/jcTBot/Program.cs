@@ -27,7 +27,12 @@ namespace jcTBot
 			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
 			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
 			String fileResources = ConfigurationManager.AppSettings["fileResources"];
+			String fileBuildings = ConfigurationManager.AppSettings["fileBuildings"];
 
+			bool enableAttacks = true;
+			bool enableDistribution = false;
+			bool enableResources = false;
+			bool enableBuildings = true;
 			try
 			{
 				InternetExplorer ie = new InternetExplorerClass();
@@ -58,7 +63,7 @@ namespace jcTBot
 						#region attacks
 						using (StreamReader sr = new StreamReader(fileAttacks))
 						{
-							while (sr.Peek() >= 0)
+							while (enableAttacks && (sr.Peek() >= 0))
 							{
 								String line = sr.ReadLine();
 								if ((!line.StartsWith("#")) && (line.Length > 5))
@@ -78,7 +83,7 @@ namespace jcTBot
 									//Console.WriteLine(timenow + "//" + line);
 									if ( (enabled.Equals("1")) && (timenow.Equals(time)) )
 									{
-										Console.WriteLine("timenow=" + timenow);
+										Console.WriteLine("\n\rtimenow=" + timenow);
 										Random rnd = new Random();
 										Int32 parA = rnd.Next(10001, 99999);
 										StringBuilder troops = new StringBuilder();
@@ -123,7 +128,7 @@ namespace jcTBot
 						#region distribution
 						using (StreamReader sr = new StreamReader(fileDistribution))
 						{
-							while (sr.Peek() >= 0)
+							while (enableDistribution && (sr.Peek() >= 0))
 							{
 								String line = sr.ReadLine();
 								if ((!line.StartsWith("#")) && (line.Length > 5))
@@ -158,12 +163,14 @@ namespace jcTBot
 											              destinationY,
 											              distributionID
 												);
-										Console.WriteLine("SEND:" + parPost);
+										Console.WriteLine("\n\rSEND:" + parPost);
 										object flags = null;
 										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 										object name = null;
 										object data = Encoding.ASCII.GetBytes(parPost);
-										ie.Navigate(buildingsUrl + villageID, ref flags, ref name, ref data, ref headers);
+										//http://s3.travian.si/build.php?newdid=100227&gid=17&id=33
+										String url = String.Format("{0}{1}&gid=17&id={2}", resourcesBuildUrl, villageID, marketId);
+										ie.Navigate(url, ref flags, ref name, ref data, ref headers);
 									}
 								}
 							}
@@ -226,6 +233,49 @@ namespace jcTBot
 
 						//#endregion
 
+						#region buildings
+						using (StreamReader sr = new StreamReader(fileBuildings))
+						{
+							while ( (i % 10 == 0) && enableBuildings && (sr.Peek() >= 0))
+							{
+								String line = sr.ReadLine();
+								if ((!line.StartsWith("#")) && (line.Length > 5))
+								{
+									//villageID|buildingID|level|enabled
+									String[] sections = line.Split('|');
+									String villageID = sections[0];
+									String buildingID = sections[1];
+									Int32 level = Int32.Parse(sections[2]);
+									String enabled = sections[3];
+									Browse(buildingsUrl + villageID, ie);
+									WaitForComplete(ie);
+									Browse(resourcesBuildUrl + buildingID, ie);
+									WaitForComplete(ie);
+									String headName;
+									headName = Find.TagByName(ie, "h1");
+									String[] head = headName.Split(' ');
+									Int32 buildingLevel = Int32.Parse(head[head.Length - 1]);
+									if (!enabled.Equals("1"))
+									{
+										continue;
+									}
+									if (buildingLevel < level)
+									{
+										Console.WriteLine("Trying to upgrade " + headName);
+										String link;
+										link = Find.AttributeByTagName(ie, "a", "href");
+										if (!link.Equals("xxxx"))
+										{
+											Console.WriteLine("Upgrading " + headName);
+											Browse(link, ie);
+										}
+									}
+								}
+							}
+						}
+
+						#endregion
+
 						Thread.Sleep(60000);
 					}
 
@@ -236,7 +286,7 @@ namespace jcTBot
 					logedIn = IsLogenIn(bodyData);
 					
 					i++;
-					if ( i > 100 )
+					if ( i > 1000 )
 					{
 						i = 0;
 					}

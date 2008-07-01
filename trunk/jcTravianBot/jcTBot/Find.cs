@@ -16,12 +16,30 @@ namespace jcTBot
 			foreach (IHTMLElement elm in coll)
 			{
 				name = elm.innerText;
-				//Console.WriteLine("name=" + name);
 			}
 			return name;
 		}
 
-		
+
+		public static string AttributeByTagName(InternetExplorer ie, String tagName, String attribute)
+		{
+			String name = "xxxx";
+			IHTMLDocument3 doc3 = (IHTMLDocument3)ie.Document;
+			IHTMLElementCollection coll = doc3.getElementsByTagName(tagName);
+			foreach (IHTMLElement elm in coll)
+			{
+				String attr = elm.getAttribute(attribute, 0).ToString();
+				if ((attr.IndexOf("dorf1.php?a=") > -1) 
+					|| (attr.IndexOf("dorf2.php?a=") > -1))
+				{
+					name = attr;
+					break;
+				}
+			}
+			return name;
+		}
+
+
 		/// <summary>
 		/// Finds <input> TAG by type
 		/// </summary>
@@ -40,6 +58,7 @@ namespace jcTBot
 				if (elm.getAttribute("type", 0).ToString().ToLower() == type)
 				{
 					name = elm.getAttribute("name", 0).ToString();
+					break;
 				}
 			}
 			return name;
@@ -57,6 +76,7 @@ namespace jcTBot
 					if (elm.getAttribute("name", 0).ToString() == name)
 					{
 						value = elm.getAttribute("value", 0).ToString();
+						break;
 					}
 				}
 			}
