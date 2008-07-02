@@ -30,7 +30,7 @@ public partial class _Default : System.Web.UI.Page
 	{
 		distance = Int32.Parse(textBoxDistance.Text);
 		//distance = 10;
-		size = distance * 2 + 3;
+		size = distance * 2 + 1;
 		CreateTable();
 		FillTable();
 	}
@@ -87,30 +87,20 @@ WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))",
 					//labelErrorMSG.Text = ;
 					Int32 xCor = Int32.Parse(reader[0].ToString());
 					Int32 yCor = Int32.Parse(reader[1].ToString());
-					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax))+7)].Cells[(xCor - xmin)-1].Text =
+					Int32 row = Math.Abs((-yCor + Math.Abs(ymax)));
+					Int32 cell = (xCor - xmin);
+					tableMap.Rows[row].Cells[cell].Text =
 						String.Format(@"<a href=""http://s1.travian.si/spieler.php?uid={0}"">{1}</a>", reader[7].ToString().Trim(), reader[6].ToString().Trim());
-					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax))+7)].Cells[(xCor - xmin)-1].ToolTip = "(" + reader[0].ToString().Trim() +
-					                                                                                ")|(" + reader[1].ToString().Trim() +
+					tableMap.Rows[row].Cells[cell].ToolTip = 
+						"(" + reader[0].ToString().Trim() + ")|(" + reader[1].ToString().Trim() +
 					                                                                                ")/" + reader[3].ToString().Trim() +
 					                                                                                "/" + reader[4].ToString().Trim() +
 					                                                                                "/" +
 					                                                                                reader[5].ToString().Trim();
 					if (reader[4].ToString().ToLower().IndexOf("jezonsky") > -1)
 					{
-						tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax))+7)].Cells[(xCor - xmin)-1].BackColor = System.Drawing.Color.Green;
+						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Green;
 					}
-					//if (reader[5].ToString().ToLower().IndexOf(myAlly.ToLower()) > -1)
-					//{
-					//    tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.GreenYellow;
-					//}
-					//if (reader[5].ToString().ToLower().IndexOf("BZP".ToLower()) > -1)
-					//{
-					//    tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.SkyBlue;
-					//}
-					//if (reader[5].ToString().ToLower().IndexOf(war.ToLower()) > -1)
-					//{
-					//    tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.Red;
-					//}
 				}
 				reader.Close();
 			}
