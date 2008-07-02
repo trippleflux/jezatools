@@ -17,12 +17,12 @@
 			Style="z-index: 110; left: 360px; position: absolute; top: 20px" 
 			Text=""></asp:Label>
 		<asp:TextBox ID="textBoxX" runat="server" 
-			Style="z-index: 102; left: 120px; position: absolute; top: 20px" Width="40px">-27</asp:TextBox>
+			Style="z-index: 102; left: 120px; position: absolute; top: 20px" Width="40px">-130</asp:TextBox>
 		<asp:Label ID="labelY" runat="server" 
 			Style="z-index: 103; left: 20px; position: absolute; top: 50px" 
 			Text="CoordinateY" Width="90px"></asp:Label>
 		<asp:TextBox ID="textBoxY" runat="server" 
-			Style="z-index: 104; left: 120px; position: absolute; top: 50px" Width="40px">-71</asp:TextBox>
+			Style="z-index: 104; left: 120px; position: absolute; top: 50px" Width="40px">-3</asp:TextBox>
 		<asp:Label ID="labelDistance" runat="server" 
 			Style="z-index: 105; left: 20px; position: absolute; top: 80px" 
 			Text="Distance" Width="90px"></asp:Label>

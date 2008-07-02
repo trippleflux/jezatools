@@ -67,9 +67,9 @@ public partial class _Default : System.Web.UI.Page
 		int ymax = y + distance;
 
 		String sqlConnection = ConfigurationManager.ConnectionStrings["TravianMapConnectionString"].ToString();
-		
+		//(323074,-130,-3,2,81313,'Muta01',17696,'jezonsky',0,'',237);
 		string sql = string.Format(@"
-SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [si_s3] 
+SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [si_s1] 
 WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))", 
 				xmin, xmax, ymax, ymin);
 
@@ -80,28 +80,40 @@ WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))",
 			conn.Open();
 			SqlCommand cmd = new SqlCommand(sql, conn);
 			SqlDataReader reader = cmd.ExecuteReader();
-			while (reader.Read())
+			if (reader != null)
 			{
-				//labelErrorMSG.Text = ;
-				Int32 xCor = Int32.Parse(reader[0].ToString());
-				Int32 yCor = Int32.Parse(reader[1].ToString());
-				tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].Text = String.Format(@"<a href=""http://s3.travian.si/spieler.php?uid={0}"">{1}</a>", reader[7], reader[4]);
-				tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].ToolTip = reader[3] + "/" + reader[4] + "/" +
-																						reader[5];
-				if (reader[5].ToString().ToLower().IndexOf(myAlly.ToLower()) > -1)
+				while (reader.Read())
 				{
-					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.GreenYellow;
+					//labelErrorMSG.Text = ;
+					Int32 xCor = Int32.Parse(reader[0].ToString());
+					Int32 yCor = Int32.Parse(reader[1].ToString());
+					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].Text =
+						String.Format(@"<a href=""http://s1.travian.si/spieler.php?uid={0}"">{1}</a>", reader[7].ToString().Trim(), reader[6].ToString().Trim());
+					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].ToolTip = "(" + reader[0].ToString().Trim() +
+					                                                                                ")|(" + reader[1].ToString().Trim() +
+					                                                                                ")/" + reader[3].ToString().Trim() +
+					                                                                                "/" + reader[4].ToString().Trim() +
+					                                                                                "/" +
+					                                                                                reader[5].ToString().Trim();
+					if (reader[4].ToString().ToLower().IndexOf("jezonsky") > -1)
+					{
+						tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.Green;
+					}
+					//if (reader[5].ToString().ToLower().IndexOf(myAlly.ToLower()) > -1)
+					//{
+					//    tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.GreenYellow;
+					//}
+					//if (reader[5].ToString().ToLower().IndexOf("BZP".ToLower()) > -1)
+					//{
+					//    tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.SkyBlue;
+					//}
+					//if (reader[5].ToString().ToLower().IndexOf(war.ToLower()) > -1)
+					//{
+					//    tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.Red;
+					//}
 				}
-				if (reader[5].ToString().ToLower().IndexOf("BZP".ToLower()) > -1)
-				{
-					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.SkyBlue;
-				}
-				if (reader[5].ToString().ToLower().IndexOf(war.ToLower()) > -1)
-				{
-					tableMap.Rows[Math.Abs((yCor + Math.Abs(ymax)))].Cells[(xCor - xmin)].BackColor = System.Drawing.Color.Red;
-				}
+				reader.Close();
 			}
-			reader.Close();
 		}
 		catch (Exception e)
 		{
