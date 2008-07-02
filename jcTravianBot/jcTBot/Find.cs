@@ -64,11 +64,22 @@ namespace jcTBot
 			return name;
 		}
 
-		public static string TextBoxValue(InternetExplorer ie, string type, string name)
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ie"></param>
+		/// <param name="tag"></param>
+		/// <param name="type"></param>
+		/// <param name="name"></param>
+		/// <returns><c>value</c></returns>
+		/// <example>
+		/// <input type="hidden" name="id" value="33"> will return 33
+		/// </example>
+		public static string ValueFromTagTypeAndName(InternetExplorer ie, string tag, string type, string name)
 		{
 			String value = "xxxx";
 			IHTMLDocument3 doc3 = (IHTMLDocument3)ie.Document;
-			IHTMLElementCollection coll = doc3.getElementsByTagName("input");
+			IHTMLElementCollection coll = doc3.getElementsByTagName(tag);
 			foreach (IHTMLElement elm in coll)
 			{
 				if (elm.getAttribute("type", 0).ToString().ToLower() == type)

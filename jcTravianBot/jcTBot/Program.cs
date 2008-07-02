@@ -164,14 +164,40 @@ namespace jcTBot
 											              destinationY,
 											              distributionID
 												);
-										Console.WriteLine("\n\rSEND:" + parPost);
+										//Console.WriteLine("\n\rSEND:" + parPost);
 										object flags = null;
 										object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 										object name = null;
 										object data = Encoding.ASCII.GetBytes(parPost);
-										//http://s3.travian.si/build.php?newdid=100227&gid=17&id=33
+										//Muta05->Muta07
+										//http://s3.travian.si/build.php?newdid=106401&gid=17&id=33
+										//id=33&r1=250&r2=250&r3=250&r4=&dname=&x=-195&y=-224&s1.x=28&s1.y=14&s1=ok
 										String url = String.Format("{0}{1}&gid=17&id={2}", resourcesBuildUrl, villageID, marketId);
 										ie.Navigate(url, ref flags, ref name, ref data, ref headers);
+										WaitForComplete(ie);
+										//id=33&a=106401&sz=6820&kid=500030&r1=250&r2=250&r3=250&r4=&s1.x=28&s1.y=6&s1=ok
+										//<form method="POST" name="snd" action="build.php">
+										//<input type="hidden" name="id" value="33">
+										//<input type="hidden" name="a" value="106401">
+										//<input type="hidden" name="sz" value="6822">
+										//<input type="hidden" name="kid" value="500030">
+										String a = Find.ValueFromTagTypeAndName(ie, "input", "hidden", "a");
+										String sz = Find.ValueFromTagTypeAndName(ie, "input", "hidden", "sz");
+										String kid = Find.ValueFromTagTypeAndName(ie, "input", "hidden", "kid");
+										parPost =
+											String.Format(CultureInfo.InvariantCulture,
+														  "id={0}&a={1}&sz={2}&kid={3}{4}{5}",
+														  marketId,
+														  a, 
+														  sz,
+														  kid,
+														  resources,
+														  distributionID
+												);
+										Console.WriteLine("\n\rSEND:" + parPost);
+										data = Encoding.ASCII.GetBytes(parPost);
+										ie.Navigate(url, ref flags, ref name, ref data, ref headers);
+										WaitForComplete(ie);
 									}
 								}
 							}
@@ -216,7 +242,7 @@ namespace jcTBot
 										link = Find.AttributeByTagName(ie, "a", "href");
 										if (!link.Equals("xxxx"))
 										{
-											Console.WriteLine("Upgrading " + headName);
+											Console.WriteLine("***** Upgrading " + headName);
 											Browse(link, ie);
 										}
 									}
@@ -305,23 +331,23 @@ namespace jcTBot
 				return myDoc;
 			}
 			//Console.WriteLine("Username TextBox Name = '" + loginUsernameTextBoxName + "'");
-			//String loginUsernameTextBoxValue = Find.TextBoxValue(ie, "text", loginUsernameTextBoxName);
+			//String loginUsernameTextBoxValue = Find.ValueFromTagTypeAndName(ie, "text", loginUsernameTextBoxName);
 			//Console.WriteLine("Username TextBox Value = '" + loginUsernameTextBoxValue + "'");
 			HTMLInputElement loginUsernameTextBox = 
 				(HTMLInputElement)myDoc.all.item(loginUsernameTextBoxName, 0);
 			loginUsernameTextBox.value = loginUsername;
-			//String loginUsernameTextBoxNewValue = Find.TextBoxValue(ie, "text", loginUsernameTextBoxName);
+			//String loginUsernameTextBoxNewValue = Find.ValueFromTagTypeAndName(ie, "text", loginUsernameTextBoxName);
 			//Console.WriteLine("Username TextBox Value = '" + loginUsernameTextBoxNewValue + "'");
 			//Find password textbox
 			String loginPasswordTextBoxName = Find.InputTagByType(ie, "password");
 			//Console.WriteLine("Password TextBox Name = '" + loginPasswordTextBoxName + "'");
-			//String loginPasswordTextBoxValue = Find.TextBoxValue(ie, "password", loginPasswordTextBoxName);
+			//String loginPasswordTextBoxValue = Find.ValueFromTagTypeAndName(ie, "password", loginPasswordTextBoxName);
 			//Console.WriteLine("Password TextBox Value = '" + loginPasswordTextBoxValue + "'");
 			myDoc = (HTMLDocument)ie.Document;
 			HTMLInputElement loginPasswordTextBox = 
 				(HTMLInputElement)myDoc.all.item(loginPasswordTextBoxName, 0);
 			loginPasswordTextBox.value = loginPassword;
-			//String loginPasswordTextBoxNewValue = Find.TextBoxValue(ie, "password", loginPasswordTextBoxName);
+			//String loginPasswordTextBoxNewValue = Find.ValueFromTagTypeAndName(ie, "password", loginPasswordTextBoxName);
 			//Console.WriteLine("Password TextBox Value = '" + loginPasswordTextBoxNewValue + "'");
 			//Find login button
 			String loginImageButtonName = Find.InputTagByType(ie, "image");
