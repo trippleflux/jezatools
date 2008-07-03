@@ -229,6 +229,10 @@ namespace jcTBot
 									WaitForComplete(ie);
 									String headName;
 									headName = Find.TagByName(ie, "h1");
+									if (headName.IndexOf(' ') == -1)
+									{
+										continue;
+									}
 									String[] head = headName.Split(' ');
 									Int32 buildingLevel = Int32.Parse(head[head.Length - 1]);
 									if (!enabled.Equals("1"))
@@ -237,7 +241,7 @@ namespace jcTBot
 									}
 									if (buildingLevel < level)
 									{
-										Console.WriteLine("Trying to upgrade " + headName);
+										//Console.WriteLine("Trying to upgrade " + headName);
 										String link;
 										link = Find.AttributeByTagName(ie, "a", "href");
 										if (!link.Equals("xxxx"))
@@ -259,13 +263,16 @@ namespace jcTBot
 
 					Browse(buildingsUrl, ie);
 					myDoc = Browse(resourcesUrl, ie);
-					if (myDoc == null)
+					if (myDoc != null)
+					{
+						bodyData = myDoc.body.innerText ?? "";
+						logedIn = IsLogenIn(bodyData);
+					}
+					else
 					{
 						Console.WriteLine("Hm...");
-						return 0;
+						logedIn = false;
 					}
-					bodyData = myDoc.body.innerText;
-					logedIn = IsLogenIn(bodyData);
 					
 					i++;
 					if ( i > 1000 )

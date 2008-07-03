@@ -1,22 +1,12 @@
 using System;
-using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 
 public partial class _Default : System.Web.UI.Page 
 {
 	private int size;
 	private int distance;
-	private string myAlly = @"TSF";
-	private string ally = @"SWAT,United 2,Horde™,Horde²™,BZP,United";
-	private string nap = @"X Legija";
-	private string war = "o.O";
 
 	protected void Page_Load(object sender, EventArgs e)
     {
@@ -45,7 +35,7 @@ public partial class _Default : System.Web.UI.Page
 			{
 				TableCell cell = new TableCell();
 				cell.BorderWidth = 1;
-				cell.BackColor = System.Drawing.Color.Yellow;
+				//cell.BackColor = System.Drawing.Color.Yellow;
 				cell.Width = 30;
 				row.Cells.Add(cell);
 			}
@@ -55,8 +45,8 @@ public partial class _Default : System.Web.UI.Page
 
 	private void FillTable()
 	{
-		int x = Int32.Parse(textBoxX.Text.ToString());
-		int y = Int32.Parse(textBoxY.Text.ToString());
+		int x = Int32.Parse(textBoxX.Text);
+		int y = Int32.Parse(textBoxY.Text);
 		//int x = -27;
 		//int y = -71;
 		//int x = 0;
@@ -97,7 +87,17 @@ WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))",
 					                                                                                "/" + reader[4].ToString().Trim() +
 					                                                                                "/" +
 					                                                                                reader[5].ToString().Trim();
-					if (reader[4].ToString().ToLower().IndexOf("jezonsky") > -1)
+					//player is in aliance
+					if (reader[5].ToString().Trim().Length > 0)
+					{
+						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Yellow;
+					}
+					//player is NOT in aliance
+					if (reader[5].ToString().Trim().Length == 0)
+					{
+						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.GreenYellow;
+					}
+					if ((Int32.Parse(reader[0].ToString().Trim()) == x) && (Int32.Parse(reader[1].ToString().Trim()) == y))
 					{
 						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Green;
 					}
