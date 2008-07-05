@@ -315,7 +315,7 @@ namespace jcTBot
 		{
 			//Console.WriteLine("LogIn Check... ");
 			bool isLogedIn = false;
-			if (bodyData.Contains("Proizvodnja:"))
+			if ((bodyData != null) && (bodyData.Contains("Proizvodnja:")))
 			{
 				isLogedIn = true;
 			}
