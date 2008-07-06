@@ -1,0 +1,2 @@
+#time|attackX|attackY|destX|destY|attackType|troops|villageID|reserved|enabled|comment
+00:01|-27|-71|0|0|3|0,0,0,0,0,0,0,0,0,0,0,0|?newdid=100227||0|#

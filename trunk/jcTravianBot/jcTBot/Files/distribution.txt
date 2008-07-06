@@ -1,0 +1,2 @@
+#time|destX|destY|marketID|resources|villageID|enabled|
+01:02|0|0|33|250,250,250,250|?newdid=100227|0|

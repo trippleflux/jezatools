@@ -21,16 +21,14 @@ namespace jcTBot
 			String sendUnitsUrl = ConfigurationManager.AppSettings["sendUnitsUrl"];
 			String loginUsername = ConfigurationManager.AppSettings["loginUsername"];
 			String loginPassword = ConfigurationManager.AppSettings["loginPassword"];
-			//String loginUsername = "jezonsky";
-			//String loginPassword = "pimpek";
 			String fileAttacks = ConfigurationManager.AppSettings["fileAttacks"];
 			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
-			//String fileResources = ConfigurationManager.AppSettings["fileResources"];
+			String fileResources = ConfigurationManager.AppSettings["fileResources"];
 			String fileBuildings = ConfigurationManager.AppSettings["fileBuildings"];
 
 			bool enableAttacks = Boolean.Parse(ConfigurationManager.AppSettings["enableAttacks"]);
 			bool enableDistribution = Boolean.Parse(ConfigurationManager.AppSettings["enableDistribution"]);
-			//bool enableResources = Boolean.Parse(ConfigurationManager.AppSettings["enableResources"]);
+			bool enableResources = Boolean.Parse(ConfigurationManager.AppSettings["enableResources"]);
 			bool enableBuildings = Boolean.Parse(ConfigurationManager.AppSettings["enableBuildings"]);
 			//bool enableAutoBuildResources = Boolean.Parse(ConfigurationManager.AppSettings["enableAutoBuildResources"]);
 
@@ -207,51 +205,20 @@ namespace jcTBot
 
 						#region resources
 
+						if ((i % 8 == 0) && enableResources)
+						{
+							//Console.WriteLine(buildingsUrl + ":" + fileResources + ":" + resourcesBuildUrl);
+							Build(resourcesUrl, fileResources, ie, resourcesBuildUrl);
+						}
+
 						#endregion
 
 						#region buildings
-						using (StreamReader sr = new StreamReader(fileBuildings))
+
+						if ((i % 9 == 0) && enableBuildings)
 						{
-							while ( (i % 10 == 0) && enableBuildings && (sr.Peek() >= 0))
-							{
-								String line = sr.ReadLine();
-								if ((!line.StartsWith("#")) && (line.Length > 5))
-								{
-									//villageID|buildingID|level|enabled
-									String[] sections = line.Split('|');
-									String villageID = sections[0];
-									String buildingID = sections[1];
-									Int32 level = Int32.Parse(sections[2]);
-									String enabled = sections[3];
-									Browse(buildingsUrl + villageID, ie);
-									WaitForComplete(ie);
-									Browse(resourcesBuildUrl + buildingID, ie);
-									WaitForComplete(ie);
-									String headName;
-									headName = Find.TagByName(ie, "h1");
-									if (headName.IndexOf(' ') == -1)
-									{
-										continue;
-									}
-									String[] head = headName.Split(' ');
-									Int32 buildingLevel = Int32.Parse(head[head.Length - 1]);
-									if (!enabled.Equals("1"))
-									{
-										continue;
-									}
-									if (buildingLevel < level)
-									{
-										//Console.WriteLine("Trying to upgrade " + headName);
-										String link;
-										link = Find.AttributeByTagName(ie, "a", "href");
-										if (!link.Equals("xxxx"))
-										{
-											Console.WriteLine("***** Upgrading " + headName);
-											Browse(link, ie);
-										}
-									}
-								}
-							}
+							//Console.WriteLine(buildingsUrl + ":" + fileBuildings + ":" + resourcesBuildUrl);
+							Build(buildingsUrl, fileBuildings, ie, resourcesBuildUrl);
 						}
 
 						#endregion
@@ -292,6 +259,55 @@ namespace jcTBot
 				Console.WriteLine("EXIT");
 			}
 			return 0;
+		}
+
+		private static void Build(string buildingsUrl, string fileBuildings, InternetExplorer ie, string resourcesBuildUrl)
+		{
+			using (StreamReader sr = new StreamReader(fileBuildings))
+			{
+				while ( (sr.Peek() >= 0) )
+				{
+					String line = sr.ReadLine();
+					if ((!line.StartsWith("#")) && (line.Length > 5))
+					{
+						//villageID|buildingID|level|enabled
+						String[] sections = line.Split('|');
+						String villageID = sections[0];
+						String buildingID = sections[1];
+						Int32 level = Int32.Parse(sections[2]);
+						String enabled = sections[3];
+						if (!enabled.Equals("1"))
+						{
+							continue;
+						}
+						Browse(buildingsUrl + villageID, ie);
+						WaitForComplete(ie);
+						Browse(resourcesBuildUrl + buildingID, ie);
+						WaitForComplete(ie);
+						String headName;
+						headName = Find.TagByName(ie, "h1");
+#warning moveto config or find a way to skip!
+						if ((headName.IndexOf("Postavi nov objekt") > -1) || (headName.IndexOf(' ') == -1))
+						{
+							continue;
+						}
+						Console.WriteLine(line + ":" + headName);
+						String[] head = headName.Split(' ');
+						Int32 buildingLevel = Int32.Parse(head[head.Length - 1]);
+						if (buildingLevel < level)
+						{
+							//Console.WriteLine("Trying to upgrade " + headName);
+							String link;
+							link = Find.AttributeByTagName(ie, "a", "href");
+							if (!link.Equals("xxxx"))
+							{
+								Console.WriteLine("***** Upgrading " + headName + "'" + villageID + "'");
+								Browse(link, ie);
+							}
+						}
+					}
+				}
+			}
 		}
 
 		private static Int32 CovertXY(Int32 x, Int32 y)

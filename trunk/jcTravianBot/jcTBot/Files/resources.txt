@@ -1,0 +1,40 @@
+#villageID|buildingID|level|enabled
+#Muta01
+?newdid=81313|?id=1|10|0|Gozdar
+?newdid=81313|?id=2|10|0|Žitno polje
+?newdid=81313|?id=3|10|0|Gozdar
+?newdid=81313|?id=4|10|0|Rudnik železa
+?newdid=81313|?id=5|10|0|Glinokop
+?newdid=81313|?id=6|10|0|Glinokop
+?newdid=81313|?id=7|10|0|Rudnik železa
+?newdid=81313|?id=8|10|0|Žitno polje
+?newdid=81313|?id=9|10|0|Žitno polje
+?newdid=81313|?id=10|10|0|Rudnik železa
+?newdid=81313|?id=11|10|0|Rudnik železa
+?newdid=81313|?id=12|10|0|Žitno polje
+?newdid=81313|?id=13|10|0|Žitno polje
+?newdid=81313|?id=14|10|0|Gozdar
+?newdid=81313|?id=15|10|0|Žitno polje
+?newdid=81313|?id=16|10|0|Glinokop
+?newdid=81313|?id=17|10|0|Gozdar
+?newdid=81313|?id=18|10|0|Glinokop
+#Muta02
+?newdid=88452|?id=1|10|0|Žitno polje
+?newdid=88452|?id=2|10|0|Žitno polje
+?newdid=88452|?id=3|10|0|Gozdar
+?newdid=88452|?id=4|10|0|Rudnik železa
+?newdid=88452|?id=5|10|0|Žitno polje
+?newdid=88452|?id=6|10|0|Žitno polje
+?newdid=88452|?id=7|10|0|Žitno polje
+?newdid=88452|?id=8|10|0|Žitno polje
+?newdid=88452|?id=9|10|0|Žitno polje
+?newdid=88452|?id=10|10|0|Žitno polje
+?newdid=88452|?id=11|10|0|Žitno polje
+?newdid=88452|?id=12|10|0|Žitno polje
+?newdid=88452|?id=13|10|0|Žitno polje
+?newdid=88452|?id=14|10|0|Žitno polje
+?newdid=88452|?id=15|10|0|Žitno polje
+?newdid=88452|?id=16|10|0|Glinokop
+?newdid=88452|?id=17|10|0|Žitno polje
+?newdid=88452|?id=18|10|0|Žitno polje
+﻿
