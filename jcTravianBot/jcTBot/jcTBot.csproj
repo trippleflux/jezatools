@@ -63,6 +63,7 @@
     <Content Include="Files\attacks.txt" />
     <Content Include="Files\buildings.txt" />
     <Content Include="Files\distribution.txt" />
+    <Content Include="Files\fileCheckAttacks.txt" />
     <Content Include="Files\resources.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
