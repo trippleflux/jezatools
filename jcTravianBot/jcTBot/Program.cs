@@ -25,12 +25,14 @@ namespace jcTBot
 			String fileDistribution = ConfigurationManager.AppSettings["fileDistribution"];
 			String fileResources = ConfigurationManager.AppSettings["fileResources"];
 			String fileBuildings = ConfigurationManager.AppSettings["fileBuildings"];
+			String fileCheckAttacks = ConfigurationManager.AppSettings["fileCheckAttacks"];
 
 			bool enableAttacks = Boolean.Parse(ConfigurationManager.AppSettings["enableAttacks"]);
 			bool enableDistribution = Boolean.Parse(ConfigurationManager.AppSettings["enableDistribution"]);
 			bool enableResources = Boolean.Parse(ConfigurationManager.AppSettings["enableResources"]);
 			bool enableBuildings = Boolean.Parse(ConfigurationManager.AppSettings["enableBuildings"]);
 			//bool enableAutoBuildResources = Boolean.Parse(ConfigurationManager.AppSettings["enableAutoBuildResources"]);
+			bool enableCheckAttacks = Boolean.Parse(ConfigurationManager.AppSettings["enableCheckAttacks"]);
 
 			try
 			{
@@ -223,12 +225,38 @@ namespace jcTBot
 
 						#endregion
 
+						#region Attack Check
+						using (StreamReader sr = new StreamReader(fileCheckAttacks))
+						{
+							while (enableCheckAttacks && (sr.Peek() >= 0))
+							{
+								String line = sr.ReadLine();
+								if ((!line.StartsWith("#")) && (line.Length > 1))
+								{
+									String[] sections = line.Split('|');
+									String villageID = sections[0];
+									String enabled = sections[1];
+									if ((i % 5 == 0) && !enabled.Equals("0"))
+									{
+										//<td><a href="build.php?gid=16"><img src="img/un/a/att1.gif" border="0"></a></td>
+										Browse(resourcesUrl+villageID, ie);
+										if (Find.IncomingAttack(ie))
+										{
+											Console.WriteLine("Incoming Attack in Village : " + villageID);
+										}
+									}
+								}
+							}
+						}
+
+						#endregion
+
 						Thread.Sleep(60000);
 					}
 
 					Console.Write(".");
 
-					Browse(buildingsUrl, ie);
+					//Browse(buildingsUrl, ie);
 					myDoc = Browse(resourcesUrl, ie);
 					if (myDoc != null)
 					{
@@ -284,8 +312,7 @@ namespace jcTBot
 						WaitForComplete(ie);
 						Browse(resourcesBuildUrl + buildingID, ie);
 						WaitForComplete(ie);
-						String headName;
-						headName = Find.TagByName(ie, "h1");
+						string headName = Find.TagByName(ie, "h1");
 #warning moveto config or find a way to skip!
 						if ((headName.IndexOf("Postavi nov objekt") > -1) || (headName.IndexOf(' ') == -1))
 						{
@@ -297,8 +324,7 @@ namespace jcTBot
 						if (buildingLevel < level)
 						{
 							//Console.WriteLine("Trying to upgrade " + headName);
-							String link;
-							link = Find.AttributeByTagName(ie, "a", "href");
+							string link = Find.AttributeByTagName(ie, "a", "href");
 							if (!link.Equals("xxxx"))
 							{
 								Console.WriteLine("***** Upgrading " + headName + "'" + villageID + "'");

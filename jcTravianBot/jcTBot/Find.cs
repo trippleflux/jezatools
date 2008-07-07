@@ -93,5 +93,29 @@ namespace jcTBot
 			}
 			return value;
 		}
+
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ie"></param>
+		/// <returns><c>true</c> if incoming attack</returns>
+		/// 
+		public static bool IncomingAttack(InternetExplorer ie)
+		{
+			bool incomingAttack = false;
+			IHTMLDocument3 doc3 = (IHTMLDocument3)ie.Document;
+			IHTMLElementCollection coll = doc3.getElementsByTagName("img");
+			foreach (IHTMLElement elm in coll)
+			{
+				if (elm.getAttribute("src", 0).ToString().ToLower().EndsWith("att1.gif"))
+				{
+					incomingAttack = true;
+					break;
+				}
+			}
+			return incomingAttack;
+		}
 	}
 }
