@@ -62,6 +62,7 @@
   <ItemGroup>
     <Content Include="Files\attacks.txt" />
     <Content Include="Files\buildings.txt" />
+    <Content Include="Files\ContinuedAttacks.txt" />
     <Content Include="Files\distribution.txt" />
     <Content Include="Files\fileCheckAttacks.txt" />
     <Content Include="Files\resources.txt" />
