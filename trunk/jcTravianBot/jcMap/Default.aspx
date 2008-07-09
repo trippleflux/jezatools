@@ -11,7 +11,7 @@
     <div>
     
 		<asp:LinkButton ID="linkButtonImportData" runat="server" 
-			Style="z-index: 110; left: 20px; position: absolute; top: 20px" OnClick="linkButtonImportData_Click">Import Data</asp:LinkButton>
+			Style="z-index: 110; left: 20px; position: absolute; top: 20px" OnClick="linkButtonImportData_Click" Enabled="False">Import Data</asp:LinkButton>
 		<asp:LinkButton ID="linkButtonRefreshMap" runat="server" 
 			Style="z-index: 111; left: 20px; position: absolute; top: 50px" OnClick="linkButtonRefreshMap_Click">Refresh Map</asp:LinkButton>
     

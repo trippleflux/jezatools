@@ -1,6 +1,8 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
+using System.Text;
 using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page 
@@ -72,37 +74,54 @@ WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))",
 			SqlDataReader reader = cmd.ExecuteReader();
 			if (reader != null)
 			{
+				StringBuilder sb = new StringBuilder();
 				while (reader.Read())
 				{
 					//labelErrorMSG.Text = ;
-					Int32 xCor = Int32.Parse(reader[0].ToString());
-					Int32 yCor = Int32.Parse(reader[1].ToString());
+					Int32 xCor = Int32.Parse(reader[0].ToString().Trim());
+					Int32 yCor = Int32.Parse(reader[1].ToString().Trim());
+					String villageName = reader[3].ToString().Trim();
+					String playerName = reader[4].ToString().Trim();
+					String alianceName = reader[5].ToString().Trim();
+					Int32 population = Int32.Parse(reader[6].ToString().Trim());
+					Int32 uid = Int32.Parse(reader[7].ToString().Trim());
 					Int32 row = Math.Abs((-yCor + Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
 					tableMap.Rows[row].Cells[cell].Text =
-						String.Format(@"<a href=""http://s1.travian.si/spieler.php?uid={0}"">{1}</a>", reader[7].ToString().Trim(), reader[6].ToString().Trim());
+						String.Format(@"<a href=""http://s1.travian.si/spieler.php?uid={0}"">{1}</a>", uid, population);
 					tableMap.Rows[row].Cells[cell].ToolTip = 
-						"(" + reader[0].ToString().Trim() + ")|(" + reader[1].ToString().Trim() +
-					                                                                                ")/" + reader[3].ToString().Trim() +
-					                                                                                "/" + reader[4].ToString().Trim() +
-					                                                                                "/" +
-					                                                                                reader[5].ToString().Trim();
+						String.Format("({0})|({1})/{2}/{3}/{4}", xCor, yCor, villageName, playerName, alianceName);
 					//player is in aliance
-					if (reader[5].ToString().Trim().Length > 0)
+					if (alianceName.Length > 0)
 					{
 						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Yellow;
 					}
-					//player is NOT in aliance
-					if (reader[5].ToString().Trim().Length == 0)
+					else
 					{
 						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.GreenYellow;
+						if ((xCor <= x) && (yCor >= y))
+						{
+							sb.AppendFormat("{0}|{1}|3|50,0,0,0,0,0,0,0,0,0,0,0|?newdid=81313||1|{2}/{3}[{4}]\n", xCor, yCor, playerName,
+							                villageName, population);
+						}
+						//if ((xCor < x) && (yCor < y))
+						//{
+						//    sb.AppendFormat("{0}|{1}|3|50,0,0,0,0,0,0,0,0,0,0,0|?newdid=88452||1|{2}/{3}[{4}]\n", xCor, yCor, playerName,
+						//                    villageName, population);
+						//}
 					}
-					if ((Int32.Parse(reader[0].ToString().Trim()) == x) && (Int32.Parse(reader[1].ToString().Trim()) == y))
+					if ((xCor == x) && (yCor == y))
 					{
 						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Green;
 					}
 				}
 				reader.Close();
+
+				using (StreamWriter sw = new StreamWriter(@"E:\MyWorks\svn\jezaTools\jcTravianBot\jcMap\villages.txt"))
+				{
+					sw.WriteLine(sb);
+					sw.Close();
+				}
 			}
 		}
 		catch (Exception e)
