@@ -62,7 +62,8 @@ public partial class _Default : System.Web.UI.Page
 		//(323074,-130,-3,2,81313,'Muta01',17696,'jezonsky',0,'',237);
 		string sql = string.Format(@"
 SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [si_s1] 
-WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))", 
+WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))
+ORDER BY [x] DESC", 
 				xmin, xmax, ymax, ymin);
 
 		SqlConnection conn = new SqlConnection(sqlConnection);
@@ -99,7 +100,7 @@ WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))",
 					else
 					{
 						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.GreenYellow;
-						if ((xCor <= x) && (yCor >= y))
+						//if ((xCor <= x+6))
 						{
 							sb.AppendFormat("{0}|{1}|3|50,0,0,0,0,0,0,0,0,0,0,0|?newdid=81313||1|{2}/{3}[{4}]\n", xCor, yCor, playerName,
 							                villageName, population);
@@ -117,7 +118,7 @@ WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))",
 				}
 				reader.Close();
 
-				using (StreamWriter sw = new StreamWriter(@"E:\MyWorks\svn\jezaTools\jcTravianBot\jcMap\villages.txt"))
+				using (StreamWriter sw = new StreamWriter(@"C:\svn\jezaTools\jcTravianBot\jcMap\villages.txt"))
 				{
 					sw.WriteLine(sb);
 					sw.Close();
