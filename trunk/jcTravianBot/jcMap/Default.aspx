@@ -29,7 +29,7 @@
 			Style="z-index: 105; left: 140px; position: absolute; top: 80px" 
 			Text="Distance" Width="90px"></asp:Label>
 		<asp:TextBox ID="textBoxDistance" runat="server" 
-			Style="z-index: 109; left: 240px; position: absolute; top: 80px" Width="40px" Enabled="False">20</asp:TextBox>
+			Style="z-index: 109; left: 240px; position: absolute; top: 80px" Width="40px">10</asp:TextBox>
         
         <asp:Label ID="LabelAlly" runat="server" 
             Style="z-index: 106; left: 360px; position: absolute; top: 24px" 
