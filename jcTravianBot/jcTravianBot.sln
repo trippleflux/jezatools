@@ -2,16 +2,36 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcTB", "jcTB\jcTB.csproj", "{6D117758-30A1-43D3-84D2-7B2E1338A953}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcTBGUI", "jcTBGUI\jcTBGUI.csproj", "{2464A024-82BB-403F-B2FE-266111918426}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcTBLib", "jcTBLib\jcTBLib.csproj", "{533E5CB8-48C8-4F33-8291-BF0F91CDA2F6}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcTBot", "jcTBot\jcTBot.csproj", "{6D47B644-0FDD-4A76-837B-F911002424F5}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jcAttackChecker", "jcAttackChecker\jcAttackChecker.csproj", "{FFB8CB12-FEDE-4F77-99AD-9C209486200D}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "E:\...\jcMap\", "jcMap\", "{E5FE9BE3-EA5A-426C-9467-4E5A45E3A3CB}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\jcMap\", "jcMap", "{E5FE9BE3-EA5A-426C-9467-4E5A45E3A3CB}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.VirtualPath = "/jcMap"
 		Debug.AspNetCompiler.PhysicalPath = "jcMap\"
