@@ -1,28 +1,30 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class _Default : System.Web.UI.Page 
+public partial class _Default : Page
 {
 	private int size;
 	private int distance;
 
 	protected void Page_Load(object sender, EventArgs e)
-    {
+	{
+	}
 
-    }
 	protected void linkButtonImportData_Click(object sender, EventArgs e)
 	{
-
 	}
+
 	protected void linkButtonRefreshMap_Click(object sender, EventArgs e)
 	{
 		distance = Int32.Parse(textBoxDistance.Text);
-		//distance = 10;
-		size = distance * 2 + 1;
+		//distance = 20;
+		size = distance*2 + 1;
 		CreateTable();
 		FillTable();
 	}
@@ -60,11 +62,18 @@ public partial class _Default : System.Web.UI.Page
 
 		String sqlConnection = ConfigurationManager.ConnectionStrings["TravianMapConnectionString"].ToString();
 		//(323074,-130,-3,2,81313,'Muta01',17696,'jezonsky',0,'',237);
-		string sql = string.Format(@"
-SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [si_s1] 
+		string sql =
+			string.Format(
+				@"
+SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [si_s3] 
 WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))
-ORDER BY [x] DESC", 
+ORDER BY [x] DESC",
 				xmin, xmax, ymax, ymin);
+
+		String allyList = TextBoxAlly.Text;
+		String napList = TextBoxNap.Text;
+		String warList = TextBoxWar.Text;
+		String aliance = textBoxAliance.Text;
 
 		SqlConnection conn = new SqlConnection(sqlConnection);
 
@@ -86,34 +95,41 @@ ORDER BY [x] DESC",
 					String alianceName = reader[5].ToString().Trim();
 					Int32 population = Int32.Parse(reader[6].ToString().Trim());
 					Int32 uid = Int32.Parse(reader[7].ToString().Trim());
-					Int32 row = Math.Abs((-yCor + Math.Abs(ymax)));
+					int row = ymax > 0 ? Math.Abs((-yCor + Math.Abs(ymax))) : Math.Abs((-yCor - Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
 					tableMap.Rows[row].Cells[cell].Text =
-						String.Format(@"<a href=""http://s1.travian.si/spieler.php?uid={0}"">{1}</a>", uid, population);
-					tableMap.Rows[row].Cells[cell].ToolTip = 
+						String.Format(@"<a href=""http://s3.travian.si/spieler.php?uid={0}"">{1}</a>", uid, population);
+					tableMap.Rows[row].Cells[cell].ToolTip =
 						String.Format("({0})|({1})/{2}/{3}/{4}", xCor, yCor, villageName, playerName, alianceName);
 					//player is in aliance
 					if (alianceName.Length > 0)
 					{
-						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Yellow;
+						if (allyList.IndexOf(alianceName) > -1)
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Orange;
+						}
+						else if (napList.IndexOf(alianceName) > -1)
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Yellow;
+						}
+						else if (warList.IndexOf(alianceName) > -1)
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
+						}
+						else if (aliance.Equals(alianceName))
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Red;
+						}
 					}
 					else
 					{
-						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.GreenYellow;
-						//if ((xCor <= x+6))
-						{
-							sb.AppendFormat("{0}|{1}|3|50,0,0,0,0,0,0,0,0,0,0,0|?newdid=81313||1|{2}/{3}[{4}]\n", xCor, yCor, playerName,
-							                villageName, population);
-						}
-						//if ((xCor < x) && (yCor < y))
-						//{
-						//    sb.AppendFormat("{0}|{1}|3|50,0,0,0,0,0,0,0,0,0,0,0|?newdid=88452||1|{2}/{3}[{4}]\n", xCor, yCor, playerName,
-						//                    villageName, population);
-						//}
+						sb.AppendFormat("{0}|{1}|3|0,200,0,100,0,0,0,0,0,0,0,0|?newdid=10902|2|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
+							xCor, yCor, playerName, villageName, population, alianceName);
 					}
+
 					if ((xCor == x) && (yCor == y))
 					{
-						tableMap.Rows[row].Cells[cell].BackColor = System.Drawing.Color.Green;
+						tableMap.Rows[row].Cells[cell].BackColor = Color.Blue;
 					}
 				}
 				reader.Close();
