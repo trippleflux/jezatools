@@ -59,16 +59,18 @@ public partial class _Default : Page
 		int xmax = x + distance;
 		int ymin = y - distance;
 		int ymax = y + distance;
+		string dbServer = dropDownListServers.SelectedValue;
+		string serverName = dbServer.Equals("si_s3") ? "s3.travian.si" : "speed.travian.si";
 
 		String sqlConnection = ConfigurationManager.ConnectionStrings["TravianMapConnectionString"].ToString();
 		//(323074,-130,-3,2,81313,'Muta01',17696,'jezonsky',0,'',237);
 		string sql =
 			string.Format(
 				@"
-SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [si_s3] 
+SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [TravianMap].[dbo].[{4}] 
 WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))
 ORDER BY [x] DESC",
-				xmin, xmax, ymax, ymin);
+				xmin, xmax, ymax, ymin, dbServer);
 
 		String allyList = TextBoxAlly.Text;
 		String napList = TextBoxNap.Text;
@@ -98,7 +100,7 @@ ORDER BY [x] DESC",
 					int row = ymax > 0 ? Math.Abs((-yCor + Math.Abs(ymax))) : Math.Abs((-yCor - Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
 					tableMap.Rows[row].Cells[cell].Text =
-						String.Format(@"<a href=""http://s3.travian.si/spieler.php?uid={0}"">{1}</a>", uid, population);
+						String.Format(@"<a href=""http://{2}/spieler.php?uid={0}"">{1}</a>", uid, population, serverName);
 					tableMap.Rows[row].Cells[cell].ToolTip =
 						String.Format("({0})|({1})/{2}/{3}/{4}", xCor, yCor, villageName, playerName, alianceName);
 					//player is in aliance
@@ -121,10 +123,10 @@ ORDER BY [x] DESC",
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Red;
 						}
 					}
-					else
+					//else
 					{
-						sb.AppendFormat("{0}|{1}|3|0,200,0,100,0,0,0,0,0,0,0,0|?newdid=10902|2|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
-							xCor, yCor, playerName, villageName, population, alianceName);
+						sb.AppendFormat("#{0}|{1}|3|{6}|2|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
+							xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
 					}
 
 					if ((xCor == x) && (yCor == y))
@@ -134,7 +136,7 @@ ORDER BY [x] DESC",
 				}
 				reader.Close();
 
-				using (StreamWriter sw = new StreamWriter(@"C:\svn\jezaTools\jcTravianBot\jcMap\villages.txt"))
+				using (StreamWriter sw = new StreamWriter(@"C:\svn\jezaTools\jcTravianBot\jcMap\villages.speed.txt"))
 				{
 					sw.WriteLine(sb);
 					sw.Close();
