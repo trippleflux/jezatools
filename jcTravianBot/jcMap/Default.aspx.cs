@@ -29,9 +29,21 @@ public partial class _Default : Page
 		FillTable();
 	}
 
+	private void ClearTable()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				tableMap.Rows[i].Cells[j].Text = "";
+				tableMap.Rows[i].Cells[j].ToolTip = "";
+				tableMap.Rows[i].Cells[j].BackColor = Color.White;
+			}
+		}
+	}
+
 	private void CreateTable()
 	{
-		tableMap.Rows.Clear();
 		for (int i = 0; i < size; i++)
 		{
 			TableRow row = new TableRow();
@@ -39,7 +51,6 @@ public partial class _Default : Page
 			{
 				TableCell cell = new TableCell();
 				cell.BorderWidth = 1;
-				//cell.BackColor = System.Drawing.Color.Yellow;
 				cell.Width = 30;
 				row.Cells.Add(cell);
 			}
@@ -49,6 +60,7 @@ public partial class _Default : Page
 
 	private void FillTable()
 	{
+		ClearTable();
 		int x = Int32.Parse(textBoxX.Text);
 		int y = Int32.Parse(textBoxY.Text);
 		//int x = -27;
@@ -124,10 +136,10 @@ ORDER BY [x] DESC",
 						}
 					}
 					//else
-					{
-						sb.AppendFormat("#{0}|{1}|3|{6}|2|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
-							xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
-					}
+					//{
+					//    sb.AppendFormat("#{0}|{1}|3|{6}|2|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
+					//        xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
+					//}
 
 					if ((xCor == x) && (yCor == y))
 					{
@@ -136,11 +148,11 @@ ORDER BY [x] DESC",
 				}
 				reader.Close();
 
-				using (StreamWriter sw = new StreamWriter(@"C:\svn\jezaTools\jcTravianBot\jcMap\villages.speed.txt"))
-				{
-					sw.WriteLine(sb);
-					sw.Close();
-				}
+				//using (StreamWriter sw = new StreamWriter(@"C:\svn\jezaTools\jcTravianBot\jcMap\villages.speed.txt"))
+				//{
+				//    sw.WriteLine(sb);
+				//    sw.Close();
+				//}
 			}
 		}
 		catch (Exception e)
