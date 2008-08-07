@@ -18,9 +18,9 @@
             <asp:ListItem>si_speed</asp:ListItem>
         </asp:DropDownList>
 		<asp:LinkButton ID="linkButtonImportData" runat="server" 
-			Style="z-index: 102; left: 20px; position: absolute; top: 80px" OnClick="linkButtonImportData_Click" Enabled="False" Width="90px">Import Data</asp:LinkButton>
+			Style="z-index: 102; left: 20px; position: absolute; top: 80px" OnClick="linkButtonImportData_Click" Enabled="False" Width="90px" Visible="False">Import Data</asp:LinkButton>
         <asp:TextBox ID="textBoxUnits" runat="server" 
-            Style="z-index: 120; left: 20px; position: absolute; top: 110px" Width="260px">0,50,0,0,0,0,0,0,0,0,0,0|?newdid=101556</asp:TextBox>
+            Style="z-index: 120; left: 20px; position: absolute; top: 110px" Width="260px" Visible="False">0,50,0,0,0,0,0,0,0,0,0,0|?newdid=101556</asp:TextBox>
 		
 		<asp:Label ID="labelX" runat="server" 
 			Style="z-index: 103; left: 140px; position: absolute; top: 20px" 
@@ -47,7 +47,7 @@
             Style="z-index: 111; left: 300px; position: absolute; top: 50px" 
             Text="Nap" Width="50px" BackColor="Yellow"></asp:Label>
         <asp:TextBox ID="TextBoxNap" runat="server" 
-            Style="z-index: 112; left: 360px; position: absolute; top: 50px" Width="400px">RE.NO.,TSF,BZP</asp:TextBox>
+            Style="z-index: 112; left: 360px; position: absolute; top: 50px" Width="400px">RE.NO.,BZP</asp:TextBox>
         <asp:Label ID="LabelWar" runat="server" 
             Style="z-index: 113; left: 300px; position: absolute; top: 80px" 
             Text="War" Width="50px" BackColor="Green"></asp:Label>
