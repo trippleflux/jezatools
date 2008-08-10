@@ -79,7 +79,7 @@ public partial class _Default : Page
 		string sql =
 			string.Format(
 				@"
-SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid] FROM [TravianMap].[dbo].[{4}] 
+SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid], [id] FROM [TravianMap].[dbo].[{4}] 
 WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))
 ORDER BY [x] DESC",
 				xmin, xmax, ymax, ymin, dbServer);
@@ -109,12 +109,15 @@ ORDER BY [x] DESC",
 					String alianceName = reader[5].ToString().Trim();
 					Int32 population = Int32.Parse(reader[6].ToString().Trim());
 					Int32 uid = Int32.Parse(reader[7].ToString().Trim());
+					Int32 id = Int32.Parse(reader[8].ToString().Trim());
 					int row = ymax > 0 ? Math.Abs((-yCor + Math.Abs(ymax))) : Math.Abs((-yCor - Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
 					tableMap.Rows[row].Cells[cell].Text =
-						String.Format(@"<a href=""http://{2}/spieler.php?uid={0}"">{1}</a>", uid, population, serverName);
+						String.Format(
+							@"<a href=""http://{2}/spieler.php?uid={0}"">p</a><a href=""http://{2}/a2b.php?z={1}"">a</a><a href=""http://{2}/build.php?z={1}&gid=17"">m</a>",
+							uid, id, serverName);
 					tableMap.Rows[row].Cells[cell].ToolTip =
-						String.Format("({0})|({1})/{2}/{3}/{4}", xCor, yCor, villageName, playerName, alianceName);
+						String.Format("[{0}|{1}] [V:{2}] [N:{3}] [A:{4}] [P:{5}]", xCor, yCor, villageName, playerName, alianceName, population);
 					//player is in aliance
 					if (alianceName.Length > 0)
 					{
