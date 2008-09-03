@@ -2,9 +2,21 @@ using System.IO;
 
 namespace jcTBotClient
 {
+	/// <summary>
+	/// Gets login,password textbox names and sets their content.
+	/// </summary>
+	/// 
 	public class LoginCredentials
 	{
 		private string loginName;
+
+		private string passwordName;
+
+		public LoginCredentials(StreamReader pageContent)
+		{
+			LoginName = "";
+			PasswordName = "";
+		}
 
 		public string LoginName
 		{
@@ -18,12 +30,5 @@ namespace jcTBotClient
 			set { passwordName = value; }
 		}
 
-		private string passwordName;
-
-		public LoginCredentials(StreamReader pageContent)
-		{
-			LoginName = "";
-			PasswordName = "";
-		}
 	}
 }
