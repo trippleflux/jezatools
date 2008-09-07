@@ -3,45 +3,78 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace jcTBotClient
 {
 	class Program
 	{
-		public CookieCollection cColl = null;
+		public static CookieCollection cColl = null;
 
 		[STAThread]
 		static void Main(string[] args)
 		{
-			String loginName = "Vladika";
-			String password = "asd123";
+			String loginName = "jezonsky";
+			String password = "kepek";
 			String loginUrl = "http://s3.travian.si/login.php";
-			CookieContainer loginCookieContainer = new CookieContainer();
-			HttpWebRequest loginRequest = (HttpWebRequest)WebRequest.Create(loginUrl);
-			loginRequest.CookieContainer = loginCookieContainer;
-			HttpWebResponse loginResponse = (HttpWebResponse)loginRequest.GetResponse();
-			StreamReader loginReader = new StreamReader(loginResponse.GetResponseStream(), Encoding.UTF8);
-			String loginContent = loginReader.ReadToEnd();
-			//<input class="fm fm110" type="text" name="e528e90" value="jezonsky" maxlength="15">
-			//<input class="fm fm110" type="password" name="e4519e5" value="******" maxlength="20">
-			//<input type="hidden" name="eea0521" value="fd59291e82">
-			//w=1280%3A1024&login=1218703254&e528e90=Vladika&e4519e5=******&eea0521=fd59291e82&s1.x=60&s1.y=6&s1=login
-			//w=1280%3A1024&login=1218703254&e528e90=Vladika&e4519e5=******&eea0521=fd59291e82&s1.x=60&s1.y=6&s1=login
-			/*
-			 * <input type="hidden" name="w" value="">
-			 * <input type="hidden" name="login" value="1218716929">
-			 * 
-			 * <input class="fm fm110" type="text" name="e528e90" value="" maxlength="15">
-			 * <input class="fm fm110" type="password" name="e4519e5" value="" maxlength="20">
-			 * 
-			 * <input type="hidden" name="eea0521" value="">
-			 * 
-			 * http://www.cnblogs.com/minbear/archive/2007/07/13/816879.html
-			 * http://www.cnblogs.com/qufo/archive/2007/11/05/949725.html
-			 * http://www.netcsharp.cn/archiver/showtopic-755.aspx
-			 * 
-			 */
-			Console.WriteLine(loginContent);
+			String dorf1Url = "http://s3.travian.si/dorf1.php";
+			CookieContainer myCookieContainer = new CookieContainer();
+			string loginContent = GetPageContent(loginUrl, myCookieContainer);
+			LoginCredentials loginC = new LoginCredentials(loginContent);
+			//Console.WriteLine(loginC.LoginName);
+			//Console.WriteLine(loginC.PasswordName);
+			//Console.WriteLine(loginC.HiddenName);
+			//Console.WriteLine(loginC.HiddenValue);
+			//Console.WriteLine(loginC.HiddenLoginValue);
+			//w=1152%3A864&login=1220770065&e4a33c4=jezonsky&eb43098=*****&e1fe1de=e697604783&s1.x=48&s1.y=8
+			String content = Login(loginName, password, dorf1Url, myCookieContainer, loginC);
+			//Console.WriteLine(content);
+			Data data = new Data(content, true, false);
+			for (int i = 0; i < data.VillagesList.Count; i++)
+			{
+				Console.WriteLine(data.VillagesList[i]);
+			}
+			//<a href="logout.php">Odjava</a><br><br>
+			//<a href="?newdid=10902">Muta01</a>
+		}
+
+		private static string GetPageContent(string pageUrl, CookieContainer myCookieContainer)
+		{
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+			httpWebRequest.CookieContainer = myCookieContainer;
+			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+			StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
+			return loginReader.ReadToEnd();
+		}
+
+		private static String Login(String loginName, String password, String dorf1Url, CookieContainer myCookieContainer, LoginCredentials loginC)
+		{
+			String postData =
+						 String.Format("w=1152%3A864&login={0}&{1}={2}&{3}={4}&{5}={6}&s1.x=48&s1.y=8",
+						 loginC.HiddenLoginValue,
+						 loginC.LoginName,
+						 loginName,
+						 loginC.PasswordName,
+						 password,
+						 loginC.HiddenName,
+						 loginC.HiddenValue);
+			//Console.WriteLine(postData);
+
+			UTF8Encoding encoding = new UTF8Encoding();
+			byte[] data = encoding.GetBytes(postData);
+			HttpWebRequest dorf1Request = (HttpWebRequest)WebRequest.Create(dorf1Url);
+			dorf1Request.Method = "POST";
+			dorf1Request.ContentType = "application/x-www-form-urlencoded";
+			dorf1Request.ContentLength = data.Length;
+			dorf1Request.CookieContainer = myCookieContainer;
+			Stream dorf1Stream = dorf1Request.GetRequestStream();
+			dorf1Stream.Write(data, 0, data.Length);
+			dorf1Stream.Close();
+
+			HttpWebResponse dorf1Response = (HttpWebResponse)dorf1Request.GetResponse();
+			cColl = myCookieContainer.GetCookies(dorf1Request.RequestUri);
+			StreamReader reader = new StreamReader(dorf1Response.GetResponseStream(), Encoding.UTF8);
+			return reader.ReadToEnd();
 		}
 	}
 }
