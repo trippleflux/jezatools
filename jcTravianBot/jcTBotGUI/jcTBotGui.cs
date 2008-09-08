@@ -24,5 +24,10 @@ namespace jcTBotGUI
 			// TODO: This line of code loads data into the 'jcTBotDataSet.Villages' table. You can move, or remove it, as needed.
 			this.villagesTableAdapter.Fill(this.jcTBotDataSet.Villages);
 		}
+
+		private void textBox1_TextChanged(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
