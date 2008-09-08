@@ -36,6 +36,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="jcTBotDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>jcTBotDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="jcTBotDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>jcTBotDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="jcTBotDataSetResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>jcTBotDataSetResources.xsd</DependentUpon>
+    </Compile>
     <Compile Include="jcTBotGui.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -44,6 +59,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="jcTBotGui.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>jcTBotGui.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -53,6 +72,40 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="app.config" />
+    <None Include="jcTBotDataSet.xsc">
+      <DependentUpon>jcTBotDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="jcTBotDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>jcTBotDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="jcTBotDataSet.xss">
+      <DependentUpon>jcTBotDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="jcTBotDataSet1.xsc">
+      <DependentUpon>jcTBotDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="jcTBotDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>jcTBotDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="jcTBotDataSet1.xss">
+      <DependentUpon>jcTBotDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="jcTBotDataSetResources.xsc">
+      <DependentUpon>jcTBotDataSetResources.xsd</DependentUpon>
+    </None>
+    <None Include="jcTBotDataSetResources.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>jcTBotDataSetResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="jcTBotDataSetResources.xss">
+      <DependentUpon>jcTBotDataSetResources.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
