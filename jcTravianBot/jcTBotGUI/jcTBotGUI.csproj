@@ -36,6 +36,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="jcTBotDataSet.cs">
+      <DependentUpon>jcTBotDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="jcTBotDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
