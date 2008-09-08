@@ -29,11 +29,11 @@ namespace jcTBotGUI
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.dataGridView2 = new System.Windows.Forms.DataGridView();
-			this.dataGridView3 = new System.Windows.Forms.DataGridView();
+			this.dataGridViewVillages = new System.Windows.Forms.DataGridView();
+			this.dataGridViewResources = new System.Windows.Forms.DataGridView();
+			this.dataGridViewBuildings = new System.Windows.Forms.DataGridView();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.textBoxStatus = new System.Windows.Forms.TextBox();
 			this.checkBox2 = new System.Windows.Forms.CheckBox();
 			this.jcTBotDataSet = new jcTBotGUI.jcTBotDataSet();
 			this.villagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -52,34 +52,30 @@ namespace jcTBotGUI
 			this.cropProductionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.buildingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.buildingsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.BuildingsTableAdapter();
-			this.buildingsBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
 			this.buildingIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.buildingNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.resourcesBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.resourcesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.ResourcesTableAdapter();
 			this.resourceIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.resourceNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewVillages)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.villagesBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.buildingsBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.buildingsBindingSource1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.resourcesBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// dataGridView1
+			// dataGridViewVillages
 			// 
-			this.dataGridView1.AllowUserToAddRows = false;
-			this.dataGridView1.AllowUserToDeleteRows = false;
-			this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)));
-			this.dataGridView1.AutoGenerateColumns = false;
-			this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-			this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.dataGridViewVillages.AllowUserToAddRows = false;
+			this.dataGridViewVillages.AllowUserToDeleteRows = false;
+			this.dataGridViewVillages.AutoGenerateColumns = false;
+			this.dataGridViewVillages.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+			this.dataGridViewVillages.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+			this.dataGridViewVillages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewVillages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.villageIdDataGridViewTextBoxColumn,
             this.villageNameDataGridViewTextBoxColumn,
             this.warehouseCapacetyDataGridViewTextBoxColumn,
@@ -92,44 +88,44 @@ namespace jcTBotGUI
             this.clayProductionDataGridViewTextBoxColumn,
             this.ironProductionDataGridViewTextBoxColumn,
             this.cropProductionDataGridViewTextBoxColumn});
-			this.dataGridView1.DataSource = this.villagesBindingSource;
-			this.dataGridView1.Location = new System.Drawing.Point(12, 12);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.ReadOnly = true;
-			this.dataGridView1.Size = new System.Drawing.Size(779, 434);
-			this.dataGridView1.TabIndex = 0;
+			this.dataGridViewVillages.DataSource = this.villagesBindingSource;
+			this.dataGridViewVillages.Location = new System.Drawing.Point(12, 12);
+			this.dataGridViewVillages.Name = "dataGridViewVillages";
+			this.dataGridViewVillages.ReadOnly = true;
+			this.dataGridViewVillages.Size = new System.Drawing.Size(779, 434);
+			this.dataGridViewVillages.TabIndex = 0;
 			// 
-			// dataGridView2
+			// dataGridViewResources
 			// 
-			this.dataGridView2.AllowUserToAddRows = false;
-			this.dataGridView2.AllowUserToDeleteRows = false;
-			this.dataGridView2.AutoGenerateColumns = false;
-			this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.dataGridViewResources.AllowUserToAddRows = false;
+			this.dataGridViewResources.AllowUserToDeleteRows = false;
+			this.dataGridViewResources.AutoGenerateColumns = false;
+			this.dataGridViewResources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewResources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.resourceIdDataGridViewTextBoxColumn,
             this.resourceNameDataGridViewTextBoxColumn});
-			this.dataGridView2.DataSource = this.resourcesBindingSource;
-			this.dataGridView2.Location = new System.Drawing.Point(798, 13);
-			this.dataGridView2.Name = "dataGridView2";
-			this.dataGridView2.ReadOnly = true;
-			this.dataGridView2.Size = new System.Drawing.Size(335, 433);
-			this.dataGridView2.TabIndex = 1;
+			this.dataGridViewResources.DataSource = this.resourcesBindingSource;
+			this.dataGridViewResources.Location = new System.Drawing.Point(798, 13);
+			this.dataGridViewResources.Name = "dataGridViewResources";
+			this.dataGridViewResources.ReadOnly = true;
+			this.dataGridViewResources.Size = new System.Drawing.Size(335, 433);
+			this.dataGridViewResources.TabIndex = 1;
 			// 
-			// dataGridView3
+			// dataGridViewBuildings
 			// 
-			this.dataGridView3.AllowUserToAddRows = false;
-			this.dataGridView3.AllowUserToDeleteRows = false;
-			this.dataGridView3.AutoGenerateColumns = false;
-			this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.dataGridViewBuildings.AllowUserToAddRows = false;
+			this.dataGridViewBuildings.AllowUserToDeleteRows = false;
+			this.dataGridViewBuildings.AutoGenerateColumns = false;
+			this.dataGridViewBuildings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewBuildings.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.buildingIdDataGridViewTextBoxColumn1,
             this.buildingNameDataGridViewTextBoxColumn1});
-			this.dataGridView3.DataSource = this.buildingsBindingSource1;
-			this.dataGridView3.Location = new System.Drawing.Point(798, 452);
-			this.dataGridView3.Name = "dataGridView3";
-			this.dataGridView3.ReadOnly = true;
-			this.dataGridView3.Size = new System.Drawing.Size(335, 433);
-			this.dataGridView3.TabIndex = 2;
+			this.dataGridViewBuildings.DataSource = this.buildingsBindingSource;
+			this.dataGridViewBuildings.Location = new System.Drawing.Point(798, 452);
+			this.dataGridViewBuildings.Name = "dataGridViewBuildings";
+			this.dataGridViewBuildings.ReadOnly = true;
+			this.dataGridViewBuildings.Size = new System.Drawing.Size(335, 433);
+			this.dataGridViewBuildings.TabIndex = 2;
 			// 
 			// checkBox1
 			// 
@@ -143,14 +139,15 @@ namespace jcTBotGUI
 			this.checkBox1.Text = "Auto Build";
 			this.checkBox1.UseVisualStyleBackColor = true;
 			// 
-			// textBox1
+			// textBoxStatus
 			// 
-			this.textBox1.Location = new System.Drawing.Point(12, 506);
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textBox1.Size = new System.Drawing.Size(780, 379);
-			this.textBox1.TabIndex = 4;
+			this.textBoxStatus.Location = new System.Drawing.Point(12, 506);
+			this.textBoxStatus.Multiline = true;
+			this.textBoxStatus.Name = "textBoxStatus";
+			this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.textBoxStatus.Size = new System.Drawing.Size(780, 379);
+			this.textBoxStatus.TabIndex = 4;
+			this.textBoxStatus.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
 			// 
 			// checkBox2
 			// 
@@ -283,11 +280,6 @@ namespace jcTBotGUI
 			// 
 			this.buildingsTableAdapter.ClearBeforeFill = true;
 			// 
-			// buildingsBindingSource1
-			// 
-			this.buildingsBindingSource1.DataMember = "Buildings";
-			this.buildingsBindingSource1.DataSource = this.jcTBotDataSet;
-			// 
 			// buildingIdDataGridViewTextBoxColumn1
 			// 
 			this.buildingIdDataGridViewTextBoxColumn1.DataPropertyName = "BuildingId";
@@ -331,21 +323,20 @@ namespace jcTBotGUI
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1145, 897);
 			this.Controls.Add(this.checkBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.textBoxStatus);
 			this.Controls.Add(this.checkBox1);
-			this.Controls.Add(this.dataGridView3);
-			this.Controls.Add(this.dataGridView2);
-			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.dataGridViewBuildings);
+			this.Controls.Add(this.dataGridViewResources);
+			this.Controls.Add(this.dataGridViewVillages);
 			this.Name = "jcTBotGui";
 			this.Text = "jcTBotGui";
 			this.Load += new System.EventHandler(this.jcTBotGui_Load);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewVillages)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.villagesBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.buildingsBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.buildingsBindingSource1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.resourcesBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -354,11 +345,11 @@ namespace jcTBotGUI
 
 		#endregion
 
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.DataGridView dataGridView2;
-		private System.Windows.Forms.DataGridView dataGridView3;
+		private System.Windows.Forms.DataGridView dataGridViewVillages;
+		private System.Windows.Forms.DataGridView dataGridViewResources;
+		private System.Windows.Forms.DataGridView dataGridViewBuildings;
 		private System.Windows.Forms.CheckBox checkBox1;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox textBoxStatus;
 		private System.Windows.Forms.CheckBox checkBox2;
 		private jcTBotDataSet jcTBotDataSet;
 		private System.Windows.Forms.BindingSource villagesBindingSource;
@@ -379,7 +370,6 @@ namespace jcTBotGUI
 		private jcTBotGUI.jcTBotDataSetTableAdapters.BuildingsTableAdapter buildingsTableAdapter;
 		private System.Windows.Forms.DataGridViewTextBoxColumn buildingIdDataGridViewTextBoxColumn1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn buildingNameDataGridViewTextBoxColumn1;
-		private System.Windows.Forms.BindingSource buildingsBindingSource1;
 		private System.Windows.Forms.BindingSource resourcesBindingSource;
 		private jcTBotGUI.jcTBotDataSetTableAdapters.ResourcesTableAdapter resourcesTableAdapter;
 		private System.Windows.Forms.DataGridViewTextBoxColumn resourceIdDataGridViewTextBoxColumn;
