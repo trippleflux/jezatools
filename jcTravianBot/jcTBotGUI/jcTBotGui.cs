@@ -17,10 +17,10 @@ namespace jcTBotGUI
 
 		private void jcTBotGui_Load(object sender, EventArgs e)
 		{
-			// TODO: This line of code loads data into the 'jcTBotDataSet1.Buildings' table. You can move, or remove it, as needed.
-			this.buildingsTableAdapter.Fill(this.jcTBotDataSet1.Buildings);
-			// TODO: This line of code loads data into the 'jcTBotDataSetResources.Resources' table. You can move, or remove it, as needed.
-			this.resourcesTableAdapter.Fill(this.jcTBotDataSetResources.Resources);
+			// TODO: This line of code loads data into the 'jcTBotDataSet.Resources' table. You can move, or remove it, as needed.
+			this.resourcesTableAdapter.Fill(this.jcTBotDataSet.Resources);
+			// TODO: This line of code loads data into the 'jcTBotDataSet.Buildings' table. You can move, or remove it, as needed.
+			this.buildingsTableAdapter.Fill(this.jcTBotDataSet.Buildings);
 			// TODO: This line of code loads data into the 'jcTBotDataSet.Villages' table. You can move, or remove it, as needed.
 			this.villagesTableAdapter.Fill(this.jcTBotDataSet.Villages);
 		}
