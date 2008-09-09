@@ -26,7 +26,7 @@ namespace jcTBotGUI.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\svn\\jezaTools\\jcTravianBot\\jcTBotLibrary\\jcTBotDB.s3db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("data source=C:\\svn\\jezaTools\\jcTravianBot\\BotLibrary\\jcTBotDB.s3db")]
         public string jcTBotConnectionString {
             get {
                 return ((string)(this["jcTBotConnectionString"]));

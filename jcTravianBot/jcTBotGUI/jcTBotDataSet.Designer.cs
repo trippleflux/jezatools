@@ -33,6 +33,12 @@ namespace jcTBotGUI {
         
         private TasksDataTable tableTasks;
         
+        private GetBuildingsGIDsDataTable tableGetBuildingsGIDs;
+        
+        private GetTaskListDataTable tableGetTaskList;
+        
+        private GetVillagesDataTable tableGetVillages;
+        
         private System.Data.DataRelation relationFK_Buildings_Villages;
         
         private System.Data.DataRelation relationFK_Resources_Villages;
@@ -81,6 +87,15 @@ namespace jcTBotGUI {
                 }
                 if ((ds.Tables["Tasks"] != null)) {
                     base.Tables.Add(new TasksDataTable(ds.Tables["Tasks"]));
+                }
+                if ((ds.Tables["GetBuildingsGIDs"] != null)) {
+                    base.Tables.Add(new GetBuildingsGIDsDataTable(ds.Tables["GetBuildingsGIDs"]));
+                }
+                if ((ds.Tables["GetTaskList"] != null)) {
+                    base.Tables.Add(new GetTaskListDataTable(ds.Tables["GetTaskList"]));
+                }
+                if ((ds.Tables["GetVillages"] != null)) {
+                    base.Tables.Add(new GetVillagesDataTable(ds.Tables["GetVillages"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -142,6 +157,33 @@ namespace jcTBotGUI {
         public TasksDataTable Tasks {
             get {
                 return this.tableTasks;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public GetBuildingsGIDsDataTable GetBuildingsGIDs {
+            get {
+                return this.tableGetBuildingsGIDs;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public GetTaskListDataTable GetTaskList {
+            get {
+                return this.tableGetTaskList;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Browsable(false)]
+        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public GetVillagesDataTable GetVillages {
+            get {
+                return this.tableGetVillages;
             }
         }
         
@@ -219,6 +261,15 @@ namespace jcTBotGUI {
                 if ((ds.Tables["Tasks"] != null)) {
                     base.Tables.Add(new TasksDataTable(ds.Tables["Tasks"]));
                 }
+                if ((ds.Tables["GetBuildingsGIDs"] != null)) {
+                    base.Tables.Add(new GetBuildingsGIDsDataTable(ds.Tables["GetBuildingsGIDs"]));
+                }
+                if ((ds.Tables["GetTaskList"] != null)) {
+                    base.Tables.Add(new GetTaskListDataTable(ds.Tables["GetTaskList"]));
+                }
+                if ((ds.Tables["GetVillages"] != null)) {
+                    base.Tables.Add(new GetVillagesDataTable(ds.Tables["GetVillages"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -279,6 +330,24 @@ namespace jcTBotGUI {
                     this.tableTasks.InitVars();
                 }
             }
+            this.tableGetBuildingsGIDs = ((GetBuildingsGIDsDataTable)(base.Tables["GetBuildingsGIDs"]));
+            if ((initTable == true)) {
+                if ((this.tableGetBuildingsGIDs != null)) {
+                    this.tableGetBuildingsGIDs.InitVars();
+                }
+            }
+            this.tableGetTaskList = ((GetTaskListDataTable)(base.Tables["GetTaskList"]));
+            if ((initTable == true)) {
+                if ((this.tableGetTaskList != null)) {
+                    this.tableGetTaskList.InitVars();
+                }
+            }
+            this.tableGetVillages = ((GetVillagesDataTable)(base.Tables["GetVillages"]));
+            if ((initTable == true)) {
+                if ((this.tableGetVillages != null)) {
+                    this.tableGetVillages.InitVars();
+                }
+            }
             this.relationFK_Buildings_Villages = this.Relations["FK_Buildings_Villages"];
             this.relationFK_Resources_Villages = this.Relations["FK_Resources_Villages"];
             this.relationVillages_TaskList = this.Relations["Villages_TaskList"];
@@ -302,6 +371,12 @@ namespace jcTBotGUI {
             base.Tables.Add(this.tableTaskList);
             this.tableTasks = new TasksDataTable();
             base.Tables.Add(this.tableTasks);
+            this.tableGetBuildingsGIDs = new GetBuildingsGIDsDataTable();
+            base.Tables.Add(this.tableGetBuildingsGIDs);
+            this.tableGetTaskList = new GetTaskListDataTable();
+            base.Tables.Add(this.tableGetTaskList);
+            this.tableGetVillages = new GetVillagesDataTable();
+            base.Tables.Add(this.tableGetVillages);
             this.relationFK_Buildings_Villages = new System.Data.DataRelation("FK_Buildings_Villages", new System.Data.DataColumn[] {
                         this.tableVillages.VillageIdColumn}, new System.Data.DataColumn[] {
                         this.tableBuildings.VillageIdColumn}, false);
@@ -346,6 +421,21 @@ namespace jcTBotGUI {
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeGetBuildingsGIDs() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeGetTaskList() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private bool ShouldSerializeGetVillages() {
+            return false;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void SchemaChanged(object sender, System.ComponentModel.CollectionChangeEventArgs e) {
             if ((e.Action == System.ComponentModel.CollectionChangeAction.Remove)) {
                 this.InitVars();
@@ -374,6 +464,12 @@ namespace jcTBotGUI {
         public delegate void TaskListRowChangeEventHandler(object sender, TaskListRowChangeEvent e);
         
         public delegate void TasksRowChangeEventHandler(object sender, TasksRowChangeEvent e);
+        
+        public delegate void GetBuildingsGIDsRowChangeEventHandler(object sender, GetBuildingsGIDsRowChangeEvent e);
+        
+        public delegate void GetTaskListRowChangeEventHandler(object sender, GetTaskListRowChangeEvent e);
+        
+        public delegate void GetVillagesRowChangeEventHandler(object sender, GetVillagesRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
@@ -1658,6 +1754,729 @@ namespace jcTBotGUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class GetBuildingsGIDsDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnId;
+            
+            private System.Data.DataColumn columnBuildingName;
+            
+            private System.Data.DataColumn columnBuildingGID;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsDataTable() {
+                this.TableName = "GetBuildingsGIDs";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetBuildingsGIDsDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected GetBuildingsGIDsDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BuildingNameColumn {
+                get {
+                    return this.columnBuildingName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BuildingGIDColumn {
+                get {
+                    return this.columnBuildingGID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsRow this[int index] {
+                get {
+                    return ((GetBuildingsGIDsRow)(this.Rows[index]));
+                }
+            }
+            
+            public event GetBuildingsGIDsRowChangeEventHandler GetBuildingsGIDsRowChanging;
+            
+            public event GetBuildingsGIDsRowChangeEventHandler GetBuildingsGIDsRowChanged;
+            
+            public event GetBuildingsGIDsRowChangeEventHandler GetBuildingsGIDsRowDeleting;
+            
+            public event GetBuildingsGIDsRowChangeEventHandler GetBuildingsGIDsRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddGetBuildingsGIDsRow(GetBuildingsGIDsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsRow AddGetBuildingsGIDsRow(string BuildingName, int BuildingGID) {
+                GetBuildingsGIDsRow rowGetBuildingsGIDsRow = ((GetBuildingsGIDsRow)(this.NewRow()));
+                rowGetBuildingsGIDsRow.ItemArray = new object[] {
+                        null,
+                        BuildingName,
+                        BuildingGID};
+                this.Rows.Add(rowGetBuildingsGIDsRow);
+                return rowGetBuildingsGIDsRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsRow FindById(int Id) {
+                return ((GetBuildingsGIDsRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                GetBuildingsGIDsDataTable cln = ((GetBuildingsGIDsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new GetBuildingsGIDsDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnBuildingName = base.Columns["BuildingName"];
+                this.columnBuildingGID = base.Columns["BuildingGID"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnId = new System.Data.DataColumn("Id", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnBuildingName = new System.Data.DataColumn("BuildingName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildingName);
+                this.columnBuildingGID = new System.Data.DataColumn("BuildingGID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildingGID);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnBuildingName.AllowDBNull = false;
+                this.columnBuildingName.MaxLength = 50;
+                this.columnBuildingGID.AllowDBNull = false;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsRow NewGetBuildingsGIDsRow() {
+                return ((GetBuildingsGIDsRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new GetBuildingsGIDsRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(GetBuildingsGIDsRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.GetBuildingsGIDsRowChanged != null)) {
+                    this.GetBuildingsGIDsRowChanged(this, new GetBuildingsGIDsRowChangeEvent(((GetBuildingsGIDsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.GetBuildingsGIDsRowChanging != null)) {
+                    this.GetBuildingsGIDsRowChanging(this, new GetBuildingsGIDsRowChangeEvent(((GetBuildingsGIDsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.GetBuildingsGIDsRowDeleted != null)) {
+                    this.GetBuildingsGIDsRowDeleted(this, new GetBuildingsGIDsRowChangeEvent(((GetBuildingsGIDsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.GetBuildingsGIDsRowDeleting != null)) {
+                    this.GetBuildingsGIDsRowDeleting(this, new GetBuildingsGIDsRowChangeEvent(((GetBuildingsGIDsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveGetBuildingsGIDsRow(GetBuildingsGIDsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                jcTBotDataSet ds = new jcTBotDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "GetBuildingsGIDsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class GetTaskListDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnId;
+            
+            private System.Data.DataColumn columnVillageID;
+            
+            private System.Data.DataColumn columnTaskId;
+            
+            private System.Data.DataColumn columnBuildLevel;
+            
+            private System.Data.DataColumn columnNextCheck;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListDataTable() {
+                this.TableName = "GetTaskList";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetTaskListDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected GetTaskListDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn VillageIDColumn {
+                get {
+                    return this.columnVillageID;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn TaskIdColumn {
+                get {
+                    return this.columnTaskId;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BuildLevelColumn {
+                get {
+                    return this.columnBuildLevel;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NextCheckColumn {
+                get {
+                    return this.columnNextCheck;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListRow this[int index] {
+                get {
+                    return ((GetTaskListRow)(this.Rows[index]));
+                }
+            }
+            
+            public event GetTaskListRowChangeEventHandler GetTaskListRowChanging;
+            
+            public event GetTaskListRowChangeEventHandler GetTaskListRowChanged;
+            
+            public event GetTaskListRowChangeEventHandler GetTaskListRowDeleting;
+            
+            public event GetTaskListRowChangeEventHandler GetTaskListRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddGetTaskListRow(GetTaskListRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListRow AddGetTaskListRow(int VillageID, int TaskId, int BuildLevel, System.DateTime NextCheck) {
+                GetTaskListRow rowGetTaskListRow = ((GetTaskListRow)(this.NewRow()));
+                rowGetTaskListRow.ItemArray = new object[] {
+                        null,
+                        VillageID,
+                        TaskId,
+                        BuildLevel,
+                        NextCheck};
+                this.Rows.Add(rowGetTaskListRow);
+                return rowGetTaskListRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListRow FindById(int Id) {
+                return ((GetTaskListRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                GetTaskListDataTable cln = ((GetTaskListDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new GetTaskListDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnVillageID = base.Columns["VillageID"];
+                this.columnTaskId = base.Columns["TaskId"];
+                this.columnBuildLevel = base.Columns["BuildLevel"];
+                this.columnNextCheck = base.Columns["NextCheck"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnId = new System.Data.DataColumn("Id", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnVillageID = new System.Data.DataColumn("VillageID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnVillageID);
+                this.columnTaskId = new System.Data.DataColumn("TaskId", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTaskId);
+                this.columnBuildLevel = new System.Data.DataColumn("BuildLevel", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildLevel);
+                this.columnNextCheck = new System.Data.DataColumn("NextCheck", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNextCheck);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnVillageID.AllowDBNull = false;
+                this.columnTaskId.AllowDBNull = false;
+                this.columnBuildLevel.AllowDBNull = false;
+                this.columnNextCheck.AllowDBNull = false;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListRow NewGetTaskListRow() {
+                return ((GetTaskListRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new GetTaskListRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(GetTaskListRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.GetTaskListRowChanged != null)) {
+                    this.GetTaskListRowChanged(this, new GetTaskListRowChangeEvent(((GetTaskListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.GetTaskListRowChanging != null)) {
+                    this.GetTaskListRowChanging(this, new GetTaskListRowChangeEvent(((GetTaskListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.GetTaskListRowDeleted != null)) {
+                    this.GetTaskListRowDeleted(this, new GetTaskListRowChangeEvent(((GetTaskListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.GetTaskListRowDeleting != null)) {
+                    this.GetTaskListRowDeleting(this, new GetTaskListRowChangeEvent(((GetTaskListRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveGetTaskListRow(GetTaskListRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                jcTBotDataSet ds = new jcTBotDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "GetTaskListDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class GetVillagesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnId;
+            
+            private System.Data.DataColumn columnVillageId;
+            
+            private System.Data.DataColumn columnVillageName;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesDataTable() {
+                this.TableName = "GetVillages";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetVillagesDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected GetVillagesDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn VillageIdColumn {
+                get {
+                    return this.columnVillageId;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn VillageNameColumn {
+                get {
+                    return this.columnVillageName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesRow this[int index] {
+                get {
+                    return ((GetVillagesRow)(this.Rows[index]));
+                }
+            }
+            
+            public event GetVillagesRowChangeEventHandler GetVillagesRowChanging;
+            
+            public event GetVillagesRowChangeEventHandler GetVillagesRowChanged;
+            
+            public event GetVillagesRowChangeEventHandler GetVillagesRowDeleting;
+            
+            public event GetVillagesRowChangeEventHandler GetVillagesRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddGetVillagesRow(GetVillagesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesRow AddGetVillagesRow(int VillageId, string VillageName) {
+                GetVillagesRow rowGetVillagesRow = ((GetVillagesRow)(this.NewRow()));
+                rowGetVillagesRow.ItemArray = new object[] {
+                        null,
+                        VillageId,
+                        VillageName};
+                this.Rows.Add(rowGetVillagesRow);
+                return rowGetVillagesRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesRow FindById(int Id) {
+                return ((GetVillagesRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                GetVillagesDataTable cln = ((GetVillagesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new GetVillagesDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnVillageId = base.Columns["VillageId"];
+                this.columnVillageName = base.Columns["VillageName"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnId = new System.Data.DataColumn("Id", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnVillageId = new System.Data.DataColumn("VillageId", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnVillageId);
+                this.columnVillageName = new System.Data.DataColumn("VillageName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnVillageName);
+                this.Constraints.Add(new System.Data.UniqueConstraint("Constraint1", new System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnVillageId.AllowDBNull = false;
+                this.columnVillageName.AllowDBNull = false;
+                this.columnVillageName.MaxLength = 50;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesRow NewGetVillagesRow() {
+                return ((GetVillagesRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new GetVillagesRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(GetVillagesRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.GetVillagesRowChanged != null)) {
+                    this.GetVillagesRowChanged(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.GetVillagesRowChanging != null)) {
+                    this.GetVillagesRowChanging(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.GetVillagesRowDeleted != null)) {
+                    this.GetVillagesRowDeleted(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.GetVillagesRowDeleting != null)) {
+                    this.GetVillagesRowDeleting(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveGetVillagesRow(GetVillagesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                jcTBotDataSet ds = new jcTBotDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "GetVillagesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public partial class BuildingsRow : System.Data.DataRow {
             
             private BuildingsDataTable tableBuildings;
@@ -2463,6 +3282,152 @@ namespace jcTBotGUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class GetBuildingsGIDsRow : System.Data.DataRow {
+            
+            private GetBuildingsGIDsDataTable tableGetBuildingsGIDs;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetBuildingsGIDsRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetBuildingsGIDs = ((GetBuildingsGIDsDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableGetBuildingsGIDs.IdColumn]));
+                }
+                set {
+                    this[this.tableGetBuildingsGIDs.IdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string BuildingName {
+                get {
+                    return ((string)(this[this.tableGetBuildingsGIDs.BuildingNameColumn]));
+                }
+                set {
+                    this[this.tableGetBuildingsGIDs.BuildingNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int BuildingGID {
+                get {
+                    return ((int)(this[this.tableGetBuildingsGIDs.BuildingGIDColumn]));
+                }
+                set {
+                    this[this.tableGetBuildingsGIDs.BuildingGIDColumn] = value;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class GetTaskListRow : System.Data.DataRow {
+            
+            private GetTaskListDataTable tableGetTaskList;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetTaskListRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetTaskList = ((GetTaskListDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableGetTaskList.IdColumn]));
+                }
+                set {
+                    this[this.tableGetTaskList.IdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int VillageID {
+                get {
+                    return ((int)(this[this.tableGetTaskList.VillageIDColumn]));
+                }
+                set {
+                    this[this.tableGetTaskList.VillageIDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int TaskId {
+                get {
+                    return ((int)(this[this.tableGetTaskList.TaskIdColumn]));
+                }
+                set {
+                    this[this.tableGetTaskList.TaskIdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int BuildLevel {
+                get {
+                    return ((int)(this[this.tableGetTaskList.BuildLevelColumn]));
+                }
+                set {
+                    this[this.tableGetTaskList.BuildLevelColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime NextCheck {
+                get {
+                    return ((System.DateTime)(this[this.tableGetTaskList.NextCheckColumn]));
+                }
+                set {
+                    this[this.tableGetTaskList.NextCheckColumn] = value;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class GetVillagesRow : System.Data.DataRow {
+            
+            private GetVillagesDataTable tableGetVillages;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetVillagesRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetVillages = ((GetVillagesDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableGetVillages.IdColumn]));
+                }
+                set {
+                    this[this.tableGetVillages.IdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int VillageId {
+                get {
+                    return ((int)(this[this.tableGetVillages.VillageIdColumn]));
+                }
+                set {
+                    this[this.tableGetVillages.VillageIdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string VillageName {
+                get {
+                    return ((string)(this[this.tableGetVillages.VillageNameColumn]));
+                }
+                set {
+                    this[this.tableGetVillages.VillageNameColumn] = value;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         public class BuildingsRowChangeEvent : System.EventArgs {
             
             private BuildingsRow eventRow;
@@ -2589,6 +3554,90 @@ namespace jcTBotGUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public TasksRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class GetBuildingsGIDsRowChangeEvent : System.EventArgs {
+            
+            private GetBuildingsGIDsRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsRowChangeEvent(GetBuildingsGIDsRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetBuildingsGIDsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class GetTaskListRowChangeEvent : System.EventArgs {
+            
+            private GetTaskListRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListRowChangeEvent(GetTaskListRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public class GetVillagesRowChangeEvent : System.EventArgs {
+            
+            private GetVillagesRow eventRow;
+            
+            private System.Data.DataRowAction eventAction;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesRowChangeEvent(GetVillagesRow row, System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetVillagesRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4099,6 +5148,398 @@ SELECT VillageId, VillageName, Warehouse, Granary, Wood, Clay, Iron, Crop, WoodP
                     this.Adapter.InsertCommand.Connection.Close();
                 }
             }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetBuildingsGIDsTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public GetBuildingsGIDsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetBuildingsGIDs";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("BuildingName", "BuildingName");
+            tableMapping.ColumnMappings.Add("BuildingGID", "BuildingGID");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::jcTBotGUI.Properties.Settings.Default.jcTBotConnection;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetBuildingsGIDs";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(jcTBotDataSet.GetBuildingsGIDsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual jcTBotDataSet.GetBuildingsGIDsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            jcTBotDataSet.GetBuildingsGIDsDataTable dataTable = new jcTBotDataSet.GetBuildingsGIDsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetTaskListTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public GetTaskListTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetTaskList";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("VillageID", "VillageID");
+            tableMapping.ColumnMappings.Add("TaskId", "TaskId");
+            tableMapping.ColumnMappings.Add("BuildLevel", "BuildLevel");
+            tableMapping.ColumnMappings.Add("NextCheck", "NextCheck");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::jcTBotGUI.Properties.Settings.Default.jcTBotConnection;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetTaskList";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(jcTBotDataSet.GetTaskListDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual jcTBotDataSet.GetTaskListDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            jcTBotDataSet.GetTaskListDataTable dataTable = new jcTBotDataSet.GetTaskListDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetVillagesTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public GetVillagesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetVillages";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("VillageId", "VillageId");
+            tableMapping.ColumnMappings.Add("VillageName", "VillageName");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::jcTBotGUI.Properties.Settings.Default.jcTBotConnection;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetVillages";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(jcTBotDataSet.GetVillagesDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual jcTBotDataSet.GetVillagesDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            jcTBotDataSet.GetVillagesDataTable dataTable = new jcTBotDataSet.GetVillagesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
     }
 }
