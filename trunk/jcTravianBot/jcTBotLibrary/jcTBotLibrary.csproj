@@ -33,7 +33,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="jcTBotLibrary.cs" />
+    <Compile Include="BotLibrary.cs" />
+    <Compile Include="Data.cs" />
+    <Compile Include="LoginCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
