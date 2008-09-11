@@ -16,9 +16,9 @@ GO
 -- =============================================
 -- Author:		Andrej Jeznik
 -- Create date: 11.09.2008
--- Description:	Get current tasks list
+-- Description:	Get the list of available tasks
 -- =============================================
-CREATE PROCEDURE GetTaskList
+CREATE PROCEDURE GetAvailableTasks 
 	-- Add the parameters for the stored procedure here
 	-- <@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
 	-- <@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
@@ -29,6 +29,6 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT VillageID, TaskId, BuildLevel, NextCheck FROM [dbo].[TaskList]
+	SELECT TaskName FROM [dbo].[Tasks]
 END
 GO

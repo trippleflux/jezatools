@@ -16,12 +16,14 @@ GO
 -- =============================================
 -- Author:		Andrej Jeznik
 -- Create date: 11.09.2008
--- Description:	Get current tasks list
+-- Description:	Insert new task
 -- =============================================
-CREATE PROCEDURE GetTaskList
+CREATE PROCEDURE InsertTask 
 	-- Add the parameters for the stored procedure here
-	-- <@Param1, sysname, @p1> <Datatype_For_Param1, , int> = <Default_Value_For_Param1, , 0>, 
-	-- <@Param2, sysname, @p2> <Datatype_For_Param2, , int> = <Default_Value_For_Param2, , 0>
+	(@VillageId int
+	,@TaskId int
+	,@BuildLevel int 
+	,@NextCheck datetime)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -29,6 +31,15 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	SELECT VillageID, TaskId, BuildLevel, NextCheck FROM [dbo].[TaskList]
+INSERT INTO [jcTBot].[dbo].[TaskList]
+           ([VillageID]
+           ,[TaskId]
+           ,[BuildLevel]
+           ,[NextCheck])
+     VALUES
+           (@VillageId
+           ,@TaskId
+           ,@BuildLevel
+           ,@NextCheck)
 END
 GO
