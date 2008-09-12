@@ -40,34 +40,15 @@ namespace jcTBotGUI
 			this.labelServerName = new System.Windows.Forms.Label();
 			this.Villages = new System.Windows.Forms.TabPage();
 			this.dataGridViewBuildings = new System.Windows.Forms.DataGridView();
-			this.villageIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.buildingIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.buildingNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.buildingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.jcTBotDataSet = new jcTBotGUI.jcTBotDataSet();
 			this.dataGridViewResources = new System.Windows.Forms.DataGridView();
-			this.villageIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.resourceIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.resourceNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.resourcesBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridViewVillages = new System.Windows.Forms.DataGridView();
-			this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.villageNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.villagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.Attacks = new System.Windows.Forms.TabPage();
 			this.Tasks = new System.Windows.Forms.TabPage();
 			this.buttonAddTask = new System.Windows.Forms.Button();
 			this.comboBox3 = new System.Windows.Forms.ComboBox();
-			this.tasksBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.comboBox2 = new System.Windows.Forms.ComboBox();
 			this.comboBoxBuildingLevel = new System.Windows.Forms.ComboBox();
 			this.dataGridViewTaskList = new System.Windows.Forms.DataGridView();
-			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.taskIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.nextCheckDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.buildLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.taskListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.jcTBotDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.Map = new System.Windows.Forms.TabPage();
 			this.Reports = new System.Windows.Forms.TabPage();
@@ -76,34 +57,42 @@ namespace jcTBotGUI
 			this.buttonClear = new System.Windows.Forms.Button();
 			this.textBoxStatus = new System.Windows.Forms.TextBox();
 			this.tabPageSendResources = new System.Windows.Forms.TabPage();
-			this.villagesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.VillagesTableAdapter();
-			this.resourcesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.ResourcesTableAdapter();
-			this.buildingsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.BuildingsTableAdapter();
-			this.taskListTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.TaskListTableAdapter();
-			this.tasksTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.TasksTableAdapter();
-			this.getVillagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.getVillagesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetVillagesTableAdapter();
+			this.jcTBotDataSet = new jcTBotGUI.jcTBotDataSet();
 			this.getTaskListBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.getTaskListTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskListTableAdapter();
+			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.villageNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.taskNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.buildLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.nextCheckDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.getProductionForVillagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getProductionForVillagesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetProductionForVillagesTableAdapter();
+			this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.villageNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.warehouseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.granaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.woodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.clayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ironDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cropDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.woodPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.clayPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ironPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.cropPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tabControl.SuspendLayout();
 			this.Login.SuspendLayout();
 			this.Villages.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.buildingsBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.resourcesBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewVillages)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.villagesBindingSource)).BeginInit();
 			this.Tasks.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaskList)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.taskListBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSetBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.Status.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.getVillagesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -223,49 +212,12 @@ namespace jcTBotGUI
 			this.dataGridViewBuildings.AllowUserToDeleteRows = false;
 			this.dataGridViewBuildings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridViewBuildings.AutoGenerateColumns = false;
 			this.dataGridViewBuildings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewBuildings.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.villageIdDataGridViewTextBoxColumn2,
-            this.buildingIdDataGridViewTextBoxColumn,
-            this.buildingNameDataGridViewTextBoxColumn});
-			this.dataGridViewBuildings.DataSource = this.buildingsBindingSource;
 			this.dataGridViewBuildings.Location = new System.Drawing.Point(409, 261);
 			this.dataGridViewBuildings.Name = "dataGridViewBuildings";
 			this.dataGridViewBuildings.ReadOnly = true;
 			this.dataGridViewBuildings.Size = new System.Drawing.Size(400, 310);
 			this.dataGridViewBuildings.TabIndex = 2;
-			// 
-			// villageIdDataGridViewTextBoxColumn2
-			// 
-			this.villageIdDataGridViewTextBoxColumn2.DataPropertyName = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn2.HeaderText = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn2.Name = "villageIdDataGridViewTextBoxColumn2";
-			this.villageIdDataGridViewTextBoxColumn2.ReadOnly = true;
-			// 
-			// buildingIdDataGridViewTextBoxColumn
-			// 
-			this.buildingIdDataGridViewTextBoxColumn.DataPropertyName = "BuildingId";
-			this.buildingIdDataGridViewTextBoxColumn.HeaderText = "BuildingId";
-			this.buildingIdDataGridViewTextBoxColumn.Name = "buildingIdDataGridViewTextBoxColumn";
-			this.buildingIdDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// buildingNameDataGridViewTextBoxColumn
-			// 
-			this.buildingNameDataGridViewTextBoxColumn.DataPropertyName = "BuildingName";
-			this.buildingNameDataGridViewTextBoxColumn.HeaderText = "BuildingName";
-			this.buildingNameDataGridViewTextBoxColumn.Name = "buildingNameDataGridViewTextBoxColumn";
-			this.buildingNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// buildingsBindingSource
-			// 
-			this.buildingsBindingSource.DataMember = "Buildings";
-			this.buildingsBindingSource.DataSource = this.jcTBotDataSet;
-			// 
-			// jcTBotDataSet
-			// 
-			this.jcTBotDataSet.DataSetName = "jcTBotDataSet";
-			this.jcTBotDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
 			// dataGridViewResources
 			// 
@@ -273,44 +225,12 @@ namespace jcTBotGUI
 			this.dataGridViewResources.AllowUserToDeleteRows = false;
 			this.dataGridViewResources.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridViewResources.AutoGenerateColumns = false;
 			this.dataGridViewResources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewResources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.villageIdDataGridViewTextBoxColumn1,
-            this.resourceIdDataGridViewTextBoxColumn,
-            this.resourceNameDataGridViewTextBoxColumn});
-			this.dataGridViewResources.DataSource = this.resourcesBindingSource;
 			this.dataGridViewResources.Location = new System.Drawing.Point(8, 261);
 			this.dataGridViewResources.Name = "dataGridViewResources";
 			this.dataGridViewResources.ReadOnly = true;
 			this.dataGridViewResources.Size = new System.Drawing.Size(395, 310);
 			this.dataGridViewResources.TabIndex = 1;
-			// 
-			// villageIdDataGridViewTextBoxColumn1
-			// 
-			this.villageIdDataGridViewTextBoxColumn1.DataPropertyName = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn1.HeaderText = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn1.Name = "villageIdDataGridViewTextBoxColumn1";
-			this.villageIdDataGridViewTextBoxColumn1.ReadOnly = true;
-			// 
-			// resourceIdDataGridViewTextBoxColumn
-			// 
-			this.resourceIdDataGridViewTextBoxColumn.DataPropertyName = "ResourceId";
-			this.resourceIdDataGridViewTextBoxColumn.HeaderText = "ResourceId";
-			this.resourceIdDataGridViewTextBoxColumn.Name = "resourceIdDataGridViewTextBoxColumn";
-			this.resourceIdDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// resourceNameDataGridViewTextBoxColumn
-			// 
-			this.resourceNameDataGridViewTextBoxColumn.DataPropertyName = "ResourceName";
-			this.resourceNameDataGridViewTextBoxColumn.HeaderText = "ResourceName";
-			this.resourceNameDataGridViewTextBoxColumn.Name = "resourceNameDataGridViewTextBoxColumn";
-			this.resourceNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// resourcesBindingSource
-			// 
-			this.resourcesBindingSource.DataMember = "Resources";
-			this.resourcesBindingSource.DataSource = this.jcTBotDataSet;
 			// 
 			// dataGridViewVillages
 			// 
@@ -322,33 +242,25 @@ namespace jcTBotGUI
 			this.dataGridViewVillages.AutoGenerateColumns = false;
 			this.dataGridViewVillages.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewVillages.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn1,
+            this.villageNameDataGridViewTextBoxColumn1,
             this.villageIdDataGridViewTextBoxColumn,
-            this.villageNameDataGridViewTextBoxColumn});
-			this.dataGridViewVillages.DataSource = this.getVillagesBindingSource;
+            this.warehouseDataGridViewTextBoxColumn,
+            this.granaryDataGridViewTextBoxColumn,
+            this.woodDataGridViewTextBoxColumn,
+            this.clayDataGridViewTextBoxColumn,
+            this.ironDataGridViewTextBoxColumn,
+            this.cropDataGridViewTextBoxColumn,
+            this.woodPerHourDataGridViewTextBoxColumn,
+            this.clayPerHourDataGridViewTextBoxColumn,
+            this.ironPerHourDataGridViewTextBoxColumn,
+            this.cropPerHourDataGridViewTextBoxColumn});
+			this.dataGridViewVillages.DataSource = this.getProductionForVillagesBindingSource;
 			this.dataGridViewVillages.Location = new System.Drawing.Point(8, 8);
 			this.dataGridViewVillages.Name = "dataGridViewVillages";
 			this.dataGridViewVillages.ReadOnly = true;
 			this.dataGridViewVillages.Size = new System.Drawing.Size(801, 247);
 			this.dataGridViewVillages.TabIndex = 0;
-			// 
-			// villageIdDataGridViewTextBoxColumn
-			// 
-			this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
-			this.villageIdDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// villageNameDataGridViewTextBoxColumn
-			// 
-			this.villageNameDataGridViewTextBoxColumn.DataPropertyName = "VillageName";
-			this.villageNameDataGridViewTextBoxColumn.HeaderText = "VillageName";
-			this.villageNameDataGridViewTextBoxColumn.Name = "villageNameDataGridViewTextBoxColumn";
-			this.villageNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// villagesBindingSource
-			// 
-			this.villagesBindingSource.DataMember = "Villages";
-			this.villagesBindingSource.DataSource = this.jcTBotDataSet;
 			// 
 			// Attacks
 			// 
@@ -385,8 +297,7 @@ namespace jcTBotGUI
 			// 
 			// comboBox3
 			// 
-			this.comboBox3.DataSource = this.tasksBindingSource;
-			this.comboBox3.DisplayMember = "TaskName";
+			this.comboBox3.DisplayMember = "Id";
 			this.comboBox3.FormattingEnabled = true;
 			this.comboBox3.Location = new System.Drawing.Point(190, 310);
 			this.comboBox3.Name = "comboBox3";
@@ -394,15 +305,9 @@ namespace jcTBotGUI
 			this.comboBox3.TabIndex = 4;
 			this.comboBox3.ValueMember = "Id";
 			// 
-			// tasksBindingSource
-			// 
-			this.tasksBindingSource.DataMember = "Tasks";
-			this.tasksBindingSource.DataSource = this.jcTBotDataSet;
-			// 
 			// comboBox2
 			// 
-			this.comboBox2.DataSource = this.villagesBindingSource;
-			this.comboBox2.DisplayMember = "VillageName";
+			this.comboBox2.DisplayMember = "VillageId";
 			this.comboBox2.FormattingEnabled = true;
 			this.comboBox2.Location = new System.Drawing.Point(8, 310);
 			this.comboBox2.Name = "comboBox2";
@@ -449,48 +354,15 @@ namespace jcTBotGUI
 			this.dataGridViewTaskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridViewTaskList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
-            this.taskIdDataGridViewTextBoxColumn,
-            this.nextCheckDataGridViewTextBoxColumn,
-            this.buildLevelDataGridViewTextBoxColumn});
+            this.villageNameDataGridViewTextBoxColumn,
+            this.taskNameDataGridViewTextBoxColumn,
+            this.buildLevelDataGridViewTextBoxColumn,
+            this.nextCheckDataGridViewTextBoxColumn});
 			this.dataGridViewTaskList.DataSource = this.getTaskListBindingSource;
 			this.dataGridViewTaskList.Location = new System.Drawing.Point(8, 3);
 			this.dataGridViewTaskList.Name = "dataGridViewTaskList";
 			this.dataGridViewTaskList.Size = new System.Drawing.Size(801, 260);
 			this.dataGridViewTaskList.TabIndex = 1;
-			// 
-			// idDataGridViewTextBoxColumn
-			// 
-			this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-			this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-			this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-			// 
-			// taskIdDataGridViewTextBoxColumn
-			// 
-			this.taskIdDataGridViewTextBoxColumn.DataPropertyName = "TaskId";
-			this.taskIdDataGridViewTextBoxColumn.HeaderText = "TaskId";
-			this.taskIdDataGridViewTextBoxColumn.Name = "taskIdDataGridViewTextBoxColumn";
-			// 
-			// nextCheckDataGridViewTextBoxColumn
-			// 
-			this.nextCheckDataGridViewTextBoxColumn.DataPropertyName = "NextCheck";
-			this.nextCheckDataGridViewTextBoxColumn.HeaderText = "NextCheck";
-			this.nextCheckDataGridViewTextBoxColumn.Name = "nextCheckDataGridViewTextBoxColumn";
-			// 
-			// buildLevelDataGridViewTextBoxColumn
-			// 
-			this.buildLevelDataGridViewTextBoxColumn.DataPropertyName = "BuildLevel";
-			this.buildLevelDataGridViewTextBoxColumn.HeaderText = "BuildLevel";
-			this.buildLevelDataGridViewTextBoxColumn.Name = "buildLevelDataGridViewTextBoxColumn";
-			// 
-			// taskListBindingSource
-			// 
-			this.taskListBindingSource.DataMember = "TaskList";
-			this.taskListBindingSource.DataSource = this.jcTBotDataSetBindingSource;
-			// 
-			// jcTBotDataSetBindingSource
-			// 
-			this.jcTBotDataSetBindingSource.DataSource = this.jcTBotDataSet;
-			this.jcTBotDataSetBindingSource.Position = 0;
 			// 
 			// dataGridView1
 			// 
@@ -566,34 +438,10 @@ namespace jcTBotGUI
 			this.tabPageSendResources.Text = "SendResources";
 			this.tabPageSendResources.UseVisualStyleBackColor = true;
 			// 
-			// villagesTableAdapter
+			// jcTBotDataSet
 			// 
-			this.villagesTableAdapter.ClearBeforeFill = true;
-			// 
-			// resourcesTableAdapter
-			// 
-			this.resourcesTableAdapter.ClearBeforeFill = true;
-			// 
-			// buildingsTableAdapter
-			// 
-			this.buildingsTableAdapter.ClearBeforeFill = true;
-			// 
-			// taskListTableAdapter
-			// 
-			this.taskListTableAdapter.ClearBeforeFill = true;
-			// 
-			// tasksTableAdapter
-			// 
-			this.tasksTableAdapter.ClearBeforeFill = true;
-			// 
-			// getVillagesBindingSource
-			// 
-			this.getVillagesBindingSource.DataMember = "GetVillages";
-			this.getVillagesBindingSource.DataSource = this.jcTBotDataSet;
-			// 
-			// getVillagesTableAdapter
-			// 
-			this.getVillagesTableAdapter.ClearBeforeFill = true;
+			this.jcTBotDataSet.DataSetName = "jcTBotDataSet";
+			this.jcTBotDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
 			// 
 			// getTaskListBindingSource
 			// 
@@ -603,6 +451,139 @@ namespace jcTBotGUI
 			// getTaskListTableAdapter
 			// 
 			this.getTaskListTableAdapter.ClearBeforeFill = true;
+			// 
+			// idDataGridViewTextBoxColumn
+			// 
+			this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+			this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+			this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+			this.idDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// villageNameDataGridViewTextBoxColumn
+			// 
+			this.villageNameDataGridViewTextBoxColumn.DataPropertyName = "VillageName";
+			this.villageNameDataGridViewTextBoxColumn.HeaderText = "VillageName";
+			this.villageNameDataGridViewTextBoxColumn.Name = "villageNameDataGridViewTextBoxColumn";
+			this.villageNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// taskNameDataGridViewTextBoxColumn
+			// 
+			this.taskNameDataGridViewTextBoxColumn.DataPropertyName = "TaskName";
+			this.taskNameDataGridViewTextBoxColumn.HeaderText = "TaskName";
+			this.taskNameDataGridViewTextBoxColumn.Name = "taskNameDataGridViewTextBoxColumn";
+			this.taskNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// buildLevelDataGridViewTextBoxColumn
+			// 
+			this.buildLevelDataGridViewTextBoxColumn.DataPropertyName = "BuildLevel";
+			this.buildLevelDataGridViewTextBoxColumn.HeaderText = "BuildLevel";
+			this.buildLevelDataGridViewTextBoxColumn.Name = "buildLevelDataGridViewTextBoxColumn";
+			// 
+			// nextCheckDataGridViewTextBoxColumn
+			// 
+			this.nextCheckDataGridViewTextBoxColumn.DataPropertyName = "NextCheck";
+			this.nextCheckDataGridViewTextBoxColumn.HeaderText = "NextCheck";
+			this.nextCheckDataGridViewTextBoxColumn.Name = "nextCheckDataGridViewTextBoxColumn";
+			// 
+			// getProductionForVillagesBindingSource
+			// 
+			this.getProductionForVillagesBindingSource.DataMember = "GetProductionForVillages";
+			this.getProductionForVillagesBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// getProductionForVillagesTableAdapter
+			// 
+			this.getProductionForVillagesTableAdapter.ClearBeforeFill = true;
+			// 
+			// idDataGridViewTextBoxColumn1
+			// 
+			this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+			this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+			this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+			this.idDataGridViewTextBoxColumn1.ReadOnly = true;
+			// 
+			// villageNameDataGridViewTextBoxColumn1
+			// 
+			this.villageNameDataGridViewTextBoxColumn1.DataPropertyName = "VillageName";
+			this.villageNameDataGridViewTextBoxColumn1.HeaderText = "VillageName";
+			this.villageNameDataGridViewTextBoxColumn1.Name = "villageNameDataGridViewTextBoxColumn1";
+			this.villageNameDataGridViewTextBoxColumn1.ReadOnly = true;
+			// 
+			// villageIdDataGridViewTextBoxColumn
+			// 
+			this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
+			this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
+			this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
+			this.villageIdDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// warehouseDataGridViewTextBoxColumn
+			// 
+			this.warehouseDataGridViewTextBoxColumn.DataPropertyName = "Warehouse";
+			this.warehouseDataGridViewTextBoxColumn.HeaderText = "Warehouse";
+			this.warehouseDataGridViewTextBoxColumn.Name = "warehouseDataGridViewTextBoxColumn";
+			this.warehouseDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// granaryDataGridViewTextBoxColumn
+			// 
+			this.granaryDataGridViewTextBoxColumn.DataPropertyName = "Granary";
+			this.granaryDataGridViewTextBoxColumn.HeaderText = "Granary";
+			this.granaryDataGridViewTextBoxColumn.Name = "granaryDataGridViewTextBoxColumn";
+			this.granaryDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// woodDataGridViewTextBoxColumn
+			// 
+			this.woodDataGridViewTextBoxColumn.DataPropertyName = "Wood";
+			this.woodDataGridViewTextBoxColumn.HeaderText = "Wood";
+			this.woodDataGridViewTextBoxColumn.Name = "woodDataGridViewTextBoxColumn";
+			this.woodDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// clayDataGridViewTextBoxColumn
+			// 
+			this.clayDataGridViewTextBoxColumn.DataPropertyName = "Clay";
+			this.clayDataGridViewTextBoxColumn.HeaderText = "Clay";
+			this.clayDataGridViewTextBoxColumn.Name = "clayDataGridViewTextBoxColumn";
+			this.clayDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// ironDataGridViewTextBoxColumn
+			// 
+			this.ironDataGridViewTextBoxColumn.DataPropertyName = "Iron";
+			this.ironDataGridViewTextBoxColumn.HeaderText = "Iron";
+			this.ironDataGridViewTextBoxColumn.Name = "ironDataGridViewTextBoxColumn";
+			this.ironDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// cropDataGridViewTextBoxColumn
+			// 
+			this.cropDataGridViewTextBoxColumn.DataPropertyName = "Crop";
+			this.cropDataGridViewTextBoxColumn.HeaderText = "Crop";
+			this.cropDataGridViewTextBoxColumn.Name = "cropDataGridViewTextBoxColumn";
+			this.cropDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// woodPerHourDataGridViewTextBoxColumn
+			// 
+			this.woodPerHourDataGridViewTextBoxColumn.DataPropertyName = "WoodPerHour";
+			this.woodPerHourDataGridViewTextBoxColumn.HeaderText = "WoodPerHour";
+			this.woodPerHourDataGridViewTextBoxColumn.Name = "woodPerHourDataGridViewTextBoxColumn";
+			this.woodPerHourDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// clayPerHourDataGridViewTextBoxColumn
+			// 
+			this.clayPerHourDataGridViewTextBoxColumn.DataPropertyName = "ClayPerHour";
+			this.clayPerHourDataGridViewTextBoxColumn.HeaderText = "ClayPerHour";
+			this.clayPerHourDataGridViewTextBoxColumn.Name = "clayPerHourDataGridViewTextBoxColumn";
+			this.clayPerHourDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// ironPerHourDataGridViewTextBoxColumn
+			// 
+			this.ironPerHourDataGridViewTextBoxColumn.DataPropertyName = "IronPerHour";
+			this.ironPerHourDataGridViewTextBoxColumn.HeaderText = "IronPerHour";
+			this.ironPerHourDataGridViewTextBoxColumn.Name = "ironPerHourDataGridViewTextBoxColumn";
+			this.ironPerHourDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// cropPerHourDataGridViewTextBoxColumn
+			// 
+			this.cropPerHourDataGridViewTextBoxColumn.DataPropertyName = "CropPerHour";
+			this.cropPerHourDataGridViewTextBoxColumn.HeaderText = "CropPerHour";
+			this.cropPerHourDataGridViewTextBoxColumn.Name = "cropPerHourDataGridViewTextBoxColumn";
+			this.cropPerHourDataGridViewTextBoxColumn.ReadOnly = true;
 			// 
 			// jcTBotGui
 			// 
@@ -615,22 +596,16 @@ namespace jcTBotGUI
 			this.Login.PerformLayout();
 			this.Villages.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.buildingsBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.resourcesBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewVillages)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.villagesBindingSource)).EndInit();
 			this.Tasks.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.tasksBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaskList)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.taskListBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSetBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.Status.ResumeLayout(false);
 			this.Status.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.getVillagesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -658,41 +633,36 @@ namespace jcTBotGUI
 		private System.Windows.Forms.Button buttonClear;
 		private System.Windows.Forms.TextBox textBoxStatus;
 		private jcTBotDataSet jcTBotDataSet;
-		private System.Windows.Forms.BindingSource villagesBindingSource;
-		private jcTBotGUI.jcTBotDataSetTableAdapters.VillagesTableAdapter villagesTableAdapter;
-		private System.Windows.Forms.DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn villageNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.BindingSource resourcesBindingSource;
-		private jcTBotGUI.jcTBotDataSetTableAdapters.ResourcesTableAdapter resourcesTableAdapter;
-		private System.Windows.Forms.DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn resourceIdDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn resourceNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.BindingSource buildingsBindingSource;
-		private jcTBotGUI.jcTBotDataSetTableAdapters.BuildingsTableAdapter buildingsTableAdapter;
-		private System.Windows.Forms.DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn buildingIdDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn buildingNameDataGridViewTextBoxColumn;
 		private System.Windows.Forms.Button buttonConnect;
 		private System.Windows.Forms.TabPage tabPageSendResources;
 		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.BindingSource jcTBotDataSetBindingSource;
 		private System.Windows.Forms.DataGridView dataGridViewTaskList;
-		private System.Windows.Forms.BindingSource taskListBindingSource;
-		private jcTBotGUI.jcTBotDataSetTableAdapters.TaskListTableAdapter taskListTableAdapter;
-		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn taskIdDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn nextCheckDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn buildLevelDataGridViewTextBoxColumn;
 		private System.Windows.Forms.ComboBox comboBox3;
 		private System.Windows.Forms.ComboBox comboBox2;
 		private System.Windows.Forms.ComboBox comboBoxBuildingLevel;
-		private System.Windows.Forms.BindingSource tasksBindingSource;
-		private jcTBotGUI.jcTBotDataSetTableAdapters.TasksTableAdapter tasksTableAdapter;
 		private System.Windows.Forms.Button buttonAddTask;
-		private System.Windows.Forms.BindingSource getVillagesBindingSource;
-		private jcTBotGUI.jcTBotDataSetTableAdapters.GetVillagesTableAdapter getVillagesTableAdapter;
 		private System.Windows.Forms.BindingSource getTaskListBindingSource;
 		private jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskListTableAdapter getTaskListTableAdapter;
+		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn villageNameDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn taskNameDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn buildLevelDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn nextCheckDataGridViewTextBoxColumn;
+		private System.Windows.Forms.BindingSource getProductionForVillagesBindingSource;
+		private jcTBotGUI.jcTBotDataSetTableAdapters.GetProductionForVillagesTableAdapter getProductionForVillagesTableAdapter;
+		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn villageNameDataGridViewTextBoxColumn1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn warehouseDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn granaryDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn woodDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn clayDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ironDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn cropDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn woodPerHourDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn clayPerHourDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn ironPerHourDataGridViewTextBoxColumn;
+		private System.Windows.Forms.DataGridViewTextBoxColumn cropPerHourDataGridViewTextBoxColumn;
 
 	}
 }

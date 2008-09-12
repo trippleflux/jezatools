@@ -26,21 +26,10 @@ namespace jcTBotGUI
 
 		private void jcTBotGui_Load(object sender, EventArgs e)
 		{
+			// TODO: This line of code loads data into the 'jcTBotDataSet.GetProductionForVillages' table. You can move, or remove it, as needed.
+			this.getProductionForVillagesTableAdapter.Fill(this.jcTBotDataSet.GetProductionForVillages);
 			// TODO: This line of code loads data into the 'jcTBotDataSet.GetTaskList' table. You can move, or remove it, as needed.
 			this.getTaskListTableAdapter.Fill(this.jcTBotDataSet.GetTaskList);
-			// TODO: This line of code loads data into the 'jcTBotDataSet.GetVillages' table. You can move, or remove it, as needed.
-			this.getVillagesTableAdapter.Fill(this.jcTBotDataSet.GetVillages);
-			// TODO: This line of code loads data into the 'jcTBotDataSet.Tasks' table. You can move, or remove it, as needed.
-			this.tasksTableAdapter.Fill(this.jcTBotDataSet.Tasks);
-			// TODO: This line of code loads data into the 'jcTBotDataSet.TaskList' table. You can move, or remove it, as needed.
-			this.taskListTableAdapter.Fill(this.jcTBotDataSet.TaskList);
-			// TODO: This line of code loads data into the 'jcTBotDataSet.Buildings' table. You can move, or remove it, as needed.
-			this.buildingsTableAdapter.Fill(this.jcTBotDataSet.Buildings);
-			// TODO: This line of code loads data into the 'jcTBotDataSet.Resources' table. You can move, or remove it, as needed.
-			this.resourcesTableAdapter.Fill(this.jcTBotDataSet.Resources);
-			// TODO: This line of code loads data into the 'jcTBotDataSet.Villages' table. You can move, or remove it, as needed.
-			this.villagesTableAdapter.Fill(this.jcTBotDataSet.Villages);
-
 		}
 
 		private void buttonConnect_Click(object sender, EventArgs e)
