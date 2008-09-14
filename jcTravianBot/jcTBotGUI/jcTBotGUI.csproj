@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -38,7 +39,6 @@
   <ItemGroup>
     <Compile Include="jcTBotDataSet.cs">
       <DependentUpon>jcTBotDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="jcTBotDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
