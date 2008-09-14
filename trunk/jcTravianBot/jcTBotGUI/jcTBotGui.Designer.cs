@@ -42,31 +42,6 @@ namespace jcTBotGUI
 			this.dataGridViewBuildings = new System.Windows.Forms.DataGridView();
 			this.dataGridViewResources = new System.Windows.Forms.DataGridView();
 			this.dataGridViewVillages = new System.Windows.Forms.DataGridView();
-			this.Attacks = new System.Windows.Forms.TabPage();
-			this.Tasks = new System.Windows.Forms.TabPage();
-			this.buttonAddTask = new System.Windows.Forms.Button();
-			this.comboBox3 = new System.Windows.Forms.ComboBox();
-			this.comboBox2 = new System.Windows.Forms.ComboBox();
-			this.comboBoxBuildingLevel = new System.Windows.Forms.ComboBox();
-			this.dataGridViewTaskList = new System.Windows.Forms.DataGridView();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.Map = new System.Windows.Forms.TabPage();
-			this.Reports = new System.Windows.Forms.TabPage();
-			this.Messages = new System.Windows.Forms.TabPage();
-			this.Status = new System.Windows.Forms.TabPage();
-			this.buttonClear = new System.Windows.Forms.Button();
-			this.textBoxStatus = new System.Windows.Forms.TextBox();
-			this.tabPageSendResources = new System.Windows.Forms.TabPage();
-			this.jcTBotDataSet = new jcTBotGUI.jcTBotDataSet();
-			this.getTaskListBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.getTaskListTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskListTableAdapter();
-			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.villageNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.taskNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.buildLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.nextCheckDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.getProductionForVillagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-			this.getProductionForVillagesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetProductionForVillagesTableAdapter();
 			this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.villageNameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,19 +55,64 @@ namespace jcTBotGUI
 			this.clayPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ironPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.cropPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.getProductionForVillagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.jcTBotDataSet = new jcTBotGUI.jcTBotDataSet();
+			this.Attacks = new System.Windows.Forms.TabPage();
+			this.Tasks = new System.Windows.Forms.TabPage();
+			this.labelTasksBuildID = new System.Windows.Forms.Label();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.getVillagesNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.buttonAddNewTask = new System.Windows.Forms.Button();
+			this.labelAddTaskTask = new System.Windows.Forms.Label();
+			this.labelAddTaskLevel = new System.Windows.Forms.Label();
+			this.labelAddTaskVillage = new System.Windows.Forms.Label();
+			this.comboBoxTasksTask = new System.Windows.Forms.ComboBox();
+			this.getTaskNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.comboBoxTasksVillages = new System.Windows.Forms.ComboBox();
+			this.comboBoxTasksBuildingLevel = new System.Windows.Forms.ComboBox();
+			this.dataGridViewTaskList = new System.Windows.Forms.DataGridView();
+			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.villageNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.taskNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.buildLevelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.nextCheckDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.getTaskListBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.Map = new System.Windows.Forms.TabPage();
+			this.Reports = new System.Windows.Forms.TabPage();
+			this.Messages = new System.Windows.Forms.TabPage();
+			this.Status = new System.Windows.Forms.TabPage();
+			this.buttonClear = new System.Windows.Forms.Button();
+			this.textBoxStatus = new System.Windows.Forms.TextBox();
+			this.tabPageSendResources = new System.Windows.Forms.TabPage();
+			this.getTaskNamesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getTaskListTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskListTableAdapter();
+			this.getProductionForVillagesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetProductionForVillagesTableAdapter();
+			this.getVillageNamesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getVillageNamesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetVillageNamesTableAdapter();
+			this.getVillagesNamesAndIDsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetVillagesNamesAndIDsTableAdapter();
+			this.getTaskNamesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskNamesTableAdapter();
+			this.getTaskNamesAndIDsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskNamesAndIDsTableAdapter();
+			this.getBuildingsGIDsNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getBuildingsGIDsNamesAndIDsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetBuildingsGIDsNamesAndIDsTableAdapter();
 			this.tabControl.SuspendLayout();
 			this.Login.SuspendLayout();
 			this.Villages.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewVillages)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).BeginInit();
 			this.Tasks.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.getVillagesNamesAndIDsBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesAndIDsBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaskList)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.Status.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getVillageNamesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getBuildingsGIDsNamesAndIDsBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -114,6 +134,7 @@ namespace jcTBotGUI
 			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(826, 624);
 			this.tabControl.TabIndex = 0;
+			this.tabControl.Click += new System.EventHandler(this.jcTBotGui_Load);
 			// 
 			// Login
 			// 
@@ -262,238 +283,6 @@ namespace jcTBotGUI
 			this.dataGridViewVillages.Size = new System.Drawing.Size(801, 247);
 			this.dataGridViewVillages.TabIndex = 0;
 			// 
-			// Attacks
-			// 
-			this.Attacks.Location = new System.Drawing.Point(4, 22);
-			this.Attacks.Name = "Attacks";
-			this.Attacks.Size = new System.Drawing.Size(818, 598);
-			this.Attacks.TabIndex = 2;
-			this.Attacks.Text = "Attacks";
-			this.Attacks.UseVisualStyleBackColor = true;
-			// 
-			// Tasks
-			// 
-			this.Tasks.Controls.Add(this.buttonAddTask);
-			this.Tasks.Controls.Add(this.comboBox3);
-			this.Tasks.Controls.Add(this.comboBox2);
-			this.Tasks.Controls.Add(this.comboBoxBuildingLevel);
-			this.Tasks.Controls.Add(this.dataGridViewTaskList);
-			this.Tasks.Controls.Add(this.dataGridView1);
-			this.Tasks.Location = new System.Drawing.Point(4, 22);
-			this.Tasks.Name = "Tasks";
-			this.Tasks.Size = new System.Drawing.Size(818, 598);
-			this.Tasks.TabIndex = 3;
-			this.Tasks.Text = "Tasks";
-			this.Tasks.UseVisualStyleBackColor = true;
-			// 
-			// buttonAddTask
-			// 
-			this.buttonAddTask.Location = new System.Drawing.Point(555, 307);
-			this.buttonAddTask.Name = "buttonAddTask";
-			this.buttonAddTask.Size = new System.Drawing.Size(75, 23);
-			this.buttonAddTask.TabIndex = 5;
-			this.buttonAddTask.Text = "Add Task";
-			this.buttonAddTask.UseVisualStyleBackColor = true;
-			// 
-			// comboBox3
-			// 
-			this.comboBox3.DisplayMember = "Id";
-			this.comboBox3.FormattingEnabled = true;
-			this.comboBox3.Location = new System.Drawing.Point(190, 310);
-			this.comboBox3.Name = "comboBox3";
-			this.comboBox3.Size = new System.Drawing.Size(121, 21);
-			this.comboBox3.TabIndex = 4;
-			this.comboBox3.ValueMember = "Id";
-			// 
-			// comboBox2
-			// 
-			this.comboBox2.DisplayMember = "VillageId";
-			this.comboBox2.FormattingEnabled = true;
-			this.comboBox2.Location = new System.Drawing.Point(8, 310);
-			this.comboBox2.Name = "comboBox2";
-			this.comboBox2.Size = new System.Drawing.Size(121, 21);
-			this.comboBox2.TabIndex = 3;
-			this.comboBox2.ValueMember = "VillageId";
-			// 
-			// comboBoxBuildingLevel
-			// 
-			this.comboBoxBuildingLevel.AllowDrop = true;
-			this.comboBoxBuildingLevel.FormattingEnabled = true;
-			this.comboBoxBuildingLevel.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20"});
-			this.comboBoxBuildingLevel.Location = new System.Drawing.Point(379, 310);
-			this.comboBoxBuildingLevel.Name = "comboBoxBuildingLevel";
-			this.comboBoxBuildingLevel.Size = new System.Drawing.Size(121, 21);
-			this.comboBoxBuildingLevel.TabIndex = 2;
-			this.comboBoxBuildingLevel.Text = "10";
-			// 
-			// dataGridViewTaskList
-			// 
-			this.dataGridViewTaskList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.dataGridViewTaskList.AutoGenerateColumns = false;
-			this.dataGridViewTaskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewTaskList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.villageNameDataGridViewTextBoxColumn,
-            this.taskNameDataGridViewTextBoxColumn,
-            this.buildLevelDataGridViewTextBoxColumn,
-            this.nextCheckDataGridViewTextBoxColumn});
-			this.dataGridViewTaskList.DataSource = this.getTaskListBindingSource;
-			this.dataGridViewTaskList.Location = new System.Drawing.Point(8, 3);
-			this.dataGridViewTaskList.Name = "dataGridViewTaskList";
-			this.dataGridViewTaskList.Size = new System.Drawing.Size(801, 260);
-			this.dataGridViewTaskList.TabIndex = 1;
-			// 
-			// dataGridView1
-			// 
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Location = new System.Drawing.Point(8, 3);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.Size = new System.Drawing.Size(801, 260);
-			this.dataGridView1.TabIndex = 0;
-			// 
-			// Map
-			// 
-			this.Map.Location = new System.Drawing.Point(4, 22);
-			this.Map.Name = "Map";
-			this.Map.Size = new System.Drawing.Size(818, 598);
-			this.Map.TabIndex = 4;
-			this.Map.Text = "Map";
-			this.Map.UseVisualStyleBackColor = true;
-			// 
-			// Reports
-			// 
-			this.Reports.Location = new System.Drawing.Point(4, 22);
-			this.Reports.Name = "Reports";
-			this.Reports.Size = new System.Drawing.Size(818, 598);
-			this.Reports.TabIndex = 5;
-			this.Reports.Text = "Reports";
-			this.Reports.UseVisualStyleBackColor = true;
-			// 
-			// Messages
-			// 
-			this.Messages.Location = new System.Drawing.Point(4, 22);
-			this.Messages.Name = "Messages";
-			this.Messages.Size = new System.Drawing.Size(818, 598);
-			this.Messages.TabIndex = 6;
-			this.Messages.Text = "Messages";
-			this.Messages.UseVisualStyleBackColor = true;
-			// 
-			// Status
-			// 
-			this.Status.Controls.Add(this.buttonClear);
-			this.Status.Controls.Add(this.textBoxStatus);
-			this.Status.Location = new System.Drawing.Point(4, 22);
-			this.Status.Name = "Status";
-			this.Status.Size = new System.Drawing.Size(818, 598);
-			this.Status.TabIndex = 7;
-			this.Status.Text = "Status";
-			this.Status.UseVisualStyleBackColor = true;
-			// 
-			// buttonClear
-			// 
-			this.buttonClear.Location = new System.Drawing.Point(8, 6);
-			this.buttonClear.Name = "buttonClear";
-			this.buttonClear.Size = new System.Drawing.Size(124, 23);
-			this.buttonClear.TabIndex = 1;
-			this.buttonClear.Text = "Clear";
-			this.buttonClear.UseVisualStyleBackColor = true;
-			this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-			// 
-			// textBoxStatus
-			// 
-			this.textBoxStatus.Location = new System.Drawing.Point(8, 35);
-			this.textBoxStatus.Multiline = true;
-			this.textBoxStatus.Name = "textBoxStatus";
-			this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.textBoxStatus.Size = new System.Drawing.Size(801, 560);
-			this.textBoxStatus.TabIndex = 0;
-			// 
-			// tabPageSendResources
-			// 
-			this.tabPageSendResources.Location = new System.Drawing.Point(4, 22);
-			this.tabPageSendResources.Name = "tabPageSendResources";
-			this.tabPageSendResources.Size = new System.Drawing.Size(818, 598);
-			this.tabPageSendResources.TabIndex = 8;
-			this.tabPageSendResources.Text = "SendResources";
-			this.tabPageSendResources.UseVisualStyleBackColor = true;
-			// 
-			// jcTBotDataSet
-			// 
-			this.jcTBotDataSet.DataSetName = "jcTBotDataSet";
-			this.jcTBotDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-			// 
-			// getTaskListBindingSource
-			// 
-			this.getTaskListBindingSource.DataMember = "GetTaskList";
-			this.getTaskListBindingSource.DataSource = this.jcTBotDataSet;
-			// 
-			// getTaskListTableAdapter
-			// 
-			this.getTaskListTableAdapter.ClearBeforeFill = true;
-			// 
-			// idDataGridViewTextBoxColumn
-			// 
-			this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-			this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-			this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-			this.idDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// villageNameDataGridViewTextBoxColumn
-			// 
-			this.villageNameDataGridViewTextBoxColumn.DataPropertyName = "VillageName";
-			this.villageNameDataGridViewTextBoxColumn.HeaderText = "VillageName";
-			this.villageNameDataGridViewTextBoxColumn.Name = "villageNameDataGridViewTextBoxColumn";
-			this.villageNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// taskNameDataGridViewTextBoxColumn
-			// 
-			this.taskNameDataGridViewTextBoxColumn.DataPropertyName = "TaskName";
-			this.taskNameDataGridViewTextBoxColumn.HeaderText = "TaskName";
-			this.taskNameDataGridViewTextBoxColumn.Name = "taskNameDataGridViewTextBoxColumn";
-			this.taskNameDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// buildLevelDataGridViewTextBoxColumn
-			// 
-			this.buildLevelDataGridViewTextBoxColumn.DataPropertyName = "BuildLevel";
-			this.buildLevelDataGridViewTextBoxColumn.HeaderText = "BuildLevel";
-			this.buildLevelDataGridViewTextBoxColumn.Name = "buildLevelDataGridViewTextBoxColumn";
-			// 
-			// nextCheckDataGridViewTextBoxColumn
-			// 
-			this.nextCheckDataGridViewTextBoxColumn.DataPropertyName = "NextCheck";
-			this.nextCheckDataGridViewTextBoxColumn.HeaderText = "NextCheck";
-			this.nextCheckDataGridViewTextBoxColumn.Name = "nextCheckDataGridViewTextBoxColumn";
-			// 
-			// getProductionForVillagesBindingSource
-			// 
-			this.getProductionForVillagesBindingSource.DataMember = "GetProductionForVillages";
-			this.getProductionForVillagesBindingSource.DataSource = this.jcTBotDataSet;
-			// 
-			// getProductionForVillagesTableAdapter
-			// 
-			this.getProductionForVillagesTableAdapter.ClearBeforeFill = true;
-			// 
 			// idDataGridViewTextBoxColumn1
 			// 
 			this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
@@ -585,6 +374,343 @@ namespace jcTBotGUI
 			this.cropPerHourDataGridViewTextBoxColumn.Name = "cropPerHourDataGridViewTextBoxColumn";
 			this.cropPerHourDataGridViewTextBoxColumn.ReadOnly = true;
 			// 
+			// getProductionForVillagesBindingSource
+			// 
+			this.getProductionForVillagesBindingSource.DataMember = "GetProductionForVillages";
+			this.getProductionForVillagesBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// jcTBotDataSet
+			// 
+			this.jcTBotDataSet.DataSetName = "jcTBotDataSet";
+			this.jcTBotDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+			// 
+			// Attacks
+			// 
+			this.Attacks.Location = new System.Drawing.Point(4, 22);
+			this.Attacks.Name = "Attacks";
+			this.Attacks.Size = new System.Drawing.Size(818, 598);
+			this.Attacks.TabIndex = 2;
+			this.Attacks.Text = "Attacks";
+			this.Attacks.UseVisualStyleBackColor = true;
+			// 
+			// Tasks
+			// 
+			this.Tasks.Controls.Add(this.labelTasksBuildID);
+			this.Tasks.Controls.Add(this.comboBox1);
+			this.Tasks.Controls.Add(this.buttonAddNewTask);
+			this.Tasks.Controls.Add(this.labelAddTaskTask);
+			this.Tasks.Controls.Add(this.labelAddTaskLevel);
+			this.Tasks.Controls.Add(this.labelAddTaskVillage);
+			this.Tasks.Controls.Add(this.comboBoxTasksTask);
+			this.Tasks.Controls.Add(this.comboBoxTasksVillages);
+			this.Tasks.Controls.Add(this.comboBoxTasksBuildingLevel);
+			this.Tasks.Controls.Add(this.dataGridViewTaskList);
+			this.Tasks.Controls.Add(this.dataGridView1);
+			this.Tasks.Location = new System.Drawing.Point(4, 22);
+			this.Tasks.Name = "Tasks";
+			this.Tasks.Size = new System.Drawing.Size(818, 598);
+			this.Tasks.TabIndex = 3;
+			this.Tasks.Text = "Tasks";
+			this.Tasks.UseVisualStyleBackColor = true;
+			// 
+			// labelTasksBuildID
+			// 
+			this.labelTasksBuildID.AutoSize = true;
+			this.labelTasksBuildID.Location = new System.Drawing.Point(259, 276);
+			this.labelTasksBuildID.Name = "labelTasksBuildID";
+			this.labelTasksBuildID.Size = new System.Drawing.Size(44, 13);
+			this.labelTasksBuildID.TabIndex = 11;
+			this.labelTasksBuildID.Text = "Build ID";
+			// 
+			// comboBox1
+			// 
+			this.comboBox1.DataSource = this.getBuildingsGIDsNamesAndIDsBindingSource;
+			this.comboBox1.DisplayMember = "BuildingName";
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Location = new System.Drawing.Point(262, 292);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(121, 21);
+			this.comboBox1.TabIndex = 10;
+			this.comboBox1.ValueMember = "Id";
+			// 
+			// getVillagesNamesAndIDsBindingSource
+			// 
+			this.getVillagesNamesAndIDsBindingSource.DataMember = "GetVillagesNamesAndIDs";
+			this.getVillagesNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// buttonAddNewTask
+			// 
+			this.buttonAddNewTask.Location = new System.Drawing.Point(516, 290);
+			this.buttonAddNewTask.Name = "buttonAddNewTask";
+			this.buttonAddNewTask.Size = new System.Drawing.Size(75, 23);
+			this.buttonAddNewTask.TabIndex = 9;
+			this.buttonAddNewTask.Text = "Add Task";
+			this.buttonAddNewTask.UseVisualStyleBackColor = true;
+			this.buttonAddNewTask.Click += new System.EventHandler(this.buttonAddNewTask_Click);
+			// 
+			// labelAddTaskTask
+			// 
+			this.labelAddTaskTask.AutoSize = true;
+			this.labelAddTaskTask.Location = new System.Drawing.Point(132, 276);
+			this.labelAddTaskTask.Name = "labelAddTaskTask";
+			this.labelAddTaskTask.Size = new System.Drawing.Size(31, 13);
+			this.labelAddTaskTask.TabIndex = 8;
+			this.labelAddTaskTask.Text = "Task";
+			// 
+			// labelAddTaskLevel
+			// 
+			this.labelAddTaskLevel.AutoSize = true;
+			this.labelAddTaskLevel.Location = new System.Drawing.Point(386, 276);
+			this.labelAddTaskLevel.Name = "labelAddTaskLevel";
+			this.labelAddTaskLevel.Size = new System.Drawing.Size(59, 13);
+			this.labelAddTaskLevel.TabIndex = 7;
+			this.labelAddTaskLevel.Text = "Build Level";
+			// 
+			// labelAddTaskVillage
+			// 
+			this.labelAddTaskVillage.AutoSize = true;
+			this.labelAddTaskVillage.Location = new System.Drawing.Point(5, 276);
+			this.labelAddTaskVillage.Name = "labelAddTaskVillage";
+			this.labelAddTaskVillage.Size = new System.Drawing.Size(38, 13);
+			this.labelAddTaskVillage.TabIndex = 6;
+			this.labelAddTaskVillage.Text = "Village";
+			// 
+			// comboBoxTasksTask
+			// 
+			this.comboBoxTasksTask.DataSource = this.getTaskNamesAndIDsBindingSource;
+			this.comboBoxTasksTask.DisplayMember = "TaskName";
+			this.comboBoxTasksTask.FormattingEnabled = true;
+			this.comboBoxTasksTask.Location = new System.Drawing.Point(135, 292);
+			this.comboBoxTasksTask.Name = "comboBoxTasksTask";
+			this.comboBoxTasksTask.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksTask.TabIndex = 4;
+			this.comboBoxTasksTask.ValueMember = "Id";
+			// 
+			// getTaskNamesAndIDsBindingSource
+			// 
+			this.getTaskNamesAndIDsBindingSource.DataMember = "GetTaskNamesAndIDs";
+			this.getTaskNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// comboBoxTasksVillages
+			// 
+			this.comboBoxTasksVillages.DataSource = this.getVillagesNamesAndIDsBindingSource;
+			this.comboBoxTasksVillages.DisplayMember = "VillageName";
+			this.comboBoxTasksVillages.FormattingEnabled = true;
+			this.comboBoxTasksVillages.Location = new System.Drawing.Point(8, 292);
+			this.comboBoxTasksVillages.Name = "comboBoxTasksVillages";
+			this.comboBoxTasksVillages.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksVillages.TabIndex = 3;
+			this.comboBoxTasksVillages.ValueMember = "VillageId";
+			// 
+			// comboBoxTasksBuildingLevel
+			// 
+			this.comboBoxTasksBuildingLevel.AllowDrop = true;
+			this.comboBoxTasksBuildingLevel.FormattingEnabled = true;
+			this.comboBoxTasksBuildingLevel.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25"});
+			this.comboBoxTasksBuildingLevel.Location = new System.Drawing.Point(389, 292);
+			this.comboBoxTasksBuildingLevel.Name = "comboBoxTasksBuildingLevel";
+			this.comboBoxTasksBuildingLevel.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksBuildingLevel.TabIndex = 2;
+			this.comboBoxTasksBuildingLevel.Text = "10";
+			// 
+			// dataGridViewTaskList
+			// 
+			this.dataGridViewTaskList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.dataGridViewTaskList.AutoGenerateColumns = false;
+			this.dataGridViewTaskList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewTaskList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.villageNameDataGridViewTextBoxColumn,
+            this.taskNameDataGridViewTextBoxColumn,
+            this.buildLevelDataGridViewTextBoxColumn,
+            this.nextCheckDataGridViewTextBoxColumn});
+			this.dataGridViewTaskList.DataSource = this.getTaskListBindingSource;
+			this.dataGridViewTaskList.Location = new System.Drawing.Point(8, 3);
+			this.dataGridViewTaskList.Name = "dataGridViewTaskList";
+			this.dataGridViewTaskList.Size = new System.Drawing.Size(801, 260);
+			this.dataGridViewTaskList.TabIndex = 1;
+			// 
+			// idDataGridViewTextBoxColumn
+			// 
+			this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+			this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+			this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+			this.idDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// villageNameDataGridViewTextBoxColumn
+			// 
+			this.villageNameDataGridViewTextBoxColumn.DataPropertyName = "VillageName";
+			this.villageNameDataGridViewTextBoxColumn.HeaderText = "VillageName";
+			this.villageNameDataGridViewTextBoxColumn.Name = "villageNameDataGridViewTextBoxColumn";
+			this.villageNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// taskNameDataGridViewTextBoxColumn
+			// 
+			this.taskNameDataGridViewTextBoxColumn.DataPropertyName = "TaskName";
+			this.taskNameDataGridViewTextBoxColumn.HeaderText = "TaskName";
+			this.taskNameDataGridViewTextBoxColumn.Name = "taskNameDataGridViewTextBoxColumn";
+			this.taskNameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// buildLevelDataGridViewTextBoxColumn
+			// 
+			this.buildLevelDataGridViewTextBoxColumn.DataPropertyName = "BuildLevel";
+			this.buildLevelDataGridViewTextBoxColumn.HeaderText = "BuildLevel";
+			this.buildLevelDataGridViewTextBoxColumn.Name = "buildLevelDataGridViewTextBoxColumn";
+			// 
+			// nextCheckDataGridViewTextBoxColumn
+			// 
+			this.nextCheckDataGridViewTextBoxColumn.DataPropertyName = "NextCheck";
+			this.nextCheckDataGridViewTextBoxColumn.HeaderText = "NextCheck";
+			this.nextCheckDataGridViewTextBoxColumn.Name = "nextCheckDataGridViewTextBoxColumn";
+			// 
+			// getTaskListBindingSource
+			// 
+			this.getTaskListBindingSource.DataMember = "GetTaskList";
+			this.getTaskListBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Location = new System.Drawing.Point(8, 3);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.Size = new System.Drawing.Size(801, 260);
+			this.dataGridView1.TabIndex = 0;
+			// 
+			// Map
+			// 
+			this.Map.Location = new System.Drawing.Point(4, 22);
+			this.Map.Name = "Map";
+			this.Map.Size = new System.Drawing.Size(818, 598);
+			this.Map.TabIndex = 4;
+			this.Map.Text = "Map";
+			this.Map.UseVisualStyleBackColor = true;
+			// 
+			// Reports
+			// 
+			this.Reports.Location = new System.Drawing.Point(4, 22);
+			this.Reports.Name = "Reports";
+			this.Reports.Size = new System.Drawing.Size(818, 598);
+			this.Reports.TabIndex = 5;
+			this.Reports.Text = "Reports";
+			this.Reports.UseVisualStyleBackColor = true;
+			// 
+			// Messages
+			// 
+			this.Messages.Location = new System.Drawing.Point(4, 22);
+			this.Messages.Name = "Messages";
+			this.Messages.Size = new System.Drawing.Size(818, 598);
+			this.Messages.TabIndex = 6;
+			this.Messages.Text = "Messages";
+			this.Messages.UseVisualStyleBackColor = true;
+			// 
+			// Status
+			// 
+			this.Status.Controls.Add(this.buttonClear);
+			this.Status.Controls.Add(this.textBoxStatus);
+			this.Status.Location = new System.Drawing.Point(4, 22);
+			this.Status.Name = "Status";
+			this.Status.Size = new System.Drawing.Size(818, 598);
+			this.Status.TabIndex = 7;
+			this.Status.Text = "Status";
+			this.Status.UseVisualStyleBackColor = true;
+			// 
+			// buttonClear
+			// 
+			this.buttonClear.Location = new System.Drawing.Point(8, 6);
+			this.buttonClear.Name = "buttonClear";
+			this.buttonClear.Size = new System.Drawing.Size(124, 23);
+			this.buttonClear.TabIndex = 1;
+			this.buttonClear.Text = "Clear";
+			this.buttonClear.UseVisualStyleBackColor = true;
+			this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+			// 
+			// textBoxStatus
+			// 
+			this.textBoxStatus.Location = new System.Drawing.Point(8, 35);
+			this.textBoxStatus.Multiline = true;
+			this.textBoxStatus.Name = "textBoxStatus";
+			this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.textBoxStatus.Size = new System.Drawing.Size(801, 560);
+			this.textBoxStatus.TabIndex = 0;
+			// 
+			// tabPageSendResources
+			// 
+			this.tabPageSendResources.Location = new System.Drawing.Point(4, 22);
+			this.tabPageSendResources.Name = "tabPageSendResources";
+			this.tabPageSendResources.Size = new System.Drawing.Size(818, 598);
+			this.tabPageSendResources.TabIndex = 8;
+			this.tabPageSendResources.Text = "SendResources";
+			this.tabPageSendResources.UseVisualStyleBackColor = true;
+			// 
+			// getTaskNamesBindingSource
+			// 
+			this.getTaskNamesBindingSource.DataMember = "GetTaskNames";
+			this.getTaskNamesBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// getTaskListTableAdapter
+			// 
+			this.getTaskListTableAdapter.ClearBeforeFill = true;
+			// 
+			// getProductionForVillagesTableAdapter
+			// 
+			this.getProductionForVillagesTableAdapter.ClearBeforeFill = true;
+			// 
+			// getVillageNamesBindingSource
+			// 
+			this.getVillageNamesBindingSource.DataMember = "GetVillageNames";
+			this.getVillageNamesBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// getVillageNamesTableAdapter
+			// 
+			this.getVillageNamesTableAdapter.ClearBeforeFill = true;
+			// 
+			// getVillagesNamesAndIDsTableAdapter
+			// 
+			this.getVillagesNamesAndIDsTableAdapter.ClearBeforeFill = true;
+			// 
+			// getTaskNamesTableAdapter
+			// 
+			this.getTaskNamesTableAdapter.ClearBeforeFill = true;
+			// 
+			// getTaskNamesAndIDsTableAdapter
+			// 
+			this.getTaskNamesAndIDsTableAdapter.ClearBeforeFill = true;
+			// 
+			// getBuildingsGIDsNamesAndIDsBindingSource
+			// 
+			this.getBuildingsGIDsNamesAndIDsBindingSource.DataMember = "GetBuildingsGIDsNamesAndIDs";
+			this.getBuildingsGIDsNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
+			// 
+			// getBuildingsGIDsNamesAndIDsTableAdapter
+			// 
+			this.getBuildingsGIDsNamesAndIDsTableAdapter.ClearBeforeFill = true;
+			// 
 			// jcTBotGui
 			// 
 			this.ClientSize = new System.Drawing.Size(825, 646);
@@ -598,14 +724,20 @@ namespace jcTBotGUI
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewVillages)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).EndInit();
 			this.Tasks.ResumeLayout(false);
+			this.Tasks.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.getVillagesNamesAndIDsBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesAndIDsBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaskList)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.Status.ResumeLayout(false);
 			this.Status.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getVillageNamesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getBuildingsGIDsNamesAndIDsBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -637,10 +769,9 @@ namespace jcTBotGUI
 		private System.Windows.Forms.TabPage tabPageSendResources;
 		private System.Windows.Forms.DataGridView dataGridView1;
 		private System.Windows.Forms.DataGridView dataGridViewTaskList;
-		private System.Windows.Forms.ComboBox comboBox3;
-		private System.Windows.Forms.ComboBox comboBox2;
-		private System.Windows.Forms.ComboBox comboBoxBuildingLevel;
-		private System.Windows.Forms.Button buttonAddTask;
+		private System.Windows.Forms.ComboBox comboBoxTasksTask;
+		private System.Windows.Forms.ComboBox comboBoxTasksVillages;
+		private System.Windows.Forms.ComboBox comboBoxTasksBuildingLevel;
 		private System.Windows.Forms.BindingSource getTaskListBindingSource;
 		private jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskListTableAdapter getTaskListTableAdapter;
 		private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
@@ -663,6 +794,22 @@ namespace jcTBotGUI
 		private System.Windows.Forms.DataGridViewTextBoxColumn clayPerHourDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ironPerHourDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn cropPerHourDataGridViewTextBoxColumn;
+		private System.Windows.Forms.BindingSource getVillageNamesBindingSource;
+		private jcTBotGUI.jcTBotDataSetTableAdapters.GetVillageNamesTableAdapter getVillageNamesTableAdapter;
+		private System.Windows.Forms.BindingSource getVillagesNamesAndIDsBindingSource;
+		private jcTBotGUI.jcTBotDataSetTableAdapters.GetVillagesNamesAndIDsTableAdapter getVillagesNamesAndIDsTableAdapter;
+		private System.Windows.Forms.BindingSource getTaskNamesBindingSource;
+		private jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskNamesTableAdapter getTaskNamesTableAdapter;
+		private System.Windows.Forms.Label labelAddTaskTask;
+		private System.Windows.Forms.Label labelAddTaskLevel;
+		private System.Windows.Forms.Label labelAddTaskVillage;
+		private System.Windows.Forms.Button buttonAddNewTask;
+		private System.Windows.Forms.BindingSource getTaskNamesAndIDsBindingSource;
+		private jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskNamesAndIDsTableAdapter getTaskNamesAndIDsTableAdapter;
+		private System.Windows.Forms.Label labelTasksBuildID;
+		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.BindingSource getBuildingsGIDsNamesAndIDsBindingSource;
+		private jcTBotGUI.jcTBotDataSetTableAdapters.GetBuildingsGIDsNamesAndIDsTableAdapter getBuildingsGIDsNamesAndIDsTableAdapter;
 
 	}
 }
