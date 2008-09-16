@@ -53,35 +53,33 @@ namespace jcTBotGUI
 			CookieContainer myCookieContainer = new CookieContainer();
 			String loginContent = BotLibrary.GetPageContent(loginUrl, myCookieContainer);
 			LoginCredentials loginC = new LoginCredentials(loginContent);
-			//textBoxStatus.Text += (loginC.LoginName) + Environment.NewLine;
-			//textBoxStatus.Text += (loginC.PasswordName) + Environment.NewLine;
-			//textBoxStatus.Text += (loginC.HiddenName) + Environment.NewLine;
-			//textBoxStatus.Text += (loginC.HiddenValue) + Environment.NewLine;
-			//textBoxStatus.Text += (loginC.HiddenLoginValue) + Environment.NewLine;
 			//w=1152%3A864&login=1220770065&e4a33c4=jezonsky&eb43098=*****&e1fe1de=e697604783&s1.x=48&s1.y=8
 			String content = LoginCredentials.Login(loginName, password, dorf1Url, myCookieContainer, loginC, out cColl);
 			textBoxStatus.Text += "Login to '" + loginUrl + "' as '" + loginName + "' [" + password + "]" + Environment.NewLine;
-			for (int i = 0; i < cColl.Count; i++)
-				textBoxStatus.Text += "Cookie : " + cColl[i].Value + "'" + Environment.NewLine;
-			Data data = new Data(content, true, false);
+            for (int i = 0; i < cColl.Count; i++)
+            {
+                textBoxStatus.Text += "Cookie : " + cColl[i].Value + "'" + Environment.NewLine;
+            }
+		    buttonConnect.Enabled = false;
+			Data data = new Data(content, true, true, true, false);
 			textBoxStatus.Text += "Available Villages:" + Environment.NewLine;
-			for (int i = 0; i < data.VillagesList.Count; i++)
+            SqlConnection conn =
+                new SqlConnection(
+                ConfigurationManager.ConnectionStrings["jcTBotGUI.Properties.Settings.jcTBotConnection"].ConnectionString);
+            for (int i = 0; i < data.VillagesList.Count; i++)
 			{
 				String[] villageList = data.VillagesList[i].ToString().Split('|');
 				String villageName = villageList[1];
 				String villageId = villageList[0];
-				textBoxStatus.Text += villageName + Environment.NewLine;
-				SqlConnection conn = 
-					new SqlConnection(
-					ConfigurationManager.ConnectionStrings["jcTBotGUI.Properties.Settings.jcTBotConnection"].ConnectionString);
 				SqlCommand command = new SqlCommand("InsertVillage", conn);
 				command.CommandType = CommandType.StoredProcedure;
 				command.Parameters.Add("@VillageId", SqlDbType.Int).Value = villageId;
 				command.Parameters.Add("@VillageName", SqlDbType.VarChar).Value = villageName;
 				conn.Open();
-				int rows = command.ExecuteNonQuery();
-				//textBoxStatus.Text += "Insert " + (rows == 1 ? "OK" : "FAIL") + Environment.NewLine;
+				command.ExecuteNonQuery();
 				conn.Close();
+                textBoxStatus.Text += villageName + Environment.NewLine;
+                //TODO: update village names if they were changed
 			}
 
 		}
