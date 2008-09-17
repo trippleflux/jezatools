@@ -61,7 +61,7 @@ namespace jcTBotGUI
 			this.Tasks = new System.Windows.Forms.TabPage();
 			this.labelTasksBuildID = new System.Windows.Forms.Label();
 			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.getVillagesNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getBuildingsGIDsNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.buttonAddNewTask = new System.Windows.Forms.Button();
 			this.labelAddTaskTask = new System.Windows.Forms.Label();
 			this.labelAddTaskLevel = new System.Windows.Forms.Label();
@@ -69,6 +69,7 @@ namespace jcTBotGUI
 			this.comboBoxTasksTask = new System.Windows.Forms.ComboBox();
 			this.getTaskNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.comboBoxTasksVillages = new System.Windows.Forms.ComboBox();
+			this.getVillagesNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.comboBoxTasksBuildingLevel = new System.Windows.Forms.ComboBox();
 			this.dataGridViewTaskList = new System.Windows.Forms.DataGridView();
 			this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,7 +94,6 @@ namespace jcTBotGUI
 			this.getVillagesNamesAndIDsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetVillagesNamesAndIDsTableAdapter();
 			this.getTaskNamesTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskNamesTableAdapter();
 			this.getTaskNamesAndIDsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetTaskNamesAndIDsTableAdapter();
-			this.getBuildingsGIDsNamesAndIDsBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.getBuildingsGIDsNamesAndIDsTableAdapter = new jcTBotGUI.jcTBotDataSetTableAdapters.GetBuildingsGIDsNamesAndIDsTableAdapter();
 			this.tabControl.SuspendLayout();
 			this.Login.SuspendLayout();
@@ -104,15 +104,15 @@ namespace jcTBotGUI
 			((System.ComponentModel.ISupportInitialize)(this.getProductionForVillagesBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).BeginInit();
 			this.Tasks.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.getVillagesNamesAndIDsBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getBuildingsGIDsNamesAndIDsBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesAndIDsBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getVillagesNamesAndIDsBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaskList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.Status.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.getVillageNamesBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.getBuildingsGIDsNamesAndIDsBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl
@@ -158,7 +158,7 @@ namespace jcTBotGUI
 			this.buttonConnect.Location = new System.Drawing.Point(372, 10);
 			this.buttonConnect.Name = "buttonConnect";
 			this.buttonConnect.Size = new System.Drawing.Size(75, 23);
-			this.buttonConnect.TabIndex = 5;
+			this.buttonConnect.TabIndex = 0;
 			this.buttonConnect.Text = "Connect";
 			this.buttonConnect.UseVisualStyleBackColor = true;
 			this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
@@ -433,10 +433,10 @@ namespace jcTBotGUI
 			this.comboBox1.TabIndex = 10;
 			this.comboBox1.ValueMember = "Id";
 			// 
-			// getVillagesNamesAndIDsBindingSource
+			// getBuildingsGIDsNamesAndIDsBindingSource
 			// 
-			this.getVillagesNamesAndIDsBindingSource.DataMember = "GetVillagesNamesAndIDs";
-			this.getVillagesNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
+			this.getBuildingsGIDsNamesAndIDsBindingSource.DataMember = "GetBuildingsGIDsNamesAndIDs";
+			this.getBuildingsGIDsNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
 			// 
 			// buttonAddNewTask
 			// 
@@ -446,7 +446,7 @@ namespace jcTBotGUI
 			this.buttonAddNewTask.TabIndex = 9;
 			this.buttonAddNewTask.Text = "Add Task";
 			this.buttonAddNewTask.UseVisualStyleBackColor = true;
-			this.buttonAddNewTask.Click += new System.EventHandler(this.buttonAddNewTask_Click);
+			this.buttonAddNewTask.Click += new System.EventHandler(buttonAddNewTask_Click);
 			// 
 			// labelAddTaskTask
 			// 
@@ -501,6 +501,11 @@ namespace jcTBotGUI
 			this.comboBoxTasksVillages.Size = new System.Drawing.Size(121, 21);
 			this.comboBoxTasksVillages.TabIndex = 3;
 			this.comboBoxTasksVillages.ValueMember = "VillageId";
+			// 
+			// getVillagesNamesAndIDsBindingSource
+			// 
+			this.getVillagesNamesAndIDsBindingSource.DataMember = "GetVillagesNamesAndIDs";
+			this.getVillagesNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
 			// 
 			// comboBoxTasksBuildingLevel
 			// 
@@ -702,11 +707,6 @@ namespace jcTBotGUI
 			// 
 			this.getTaskNamesAndIDsTableAdapter.ClearBeforeFill = true;
 			// 
-			// getBuildingsGIDsNamesAndIDsBindingSource
-			// 
-			this.getBuildingsGIDsNamesAndIDsBindingSource.DataMember = "GetBuildingsGIDsNamesAndIDs";
-			this.getBuildingsGIDsNamesAndIDsBindingSource.DataSource = this.jcTBotDataSet;
-			// 
 			// getBuildingsGIDsNamesAndIDsTableAdapter
 			// 
 			this.getBuildingsGIDsNamesAndIDsTableAdapter.ClearBeforeFill = true;
@@ -728,8 +728,9 @@ namespace jcTBotGUI
 			((System.ComponentModel.ISupportInitialize)(this.jcTBotDataSet)).EndInit();
 			this.Tasks.ResumeLayout(false);
 			this.Tasks.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.getVillagesNamesAndIDsBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getBuildingsGIDsNamesAndIDsBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesAndIDsBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getVillagesNamesAndIDsBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaskList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskListBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -737,7 +738,6 @@ namespace jcTBotGUI
 			this.Status.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.getTaskNamesBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.getVillageNamesBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.getBuildingsGIDsNamesAndIDsBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}

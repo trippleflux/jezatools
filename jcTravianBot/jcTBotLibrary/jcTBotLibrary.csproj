@@ -36,7 +36,9 @@
     <Compile Include="BotLibrary.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="LoginCredentials.cs" />
+    <Compile Include="Production.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Village.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
