@@ -187,6 +187,5 @@ namespace jcTBotLibrary
 			StreamReader reader = new StreamReader(dorf1Response.GetResponseStream(), Encoding.UTF8);
 			return reader.ReadToEnd();
 		}
-
 	}
 }
