@@ -69,37 +69,14 @@ namespace jcTBotGUI
 						ConfigurationManager.ConnectionStrings["jcTBotGUI.Properties.Settings.jcTBotConnection"].ConnectionString);
 				foreach (Village v in data.VillagesList)
 				{
-					string villageName = InsertVillage2DB(conn, v);
+                    //http://s3.travian.si/dorf1.php?newdid=106401
+                    String villageUrl = serverName + "dorf1.php?newid=" + v.VillageId;
+                    
+                    InsertVillage2DB(conn, v);
 					
-					//http://s3.travian.si/dorf1.php?newdid=106401
-					String villageUrl = serverName + "dorf1.php?newid=" + v.VillageId;
 					String villageContent = BotLibrary.GetPageContent(villageUrl, myCookieContainer, out cColl);
 					//TODO: get resource levels too!!!
-					Data productionOfVillage = new Data(villageContent, false, false, false, false, true);
-					Production p = productionOfVillage.ProductionList[0] as Production;
-					SqlCommand command = new SqlCommand("InsertProduction", conn);
-					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.Clear();
-					command.Parameters.Add("@VillageId", SqlDbType.Int).Value = v.VillageId;
-					command.Parameters.Add("@Warehouse", SqlDbType.Int).Value = p.WarehouseKapacity;
-					command.Parameters.Add("@Granary", SqlDbType.Int).Value = p.GranaryKapacity;
-					command.Parameters.Add("@Wood", SqlDbType.Int).Value = p.Wood;
-					command.Parameters.Add("@Clay", SqlDbType.Int).Value = p.Clay;
-					command.Parameters.Add("@Iron", SqlDbType.Int).Value = p.Iron;
-					command.Parameters.Add("@Crop", SqlDbType.Int).Value = p.Crop;
-					command.Parameters.Add("@WoodPerHour", SqlDbType.Int).Value = p.WoodPerHour;
-					command.Parameters.Add("@ClayPerHour", SqlDbType.Int).Value = p.ClayPerHour;
-					command.Parameters.Add("@IronPerHour", SqlDbType.Int).Value = p.IronPerHour;
-					command.Parameters.Add("@CropPerHour", SqlDbType.Int).Value = p.CropPerHour;
-					conn.Open();
-					command.ExecuteNonQuery();
-					conn.Close();
-
-					textBoxStatus.Text += villageName + "(" + v.VillageId + ") ";
-					textBoxStatus.Text += "Wood:" + p.Wood + "/" + p.WarehouseKapacity + "(" + p.WoodPerHour + ")";
-					textBoxStatus.Text += "Clay:" + p.Clay + "/" + p.WarehouseKapacity + "(" + p.ClayPerHour + ")";
-					textBoxStatus.Text += "Iron:" + p.Iron + "/" + p.WarehouseKapacity + "(" + p.IronPerHour + ")";
-					textBoxStatus.Text += "Crop:" + p.Crop + "/" + p.GranaryKapacity + "(" + p.CropPerHour + ")" + Environment.NewLine;
+					InsertProductionForVillage(v, conn, villageContent);
 				}
 				//textBoxStatus.Text += "production: " + data.ProductionList.Count + Environment.NewLine;
 				//Production p = data.ProductionList[0] as Production;
@@ -113,7 +90,36 @@ namespace jcTBotGUI
 			}
 		}
 
-		private static string InsertVillage2DB(SqlConnection conn, Village v)
+	    private void InsertProductionForVillage(Village v, SqlConnection conn, string villageContent)
+	    {
+	        Data productionOfVillage = new Data(villageContent, false, false, false, false, true);
+	        Production p = productionOfVillage.ProductionList[0] as Production;
+	        SqlCommand command = new SqlCommand("InsertProduction", conn);
+	        command.CommandType = CommandType.StoredProcedure;
+	        command.Parameters.Clear();
+	        command.Parameters.Add("@VillageId", SqlDbType.Int).Value = v.VillageId;
+	        command.Parameters.Add("@Warehouse", SqlDbType.Int).Value = p.WarehouseKapacity;
+	        command.Parameters.Add("@Granary", SqlDbType.Int).Value = p.GranaryKapacity;
+	        command.Parameters.Add("@Wood", SqlDbType.Int).Value = p.Wood;
+	        command.Parameters.Add("@Clay", SqlDbType.Int).Value = p.Clay;
+	        command.Parameters.Add("@Iron", SqlDbType.Int).Value = p.Iron;
+	        command.Parameters.Add("@Crop", SqlDbType.Int).Value = p.Crop;
+	        command.Parameters.Add("@WoodPerHour", SqlDbType.Int).Value = p.WoodPerHour;
+	        command.Parameters.Add("@ClayPerHour", SqlDbType.Int).Value = p.ClayPerHour;
+	        command.Parameters.Add("@IronPerHour", SqlDbType.Int).Value = p.IronPerHour;
+	        command.Parameters.Add("@CropPerHour", SqlDbType.Int).Value = p.CropPerHour;
+	        conn.Open();
+	        command.ExecuteNonQuery();
+	        conn.Close();
+
+	        textBoxStatus.Text += v.VillageName + "(" + v.VillageId + ") ";
+	        textBoxStatus.Text += "Wood:" + p.Wood + "/" + p.WarehouseKapacity + "(" + p.WoodPerHour + ")";
+	        textBoxStatus.Text += "Clay:" + p.Clay + "/" + p.WarehouseKapacity + "(" + p.ClayPerHour + ")";
+	        textBoxStatus.Text += "Iron:" + p.Iron + "/" + p.WarehouseKapacity + "(" + p.IronPerHour + ")";
+	        textBoxStatus.Text += "Crop:" + p.Crop + "/" + p.GranaryKapacity + "(" + p.CropPerHour + ")" + Environment.NewLine;
+	    }
+
+	    private static string InsertVillage2DB(SqlConnection conn, Village v)
 		{
 			String villageName = v.VillageName;
 			String villageId = v.VillageId;
