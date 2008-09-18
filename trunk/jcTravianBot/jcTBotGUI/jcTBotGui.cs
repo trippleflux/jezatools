@@ -2,7 +2,9 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Net;
+using System.Text;
 using System.Windows.Forms;
 using jcTBotLibrary;
 
@@ -40,7 +42,17 @@ namespace jcTBotGUI
 			getTaskListTableAdapter.Fill(jcTBotDataSet.GetTaskList);
 		}
 
-		private void buttonConnect_Click(object sender, EventArgs e)
+        private static string GetPageSource(string pageUrl)
+        {
+            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+            httpWebRequest.CookieContainer = new CookieContainer();
+            httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cColl);
+            HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
+            return loginReader.ReadToEnd();
+        }
+        
+        private void buttonConnect_Click(object sender, EventArgs e)
 		{
 			String loginName = textBoxUsername.Text.Trim();
 			String password = textBoxPassword.Text.Trim();
@@ -74,10 +86,11 @@ namespace jcTBotGUI
                     
                     InsertVillage2DB(conn, v);
 					
-					String villageContent = BotLibrary.GetPageContent(villageUrl, myCookieContainer, out cColl);
+					String villageContent = GetPageSource(villageUrl);
 					//TODO: get resource levels too!!!
 					InsertProductionForVillage(v, conn, villageContent);
 				}
+			    //String karte = GetPageSource(serverName + "karte.php");
 				//textBoxStatus.Text += "production: " + data.ProductionList.Count + Environment.NewLine;
 				//Production p = data.ProductionList[0] as Production;
 				//textBoxStatus.Text += p.Clay + Environment.NewLine;
