@@ -56,14 +56,22 @@ namespace jcTBotLibrary
 			{
 				MatchCollection resourcesCollection =
 					Regex.Matches(pageContent, @"<area href=""build.php.id=([0-9]{1,3})"" coords=""([0-9]{1,3}.)*"" shape=""circle"" title=""((\w|\d|\s)*)"">");
-				//for (int i = 0; i < resourcesCollection.Count; i++)
-				//{
-				//    Console.WriteLine("*** " + resourcesCollection[i].Groups[0].Value);
-				//    for (int j=0;j<resourcesCollection[i].Groups.Count;j++)
-				//    {
-				//        Console.WriteLine("*** " + resourcesCollection[i].Groups[j].Value);
-				//    }
-				//}
+				for (int i = 0; i < resourcesCollection.Count; i++)
+				{
+					Resources r = new Resources();
+					r.ResourceId = Int32.Parse(resourcesCollection[i].Groups[1].Value.Trim());
+					string name = resourcesCollection[i].Groups[3].Value.Trim();
+					string[] nameLevel = name.Split(' ');
+					int nameLevelLength = nameLevel.Length;
+					r.ResourceLevel = Int32.Parse(nameLevel[nameLevelLength - 1]);
+					for (int n = 0; n < nameLevelLength - 2; n++)
+					{
+						r.ResourceName += nameLevel[n] + " ";
+					}
+					ResourcesId rId = new ResourcesId();
+					rId.ResourcesVillageId.Add(r);
+					ResourcesList.Add(rId);
+				}
 			}
 
 			//<area href="build.php?id=19" title="Žitnica Stopnja 20" coords="53,91,53,37,128,37,128,91,91,112" shape="poly">
@@ -175,5 +183,13 @@ namespace jcTBotLibrary
 		}
 
 		private ArrayList productionList = new ArrayList();
+
+		public ArrayList ResourcesList
+		{
+			get { return resourcesList; }
+			set { resourcesList = value; }
+		}
+
+		private ArrayList resourcesList = new ArrayList();
 	}
 }
