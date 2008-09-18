@@ -132,7 +132,7 @@ namespace jcTBotGUI
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(826, 624);
+			this.tabControl.Size = new System.Drawing.Size(1120, 725);
 			this.tabControl.TabIndex = 0;
 			this.tabControl.Click += new System.EventHandler(this.jcTBotGui_Load);
 			// 
@@ -148,7 +148,7 @@ namespace jcTBotGUI
 			this.Login.Location = new System.Drawing.Point(4, 22);
 			this.Login.Name = "Login";
 			this.Login.Padding = new System.Windows.Forms.Padding(3);
-			this.Login.Size = new System.Drawing.Size(818, 598);
+			this.Login.Size = new System.Drawing.Size(1112, 699);
 			this.Login.TabIndex = 0;
 			this.Login.Text = "Login";
 			this.Login.UseVisualStyleBackColor = true;
@@ -222,7 +222,7 @@ namespace jcTBotGUI
 			this.Villages.Location = new System.Drawing.Point(4, 22);
 			this.Villages.Name = "Villages";
 			this.Villages.Padding = new System.Windows.Forms.Padding(3);
-			this.Villages.Size = new System.Drawing.Size(818, 598);
+			this.Villages.Size = new System.Drawing.Size(1112, 699);
 			this.Villages.TabIndex = 1;
 			this.Villages.Text = "Villages";
 			this.Villages.UseVisualStyleBackColor = true;
@@ -234,10 +234,10 @@ namespace jcTBotGUI
 			this.dataGridViewBuildings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewBuildings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewBuildings.Location = new System.Drawing.Point(409, 261);
+			this.dataGridViewBuildings.Location = new System.Drawing.Point(554, 362);
 			this.dataGridViewBuildings.Name = "dataGridViewBuildings";
 			this.dataGridViewBuildings.ReadOnly = true;
-			this.dataGridViewBuildings.Size = new System.Drawing.Size(400, 310);
+			this.dataGridViewBuildings.Size = new System.Drawing.Size(549, 310);
 			this.dataGridViewBuildings.TabIndex = 2;
 			// 
 			// dataGridViewResources
@@ -247,10 +247,10 @@ namespace jcTBotGUI
 			this.dataGridViewResources.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.dataGridViewResources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewResources.Location = new System.Drawing.Point(8, 261);
+			this.dataGridViewResources.Location = new System.Drawing.Point(8, 362);
 			this.dataGridViewResources.Name = "dataGridViewResources";
 			this.dataGridViewResources.ReadOnly = true;
-			this.dataGridViewResources.Size = new System.Drawing.Size(395, 310);
+			this.dataGridViewResources.Size = new System.Drawing.Size(540, 310);
 			this.dataGridViewResources.TabIndex = 1;
 			// 
 			// dataGridViewVillages
@@ -280,8 +280,9 @@ namespace jcTBotGUI
 			this.dataGridViewVillages.Location = new System.Drawing.Point(8, 8);
 			this.dataGridViewVillages.Name = "dataGridViewVillages";
 			this.dataGridViewVillages.ReadOnly = true;
-			this.dataGridViewVillages.Size = new System.Drawing.Size(801, 247);
+			this.dataGridViewVillages.Size = new System.Drawing.Size(1095, 348);
 			this.dataGridViewVillages.TabIndex = 0;
+			this.dataGridViewVillages.SelectionChanged += new System.EventHandler(this.dataGridViewVillages_SelectionChanged);
 			// 
 			// idDataGridViewTextBoxColumn1
 			// 
@@ -446,7 +447,7 @@ namespace jcTBotGUI
 			this.buttonAddNewTask.TabIndex = 9;
 			this.buttonAddNewTask.Text = "Add Task";
 			this.buttonAddNewTask.UseVisualStyleBackColor = true;
-			this.buttonAddNewTask.Click += new System.EventHandler(buttonAddNewTask_Click);
+			this.buttonAddNewTask.Click += new System.EventHandler(this.buttonAddNewTask_Click);
 			// 
 			// labelAddTaskTask
 			// 
@@ -713,7 +714,7 @@ namespace jcTBotGUI
 			// 
 			// jcTBotGui
 			// 
-			this.ClientSize = new System.Drawing.Size(825, 646);
+			this.ClientSize = new System.Drawing.Size(1119, 747);
 			this.Controls.Add(this.tabControl);
 			this.Name = "jcTBotGui";
 			this.Load += new System.EventHandler(this.jcTBotGui_Load);

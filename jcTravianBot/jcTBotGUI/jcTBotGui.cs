@@ -45,6 +45,7 @@ namespace jcTBotGUI
         private static string GetPageSource(string pageUrl)
         {
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+        	httpWebRequest.Method = "GET";
             httpWebRequest.CookieContainer = new CookieContainer();
             httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cColl);
             HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -79,16 +80,16 @@ namespace jcTBotGUI
 				SqlConnection conn =
 					new SqlConnection(
 						ConfigurationManager.ConnectionStrings["jcTBotGUI.Properties.Settings.jcTBotConnection"].ConnectionString);
+				ClearProductionTable(conn);
+				ClearResourcesTable(conn);
 				foreach (Village v in data.VillagesList)
 				{
-                    //http://s3.travian.si/dorf1.php?newdid=106401
-                    String villageUrl = serverName + "dorf1.php?newid=" + v.VillageId;
-                    
-                    InsertVillage2DB(conn, v);
-					
+					InsertVillage2DB(conn, v);
+					String villageUrl = serverName + "dorf1.php?newdid=" + v.VillageId;
 					String villageContent = GetPageSource(villageUrl);
-					//TODO: get resource levels too!!!
-					InsertProductionForVillage(v, conn, villageContent);
+					Data productionOfVillage = new Data(villageContent, false, false, true, false, true);
+					InsertProductionForVillage(v, conn, productionOfVillage);
+					InsertResourcesForVillage(v, conn, productionOfVillage);
 				}
 			    //String karte = GetPageSource(serverName + "karte.php");
 				//textBoxStatus.Text += "production: " + data.ProductionList.Count + Environment.NewLine;
@@ -103,9 +104,46 @@ namespace jcTBotGUI
 			}
 		}
 
-	    private void InsertProductionForVillage(Village v, SqlConnection conn, string villageContent)
+		private static void ClearProductionTable(SqlConnection conn)
+		{
+			SqlCommand command = new SqlCommand("DeleteAllFromProduction", conn);
+			command.CommandType = CommandType.StoredProcedure;
+			conn.Open();
+			command.ExecuteNonQuery();
+			conn.Close();
+		}
+
+		private static void ClearResourcesTable(SqlConnection conn)
+		{
+			SqlCommand command = new SqlCommand("DeleteAllFromResources", conn);
+			command.CommandType = CommandType.StoredProcedure;
+			conn.Open();
+			command.ExecuteNonQuery();
+			conn.Close();
+		}
+
+		private static void InsertResourcesForVillage(Village v, SqlConnection conn, Data productionOfVillage)
+		{
+			for (int i = 0; i < productionOfVillage.ResourcesList.Count; i++)
+			{
+				ResourcesId rId = productionOfVillage.ResourcesList[i] as ResourcesId;
+				Resources r = rId.ResourcesVillageId[0] as Resources;
+				SqlCommand command = new SqlCommand("InsertResources", conn);
+				command.CommandType = CommandType.StoredProcedure;
+				command.Parameters.Clear();
+				command.Parameters.Add("@VillageId", SqlDbType.Int).Value = v.VillageId;
+				command.Parameters.Add("@ResourcesId", SqlDbType.Int).Value = r.ResourceId;
+				command.Parameters.Add("@ResourcesName", SqlDbType.VarChar).Value = r.ResourceName;
+				command.Parameters.Add("@ResourcesLevel", SqlDbType.Int).Value = r.ResourceLevel;
+				conn.Open();
+				command.ExecuteNonQuery();
+				conn.Close();
+			}
+			//Resources r = productionOfVillage.ResourcesList[0] as Resources;
+		}
+
+		private void InsertProductionForVillage(Village v, SqlConnection conn, Data productionOfVillage)
 	    {
-	        Data productionOfVillage = new Data(villageContent, false, false, false, false, true);
 	        Production p = productionOfVillage.ProductionList[0] as Production;
 	        SqlCommand command = new SqlCommand("InsertProduction", conn);
 	        command.CommandType = CommandType.StoredProcedure;
@@ -153,8 +191,13 @@ namespace jcTBotGUI
 			return villageName;
 		}
 
-		private static void buttonAddNewTask_Click(object sender, EventArgs e)
+		private void buttonAddNewTask_Click(object sender, EventArgs e)
 		{
+		}
+
+		private void dataGridViewVillages_SelectionChanged(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
