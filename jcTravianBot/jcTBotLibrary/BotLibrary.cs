@@ -25,5 +25,5 @@ namespace jcTBotLibrary
 			StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
 			return loginReader.ReadToEnd();
 		}
-	}
+    }
 }
