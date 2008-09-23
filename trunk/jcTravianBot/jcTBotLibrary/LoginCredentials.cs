@@ -1,8 +1,12 @@
+#region
+
 using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+
+#endregion
 
 namespace jcTBotLibrary
 {
@@ -34,9 +38,26 @@ namespace jcTBotLibrary
 
 		private string loginName;
 		private string passwordName;
+		private string username;
+		private string password;
+
+		public string Username
+		{
+			get { return username; }
+			set { username = value; }
+		}
+
+		public string Password
+		{
+			get { return password; }
+			set { password = value; }
+		}
+
 		private string hiddenLoginValue;
 		private string hiddenName;
 		private string hiddenValue;
+
+
 
 		/// <summary>
 		/// Gets login,password textbox names and sets their content.
@@ -44,8 +65,6 @@ namespace jcTBotLibrary
 		///
 		public LoginCredentials(String pageContent)
 		{
-			//Console.WriteLine(pageContent);
-
 			Regex regHiddenLoginValue = new Regex("<input type=\"hidden\" name=\"login\" value=\"(.*)\">");
 			if (regHiddenLoginValue.IsMatch(pageContent))
 			{
@@ -80,6 +99,8 @@ namespace jcTBotLibrary
 				//}
 			}
 		}
+
+
 
 		/// <summary>
 		/// <c>value</c> of hidden input tag.
@@ -141,39 +162,38 @@ namespace jcTBotLibrary
 			set { passwordName = value; }
 		}
 
+
+
 		/// <summary>
 		/// Login to Travian server.
 		/// </summary>
-		/// <param name="loginName">Username</param>
-		/// <param name="password">Password</param>
 		/// <param name="dorf1Url">URL</param>
 		/// <param name="myCookieContainer">Cookie container</param>
 		/// <param name="loginC"><see cref="LoginCredentials"/></param>
 		/// <param name="cColl"><see cref="CookieCollection"/></param>
 		/// <returns>Page source</returns>
 		/// 
-		public static String Login(
-			String loginName, 
-			String password, 
-			String dorf1Url, 
-			CookieContainer myCookieContainer, 
+		public static String Login
+			(
+			String dorf1Url,
+			CookieContainer myCookieContainer,
 			LoginCredentials loginC,
 			out CookieCollection cColl)
 		{
+			//w=1152%3A864&login=1220770065&e4a33c4=jezonsky&eb43098=*****&e1fe1de=e697604783&s1.x=48&s1.y=8
 			String postData =
-						 String.Format("w=1152%3A864&login={0}&{1}={2}&{3}={4}&{5}={6}&s1.x=48&s1.y=8",
-						 loginC.HiddenLoginValue,
-						 loginC.LoginName,
-						 loginName,
-						 loginC.PasswordName,
-						 password,
-						 loginC.HiddenName,
-						 loginC.HiddenValue);
-			//Console.WriteLine(postData);
+				String.Format("w=1152%3A864&login={0}&{1}={2}&{3}={4}&{5}={6}&s1.x=48&s1.y=8",
+				              loginC.HiddenLoginValue,
+				              loginC.LoginName,
+							  loginC.Username,
+				              loginC.PasswordName,
+							  loginC.Password,
+				              loginC.HiddenName,
+				              loginC.HiddenValue);
 
 			UTF8Encoding encoding = new UTF8Encoding();
 			byte[] data = encoding.GetBytes(postData);
-			HttpWebRequest dorf1Request = (HttpWebRequest)WebRequest.Create(dorf1Url);
+			HttpWebRequest dorf1Request = (HttpWebRequest) WebRequest.Create(dorf1Url);
 			dorf1Request.Method = "POST";
 			dorf1Request.ContentType = "application/x-www-form-urlencoded";
 			dorf1Request.ContentLength = data.Length;
@@ -182,7 +202,7 @@ namespace jcTBotLibrary
 			dorf1Stream.Write(data, 0, data.Length);
 			dorf1Stream.Close();
 
-			HttpWebResponse dorf1Response = (HttpWebResponse)dorf1Request.GetResponse();
+			HttpWebResponse dorf1Response = (HttpWebResponse) dorf1Request.GetResponse();
 			cColl = myCookieContainer.GetCookies(dorf1Request.RequestUri);
 			StreamReader reader = new StreamReader(dorf1Response.GetResponseStream(), Encoding.UTF8);
 			return reader.ReadToEnd();

@@ -29,19 +29,22 @@ namespace jcTBotLibrary
 		{
             if (getPlayerID)
             {
-                Regex regPlayerID = new Regex(@"<a href=""spieler.php.uid=(.*)"">(.*)<.a>");
+            	PlayerUID = -1;
+				Regex regPlayerID = new Regex(@"<a href=""spieler.php.uid=([0-9]{0,6})"">");
                 if (regPlayerID.IsMatch(pageContent))
                 {
                     Match Mc = regPlayerID.Matches(pageContent)[0];
-                    playerUID = Mc.Groups[1].Value;
+					playerUID = Int32.Parse(Mc.Groups[1].Value.Trim());
                 }
             }
 
             if (getVillageIDs)
             {
+				//<div class="dname"><h1>Muta01</h1></div> - one village!!! ?newdid=0
 				MatchCollection myMatchCollection =
                     Regex.Matches(pageContent, @"<a href="".newdid=(.*)\"">(.*)<.a>");
-                for (int i = 0; i < myMatchCollection.Count; i++)
+            	int villageCount = myMatchCollection.Count;
+                for (int i = 0; i < villageCount; i++)
                 {
                     //102706" class="active_vl
                     string regEx = myMatchCollection[i].Groups[1].Value;
@@ -50,6 +53,16 @@ namespace jcTBotLibrary
                 	v.VillageName = myMatchCollection[i].Groups[2].Value.Trim();
                 	VillagesList.Add(v);
                 }
+				if (villageCount < 2)
+				{
+					const string regVillageName = @"<div class=""dname""><h1>(.*)</h1></div>";
+					myMatchCollection =
+		                Regex.Matches(pageContent, regVillageName);
+					Village v = new Village();
+					v.VillageId = "0";
+					v.VillageName = myMatchCollection[0].Groups[1].Value.Trim();
+					VillagesList.Add(v);
+				}
             }
 
 			if (getResouresLevel)
@@ -76,11 +89,26 @@ namespace jcTBotLibrary
 
 			//<area href="build.php?id=19" title="Žitnica Stopnja 20" coords="53,91,53,37,128,37,128,91,91,112" shape="poly">
 			if (getBuildingsLevel)
-            {
-				string reg =
-					@"<area href=""build.php.id=([0-9]{1,3})"" title=""((\w|\d|\s)*)"" coords=""([0-9]{1,3}.)*"" shape=""poly"">";
+			{
+				const string reg = @"<area href=""build.php.id=([0-9]{1,3})"" title=""((\w|\d|\s)*)"" coords=""([0-9]{1,3}.)*"" shape=""poly"">";
 				MatchCollection buildingsCollection = Regex.Matches(pageContent, reg);
-            }
+				for (int i = 0; i < buildingsCollection.Count; i++)
+				{
+					Buildings b = new Buildings();
+					b.BuildingId = Int32.Parse(buildingsCollection[i].Groups[1].Value.Trim());
+					string name = buildingsCollection[i].Groups[3].Value.Trim();
+					string[] nameLevel = name.Split(' ');
+					int nameLevelLength = nameLevel.Length;
+					b.BuildingLevel = Int32.Parse(nameLevel[nameLevelLength - 1]);
+					for (int n = 0; n < nameLevelLength - 2; n++)
+					{
+						b.BuildingName += nameLevel[n] + " ";
+					}
+					BuildingsId bId = new BuildingsId();
+					bId.BuildingsVillageId.Add(b);
+					BuildingsList.Add(bId);
+				}
+			}
 
 			/*
 <table align="center" cellspacing="0" cellpadding="0"><tr valign="top">
@@ -96,12 +124,10 @@ namespace jcTBotLibrary
 			 */
 			if (getproduction)
 			{
-				string reg;
-				MatchCollection resourcesKapacity;
 				Production p = new Production();
 				//wood
-				reg = @"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<";
-				resourcesKapacity = Regex.Matches(pageContent, reg);
+				string reg = @"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<";
+				MatchCollection resourcesKapacity = Regex.Matches(pageContent, reg);
 				p.Wood = Int32.Parse(resourcesKapacity[0].Groups[2].Value.Trim());
 				p.WoodPerHour = Int32.Parse(resourcesKapacity[0].Groups[1].Value.Trim());
 				//clay
@@ -149,13 +175,13 @@ namespace jcTBotLibrary
 		/// <summary>
 		/// //<a href="spieler.php?uid=8226">Profil</a>
 		/// </summary>
-		public string PlayerUID
+		public int PlayerUID
 		{
 			get { return playerUID; }
 			set { playerUID = value; }
 		}
 
-		private string playerUID;
+		private int playerUID;
 
 		/// <summary>
 		/// <a href="?newdid=10902">Muta01</a>
@@ -191,5 +217,13 @@ namespace jcTBotLibrary
 		}
 
 		private ArrayList resourcesList = new ArrayList();
+
+		private ArrayList buildingsList = new ArrayList();
+
+		public ArrayList BuildingsList
+		{
+			get { return buildingsList; }
+			set { buildingsList = value; }
+		}
 	}
 }
