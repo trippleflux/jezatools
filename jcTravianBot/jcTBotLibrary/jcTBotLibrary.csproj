@@ -34,6 +34,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotLibrary.cs" />
+    <Compile Include="Buildings.cs" />
+    <Compile Include="BuildingsId.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="LoginCredentials.cs" />
     <Compile Include="Production.cs" />
