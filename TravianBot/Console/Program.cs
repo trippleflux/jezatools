@@ -22,6 +22,39 @@ namespace Console
                 sd.Username = "jezonsky";
                 sd.Password = "kepek";
 
+//USE [TravianBot]
+//GO
+///****** Object:  StoredProcedure [dbo].[InsertVillage]    Script Date: 09/25/2008 14:59:27 ******/
+//SET ANSI_NULLS ON
+//GO
+//SET QUOTED_IDENTIFIER ON
+//GO
+//ALTER PROCEDURE [dbo].[InsertVillage] 
+//    (@VillageId int
+//    ,@VillageName nvarchar(50)
+//    ,@PlayerId int)
+//AS
+//BEGIN
+//    SET NOCOUNT ON;
+//    DECLARE @VillId int;
+//    SET @VillId = (SELECT [ID] FROM [TravianBot].[dbo].[Villages] WHERE @VillageId = [dbo].[Villages].[VillageId]);
+//    DECLARE @PlayerVillageId int;
+//    SET @PlayerVillageId = (SELECT [ID] FROM [TravianBot].[dbo].[Players] WHERE @PlayerId = [dbo].[Villages].[PlayerId]);
+//IF @VillId > 0 AND @PlayerVillageId > 0
+//INSERT INTO [TravianBot].[dbo].[Villages]
+//           ([VillageId]
+//           ,[VillageName]
+//           ,[PlayerId])
+//     VALUES
+//           (@VillageId
+//           ,@VillageName
+//           ,@PlayerVillageId)
+//ELSE
+//UPDATE [jcTBot].[dbo].[Villages]
+//   SET [VillageName] = @VillageName
+// WHERE [VillageId] = @VillageId AND [PlayerId] = @PlayerVillageId
+//END
+
                 String pageSource;
                 Browser b = new Browser();
                 cookieCollection = b.GetPageSource(sd.Servername + "login.php", out pageSource);
