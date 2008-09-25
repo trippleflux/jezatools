@@ -8,30 +8,33 @@ namespace Library
 {
     public class Browser
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Browser));
+        private static readonly ILog Log = LogManager.GetLogger(typeof (Browser));
+// ReSharper disable RedundantDefaultFieldInitializer
         public static CookieCollection cookieCollection = null;
+// ReSharper restore RedundantDefaultFieldInitializer
 
-        private string pageSource;
+        //private string pageSource;
 
-        public string PageSource
-        {
-            get { return pageSource; }
-            set { pageSource = value; }
-        }
+        //public string PageSource
+        //{
+        //    get { return pageSource; }
+        //    set { pageSource = value; }
+        //}
 
         /// <summary>
         /// Gets page source.
         /// </summary>
         /// <param name="pageUrl">Url of the page</param>
+        /// <param name="pageSource">Page source</param>
         /// <returns><see cref="CookieCollection"/></returns>
         /// 
-        public CookieCollection GetPageSource(string pageUrl)
+        public CookieCollection GetPageSource(string pageUrl, out String pageSource)
         {
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+            HttpWebRequest httpWebRequest = (HttpWebRequest) WebRequest.Create(pageUrl);
             httpWebRequest.Method = "GET";
             httpWebRequest.CookieContainer = new CookieContainer();
             //httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cookieCollection);
-            HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            HttpWebResponse webResponse = (HttpWebResponse) httpWebRequest.GetResponse();
             StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
             pageSource = loginReader.ReadToEnd();
             cookieCollection = httpWebRequest.CookieContainer.GetCookies(httpWebRequest.RequestUri);
@@ -66,7 +69,7 @@ namespace Library
             Log.InfoFormat("postData ['{0}']", postData);
             UTF8Encoding encoding = new UTF8Encoding();
             byte[] data = encoding.GetBytes(postData);
-            HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+            HttpWebRequest httpWebRequest = (HttpWebRequest) WebRequest.Create(pageUrl);
             httpWebRequest.Method = "POST";
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
             httpWebRequest.ContentLength = data.Length;
@@ -75,7 +78,7 @@ namespace Library
             dorf1Stream.Write(data, 0, data.Length);
             dorf1Stream.Close();
 
-            HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            HttpWebResponse httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse();
             cookieCollection = httpWebRequest.CookieContainer.GetCookies(httpWebRequest.RequestUri);
             StreamReader reader = new StreamReader(httpWebResponse.GetResponseStream(), Encoding.UTF8);
             pageContent = reader.ReadToEnd();

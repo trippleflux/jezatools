@@ -4,8 +4,8 @@ namespace Library
     {
         private string resourceFullName;
         private int resourceId;
-        private string resourceName;
         private int resourceLevel;
+        private string resourceName;
 
         public string ResourceFullName
         {
@@ -29,6 +29,12 @@ namespace Library
         {
             get { return resourceLevel; }
             set { resourceLevel = value; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("ResourceFullName: {0}, ResourceId: {1}, ResourceName: {2}, ResourceLevel: {3}",
+                                 resourceFullName, resourceId, resourceName, resourceLevel);
         }
     }
 }

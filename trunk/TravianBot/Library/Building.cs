@@ -4,8 +4,8 @@ namespace Library
     {
         private string buildingFullName;
         private int buildingId;
-        private string buildingName;
         private int buildingLevel;
+        private string buildingName;
 
         public string BuildingFullName
         {
@@ -29,6 +29,12 @@ namespace Library
         {
             get { return buildingLevel; }
             set { buildingLevel = value; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("BuildingFullName: {0}, BuildingId: {1}, BuildingName: {2}, BuildingLevel: {3}",
+                                 buildingFullName, buildingId, buildingName, buildingLevel);
         }
     }
 }
