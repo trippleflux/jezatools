@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Net;
+using System.Text;
 using Library;
 using log4net;
 
@@ -20,22 +22,14 @@ namespace Console
                 sd.Username = "jezonsky";
                 sd.Password = "kepek";
 
+                String pageSource;
                 Browser b = new Browser();
-                cookieCollection = b.GetPageSource(sd.Servername + "login.php");
+                cookieCollection = b.GetPageSource(sd.Servername + "login.php", out pageSource);
 
                 Parser p = new Parser();
-                p.LoginData(sd, b.PageSource);
+                p.LoginData(sd, pageSource);
 
-                Log.DebugFormat("HiddenLoginValue{0}", sd.HiddenLoginValue);
-                Log.DebugFormat("HiddenName{0}", sd.HiddenName);
-                Log.DebugFormat("HiddenValue{0}", sd.HiddenValue);
-                Log.DebugFormat("Password{0}", sd.Password);
-                Log.DebugFormat("Servername{0}", sd.Servername);
-                Log.DebugFormat("TextboxLoginName{0}", sd.TextboxLoginName);
-                Log.DebugFormat("TextboxLoginValue{0}", sd.TextboxLoginValue);
-                Log.DebugFormat("TextboxPasswordName{0}", sd.TextboxPasswordName);
-                Log.DebugFormat("TextboxPasswordValue{0}", sd.TextboxPasswordValue);
-                Log.DebugFormat("Username{0}", sd.Username);
+                Log.DebugFormat("ServerData={0}", sd.ToString());
                 //Log.DebugFormat("{0}", b.PageSource);
                 Log.Debug("Cookies:");
                 for (int i = 0; i < cookieCollection.Count; i++)
@@ -49,14 +43,52 @@ namespace Console
                 //http://s3.travian.si/statistiken.php
                 //http://s3.travian.si/berichte.php
                 //http://s3.travian.si/nachrichten.php
-                String pageSource;
                 cookieCollection = b.Login(sd.Servername + "dorf1.php", sd, out pageSource);
                 Log.DebugFormat("pageSource:\r\n{0}\r\n", pageSource);
-                Log.Debug("Cookies:");
+                Log.Info("Cookies:");
                 for (int i = 0; i < cookieCollection.Count; i++)
                 {
-                    Log.DebugFormat("{1}='{0}' Expires on '{2}'", cookieCollection[i], i,
-                                    cookieCollection[i].Expires.ToLocalTime());
+                    Log.InfoFormat("{1}='{0}' Expires on '{2}'", cookieCollection[i], i,
+                                   cookieCollection[i].Expires.ToLocalTime());
+                }
+
+                p.PlayerUid(sd, pageSource);
+                p.VillageIDs(sd, pageSource);
+                Log.InfoFormat("PlayerUid={0}", sd.PlayerUID);
+                foreach (Village v in sd.VillagesList)
+                {
+                    Log.InfoFormat("Village=[{0}]:[{1}]", v.VillageName, v.VillageId);
+                    String pageContent = GetPageSource(sd.Servername + "dorf1.php?newdid=" + v.VillageId);
+                    Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
+                    //Village production
+                    p.Production(sd, pageContent);
+                    Log.InfoFormat("Production for Village [{0}]: {1}", v.VillageName, sd.ProductionList[0]);
+                    //Village resources
+                    p.Resources(sd, pageContent);
+                    for (int i = 0; i < sd.ResourcesList.Count; i++)
+                    {
+                        VillageData villageResource = sd.ResourcesList[i] as VillageData;
+                        if (villageResource != null)
+                        {
+                            Resource villResource = villageResource.ResourcesForVillage[0] as Resource;
+                            if (villResource != null)
+                                Log.InfoFormat("Village [{0}] Resources: {1}", v.VillageName, villResource.ToString());
+                        }
+                    }
+                    //Village buildings
+                    pageContent = GetPageSource(sd.Servername + "dorf2.php?newdid=" + v.VillageId);
+                    Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
+                    p.Buildings(sd, pageContent);
+                    for (int i = 0; i < sd.BuildingsList.Count; i++)
+                    {
+                        VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
+                        if (villageBuildings != null)
+                        {
+                            Resource villBuildings = villageBuildings.ResourcesForVillage[0] as Resource;
+                            if (villBuildings != null)
+                                Log.InfoFormat("Village [{0}] Buildings: {1}", v.VillageName, villBuildings.ToString());
+                        }
+                    }
                 }
 
                 //int loopCount = 0;
@@ -74,6 +106,17 @@ namespace Console
                 Log.ErrorFormat(ex.Message);
                 Log.ErrorFormat(ex.StackTrace);
             }
+        }
+
+        private static string GetPageSource(string pageUrl)
+        {
+            HttpWebRequest httpWebRequest = (HttpWebRequest) WebRequest.Create(pageUrl);
+            httpWebRequest.Method = "GET";
+            httpWebRequest.CookieContainer = new CookieContainer();
+            httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cookieCollection);
+            HttpWebResponse webResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+            StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
+            return loginReader.ReadToEnd();
         }
     }
 }

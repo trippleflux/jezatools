@@ -1,10 +1,13 @@
 using System;
 using System.Text.RegularExpressions;
+using log4net;
 
 namespace Library
 {
     public class Parser
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof (Parser));
+
         /// <summary>
         /// Parses values from login page.
         /// </summary>
@@ -47,10 +50,9 @@ namespace Library
         /// Gets production of the village.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
-        /// <param name="p"><see cref="Production"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void Production(ServerData sd, Production p, String pageSource)
+        public void Production(ServerData sd, String pageSource)
         {
             /*
 <table align="center" cellspacing="0" cellpadding="0"><tr valign="top">
@@ -64,7 +66,8 @@ namespace Library
 <td id=l1 title=93>2095/2300</td>
 <td class="s7"> &nbsp;<img class="res" src="img/un/r/5.gif" title="Poraba žita">&nbsp;122/215</td></tr></table>
  */
-                
+
+            Production p = new Production();
             //wood
             Regex wood = new Regex(@"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
             if (wood.IsMatch(pageSource))
@@ -72,30 +75,34 @@ namespace Library
                 Match Mc = wood.Matches(pageSource)[0];
                 p.Wood = Int32.Parse(Mc.Groups[2].Value.Trim());
                 p.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
             //clay
             Regex clay = new Regex(@"id=l3 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
             if (clay.IsMatch(pageSource))
             {
                 Match Mc = clay.Matches(pageSource)[0];
-                p.Wood = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.Clay = Int32.Parse(Mc.Groups[2].Value.Trim());
+                p.ClayPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
             //iron
             Regex iron = new Regex(@"id=l2 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
             if (iron.IsMatch(pageSource))
             {
                 Match Mc = iron.Matches(pageSource)[0];
-                p.Wood = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.Iron = Int32.Parse(Mc.Groups[2].Value.Trim());
+                p.IronPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
             //crop
             Regex crop = new Regex(@"id=l1 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
             if (crop.IsMatch(pageSource))
             {
                 Match Mc = crop.Matches(pageSource)[0];
-                p.Wood = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.Crop = Int32.Parse(Mc.Groups[2].Value.Trim());
+                p.CropPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                p.GranaryKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
             sd.ProductionList.Add(p);
         }
@@ -121,10 +128,9 @@ namespace Library
         /// Gets village IDs and names
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
-        /// <param name="v"><see cref="Village"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void VillageIDs(ServerData sd, Village v, String pageSource)
+        public void VillageIDs(ServerData sd, String pageSource)
         {
             //<div class="dname"><h1>Muta01</h1></div> - one village!!! ?newdid=0
             MatchCollection myMatchCollection =
@@ -133,6 +139,7 @@ namespace Library
             for (int i = 0; i < villageCount; i++)
             {
                 //102706" class="active_vl
+                Village v = new Village();
                 string regEx = myMatchCollection[i].Groups[1].Value;
                 v.VillageId = tbLibrary.GetOnlyNumbers(regEx);
                 v.VillageName = myMatchCollection[i].Groups[2].Value.Trim();
@@ -143,6 +150,7 @@ namespace Library
                 const string regVillageName = @"<div class=""dname""><h1>(.*)</h1></div>";
                 myMatchCollection =
                     Regex.Matches(pageSource, regVillageName);
+                Village v = new Village();
                 v.VillageId = "0";
                 v.VillageName = myMatchCollection[0].Groups[1].Value.Trim();
                 sd.VillagesList.Add(v);
@@ -153,15 +161,16 @@ namespace Library
         /// Gets resource levels and list for village.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
-        /// <param name="r"><see cref="Resource"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void Resources(ServerData sd, Resource r, String pageSource)
+        public void Resources(ServerData sd, String pageSource)
         {
             MatchCollection resourcesCollection =
-                    Regex.Matches(pageSource, @"<area href=""build.php.id=([0-9]{1,3})"" coords=""([0-9]{1,3}.)*"" shape=""circle"" title=""((\w|\d|\s)*)"">");
+                Regex.Matches(pageSource,
+                              @"<area href=""build.php.id=([0-9]{1,3})"" coords=""([0-9]{1,3}.)*"" shape=""circle"" title=""((\w|\d|\s)*)"">");
             for (int i = 0; i < resourcesCollection.Count; i++)
             {
+                Resource r = new Resource();
                 string name = resourcesCollection[i].Groups[3].Value.Trim();
                 string[] nameLevel = name.Split(' ');
                 int nameLevelLength = nameLevel.Length;
@@ -182,24 +191,38 @@ namespace Library
         /// Gets buildings levels and list for village.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
-        /// <param name="b"><see cref="Building"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void Buildings(ServerData sd, Building b, String pageSource)
+        public void Buildings(ServerData sd, String pageSource)
         {
-            const string reg = @"<area href=""build.php.id=([0-9]{1,3})"" title=""((\w|\d|\s)*)"" coords=""([0-9]{1,3}.)*"" shape=""poly"">";
+            //<area href="build.php?id=19" title="zazidljiva parcela" coords="53,91,91,71,127,91,91,112" shape="poly">
+            const string reg =
+                @"<area href=""build.php.id=([0-9]{1,3})"" title=""((\w|\d|\s)*)"" coords=""([0-9]{1,3}.)*"" shape=""poly"">";
             MatchCollection buildingsCollection = Regex.Matches(pageSource, reg);
             for (int i = 0; i < buildingsCollection.Count; i++)
             {
-                string name = buildingsCollection[i].Groups[3].Value.Trim();
-                string[] nameLevel = name.Split(' ');
-                int nameLevelLength = nameLevel.Length;
+                Log.DebugFormat("Match_{1}:{0}", buildingsCollection[i].Groups[0].Value.Trim(), i);
+                //zazidljiva parcela
+                string name = buildingsCollection[i].Groups[2].Value.Trim();
+                Log.DebugFormat("BuildingFullName={0}", name);
+                Building b = new Building();
                 b.BuildingFullName = name;
                 b.BuildingId = Int32.Parse(buildingsCollection[i].Groups[1].Value.Trim());
-                b.BuildingLevel = Int32.Parse(nameLevel[nameLevelLength - 1]);
-                for (int n = 0; n < nameLevelLength - 2; n++)
+                if ((name.Equals(sd.EmptyLandName, StringComparison.InvariantCultureIgnoreCase)) ||
+                    (name.Equals(sd.EmptyCityWall, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    b.BuildingName += nameLevel[n] + " ";
+                    b.BuildingLevel = 0;
+                    b.BuildingName += name;
+                }
+                else
+                {
+                    string[] nameLevel = name.Split(' ');
+                    int nameLevelLength = nameLevel.Length;
+                    b.BuildingLevel = Int32.Parse(nameLevel[nameLevelLength - 1]);
+                    for (int n = 0; n < nameLevelLength - 2; n++)
+                    {
+                        b.BuildingName += nameLevel[n] + " ";
+                    }
                 }
                 VillageData vd = new VillageData();
                 vd.BuildingsForVillage.Add(b);

@@ -2,16 +2,16 @@ namespace Library
 {
     public class Production
     {
-        private int warehouseKapacity;
-        private int granaryKapacity;
-        private int wood;
         private int clay;
-        private int iron;
-        private int crop;
-        private int woodPerHour;
         private int clayPerHour;
-        private int ironPerHour;
+        private int crop;
         private int cropPerHour;
+        private int granaryKapacity;
+        private int iron;
+        private int ironPerHour;
+        private int warehouseKapacity;
+        private int wood;
+        private int woodPerHour;
 
         public int WarehouseKapacity
         {
@@ -71,6 +71,15 @@ namespace Library
         {
             get { return cropPerHour; }
             set { cropPerHour = value; }
+        }
+
+        public override string ToString()
+        {
+            return
+                string.Format(
+                    "WarehouseKapacity: {0}, GranaryKapacity: {1}, Wood: {2}, Clay: {3}, Iron: {4}, Crop: {5}, WoodPerHour: {6}, ClayPerHour: {7}, IronPerHour: {8}, CropPerHour: {9}",
+                    warehouseKapacity, granaryKapacity, wood, clay, iron, crop, woodPerHour, clayPerHour, ironPerHour,
+                    cropPerHour);
         }
     }
 }
