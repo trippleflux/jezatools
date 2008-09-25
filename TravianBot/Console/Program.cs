@@ -1,18 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using Library;
 using log4net;
 
 namespace Console
 {
-    class Program
+    internal class Program
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
+        private static readonly ILog Log = LogManager.GetLogger(typeof (Program));
         private static CookieCollection cookieCollection;
 
-        static void Main(string[] args)
+        private static void Main()
         {
             Log.Debug("Console started...");
             try
@@ -21,7 +19,7 @@ namespace Console
                 sd.Servername = "http://s4.travian.si/";
                 sd.Username = "jezonsky";
                 sd.Password = "kepek";
-                
+
                 Browser b = new Browser();
                 cookieCollection = b.GetPageSource(sd.Servername + "login.php");
 
@@ -42,16 +40,23 @@ namespace Console
                 Log.Debug("Cookies:");
                 for (int i = 0; i < cookieCollection.Count; i++)
                 {
-                    Log.DebugFormat("{1}='{0}'", cookieCollection[i], i);                    
+                    Log.DebugFormat("{1}='{0}'", cookieCollection[i], i);
                 }
 
+                //http://s3.travian.si/dorf1.php
+                //http://s3.travian.si/dorf2.php
+                //http://s3.travian.si/karte.php
+                //http://s3.travian.si/statistiken.php
+                //http://s3.travian.si/berichte.php
+                //http://s3.travian.si/nachrichten.php
                 String pageSource;
                 cookieCollection = b.Login(sd.Servername + "dorf1.php", sd, out pageSource);
                 Log.DebugFormat("pageSource:\r\n{0}\r\n", pageSource);
                 Log.Debug("Cookies:");
                 for (int i = 0; i < cookieCollection.Count; i++)
                 {
-                    Log.DebugFormat("{1}='{0}' Expires on '{2}'", cookieCollection[i], i, cookieCollection[i].Expires.ToLocalTime());
+                    Log.DebugFormat("{1}='{0}' Expires on '{2}'", cookieCollection[i], i,
+                                    cookieCollection[i].Expires.ToLocalTime());
                 }
 
                 //int loopCount = 0;

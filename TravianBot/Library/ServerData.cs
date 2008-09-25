@@ -20,6 +20,8 @@ namespace Library
         private int playerUID;
         private ArrayList villagesList = new ArrayList();
         private ArrayList productionList = new ArrayList();
+        private ArrayList resourcesList = new ArrayList();
+        private ArrayList buildingsList = new ArrayList();
 
         /// <summary>
         /// Login Username.
@@ -153,5 +155,17 @@ namespace Library
             set { productionList = value; }
         }
 
+        public ArrayList ResourcesList
+        {
+            get { return resourcesList; }
+            set { resourcesList = value; }
+        }
+
+
+        public ArrayList BuildingsList
+        {
+            get { return buildingsList; }
+            set { buildingsList = value; }
+        }
     }
 }
