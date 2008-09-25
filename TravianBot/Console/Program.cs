@@ -18,64 +18,44 @@ namespace Console
             Log.Debug("Console started...");
             try
             {
-                ServerData sd;
-            	sd = new ServerData();
-            	//sd.Servername = "http://s3.travian.si/";
-                //sd.Username = "jezonsky";
-                //sd.Password = "kepek";
+            	ServerData sd = new ServerData();
+				Parser p = new Parser();
 
-                String pageSource;
-                Browser b = new Browser();
-                cookieCollection = b.GetPageSource(sd.Servername + "login.php", out pageSource);
-
-                Parser p;
-            	p = new Parser();
-            	p.LoginData(sd, pageSource);
-
-                Log.DebugFormat("ServerData={0}", sd.ToString());
-                //Log.DebugFormat("{0}", b.PageSource);
-                Log.Debug("Cookies:");
-                for (int i = 0; i < cookieCollection.Count; i++)
-                {
-                    Log.DebugFormat("{1}='{0}'", cookieCollection[i], i);
-                }
-
-                //http://s3.travian.si/dorf1.php
-                //http://s3.travian.si/dorf2.php
-                //http://s3.travian.si/karte.php
-                //http://s3.travian.si/statistiken.php
-                //http://s3.travian.si/berichte.php
-                //http://s3.travian.si/nachrichten.php
-                cookieCollection = b.Login(sd.Servername + "dorf1.php", sd, out pageSource);
-                Log.DebugFormat("pageSource:\r\n{0}\r\n", pageSource);
-                Log.Info("Cookies:");
-                for (int i = 0; i < cookieCollection.Count; i++)
-                {
-                    Log.InfoFormat("{1}='{0}' Expires on '{2}'", cookieCollection[i], i,
-                                   cookieCollection[i].Expires.ToLocalTime());
-                }
-
-				sd = new ServerData();
-				p = new Parser();
-				UpdateData(sd, p);
-
-				int loopCount = 0;
-				do
+				Login(sd, p);
+				if (LogedIn(sd, p))
 				{
-					if (loopCount % 1 == 0)
-					{
-						sd = new ServerData();
-						p = new Parser();
-						UpdateData(sd, p);
-					}
+                    sd = new ServerData();
+					p = new Parser();
+					UpdateData(sd, p);
 
-					loopCount++;
-					if (loopCount > 90)
+					int loopCount = 0;
+					do
 					{
-						loopCount = 0;
-					}
-					Thread.Sleep(60000);
-				} while (loopCount < 100);
+						if (!LogedIn(sd, p))
+						{
+							Login(sd, p);
+						}
+
+						if (loopCount%1 == 0)
+						{
+							System.Console.WriteLine("Update...");
+							sd = new ServerData();
+							p = new Parser();
+							UpdateData(sd, p);
+						}
+
+						loopCount++;
+						if (loopCount > 90)
+						{
+							loopCount = 0;
+						}
+						Thread.Sleep(60000);
+					} while (loopCount < 100);
+				}
+            	else
+				{
+					System.Console.WriteLine("Not Connecte!!!");
+				}
             }
             catch (Exception ex)
             {
@@ -84,6 +64,40 @@ namespace Console
 				System.Console.WriteLine(ex.ToString());
             }
         }
+
+
+
+    	private static bool LogedIn(ServerData sd, Parser p)
+    	{
+			String pageContent = GetPageSource(sd.Servername + "dorf1.php");
+			p.PlayerUid(sd, pageContent);
+			if (sd.PlayerUID > -1)
+			{
+				return true;
+			}
+    		return false;
+    	}
+
+
+
+    	private static void Login(ServerData sd,
+    	                          Parser p)
+    	{
+    		Browser b = new Browser();
+    		String pageSource;
+    		cookieCollection = b.GetPageSource(sd.Servername + "login.php", out pageSource);
+    		p.LoginData(sd, pageSource);
+    		Log.DebugFormat("ServerData={0}", sd.ToString());
+
+    		cookieCollection = b.Login(sd.Servername + "dorf1.php", sd, out pageSource);
+    		Log.DebugFormat("pageSource:\r\n{0}\r\n", pageSource);
+    		Log.Info("Cookies:");
+    		for (int i = 0; i < cookieCollection.Count; i++)
+    		{
+    			Log.InfoFormat("{1}='{0}' Expires on '{2}'", cookieCollection[i], i,
+    			               cookieCollection[i].Expires.ToLocalTime());
+    		}
+    	}
 
 
 
