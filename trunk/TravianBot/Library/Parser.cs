@@ -136,6 +136,7 @@ namespace Library
             MatchCollection myMatchCollection =
                 Regex.Matches(pageSource, @"<a href="".newdid=(.*)\"">(.*)<.a>");
             int villageCount = myMatchCollection.Count;
+			//Console.WriteLine("villageCount={0}", villageCount);
             for (int i = 0; i < villageCount; i++)
             {
                 //102706" class="active_vl
@@ -144,6 +145,7 @@ namespace Library
                 v.VillageId = tbLibrary.GetOnlyNumbers(regEx);
                 v.VillageName = myMatchCollection[i].Groups[2].Value.Trim();
                 sd.VillagesList.Add(v);
+				//Console.WriteLine("Village={0}", v.ToString());
             }
             if (villageCount < 2)
             {
@@ -202,6 +204,7 @@ namespace Library
             for (int i = 0; i < buildingsCollection.Count; i++)
             {
                 Log.DebugFormat("Match_{1}:{0}", buildingsCollection[i].Groups[0].Value.Trim(), i);
+				//Console.WriteLine("Match_{1}:{0}", buildingsCollection[i].Groups[0].Value.Trim(), i);
                 //zazidljiva parcela
                 string name = buildingsCollection[i].Groups[2].Value.Trim();
                 Log.DebugFormat("BuildingFullName={0}", name);
@@ -209,7 +212,9 @@ namespace Library
                 b.BuildingFullName = name;
                 b.BuildingId = Int32.Parse(buildingsCollection[i].Groups[1].Value.Trim());
                 if ((name.Equals(sd.EmptyLandName, StringComparison.InvariantCultureIgnoreCase)) ||
-                    (name.Equals(sd.EmptyCityWall, StringComparison.InvariantCultureIgnoreCase)))
+                    (name.Equals(sd.EmptyCityWall, StringComparison.InvariantCultureIgnoreCase)) ||
+                    (name.Equals(sd.EmptyRallyPoint, StringComparison.InvariantCultureIgnoreCase))
+					)
                 {
                     b.BuildingLevel = 0;
                     b.BuildingName += name;

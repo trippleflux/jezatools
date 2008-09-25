@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading;
 using Library;
 using log4net;
 
@@ -17,50 +18,19 @@ namespace Console
             Log.Debug("Console started...");
             try
             {
-                ServerData sd = new ServerData();
-                sd.Servername = "http://s4.travian.si/";
-                sd.Username = "jezonsky";
-                sd.Password = "kepek";
-
-//USE [TravianBot]
-//GO
-///****** Object:  StoredProcedure [dbo].[InsertVillage]    Script Date: 09/25/2008 14:59:27 ******/
-//SET ANSI_NULLS ON
-//GO
-//SET QUOTED_IDENTIFIER ON
-//GO
-//ALTER PROCEDURE [dbo].[InsertVillage] 
-//    (@VillageId int
-//    ,@VillageName nvarchar(50)
-//    ,@PlayerId int)
-//AS
-//BEGIN
-//    SET NOCOUNT ON;
-//    DECLARE @VillId int;
-//    SET @VillId = (SELECT [ID] FROM [TravianBot].[dbo].[Villages] WHERE @VillageId = [dbo].[Villages].[VillageId]);
-//    DECLARE @PlayerVillageId int;
-//    SET @PlayerVillageId = (SELECT [ID] FROM [TravianBot].[dbo].[Players] WHERE @PlayerId = [dbo].[Villages].[PlayerId]);
-//IF @VillId > 0 AND @PlayerVillageId > 0
-//INSERT INTO [TravianBot].[dbo].[Villages]
-//           ([VillageId]
-//           ,[VillageName]
-//           ,[PlayerId])
-//     VALUES
-//           (@VillageId
-//           ,@VillageName
-//           ,@PlayerVillageId)
-//ELSE
-//UPDATE [jcTBot].[dbo].[Villages]
-//   SET [VillageName] = @VillageName
-// WHERE [VillageId] = @VillageId AND [PlayerId] = @PlayerVillageId
-//END
+                ServerData sd;
+            	sd = new ServerData();
+            	//sd.Servername = "http://s3.travian.si/";
+                //sd.Username = "jezonsky";
+                //sd.Password = "kepek";
 
                 String pageSource;
                 Browser b = new Browser();
                 cookieCollection = b.GetPageSource(sd.Servername + "login.php", out pageSource);
 
-                Parser p = new Parser();
-                p.LoginData(sd, pageSource);
+                Parser p;
+            	p = new Parser();
+            	p.LoginData(sd, pageSource);
 
                 Log.DebugFormat("ServerData={0}", sd.ToString());
                 //Log.DebugFormat("{0}", b.PageSource);
@@ -85,63 +55,99 @@ namespace Console
                                    cookieCollection[i].Expires.ToLocalTime());
                 }
 
-                p.PlayerUid(sd, pageSource);
-                p.VillageIDs(sd, pageSource);
-                Log.InfoFormat("PlayerUid={0}", sd.PlayerUID);
-                foreach (Village v in sd.VillagesList)
-                {
-                    Log.InfoFormat("Village=[{0}]:[{1}]", v.VillageName, v.VillageId);
-                    String pageContent = GetPageSource(sd.Servername + "dorf1.php?newdid=" + v.VillageId);
-                    Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
-                    //Village production
-                    p.Production(sd, pageContent);
-                    Log.InfoFormat("Production for Village [{0}]: {1}", v.VillageName, sd.ProductionList[0]);
-                    //Village resources
-                    p.Resources(sd, pageContent);
-                    for (int i = 0; i < sd.ResourcesList.Count; i++)
-                    {
-                        VillageData villageResource = sd.ResourcesList[i] as VillageData;
-                        if (villageResource != null)
-                        {
-                            Resource villResource = villageResource.ResourcesForVillage[0] as Resource;
-                            if (villResource != null)
-                                Log.InfoFormat("Village [{0}] Resources: {1}", v.VillageName, villResource.ToString());
-                        }
-                    }
-                    //Village buildings
-                    pageContent = GetPageSource(sd.Servername + "dorf2.php?newdid=" + v.VillageId);
-                    Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
-                    p.Buildings(sd, pageContent);
-                    for (int i = 0; i < sd.BuildingsList.Count; i++)
-                    {
-                        VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
-                        if (villageBuildings != null)
-                        {
-                            Resource villBuildings = villageBuildings.ResourcesForVillage[0] as Resource;
-                            if (villBuildings != null)
-                                Log.InfoFormat("Village [{0}] Buildings: {1}", v.VillageName, villBuildings.ToString());
-                        }
-                    }
-                }
+				sd = new ServerData();
+				p = new Parser();
+				UpdateData(sd, p);
 
-                //int loopCount = 0;
-                //do
-                //{
-                //    loopCount++;
-                //    if (loopCount > 90)
-                //    {
-                //        loopCount = 0;
-                //    }
-                //} while (loopCount < 100);
+				int loopCount = 0;
+				do
+				{
+					if (loopCount % 1 == 0)
+					{
+						sd = new ServerData();
+						p = new Parser();
+						UpdateData(sd, p);
+					}
+
+					loopCount++;
+					if (loopCount > 90)
+					{
+						loopCount = 0;
+					}
+					Thread.Sleep(60000);
+				} while (loopCount < 100);
             }
             catch (Exception ex)
             {
                 Log.ErrorFormat(ex.Message);
                 Log.ErrorFormat(ex.StackTrace);
+				System.Console.WriteLine(ex.ToString());
             }
         }
 
-        private static string GetPageSource(string pageUrl)
+
+
+    	private static void UpdateData(ServerData sd,
+    	                               Parser p)
+    	{
+    		String pageContent = GetPageSource(sd.Servername + "dorf1.php");
+    		p.PlayerUid(sd, pageContent);
+    		p.VillageIDs(sd, pageContent);
+    		Log.InfoFormat("PlayerUid={0}", sd.PlayerUID);
+    		//System.Console.WriteLine("sd.VillagesList.Count=[{0}]", sd.VillagesList.Count);
+    		//foreach (Village v in sd.VillagesList)
+    		for (int vill = 0; vill < sd.VillagesList.Count; vill++)
+    		{
+    			Village v = sd.VillagesList[vill] as Village;
+    			//Log.InfoFormat("Village=[{0}]:[{1}]", v.VillageName, v.VillageId);
+    			//System.Console.WriteLine("Village=[{0}]:[{1}]", v.VillageName, v.VillageId);
+    			if (v != null)
+    			{
+    				pageContent = GetPageSource(String.Format("{0}dorf1.php?newdid={1}", sd.Servername, v.VillageId));
+    				Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
+    				//Village production
+    				p.Production(sd, pageContent);
+    				Log.InfoFormat("Production for Village [{0}]: {1}", v.VillageName, sd.ProductionList[vill]);
+    				System.Console.WriteLine("Production for Village [{0}]: {1}", v.VillageName, sd.ProductionList[vill]);
+    				//Village resources
+    				p.Resources(sd, pageContent);
+    				for (int i = 0; i < sd.ResourcesList.Count; i++)
+    				{
+    					VillageData villageResource = sd.ResourcesList[i] as VillageData;
+    					if (villageResource != null)
+    					{
+    						Resource villResource = villageResource.ResourcesForVillage[0] as Resource;
+    						if (villResource != null)
+    						{
+    							Log.InfoFormat("Village [{0}] Resources: {1}", v.VillageName, villResource.ToString());
+    							//System.Console.WriteLine("{2}:Village [{0}] Resources: {1}", v.VillageName, villResource.ToString(), i);
+    						}
+    					}
+    				}
+    				//Village buildings
+    				pageContent = GetPageSource(sd.Servername + "dorf2.php?newdid=" + v.VillageId);
+    				Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
+    				p.Buildings(sd, pageContent);
+    				for (int i = 0; i < sd.BuildingsList.Count; i++)
+    				{
+    					VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
+    					if (villageBuildings != null)
+    					{
+    						Building villBuildings = villageBuildings.BuildingsForVillage[0] as Building;
+    						if (villBuildings != null)
+    						{
+    							Log.InfoFormat("Village [{0}] Buildings: {1}", v.VillageName, villBuildings.ToString());
+    							//System.Console.WriteLine("Village [{0}] Buildings: {1}", v.VillageName, villBuildings.ToString());
+    						}
+    					}
+    				}
+    			}
+    		}
+    	}
+
+
+
+    	private static string GetPageSource(string pageUrl)
         {
             HttpWebRequest httpWebRequest = (HttpWebRequest) WebRequest.Create(pageUrl);
             httpWebRequest.Method = "GET";
