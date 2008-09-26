@@ -142,7 +142,7 @@ namespace Library
                 //102706" class="active_vl
                 Village v = new Village();
                 string regEx = myMatchCollection[i].Groups[1].Value;
-                v.VillageId = tbLibrary.GetOnlyNumbers(regEx);
+                v.VillageId = Int32.Parse(tbLibrary.GetOnlyNumbers(regEx));
                 v.VillageName = myMatchCollection[i].Groups[2].Value.Trim();
                 sd.VillagesList.Add(v);
 				//Console.WriteLine("Village={0}", v.ToString());
@@ -153,7 +153,7 @@ namespace Library
                 myMatchCollection =
                     Regex.Matches(pageSource, regVillageName);
                 Village v = new Village();
-                v.VillageId = "0";
+                v.VillageId = 0;
                 v.VillageName = myMatchCollection[0].Groups[1].Value.Trim();
                 sd.VillagesList.Add(v);
             }
@@ -163,9 +163,10 @@ namespace Library
         /// Gets resource levels and list for village.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
+        /// <param name="v"><see cref="Village"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void Resources(ServerData sd, String pageSource)
+        public void Resources(ServerData sd, Village v, String pageSource)
         {
             MatchCollection resourcesCollection =
                 Regex.Matches(pageSource,
@@ -183,6 +184,8 @@ namespace Library
                 {
                     r.ResourceName += nameLevel[n] + " ";
                 }
+                r.VillageId = v.VillageId;
+                r.VillageName = v.VillageName;
                 VillageData vd = new VillageData();
                 vd.ResourcesForVillage.Add(r);
                 sd.ResourcesList.Add(vd);
@@ -193,9 +196,10 @@ namespace Library
         /// Gets buildings levels and list for village.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
+        /// <param name="v"><see cref="Village"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void Buildings(ServerData sd, String pageSource)
+        public void Buildings(ServerData sd, Village v, String pageSource)
         {
             //<area href="build.php?id=19" title="zazidljiva parcela" coords="53,91,91,71,127,91,91,112" shape="poly">
             const string reg =
@@ -229,6 +233,8 @@ namespace Library
                         b.BuildingName += nameLevel[n] + " ";
                     }
                 }
+                b.VillageId = v.VillageId;
+                b.VillageName = v.VillageName;
                 VillageData vd = new VillageData();
                 vd.BuildingsForVillage.Add(b);
                 sd.BuildingsList.Add(vd);

@@ -8,13 +8,13 @@ namespace Library
 	/// 
 	public class Village
 	{
-		private string villageId;
+		private int villageId;
 		private string villageName;
 
 		/// <summary>
 		/// Village ID
 		/// </summary>
-		public string VillageId
+		public int VillageId
 		{
 			get { return villageId; }
 			set { villageId = value; }

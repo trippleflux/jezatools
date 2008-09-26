@@ -6,6 +6,8 @@ namespace Library
         private int buildingId;
         private int buildingLevel;
         private string buildingName;
+        private int villageId;
+        private string villageName;
 
         public string BuildingFullName
         {
@@ -31,10 +33,24 @@ namespace Library
             set { buildingLevel = value; }
         }
 
+        public int VillageId
+        {
+            get { return villageId; }
+            set { villageId = value; }
+        }
+
+        public string VillageName
+        {
+            get { return villageName; }
+            set { villageName = value; }
+        }
+
         public override string ToString()
         {
-            return string.Format("BuildingFullName: {0}, BuildingId: {1}, BuildingName: {2}, BuildingLevel: {3}",
-                                 buildingFullName, buildingId, buildingName, buildingLevel);
+            return
+                string.Format(
+                    "VillageId: {4}, VillageName: {5}, BuildingFullName: {0}, BuildingId: {1}, BuildingName: {2}, BuildingLevel: {3}",
+                    buildingFullName, buildingId, buildingName, buildingLevel, villageId, villageName);
         }
     }
 }

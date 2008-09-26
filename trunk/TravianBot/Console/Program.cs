@@ -27,34 +27,41 @@ namespace Console
                     sd = new ServerData();
 					p = new Parser();
 					UpdateData(sd, p);
+                    SQL.InsertPlayer(sd);
 
 					int loopCount = 0;
 					do
-					{
-						if (!LogedIn(sd, p))
+                    {
+                        #region Login check
+                        if (!LogedIn(sd, p))
 						{
 							Login(sd, p);
-						}
+                        }
+                        #endregion
 
-						if (loopCount%1 == 0)
+                        #region Update every 10 minutes
+                        if (loopCount%10 == 0)
 						{
-							System.Console.WriteLine("Update...");
 							sd = new ServerData();
 							p = new Parser();
 							UpdateData(sd, p);
 						}
+                        #endregion
 
-						loopCount++;
+                        #region Sleep for 1 minute
+                        loopCount++;
 						if (loopCount > 90)
 						{
 							loopCount = 0;
 						}
 						Thread.Sleep(60000);
-					} while (loopCount < 100);
+                        #endregion
+
+                    } while (loopCount < 100);
 				}
             	else
 				{
-					System.Console.WriteLine("Not Connecte!!!");
+					System.Console.WriteLine("Failed to login!!!");
 				}
             }
             catch (Exception ex)
@@ -83,7 +90,8 @@ namespace Console
     	private static void Login(ServerData sd,
     	                          Parser p)
     	{
-    		Browser b = new Browser();
+            System.Console.WriteLine("Login");
+            Browser b = new Browser();
     		String pageSource;
     		cookieCollection = b.GetPageSource(sd.Servername + "login.php", out pageSource);
     		p.LoginData(sd, pageSource);
@@ -104,64 +112,53 @@ namespace Console
     	private static void UpdateData(ServerData sd,
     	                               Parser p)
     	{
-    		String pageContent = GetPageSource(sd.Servername + "dorf1.php");
+            System.Console.WriteLine("Update...");
+            String pageContent = GetPageSource(sd.Servername + "dorf1.php");
     		p.PlayerUid(sd, pageContent);
+    	    //SQL.InsertPlayer(sd);
     		p.VillageIDs(sd, pageContent);
     		Log.InfoFormat("PlayerUid={0}", sd.PlayerUID);
-    		//System.Console.WriteLine("sd.VillagesList.Count=[{0}]", sd.VillagesList.Count);
-    		//foreach (Village v in sd.VillagesList)
     		for (int vill = 0; vill < sd.VillagesList.Count; vill++)
     		{
     			Village v = sd.VillagesList[vill] as Village;
-    			//Log.InfoFormat("Village=[{0}]:[{1}]", v.VillageName, v.VillageId);
-    			//System.Console.WriteLine("Village=[{0}]:[{1}]", v.VillageName, v.VillageId);
+    		    SQL.InsertVillages(sd, v);
     			if (v != null)
     			{
     				pageContent = GetPageSource(String.Format("{0}dorf1.php?newdid={1}", sd.Servername, v.VillageId));
     				Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
     				//Village production
     				p.Production(sd, pageContent);
-    				Log.InfoFormat("Production for Village [{0}]: {1}", v.VillageName, sd.ProductionList[vill]);
-    				System.Console.WriteLine("Production for Village [{0}]: {1}", v.VillageName, sd.ProductionList[vill]);
+    			    SQL.InsertProduction(sd, v, vill);
     				//Village resources
-    				p.Resources(sd, pageContent);
-    				for (int i = 0; i < sd.ResourcesList.Count; i++)
-    				{
-    					VillageData villageResource = sd.ResourcesList[i] as VillageData;
-    					if (villageResource != null)
-    					{
-    						Resource villResource = villageResource.ResourcesForVillage[0] as Resource;
-    						if (villResource != null)
-    						{
-    							Log.InfoFormat("Village [{0}] Resources: {1}", v.VillageName, villResource.ToString());
-    							//System.Console.WriteLine("{2}:Village [{0}] Resources: {1}", v.VillageName, villResource.ToString(), i);
-    						}
-    					}
-    				}
+    				p.Resources(sd, v, pageContent);
     				//Village buildings
     				pageContent = GetPageSource(sd.Servername + "dorf2.php?newdid=" + v.VillageId);
     				Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
-    				p.Buildings(sd, pageContent);
-    				for (int i = 0; i < sd.BuildingsList.Count; i++)
-    				{
-    					VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
-    					if (villageBuildings != null)
-    					{
-    						Building villBuildings = villageBuildings.BuildingsForVillage[0] as Building;
-    						if (villBuildings != null)
-    						{
-    							Log.InfoFormat("Village [{0}] Buildings: {1}", v.VillageName, villBuildings.ToString());
-    							//System.Console.WriteLine("Village [{0}] Buildings: {1}", v.VillageName, villBuildings.ToString());
-    						}
-    					}
-    				}
+                    p.Buildings(sd, v, pageContent);
     			}
     		}
-    	}
+            SQL.InsertResources(sd);
+            LogBuildings(sd);
+        }
+
+        private static void LogBuildings(ServerData sd)
+        {
+            for (int i = 0; i < sd.BuildingsList.Count; i++)
+            {
+                VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
+                if (villageBuildings != null)
+                {
+                    Building villBuildings = villageBuildings.BuildingsForVillage[0] as Building;
+                    if (villBuildings != null)
+                    {
+                        Log.DebugFormat("Buildings: {0}", villBuildings.ToString());
+                    }
+                }
+            }
+        }
 
 
-
-    	private static string GetPageSource(string pageUrl)
+        private static string GetPageSource(string pageUrl)
         {
             HttpWebRequest httpWebRequest = (HttpWebRequest) WebRequest.Create(pageUrl);
             httpWebRequest.Method = "GET";
