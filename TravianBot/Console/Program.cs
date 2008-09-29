@@ -20,7 +20,7 @@ namespace Console
             {
             	ServerData sd = new ServerData();
 				Parser p = new Parser();
-
+                
 				Login(sd, p);
 				if (LogedIn(sd, p))
 				{
@@ -31,14 +31,25 @@ namespace Console
 
 					int loopCount = 0;
 					do
-                    {
-                        #region Login check
-                        if (!LogedIn(sd, p))
-						{
-							Login(sd, p);
-                        }
-                        #endregion
+					{
+					    #region Login check
 
+					    if (!LogedIn(sd, p))
+					    {
+					        Login(sd, p);
+					    }
+
+					    #endregion
+
+					    #region Check Tasks every minute
+
+					    if (loopCount%1 == 0)
+					    {
+
+					    }
+
+					    #endregion
+                        
                         #region Update every 10 minutes
                         if (loopCount%10 == 0)
 						{

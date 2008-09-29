@@ -45,6 +45,7 @@
     <Compile Include="Resource.cs" />
     <Compile Include="ServerData.cs" />
     <Compile Include="SQL.cs" />
+    <Compile Include="Task.cs" />
     <Compile Include="tbLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Village.cs" />
