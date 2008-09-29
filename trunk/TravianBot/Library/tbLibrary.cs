@@ -4,6 +4,30 @@ namespace Library
 {
     public class tbLibrary
     {
+        #region enum
+
+        public enum Tasks
+        {
+            BuildResources = 1,
+            BuildResourcesNoCrop = 2,
+            WoodLand = 3,
+            ClayPit = 4,
+            IronMine = 5,
+            CropLand = 6,
+            BuildingId = 7
+        }
+
+        public enum Priority
+        {
+            VeryHigh = 5,
+            High = 4,
+            Medium = 3,
+            Low = 2,
+            VeryLow = 1,
+        }
+
+        #endregion
+
         /// <summary>
         /// Return only numbers from string.
         /// </summary>
@@ -34,7 +58,5 @@ namespace Library
         {
             return char.IsNumber(c);
         }
-
-
     }
 }
