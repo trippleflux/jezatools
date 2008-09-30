@@ -45,7 +45,9 @@ namespace Console
 
 					    if (loopCount%1 == 0)
 					    {
-
+                            System.Console.WriteLine("Checking tasks...");
+                            Task task = new Task();
+                            task.CheckTasks(sd);
 					    }
 
 					    #endregion
@@ -149,23 +151,7 @@ namespace Console
     			}
     		}
             SQL.InsertResources(sd);
-            LogBuildings(sd);
-        }
-
-        private static void LogBuildings(ServerData sd)
-        {
-            for (int i = 0; i < sd.BuildingsList.Count; i++)
-            {
-                VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
-                if (villageBuildings != null)
-                {
-                    Building villBuildings = villageBuildings.BuildingsForVillage[0] as Building;
-                    if (villBuildings != null)
-                    {
-                        Log.DebugFormat("Buildings: {0}", villBuildings.ToString());
-                    }
-                }
-            }
+            tbLibrary.LogBuildings(sd);
         }
 
 

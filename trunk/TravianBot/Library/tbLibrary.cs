@@ -1,9 +1,12 @@
 using System;
+using log4net;
 
 namespace Library
 {
     public class tbLibrary
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(tbLibrary));        
+        
         #region enum
 
         public enum Tasks
@@ -57,6 +60,22 @@ namespace Library
         private static bool IsNumber(char c)
         {
             return char.IsNumber(c);
+        }
+
+        public static void LogBuildings(ServerData sd)
+        {
+            for (int i = 0; i < sd.BuildingsList.Count; i++)
+            {
+                VillageData villageBuildings = sd.BuildingsList[i] as VillageData;
+                if (villageBuildings != null)
+                {
+                    Building villBuildings = villageBuildings.BuildingsForVillage[0] as Building;
+                    if (villBuildings != null)
+                    {
+                        Log.DebugFormat("Buildings: {0}", villBuildings.ToString());
+                    }
+                }
+            }
         }
     }
 }
