@@ -12,6 +12,8 @@ namespace Library
         private int warehouseKapacity;
         private int wood;
         private int woodPerHour;
+        private int villageId;
+        private string villageName;
 
         public int WarehouseKapacity
         {
@@ -73,13 +75,25 @@ namespace Library
             set { cropPerHour = value; }
         }
 
+        public int VillageId
+        {
+            get { return villageId; }
+            set { villageId = value; }
+        }
+
+        public string VillageName
+        {
+            get { return villageName; }
+            set { villageName = value; }
+        }
+
         public override string ToString()
         {
             return
                 string.Format(
-                    "WarehouseKapacity: {0}, GranaryKapacity: {1}, Wood: {2}, Clay: {3}, Iron: {4}, Crop: {5}, WoodPerHour: {6}, ClayPerHour: {7}, IronPerHour: {8}, CropPerHour: {9}",
+                    "VillageId: {10}, VillageName: {11}, WarehouseKapacity: {0}, GranaryKapacity: {1}, Wood: {2}, Clay: {3}, Iron: {4}, Crop: {5}, WoodPerHour: {6}, ClayPerHour: {7}, IronPerHour: {8}, CropPerHour: {9}",
                     warehouseKapacity, granaryKapacity, wood, clay, iron, crop, woodPerHour, clayPerHour, ironPerHour,
-                    cropPerHour);
+                    cropPerHour, VillageId, VillageName);
         }
     }
 }
