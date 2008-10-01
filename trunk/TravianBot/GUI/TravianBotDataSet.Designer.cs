@@ -23,21 +23,15 @@ namespace GUI {
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class TravianBotDataSet : System.Data.DataSet {
         
-        private BuildingsDataTable tableBuildings;
+        private GetBuildIdsDataTable tableGetBuildIds;
         
-        private PlayersDataTable tablePlayers;
+        private GetPriorityDataTable tableGetPriority;
         
-        private PriorityDataTable tablePriority;
+        private GetTaskListForGUIDataTable tableGetTaskListForGUI;
         
-        private ProductionDataTable tableProduction;
+        private GetTasksDataTable tableGetTasks;
         
-        private ResourcesDataTable tableResources;
-        
-        private TaskListDataTable tableTaskList;
-        
-        private TasksDataTable tableTasks;
-        
-        private VillagesDataTable tableVillages;
+        private GetVillagesDataTable tableGetVillages;
         
         private GetProductionDataTable tableGetProduction;
         
@@ -67,29 +61,20 @@ namespace GUI {
             if ((this.DetermineSchemaSerializationMode(info, context) == System.Data.SchemaSerializationMode.IncludeSchema)) {
                 System.Data.DataSet ds = new System.Data.DataSet();
                 ds.ReadXmlSchema(new System.Xml.XmlTextReader(new System.IO.StringReader(strSchema)));
-                if ((ds.Tables["Buildings"] != null)) {
-                    base.Tables.Add(new BuildingsDataTable(ds.Tables["Buildings"]));
+                if ((ds.Tables["GetBuildIds"] != null)) {
+                    base.Tables.Add(new GetBuildIdsDataTable(ds.Tables["GetBuildIds"]));
                 }
-                if ((ds.Tables["Players"] != null)) {
-                    base.Tables.Add(new PlayersDataTable(ds.Tables["Players"]));
+                if ((ds.Tables["GetPriority"] != null)) {
+                    base.Tables.Add(new GetPriorityDataTable(ds.Tables["GetPriority"]));
                 }
-                if ((ds.Tables["Priority"] != null)) {
-                    base.Tables.Add(new PriorityDataTable(ds.Tables["Priority"]));
+                if ((ds.Tables["GetTaskListForGUI"] != null)) {
+                    base.Tables.Add(new GetTaskListForGUIDataTable(ds.Tables["GetTaskListForGUI"]));
                 }
-                if ((ds.Tables["Production"] != null)) {
-                    base.Tables.Add(new ProductionDataTable(ds.Tables["Production"]));
+                if ((ds.Tables["GetTasks"] != null)) {
+                    base.Tables.Add(new GetTasksDataTable(ds.Tables["GetTasks"]));
                 }
-                if ((ds.Tables["Resources"] != null)) {
-                    base.Tables.Add(new ResourcesDataTable(ds.Tables["Resources"]));
-                }
-                if ((ds.Tables["TaskList"] != null)) {
-                    base.Tables.Add(new TaskListDataTable(ds.Tables["TaskList"]));
-                }
-                if ((ds.Tables["Tasks"] != null)) {
-                    base.Tables.Add(new TasksDataTable(ds.Tables["Tasks"]));
-                }
-                if ((ds.Tables["Villages"] != null)) {
-                    base.Tables.Add(new VillagesDataTable(ds.Tables["Villages"]));
+                if ((ds.Tables["GetVillages"] != null)) {
+                    base.Tables.Add(new GetVillagesDataTable(ds.Tables["GetVillages"]));
                 }
                 if ((ds.Tables["GetProduction"] != null)) {
                     base.Tables.Add(new GetProductionDataTable(ds.Tables["GetProduction"]));
@@ -115,72 +100,45 @@ namespace GUI {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public BuildingsDataTable Buildings {
+        public GetBuildIdsDataTable GetBuildIds {
             get {
-                return this.tableBuildings;
+                return this.tableGetBuildIds;
             }
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public PlayersDataTable Players {
+        public GetPriorityDataTable GetPriority {
             get {
-                return this.tablePlayers;
+                return this.tableGetPriority;
             }
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public PriorityDataTable Priority {
+        public GetTaskListForGUIDataTable GetTaskListForGUI {
             get {
-                return this.tablePriority;
+                return this.tableGetTaskListForGUI;
             }
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ProductionDataTable Production {
+        public GetTasksDataTable GetTasks {
             get {
-                return this.tableProduction;
+                return this.tableGetTasks;
             }
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Browsable(false)]
         [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ResourcesDataTable Resources {
+        public GetVillagesDataTable GetVillages {
             get {
-                return this.tableResources;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public TaskListDataTable TaskList {
-            get {
-                return this.tableTaskList;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public TasksDataTable Tasks {
-            get {
-                return this.tableTasks;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Browsable(false)]
-        [System.ComponentModel.DesignerSerializationVisibility(System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public VillagesDataTable Villages {
-            get {
-                return this.tableVillages;
+                return this.tableGetVillages;
             }
         }
         
@@ -252,29 +210,20 @@ namespace GUI {
                 this.Reset();
                 System.Data.DataSet ds = new System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["Buildings"] != null)) {
-                    base.Tables.Add(new BuildingsDataTable(ds.Tables["Buildings"]));
+                if ((ds.Tables["GetBuildIds"] != null)) {
+                    base.Tables.Add(new GetBuildIdsDataTable(ds.Tables["GetBuildIds"]));
                 }
-                if ((ds.Tables["Players"] != null)) {
-                    base.Tables.Add(new PlayersDataTable(ds.Tables["Players"]));
+                if ((ds.Tables["GetPriority"] != null)) {
+                    base.Tables.Add(new GetPriorityDataTable(ds.Tables["GetPriority"]));
                 }
-                if ((ds.Tables["Priority"] != null)) {
-                    base.Tables.Add(new PriorityDataTable(ds.Tables["Priority"]));
+                if ((ds.Tables["GetTaskListForGUI"] != null)) {
+                    base.Tables.Add(new GetTaskListForGUIDataTable(ds.Tables["GetTaskListForGUI"]));
                 }
-                if ((ds.Tables["Production"] != null)) {
-                    base.Tables.Add(new ProductionDataTable(ds.Tables["Production"]));
+                if ((ds.Tables["GetTasks"] != null)) {
+                    base.Tables.Add(new GetTasksDataTable(ds.Tables["GetTasks"]));
                 }
-                if ((ds.Tables["Resources"] != null)) {
-                    base.Tables.Add(new ResourcesDataTable(ds.Tables["Resources"]));
-                }
-                if ((ds.Tables["TaskList"] != null)) {
-                    base.Tables.Add(new TaskListDataTable(ds.Tables["TaskList"]));
-                }
-                if ((ds.Tables["Tasks"] != null)) {
-                    base.Tables.Add(new TasksDataTable(ds.Tables["Tasks"]));
-                }
-                if ((ds.Tables["Villages"] != null)) {
-                    base.Tables.Add(new VillagesDataTable(ds.Tables["Villages"]));
+                if ((ds.Tables["GetVillages"] != null)) {
+                    base.Tables.Add(new GetVillagesDataTable(ds.Tables["GetVillages"]));
                 }
                 if ((ds.Tables["GetProduction"] != null)) {
                     base.Tables.Add(new GetProductionDataTable(ds.Tables["GetProduction"]));
@@ -309,52 +258,34 @@ namespace GUI {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         internal void InitVars(bool initTable) {
-            this.tableBuildings = ((BuildingsDataTable)(base.Tables["Buildings"]));
+            this.tableGetBuildIds = ((GetBuildIdsDataTable)(base.Tables["GetBuildIds"]));
             if ((initTable == true)) {
-                if ((this.tableBuildings != null)) {
-                    this.tableBuildings.InitVars();
+                if ((this.tableGetBuildIds != null)) {
+                    this.tableGetBuildIds.InitVars();
                 }
             }
-            this.tablePlayers = ((PlayersDataTable)(base.Tables["Players"]));
+            this.tableGetPriority = ((GetPriorityDataTable)(base.Tables["GetPriority"]));
             if ((initTable == true)) {
-                if ((this.tablePlayers != null)) {
-                    this.tablePlayers.InitVars();
+                if ((this.tableGetPriority != null)) {
+                    this.tableGetPriority.InitVars();
                 }
             }
-            this.tablePriority = ((PriorityDataTable)(base.Tables["Priority"]));
+            this.tableGetTaskListForGUI = ((GetTaskListForGUIDataTable)(base.Tables["GetTaskListForGUI"]));
             if ((initTable == true)) {
-                if ((this.tablePriority != null)) {
-                    this.tablePriority.InitVars();
+                if ((this.tableGetTaskListForGUI != null)) {
+                    this.tableGetTaskListForGUI.InitVars();
                 }
             }
-            this.tableProduction = ((ProductionDataTable)(base.Tables["Production"]));
+            this.tableGetTasks = ((GetTasksDataTable)(base.Tables["GetTasks"]));
             if ((initTable == true)) {
-                if ((this.tableProduction != null)) {
-                    this.tableProduction.InitVars();
+                if ((this.tableGetTasks != null)) {
+                    this.tableGetTasks.InitVars();
                 }
             }
-            this.tableResources = ((ResourcesDataTable)(base.Tables["Resources"]));
+            this.tableGetVillages = ((GetVillagesDataTable)(base.Tables["GetVillages"]));
             if ((initTable == true)) {
-                if ((this.tableResources != null)) {
-                    this.tableResources.InitVars();
-                }
-            }
-            this.tableTaskList = ((TaskListDataTable)(base.Tables["TaskList"]));
-            if ((initTable == true)) {
-                if ((this.tableTaskList != null)) {
-                    this.tableTaskList.InitVars();
-                }
-            }
-            this.tableTasks = ((TasksDataTable)(base.Tables["Tasks"]));
-            if ((initTable == true)) {
-                if ((this.tableTasks != null)) {
-                    this.tableTasks.InitVars();
-                }
-            }
-            this.tableVillages = ((VillagesDataTable)(base.Tables["Villages"]));
-            if ((initTable == true)) {
-                if ((this.tableVillages != null)) {
-                    this.tableVillages.InitVars();
+                if ((this.tableGetVillages != null)) {
+                    this.tableGetVillages.InitVars();
                 }
             }
             this.tableGetProduction = ((GetProductionDataTable)(base.Tables["GetProduction"]));
@@ -372,63 +303,42 @@ namespace GUI {
             this.Namespace = "http://tempuri.org/TravianBotDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableBuildings = new BuildingsDataTable();
-            base.Tables.Add(this.tableBuildings);
-            this.tablePlayers = new PlayersDataTable();
-            base.Tables.Add(this.tablePlayers);
-            this.tablePriority = new PriorityDataTable();
-            base.Tables.Add(this.tablePriority);
-            this.tableProduction = new ProductionDataTable();
-            base.Tables.Add(this.tableProduction);
-            this.tableResources = new ResourcesDataTable();
-            base.Tables.Add(this.tableResources);
-            this.tableTaskList = new TaskListDataTable();
-            base.Tables.Add(this.tableTaskList);
-            this.tableTasks = new TasksDataTable();
-            base.Tables.Add(this.tableTasks);
-            this.tableVillages = new VillagesDataTable();
-            base.Tables.Add(this.tableVillages);
+            this.tableGetBuildIds = new GetBuildIdsDataTable();
+            base.Tables.Add(this.tableGetBuildIds);
+            this.tableGetPriority = new GetPriorityDataTable();
+            base.Tables.Add(this.tableGetPriority);
+            this.tableGetTaskListForGUI = new GetTaskListForGUIDataTable();
+            base.Tables.Add(this.tableGetTaskListForGUI);
+            this.tableGetTasks = new GetTasksDataTable();
+            base.Tables.Add(this.tableGetTasks);
+            this.tableGetVillages = new GetVillagesDataTable();
+            base.Tables.Add(this.tableGetVillages);
             this.tableGetProduction = new GetProductionDataTable();
             base.Tables.Add(this.tableGetProduction);
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeBuildings() {
+        private bool ShouldSerializeGetBuildIds() {
             return false;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializePlayers() {
+        private bool ShouldSerializeGetPriority() {
             return false;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializePriority() {
+        private bool ShouldSerializeGetTaskListForGUI() {
             return false;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeProduction() {
+        private bool ShouldSerializeGetTasks() {
             return false;
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeResources() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeTaskList() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeTasks() {
-            return false;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializeVillages() {
+        private bool ShouldSerializeGetVillages() {
             return false;
         }
         
@@ -457,53 +367,39 @@ namespace GUI {
             return type;
         }
         
-        public delegate void BuildingsRowChangeEventHandler(object sender, BuildingsRowChangeEvent e);
+        public delegate void GetBuildIdsRowChangeEventHandler(object sender, GetBuildIdsRowChangeEvent e);
         
-        public delegate void PlayersRowChangeEventHandler(object sender, PlayersRowChangeEvent e);
+        public delegate void GetPriorityRowChangeEventHandler(object sender, GetPriorityRowChangeEvent e);
         
-        public delegate void PriorityRowChangeEventHandler(object sender, PriorityRowChangeEvent e);
+        public delegate void GetTaskListForGUIRowChangeEventHandler(object sender, GetTaskListForGUIRowChangeEvent e);
         
-        public delegate void ProductionRowChangeEventHandler(object sender, ProductionRowChangeEvent e);
+        public delegate void GetTasksRowChangeEventHandler(object sender, GetTasksRowChangeEvent e);
         
-        public delegate void ResourcesRowChangeEventHandler(object sender, ResourcesRowChangeEvent e);
-        
-        public delegate void TaskListRowChangeEventHandler(object sender, TaskListRowChangeEvent e);
-        
-        public delegate void TasksRowChangeEventHandler(object sender, TasksRowChangeEvent e);
-        
-        public delegate void VillagesRowChangeEventHandler(object sender, VillagesRowChangeEvent e);
+        public delegate void GetVillagesRowChangeEventHandler(object sender, GetVillagesRowChangeEvent e);
         
         public delegate void GetProductionRowChangeEventHandler(object sender, GetProductionRowChangeEvent e);
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class BuildingsDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+        public partial class GetBuildIdsDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
             private System.Data.DataColumn columnID;
             
-            private System.Data.DataColumn columnVillageId;
+            private System.Data.DataColumn columnBuildId;
             
-            private System.Data.DataColumn columnBuildingFullName;
-            
-            private System.Data.DataColumn columnBuildingId;
-            
-            private System.Data.DataColumn columnBuildingName;
-            
-            private System.Data.DataColumn columnBuildingLevel;
-            
-            private System.Data.DataColumn columnPlayerId;
+            private System.Data.DataColumn columnBuildIdName;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public BuildingsDataTable() {
-                this.TableName = "Buildings";
+            public GetBuildIdsDataTable() {
+                this.TableName = "GetBuildIds";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal BuildingsDataTable(System.Data.DataTable table) {
+            internal GetBuildIdsDataTable(System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -519,7 +415,7 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected BuildingsDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+            protected GetBuildIdsDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -532,44 +428,16 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn VillageIdColumn {
+            public System.Data.DataColumn BuildIdColumn {
                 get {
-                    return this.columnVillageId;
+                    return this.columnBuildId;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn BuildingFullNameColumn {
+            public System.Data.DataColumn BuildIdNameColumn {
                 get {
-                    return this.columnBuildingFullName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn BuildingIdColumn {
-                get {
-                    return this.columnBuildingId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn BuildingNameColumn {
-                get {
-                    return this.columnBuildingName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn BuildingLevelColumn {
-                get {
-                    return this.columnBuildingLevel;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PlayerIdColumn {
-                get {
-                    return this.columnPlayerId;
+                    return this.columnBuildIdName;
                 }
             }
             
@@ -582,38 +450,34 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public BuildingsRow this[int index] {
+            public GetBuildIdsRow this[int index] {
                 get {
-                    return ((BuildingsRow)(this.Rows[index]));
+                    return ((GetBuildIdsRow)(this.Rows[index]));
                 }
             }
             
-            public event BuildingsRowChangeEventHandler BuildingsRowChanging;
+            public event GetBuildIdsRowChangeEventHandler GetBuildIdsRowChanging;
             
-            public event BuildingsRowChangeEventHandler BuildingsRowChanged;
+            public event GetBuildIdsRowChangeEventHandler GetBuildIdsRowChanged;
             
-            public event BuildingsRowChangeEventHandler BuildingsRowDeleting;
+            public event GetBuildIdsRowChangeEventHandler GetBuildIdsRowDeleting;
             
-            public event BuildingsRowChangeEventHandler BuildingsRowDeleted;
+            public event GetBuildIdsRowChangeEventHandler GetBuildIdsRowDeleted;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddBuildingsRow(BuildingsRow row) {
+            public void AddGetBuildIdsRow(GetBuildIdsRow row) {
                 this.Rows.Add(row);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public BuildingsRow AddBuildingsRow(int VillageId, string BuildingFullName, int BuildingId, string BuildingName, int BuildingLevel, int PlayerId) {
-                BuildingsRow rowBuildingsRow = ((BuildingsRow)(this.NewRow()));
-                rowBuildingsRow.ItemArray = new object[] {
-                        null,
-                        VillageId,
-                        BuildingFullName,
-                        BuildingId,
-                        BuildingName,
-                        BuildingLevel,
-                        PlayerId};
-                this.Rows.Add(rowBuildingsRow);
-                return rowBuildingsRow;
+            public GetBuildIdsRow AddGetBuildIdsRow(int ID, int BuildId, string BuildIdName) {
+                GetBuildIdsRow rowGetBuildIdsRow = ((GetBuildIdsRow)(this.NewRow()));
+                rowGetBuildIdsRow.ItemArray = new object[] {
+                        ID,
+                        BuildId,
+                        BuildIdName};
+                this.Rows.Add(rowGetBuildIdsRow);
+                return rowGetBuildIdsRow;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -623,105 +487,86 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override System.Data.DataTable Clone() {
-                BuildingsDataTable cln = ((BuildingsDataTable)(base.Clone()));
+                GetBuildIdsDataTable cln = ((GetBuildIdsDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataTable CreateInstance() {
-                return new BuildingsDataTable();
+                return new GetBuildIdsDataTable();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnVillageId = base.Columns["VillageId"];
-                this.columnBuildingFullName = base.Columns["BuildingFullName"];
-                this.columnBuildingId = base.Columns["BuildingId"];
-                this.columnBuildingName = base.Columns["BuildingName"];
-                this.columnBuildingLevel = base.Columns["BuildingLevel"];
-                this.columnPlayerId = base.Columns["PlayerId"];
+                this.columnBuildId = base.Columns["BuildId"];
+                this.columnBuildIdName = base.Columns["BuildIdName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
                 this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnVillageId = new System.Data.DataColumn("VillageId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVillageId);
-                this.columnBuildingFullName = new System.Data.DataColumn("BuildingFullName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildingFullName);
-                this.columnBuildingId = new System.Data.DataColumn("BuildingId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildingId);
-                this.columnBuildingName = new System.Data.DataColumn("BuildingName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildingName);
-                this.columnBuildingLevel = new System.Data.DataColumn("BuildingLevel", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildingLevel);
-                this.columnPlayerId = new System.Data.DataColumn("PlayerId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlayerId);
-                this.columnID.AutoIncrement = true;
+                this.columnBuildId = new System.Data.DataColumn("BuildId", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildId);
+                this.columnBuildIdName = new System.Data.DataColumn("BuildIdName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildIdName);
                 this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnVillageId.AllowDBNull = false;
-                this.columnBuildingFullName.AllowDBNull = false;
-                this.columnBuildingFullName.MaxLength = 50;
-                this.columnBuildingId.AllowDBNull = false;
-                this.columnBuildingName.AllowDBNull = false;
-                this.columnBuildingName.MaxLength = 50;
-                this.columnBuildingLevel.AllowDBNull = false;
-                this.columnPlayerId.AllowDBNull = false;
+                this.columnBuildId.AllowDBNull = false;
+                this.columnBuildIdName.AllowDBNull = false;
+                this.columnBuildIdName.MaxLength = 50;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public BuildingsRow NewBuildingsRow() {
-                return ((BuildingsRow)(this.NewRow()));
+            public GetBuildIdsRow NewGetBuildIdsRow() {
+                return ((GetBuildIdsRow)(this.NewRow()));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new BuildingsRow(builder);
+                return new GetBuildIdsRow(builder);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
-                return typeof(BuildingsRow);
+                return typeof(GetBuildIdsRow);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.BuildingsRowChanged != null)) {
-                    this.BuildingsRowChanged(this, new BuildingsRowChangeEvent(((BuildingsRow)(e.Row)), e.Action));
+                if ((this.GetBuildIdsRowChanged != null)) {
+                    this.GetBuildIdsRowChanged(this, new GetBuildIdsRowChangeEvent(((GetBuildIdsRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.BuildingsRowChanging != null)) {
-                    this.BuildingsRowChanging(this, new BuildingsRowChangeEvent(((BuildingsRow)(e.Row)), e.Action));
+                if ((this.GetBuildIdsRowChanging != null)) {
+                    this.GetBuildIdsRowChanging(this, new GetBuildIdsRowChangeEvent(((GetBuildIdsRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.BuildingsRowDeleted != null)) {
-                    this.BuildingsRowDeleted(this, new BuildingsRowChangeEvent(((BuildingsRow)(e.Row)), e.Action));
+                if ((this.GetBuildIdsRowDeleted != null)) {
+                    this.GetBuildIdsRowDeleted(this, new GetBuildIdsRowChangeEvent(((GetBuildIdsRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.BuildingsRowDeleting != null)) {
-                    this.BuildingsRowDeleting(this, new BuildingsRowChangeEvent(((BuildingsRow)(e.Row)), e.Action));
+                if ((this.GetBuildIdsRowDeleting != null)) {
+                    this.GetBuildIdsRowDeleting(this, new GetBuildIdsRowChangeEvent(((GetBuildIdsRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveBuildingsRow(BuildingsRow row) {
+            public void RemoveGetBuildIdsRow(GetBuildIdsRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -748,7 +593,7 @@ namespace GUI {
                 type.Attributes.Add(attribute1);
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "BuildingsDataTable";
+                attribute2.FixedValue = "GetBuildIdsDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -758,247 +603,24 @@ namespace GUI {
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PlayersDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+        public partial class GetPriorityDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
             private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnPlayerId;
-            
-            private System.Data.DataColumn columnPlayerName;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PlayersDataTable() {
-                this.TableName = "Players";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PlayersDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected PlayersDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PlayerIdColumn {
-                get {
-                    return this.columnPlayerId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PlayerNameColumn {
-                get {
-                    return this.columnPlayerName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PlayersRow this[int index] {
-                get {
-                    return ((PlayersRow)(this.Rows[index]));
-                }
-            }
-            
-            public event PlayersRowChangeEventHandler PlayersRowChanging;
-            
-            public event PlayersRowChangeEventHandler PlayersRowChanged;
-            
-            public event PlayersRowChangeEventHandler PlayersRowDeleting;
-            
-            public event PlayersRowChangeEventHandler PlayersRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddPlayersRow(PlayersRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PlayersRow AddPlayersRow(int PlayerId, string PlayerName) {
-                PlayersRow rowPlayersRow = ((PlayersRow)(this.NewRow()));
-                rowPlayersRow.ItemArray = new object[] {
-                        null,
-                        PlayerId,
-                        PlayerName};
-                this.Rows.Add(rowPlayersRow);
-                return rowPlayersRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                PlayersDataTable cln = ((PlayersDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new PlayersDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnPlayerId = base.Columns["PlayerId"];
-                this.columnPlayerName = base.Columns["PlayerName"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnPlayerId = new System.Data.DataColumn("PlayerId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlayerId);
-                this.columnPlayerName = new System.Data.DataColumn("PlayerName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlayerName);
-                this.columnID.AutoIncrement = true;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnPlayerId.AllowDBNull = false;
-                this.columnPlayerName.AllowDBNull = false;
-                this.columnPlayerName.MaxLength = 50;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PlayersRow NewPlayersRow() {
-                return ((PlayersRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new PlayersRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(PlayersRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.PlayersRowChanged != null)) {
-                    this.PlayersRowChanged(this, new PlayersRowChangeEvent(((PlayersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.PlayersRowChanging != null)) {
-                    this.PlayersRowChanging(this, new PlayersRowChangeEvent(((PlayersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.PlayersRowDeleted != null)) {
-                    this.PlayersRowDeleted(this, new PlayersRowChangeEvent(((PlayersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.PlayersRowDeleting != null)) {
-                    this.PlayersRowDeleting(this, new PlayersRowChangeEvent(((PlayersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemovePlayersRow(PlayersRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                TravianBotDataSet ds = new TravianBotDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "PlayersDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PriorityDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnPriorityName;
             
             private System.Data.DataColumn columnPriorityLevel;
             
+            private System.Data.DataColumn columnPriorityName;
+            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PriorityDataTable() {
-                this.TableName = "Priority";
+            public GetPriorityDataTable() {
+                this.TableName = "GetPriority";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PriorityDataTable(System.Data.DataTable table) {
+            internal GetPriorityDataTable(System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -1014,7 +636,7 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected PriorityDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+            protected GetPriorityDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -1023,13 +645,6 @@ namespace GUI {
             public System.Data.DataColumn IDColumn {
                 get {
                     return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PriorityNameColumn {
-                get {
-                    return this.columnPriorityName;
                 }
             }
             
@@ -1041,6 +656,13 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PriorityNameColumn {
+                get {
+                    return this.columnPriorityName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1049,34 +671,34 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PriorityRow this[int index] {
+            public GetPriorityRow this[int index] {
                 get {
-                    return ((PriorityRow)(this.Rows[index]));
+                    return ((GetPriorityRow)(this.Rows[index]));
                 }
             }
             
-            public event PriorityRowChangeEventHandler PriorityRowChanging;
+            public event GetPriorityRowChangeEventHandler GetPriorityRowChanging;
             
-            public event PriorityRowChangeEventHandler PriorityRowChanged;
+            public event GetPriorityRowChangeEventHandler GetPriorityRowChanged;
             
-            public event PriorityRowChangeEventHandler PriorityRowDeleting;
+            public event GetPriorityRowChangeEventHandler GetPriorityRowDeleting;
             
-            public event PriorityRowChangeEventHandler PriorityRowDeleted;
+            public event GetPriorityRowChangeEventHandler GetPriorityRowDeleted;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddPriorityRow(PriorityRow row) {
+            public void AddGetPriorityRow(GetPriorityRow row) {
                 this.Rows.Add(row);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PriorityRow AddPriorityRow(string PriorityName, int PriorityLevel) {
-                PriorityRow rowPriorityRow = ((PriorityRow)(this.NewRow()));
-                rowPriorityRow.ItemArray = new object[] {
+            public GetPriorityRow AddGetPriorityRow(int PriorityLevel, string PriorityName) {
+                GetPriorityRow rowGetPriorityRow = ((GetPriorityRow)(this.NewRow()));
+                rowGetPriorityRow.ItemArray = new object[] {
                         null,
-                        PriorityName,
-                        PriorityLevel};
-                this.Rows.Add(rowPriorityRow);
-                return rowPriorityRow;
+                        PriorityLevel,
+                        PriorityName};
+                this.Rows.Add(rowGetPriorityRow);
+                return rowGetPriorityRow;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1086,88 +708,88 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override System.Data.DataTable Clone() {
-                PriorityDataTable cln = ((PriorityDataTable)(base.Clone()));
+                GetPriorityDataTable cln = ((GetPriorityDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataTable CreateInstance() {
-                return new PriorityDataTable();
+                return new GetPriorityDataTable();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnPriorityName = base.Columns["PriorityName"];
                 this.columnPriorityLevel = base.Columns["PriorityLevel"];
+                this.columnPriorityName = base.Columns["PriorityName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
                 this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnPriorityName = new System.Data.DataColumn("PriorityName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPriorityName);
                 this.columnPriorityLevel = new System.Data.DataColumn("PriorityLevel", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPriorityLevel);
+                this.columnPriorityName = new System.Data.DataColumn("PriorityName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriorityName);
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
+                this.columnPriorityLevel.AllowDBNull = false;
                 this.columnPriorityName.AllowDBNull = false;
                 this.columnPriorityName.MaxLength = 50;
-                this.columnPriorityLevel.AllowDBNull = false;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PriorityRow NewPriorityRow() {
-                return ((PriorityRow)(this.NewRow()));
+            public GetPriorityRow NewGetPriorityRow() {
+                return ((GetPriorityRow)(this.NewRow()));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new PriorityRow(builder);
+                return new GetPriorityRow(builder);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
-                return typeof(PriorityRow);
+                return typeof(GetPriorityRow);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.PriorityRowChanged != null)) {
-                    this.PriorityRowChanged(this, new PriorityRowChangeEvent(((PriorityRow)(e.Row)), e.Action));
+                if ((this.GetPriorityRowChanged != null)) {
+                    this.GetPriorityRowChanged(this, new GetPriorityRowChangeEvent(((GetPriorityRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.PriorityRowChanging != null)) {
-                    this.PriorityRowChanging(this, new PriorityRowChangeEvent(((PriorityRow)(e.Row)), e.Action));
+                if ((this.GetPriorityRowChanging != null)) {
+                    this.GetPriorityRowChanging(this, new GetPriorityRowChangeEvent(((GetPriorityRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.PriorityRowDeleted != null)) {
-                    this.PriorityRowDeleted(this, new PriorityRowChangeEvent(((PriorityRow)(e.Row)), e.Action));
+                if ((this.GetPriorityRowDeleted != null)) {
+                    this.GetPriorityRowDeleted(this, new GetPriorityRowChangeEvent(((GetPriorityRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.PriorityRowDeleting != null)) {
-                    this.PriorityRowDeleting(this, new PriorityRowChangeEvent(((PriorityRow)(e.Row)), e.Action));
+                if ((this.GetPriorityRowDeleting != null)) {
+                    this.GetPriorityRowDeleting(this, new GetPriorityRowChangeEvent(((GetPriorityRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemovePriorityRow(PriorityRow row) {
+            public void RemoveGetPriorityRow(GetPriorityRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -1194,7 +816,7 @@ namespace GUI {
                 type.Attributes.Add(attribute1);
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "PriorityDataTable";
+                attribute2.FixedValue = "GetPriorityDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -1204,668 +826,30 @@ namespace GUI {
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ProductionDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+        public partial class GetTaskListForGUIDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
-            private System.Data.DataColumn columnID;
+            private System.Data.DataColumn columnTaskName;
             
-            private System.Data.DataColumn columnVillageId;
-            
-            private System.Data.DataColumn columnWarehouse;
-            
-            private System.Data.DataColumn columnGranary;
-            
-            private System.Data.DataColumn columnWood;
-            
-            private System.Data.DataColumn columnClay;
-            
-            private System.Data.DataColumn columnIron;
-            
-            private System.Data.DataColumn columnCrop;
-            
-            private System.Data.DataColumn columnWoodPerHour;
-            
-            private System.Data.DataColumn columnClayPerHour;
-            
-            private System.Data.DataColumn columnIronPerHour;
-            
-            private System.Data.DataColumn columnCropPerHour;
-            
-            private System.Data.DataColumn columnPlayerId;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductionDataTable() {
-                this.TableName = "Production";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ProductionDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected ProductionDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn VillageIdColumn {
-                get {
-                    return this.columnVillageId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn WarehouseColumn {
-                get {
-                    return this.columnWarehouse;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn GranaryColumn {
-                get {
-                    return this.columnGranary;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn WoodColumn {
-                get {
-                    return this.columnWood;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ClayColumn {
-                get {
-                    return this.columnClay;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IronColumn {
-                get {
-                    return this.columnIron;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn CropColumn {
-                get {
-                    return this.columnCrop;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn WoodPerHourColumn {
-                get {
-                    return this.columnWoodPerHour;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ClayPerHourColumn {
-                get {
-                    return this.columnClayPerHour;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IronPerHourColumn {
-                get {
-                    return this.columnIronPerHour;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn CropPerHourColumn {
-                get {
-                    return this.columnCropPerHour;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PlayerIdColumn {
-                get {
-                    return this.columnPlayerId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductionRow this[int index] {
-                get {
-                    return ((ProductionRow)(this.Rows[index]));
-                }
-            }
-            
-            public event ProductionRowChangeEventHandler ProductionRowChanging;
-            
-            public event ProductionRowChangeEventHandler ProductionRowChanged;
-            
-            public event ProductionRowChangeEventHandler ProductionRowDeleting;
-            
-            public event ProductionRowChangeEventHandler ProductionRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddProductionRow(ProductionRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductionRow AddProductionRow(int VillageId, int Warehouse, int Granary, int Wood, int Clay, int Iron, int Crop, int WoodPerHour, int ClayPerHour, int IronPerHour, int CropPerHour, int PlayerId) {
-                ProductionRow rowProductionRow = ((ProductionRow)(this.NewRow()));
-                rowProductionRow.ItemArray = new object[] {
-                        null,
-                        VillageId,
-                        Warehouse,
-                        Granary,
-                        Wood,
-                        Clay,
-                        Iron,
-                        Crop,
-                        WoodPerHour,
-                        ClayPerHour,
-                        IronPerHour,
-                        CropPerHour,
-                        PlayerId};
-                this.Rows.Add(rowProductionRow);
-                return rowProductionRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                ProductionDataTable cln = ((ProductionDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new ProductionDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnVillageId = base.Columns["VillageId"];
-                this.columnWarehouse = base.Columns["Warehouse"];
-                this.columnGranary = base.Columns["Granary"];
-                this.columnWood = base.Columns["Wood"];
-                this.columnClay = base.Columns["Clay"];
-                this.columnIron = base.Columns["Iron"];
-                this.columnCrop = base.Columns["Crop"];
-                this.columnWoodPerHour = base.Columns["WoodPerHour"];
-                this.columnClayPerHour = base.Columns["ClayPerHour"];
-                this.columnIronPerHour = base.Columns["IronPerHour"];
-                this.columnCropPerHour = base.Columns["CropPerHour"];
-                this.columnPlayerId = base.Columns["PlayerId"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnVillageId = new System.Data.DataColumn("VillageId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVillageId);
-                this.columnWarehouse = new System.Data.DataColumn("Warehouse", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWarehouse);
-                this.columnGranary = new System.Data.DataColumn("Granary", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnGranary);
-                this.columnWood = new System.Data.DataColumn("Wood", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWood);
-                this.columnClay = new System.Data.DataColumn("Clay", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnClay);
-                this.columnIron = new System.Data.DataColumn("Iron", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIron);
-                this.columnCrop = new System.Data.DataColumn("Crop", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCrop);
-                this.columnWoodPerHour = new System.Data.DataColumn("WoodPerHour", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnWoodPerHour);
-                this.columnClayPerHour = new System.Data.DataColumn("ClayPerHour", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnClayPerHour);
-                this.columnIronPerHour = new System.Data.DataColumn("IronPerHour", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIronPerHour);
-                this.columnCropPerHour = new System.Data.DataColumn("CropPerHour", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCropPerHour);
-                this.columnPlayerId = new System.Data.DataColumn("PlayerId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlayerId);
-                this.columnID.AutoIncrement = true;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnVillageId.AllowDBNull = false;
-                this.columnPlayerId.AllowDBNull = false;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductionRow NewProductionRow() {
-                return ((ProductionRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new ProductionRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(ProductionRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ProductionRowChanged != null)) {
-                    this.ProductionRowChanged(this, new ProductionRowChangeEvent(((ProductionRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ProductionRowChanging != null)) {
-                    this.ProductionRowChanging(this, new ProductionRowChangeEvent(((ProductionRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ProductionRowDeleted != null)) {
-                    this.ProductionRowDeleted(this, new ProductionRowChangeEvent(((ProductionRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ProductionRowDeleting != null)) {
-                    this.ProductionRowDeleting(this, new ProductionRowChangeEvent(((ProductionRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveProductionRow(ProductionRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                TravianBotDataSet ds = new TravianBotDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ProductionDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ResourcesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnVillageId;
-            
-            private System.Data.DataColumn columnResourcesFullName;
-            
-            private System.Data.DataColumn columnResourcesId;
-            
-            private System.Data.DataColumn columnResourcesName;
-            
-            private System.Data.DataColumn columnResourcesLevel;
-            
-            private System.Data.DataColumn columnPlayerId;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ResourcesDataTable() {
-                this.TableName = "Resources";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ResourcesDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected ResourcesDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn VillageIdColumn {
-                get {
-                    return this.columnVillageId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ResourcesFullNameColumn {
-                get {
-                    return this.columnResourcesFullName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ResourcesIdColumn {
-                get {
-                    return this.columnResourcesId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ResourcesNameColumn {
-                get {
-                    return this.columnResourcesName;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn ResourcesLevelColumn {
-                get {
-                    return this.columnResourcesLevel;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PlayerIdColumn {
-                get {
-                    return this.columnPlayerId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ResourcesRow this[int index] {
-                get {
-                    return ((ResourcesRow)(this.Rows[index]));
-                }
-            }
-            
-            public event ResourcesRowChangeEventHandler ResourcesRowChanging;
-            
-            public event ResourcesRowChangeEventHandler ResourcesRowChanged;
-            
-            public event ResourcesRowChangeEventHandler ResourcesRowDeleting;
-            
-            public event ResourcesRowChangeEventHandler ResourcesRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddResourcesRow(ResourcesRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ResourcesRow AddResourcesRow(int VillageId, string ResourcesFullName, int ResourcesId, string ResourcesName, int ResourcesLevel, int PlayerId) {
-                ResourcesRow rowResourcesRow = ((ResourcesRow)(this.NewRow()));
-                rowResourcesRow.ItemArray = new object[] {
-                        null,
-                        VillageId,
-                        ResourcesFullName,
-                        ResourcesId,
-                        ResourcesName,
-                        ResourcesLevel,
-                        PlayerId};
-                this.Rows.Add(rowResourcesRow);
-                return rowResourcesRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                ResourcesDataTable cln = ((ResourcesDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new ResourcesDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnVillageId = base.Columns["VillageId"];
-                this.columnResourcesFullName = base.Columns["ResourcesFullName"];
-                this.columnResourcesId = base.Columns["ResourcesId"];
-                this.columnResourcesName = base.Columns["ResourcesName"];
-                this.columnResourcesLevel = base.Columns["ResourcesLevel"];
-                this.columnPlayerId = base.Columns["PlayerId"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnVillageId = new System.Data.DataColumn("VillageId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVillageId);
-                this.columnResourcesFullName = new System.Data.DataColumn("ResourcesFullName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnResourcesFullName);
-                this.columnResourcesId = new System.Data.DataColumn("ResourcesId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnResourcesId);
-                this.columnResourcesName = new System.Data.DataColumn("ResourcesName", typeof(string), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnResourcesName);
-                this.columnResourcesLevel = new System.Data.DataColumn("ResourcesLevel", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnResourcesLevel);
-                this.columnPlayerId = new System.Data.DataColumn("PlayerId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlayerId);
-                this.columnID.AutoIncrement = true;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnVillageId.AllowDBNull = false;
-                this.columnResourcesFullName.AllowDBNull = false;
-                this.columnResourcesFullName.MaxLength = 50;
-                this.columnResourcesId.AllowDBNull = false;
-                this.columnResourcesName.AllowDBNull = false;
-                this.columnResourcesName.MaxLength = 50;
-                this.columnResourcesLevel.AllowDBNull = false;
-                this.columnPlayerId.AllowDBNull = false;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ResourcesRow NewResourcesRow() {
-                return ((ResourcesRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new ResourcesRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(ResourcesRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ResourcesRowChanged != null)) {
-                    this.ResourcesRowChanged(this, new ResourcesRowChangeEvent(((ResourcesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ResourcesRowChanging != null)) {
-                    this.ResourcesRowChanging(this, new ResourcesRowChangeEvent(((ResourcesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ResourcesRowDeleted != null)) {
-                    this.ResourcesRowDeleted(this, new ResourcesRowChangeEvent(((ResourcesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ResourcesRowDeleting != null)) {
-                    this.ResourcesRowDeleting(this, new ResourcesRowChangeEvent(((ResourcesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveResourcesRow(ResourcesRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                TravianBotDataSet ds = new TravianBotDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ResourcesDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class TaskListDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnTaskId;
-            
-            private System.Data.DataColumn columnVillageId;
+            private System.Data.DataColumn columnVillageName;
             
             private System.Data.DataColumn columnBuildId;
             
-            private System.Data.DataColumn columnPriorityId;
+            private System.Data.DataColumn columnPriority;
             
             private System.Data.DataColumn columnBuildLevel;
             
             private System.Data.DataColumn columnNextCheck;
             
-            private System.Data.DataColumn columnEnabled;
-            
-            private System.Data.DataColumn columnPlayerId;
-            
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TaskListDataTable() {
-                this.TableName = "TaskList";
+            public GetTaskListForGUIDataTable() {
+                this.TableName = "GetTaskListForGUI";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal TaskListDataTable(System.Data.DataTable table) {
+            internal GetTaskListForGUIDataTable(System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -1881,7 +865,266 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected TaskListDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+            protected GetTaskListForGUIDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn TaskNameColumn {
+                get {
+                    return this.columnTaskName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn VillageNameColumn {
+                get {
+                    return this.columnVillageName;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BuildIdColumn {
+                get {
+                    return this.columnBuildId;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn PriorityColumn {
+                get {
+                    return this.columnPriority;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn BuildLevelColumn {
+                get {
+                    return this.columnBuildLevel;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.Data.DataColumn NextCheckColumn {
+                get {
+                    return this.columnNextCheck;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListForGUIRow this[int index] {
+                get {
+                    return ((GetTaskListForGUIRow)(this.Rows[index]));
+                }
+            }
+            
+            public event GetTaskListForGUIRowChangeEventHandler GetTaskListForGUIRowChanging;
+            
+            public event GetTaskListForGUIRowChangeEventHandler GetTaskListForGUIRowChanged;
+            
+            public event GetTaskListForGUIRowChangeEventHandler GetTaskListForGUIRowDeleting;
+            
+            public event GetTaskListForGUIRowChangeEventHandler GetTaskListForGUIRowDeleted;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void AddGetTaskListForGUIRow(GetTaskListForGUIRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListForGUIRow AddGetTaskListForGUIRow(string TaskName, string VillageName, int BuildId, string Priority, int BuildLevel, System.DateTime NextCheck) {
+                GetTaskListForGUIRow rowGetTaskListForGUIRow = ((GetTaskListForGUIRow)(this.NewRow()));
+                rowGetTaskListForGUIRow.ItemArray = new object[] {
+                        TaskName,
+                        VillageName,
+                        BuildId,
+                        Priority,
+                        BuildLevel,
+                        NextCheck};
+                this.Rows.Add(rowGetTaskListForGUIRow);
+                return rowGetTaskListForGUIRow;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public virtual System.Collections.IEnumerator GetEnumerator() {
+                return this.Rows.GetEnumerator();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public override System.Data.DataTable Clone() {
+                GetTaskListForGUIDataTable cln = ((GetTaskListForGUIDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataTable CreateInstance() {
+                return new GetTaskListForGUIDataTable();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal void InitVars() {
+                this.columnTaskName = base.Columns["TaskName"];
+                this.columnVillageName = base.Columns["VillageName"];
+                this.columnBuildId = base.Columns["BuildId"];
+                this.columnPriority = base.Columns["Priority"];
+                this.columnBuildLevel = base.Columns["BuildLevel"];
+                this.columnNextCheck = base.Columns["NextCheck"];
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            private void InitClass() {
+                this.columnTaskName = new System.Data.DataColumn("TaskName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTaskName);
+                this.columnVillageName = new System.Data.DataColumn("VillageName", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnVillageName);
+                this.columnBuildId = new System.Data.DataColumn("BuildId", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildId);
+                this.columnPriority = new System.Data.DataColumn("Priority", typeof(string), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPriority);
+                this.columnBuildLevel = new System.Data.DataColumn("BuildLevel", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBuildLevel);
+                this.columnNextCheck = new System.Data.DataColumn("NextCheck", typeof(System.DateTime), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnNextCheck);
+                this.columnTaskName.ReadOnly = true;
+                this.columnTaskName.MaxLength = 50;
+                this.columnVillageName.ReadOnly = true;
+                this.columnVillageName.MaxLength = 50;
+                this.columnBuildId.AllowDBNull = false;
+                this.columnPriority.ReadOnly = true;
+                this.columnPriority.MaxLength = 50;
+                this.columnBuildLevel.AllowDBNull = false;
+                this.columnNextCheck.AllowDBNull = false;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTaskListForGUIRow NewGetTaskListForGUIRow() {
+                return ((GetTaskListForGUIRow)(this.NewRow()));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
+                return new GetTaskListForGUIRow(builder);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override System.Type GetRowType() {
+                return typeof(GetTaskListForGUIRow);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.GetTaskListForGUIRowChanged != null)) {
+                    this.GetTaskListForGUIRowChanged(this, new GetTaskListForGUIRowChangeEvent(((GetTaskListForGUIRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.GetTaskListForGUIRowChanging != null)) {
+                    this.GetTaskListForGUIRowChanging(this, new GetTaskListForGUIRowChangeEvent(((GetTaskListForGUIRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.GetTaskListForGUIRowDeleted != null)) {
+                    this.GetTaskListForGUIRowDeleted(this, new GetTaskListForGUIRowChangeEvent(((GetTaskListForGUIRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.GetTaskListForGUIRowDeleting != null)) {
+                    this.GetTaskListForGUIRowDeleting(this, new GetTaskListForGUIRowChangeEvent(((GetTaskListForGUIRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void RemoveGetTaskListForGUIRow(GetTaskListForGUIRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
+                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
+                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
+                TravianBotDataSet ds = new TravianBotDataSet();
+                xs.Add(ds.GetSchemaSerializable());
+                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "GetTaskListForGUIDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                return type;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        [System.Serializable()]
+        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class GetTasksDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+            
+            private System.Data.DataColumn columnID;
+            
+            private System.Data.DataColumn columnTaskId;
+            
+            private System.Data.DataColumn columnTaskName;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public GetTasksDataTable() {
+                this.TableName = "GetTasks";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetTasksDataTable(System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            protected GetTasksDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -1901,291 +1144,6 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn VillageIdColumn {
-                get {
-                    return this.columnVillageId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn BuildIdColumn {
-                get {
-                    return this.columnBuildId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PriorityIdColumn {
-                get {
-                    return this.columnPriorityId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn BuildLevelColumn {
-                get {
-                    return this.columnBuildLevel;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn NextCheckColumn {
-                get {
-                    return this.columnNextCheck;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn EnabledColumn {
-                get {
-                    return this.columnEnabled;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn PlayerIdColumn {
-                get {
-                    return this.columnPlayerId;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TaskListRow this[int index] {
-                get {
-                    return ((TaskListRow)(this.Rows[index]));
-                }
-            }
-            
-            public event TaskListRowChangeEventHandler TaskListRowChanging;
-            
-            public event TaskListRowChangeEventHandler TaskListRowChanged;
-            
-            public event TaskListRowChangeEventHandler TaskListRowDeleting;
-            
-            public event TaskListRowChangeEventHandler TaskListRowDeleted;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddTaskListRow(TaskListRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TaskListRow AddTaskListRow(int TaskId, int VillageId, int BuildId, int PriorityId, int BuildLevel, System.DateTime NextCheck, int Enabled, int PlayerId) {
-                TaskListRow rowTaskListRow = ((TaskListRow)(this.NewRow()));
-                rowTaskListRow.ItemArray = new object[] {
-                        null,
-                        TaskId,
-                        VillageId,
-                        BuildId,
-                        PriorityId,
-                        BuildLevel,
-                        NextCheck,
-                        Enabled,
-                        PlayerId};
-                this.Rows.Add(rowTaskListRow);
-                return rowTaskListRow;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public virtual System.Collections.IEnumerator GetEnumerator() {
-                return this.Rows.GetEnumerator();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public override System.Data.DataTable Clone() {
-                TaskListDataTable cln = ((TaskListDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataTable CreateInstance() {
-                return new TaskListDataTable();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnTaskId = base.Columns["TaskId"];
-                this.columnVillageId = base.Columns["VillageId"];
-                this.columnBuildId = base.Columns["BuildId"];
-                this.columnPriorityId = base.Columns["PriorityId"];
-                this.columnBuildLevel = base.Columns["BuildLevel"];
-                this.columnNextCheck = base.Columns["NextCheck"];
-                this.columnEnabled = base.Columns["Enabled"];
-                this.columnPlayerId = base.Columns["PlayerId"];
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            private void InitClass() {
-                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnTaskId = new System.Data.DataColumn("TaskId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTaskId);
-                this.columnVillageId = new System.Data.DataColumn("VillageId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnVillageId);
-                this.columnBuildId = new System.Data.DataColumn("BuildId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildId);
-                this.columnPriorityId = new System.Data.DataColumn("PriorityId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPriorityId);
-                this.columnBuildLevel = new System.Data.DataColumn("BuildLevel", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnBuildLevel);
-                this.columnNextCheck = new System.Data.DataColumn("NextCheck", typeof(System.DateTime), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNextCheck);
-                this.columnEnabled = new System.Data.DataColumn("Enabled", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEnabled);
-                this.columnPlayerId = new System.Data.DataColumn("PlayerId", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPlayerId);
-                this.columnID.AutoIncrement = true;
-                this.columnID.AllowDBNull = false;
-                this.columnID.ReadOnly = true;
-                this.columnTaskId.AllowDBNull = false;
-                this.columnVillageId.AllowDBNull = false;
-                this.columnBuildId.AllowDBNull = false;
-                this.columnPriorityId.AllowDBNull = false;
-                this.columnBuildLevel.AllowDBNull = false;
-                this.columnNextCheck.AllowDBNull = false;
-                this.columnEnabled.AllowDBNull = false;
-                this.columnPlayerId.AllowDBNull = false;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TaskListRow NewTaskListRow() {
-                return ((TaskListRow)(this.NewRow()));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new TaskListRow(builder);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override System.Type GetRowType() {
-                return typeof(TaskListRow);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.TaskListRowChanged != null)) {
-                    this.TaskListRowChanged(this, new TaskListRowChangeEvent(((TaskListRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.TaskListRowChanging != null)) {
-                    this.TaskListRowChanging(this, new TaskListRowChangeEvent(((TaskListRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.TaskListRowDeleted != null)) {
-                    this.TaskListRowDeleted(this, new TaskListRowChangeEvent(((TaskListRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.TaskListRowDeleting != null)) {
-                    this.TaskListRowDeleting(this, new TaskListRowChangeEvent(((TaskListRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveTaskListRow(TaskListRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public static System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(System.Xml.Schema.XmlSchemaSet xs) {
-                System.Xml.Schema.XmlSchemaComplexType type = new System.Xml.Schema.XmlSchemaComplexType();
-                System.Xml.Schema.XmlSchemaSequence sequence = new System.Xml.Schema.XmlSchemaSequence();
-                TravianBotDataSet ds = new TravianBotDataSet();
-                xs.Add(ds.GetSchemaSerializable());
-                System.Xml.Schema.XmlSchemaAny any1 = new System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                System.Xml.Schema.XmlSchemaAny any2 = new System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                System.Xml.Schema.XmlSchemaAttribute attribute1 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "TaskListDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                return type;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        [System.Serializable()]
-        [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class TasksDataTable : System.Data.DataTable, System.Collections.IEnumerable {
-            
-            private System.Data.DataColumn columnID;
-            
-            private System.Data.DataColumn columnTaskName;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksDataTable() {
-                this.TableName = "Tasks";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal TasksDataTable(System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected TasksDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public System.Data.DataColumn TaskNameColumn {
                 get {
                     return this.columnTaskName;
@@ -2201,33 +1159,34 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksRow this[int index] {
+            public GetTasksRow this[int index] {
                 get {
-                    return ((TasksRow)(this.Rows[index]));
+                    return ((GetTasksRow)(this.Rows[index]));
                 }
             }
             
-            public event TasksRowChangeEventHandler TasksRowChanging;
+            public event GetTasksRowChangeEventHandler GetTasksRowChanging;
             
-            public event TasksRowChangeEventHandler TasksRowChanged;
+            public event GetTasksRowChangeEventHandler GetTasksRowChanged;
             
-            public event TasksRowChangeEventHandler TasksRowDeleting;
+            public event GetTasksRowChangeEventHandler GetTasksRowDeleting;
             
-            public event TasksRowChangeEventHandler TasksRowDeleted;
+            public event GetTasksRowChangeEventHandler GetTasksRowDeleted;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddTasksRow(TasksRow row) {
+            public void AddGetTasksRow(GetTasksRow row) {
                 this.Rows.Add(row);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksRow AddTasksRow(string TaskName) {
-                TasksRow rowTasksRow = ((TasksRow)(this.NewRow()));
-                rowTasksRow.ItemArray = new object[] {
+            public GetTasksRow AddGetTasksRow(int TaskId, string TaskName) {
+                GetTasksRow rowGetTasksRow = ((GetTasksRow)(this.NewRow()));
+                rowGetTasksRow.ItemArray = new object[] {
                         null,
+                        TaskId,
                         TaskName};
-                this.Rows.Add(rowTasksRow);
-                return rowTasksRow;
+                this.Rows.Add(rowGetTasksRow);
+                return rowGetTasksRow;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2237,19 +1196,20 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override System.Data.DataTable Clone() {
-                TasksDataTable cln = ((TasksDataTable)(base.Clone()));
+                GetTasksDataTable cln = ((GetTasksDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataTable CreateInstance() {
-                return new TasksDataTable();
+                return new GetTasksDataTable();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
+                this.columnTaskId = base.Columns["TaskId"];
                 this.columnTaskName = base.Columns["TaskName"];
             }
             
@@ -2257,64 +1217,67 @@ namespace GUI {
             private void InitClass() {
                 this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
+                this.columnTaskId = new System.Data.DataColumn("TaskId", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTaskId);
                 this.columnTaskName = new System.Data.DataColumn("TaskName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTaskName);
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.ReadOnly = true;
+                this.columnTaskId.AllowDBNull = false;
                 this.columnTaskName.AllowDBNull = false;
                 this.columnTaskName.MaxLength = 50;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksRow NewTasksRow() {
-                return ((TasksRow)(this.NewRow()));
+            public GetTasksRow NewGetTasksRow() {
+                return ((GetTasksRow)(this.NewRow()));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new TasksRow(builder);
+                return new GetTasksRow(builder);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
-                return typeof(TasksRow);
+                return typeof(GetTasksRow);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.TasksRowChanged != null)) {
-                    this.TasksRowChanged(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                if ((this.GetTasksRowChanged != null)) {
+                    this.GetTasksRowChanged(this, new GetTasksRowChangeEvent(((GetTasksRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.TasksRowChanging != null)) {
-                    this.TasksRowChanging(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                if ((this.GetTasksRowChanging != null)) {
+                    this.GetTasksRowChanging(this, new GetTasksRowChangeEvent(((GetTasksRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.TasksRowDeleted != null)) {
-                    this.TasksRowDeleted(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                if ((this.GetTasksRowDeleted != null)) {
+                    this.GetTasksRowDeleted(this, new GetTasksRowChangeEvent(((GetTasksRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.TasksRowDeleting != null)) {
-                    this.TasksRowDeleting(this, new TasksRowChangeEvent(((TasksRow)(e.Row)), e.Action));
+                if ((this.GetTasksRowDeleting != null)) {
+                    this.GetTasksRowDeleting(this, new GetTasksRowChangeEvent(((GetTasksRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveTasksRow(TasksRow row) {
+            public void RemoveGetTasksRow(GetTasksRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -2341,7 +1304,7 @@ namespace GUI {
                 type.Attributes.Add(attribute1);
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "TasksDataTable";
+                attribute2.FixedValue = "GetTasksDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -2351,7 +1314,7 @@ namespace GUI {
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [System.Serializable()]
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class VillagesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
+        public partial class GetVillagesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
             private System.Data.DataColumn columnID;
             
@@ -2362,15 +1325,15 @@ namespace GUI {
             private System.Data.DataColumn columnPlayerId;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public VillagesDataTable() {
-                this.TableName = "Villages";
+            public GetVillagesDataTable() {
+                this.TableName = "GetVillages";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal VillagesDataTable(System.Data.DataTable table) {
+            internal GetVillagesDataTable(System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -2386,7 +1349,7 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected VillagesDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
+            protected GetVillagesDataTable(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -2428,35 +1391,35 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public VillagesRow this[int index] {
+            public GetVillagesRow this[int index] {
                 get {
-                    return ((VillagesRow)(this.Rows[index]));
+                    return ((GetVillagesRow)(this.Rows[index]));
                 }
             }
             
-            public event VillagesRowChangeEventHandler VillagesRowChanging;
+            public event GetVillagesRowChangeEventHandler GetVillagesRowChanging;
             
-            public event VillagesRowChangeEventHandler VillagesRowChanged;
+            public event GetVillagesRowChangeEventHandler GetVillagesRowChanged;
             
-            public event VillagesRowChangeEventHandler VillagesRowDeleting;
+            public event GetVillagesRowChangeEventHandler GetVillagesRowDeleting;
             
-            public event VillagesRowChangeEventHandler VillagesRowDeleted;
+            public event GetVillagesRowChangeEventHandler GetVillagesRowDeleted;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddVillagesRow(VillagesRow row) {
+            public void AddGetVillagesRow(GetVillagesRow row) {
                 this.Rows.Add(row);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public VillagesRow AddVillagesRow(int VillageId, string VillageName, int PlayerId) {
-                VillagesRow rowVillagesRow = ((VillagesRow)(this.NewRow()));
-                rowVillagesRow.ItemArray = new object[] {
+            public GetVillagesRow AddGetVillagesRow(int VillageId, string VillageName, int PlayerId) {
+                GetVillagesRow rowGetVillagesRow = ((GetVillagesRow)(this.NewRow()));
+                rowGetVillagesRow.ItemArray = new object[] {
                         null,
                         VillageId,
                         VillageName,
                         PlayerId};
-                this.Rows.Add(rowVillagesRow);
-                return rowVillagesRow;
+                this.Rows.Add(rowGetVillagesRow);
+                return rowGetVillagesRow;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2466,14 +1429,14 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override System.Data.DataTable Clone() {
-                VillagesDataTable cln = ((VillagesDataTable)(base.Clone()));
+                GetVillagesDataTable cln = ((GetVillagesDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataTable CreateInstance() {
-                return new VillagesDataTable();
+                return new GetVillagesDataTable();
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2504,54 +1467,54 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public VillagesRow NewVillagesRow() {
-                return ((VillagesRow)(this.NewRow()));
+            public GetVillagesRow NewGetVillagesRow() {
+                return ((GetVillagesRow)(this.NewRow()));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Data.DataRow NewRowFromBuilder(System.Data.DataRowBuilder builder) {
-                return new VillagesRow(builder);
+                return new GetVillagesRow(builder);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override System.Type GetRowType() {
-                return typeof(VillagesRow);
+                return typeof(GetVillagesRow);
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.VillagesRowChanged != null)) {
-                    this.VillagesRowChanged(this, new VillagesRowChangeEvent(((VillagesRow)(e.Row)), e.Action));
+                if ((this.GetVillagesRowChanged != null)) {
+                    this.GetVillagesRowChanged(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.VillagesRowChanging != null)) {
-                    this.VillagesRowChanging(this, new VillagesRowChangeEvent(((VillagesRow)(e.Row)), e.Action));
+                if ((this.GetVillagesRowChanging != null)) {
+                    this.GetVillagesRowChanging(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.VillagesRowDeleted != null)) {
-                    this.VillagesRowDeleted(this, new VillagesRowChangeEvent(((VillagesRow)(e.Row)), e.Action));
+                if ((this.GetVillagesRowDeleted != null)) {
+                    this.GetVillagesRowDeleted(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.VillagesRowDeleting != null)) {
-                    this.VillagesRowDeleting(this, new VillagesRowChangeEvent(((VillagesRow)(e.Row)), e.Action));
+                if ((this.GetVillagesRowDeleting != null)) {
+                    this.GetVillagesRowDeleting(this, new GetVillagesRowChangeEvent(((GetVillagesRow)(e.Row)), e.Action));
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemoveVillagesRow(VillagesRow row) {
+            public void RemoveGetVillagesRow(GetVillagesRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -2578,7 +1541,7 @@ namespace GUI {
                 type.Attributes.Add(attribute1);
                 System.Xml.Schema.XmlSchemaAttribute attribute2 = new System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "VillagesDataTable";
+                attribute2.FixedValue = "GetVillagesDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 return type;
@@ -2954,727 +1917,296 @@ namespace GUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class BuildingsRow : System.Data.DataRow {
+        public partial class GetBuildIdsRow : System.Data.DataRow {
             
-            private BuildingsDataTable tableBuildings;
+            private GetBuildIdsDataTable tableGetBuildIds;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal BuildingsRow(System.Data.DataRowBuilder rb) : 
+            internal GetBuildIdsRow(System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableBuildings = ((BuildingsDataTable)(this.Table));
+                this.tableGetBuildIds = ((GetBuildIdsDataTable)(this.Table));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int ID {
                 get {
-                    return ((int)(this[this.tableBuildings.IDColumn]));
+                    return ((int)(this[this.tableGetBuildIds.IDColumn]));
                 }
                 set {
-                    this[this.tableBuildings.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int VillageId {
-                get {
-                    return ((int)(this[this.tableBuildings.VillageIdColumn]));
-                }
-                set {
-                    this[this.tableBuildings.VillageIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string BuildingFullName {
-                get {
-                    return ((string)(this[this.tableBuildings.BuildingFullNameColumn]));
-                }
-                set {
-                    this[this.tableBuildings.BuildingFullNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int BuildingId {
-                get {
-                    return ((int)(this[this.tableBuildings.BuildingIdColumn]));
-                }
-                set {
-                    this[this.tableBuildings.BuildingIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string BuildingName {
-                get {
-                    return ((string)(this[this.tableBuildings.BuildingNameColumn]));
-                }
-                set {
-                    this[this.tableBuildings.BuildingNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int BuildingLevel {
-                get {
-                    return ((int)(this[this.tableBuildings.BuildingLevelColumn]));
-                }
-                set {
-                    this[this.tableBuildings.BuildingLevelColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PlayerId {
-                get {
-                    return ((int)(this[this.tableBuildings.PlayerIdColumn]));
-                }
-                set {
-                    this[this.tableBuildings.PlayerIdColumn] = value;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class PlayersRow : System.Data.DataRow {
-            
-            private PlayersDataTable tablePlayers;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PlayersRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tablePlayers = ((PlayersDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tablePlayers.IDColumn]));
-                }
-                set {
-                    this[this.tablePlayers.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PlayerId {
-                get {
-                    return ((int)(this[this.tablePlayers.PlayerIdColumn]));
-                }
-                set {
-                    this[this.tablePlayers.PlayerIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string PlayerName {
-                get {
-                    return ((string)(this[this.tablePlayers.PlayerNameColumn]));
-                }
-                set {
-                    this[this.tablePlayers.PlayerNameColumn] = value;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class PriorityRow : System.Data.DataRow {
-            
-            private PriorityDataTable tablePriority;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PriorityRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tablePriority = ((PriorityDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tablePriority.IDColumn]));
-                }
-                set {
-                    this[this.tablePriority.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string PriorityName {
-                get {
-                    return ((string)(this[this.tablePriority.PriorityNameColumn]));
-                }
-                set {
-                    this[this.tablePriority.PriorityNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PriorityLevel {
-                get {
-                    return ((int)(this[this.tablePriority.PriorityLevelColumn]));
-                }
-                set {
-                    this[this.tablePriority.PriorityLevelColumn] = value;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class ProductionRow : System.Data.DataRow {
-            
-            private ProductionDataTable tableProduction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ProductionRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableProduction = ((ProductionDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableProduction.IDColumn]));
-                }
-                set {
-                    this[this.tableProduction.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int VillageId {
-                get {
-                    return ((int)(this[this.tableProduction.VillageIdColumn]));
-                }
-                set {
-                    this[this.tableProduction.VillageIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Warehouse {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.WarehouseColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Warehouse\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.WarehouseColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Granary {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.GranaryColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Granary\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.GranaryColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Wood {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.WoodColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Wood\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.WoodColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Clay {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.ClayColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Clay\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.ClayColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Iron {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.IronColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Iron\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.IronColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Crop {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.CropColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'Crop\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.CropColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int WoodPerHour {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.WoodPerHourColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'WoodPerHour\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.WoodPerHourColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ClayPerHour {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.ClayPerHourColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'ClayPerHour\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.ClayPerHourColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int IronPerHour {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.IronPerHourColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'IronPerHour\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.IronPerHourColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int CropPerHour {
-                get {
-                    try {
-                        return ((int)(this[this.tableProduction.CropPerHourColumn]));
-                    }
-                    catch (System.InvalidCastException e) {
-                        throw new System.Data.StrongTypingException("The value for column \'CropPerHour\' in table \'Production\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProduction.CropPerHourColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PlayerId {
-                get {
-                    return ((int)(this[this.tableProduction.PlayerIdColumn]));
-                }
-                set {
-                    this[this.tableProduction.PlayerIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsWarehouseNull() {
-                return this.IsNull(this.tableProduction.WarehouseColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetWarehouseNull() {
-                this[this.tableProduction.WarehouseColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsGranaryNull() {
-                return this.IsNull(this.tableProduction.GranaryColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetGranaryNull() {
-                this[this.tableProduction.GranaryColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsWoodNull() {
-                return this.IsNull(this.tableProduction.WoodColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetWoodNull() {
-                this[this.tableProduction.WoodColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsClayNull() {
-                return this.IsNull(this.tableProduction.ClayColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetClayNull() {
-                this[this.tableProduction.ClayColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsIronNull() {
-                return this.IsNull(this.tableProduction.IronColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetIronNull() {
-                this[this.tableProduction.IronColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCropNull() {
-                return this.IsNull(this.tableProduction.CropColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCropNull() {
-                this[this.tableProduction.CropColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsWoodPerHourNull() {
-                return this.IsNull(this.tableProduction.WoodPerHourColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetWoodPerHourNull() {
-                this[this.tableProduction.WoodPerHourColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsClayPerHourNull() {
-                return this.IsNull(this.tableProduction.ClayPerHourColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetClayPerHourNull() {
-                this[this.tableProduction.ClayPerHourColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsIronPerHourNull() {
-                return this.IsNull(this.tableProduction.IronPerHourColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetIronPerHourNull() {
-                this[this.tableProduction.IronPerHourColumn] = System.Convert.DBNull;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCropPerHourNull() {
-                return this.IsNull(this.tableProduction.CropPerHourColumn);
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCropPerHourNull() {
-                this[this.tableProduction.CropPerHourColumn] = System.Convert.DBNull;
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class ResourcesRow : System.Data.DataRow {
-            
-            private ResourcesDataTable tableResources;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal ResourcesRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableResources = ((ResourcesDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableResources.IDColumn]));
-                }
-                set {
-                    this[this.tableResources.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int VillageId {
-                get {
-                    return ((int)(this[this.tableResources.VillageIdColumn]));
-                }
-                set {
-                    this[this.tableResources.VillageIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ResourcesFullName {
-                get {
-                    return ((string)(this[this.tableResources.ResourcesFullNameColumn]));
-                }
-                set {
-                    this[this.tableResources.ResourcesFullNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ResourcesId {
-                get {
-                    return ((int)(this[this.tableResources.ResourcesIdColumn]));
-                }
-                set {
-                    this[this.tableResources.ResourcesIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ResourcesName {
-                get {
-                    return ((string)(this[this.tableResources.ResourcesNameColumn]));
-                }
-                set {
-                    this[this.tableResources.ResourcesNameColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ResourcesLevel {
-                get {
-                    return ((int)(this[this.tableResources.ResourcesLevelColumn]));
-                }
-                set {
-                    this[this.tableResources.ResourcesLevelColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PlayerId {
-                get {
-                    return ((int)(this[this.tableResources.PlayerIdColumn]));
-                }
-                set {
-                    this[this.tableResources.PlayerIdColumn] = value;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class TaskListRow : System.Data.DataRow {
-            
-            private TaskListDataTable tableTaskList;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal TaskListRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableTaskList = ((TaskListDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableTaskList.IDColumn]));
-                }
-                set {
-                    this[this.tableTaskList.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int TaskId {
-                get {
-                    return ((int)(this[this.tableTaskList.TaskIdColumn]));
-                }
-                set {
-                    this[this.tableTaskList.TaskIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int VillageId {
-                get {
-                    return ((int)(this[this.tableTaskList.VillageIdColumn]));
-                }
-                set {
-                    this[this.tableTaskList.VillageIdColumn] = value;
+                    this[this.tableGetBuildIds.IDColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int BuildId {
                 get {
-                    return ((int)(this[this.tableTaskList.BuildIdColumn]));
+                    return ((int)(this[this.tableGetBuildIds.BuildIdColumn]));
                 }
                 set {
-                    this[this.tableTaskList.BuildIdColumn] = value;
+                    this[this.tableGetBuildIds.BuildIdColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PriorityId {
+            public string BuildIdName {
                 get {
-                    return ((int)(this[this.tableTaskList.PriorityIdColumn]));
+                    return ((string)(this[this.tableGetBuildIds.BuildIdNameColumn]));
                 }
                 set {
-                    this[this.tableTaskList.PriorityIdColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int BuildLevel {
-                get {
-                    return ((int)(this[this.tableTaskList.BuildLevelColumn]));
-                }
-                set {
-                    this[this.tableTaskList.BuildLevelColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime NextCheck {
-                get {
-                    return ((System.DateTime)(this[this.tableTaskList.NextCheckColumn]));
-                }
-                set {
-                    this[this.tableTaskList.NextCheckColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Enabled {
-                get {
-                    return ((int)(this[this.tableTaskList.EnabledColumn]));
-                }
-                set {
-                    this[this.tableTaskList.EnabledColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int PlayerId {
-                get {
-                    return ((int)(this[this.tableTaskList.PlayerIdColumn]));
-                }
-                set {
-                    this[this.tableTaskList.PlayerIdColumn] = value;
+                    this[this.tableGetBuildIds.BuildIdNameColumn] = value;
                 }
             }
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class TasksRow : System.Data.DataRow {
+        public partial class GetPriorityRow : System.Data.DataRow {
             
-            private TasksDataTable tableTasks;
+            private GetPriorityDataTable tableGetPriority;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal TasksRow(System.Data.DataRowBuilder rb) : 
+            internal GetPriorityRow(System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tableTasks = ((TasksDataTable)(this.Table));
+                this.tableGetPriority = ((GetPriorityDataTable)(this.Table));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int ID {
                 get {
-                    return ((int)(this[this.tableTasks.IDColumn]));
+                    return ((int)(this[this.tableGetPriority.IDColumn]));
                 }
                 set {
-                    this[this.tableTasks.IDColumn] = value;
+                    this[this.tableGetPriority.IDColumn] = value;
                 }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int PriorityLevel {
+                get {
+                    return ((int)(this[this.tableGetPriority.PriorityLevelColumn]));
+                }
+                set {
+                    this[this.tableGetPriority.PriorityLevelColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string PriorityName {
+                get {
+                    return ((string)(this[this.tableGetPriority.PriorityNameColumn]));
+                }
+                set {
+                    this[this.tableGetPriority.PriorityNameColumn] = value;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class GetTaskListForGUIRow : System.Data.DataRow {
+            
+            private GetTaskListForGUIDataTable tableGetTaskListForGUI;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetTaskListForGUIRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetTaskListForGUI = ((GetTaskListForGUIDataTable)(this.Table));
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string TaskName {
                 get {
-                    return ((string)(this[this.tableTasks.TaskNameColumn]));
+                    try {
+                        return ((string)(this[this.tableGetTaskListForGUI.TaskNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'TaskName\' in table \'GetTaskListForGUI\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableTasks.TaskNameColumn] = value;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class VillagesRow : System.Data.DataRow {
-            
-            private VillagesDataTable tableVillages;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal VillagesRow(System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableVillages = ((VillagesDataTable)(this.Table));
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableVillages.IDColumn]));
-                }
-                set {
-                    this[this.tableVillages.IDColumn] = value;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int VillageId {
-                get {
-                    return ((int)(this[this.tableVillages.VillageIdColumn]));
-                }
-                set {
-                    this[this.tableVillages.VillageIdColumn] = value;
+                    this[this.tableGetTaskListForGUI.TaskNameColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public string VillageName {
                 get {
-                    return ((string)(this[this.tableVillages.VillageNameColumn]));
+                    try {
+                        return ((string)(this[this.tableGetTaskListForGUI.VillageNameColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'VillageName\' in table \'GetTaskListForGUI\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableVillages.VillageNameColumn] = value;
+                    this[this.tableGetTaskListForGUI.VillageNameColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int BuildId {
+                get {
+                    return ((int)(this[this.tableGetTaskListForGUI.BuildIdColumn]));
+                }
+                set {
+                    this[this.tableGetTaskListForGUI.BuildIdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string Priority {
+                get {
+                    try {
+                        return ((string)(this[this.tableGetTaskListForGUI.PriorityColumn]));
+                    }
+                    catch (System.InvalidCastException e) {
+                        throw new System.Data.StrongTypingException("The value for column \'Priority\' in table \'GetTaskListForGUI\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableGetTaskListForGUI.PriorityColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int BuildLevel {
+                get {
+                    return ((int)(this[this.tableGetTaskListForGUI.BuildLevelColumn]));
+                }
+                set {
+                    this[this.tableGetTaskListForGUI.BuildLevelColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public System.DateTime NextCheck {
+                get {
+                    return ((System.DateTime)(this[this.tableGetTaskListForGUI.NextCheckColumn]));
+                }
+                set {
+                    this[this.tableGetTaskListForGUI.NextCheckColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsTaskNameNull() {
+                return this.IsNull(this.tableGetTaskListForGUI.TaskNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetTaskNameNull() {
+                this[this.tableGetTaskListForGUI.TaskNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsVillageNameNull() {
+                return this.IsNull(this.tableGetTaskListForGUI.VillageNameColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetVillageNameNull() {
+                this[this.tableGetTaskListForGUI.VillageNameColumn] = System.Convert.DBNull;
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPriorityNull() {
+                return this.IsNull(this.tableGetTaskListForGUI.PriorityColumn);
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPriorityNull() {
+                this[this.tableGetTaskListForGUI.PriorityColumn] = System.Convert.DBNull;
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class GetTasksRow : System.Data.DataRow {
+            
+            private GetTasksDataTable tableGetTasks;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetTasksRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetTasks = ((GetTasksDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableGetTasks.IDColumn]));
+                }
+                set {
+                    this[this.tableGetTasks.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int TaskId {
+                get {
+                    return ((int)(this[this.tableGetTasks.TaskIdColumn]));
+                }
+                set {
+                    this[this.tableGetTasks.TaskIdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string TaskName {
+                get {
+                    return ((string)(this[this.tableGetTasks.TaskNameColumn]));
+                }
+                set {
+                    this[this.tableGetTasks.TaskNameColumn] = value;
+                }
+            }
+        }
+        
+        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+        public partial class GetVillagesRow : System.Data.DataRow {
+            
+            private GetVillagesDataTable tableGetVillages;
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            internal GetVillagesRow(System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableGetVillages = ((GetVillagesDataTable)(this.Table));
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableGetVillages.IDColumn]));
+                }
+                set {
+                    this[this.tableGetVillages.IDColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public int VillageId {
+                get {
+                    return ((int)(this[this.tableGetVillages.VillageIdColumn]));
+                }
+                set {
+                    this[this.tableGetVillages.VillageIdColumn] = value;
+                }
+            }
+            
+            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string VillageName {
+                get {
+                    return ((string)(this[this.tableGetVillages.VillageNameColumn]));
+                }
+                set {
+                    this[this.tableGetVillages.VillageNameColumn] = value;
                 }
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public int PlayerId {
                 get {
-                    return ((int)(this[this.tableVillages.PlayerIdColumn]));
+                    return ((int)(this[this.tableGetVillages.PlayerIdColumn]));
                 }
                 set {
-                    this[this.tableVillages.PlayerIdColumn] = value;
+                    this[this.tableGetVillages.PlayerIdColumn] = value;
                 }
             }
         }
@@ -4027,20 +2559,20 @@ namespace GUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class BuildingsRowChangeEvent : System.EventArgs {
+        public class GetBuildIdsRowChangeEvent : System.EventArgs {
             
-            private BuildingsRow eventRow;
+            private GetBuildIdsRow eventRow;
             
             private System.Data.DataRowAction eventAction;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public BuildingsRowChangeEvent(BuildingsRow row, System.Data.DataRowAction action) {
+            public GetBuildIdsRowChangeEvent(GetBuildIdsRow row, System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public BuildingsRow Row {
+            public GetBuildIdsRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4055,20 +2587,20 @@ namespace GUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class PlayersRowChangeEvent : System.EventArgs {
+        public class GetPriorityRowChangeEvent : System.EventArgs {
             
-            private PlayersRow eventRow;
+            private GetPriorityRow eventRow;
             
             private System.Data.DataRowAction eventAction;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PlayersRowChangeEvent(PlayersRow row, System.Data.DataRowAction action) {
+            public GetPriorityRowChangeEvent(GetPriorityRow row, System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PlayersRow Row {
+            public GetPriorityRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4083,20 +2615,20 @@ namespace GUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class PriorityRowChangeEvent : System.EventArgs {
+        public class GetTaskListForGUIRowChangeEvent : System.EventArgs {
             
-            private PriorityRow eventRow;
+            private GetTaskListForGUIRow eventRow;
             
             private System.Data.DataRowAction eventAction;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PriorityRowChangeEvent(PriorityRow row, System.Data.DataRowAction action) {
+            public GetTaskListForGUIRowChangeEvent(GetTaskListForGUIRow row, System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PriorityRow Row {
+            public GetTaskListForGUIRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4111,20 +2643,20 @@ namespace GUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class ProductionRowChangeEvent : System.EventArgs {
+        public class GetTasksRowChangeEvent : System.EventArgs {
             
-            private ProductionRow eventRow;
+            private GetTasksRow eventRow;
             
             private System.Data.DataRowAction eventAction;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductionRowChangeEvent(ProductionRow row, System.Data.DataRowAction action) {
+            public GetTasksRowChangeEvent(GetTasksRow row, System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ProductionRow Row {
+            public GetTasksRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4139,104 +2671,20 @@ namespace GUI {
         }
         
         [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class ResourcesRowChangeEvent : System.EventArgs {
+        public class GetVillagesRowChangeEvent : System.EventArgs {
             
-            private ResourcesRow eventRow;
+            private GetVillagesRow eventRow;
             
             private System.Data.DataRowAction eventAction;
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ResourcesRowChangeEvent(ResourcesRow row, System.Data.DataRowAction action) {
+            public GetVillagesRowChangeEvent(GetVillagesRow row, System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ResourcesRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class TaskListRowChangeEvent : System.EventArgs {
-            
-            private TaskListRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TaskListRowChangeEvent(TaskListRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TaskListRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class TasksRowChangeEvent : System.EventArgs {
-            
-            private TasksRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksRowChangeEvent(TasksRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public TasksRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class VillagesRowChangeEvent : System.EventArgs {
-            
-            private VillagesRow eventRow;
-            
-            private System.Data.DataRowAction eventAction;
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public VillagesRowChangeEvent(VillagesRow row, System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public VillagesRow Row {
+            public GetVillagesRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -4289,7 +2737,7 @@ namespace GUI.TravianBotDataSetTableAdapters {
     [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class BuildingsTableAdapter : System.ComponentModel.Component {
+    public partial class GetBuildIdsTableAdapter : System.ComponentModel.Component {
         
         private System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -4300,7 +2748,7 @@ namespace GUI.TravianBotDataSetTableAdapters {
         private bool _clearBeforeFill;
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public BuildingsTableAdapter() {
+        public GetBuildIdsTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -4366,1084 +2814,274 @@ namespace GUI.TravianBotDataSetTableAdapters {
             this._adapter = new System.Data.SqlClient.SqlDataAdapter();
             System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Buildings";
+            tableMapping.DataSetTable = "GetBuildIds";
             tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("VillageId", "VillageId");
-            tableMapping.ColumnMappings.Add("BuildingFullName", "BuildingFullName");
-            tableMapping.ColumnMappings.Add("BuildingId", "BuildingId");
-            tableMapping.ColumnMappings.Add("BuildingName", "BuildingName");
-            tableMapping.ColumnMappings.Add("BuildingLevel", "BuildingLevel");
-            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Buildings] ([VillageId], [BuildingFullName], [BuildingId], [Bu" +
-                "ildingName], [BuildingLevel], [PlayerId]) VALUES (@VillageId, @BuildingFullName," +
-                " @BuildingId, @BuildingName, @BuildingLevel, @PlayerId)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "VillageId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildingFullName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BuildingFullName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildingId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "BuildingId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildingName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "BuildingName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildingLevel", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "BuildingLevel", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, VillageId, BuildingFullName, BuildingId, BuildingName, BuildingLevel, " +
-                "PlayerId FROM dbo.Buildings";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.BuildingsDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.BuildingsDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.BuildingsDataTable dataTable = new TravianBotDataSet.BuildingsDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.BuildingsDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Buildings");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int VillageId, string BuildingFullName, int BuildingId, string BuildingName, int BuildingLevel, int PlayerId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(VillageId));
-            if ((BuildingFullName == null)) {
-                throw new System.ArgumentNullException("BuildingFullName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(BuildingFullName));
-            }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(BuildingId));
-            if ((BuildingName == null)) {
-                throw new System.ArgumentNullException("BuildingName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(BuildingName));
-            }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(BuildingLevel));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(PlayerId));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class PlayersTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public PlayersTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Players";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
-            tableMapping.ColumnMappings.Add("PlayerName", "PlayerName");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Players] ([PlayerId], [PlayerName]) VALUES (@PlayerId, @Player" +
-                "Name)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, PlayerId, PlayerName FROM dbo.Players";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.PlayersDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.PlayersDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.PlayersDataTable dataTable = new TravianBotDataSet.PlayersDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.PlayersDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Players");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int PlayerId, string PlayerName) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(PlayerId));
-            if ((PlayerName == null)) {
-                throw new System.ArgumentNullException("PlayerName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(PlayerName));
-            }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class PriorityTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public PriorityTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Priority";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("PriorityName", "PriorityName");
-            tableMapping.ColumnMappings.Add("PriorityLevel", "PriorityLevel");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Priority] ([PriorityName], [PriorityLevel]) VALUES (@PriorityN" +
-                "ame, @PriorityLevel)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PriorityName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "PriorityName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PriorityLevel", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PriorityLevel", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, PriorityName, PriorityLevel FROM dbo.Priority";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.PriorityDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.PriorityDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.PriorityDataTable dataTable = new TravianBotDataSet.PriorityDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.PriorityDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Priority");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string PriorityName, int PriorityLevel) {
-            if ((PriorityName == null)) {
-                throw new System.ArgumentNullException("PriorityName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(PriorityName));
-            }
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(PriorityLevel));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ProductionTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ProductionTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Production";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("VillageId", "VillageId");
-            tableMapping.ColumnMappings.Add("Warehouse", "Warehouse");
-            tableMapping.ColumnMappings.Add("Granary", "Granary");
-            tableMapping.ColumnMappings.Add("Wood", "Wood");
-            tableMapping.ColumnMappings.Add("Clay", "Clay");
-            tableMapping.ColumnMappings.Add("Iron", "Iron");
-            tableMapping.ColumnMappings.Add("Crop", "Crop");
-            tableMapping.ColumnMappings.Add("WoodPerHour", "WoodPerHour");
-            tableMapping.ColumnMappings.Add("ClayPerHour", "ClayPerHour");
-            tableMapping.ColumnMappings.Add("IronPerHour", "IronPerHour");
-            tableMapping.ColumnMappings.Add("CropPerHour", "CropPerHour");
-            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Production] ([VillageId], [Warehouse], [Granary], [Wood], [Clay], [Iron], [Crop], [WoodPerHour], [ClayPerHour], [IronPerHour], [CropPerHour], [PlayerId]) VALUES (@VillageId, @Warehouse, @Granary, @Wood, @Clay, @Iron, @Crop, @WoodPerHour, @ClayPerHour, @IronPerHour, @CropPerHour, @PlayerId)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "VillageId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Warehouse", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Warehouse", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Granary", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Granary", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Wood", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Wood", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Clay", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Clay", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Iron", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Iron", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Crop", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Crop", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@WoodPerHour", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "WoodPerHour", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ClayPerHour", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ClayPerHour", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@IronPerHour", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "IronPerHour", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@CropPerHour", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "CropPerHour", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, VillageId, Warehouse, Granary, Wood, Clay, Iron, Crop, WoodPerHour, Cl" +
-                "ayPerHour, IronPerHour, CropPerHour, PlayerId FROM dbo.Production";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.ProductionDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.ProductionDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.ProductionDataTable dataTable = new TravianBotDataSet.ProductionDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.ProductionDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Production");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int VillageId, System.Nullable<int> Warehouse, System.Nullable<int> Granary, System.Nullable<int> Wood, System.Nullable<int> Clay, System.Nullable<int> Iron, System.Nullable<int> Crop, System.Nullable<int> WoodPerHour, System.Nullable<int> ClayPerHour, System.Nullable<int> IronPerHour, System.Nullable<int> CropPerHour, int PlayerId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(VillageId));
-            if ((Warehouse.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Warehouse.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((Granary.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((int)(Granary.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = System.DBNull.Value;
-            }
-            if ((Wood.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(Wood.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = System.DBNull.Value;
-            }
-            if ((Clay.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(Clay.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = System.DBNull.Value;
-            }
-            if ((Iron.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(Iron.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = System.DBNull.Value;
-            }
-            if ((Crop.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(Crop.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[6].Value = System.DBNull.Value;
-            }
-            if ((WoodPerHour.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((int)(WoodPerHour.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = System.DBNull.Value;
-            }
-            if ((ClayPerHour.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((int)(ClayPerHour.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = System.DBNull.Value;
-            }
-            if ((IronPerHour.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((int)(IronPerHour.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[9].Value = System.DBNull.Value;
-            }
-            if ((CropPerHour.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((int)(CropPerHour.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[10].Value = System.DBNull.Value;
-            }
-            this.Adapter.InsertCommand.Parameters[11].Value = ((int)(PlayerId));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ResourcesTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public ResourcesTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Resources";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("VillageId", "VillageId");
-            tableMapping.ColumnMappings.Add("ResourcesFullName", "ResourcesFullName");
-            tableMapping.ColumnMappings.Add("ResourcesId", "ResourcesId");
-            tableMapping.ColumnMappings.Add("ResourcesName", "ResourcesName");
-            tableMapping.ColumnMappings.Add("ResourcesLevel", "ResourcesLevel");
-            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Resources] ([VillageId], [ResourcesFullName], [ResourcesId], [" +
-                "ResourcesName], [ResourcesLevel], [PlayerId]) VALUES (@VillageId, @ResourcesFull" +
-                "Name, @ResourcesId, @ResourcesName, @ResourcesLevel, @PlayerId)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "VillageId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesFullName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "ResourcesFullName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ResourcesId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "ResourcesName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesLevel", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "ResourcesLevel", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, VillageId, ResourcesFullName, ResourcesId, ResourcesName, ResourcesLev" +
-                "el, PlayerId FROM dbo.Resources";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.ResourcesDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.ResourcesDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.ResourcesDataTable dataTable = new TravianBotDataSet.ResourcesDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.ResourcesDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Resources");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int VillageId, string ResourcesFullName, int ResourcesId, string ResourcesName, int ResourcesLevel, int PlayerId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(VillageId));
-            if ((ResourcesFullName == null)) {
-                throw new System.ArgumentNullException("ResourcesFullName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(ResourcesFullName));
-            }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(ResourcesId));
-            if ((ResourcesName == null)) {
-                throw new System.ArgumentNullException("ResourcesName");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(ResourcesName));
-            }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(ResourcesLevel));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(PlayerId));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class TaskListTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public TaskListTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "TaskList";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("TaskId", "TaskId");
-            tableMapping.ColumnMappings.Add("VillageId", "VillageId");
             tableMapping.ColumnMappings.Add("BuildId", "BuildId");
-            tableMapping.ColumnMappings.Add("PriorityId", "PriorityId");
+            tableMapping.ColumnMappings.Add("BuildIdName", "BuildIdName");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetBuildIds";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(TravianBotDataSet.GetBuildIdsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual TravianBotDataSet.GetBuildIdsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            TravianBotDataSet.GetBuildIdsDataTable dataTable = new TravianBotDataSet.GetBuildIdsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetPriorityTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public GetPriorityTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetPriority";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("PriorityLevel", "PriorityLevel");
+            tableMapping.ColumnMappings.Add("PriorityName", "PriorityName");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetPriority";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(TravianBotDataSet.GetPriorityDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual TravianBotDataSet.GetPriorityDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            TravianBotDataSet.GetPriorityDataTable dataTable = new TravianBotDataSet.GetPriorityDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetTaskListForGUITableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public GetTaskListForGUITableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetTaskListForGUI";
+            tableMapping.ColumnMappings.Add("TaskName", "TaskName");
+            tableMapping.ColumnMappings.Add("VillageName", "VillageName");
+            tableMapping.ColumnMappings.Add("BuildId", "BuildId");
+            tableMapping.ColumnMappings.Add("Priority", "Priority");
             tableMapping.ColumnMappings.Add("BuildLevel", "BuildLevel");
             tableMapping.ColumnMappings.Add("NextCheck", "NextCheck");
-            tableMapping.ColumnMappings.Add("Enabled", "Enabled");
-            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[TaskList] ([TaskId], [VillageId], [BuildId], [PriorityId], [Bu" +
-                "ildLevel], [NextCheck], [Enabled], [PlayerId]) VALUES (@TaskId, @VillageId, @Bui" +
-                "ldId, @PriorityId, @BuildLevel, @NextCheck, @Enabled, @PlayerId)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TaskId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "TaskId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "VillageId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "BuildId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PriorityId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PriorityId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildLevel", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "BuildLevel", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@NextCheck", System.Data.SqlDbType.DateTime, 0, System.Data.ParameterDirection.Input, 0, 0, "NextCheck", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "Enabled", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5457,268 +3095,44 @@ namespace GUI.TravianBotDataSetTableAdapters {
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, TaskId, VillageId, BuildId, PriorityId, BuildLevel, NextCheck, Enabled" +
-                ", PlayerId FROM dbo.TaskList";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.GetTaskListForGUI";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.TaskListDataTable dataTable) {
+        public virtual int Fill(TravianBotDataSet.GetTaskListForGUIDataTable dataTable, System.Nullable<int> PlayerId) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.TaskListDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.TaskListDataTable dataTable = new TravianBotDataSet.TaskListDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.TaskListDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "TaskList");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int TaskId, int VillageId, int BuildId, int PriorityId, int BuildLevel, System.DateTime NextCheck, int Enabled, int PlayerId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(TaskId));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(VillageId));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(BuildId));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(PriorityId));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(BuildLevel));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(NextCheck));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(Enabled));
-            this.Adapter.InsertCommand.Parameters[7].Value = ((int)(PlayerId));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.ComponentModel.ToolboxItem(true)]
-    [System.ComponentModel.DataObjectAttribute(true)]
-    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class TasksTableAdapter : System.ComponentModel.Component {
-        
-        private System.Data.SqlClient.SqlDataAdapter _adapter;
-        
-        private System.Data.SqlClient.SqlConnection _connection;
-        
-        private System.Data.SqlClient.SqlCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public TasksTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private System.Data.SqlClient.SqlDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        internal System.Data.SqlClient.SqlConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitAdapter() {
-            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
-            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Tasks";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("TaskName", "TaskName");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Tasks] ([TaskName]) VALUES (@TaskName)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@TaskName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "TaskName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitConnection() {
-            this._connection = new System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private void InitCommandCollection() {
-            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
-            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, TaskName FROM dbo.Tasks";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.TasksDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.TasksDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.TasksDataTable dataTable = new TravianBotDataSet.TasksDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.TasksDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Tasks");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string TaskName) {
-            if ((TaskName == null)) {
-                throw new System.ArgumentNullException("TaskName");
+            if ((PlayerId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(PlayerId.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(TaskName));
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
             }
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
             }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual TravianBotDataSet.GetTaskListForGUIDataTable GetData(System.Nullable<int> PlayerId) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((PlayerId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(PlayerId.Value));
             }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
             }
+            TravianBotDataSet.GetTaskListForGUIDataTable dataTable = new TravianBotDataSet.GetTaskListForGUIDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
     }
     
@@ -5729,7 +3143,7 @@ namespace GUI.TravianBotDataSetTableAdapters {
     [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class VillagesTableAdapter : System.ComponentModel.Component {
+    public partial class GetTasksTableAdapter : System.ComponentModel.Component {
         
         private System.Data.SqlClient.SqlDataAdapter _adapter;
         
@@ -5740,7 +3154,7 @@ namespace GUI.TravianBotDataSetTableAdapters {
         private bool _clearBeforeFill;
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public VillagesTableAdapter() {
+        public GetTasksTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -5806,20 +3220,142 @@ namespace GUI.TravianBotDataSetTableAdapters {
             this._adapter = new System.Data.SqlClient.SqlDataAdapter();
             System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Villages";
+            tableMapping.DataSetTable = "GetTasks";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("TaskId", "TaskId");
+            tableMapping.ColumnMappings.Add("TaskName", "TaskName");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitConnection() {
+            this._connection = new System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::GUI.Properties.Settings.Default.TravianBotConnectionString;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitCommandCollection() {
+            this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "dbo.GetTasks";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(TravianBotDataSet.GetTasksDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual TravianBotDataSet.GetTasksDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            TravianBotDataSet.GetTasksDataTable dataTable = new TravianBotDataSet.GetTasksDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.ComponentModel.ToolboxItem(true)]
+    [System.ComponentModel.DataObjectAttribute(true)]
+    [System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class GetVillagesTableAdapter : System.ComponentModel.Component {
+        
+        private System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private System.Data.SqlClient.SqlConnection _connection;
+        
+        private System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public GetVillagesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        internal System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        protected System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        private void InitAdapter() {
+            this._adapter = new System.Data.SqlClient.SqlDataAdapter();
+            System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "GetVillages";
             tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("VillageId", "VillageId");
             tableMapping.ColumnMappings.Add("VillageName", "VillageName");
             tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
             this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.InsertCommand = new System.Data.SqlClient.SqlCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Villages] ([VillageId], [VillageName], [PlayerId]) VALUES (@Vi" +
-                "llageId, @VillageName, @PlayerId)";
-            this._adapter.InsertCommand.CommandType = System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "VillageId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageName", System.Data.SqlDbType.NVarChar, 0, System.Data.ParameterDirection.Input, 0, 0, "VillageName", System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 0, System.Data.ParameterDirection.Input, 0, 0, "PlayerId", System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5833,15 +3369,23 @@ namespace GUI.TravianBotDataSetTableAdapters {
             this._commandCollection = new System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, VillageId, VillageName, PlayerId FROM dbo.Villages";
-            this._commandCollection[0].CommandType = System.Data.CommandType.Text;
+            this._commandCollection[0].CommandText = "dbo.GetVillages";
+            this._commandCollection[0].CommandType = System.Data.CommandType.StoredProcedure;
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[0].Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(TravianBotDataSet.VillagesDataTable dataTable) {
+        public virtual int Fill(TravianBotDataSet.GetVillagesDataTable dataTable, System.Nullable<int> PlayerId) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((PlayerId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(PlayerId.Value));
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
+            }
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
             }
@@ -5852,64 +3396,17 @@ namespace GUI.TravianBotDataSetTableAdapters {
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual TravianBotDataSet.VillagesDataTable GetData() {
+        public virtual TravianBotDataSet.GetVillagesDataTable GetData(System.Nullable<int> PlayerId) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            TravianBotDataSet.VillagesDataTable dataTable = new TravianBotDataSet.VillagesDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet.VillagesDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(TravianBotDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Villages");
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [System.ComponentModel.DataObjectMethodAttribute(System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int VillageId, string VillageName, int PlayerId) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(VillageId));
-            if ((VillageName == null)) {
-                throw new System.ArgumentNullException("VillageName");
+            if ((PlayerId.HasValue == true)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((int)(PlayerId.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(VillageName));
+                this.Adapter.SelectCommand.Parameters[1].Value = System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PlayerId));
-            System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
+            TravianBotDataSet.GetVillagesDataTable dataTable = new TravianBotDataSet.GetVillagesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
         }
     }
     
@@ -6090,216 +3587,73 @@ namespace GUI.TravianBotDataSetTableAdapters {
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new System.Data.IDbCommand[3];
+            this._commandCollection = new System.Data.IDbCommand[1];
             this._commandCollection[0] = new System.Data.SqlClient.SqlCommand();
             ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Connection = new System.Data.SqlClient.SqlConnection(global::GUI.Properties.Settings.Default.TravianBotConnectionString);
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.InsertProduction";
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandText = "dbo.InsertNewTask";
             ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).CommandType = System.Data.CommandType.StoredProcedure;
             ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@TaskId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Warehouse", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Granary", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Wood", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Clay", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Iron", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Crop", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@WoodPerHour", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@ClayPerHour", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@IronPerHour", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@CropPerHour", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@PriorityId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@BuildLevel", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@NextCheck", System.Data.SqlDbType.DateTime, 8, System.Data.ParameterDirection.Input, 23, 3, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@Enabled", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
             ((System.Data.SqlClient.SqlCommand)(this._commandCollection[0])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1] = new System.Data.SqlClient.SqlCommand();
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Connection = new System.Data.SqlClient.SqlConnection(global::GUI.Properties.Settings.Default.TravianBotConnectionString);
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandText = "dbo.InsertResources";
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).CommandType = System.Data.CommandType.StoredProcedure;
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesFullName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@ResourcesLevel", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[1])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2] = new System.Data.SqlClient.SqlCommand();
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Connection = new System.Data.SqlClient.SqlConnection(global::GUI.Properties.Settings.Default.TravianBotConnectionString);
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandText = "dbo.InsertVillage";
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).CommandType = System.Data.CommandType.StoredProcedure;
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@RETURN_VALUE", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.ReturnValue, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@VillageName", System.Data.SqlDbType.NVarChar, 50, System.Data.ParameterDirection.Input, 0, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            ((System.Data.SqlClient.SqlCommand)(this._commandCollection[2])).Parameters.Add(new System.Data.SqlClient.SqlParameter("@PlayerId", System.Data.SqlDbType.Int, 4, System.Data.ParameterDirection.Input, 10, 0, null, System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertProduction(System.Nullable<int> VillageId, System.Nullable<int> Warehouse, System.Nullable<int> Granary, System.Nullable<int> Wood, System.Nullable<int> Clay, System.Nullable<int> Iron, System.Nullable<int> Crop, System.Nullable<int> WoodPerHour, System.Nullable<int> ClayPerHour, System.Nullable<int> IronPerHour, System.Nullable<int> CropPerHour, System.Nullable<int> PlayerId) {
+        public virtual int InsertNewTask(System.Nullable<int> TaskId, System.Nullable<int> VillageId, System.Nullable<int> BuildId, System.Nullable<int> PriorityId, System.Nullable<int> BuildLevel, System.Nullable<System.DateTime> NextCheck, System.Nullable<int> Enabled, System.Nullable<int> PlayerId) {
             System.Data.SqlClient.SqlCommand command = ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[0]));
-            if ((VillageId.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(VillageId.Value));
+            if ((TaskId.HasValue == true)) {
+                command.Parameters[1].Value = ((int)(TaskId.Value));
             }
             else {
                 command.Parameters[1].Value = System.DBNull.Value;
             }
-            if ((Warehouse.HasValue == true)) {
-                command.Parameters[2].Value = ((int)(Warehouse.Value));
+            if ((VillageId.HasValue == true)) {
+                command.Parameters[2].Value = ((int)(VillageId.Value));
             }
             else {
                 command.Parameters[2].Value = System.DBNull.Value;
             }
-            if ((Granary.HasValue == true)) {
-                command.Parameters[3].Value = ((int)(Granary.Value));
+            if ((BuildId.HasValue == true)) {
+                command.Parameters[3].Value = ((int)(BuildId.Value));
             }
             else {
                 command.Parameters[3].Value = System.DBNull.Value;
             }
-            if ((Wood.HasValue == true)) {
-                command.Parameters[4].Value = ((int)(Wood.Value));
+            if ((PriorityId.HasValue == true)) {
+                command.Parameters[4].Value = ((int)(PriorityId.Value));
             }
             else {
                 command.Parameters[4].Value = System.DBNull.Value;
             }
-            if ((Clay.HasValue == true)) {
-                command.Parameters[5].Value = ((int)(Clay.Value));
+            if ((BuildLevel.HasValue == true)) {
+                command.Parameters[5].Value = ((int)(BuildLevel.Value));
             }
             else {
                 command.Parameters[5].Value = System.DBNull.Value;
             }
-            if ((Iron.HasValue == true)) {
-                command.Parameters[6].Value = ((int)(Iron.Value));
+            if ((NextCheck.HasValue == true)) {
+                command.Parameters[6].Value = ((System.DateTime)(NextCheck.Value));
             }
             else {
                 command.Parameters[6].Value = System.DBNull.Value;
             }
-            if ((Crop.HasValue == true)) {
-                command.Parameters[7].Value = ((int)(Crop.Value));
+            if ((Enabled.HasValue == true)) {
+                command.Parameters[7].Value = ((int)(Enabled.Value));
             }
             else {
                 command.Parameters[7].Value = System.DBNull.Value;
             }
-            if ((WoodPerHour.HasValue == true)) {
-                command.Parameters[8].Value = ((int)(WoodPerHour.Value));
+            if ((PlayerId.HasValue == true)) {
+                command.Parameters[8].Value = ((int)(PlayerId.Value));
             }
             else {
                 command.Parameters[8].Value = System.DBNull.Value;
-            }
-            if ((ClayPerHour.HasValue == true)) {
-                command.Parameters[9].Value = ((int)(ClayPerHour.Value));
-            }
-            else {
-                command.Parameters[9].Value = System.DBNull.Value;
-            }
-            if ((IronPerHour.HasValue == true)) {
-                command.Parameters[10].Value = ((int)(IronPerHour.Value));
-            }
-            else {
-                command.Parameters[10].Value = System.DBNull.Value;
-            }
-            if ((CropPerHour.HasValue == true)) {
-                command.Parameters[11].Value = ((int)(CropPerHour.Value));
-            }
-            else {
-                command.Parameters[11].Value = System.DBNull.Value;
-            }
-            if ((PlayerId.HasValue == true)) {
-                command.Parameters[12].Value = ((int)(PlayerId.Value));
-            }
-            else {
-                command.Parameters[12].Value = System.DBNull.Value;
-            }
-            System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertResources(System.Nullable<int> VillageId, string ResourcesFullName, System.Nullable<int> ResourcesId, string ResourcesName, System.Nullable<int> ResourcesLevel, System.Nullable<int> PlayerId) {
-            System.Data.SqlClient.SqlCommand command = ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[1]));
-            if ((VillageId.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(VillageId.Value));
-            }
-            else {
-                command.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((ResourcesFullName == null)) {
-                command.Parameters[2].Value = System.DBNull.Value;
-            }
-            else {
-                command.Parameters[2].Value = ((string)(ResourcesFullName));
-            }
-            if ((ResourcesId.HasValue == true)) {
-                command.Parameters[3].Value = ((int)(ResourcesId.Value));
-            }
-            else {
-                command.Parameters[3].Value = System.DBNull.Value;
-            }
-            if ((ResourcesName == null)) {
-                command.Parameters[4].Value = System.DBNull.Value;
-            }
-            else {
-                command.Parameters[4].Value = ((string)(ResourcesName));
-            }
-            if ((ResourcesLevel.HasValue == true)) {
-                command.Parameters[5].Value = ((int)(ResourcesLevel.Value));
-            }
-            else {
-                command.Parameters[5].Value = System.DBNull.Value;
-            }
-            if ((PlayerId.HasValue == true)) {
-                command.Parameters[6].Value = ((int)(PlayerId.Value));
-            }
-            else {
-                command.Parameters[6].Value = System.DBNull.Value;
-            }
-            System.Data.ConnectionState previousConnectionState = command.Connection.State;
-            if (((command.Connection.State & System.Data.ConnectionState.Open) 
-                        != System.Data.ConnectionState.Open)) {
-                command.Connection.Open();
-            }
-            int returnValue;
-            try {
-                returnValue = command.ExecuteNonQuery();
-            }
-            finally {
-                if ((previousConnectionState == System.Data.ConnectionState.Closed)) {
-                    command.Connection.Close();
-                }
-            }
-            return returnValue;
-        }
-        
-        [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertVillage(System.Nullable<int> VillageId, string VillageName, System.Nullable<int> PlayerId) {
-            System.Data.SqlClient.SqlCommand command = ((System.Data.SqlClient.SqlCommand)(this.CommandCollection[2]));
-            if ((VillageId.HasValue == true)) {
-                command.Parameters[1].Value = ((int)(VillageId.Value));
-            }
-            else {
-                command.Parameters[1].Value = System.DBNull.Value;
-            }
-            if ((VillageName == null)) {
-                command.Parameters[2].Value = System.DBNull.Value;
-            }
-            else {
-                command.Parameters[2].Value = ((string)(VillageName));
-            }
-            if ((PlayerId.HasValue == true)) {
-                command.Parameters[3].Value = ((int)(PlayerId.Value));
-            }
-            else {
-                command.Parameters[3].Value = System.DBNull.Value;
             }
             System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & System.Data.ConnectionState.Open) 

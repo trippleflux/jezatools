@@ -29,114 +29,281 @@ namespace GUI
         private void InitializeComponent()
         {
 			this.components = new System.ComponentModel.Container();
-			this.tabControl1 = new System.Windows.Forms.TabControl();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.tabPage2 = new System.Windows.Forms.TabPage();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
-			this.dataGridView2 = new System.Windows.Forms.DataGridView();
-			this.dataGridView3 = new System.Windows.Forms.DataGridView();
+			this.tabControl = new System.Windows.Forms.TabControl();
+			this.tabPageStatus = new System.Windows.Forms.TabPage();
+			this.dataGridViewBuildings = new System.Windows.Forms.DataGridView();
+			this.dataGridViewResources = new System.Windows.Forms.DataGridView();
+			this.dataGridViewProduction = new System.Windows.Forms.DataGridView();
+			this.tabPageTasks = new System.Windows.Forms.TabPage();
+			this.buttonTasksAddNew = new System.Windows.Forms.Button();
+			this.labelTasksBuildLevel = new System.Windows.Forms.Label();
+			this.comboBoxTasksBuildLevel = new System.Windows.Forms.ComboBox();
+			this.labelTasksPriority = new System.Windows.Forms.Label();
+			this.comboBoxTasksPriority = new System.Windows.Forms.ComboBox();
+			this.labelTasksBuildingID = new System.Windows.Forms.Label();
+			this.comboBoxTasksBuildingIds = new System.Windows.Forms.ComboBox();
+			this.labelTasksTask = new System.Windows.Forms.Label();
+			this.comboBoxTasksList = new System.Windows.Forms.ComboBox();
+			this.labelTasksVillage = new System.Windows.Forms.Label();
+			this.comboBoxTasksVillages = new System.Windows.Forms.ComboBox();
+			this.dataGridViewTaksList = new System.Windows.Forms.DataGridView();
+			this.getTaskListForGUIBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.travianBotDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.travianBotDataSet = new GUI.TravianBotDataSet();
 			this.getProductionBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.getProductionTableAdapter = new GUI.TravianBotDataSetTableAdapters.GetProductionTableAdapter();
-			this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.villageNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.warehouseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.granaryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.woodDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.clayDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ironDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cropDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.woodPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.clayPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ironPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.cropPerHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.playerNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.tabControl1.SuspendLayout();
-			this.tabPage1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+			this.getTaskListForGUITableAdapter = new GUI.TravianBotDataSetTableAdapters.GetTaskListForGUITableAdapter();
+			this.getVillagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getVillagesTableAdapter = new GUI.TravianBotDataSetTableAdapters.GetVillagesTableAdapter();
+			this.getTasksBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getTasksTableAdapter = new GUI.TravianBotDataSetTableAdapters.GetTasksTableAdapter();
+			this.getBuildIdsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getBuildIdsTableAdapter = new GUI.TravianBotDataSetTableAdapters.GetBuildIdsTableAdapter();
+			this.getPriorityBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.getPriorityTableAdapter = new GUI.TravianBotDataSetTableAdapters.GetPriorityTableAdapter();
+			this.tabControl.SuspendLayout();
+			this.tabPageStatus.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduction)).BeginInit();
+			this.tabPageTasks.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaksList)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskListForGUIBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.travianBotDataSetBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.travianBotDataSet)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.getProductionBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getVillagesBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTasksBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getBuildIdsBindingSource)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.getPriorityBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// tabControl1
+			// tabControl
 			// 
-			this.tabControl1.Controls.Add(this.tabPage1);
-			this.tabControl1.Controls.Add(this.tabPage2);
-			this.tabControl1.Location = new System.Drawing.Point(12, 12);
-			this.tabControl1.Name = "tabControl1";
-			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(999, 812);
-			this.tabControl1.TabIndex = 0;
+			this.tabControl.Controls.Add(this.tabPageStatus);
+			this.tabControl.Controls.Add(this.tabPageTasks);
+			this.tabControl.Location = new System.Drawing.Point(12, 12);
+			this.tabControl.Name = "tabControl";
+			this.tabControl.SelectedIndex = 0;
+			this.tabControl.Size = new System.Drawing.Size(1037, 812);
+			this.tabControl.TabIndex = 0;
+			this.tabControl.Click += new System.EventHandler(this.tabControl_Click);
 			// 
-			// tabPage1
+			// tabPageStatus
 			// 
-			this.tabPage1.Controls.Add(this.dataGridView3);
-			this.tabPage1.Controls.Add(this.dataGridView2);
-			this.tabPage1.Controls.Add(this.dataGridView1);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage1.Size = new System.Drawing.Size(991, 786);
-			this.tabPage1.TabIndex = 0;
-			this.tabPage1.Text = "tabPage1";
-			this.tabPage1.UseVisualStyleBackColor = true;
+			this.tabPageStatus.Controls.Add(this.dataGridViewBuildings);
+			this.tabPageStatus.Controls.Add(this.dataGridViewResources);
+			this.tabPageStatus.Controls.Add(this.dataGridViewProduction);
+			this.tabPageStatus.Location = new System.Drawing.Point(4, 22);
+			this.tabPageStatus.Name = "tabPageStatus";
+			this.tabPageStatus.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageStatus.Size = new System.Drawing.Size(1029, 786);
+			this.tabPageStatus.TabIndex = 0;
+			this.tabPageStatus.Text = "Status";
+			this.tabPageStatus.UseVisualStyleBackColor = true;
 			// 
-			// tabPage2
+			// dataGridViewBuildings
 			// 
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(192, 74);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "tabPage2";
-			this.tabPage2.UseVisualStyleBackColor = true;
+			this.dataGridViewBuildings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewBuildings.Location = new System.Drawing.Point(510, 377);
+			this.dataGridViewBuildings.Name = "dataGridViewBuildings";
+			this.dataGridViewBuildings.Size = new System.Drawing.Size(513, 403);
+			this.dataGridViewBuildings.TabIndex = 2;
 			// 
-			// dataGridView1
+			// dataGridViewResources
 			// 
-			this.dataGridView1.AllowUserToAddRows = false;
-			this.dataGridView1.AllowUserToDeleteRows = false;
-			this.dataGridView1.AutoGenerateColumns = false;
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
-            this.villageNameDataGridViewTextBoxColumn,
-            this.villageIdDataGridViewTextBoxColumn,
-            this.warehouseDataGridViewTextBoxColumn,
-            this.granaryDataGridViewTextBoxColumn,
-            this.woodDataGridViewTextBoxColumn,
-            this.clayDataGridViewTextBoxColumn,
-            this.ironDataGridViewTextBoxColumn,
-            this.cropDataGridViewTextBoxColumn,
-            this.woodPerHourDataGridViewTextBoxColumn,
-            this.clayPerHourDataGridViewTextBoxColumn,
-            this.ironPerHourDataGridViewTextBoxColumn,
-            this.cropPerHourDataGridViewTextBoxColumn,
-            this.playerNameDataGridViewTextBoxColumn});
-			this.dataGridView1.DataSource = this.getProductionBindingSource;
-			this.dataGridView1.Location = new System.Drawing.Point(6, 6);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.ReadOnly = true;
-			this.dataGridView1.Size = new System.Drawing.Size(979, 365);
-			this.dataGridView1.TabIndex = 0;
+			this.dataGridViewResources.AllowUserToAddRows = false;
+			this.dataGridViewResources.AllowUserToDeleteRows = false;
+			this.dataGridViewResources.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+			this.dataGridViewResources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewResources.Location = new System.Drawing.Point(6, 377);
+			this.dataGridViewResources.Name = "dataGridViewResources";
+			this.dataGridViewResources.Size = new System.Drawing.Size(498, 403);
+			this.dataGridViewResources.TabIndex = 1;
 			// 
-			// dataGridView2
+			// dataGridViewProduction
 			// 
-			this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView2.Location = new System.Drawing.Point(6, 377);
-			this.dataGridView2.Name = "dataGridView2";
-			this.dataGridView2.Size = new System.Drawing.Size(472, 403);
-			this.dataGridView2.TabIndex = 1;
+			this.dataGridViewProduction.AllowUserToAddRows = false;
+			this.dataGridViewProduction.AllowUserToDeleteRows = false;
+			this.dataGridViewProduction.AllowUserToResizeColumns = false;
+			this.dataGridViewProduction.AllowUserToResizeRows = false;
+			this.dataGridViewProduction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+			this.dataGridViewProduction.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewProduction.Location = new System.Drawing.Point(6, 6);
+			this.dataGridViewProduction.Name = "dataGridViewProduction";
+			this.dataGridViewProduction.ReadOnly = true;
+			this.dataGridViewProduction.Size = new System.Drawing.Size(1017, 365);
+			this.dataGridViewProduction.TabIndex = 0;
+			this.dataGridViewProduction.Click += new System.EventHandler(this.dataGridViewProduction_Click);
 			// 
-			// dataGridView3
+			// tabPageTasks
 			// 
-			this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView3.Location = new System.Drawing.Point(484, 377);
-			this.dataGridView3.Name = "dataGridView3";
-			this.dataGridView3.Size = new System.Drawing.Size(501, 403);
-			this.dataGridView3.TabIndex = 2;
+			this.tabPageTasks.AutoScroll = true;
+			this.tabPageTasks.Controls.Add(this.buttonTasksAddNew);
+			this.tabPageTasks.Controls.Add(this.labelTasksBuildLevel);
+			this.tabPageTasks.Controls.Add(this.comboBoxTasksBuildLevel);
+			this.tabPageTasks.Controls.Add(this.labelTasksPriority);
+			this.tabPageTasks.Controls.Add(this.comboBoxTasksPriority);
+			this.tabPageTasks.Controls.Add(this.labelTasksBuildingID);
+			this.tabPageTasks.Controls.Add(this.comboBoxTasksBuildingIds);
+			this.tabPageTasks.Controls.Add(this.labelTasksTask);
+			this.tabPageTasks.Controls.Add(this.comboBoxTasksList);
+			this.tabPageTasks.Controls.Add(this.labelTasksVillage);
+			this.tabPageTasks.Controls.Add(this.comboBoxTasksVillages);
+			this.tabPageTasks.Controls.Add(this.dataGridViewTaksList);
+			this.tabPageTasks.Location = new System.Drawing.Point(4, 22);
+			this.tabPageTasks.Name = "tabPageTasks";
+			this.tabPageTasks.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPageTasks.Size = new System.Drawing.Size(1029, 786);
+			this.tabPageTasks.TabIndex = 1;
+			this.tabPageTasks.Text = "Tasks";
+			this.tabPageTasks.UseVisualStyleBackColor = true;
+			// 
+			// buttonTasksAddNew
+			// 
+			this.buttonTasksAddNew.Location = new System.Drawing.Point(642, 397);
+			this.buttonTasksAddNew.Name = "buttonTasksAddNew";
+			this.buttonTasksAddNew.Size = new System.Drawing.Size(75, 23);
+			this.buttonTasksAddNew.TabIndex = 11;
+			this.buttonTasksAddNew.Text = "Add Task";
+			this.buttonTasksAddNew.UseVisualStyleBackColor = true;
+			this.buttonTasksAddNew.Click += new System.EventHandler(this.buttonTasksAddNew_Click);
+			// 
+			// labelTasksBuildLevel
+			// 
+			this.labelTasksBuildLevel.AutoSize = true;
+			this.labelTasksBuildLevel.Location = new System.Drawing.Point(514, 381);
+			this.labelTasksBuildLevel.Name = "labelTasksBuildLevel";
+			this.labelTasksBuildLevel.Size = new System.Drawing.Size(59, 13);
+			this.labelTasksBuildLevel.TabIndex = 10;
+			this.labelTasksBuildLevel.Text = "Build Level";
+			// 
+			// comboBoxTasksBuildLevel
+			// 
+			this.comboBoxTasksBuildLevel.FormattingEnabled = true;
+			this.comboBoxTasksBuildLevel.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+			this.comboBoxTasksBuildLevel.Location = new System.Drawing.Point(514, 400);
+			this.comboBoxTasksBuildLevel.Name = "comboBoxTasksBuildLevel";
+			this.comboBoxTasksBuildLevel.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksBuildLevel.TabIndex = 9;
+			// 
+			// labelTasksPriority
+			// 
+			this.labelTasksPriority.AutoSize = true;
+			this.labelTasksPriority.Location = new System.Drawing.Point(387, 381);
+			this.labelTasksPriority.Name = "labelTasksPriority";
+			this.labelTasksPriority.Size = new System.Drawing.Size(38, 13);
+			this.labelTasksPriority.TabIndex = 8;
+			this.labelTasksPriority.Text = "Priority";
+			// 
+			// comboBoxTasksPriority
+			// 
+			this.comboBoxTasksPriority.DataSource = this.getPriorityBindingSource;
+			this.comboBoxTasksPriority.DisplayMember = "PriorityName";
+			this.comboBoxTasksPriority.FormattingEnabled = true;
+			this.comboBoxTasksPriority.Location = new System.Drawing.Point(387, 400);
+			this.comboBoxTasksPriority.Name = "comboBoxTasksPriority";
+			this.comboBoxTasksPriority.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksPriority.TabIndex = 7;
+			this.comboBoxTasksPriority.ValueMember = "PriorityLevel";
+			// 
+			// labelTasksBuildingID
+			// 
+			this.labelTasksBuildingID.AutoSize = true;
+			this.labelTasksBuildingID.Location = new System.Drawing.Point(260, 381);
+			this.labelTasksBuildingID.Name = "labelTasksBuildingID";
+			this.labelTasksBuildingID.Size = new System.Drawing.Size(55, 13);
+			this.labelTasksBuildingID.TabIndex = 6;
+			this.labelTasksBuildingID.Text = "BuildingID";
+			// 
+			// comboBoxTasksBuildingIds
+			// 
+			this.comboBoxTasksBuildingIds.DataSource = this.getBuildIdsBindingSource;
+			this.comboBoxTasksBuildingIds.DisplayMember = "BuildIdName";
+			this.comboBoxTasksBuildingIds.FormattingEnabled = true;
+			this.comboBoxTasksBuildingIds.Location = new System.Drawing.Point(260, 400);
+			this.comboBoxTasksBuildingIds.Name = "comboBoxTasksBuildingIds";
+			this.comboBoxTasksBuildingIds.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksBuildingIds.TabIndex = 5;
+			this.comboBoxTasksBuildingIds.ValueMember = "ID";
+			// 
+			// labelTasksTask
+			// 
+			this.labelTasksTask.AutoSize = true;
+			this.labelTasksTask.Location = new System.Drawing.Point(133, 381);
+			this.labelTasksTask.Name = "labelTasksTask";
+			this.labelTasksTask.Size = new System.Drawing.Size(31, 13);
+			this.labelTasksTask.TabIndex = 4;
+			this.labelTasksTask.Text = "Task";
+			// 
+			// comboBoxTasksList
+			// 
+			this.comboBoxTasksList.DataSource = this.getTasksBindingSource;
+			this.comboBoxTasksList.DisplayMember = "TaskName";
+			this.comboBoxTasksList.FormattingEnabled = true;
+			this.comboBoxTasksList.Location = new System.Drawing.Point(133, 400);
+			this.comboBoxTasksList.Name = "comboBoxTasksList";
+			this.comboBoxTasksList.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksList.TabIndex = 3;
+			this.comboBoxTasksList.ValueMember = "TaskId";
+			// 
+			// labelTasksVillage
+			// 
+			this.labelTasksVillage.AutoSize = true;
+			this.labelTasksVillage.Location = new System.Drawing.Point(6, 381);
+			this.labelTasksVillage.Name = "labelTasksVillage";
+			this.labelTasksVillage.Size = new System.Drawing.Size(38, 13);
+			this.labelTasksVillage.TabIndex = 2;
+			this.labelTasksVillage.Text = "Village";
+			// 
+			// comboBoxTasksVillages
+			// 
+			this.comboBoxTasksVillages.FormattingEnabled = true;
+			this.comboBoxTasksVillages.Location = new System.Drawing.Point(6, 400);
+			this.comboBoxTasksVillages.Name = "comboBoxTasksVillages";
+			this.comboBoxTasksVillages.Size = new System.Drawing.Size(121, 21);
+			this.comboBoxTasksVillages.TabIndex = 1;
+			// 
+			// dataGridViewTaksList
+			// 
+			this.dataGridViewTaksList.AllowUserToAddRows = false;
+			this.dataGridViewTaksList.AllowUserToDeleteRows = false;
+			this.dataGridViewTaksList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewTaksList.Location = new System.Drawing.Point(6, 6);
+			this.dataGridViewTaksList.Name = "dataGridViewTaksList";
+			this.dataGridViewTaksList.ReadOnly = true;
+			this.dataGridViewTaksList.Size = new System.Drawing.Size(1017, 365);
+			this.dataGridViewTaksList.TabIndex = 0;
+			// 
+			// getTaskListForGUIBindingSource
+			// 
+			this.getTaskListForGUIBindingSource.DataMember = "GetTaskListForGUI";
+			this.getTaskListForGUIBindingSource.DataSource = this.travianBotDataSetBindingSource;
+			// 
+			// travianBotDataSetBindingSource
+			// 
+			this.travianBotDataSetBindingSource.DataSource = this.travianBotDataSet;
+			this.travianBotDataSetBindingSource.Position = 0;
 			// 
 			// travianBotDataSet
 			// 
@@ -152,148 +319,109 @@ namespace GUI
 			// 
 			this.getProductionTableAdapter.ClearBeforeFill = true;
 			// 
-			// iDDataGridViewTextBoxColumn
+			// getTaskListForGUITableAdapter
 			// 
-			this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-			this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-			this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-			this.iDDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getTaskListForGUITableAdapter.ClearBeforeFill = true;
 			// 
-			// villageNameDataGridViewTextBoxColumn
+			// getVillagesBindingSource
 			// 
-			this.villageNameDataGridViewTextBoxColumn.DataPropertyName = "VillageName";
-			this.villageNameDataGridViewTextBoxColumn.HeaderText = "VillageName";
-			this.villageNameDataGridViewTextBoxColumn.Name = "villageNameDataGridViewTextBoxColumn";
-			this.villageNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getVillagesBindingSource.DataMember = "GetVillages";
+			this.getVillagesBindingSource.DataSource = this.travianBotDataSet;
 			// 
-			// villageIdDataGridViewTextBoxColumn
+			// getVillagesTableAdapter
 			// 
-			this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
-			this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
-			this.villageIdDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getVillagesTableAdapter.ClearBeforeFill = true;
 			// 
-			// warehouseDataGridViewTextBoxColumn
+			// getTasksBindingSource
 			// 
-			this.warehouseDataGridViewTextBoxColumn.DataPropertyName = "Warehouse";
-			this.warehouseDataGridViewTextBoxColumn.HeaderText = "Warehouse";
-			this.warehouseDataGridViewTextBoxColumn.Name = "warehouseDataGridViewTextBoxColumn";
-			this.warehouseDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getTasksBindingSource.DataMember = "GetTasks";
+			this.getTasksBindingSource.DataSource = this.travianBotDataSet;
 			// 
-			// granaryDataGridViewTextBoxColumn
+			// getTasksTableAdapter
 			// 
-			this.granaryDataGridViewTextBoxColumn.DataPropertyName = "Granary";
-			this.granaryDataGridViewTextBoxColumn.HeaderText = "Granary";
-			this.granaryDataGridViewTextBoxColumn.Name = "granaryDataGridViewTextBoxColumn";
-			this.granaryDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getTasksTableAdapter.ClearBeforeFill = true;
 			// 
-			// woodDataGridViewTextBoxColumn
+			// getBuildIdsBindingSource
 			// 
-			this.woodDataGridViewTextBoxColumn.DataPropertyName = "Wood";
-			this.woodDataGridViewTextBoxColumn.HeaderText = "Wood";
-			this.woodDataGridViewTextBoxColumn.Name = "woodDataGridViewTextBoxColumn";
-			this.woodDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getBuildIdsBindingSource.DataMember = "GetBuildIds";
+			this.getBuildIdsBindingSource.DataSource = this.travianBotDataSet;
 			// 
-			// clayDataGridViewTextBoxColumn
+			// getBuildIdsTableAdapter
 			// 
-			this.clayDataGridViewTextBoxColumn.DataPropertyName = "Clay";
-			this.clayDataGridViewTextBoxColumn.HeaderText = "Clay";
-			this.clayDataGridViewTextBoxColumn.Name = "clayDataGridViewTextBoxColumn";
-			this.clayDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getBuildIdsTableAdapter.ClearBeforeFill = true;
 			// 
-			// ironDataGridViewTextBoxColumn
+			// getPriorityBindingSource
 			// 
-			this.ironDataGridViewTextBoxColumn.DataPropertyName = "Iron";
-			this.ironDataGridViewTextBoxColumn.HeaderText = "Iron";
-			this.ironDataGridViewTextBoxColumn.Name = "ironDataGridViewTextBoxColumn";
-			this.ironDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getPriorityBindingSource.DataMember = "GetPriority";
+			this.getPriorityBindingSource.DataSource = this.travianBotDataSet;
 			// 
-			// cropDataGridViewTextBoxColumn
+			// getPriorityTableAdapter
 			// 
-			this.cropDataGridViewTextBoxColumn.DataPropertyName = "Crop";
-			this.cropDataGridViewTextBoxColumn.HeaderText = "Crop";
-			this.cropDataGridViewTextBoxColumn.Name = "cropDataGridViewTextBoxColumn";
-			this.cropDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// woodPerHourDataGridViewTextBoxColumn
-			// 
-			this.woodPerHourDataGridViewTextBoxColumn.DataPropertyName = "WoodPerHour";
-			this.woodPerHourDataGridViewTextBoxColumn.HeaderText = "WoodPerHour";
-			this.woodPerHourDataGridViewTextBoxColumn.Name = "woodPerHourDataGridViewTextBoxColumn";
-			this.woodPerHourDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// clayPerHourDataGridViewTextBoxColumn
-			// 
-			this.clayPerHourDataGridViewTextBoxColumn.DataPropertyName = "ClayPerHour";
-			this.clayPerHourDataGridViewTextBoxColumn.HeaderText = "ClayPerHour";
-			this.clayPerHourDataGridViewTextBoxColumn.Name = "clayPerHourDataGridViewTextBoxColumn";
-			this.clayPerHourDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// ironPerHourDataGridViewTextBoxColumn
-			// 
-			this.ironPerHourDataGridViewTextBoxColumn.DataPropertyName = "IronPerHour";
-			this.ironPerHourDataGridViewTextBoxColumn.HeaderText = "IronPerHour";
-			this.ironPerHourDataGridViewTextBoxColumn.Name = "ironPerHourDataGridViewTextBoxColumn";
-			this.ironPerHourDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// cropPerHourDataGridViewTextBoxColumn
-			// 
-			this.cropPerHourDataGridViewTextBoxColumn.DataPropertyName = "CropPerHour";
-			this.cropPerHourDataGridViewTextBoxColumn.HeaderText = "CropPerHour";
-			this.cropPerHourDataGridViewTextBoxColumn.Name = "cropPerHourDataGridViewTextBoxColumn";
-			this.cropPerHourDataGridViewTextBoxColumn.ReadOnly = true;
-			// 
-			// playerNameDataGridViewTextBoxColumn
-			// 
-			this.playerNameDataGridViewTextBoxColumn.DataPropertyName = "PlayerName";
-			this.playerNameDataGridViewTextBoxColumn.HeaderText = "PlayerName";
-			this.playerNameDataGridViewTextBoxColumn.Name = "playerNameDataGridViewTextBoxColumn";
-			this.playerNameDataGridViewTextBoxColumn.ReadOnly = true;
+			this.getPriorityTableAdapter.ClearBeforeFill = true;
 			// 
 			// tbGUI
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1023, 836);
-			this.Controls.Add(this.tabControl1);
+			this.ClientSize = new System.Drawing.Size(1061, 836);
+			this.Controls.Add(this.tabControl);
 			this.Name = "tbGUI";
-			this.Text = "tbBUI";
-			this.tabControl1.ResumeLayout(false);
-			this.tabPage1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+			this.Text = "tbGUI";
+			this.Load += new System.EventHandler(this.tbGUI_Load);
+			this.tabControl.ResumeLayout(false);
+			this.tabPageStatus.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewBuildings)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewResources)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduction)).EndInit();
+			this.tabPageTasks.ResumeLayout(false);
+			this.tabPageTasks.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTaksList)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTaskListForGUIBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.travianBotDataSetBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.travianBotDataSet)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.getProductionBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getVillagesBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getTasksBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getBuildIdsBindingSource)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.getPriorityBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
         }
 
         #endregion
 
-		private System.Windows.Forms.TabControl tabControl1;
-		private System.Windows.Forms.TabPage tabPage1;
-		private System.Windows.Forms.TabPage tabPage2;
-		private System.Windows.Forms.DataGridView dataGridView3;
-		private System.Windows.Forms.DataGridView dataGridView2;
-		private System.Windows.Forms.DataGridView dataGridView1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn villageNameDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn warehouseDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn granaryDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn woodDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn clayDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn ironDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn cropDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn woodPerHourDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn clayPerHourDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn ironPerHourDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn cropPerHourDataGridViewTextBoxColumn;
-		private System.Windows.Forms.DataGridViewTextBoxColumn playerNameDataGridViewTextBoxColumn;
+		private System.Windows.Forms.TabControl tabControl;
+		private System.Windows.Forms.TabPage tabPageStatus;
+		private System.Windows.Forms.TabPage tabPageTasks;
+		private System.Windows.Forms.DataGridView dataGridViewBuildings;
+		private System.Windows.Forms.DataGridView dataGridViewResources;
+		private System.Windows.Forms.DataGridView dataGridViewProduction;
 		private System.Windows.Forms.BindingSource getProductionBindingSource;
 		private TravianBotDataSet travianBotDataSet;
 		private GUI.TravianBotDataSetTableAdapters.GetProductionTableAdapter getProductionTableAdapter;
+		private System.Windows.Forms.DataGridView dataGridViewTaksList;
+		private System.Windows.Forms.BindingSource getTaskListForGUIBindingSource;
+		private System.Windows.Forms.BindingSource travianBotDataSetBindingSource;
+		private GUI.TravianBotDataSetTableAdapters.GetTaskListForGUITableAdapter getTaskListForGUITableAdapter;
+		private System.Windows.Forms.Button buttonTasksAddNew;
+		private System.Windows.Forms.Label labelTasksBuildLevel;
+		private System.Windows.Forms.ComboBox comboBoxTasksBuildLevel;
+		private System.Windows.Forms.Label labelTasksPriority;
+		private System.Windows.Forms.ComboBox comboBoxTasksPriority;
+		private System.Windows.Forms.Label labelTasksBuildingID;
+		private System.Windows.Forms.ComboBox comboBoxTasksBuildingIds;
+		private System.Windows.Forms.Label labelTasksTask;
+		private System.Windows.Forms.ComboBox comboBoxTasksList;
+		private System.Windows.Forms.Label labelTasksVillage;
+		private System.Windows.Forms.ComboBox comboBoxTasksVillages;
+		private System.Windows.Forms.BindingSource getVillagesBindingSource;
+		private GUI.TravianBotDataSetTableAdapters.GetVillagesTableAdapter getVillagesTableAdapter;
+		private System.Windows.Forms.BindingSource getTasksBindingSource;
+		private GUI.TravianBotDataSetTableAdapters.GetTasksTableAdapter getTasksTableAdapter;
+		private System.Windows.Forms.BindingSource getBuildIdsBindingSource;
+		private GUI.TravianBotDataSetTableAdapters.GetBuildIdsTableAdapter getBuildIdsTableAdapter;
+		private System.Windows.Forms.BindingSource getPriorityBindingSource;
+		private GUI.TravianBotDataSetTableAdapters.GetPriorityTableAdapter getPriorityTableAdapter;
     }
 }
 
