@@ -128,7 +128,7 @@ namespace Console
             System.Console.WriteLine("Update...");
             String pageContent = GetPageSource(sd.Servername + "dorf1.php");
     		p.PlayerUid(sd, pageContent);
-    	    //SQL.InsertPlayer(sd);
+    	    SQL.InsertPlayer(sd);
     		p.VillageIDs(sd, pageContent);
     		Log.InfoFormat("PlayerUid={0}", sd.PlayerUID);
     		for (int vill = 0; vill < sd.VillagesList.Count; vill++)
