@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using log4net;
@@ -91,7 +92,32 @@ namespace Library
             return true;
         }
 
-        public static void InsertResources(ServerData sd)
+        public static SqlDataReader GetTaskList(ServerData sd)
+        {
+			SqlCommand command = new SqlCommand("GetTaskList", sd.Connection);
+			command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Clear();
+            command.Parameters.Add("@PlayerId", SqlDbType.Int).Value = sd.PlayerUID;
+			command.Parameters.Add("@NextCheck", SqlDbType.DateTime).Value = DateTime.Now;
+			sd.Connection.Open();
+			SqlDataReader reader = command.ExecuteReader();
+			//if (reader != null)
+			//{
+			//    while (reader.Read())
+			//    {
+			//        for (int i = 0; i < reader.FieldCount; i++)
+			//        {
+			//            System.Console.WriteLine("reader[{0}]={1}", i, reader[i]);
+			//        }
+			//    }
+			//}
+        	sd.Connection.Close();
+        	return reader;
+        }
+
+
+
+    	public static void InsertResources(ServerData sd)
         {
             for (int i = 0; i < sd.ResourcesList.Count; i++)
             {
