@@ -140,7 +140,7 @@ namespace Console
     				pageContent = GetPageSource(String.Format("{0}dorf1.php?newdid={1}", sd.Servername, v.VillageId));
     				Log.DebugFormat("pageSource:\r\n{0}\r\n", pageContent);
     				//Village production
-    				p.Production(sd, pageContent);
+    				p.Production(sd, v, pageContent);
     			    SQL.InsertProduction(sd, v, vill);
     				//Village resources
     				p.Resources(sd, v, pageContent);

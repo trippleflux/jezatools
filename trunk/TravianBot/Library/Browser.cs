@@ -46,6 +46,17 @@ namespace Library
             return cookieCollection;
         }
 
+		public string GetPageSource(string pageUrl)
+		{
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+			httpWebRequest.Method = "GET";
+			httpWebRequest.CookieContainer = new CookieContainer();
+			httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cookieCollection);
+			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+			StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
+			return loginReader.ReadToEnd();
+		}
+
         /// <summary>
         /// logins to server.
         /// </summary>

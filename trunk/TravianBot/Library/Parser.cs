@@ -50,9 +50,10 @@ namespace Library
         /// Gets production of the village.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
+        /// <param name="v"><see cref="Village"/></param>
         /// <param name="pageSource">Page source</param>
         /// 
-        public void Production(ServerData sd, String pageSource)
+        public void Production(ServerData sd, Village v, String pageSource)
         {
             /*
 <table align="center" cellspacing="0" cellpadding="0"><tr valign="top">
@@ -104,6 +105,8 @@ namespace Library
                 p.CropPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
                 p.GranaryKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
+			p.VillageId = v.VillageId;
+			p.VillageName = v.VillageName;
             sd.ProductionList.Add(p);
         }
 
@@ -240,5 +243,29 @@ namespace Library
                 sd.BuildingsList.Add(vd);
             }
         }
+
+		public void UpgradeLink(Upgrade u, String pageSource)
+		{
+			u.UpgradeAVAILABLE = false;
+			Regex upgradeRegEx = new Regex(@"<a href=""(dorf[12].php\?(.*))"">((\w|\d|\s)*) [0-9]{1,3}<\/a>");
+			if (upgradeRegEx.IsMatch(pageSource))
+			{
+				Match Mc = upgradeRegEx.Matches(pageSource)[0];
+				u.UpgradeUrl = Mc.Groups[1].Value;
+				u.UpgradeAVAILABLE = true;
+			}
+			Regex pageTitle = new Regex(@"<h1><b>(.*)<\/b><\/h1>");
+			if (pageTitle.IsMatch(pageSource))
+			{
+				Match Mc = pageTitle.Matches(pageSource)[0];
+				u.UpgradeFullName = Mc.Groups[1].Value;
+				String[] titleMatch = Mc.Groups[1].Value.Split(' ');
+				u.UpgradeLevel = Int32.Parse(titleMatch[titleMatch.Length - 1]);
+				for (int n = 0; n < titleMatch.Length - 2; n++)
+				{
+					u.UpgradeName += titleMatch[n] + " ";
+				}
+			}
+		}
     }
 }
