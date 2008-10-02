@@ -113,17 +113,19 @@ namespace Library
 
 
 
-		public static SqlDataReader GetTaskList(ServerData sd)
+		public static DataTable GetTaskList(ServerData sd)
 		{
 			SqlCommand command = new SqlCommand("GetTaskList", sd.Connection);
 			command.CommandType = CommandType.StoredProcedure;
 			command.Parameters.Clear();
 			command.Parameters.Add("@PlayerId", SqlDbType.Int).Value = sd.PlayerUID;
 			command.Parameters.Add("@NextCheck", SqlDbType.DateTime).Value = DateTime.Now;
-			sd.Connection.Open();
-			SqlDataReader reader = command.ExecuteReader();
-			sd.Connection.Close();
-			return reader;
+			//sd.Connection.Open();
+			SqlDataAdapter da = new SqlDataAdapter(command);
+			DataTable dt = new DataTable();
+			da.Fill(dt);
+			//sd.Connection.Close();
+			return dt;
 		}
 
 

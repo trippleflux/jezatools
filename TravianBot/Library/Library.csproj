@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browser.cs" />
+    <Compile Include="BuildCost.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Production.cs" />
