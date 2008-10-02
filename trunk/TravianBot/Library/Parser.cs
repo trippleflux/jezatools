@@ -259,13 +259,57 @@ namespace Library
 			{
 				Match Mc = pageTitle.Matches(pageSource)[0];
 				u.UpgradeFullName = Mc.Groups[1].Value;
-				String[] titleMatch = Mc.Groups[1].Value.Split(' ');
-				u.UpgradeLevel = Int32.Parse(titleMatch[titleMatch.Length - 1]);
-				for (int n = 0; n < titleMatch.Length - 2; n++)
+				if (!u.UpgradeFullName.Trim().Equals("Postavi nov objekt", StringComparison.InvariantCultureIgnoreCase))
 				{
-					u.UpgradeName += titleMatch[n] + " ";
+					String[] titleMatch = Mc.Groups[1].Value.Split(' ');
+					u.UpgradeLevel = Int32.Parse(titleMatch[titleMatch.Length - 1]);
+					for (int n = 0; n < titleMatch.Length - 2; n++)
+					{
+						u.UpgradeName += titleMatch[n] + " ";
+					}
+				}
+				else
+				{
+					u.UpgradeName = u.UpgradeFullName;
+					u.UpgradeLevel = 0;
 				}
 			}
 		}
-    }
+
+		/// <summary>
+		/// Returns time until building is complete.
+		/// </summary>
+		/// <param name="pageSource">Page source</param>
+		/// <returns>time when building is complete ni format h:MM:SS</returns>
+		/// 
+		public string TimeToNextCheck(String pageSource)
+		{
+			string endTime = "0:00:00";
+			MatchCollection buildTimeCollection =
+				Regex.Matches(pageSource, @"<span id=timer[12]>([0-9]{0,3}.[0-9]{0,3}.[0-9]{0,3})<\/span>");
+			for (int i = 0; i < buildTimeCollection.Count; i++)
+			{
+				endTime = buildTimeCollection[i].Groups[1].Value.Trim();
+			}
+			return endTime;
+		}
+
+		/// <summary>
+		/// Returns building time.
+		/// </summary>
+		/// <param name="pageSource">Page source</param>
+		/// <returns>time when building is complete ni format h:MM:SS</returns>
+		/// 
+		public string BuildTime(String pageSource)
+		{
+			string endTime = "0:00:00";
+			Regex buildTime = new Regex(@"<img class=""clock"" src=""(.*)"" width=""[0-9]{0,3}"" height=""[0-9]{0,3}"">(.*)</td>");
+			if (buildTime.IsMatch(pageSource))
+			{
+				Match Mc = buildTime.Matches(pageSource)[0];
+				endTime = Mc.Groups[2].Value.Trim();
+			}
+			return endTime;
+		}
+	}
 }
