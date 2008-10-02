@@ -47,7 +47,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Gets production of the village.
+        /// Gets production of the village adn adds it to production list.
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
         /// <param name="v"><see cref="Village"/></param>
@@ -55,7 +55,7 @@ namespace Library
         /// 
         public void Production(ServerData sd, Village v, String pageSource)
         {
-            /*
+        	/*
 <table align="center" cellspacing="0" cellpadding="0"><tr valign="top">
 <td><img class="res" src="img/un/r/1.gif" title="Les"></td>
 <td id=l4 title=132>3766/7800</td>
@@ -68,49 +68,59 @@ namespace Library
 <td class="s7"> &nbsp;<img class="res" src="img/un/r/5.gif" title="Poraba žita">&nbsp;122/215</td></tr></table>
  */
 
-            Production p = new Production();
-            //wood
-            Regex wood = new Regex(@"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-            if (wood.IsMatch(pageSource))
-            {
-                Match Mc = wood.Matches(pageSource)[0];
-                p.Wood = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-                p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
-            }
-            //clay
-            Regex clay = new Regex(@"id=l3 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-            if (clay.IsMatch(pageSource))
-            {
-                Match Mc = clay.Matches(pageSource)[0];
-                p.Clay = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.ClayPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-                p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
-            }
-            //iron
-            Regex iron = new Regex(@"id=l2 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-            if (iron.IsMatch(pageSource))
-            {
-                Match Mc = iron.Matches(pageSource)[0];
-                p.Iron = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.IronPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-                p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
-            }
-            //crop
-            Regex crop = new Regex(@"id=l1 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-            if (crop.IsMatch(pageSource))
-            {
-                Match Mc = crop.Matches(pageSource)[0];
-                p.Crop = Int32.Parse(Mc.Groups[2].Value.Trim());
-                p.CropPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-                p.GranaryKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
-            }
+        	Production p = GetProductionForVillage(pageSource);
 			p.VillageId = v.VillageId;
 			p.VillageName = v.VillageName;
-            sd.ProductionList.Add(p);
+			sd.ProductionList.Add(p);
         }
 
-        /// <summary>
+
+
+    	private static Production GetProductionForVillage(string pageSource)
+    	{
+    		Production p = new Production();
+    		//wood
+    		Regex wood = new Regex(@"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+    		if (wood.IsMatch(pageSource))
+    		{
+    			Match Mc = wood.Matches(pageSource)[0];
+    			p.Wood = Int32.Parse(Mc.Groups[2].Value.Trim());
+    			p.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+    			p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
+    		}
+    		//clay
+    		Regex clay = new Regex(@"id=l3 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+    		if (clay.IsMatch(pageSource))
+    		{
+    			Match Mc = clay.Matches(pageSource)[0];
+    			p.Clay = Int32.Parse(Mc.Groups[2].Value.Trim());
+    			p.ClayPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+    			p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
+    		}
+    		//iron
+    		Regex iron = new Regex(@"id=l2 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+    		if (iron.IsMatch(pageSource))
+    		{
+    			Match Mc = iron.Matches(pageSource)[0];
+    			p.Iron = Int32.Parse(Mc.Groups[2].Value.Trim());
+    			p.IronPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+    			p.WarehouseKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
+    		}
+    		//crop
+    		Regex crop = new Regex(@"id=l1 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+    		if (crop.IsMatch(pageSource))
+    		{
+    			Match Mc = crop.Matches(pageSource)[0];
+    			p.Crop = Int32.Parse(Mc.Groups[2].Value.Trim());
+    			p.CropPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+    			p.GranaryKapacity = Int32.Parse(Mc.Groups[3].Value.Trim());
+    		}
+    		return p;
+    	}
+
+
+
+    	/// <summary>
         /// Gets player UID
         /// </summary>
         /// <param name="sd"><see cref="ServerData"/></param>
@@ -311,5 +321,33 @@ namespace Library
 			}
 			return endTime;
 		}
-	}
+
+		public BuildCost BuildCost(String pageSource)
+		{
+			BuildCost bc = NeededResources(pageSource);
+			Production p = GetProductionForVillage(pageSource);
+			bc.AvailableWood = p.Wood;
+			bc.AvailableClay = p.Clay;
+			bc.AvailableIron = p.Iron;
+			bc.AvailableCrop = p.Crop;
+			bc.WoodPerHour = p.WoodPerHour;
+			bc.ClayPerHour = p.ClayPerHour;
+			bc.IronPerHour = p.IronPerHour;
+			bc.CropPerHour = p.CropPerHour;
+			return bc;
+		}
+
+		private static BuildCost NeededResources(String pageSource)
+		{
+			//<img class="res" src="img/un/r/1.gif">6050
+			BuildCost bc = new BuildCost();
+			const string reg = @"class=""res"" src=""img\/un\/r\/[1234].gif"">([0-9]{0,6})";
+            MatchCollection neededResourcesCollection = Regex.Matches(pageSource, reg);
+			bc.NeededWood = Int32.Parse(neededResourcesCollection[0].Groups[1].Value.Trim());
+			bc.NeededClay = Int32.Parse(neededResourcesCollection[1].Groups[1].Value.Trim());
+			bc.NeededIron = Int32.Parse(neededResourcesCollection[2].Groups[1].Value.Trim());
+			bc.NeededCrop = Int32.Parse(neededResourcesCollection[3].Groups[1].Value.Trim());
+			return bc;
+		}
+    }
 }
