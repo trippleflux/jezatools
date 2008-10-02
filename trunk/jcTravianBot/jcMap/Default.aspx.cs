@@ -72,7 +72,7 @@ public partial class _Default : Page
 		int ymin = y - distance;
 		int ymax = y + distance;
 		string dbServer = dropDownListServers.SelectedValue;
-		string serverName = dbServer.Equals("si_s3") ? "s3.travian.si" : "speed.travian.si";
+		string serverName = dbServer.Equals("si_s6") ? "s6.travian.si" : "s3.travian.si";
 
 		String sqlConnection = ConfigurationManager.ConnectionStrings["TravianMapConnectionString"].ToString();
 		//(323074,-130,-3,2,81313,'Muta01',17696,'jezonsky',0,'',237);
@@ -112,16 +112,23 @@ ORDER BY [x] DESC",
 					Int32 id = Int32.Parse(reader[8].ToString().Trim());
 					int row = ymax > 0 ? Math.Abs((-yCor + Math.Abs(ymax))) : Math.Abs((-yCor - Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
+					//tableMap.Rows[row].Cells[cell].Text =
+					//    String.Format(
+					//        @"<a href=""http://{2}/spieler.php?uid={0}"">p</a><a href=""http://{2}/a2b.php?z={1}"">a</a><a href=""http://{2}/build.php?z={1}&gid=17"">m</a>",
+					//        uid, id, serverName);
 					tableMap.Rows[row].Cells[cell].Text =
 						String.Format(
-							@"<a href=""http://{2}/spieler.php?uid={0}"">p</a><a href=""http://{2}/a2b.php?z={1}"">a</a><a href=""http://{2}/build.php?z={1}&gid=17"">m</a>",
-							uid, id, serverName);
+							@"<a href=""http://{2}/spieler.php?uid={0}"">{1}</a>", uid, population, serverName);
 					tableMap.Rows[row].Cells[cell].ToolTip =
 						String.Format("[{0}|{1}] [V:{2}] [N:{3}] [A:{4}] [P:{5}]", xCor, yCor, villageName, playerName, alianceName, population);
 					//player is in aliance
 					if (alianceName.Length > 0)
 					{
-						if (allyList.IndexOf(alianceName) > -1)
+						if (alianceName.Length > 0)
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Gray;
+						}
+						else if (allyList.IndexOf(alianceName) > -1)
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Orange;
 						}
@@ -131,11 +138,11 @@ ORDER BY [x] DESC",
 						}
 						else if (warList.IndexOf(alianceName) > -1)
 						{
-							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Red;
 						}
 						else if (aliance.Equals(alianceName))
 						{
-							tableMap.Rows[row].Cells[cell].BackColor = Color.Red;
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
 						}
 					}
 					//else
@@ -146,7 +153,7 @@ ORDER BY [x] DESC",
 
 					if ((xCor == x) && (yCor == y))
 					{
-						tableMap.Rows[row].Cells[cell].BackColor = Color.Blue;
+						tableMap.Rows[row].Cells[cell].BackColor = Color.SkyBlue;
 					}
 				}
 				reader.Close();
