@@ -151,7 +151,8 @@ namespace Console
     			}
     		}
             SQL.InsertResources(sd);
-            tbLibrary.LogBuildings(sd);
+			tbLibrary.LogResources(sd);
+			tbLibrary.LogBuildings(sd);
         }
 
 
