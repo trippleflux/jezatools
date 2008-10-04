@@ -41,9 +41,21 @@ namespace Console
 
 					    #endregion
 
-					    #region Check Tasks every minute
+						#region Attacks
 
-					    if (loopCount%1 == 0)
+						if (loopCount%1 == 0)
+						{
+							//Muta06	(-194 	| 	-225) -->  Muta05	(-193 	| 	-224)
+							//b=1&t1=&t4=374&t7=&t9=&t2=&t5=&t8=&t10=&t3=&t6=&c=3&dname=&x=-193&y=-224&s1.x=31&s1.y=12&s1=ok
+							//id=39&a=30375&c=3&kid=500032&t1=0&t2=0&t3=0&t4=374&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0&s1.x=35&s1.y=14&s1=ok
+							//http://s3.travian.si/a2b.php?newdid=123788
+						}
+
+						#endregion
+
+						#region Check Tasks every minute
+
+						if (loopCount%1 == 0)
 					    {
                             System.Console.WriteLine("Checking tasks...");
                             Task task = new Task();
