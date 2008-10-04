@@ -33,6 +33,14 @@ namespace Library
 			VeryLow = 1,
 		}
 
+		public enum ProductionForVillage
+		{
+			Wood,
+			Clay,
+			Iron,
+			Crop
+		}
+
 		#endregion
 
 		/// <summary>
@@ -157,13 +165,53 @@ namespace Library
 
 
 
-		public static DateTime GetDt(string[] buildTime)
+		public static DateTime AddSecondsToTime(string[] buildTime)
 		{
 			DateTime dt = new DateTime(DateTime.Now.Ticks);
 			double seconds = Double.Parse(buildTime[2]);
 			double minutes = Double.Parse(buildTime[1]);
 			double hours = Double.Parse(buildTime[0]);
-			return dt.AddSeconds(seconds + 60 * minutes + 60 * 60 * hours);
+			return dt.AddSeconds(seconds + 60*minutes + 60*60*hours);
+		}
+
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="production"></param>
+		/// <param name="index"></param>
+		/// <param name="noCrop"><c>true</c> if CropLand schould be excluded</param>
+		/// <returns></returns>
+		public static ProductionForVillage GetProduction
+			(Production production,
+			 int index,
+			 bool noCrop)
+		{
+			int[] list = {production.WoodPerHour, production.ClayPerHour, production.IronPerHour};
+			if (!noCrop)
+			{
+				list[3] = production.CropPerHour;
+			}
+			bubble_sort_generic(list);
+			ProductionForVillage lowestproduction;
+			if (list[index] == production.WoodPerHour)
+			{
+				lowestproduction = ProductionForVillage.Wood;
+			}
+			else if (list[index] == production.ClayPerHour)
+			{
+				lowestproduction = ProductionForVillage.Clay;
+			}
+			else if (list[index] == production.IronPerHour)
+			{
+				lowestproduction = ProductionForVillage.Iron;
+			}
+			else
+			{
+				lowestproduction = ProductionForVillage.Crop;
+			}
+			return lowestproduction;
 		}
 	}
 }

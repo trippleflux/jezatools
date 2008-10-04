@@ -7,6 +7,7 @@ namespace Library
 		private string upgradeFullName;
 		private string upgradeName;
 		private bool upgradeAvailable;
+		private int upgradeId;
 
 		public string UpgradeUrl
 		{
@@ -32,10 +33,16 @@ namespace Library
 			set { upgradeName = value; }
 		}
 
-		public bool UpgradeAVAILABLE
+		public bool UpgradeAvailable
 		{
 			get { return upgradeAvailable; }
 			set { upgradeAvailable = value; }
+		}
+
+		public int UpgradeId
+		{
+			get { return upgradeId; }
+			set { upgradeId = value; }
 		}
 
 
@@ -43,8 +50,12 @@ namespace Library
 		public override string ToString()
 		{
 			return
-				string.Format("UpgradeUrl: {0}, UpgradeLevel: {1}, UpgradeFullName: {2}, UpgradeName: {3}, UpgradeAvailable: {4}",
-				              upgradeUrl, upgradeLevel, upgradeFullName, upgradeName, upgradeAvailable);
+				string.Format(
+					"UpgradeUrl: {0}, UpgradeLevel: {1}, UpgradeFullName: {2}, UpgradeName: {3}, UpgradeAvailable: {4}, UpgradeId: {5}",
+					upgradeUrl, upgradeLevel, upgradeFullName, upgradeName, upgradeAvailable, upgradeId);
 		}
+
+
+
 	}
 }
