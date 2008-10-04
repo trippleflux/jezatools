@@ -135,7 +135,14 @@ namespace Library
 				{
 					Upgrade upgrade = new Upgrade();
 					upgrade.UpgradeId = Int32.Parse(row[9].ToString().Trim());
-					UpgradeId(sd, upgrade, row);
+					int wantedLevel = Int32.Parse(row[5].ToString().Trim());
+					int villageId = Int32.Parse(row[2].ToString().Trim());
+					String url = String.Format("{0}build.php?id={1}&newdid={2}", sd.Servername, upgrade.UpgradeId, villageId);
+					Browser b = new Browser();
+					if (Parser.GetBuildingIdLevel(b.GetPageSource(url)) < wantedLevel)
+					{
+						UpgradeId(sd, upgrade, row);
+					}
 					break;
 				}
 				default:

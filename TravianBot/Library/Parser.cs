@@ -297,6 +297,25 @@ namespace Library
 
 
 
+		public static int GetBuildingIdLevel(String pageSource)
+		{
+			Regex pageTitle = new Regex(@"<h1><b>(.*)<\/b><\/h1>");
+			if (pageTitle.IsMatch(pageSource))
+			{
+				Match Mc = pageTitle.Matches(pageSource)[0];
+				string titleName = Mc.Groups[1].Value.Trim();
+				if (titleName.Equals("Postavi nov objekt", StringComparison.InvariantCultureIgnoreCase))
+				{
+					return -1;
+				}
+				String[] titleMatch = titleName.Split(' ');
+				return Int32.Parse(titleMatch[titleMatch.Length - 1]);
+			}
+			return -1;
+		}
+
+
+
 		public void UpgradeLink
 			(Upgrade u,
 			 String pageSource)
