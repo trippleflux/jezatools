@@ -113,6 +113,25 @@ namespace Library
 
 
 
+		/// <summary>
+		/// Get enabled task list.
+		/// </summary>
+		/// <param name="sd"><see cref="ServerData"/></param>
+		/// <list type="table">
+		/// <item><term>Item</term><description>Description</description></item>
+		/// <item><term>column[0] (int)</term><description>ID in table TaskList</description></item>
+		/// <item><term>column[1] (int)</term><description>ID in table Tasks</description></item>
+		/// <item><term>column[2] (int)</term><description>ID in table Villages</description></item>
+		/// <item><term>column[3] (string)</term><description>BuildIdName in table BuildIds</description></item>
+		/// <item><term>column[4] (int)</term><description>Priority</description></item>
+		/// <item><term>column[5] (int)</term><description>Build level</description></item>
+		/// <item><term>column[6] (datetime)</term><description>DateTime of next check</description></item>
+		/// <item><term>column[7] (int)</term><description><c>1</c> if task is enabled</description></item>
+		/// <item><term>column[8] (string)</term><description>VillageName in table Villages</description></item>
+		/// <item><term>column[9] (int)</term><description>BuildId in table BuildIds</description></item>
+		/// </list>
+		/// <returns>Data Table with tasks <see cref="DataTable"/></returns>
+		/// 
 		public static DataTable GetTaskList(ServerData sd)
 		{
 			SqlCommand command = new SqlCommand("GetTaskList", sd.Connection);
