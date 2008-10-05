@@ -183,14 +183,14 @@ namespace Library
 			else
 			{
 				BuildCost bc = parser.BuildCost(pageSource);
-				int wood = (bc.AvailableWood - bc.NeededWood)/bc.WoodPerHour;
-				int clay = (bc.AvailableClay - bc.NeededClay)/bc.ClayPerHour;
-				int iron = (bc.AvailableIron - bc.NeededIron)/bc.IronPerHour;
-				int crop = (bc.AvailableCrop - bc.NeededCrop)/bc.CropPerHour;
-				int[] list = {wood, clay, iron, crop};
+				int wood = ((bc.AvailableWood - bc.NeededWood) * 3600) / bc.WoodPerHour;
+				int clay = ((bc.AvailableClay - bc.NeededClay) * 3600) / bc.ClayPerHour;
+				int iron = ((bc.AvailableIron - bc.NeededIron) * 3600) / bc.IronPerHour;
+				int crop = ((bc.AvailableCrop - bc.NeededCrop) * 3600) / bc.CropPerHour;
+				int[] list = { wood, clay, iron, crop };
 				tbLibrary.bubble_sort_generic(list);
 				DateTime dt = new DateTime(DateTime.Now.Ticks);
-				SQL.UpdateNextCheckForTask(sd, taskID, dt.AddSeconds(Math.Abs(list[0]*3600)));
+				SQL.UpdateNextCheckForTask(sd, taskID, dt.AddSeconds(Math.Abs(list[0])));
 			}
 		}
 
