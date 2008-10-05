@@ -38,6 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attack.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="BuildCost.cs" />
     <Compile Include="Building.cs" />

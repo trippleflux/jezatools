@@ -139,11 +139,41 @@ namespace Library
 			command.Parameters.Clear();
 			command.Parameters.Add("@PlayerId", SqlDbType.Int).Value = sd.PlayerUID;
 			command.Parameters.Add("@NextCheck", SqlDbType.DateTime).Value = DateTime.Now;
-			//sd.Connection.Open();
 			SqlDataAdapter da = new SqlDataAdapter(command);
 			DataTable dt = new DataTable();
 			da.Fill(dt);
-			//sd.Connection.Close();
+			return dt;
+		}
+
+
+
+		/// <summary>
+		/// Get farm list.
+		/// </summary>
+		/// <param name="sd"><see cref="ServerData"/></param>
+		/// <list type="table">
+		/// <item><term>Item</term><description>Description</description></item>
+		/// <item><term>column[0] (int)</term><description>ID in table FarmList</description></item>
+		/// <item><term>column[1] (int)</term><description>VillageId in table Villages</description></item>
+		/// <item><term>column[2] (int)</term><description>Coordinates of attack X</description></item>
+		/// <item><term>column[3] (int)</term><description>Coordinates of attack Y</description></item>
+		/// <item><term>column[4] (int)</term><description>AttackId in table AttackTypes</description></item>
+		/// <item><term>column[5] (string)</term><description>trooplist</description></item>
+		/// <item><term>column[6] (string)</term><description>TroopName in table TroopTypes</description></item>
+		/// <item><term>column[7] (int)</term><description>How many units to check for</description></item>
+		/// <item><term>column[8] (string)</term><description>Description</description></item>
+		/// </list>
+		/// <returns>Data Table with FarmList <see cref="DataTable"/></returns>
+		/// 
+		public static DataTable GetFarmList(ServerData sd)
+		{
+			SqlCommand command = new SqlCommand("GetFarmList", sd.Connection);
+			command.CommandType = CommandType.StoredProcedure;
+			command.Parameters.Clear();
+			command.Parameters.Add("@PlayerId", SqlDbType.Int).Value = sd.PlayerUID;
+			SqlDataAdapter da = new SqlDataAdapter(command);
+			DataTable dt = new DataTable();
+			da.Fill(dt);
 			return dt;
 		}
 
