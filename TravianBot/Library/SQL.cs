@@ -195,6 +195,35 @@ namespace Library
 
 
 
+		public static bool UpdateAttackInProgress(ServerData sd, int farmListId, int atackInProgress)
+		{
+			SqlCommand command = new SqlCommand("UpdateAtackInProgressId", sd.Connection);
+			command.CommandType = CommandType.StoredProcedure;
+			command.Parameters.Clear();
+			command.Parameters.Add("@FarmListId", SqlDbType.Int).Value = farmListId;
+			command.Parameters.Add("@AtackInProgress", SqlDbType.Int).Value = atackInProgress;
+			sd.Connection.Open();
+			command.ExecuteNonQuery();
+			sd.Connection.Close();
+			return true;
+		}
+
+
+
+		public static bool UpdateAttackInProgress(ServerData sd, int atackInProgress)
+		{
+			SqlCommand command = new SqlCommand("UpdateAtackInProgressIdToZero", sd.Connection);
+			command.CommandType = CommandType.StoredProcedure;
+			command.Parameters.Clear();
+			command.Parameters.Add("@AtackInProgress", SqlDbType.Int).Value = atackInProgress;
+			sd.Connection.Open();
+			command.ExecuteNonQuery();
+			sd.Connection.Close();
+			return true;
+		}
+
+
+
 		public static void InsertResources(ServerData sd)
 		{
 			for (int i = 0; i < sd.ResourcesList.Count; i++)

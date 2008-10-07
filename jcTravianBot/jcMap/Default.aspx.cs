@@ -1,26 +1,43 @@
+#region
+
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
+#endregion
 
 public partial class _Default : Page
 {
 	private int size;
 	private int distance;
 
-	protected void Page_Load(object sender, EventArgs e)
+
+
+	protected void Page_Load
+		(object sender,
+		 EventArgs e)
 	{
 	}
 
-	protected void linkButtonImportData_Click(object sender, EventArgs e)
+
+
+	protected void linkButtonImportData_Click
+		(object sender,
+		 EventArgs e)
 	{
 	}
 
-	protected void linkButtonRefreshMap_Click(object sender, EventArgs e)
+
+
+	protected void linkButtonRefreshMap_Click
+		(object sender,
+		 EventArgs e)
 	{
 		distance = Int32.Parse(textBoxDistance.Text);
 		//distance = 20;
@@ -28,6 +45,8 @@ public partial class _Default : Page
 		CreateTable();
 		FillTable();
 	}
+
+
 
 	private void ClearTable()
 	{
@@ -41,6 +60,8 @@ public partial class _Default : Page
 			}
 		}
 	}
+
+
 
 	private void CreateTable()
 	{
@@ -57,6 +78,8 @@ public partial class _Default : Page
 			tableMap.Rows.Add(row);
 		}
 	}
+
+
 
 	private void FillTable()
 	{
@@ -99,6 +122,7 @@ ORDER BY [x] DESC",
 			if (reader != null)
 			{
 				StringBuilder sb = new StringBuilder();
+				StringBuilder farmList = new StringBuilder();
 				while (reader.Read())
 				{
 					//labelErrorMSG.Text = ;
@@ -120,7 +144,8 @@ ORDER BY [x] DESC",
 						String.Format(
 							@"<a href=""http://{2}/spieler.php?uid={0}"">{1}</a>", uid, population, serverName);
 					tableMap.Rows[row].Cells[cell].ToolTip =
-						String.Format("[{0}|{1}] [V:{2}] [N:{3}] [A:{4}] [P:{5}]", xCor, yCor, villageName, playerName, alianceName, population);
+						String.Format("[{0}|{1}] [V:{2}] [N:{3}] [A:{4}] [P:{5}]", xCor, yCor, villageName, playerName, alianceName,
+						              population);
 					//player is in aliance
 					if (alianceName.Length > 0)
 					{
@@ -145,11 +170,14 @@ ORDER BY [x] DESC",
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
 						}
 					}
-					//else
-					//{
-                    sb.AppendFormat("{0}|{1}|3|{6}|0|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
-                        xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
-					//}
+					sb.AppendFormat("{0}|{1}|3|{6}|0|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
+					                xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
+
+					String insertCommand =
+						"INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
+					int villageDistance = (x - xCor)*(x - xCor) + (y - yCor)*(y - yCor);
+					farmList.AppendFormat(CultureInfo.InvariantCulture, insertCommand, xCor, yCor, villageName, population, alianceName,
+										  playerName, villageDistance);
 
 					if ((xCor == x) && (yCor == y))
 					{
@@ -158,11 +186,16 @@ ORDER BY [x] DESC",
 				}
 				reader.Close();
 
-                using (StreamWriter sw = new StreamWriter(@"C:\temp\villages.txt"))
-                {
-                    sw.WriteLine(sb);
-                    sw.Close();
-                }
+				using (StreamWriter sw = new StreamWriter(@"C:\temp\villages.txt"))
+				{
+					sw.WriteLine(sb);
+					sw.Close();
+				}
+				using (StreamWriter sw = new StreamWriter(@"C:\temp\FarmList.txt"))
+				{
+					sw.WriteLine(farmList);
+					sw.Close();
+				}
 			}
 		}
 		catch (Exception e)
