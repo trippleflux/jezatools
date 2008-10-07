@@ -2240,7 +2240,7 @@ namespace GUI {
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class GetTroopTypesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
-            private System.Data.DataColumn columnId;
+            private System.Data.DataColumn columnID;
             
             private System.Data.DataColumn columnTribeId;
             
@@ -2279,9 +2279,9 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IdColumn {
+            public System.Data.DataColumn IDColumn {
                 get {
-                    return this.columnId;
+                    return this.columnID;
                 }
             }
             
@@ -2365,7 +2365,7 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
-                this.columnId = base.Columns["Id"];
+                this.columnID = base.Columns["ID"];
                 this.columnTribeId = base.Columns["TribeId"];
                 this.columnTroopId = base.Columns["TroopId"];
                 this.columnTroopName = base.Columns["TroopName"];
@@ -2373,17 +2373,17 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
-                this.columnId = new System.Data.DataColumn("Id", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId);
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
                 this.columnTribeId = new System.Data.DataColumn("TribeId", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTribeId);
                 this.columnTroopId = new System.Data.DataColumn("TroopId", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTroopId);
                 this.columnTroopName = new System.Data.DataColumn("TroopName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTroopName);
-                this.columnId.AutoIncrement = true;
-                this.columnId.AllowDBNull = false;
-                this.columnId.ReadOnly = true;
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
                 this.columnTribeId.AllowDBNull = false;
                 this.columnTroopId.AllowDBNull = false;
                 this.columnTroopName.AllowDBNull = false;
@@ -2477,7 +2477,7 @@ namespace GUI {
         [System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class GetTribesDataTable : System.Data.DataTable, System.Collections.IEnumerable {
             
-            private System.Data.DataColumn columnId;
+            private System.Data.DataColumn columnID;
             
             private System.Data.DataColumn columnTribeId;
             
@@ -2514,9 +2514,9 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.Data.DataColumn IdColumn {
+            public System.Data.DataColumn IDColumn {
                 get {
-                    return this.columnId;
+                    return this.columnID;
                 }
             }
             
@@ -2592,22 +2592,22 @@ namespace GUI {
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
-                this.columnId = base.Columns["Id"];
+                this.columnID = base.Columns["ID"];
                 this.columnTribeId = base.Columns["TribeId"];
                 this.columnTribeName = base.Columns["TribeName"];
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
-                this.columnId = new System.Data.DataColumn("Id", typeof(int), null, System.Data.MappingType.Element);
-                base.Columns.Add(this.columnId);
+                this.columnID = new System.Data.DataColumn("ID", typeof(int), null, System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
                 this.columnTribeId = new System.Data.DataColumn("TribeId", typeof(int), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTribeId);
                 this.columnTribeName = new System.Data.DataColumn("TribeName", typeof(string), null, System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTribeName);
-                this.columnId.AutoIncrement = true;
-                this.columnId.AllowDBNull = false;
-                this.columnId.ReadOnly = true;
+                this.columnID.AutoIncrement = true;
+                this.columnID.AllowDBNull = false;
+                this.columnID.ReadOnly = true;
                 this.columnTribeId.AllowDBNull = false;
                 this.columnTribeName.AllowDBNull = false;
                 this.columnTribeName.MaxLength = 50;
@@ -3391,12 +3391,12 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Id {
+            public int ID {
                 get {
-                    return ((int)(this[this.tableGetTroopTypes.IdColumn]));
+                    return ((int)(this[this.tableGetTroopTypes.IDColumn]));
                 }
                 set {
-                    this[this.tableGetTroopTypes.IdColumn] = value;
+                    this[this.tableGetTroopTypes.IDColumn] = value;
                 }
             }
             
@@ -3443,12 +3443,12 @@ namespace GUI {
             }
             
             [System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public int Id {
+            public int ID {
                 get {
-                    return ((int)(this[this.tableGetTribes.IdColumn]));
+                    return ((int)(this[this.tableGetTribes.IDColumn]));
                 }
                 set {
-                    this[this.tableGetTribes.IdColumn] = value;
+                    this[this.tableGetTribes.IDColumn] = value;
                 }
             }
             
@@ -4778,7 +4778,7 @@ namespace GUI.TravianBotDataSetTableAdapters {
             System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "GetTroopTypes";
-            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("TribeId", "TribeId");
             tableMapping.ColumnMappings.Add("TroopId", "TroopId");
             tableMapping.ColumnMappings.Add("TroopName", "TroopName");
@@ -4909,7 +4909,7 @@ namespace GUI.TravianBotDataSetTableAdapters {
             System.Data.Common.DataTableMapping tableMapping = new System.Data.Common.DataTableMapping();
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "GetTribes";
-            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("ID", "ID");
             tableMapping.ColumnMappings.Add("TribeId", "TribeId");
             tableMapping.ColumnMappings.Add("TribeName", "TribeName");
             this._adapter.TableMappings.Add(tableMapping);

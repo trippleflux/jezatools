@@ -85,9 +85,9 @@ namespace Library
             httpWebRequest.ContentType = "application/x-www-form-urlencoded";
             httpWebRequest.ContentLength = data.Length;
             httpWebRequest.CookieContainer = new CookieContainer();
-            Stream dorf1Stream = httpWebRequest.GetRequestStream();
-            dorf1Stream.Write(data, 0, data.Length);
-            dorf1Stream.Close();
+            Stream stream = httpWebRequest.GetRequestStream();
+            stream.Write(data, 0, data.Length);
+            stream.Close();
 
             HttpWebResponse httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse();
             cookieCollection = httpWebRequest.CookieContainer.GetCookies(httpWebRequest.RequestUri);
@@ -96,7 +96,7 @@ namespace Library
             return cookieCollection;
         }
 
-		public string PostData(string pageUrl, string postData)
+		public CookieCollection PostData(string pageUrl, string postData, out String pageContent)
 		{
 			UTF8Encoding encoding = new UTF8Encoding();
 			byte[] data = encoding.GetBytes(postData);
@@ -106,11 +106,16 @@ namespace Library
 			httpWebRequest.ContentLength = data.Length;
 			httpWebRequest.CookieContainer = new CookieContainer();
 			httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cookieCollection);
-            Stream os = httpWebRequest.GetRequestStream();
-            os.Write (data, 0, data.Length);
+            
+			Stream stream = httpWebRequest.GetRequestStream();
+            stream.Write (data, 0, data.Length);
+			stream.Close();
+
 			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+			//cookieCollection = httpWebRequest.CookieContainer.GetCookies(httpWebRequest.RequestUri);
 			StreamReader streamReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
-			return streamReader.ReadToEnd();
+			pageContent = streamReader.ReadToEnd();
+			return cookieCollection;
 		}
     }
 }
