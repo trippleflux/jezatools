@@ -42,6 +42,8 @@ namespace Library
 				return false;
 			}
 			int taskId = Int32.Parse(row[0].ToString().Trim());
+			String villageName = row[8].ToString().Trim();
+			Console.WriteLine("We Are Building In Village '{0}'. Time To Complete : {1}", villageName, timeToComplete);
 			SQL.UpdateNextCheckForTask(sd, taskId, tbLibrary.AddSecondsToTime(timeToComplete.Split(':')));
 			return true;
 		}

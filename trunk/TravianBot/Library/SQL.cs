@@ -189,6 +189,7 @@ namespace Library
 			sd.Connection.Open();
 			command.ExecuteNonQuery();
 			sd.Connection.Close();
+			Console.WriteLine("Next Check : {0}", dt.ToString("yyyy-MM-dd HH:mm:ss"));
 			return true;
 		}
 

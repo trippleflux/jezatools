@@ -95,5 +95,20 @@ namespace Library
             pageContent = reader.ReadToEnd();
             return cookieCollection;
         }
+
+		public string PostData(string pageUrl, string postData)
+		{
+			UTF8Encoding encoding = new UTF8Encoding();
+			byte[] data = encoding.GetBytes(postData);
+			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
+			httpWebRequest.Method = "POST";
+			httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+			httpWebRequest.ContentLength = data.Length;
+			httpWebRequest.CookieContainer = new CookieContainer();
+			httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cookieCollection);
+			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+			StreamReader streamReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
+			return streamReader.ReadToEnd();
+		}
     }
 }
