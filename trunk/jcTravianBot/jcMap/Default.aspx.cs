@@ -147,8 +147,8 @@ ORDER BY [x] DESC",
 					}
 					//else
 					//{
-					//    sb.AppendFormat("#{0}|{1}|3|{6}|2|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
-					//        xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
+                    sb.AppendFormat("{0}|{1}|3|{6}|0|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
+                        xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
 					//}
 
 					if ((xCor == x) && (yCor == y))
@@ -158,11 +158,11 @@ ORDER BY [x] DESC",
 				}
 				reader.Close();
 
-				//using (StreamWriter sw = new StreamWriter(@"C:\svn\jezaTools\jcTravianBot\jcMap\villages.speed.txt"))
-				//{
-				//    sw.WriteLine(sb);
-				//    sw.Close();
-				//}
+                using (StreamWriter sw = new StreamWriter(@"C:\villages.txt"))
+                {
+                    sw.WriteLine(sb);
+                    sw.Close();
+                }
 			}
 		}
 		catch (Exception e)
