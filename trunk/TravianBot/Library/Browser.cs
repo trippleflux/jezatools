@@ -106,6 +106,8 @@ namespace Library
 			httpWebRequest.ContentLength = data.Length;
 			httpWebRequest.CookieContainer = new CookieContainer();
 			httpWebRequest.CookieContainer.Add(new Uri(pageUrl), cookieCollection);
+            Stream os = httpWebRequest.GetRequestStream();
+            os.Write (data, 0, data.Length);
 			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
 			StreamReader streamReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
 			return streamReader.ReadToEnd();
