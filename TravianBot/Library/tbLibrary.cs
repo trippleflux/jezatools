@@ -213,5 +213,10 @@ namespace Library
 			}
 			return lowestproduction;
 		}
+
+		public static Int32 ConvertXY2Z(Int32 x, Int32 y)
+		{
+			return ((x + 401) + ((400 - y) * 801));
+		}
 	}
 }
