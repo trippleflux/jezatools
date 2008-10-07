@@ -158,7 +158,7 @@ ORDER BY [x] DESC",
 				}
 				reader.Close();
 
-                using (StreamWriter sw = new StreamWriter(@"C:\villages.txt"))
+                using (StreamWriter sw = new StreamWriter(@"C:\temp\villages.txt"))
                 {
                     sw.WriteLine(sb);
                     sw.Close();
