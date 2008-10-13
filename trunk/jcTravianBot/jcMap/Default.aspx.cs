@@ -102,10 +102,10 @@ public partial class _Default : Page
 		string sql =
 			string.Format(
 				@"
-SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid], [id] FROM [TravianMap].[dbo].[{4}] 
+SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid], [id], ( SQRT(({5}-[x])*({5}-[x]) + ({6}-[y])*({6}-[y])) ) AS Distance FROM [TravianMap].[dbo].[{4}] 
 WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))
-ORDER BY [x] DESC",
-				xmin, xmax, ymax, ymin, dbServer);
+ORDER BY Distance ASC",
+				xmin, xmax, ymax, ymin, dbServer, x, y);
 
 		String allyList = TextBoxAlly.Text;
 		String napList = TextBoxNap.Text;
@@ -133,7 +133,7 @@ ORDER BY [x] DESC",
 					String alianceName = reader[5].ToString().Trim();
 					Int32 population = Int32.Parse(reader[6].ToString().Trim());
 					Int32 uid = Int32.Parse(reader[7].ToString().Trim());
-					Int32 id = Int32.Parse(reader[8].ToString().Trim());
+					Int32 sqlDistance = Int32.Parse(reader[9].ToString().Trim());
 					int row = ymax > 0 ? Math.Abs((-yCor + Math.Abs(ymax))) : Math.Abs((-yCor - Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
 					//tableMap.Rows[row].Cells[cell].Text =
@@ -170,11 +170,10 @@ ORDER BY [x] DESC",
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
 						}
 					}
-					sb.AppendFormat("{0}|{1}|3|{6}|0|1|[{2}][V:{3}][P:{4}][A:{5}]\n",
-					                xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim());
+					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|0|1|\t[P:{4,-5}][U:{2,-20}][V:{3,-25}][A:{5}][D:{7}]\n",
+									xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim(), sqlDistance);
 
-					String insertCommand =
-						"INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
+					const string insertCommand = "INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
 					int villageDistance = (x - xCor)*(x - xCor) + (y - yCor)*(y - yCor);
 					farmList.AppendFormat(CultureInfo.InvariantCulture, insertCommand, xCor, yCor, villageName, population, alianceName,
 										  playerName, villageDistance);
