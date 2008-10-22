@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twC", "twC\twC.csproj", "{DEF7C5AB-8C75-4ABB-9B55-463A6FD40403}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twL", "twL\twL.csproj", "{E5AC790F-3C49-465C-B6C4-CB33974708AC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEF7C5AB-8C75-4ABB-9B55-463A6FD40403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF7C5AB-8C75-4ABB-9B55-463A6FD40403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF7C5AB-8C75-4ABB-9B55-463A6FD40403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF7C5AB-8C75-4ABB-9B55-463A6FD40403}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5AC790F-3C49-465C-B6C4-CB33974708AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5AC790F-3C49-465C-B6C4-CB33974708AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5AC790F-3C49-465C-B6C4-CB33974708AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5AC790F-3C49-465C-B6C4-CB33974708AC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
