@@ -133,7 +133,7 @@ ORDER BY Distance ASC",
 					String alianceName = reader[5].ToString().Trim();
 					Int32 population = Int32.Parse(reader[6].ToString().Trim());
 					Int32 uid = Int32.Parse(reader[7].ToString().Trim());
-					Int32 sqlDistance = Int32.Parse(reader[9].ToString().Trim());
+					Double sqlDistance = Math.Round(Double.Parse(reader[9].ToString().Trim()));
 					int row = ymax > 0 ? Math.Abs((-yCor + Math.Abs(ymax))) : Math.Abs((-yCor - Math.Abs(ymax)));
 					Int32 cell = (xCor - xmin);
 					//tableMap.Rows[row].Cells[cell].Text =
@@ -149,11 +149,7 @@ ORDER BY Distance ASC",
 					//player is in aliance
 					if (alianceName.Length > 0)
 					{
-						if (alianceName.Length > 0)
-						{
-							tableMap.Rows[row].Cells[cell].BackColor = Color.Gray;
-						}
-						else if (allyList.IndexOf(alianceName) > -1)
+						if (allyList.IndexOf(alianceName) > -1)
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Orange;
 						}
@@ -169,8 +165,12 @@ ORDER BY Distance ASC",
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
 						}
+						else
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Gray;
+						}
 					}
-					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|0|1|\t[P:{4,-5}][U:{2,-20}][V:{3,-25}][A:{5}][D:{7}]\n",
+					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|0|1|\t[P:{4,-5}][D:{7,-4}][U:{2,-20}][V:{3,-25}][A:{5,-20}]\n",
 									xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim(), sqlDistance);
 
 					const string insertCommand = "INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
