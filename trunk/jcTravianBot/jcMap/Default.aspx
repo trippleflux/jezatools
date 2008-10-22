@@ -35,13 +35,13 @@
 			Style="z-index: 108; left: 140px; position: absolute; top: 80px" 
 			Text="Distance" Width="90px"></asp:Label>
 		<asp:TextBox ID="textBoxDistance" runat="server" 
-			Style="z-index: 109; left: 240px; position: absolute; top: 80px" Width="40px">10</asp:TextBox>
+			Style="z-index: 109; left: 240px; position: absolute; top: 80px" Width="40px">20</asp:TextBox>
         
         <asp:Label ID="LabelAlly" runat="server" 
             Style="z-index: 110; left: 300px; position: absolute; top: 20px" 
             Text="Ally" Width="50px" BackColor="Orange"></asp:Label>
         <asp:TextBox ID="TextBoxAlly" runat="server" 
-            Style="z-index: 111; left: 360px; position: absolute; top: 20px" Width="400px"></asp:TextBox>
+            Style="z-index: 111; left: 360px; position: absolute; top: 20px" Width="400px">Tolovaj,OnLine™,Tolovaj+</asp:TextBox>
         <asp:Label ID="LabelNap" runat="server" 
             Style="z-index: 112; left: 300px; position: absolute; top: 50px" 
             Text="Nap" Width="50px" BackColor="Yellow"></asp:Label>
@@ -56,7 +56,7 @@
             Style="z-index: 116; left: 300px; position: absolute; top: 110px" 
             Text="Aliance" Width="50px" BackColor="Green"></asp:Label>
         <asp:TextBox ID="textBoxAliance" runat="server" 
-            Style="z-index: 117; left: 360px; position: absolute; top: 110px" Width="400px"></asp:TextBox>
+            Style="z-index: 117; left: 360px; position: absolute; top: 110px" Width="400px">Tolovaj*</asp:TextBox>
 
 		<asp:Label ID="labelErrorMSG" runat="server" 
 			Style="z-index: 118; left: 20px; position: absolute; top: 140px" 
