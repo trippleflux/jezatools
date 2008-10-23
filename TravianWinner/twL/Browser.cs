@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading;
 using mshtml;
@@ -25,6 +26,7 @@ namespace twL
 
         public static HTMLDocument Login(ServerInfo si, PlayerInfo pi, InternetExplorer ie)
         {
+            GetPageSource(si.LoginPage, ie);
             string name = NameFromTagAndType(ie, "input", "text");
             string pass = NameFromTagAndType(ie, "input", "password");
             //Console.WriteLine(name);
@@ -123,9 +125,11 @@ namespace twL
         {
             pi.Uid = -1;
             Regex regPlayerID = new Regex(@"<a href=""spieler.php.uid=([0-9]{0,6})"">");
-            if (regPlayerID.IsMatch(source.body.innerHTML))
+            String pageSource = source.body.innerHTML.ToLower(CultureInfo.InvariantCulture);
+            //Console.WriteLine(pageSource);
+            if (regPlayerID.IsMatch(pageSource))
             {
-                Match Mc = regPlayerID.Matches(source.body.innerHTML)[0];
+                Match Mc = regPlayerID.Matches(pageSource)[0];
                 pi.Uid = Int32.Parse(Mc.Groups[1].Value.Trim());
             }
             return pi.Uid > -1 ? true : false;
