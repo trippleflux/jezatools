@@ -42,41 +42,48 @@ namespace twC
                 {
                     InternetExplorer ie = new InternetExplorerClass();
                     HTMLDocument pageSource = Browser.Login(si, pi, ie);
-                    bool isLogenIn = Parser.IsLogenIn(pageSource);
-                    if (!isLogenIn)
+                    if (pageSource != null)
                     {
-                        Console.WriteLine("Not Loged In...");
-                        Console.WriteLine(pageSource.body.innerText);
-                    }
-                    else
-                    {
-                        #region Load Build Tasks every minute
-                        IO.LoadTasks(buildTasks, e);
-                        #endregion
-
-                        #region Build every 5 minutes
-
-                        DateTime now = new DateTime(DateTime.Now.Ticks);
-                        if (repeatCount%5 == 0)
+                        bool isLogenIn = Browser.IsLogenIn(pageSource, pi);
+                        if (!isLogenIn)
                         {
-                            foreach (var task in e.TaskList)
+                            Console.WriteLine("Not Loged In...");
+                            Console.WriteLine(pageSource.body.innerText);
+                        }
+                        else
+                        {
+                            #region Load Build Tasks every minute
+                            if (!IO.LoadTasks(buildTasks, e))
                             {
-                                BuildTask bt = task as BuildTask;
-                                if (bt != null)
+                                Console.WriteLine("File '{0}' Not Found!", buildTasks);
+                            }
+
+                            #endregion
+
+                            #region Build every 5 minutes
+
+                            DateTime now = new DateTime(DateTime.Now.Ticks);
+                            if (repeatCount%5 == 0)
+                            {
+                                foreach (var task in e.TaskList)
                                 {
-                                    if (bt.NextCheck < now)
+                                    BuildTask bt = task as BuildTask;
+                                    if (bt != null)
                                     {
-                                        Browser.TryToBuild(ie, bt, si);
+                                        if (bt.NextCheck < now)
+                                        {
+                                            bt.NextCheck = Browser.TryToBuild(ie, bt, si);
+                                        }
                                     }
                                 }
                             }
+
+                            #endregion
+
+                            #region Attack every minute if units available
+
+                            #endregion
                         }
-
-                        #endregion
-
-                        #region Attack every minute if units available
-
-                        #endregion
                     }
 
                     repeatCount++;

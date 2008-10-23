@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using mshtml;
 using SHDocVw;
@@ -26,9 +27,22 @@ namespace twL
         {
             string name = NameFromTagAndType(ie, "input", "text");
             string pass = NameFromTagAndType(ie, "input", "password");
-            Console.WriteLine(name);
-            Console.WriteLine(pass);
-            return (HTMLDocument) ie.Document;
+            //Console.WriteLine(name);
+            //Console.WriteLine(pass);
+            if (name == String.Empty || pass == String.Empty)
+            {
+                return null;
+            }
+            HTMLDocument myDoc = (HTMLDocument)ie.Document;
+            HTMLInputElement loginUsernameTextBox = (HTMLInputElement)myDoc.all.item(name, 0);
+            loginUsernameTextBox.value = pi.Username;
+            HTMLInputElement loginPasswordTextBox = (HTMLInputElement)myDoc.all.item(pass, 0);
+            loginPasswordTextBox.value = pi.Password;
+            String loginImageButtonName = NameFromTagAndType(ie, "input", "image");
+            HTMLInputElement loginImageButton = (HTMLInputElement)myDoc.all.item(loginImageButtonName, 0);
+            loginImageButton.click();
+            WaitForComplete(ie);
+            return myDoc;
         }
 
 
@@ -100,9 +114,21 @@ namespace twL
             return value;
         }
 
-        public static void TryToBuild(InternetExplorer ie, BuildTask bt, ServerInfo si)
+        public static DateTime TryToBuild(InternetExplorer ie, BuildTask bt, ServerInfo si)
         {
             throw new NotImplementedException();
+        }
+
+        public static bool IsLogenIn(HTMLDocument source, PlayerInfo pi)
+        {
+            pi.Uid = -1;
+            Regex regPlayerID = new Regex(@"<a href=""spieler.php.uid=([0-9]{0,6})"">");
+            if (regPlayerID.IsMatch(source.body.innerHTML))
+            {
+                Match Mc = regPlayerID.Matches(source.body.innerHTML)[0];
+                pi.Uid = Int32.Parse(Mc.Groups[1].Value.Trim());
+            }
+            return pi.Uid > -1 ? true : false;
         }
     }
 }
