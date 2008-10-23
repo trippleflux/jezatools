@@ -5,58 +5,63 @@ namespace twL
 {
     public class IO
     {
-        public static void LoadTasks(string tasksFile, Events e)
+        public static bool LoadTasks(string tasksFile, Events e)
         {
             bool taskListIsEmpty = (e.TaskList.Count == 0) ? true : false;
             DateTime dt = new DateTime(DateTime.Now.Ticks);
-            using (StreamReader sr = new StreamReader(tasksFile))
+            if (File.Exists(tasksFile))
             {
-                while (sr.Peek() >= 0)
+                using (StreamReader sr = new StreamReader(tasksFile))
                 {
-                    String line = sr.ReadLine();
-                    if ((!line.StartsWith("#")) && (line.Length > 5))
+                    while (sr.Peek() >= 0)
                     {
-                        //villageID|buildingID|wantedLevel|NextCheck|Comment
-                        String[] sections = line.Split('|');
-                        int villageId = Int32.Parse(sections[0]);
-                        int buildingId = Int32.Parse(sections[1]);
-                        int wantedLevel = Int32.Parse(sections[2]);
-                        string userComment = sections[4];
-
-                        BuildTask buildTask = new BuildTask
-                                                  {
-                                                      VillageId = villageId,
-                                                      BuildingId = buildingId,
-                                                      WantedBuildingLevel = wantedLevel,
-                                                      NextCheck = dt,
-                                                      BuildTaskComment = userComment,
-                                                  };
-
-                        if (taskListIsEmpty)
+                        String line = sr.ReadLine();
+                        if ((!line.StartsWith("#")) && (line.Length > 5))
                         {
-                            e.TaskList.Add(buildTask);
-                        }
-                        else
-                        {
-                            foreach (var task in e.TaskList)
+                            //villageID|buildingID|wantedLevel|NextCheck|Comment
+                            String[] sections = line.Split('|');
+                            int villageId = Int32.Parse(sections[0]);
+                            int buildingId = Int32.Parse(sections[1]);
+                            int wantedLevel = Int32.Parse(sections[2]);
+                            string userComment = sections[4];
+
+                            BuildTask buildTask = new BuildTask
+                                                      {
+                                                          VillageId = villageId,
+                                                          BuildingId = buildingId,
+                                                          WantedBuildingLevel = wantedLevel,
+                                                          NextCheck = dt,
+                                                          BuildTaskComment = userComment,
+                                                      };
+
+                            if (taskListIsEmpty)
                             {
-                                BuildTask bt = task as BuildTask;
-                                if (bt != null)
+                                e.TaskList.Add(buildTask);
+                            }
+                            else
+                            {
+                                foreach (var task in e.TaskList)
                                 {
-                                    if ((bt.VillageId != villageId) && (bt.BuildingId != buildingId))
+                                    BuildTask bt = task as BuildTask;
+                                    if (bt != null)
                                     {
-                                        e.TaskList.Add(buildTask);
-                                    }
-                                    else
-                                    {
-                                        bt.WantedBuildingLevel = wantedLevel;
+                                        if ((bt.VillageId != villageId) && (bt.BuildingId != buildingId))
+                                        {
+                                            e.TaskList.Add(buildTask);
+                                        }
+                                        else
+                                        {
+                                            bt.WantedBuildingLevel = wantedLevel;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
+                return true;
             }
+            return false;
         }
     }
 }

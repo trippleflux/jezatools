@@ -4,6 +4,6 @@ namespace twL
 	{
 		public string Username { get; set; }
 		public string Password { get; set; }
-		public string Uid { get; set; }
+		public int Uid { get; set; }
 	}
 }
