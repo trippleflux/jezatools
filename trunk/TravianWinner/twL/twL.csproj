@@ -56,6 +56,8 @@
     <Compile Include="AutoBuildResources.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="BuildTask.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="IO.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="PlayerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
