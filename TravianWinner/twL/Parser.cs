@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using mshtml;
 
 namespace twL
 {
     public class Parser
     {
+        public static bool IsLogenIn(HTMLDocument source)
+        {
+            return false;
+        }
     }
 }

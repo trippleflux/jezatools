@@ -1,3 +1,5 @@
+using System;
+
 namespace twL
 {
 	/// <summary>
@@ -18,9 +20,14 @@ namespace twL
 		/// <summary>
 		/// Wanted Building level
 		/// </summary>
-		public int BuildLevel { get; set; }
+		public int WantedBuildingLevel { get; set; }
 
-		/// <summary>
+        /// <summary>
+        /// DateTime when the next check is done
+        /// </summary>
+        public DateTime NextCheck { get; set; }
+        
+        /// <summary>
 		/// User comment
 		/// </summary>
 		public string BuildTaskComment { get; set; }
