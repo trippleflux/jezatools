@@ -7,5 +7,6 @@ namespace twL
         public string ResourcesPage { get; set; }
 		public string VillagePage { get; set; }
 		public string SendUnitsPage { get; set; }
+		public string UpgradeBuildingPage { get; set; }
 	}
 }
