@@ -58,8 +58,10 @@
     <Compile Include="BuildTask.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="IO.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="PlayerInfo.cs" />
+    <Compile Include="UpgradeCosts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="VillageInfo.cs" />
