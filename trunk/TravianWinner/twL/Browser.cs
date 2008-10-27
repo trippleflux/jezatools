@@ -26,8 +26,8 @@ namespace twL
 
         public static HTMLDocument Login(ServerInfo si, PlayerInfo pi, InternetExplorer ie)
         {
-			Console.WriteLine("Login...");
-			GetPageSource(si.LoginPage, ie);
+            Console.WriteLine("Login...");
+            GetPageSource(si.LoginPage, ie);
             string name = NameFromTagAndType(ie, "input", "text");
             string pass = NameFromTagAndType(ie, "input", "password");
             //Console.WriteLine(name);
@@ -36,13 +36,13 @@ namespace twL
             {
                 return null;
             }
-            HTMLDocument myDoc = (HTMLDocument)ie.Document;
-            HTMLInputElement loginUsernameTextBox = (HTMLInputElement)myDoc.all.item(name, 0);
+            HTMLDocument myDoc = (HTMLDocument) ie.Document;
+            HTMLInputElement loginUsernameTextBox = (HTMLInputElement) myDoc.all.item(name, 0);
             loginUsernameTextBox.value = pi.Username;
-            HTMLInputElement loginPasswordTextBox = (HTMLInputElement)myDoc.all.item(pass, 0);
+            HTMLInputElement loginPasswordTextBox = (HTMLInputElement) myDoc.all.item(pass, 0);
             loginPasswordTextBox.value = pi.Password;
             String loginImageButtonName = NameFromTagAndType(ie, "input", "image");
-            HTMLInputElement loginImageButton = (HTMLInputElement)myDoc.all.item(loginImageButtonName, 0);
+            HTMLInputElement loginImageButton = (HTMLInputElement) myDoc.all.item(loginImageButtonName, 0);
             loginImageButton.click();
             WaitForComplete(ie);
             return myDoc;
@@ -136,86 +136,117 @@ namespace twL
             return pi.Uid > -1 ? true : false;
         }
 
-		public static DateTime NextCheck(String buildingUrl, IWebBrowser2 ie)
-		{
-			HTMLDocument source = GetPageSource(buildingUrl, ie);
-			String pageSource = source.body.innerHTML.ToLower(CultureInfo.InvariantCulture);
-			VillageInfo vi = GetProductionForVillage(pageSource);
-			UpgradeCosts upgradeCosts = GetUpgradeCostsForBuilding(pageSource);
-			int wood = ((vi.WoodAvailable - upgradeCosts.BuildingWoodCost) * 3600) / vi.WoodPerHour;
-			int clay = ((vi.ClayAvailable - upgradeCosts.BuildingClayCost) * 3600) / vi.ClayPerHour;
-			int iron = ((vi.IronAvailable - upgradeCosts.BuildingIronCost) * 3600) / vi.IronPerHour;
-			int crop = ((vi.CropAvailable - upgradeCosts.BuildingCropCost) * 3600) / vi.CropPerHour;
-			int[] list = { wood, clay, iron, crop };
-			Misc.bubble_sort_generic(list);
-			DateTime dt = new DateTime(DateTime.Now.Ticks);
-			return dt.AddSeconds(Math.Abs(list[0]));
-		}
+        public static DateTime NextCheck(String buildingUrl, IWebBrowser2 ie)
+        {
+            HTMLDocument source = GetPageSource(buildingUrl, ie);
+            String pageSource = source.body.innerHTML.ToLower(CultureInfo.InvariantCulture);
+            VillageInfo vi = GetProductionForVillage(pageSource);
+            UpgradeCosts upgradeCosts = GetUpgradeCostsForBuilding(pageSource);
+            int wood = ((vi.WoodAvailable - upgradeCosts.BuildingWoodCost)*3600)/vi.WoodPerHour;
+            int clay = ((vi.ClayAvailable - upgradeCosts.BuildingClayCost)*3600)/vi.ClayPerHour;
+            int iron = ((vi.IronAvailable - upgradeCosts.BuildingIronCost)*3600)/vi.IronPerHour;
+            int crop = ((vi.CropAvailable - upgradeCosts.BuildingCropCost)*3600)/vi.CropPerHour;
+            int[] list = {wood, clay, iron, crop};
+            Misc.bubble_sort_generic(list);
+            DateTime dt = new DateTime(DateTime.Now.Ticks);
+            return dt.AddSeconds(Math.Abs(list[0]));
+        }
 
-		public static UpgradeCosts GetUpgradeCostsForBuilding(string pageSource)
-		{
-			//<img class="res" src="img/un/r/1.gif">6050
-			UpgradeCosts upgradeCosts = new UpgradeCosts();
-			const string reg = @"class=((res|""res"")) src=""img\/un\/r\/[1234].gif"">([0-9]{0,6})";
-			MatchCollection neededResourcesCollection = Regex.Matches(pageSource, reg);
-			if (neededResourcesCollection.Count > 0)
-			{
-				upgradeCosts.BuildingWoodCost = Int32.Parse(neededResourcesCollection[0].Groups[2].Value.Trim());
-				upgradeCosts.BuildingClayCost = Int32.Parse(neededResourcesCollection[1].Groups[2].Value.Trim());
-				upgradeCosts.BuildingIronCost = Int32.Parse(neededResourcesCollection[2].Groups[2].Value.Trim());
-				upgradeCosts.BuildingCropCost = Int32.Parse(neededResourcesCollection[3].Groups[2].Value.Trim());
-			}
-			return upgradeCosts;
-		}
+        public static UpgradeCosts GetUpgradeCostsForBuilding(string pageSource)
+        {
+            //<img class="res" src="img/un/r/1.gif">6050
+            UpgradeCosts upgradeCosts = new UpgradeCosts();
+            const string reg = @"class=((res|""res"")) src=""img\/un\/r\/[1234].gif"">([0-9]{0,6})";
+            MatchCollection neededResourcesCollection = Regex.Matches(pageSource, reg);
+            if (neededResourcesCollection.Count > 0)
+            {
+                upgradeCosts.BuildingWoodCost = Int32.Parse(neededResourcesCollection[0].Groups[2].Value.Trim());
+                upgradeCosts.BuildingClayCost = Int32.Parse(neededResourcesCollection[1].Groups[2].Value.Trim());
+                upgradeCosts.BuildingIronCost = Int32.Parse(neededResourcesCollection[2].Groups[2].Value.Trim());
+                upgradeCosts.BuildingCropCost = Int32.Parse(neededResourcesCollection[3].Groups[2].Value.Trim());
+            }
+            return upgradeCosts;
+        }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pageSource"></param>
+        /// <returns></returns>
+        public static VillageInfo GetProductionForVillage(string pageSource)
+        {
+            VillageInfo vi = new VillageInfo();
 
-    	/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="pageSource"></param>
-		/// <returns></returns>
-		public static VillageInfo GetProductionForVillage(string pageSource)
-		{
-			VillageInfo vi = new VillageInfo();
-			
-			//wood
-			Regex wood = new Regex(@"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-			if (wood.IsMatch(pageSource))
-			{
-				Match Mc = wood.Matches(pageSource)[0];
-				vi.WoodAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
-				vi.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-				vi.WarehouseSize = Int32.Parse(Mc.Groups[3].Value.Trim());
-			}
-			//clay
-			Regex clay = new Regex(@"id=l3 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-			if (clay.IsMatch(pageSource))
-			{
-				Match Mc = clay.Matches(pageSource)[0];
-				vi.ClayAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
-				vi.ClayPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-				vi.WarehouseSize = Int32.Parse(Mc.Groups[3].Value.Trim());
-			}
-			//iron
-			Regex iron = new Regex(@"id=l2 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-			if (iron.IsMatch(pageSource))
-			{
-				Match Mc = iron.Matches(pageSource)[0];
-				vi.IronAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
-				vi.IronPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-				vi.WarehouseSize = Int32.Parse(Mc.Groups[3].Value.Trim());
-			}
-			//crop
-			Regex crop = new Regex(@"id=l1 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
-			if (crop.IsMatch(pageSource))
-			{
-				Match Mc = crop.Matches(pageSource)[0];
-				vi.CropAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
-				vi.CropPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
-				vi.GranarySize = Int32.Parse(Mc.Groups[3].Value.Trim());
-			}
-			return vi;
-		}
+            //wood
+            Regex wood = new Regex(@"id=l4 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+            if (wood.IsMatch(pageSource))
+            {
+                Match Mc = wood.Matches(pageSource)[0];
+                vi.WoodAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                vi.WoodPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                vi.WarehouseSize = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            //clay
+            Regex clay = new Regex(@"id=l3 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+            if (clay.IsMatch(pageSource))
+            {
+                Match Mc = clay.Matches(pageSource)[0];
+                vi.ClayAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                vi.ClayPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                vi.WarehouseSize = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            //iron
+            Regex iron = new Regex(@"id=l2 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+            if (iron.IsMatch(pageSource))
+            {
+                Match Mc = iron.Matches(pageSource)[0];
+                vi.IronAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                vi.IronPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                vi.WarehouseSize = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            //crop
+            Regex crop = new Regex(@"id=l1 title=(.*)>([0-9]{1,7})/([0-9]{1,7})<");
+            if (crop.IsMatch(pageSource))
+            {
+                Match Mc = crop.Matches(pageSource)[0];
+                vi.CropAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                vi.CropPerHour = Int32.Parse(Mc.Groups[1].Value.Trim());
+                vi.GranarySize = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            return vi;
+        }
+
+        public static bool GetIsLogenIn(ServerInfo si, PlayerInfo pi, InternetExplorer ie, HTMLDocument pageSource)
+        {
+            bool isLogedIn = false;
+            if (pageSource != null)
+            {
+                if (pageSource.body != null)
+                {
+                    isLogedIn = IsLogenIn(pageSource, pi);
+                    if (!isLogedIn)
+                    {
+                        Console.WriteLine("Not Loged In...");
+                        Console.WriteLine(pageSource.body.innerText);
+                        do
+                        {
+                            pageSource = Login(si, pi, ie);
+                            isLogedIn = IsLogenIn(pageSource, pi);
+                            Thread.Sleep(5000);
+                        } while (!isLogedIn);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: pageSource.body");
+                }
+            }
+            else
+            {
+                Console.WriteLine("ERROR: pageSource");
+            }
+            return isLogedIn;
+        }
     }
 }
