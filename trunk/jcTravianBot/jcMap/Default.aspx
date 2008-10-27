@@ -19,7 +19,7 @@
 		<asp:LinkButton ID="linkButtonImportData" runat="server" 
 			Style="z-index: 102; left: 20px; position: absolute; top: 80px" OnClick="linkButtonImportData_Click" Enabled="False" Width="90px" Visible="False">Import Data</asp:LinkButton>
         <asp:TextBox ID="textBoxUnits" runat="server" 
-            Style="z-index: 103; left: 20px; position: absolute; top: 110px" Width="260px" Visible="False">20,0,0,0,0,0,0,0,0,0,0,0|?newdid=0</asp:TextBox>
+            Style="z-index: 103; left: 20px; position: absolute; top: 110px" Width="260px" Visible="False">25,0,0,0,0,0,0,0,0,0,0,0|?newdid=0</asp:TextBox>
 		
 		<asp:Label ID="labelX" runat="server" 
 			Style="z-index: 104; left: 140px; position: absolute; top: 20px" 

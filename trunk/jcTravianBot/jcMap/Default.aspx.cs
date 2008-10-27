@@ -86,8 +86,8 @@ public partial class _Default : Page
 		ClearTable();
 		int x = Int32.Parse(textBoxX.Text);
 		int y = Int32.Parse(textBoxY.Text);
-		//int x = -27;
-		//int y = -71;
+		const int villageX = -22;
+		const int villageY = -95;
 		//int x = 0;
 		//int y = 0;
 		int xmin = x - distance;
@@ -105,7 +105,7 @@ public partial class _Default : Page
 SELECT [x], [y], [tid], [village], [player], [aliance], [population], [uid], [id], ( SQRT(({5}-[x])*({5}-[x]) + ({6}-[y])*({6}-[y])) ) AS Distance FROM [TravianMap].[dbo].[{4}] 
 WHERE (([x] > {0}) AND ([x] < {1}) AND ([y] < {2}) AND ([y] > {3}))
 ORDER BY Distance ASC",
-				xmin, xmax, ymax, ymin, dbServer, x, y);
+				xmin, xmax, ymax, ymin, dbServer, villageX, villageY);
 
 		String allyList = TextBoxAlly.Text;
 		String napList = TextBoxNap.Text;
