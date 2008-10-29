@@ -26,7 +26,7 @@ namespace twL
 
         public static HTMLDocument Login(ServerInfo si, PlayerInfo pi, InternetExplorer ie)
         {
-            Console.WriteLine("Login...");
+            Console.WriteLine("Login as '{0}' with password '{1}'...", pi.Username, pi.Password);
             GetPageSource(si.LoginPage, ie);
             string name = NameFromTagAndType(ie, "input", "text");
             string pass = NameFromTagAndType(ie, "input", "password");
@@ -160,10 +160,10 @@ namespace twL
             MatchCollection neededResourcesCollection = Regex.Matches(pageSource, reg);
             if (neededResourcesCollection.Count > 0)
             {
-                upgradeCosts.BuildingWoodCost = Int32.Parse(neededResourcesCollection[0].Groups[2].Value.Trim());
-                upgradeCosts.BuildingClayCost = Int32.Parse(neededResourcesCollection[1].Groups[2].Value.Trim());
-                upgradeCosts.BuildingIronCost = Int32.Parse(neededResourcesCollection[2].Groups[2].Value.Trim());
-                upgradeCosts.BuildingCropCost = Int32.Parse(neededResourcesCollection[3].Groups[2].Value.Trim());
+                upgradeCosts.BuildingWoodCost = Int32.Parse(neededResourcesCollection[0].Groups[3].Value.Trim());
+                upgradeCosts.BuildingClayCost = Int32.Parse(neededResourcesCollection[1].Groups[3].Value.Trim());
+                upgradeCosts.BuildingIronCost = Int32.Parse(neededResourcesCollection[2].Groups[3].Value.Trim());
+                upgradeCosts.BuildingCropCost = Int32.Parse(neededResourcesCollection[3].Groups[3].Value.Trim());
             }
             return upgradeCosts;
         }

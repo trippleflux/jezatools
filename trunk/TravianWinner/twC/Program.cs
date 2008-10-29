@@ -18,29 +18,29 @@ namespace twC
         {
             try
             {
-                const string serverUrl = "http://s4.travian.si/";
-                const string username = "jeza";
-                const string password = "kepek";
-                const string buildTasks = "c:\\temp\\tasks.txt";
+                string serverName = Misc.GetConfigValue("serverName");
+                string loginUserName = Misc.GetConfigValue("loginUserName");
+                string loginPassword = Misc.GetConfigValue("loginPassword");
+                string fileBuildTasks = Misc.GetConfigValue("fileBuildTasks");
 
                 ServerInfo si = new ServerInfo
                                     {
-                                        ServerUrl = serverUrl,
+                                        ServerUrl = serverName,
                                         LoginPage =
-                                            String.Format(CultureInfo.InvariantCulture, "{0}login.php", serverUrl),
+                                            String.Format(CultureInfo.InvariantCulture, "{0}login.php", serverName),
                                         ResourcesPage =
-                                            String.Format(CultureInfo.InvariantCulture, "{0}dorf1.php", serverUrl),
+                                            String.Format(CultureInfo.InvariantCulture, "{0}dorf1.php", serverName),
                                         VillagePage =
-                                            String.Format(CultureInfo.InvariantCulture, "{0}dorf2.php", serverUrl),
+                                            String.Format(CultureInfo.InvariantCulture, "{0}dorf2.php", serverName),
                                         SendUnitsPage =
-                                            String.Format(CultureInfo.InvariantCulture, "{0}a2b.php", serverUrl),
+                                            String.Format(CultureInfo.InvariantCulture, "{0}a2b.php", serverName),
                                         UpgradeBuildingPage =
-                                            String.Format(CultureInfo.InvariantCulture, "{0}build.php", serverUrl),
+                                            String.Format(CultureInfo.InvariantCulture, "{0}build.php", serverName),
                                     };
                 PlayerInfo pi = new PlayerInfo
                                     {
-                                        Username = username,
-                                        Password = password
+                                        Username = loginUserName,
+                                        Password = loginPassword
                                     };
 
                 Events e = new Events();
@@ -61,9 +61,9 @@ namespace twC
 
                             if (repeatCount%5 == 0)
                             {
-                                if (!IO.LoadTasks(buildTasks, e, ie, si))
+                                if (!IO.LoadTasks(fileBuildTasks, e, ie, si))
                                 {
-                                    Console.WriteLine("File '{0}' Not Found!", buildTasks);
+                                    Console.WriteLine("File '{0}' Not Found!", fileBuildTasks);
                                 }
                             }
 
