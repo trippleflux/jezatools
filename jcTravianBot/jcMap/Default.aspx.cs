@@ -14,11 +14,11 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : Page
 {
-	private int size;
-	private int distance;
-	private int sizeX = 21;
-	private int sizeY = 41;
-
+    //private int size;
+    //private int distance;
+	private int sizeX = 1;
+	private int sizeY = 1;
+    
 
 
 	protected void Page_Load
@@ -45,12 +45,12 @@ public partial class _Default : Page
 		//distance = 40;
 		//size = distance*2 + 1;
 
-		//int xmin = Int32.Parse(TextBoxDistanceXMin.Text);
-		//int xmax = Int32.Parse(TextBoxDistanceXMax.Text);
-		//int ymin = Int32.Parse(TextBoxDistanceYMin.Text);
-		//int ymax = Int32.Parse(TextBoxDistanceYMax.Text);
-		//int sizeX = 30;
-		//int sizeY = 40;
+		int xmin = Int32.Parse(TextBoxDistanceXMin.Text);
+		int xmax = Int32.Parse(TextBoxDistanceXMax.Text);
+		int ymin = Int32.Parse(TextBoxDistanceYMin.Text);
+		int ymax = Int32.Parse(TextBoxDistanceYMax.Text);
+		sizeX += xmax > 0 ? Math.Abs(xmax-(Math.Abs(xmin))) : Math.Abs(Math.Abs(xmax)-(Math.Abs(xmin)));
+        sizeY += ymax > 0 ? Math.Abs(ymax - (Math.Abs(ymin))) : Math.Abs(Math.Abs(ymax) - (Math.Abs(ymin))); 
 
 		CreateTable();
 		FillTable();
@@ -171,14 +171,7 @@ ORDER BY Distance ASC",
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Red;
 						}
-						else if (aliance.Equals(alianceName))
-						{
-							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
-						}
-						else
-						{
-							tableMap.Rows[row].Cells[cell].BackColor = Color.Gray;
-						}
+						else tableMap.Rows[row].Cells[cell].BackColor = aliance.Equals(alianceName) ? Color.Green : Color.Gray;
 					}
 					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|0|1|\t[P:{4,-5}][D:{7,-4}][U:{2,-20}][V:{3,-25}][A:{5,-20}]\n",
 									xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim(), sqlDistance);
