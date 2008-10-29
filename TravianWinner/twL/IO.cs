@@ -47,7 +47,7 @@ namespace twL
 							String consoleOut = String.Format(CultureInfo.InvariantCulture,
 							                                  "TaskUpdated: VillageId={0}, BuildingId={1}, BuildingLevel={2}, NextCheck={3}",
 							                                  buildTask.VillageId, buildTask.BuildingId, buildTask.WantedBuildingLevel,
-							                                  buildTask.NextCheck.ToString("yyyy-MM-dd HH:mm:SS"));
+							                                  buildTask.NextCheck.ToString("yyyy-MM-dd HH:mm:ss"));
 							Console.WriteLine(consoleOut);
 							if (taskListIsEmpty)
 							{
