@@ -16,6 +16,8 @@ public partial class _Default : Page
 {
 	private int size;
 	private int distance;
+	private int sizeX = 21;
+	private int sizeY = 41;
 
 
 
@@ -39,9 +41,17 @@ public partial class _Default : Page
 		(object sender,
 		 EventArgs e)
 	{
-		distance = Int32.Parse(textBoxDistance.Text);
-		//distance = 20;
-		size = distance*2 + 1;
+		//distance = Int32.Parse(textBoxDistance.Text);
+		//distance = 40;
+		//size = distance*2 + 1;
+
+		//int xmin = Int32.Parse(TextBoxDistanceXMin.Text);
+		//int xmax = Int32.Parse(TextBoxDistanceXMax.Text);
+		//int ymin = Int32.Parse(TextBoxDistanceYMin.Text);
+		//int ymax = Int32.Parse(TextBoxDistanceYMax.Text);
+		//int sizeX = 30;
+		//int sizeY = 40;
+
 		CreateTable();
 		FillTable();
 	}
@@ -50,9 +60,9 @@ public partial class _Default : Page
 
 	private void ClearTable()
 	{
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < sizeY; i++)
 		{
-			for (int j = 0; j < size; j++)
+			for (int j = 0; j < sizeX; j++)
 			{
 				tableMap.Rows[i].Cells[j].Text = "";
 				tableMap.Rows[i].Cells[j].ToolTip = "";
@@ -65,10 +75,10 @@ public partial class _Default : Page
 
 	private void CreateTable()
 	{
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < sizeY; i++)
 		{
 			TableRow row = new TableRow();
-			for (int j = 0; j < size; j++)
+			for (int j = 0; j < sizeX; j++)
 			{
 				TableCell cell = new TableCell();
 				cell.BorderWidth = 1;
@@ -84,16 +94,16 @@ public partial class _Default : Page
 	private void FillTable()
 	{
 		ClearTable();
-		int x = Int32.Parse(textBoxX.Text);
-		int y = Int32.Parse(textBoxY.Text);
-		const int villageX = -22;
-		const int villageY = -95;
+		int x = Int32.Parse(TextBoxCenterX.Text);
+		int y = Int32.Parse(TextBoxCenterY.Text);
+		int villageX = Int32.Parse(TextBoxCenterX.Text);
+		int villageY = Int32.Parse(TextBoxCenterY.Text);
 		//int x = 0;
 		//int y = 0;
-		int xmin = x - distance;
-		int xmax = x + distance;
-		int ymin = y - distance;
-		int ymax = y + distance;
+		int xmin = Int32.Parse(TextBoxDistanceXMin.Text);
+		int xmax = Int32.Parse(TextBoxDistanceXMax.Text);
+		int ymin = Int32.Parse(TextBoxDistanceYMin.Text);
+		int ymax = Int32.Parse(TextBoxDistanceYMax.Text);
 		string dbServer = dropDownListServers.SelectedValue;
 		string serverName = dbServer.Equals("si_s6") ? "s6.travian.si" : "s3.travian.si";
 
