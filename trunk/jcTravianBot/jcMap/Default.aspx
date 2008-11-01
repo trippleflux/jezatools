@@ -30,8 +30,8 @@
 		<asp:Label ID="LabelDistanceY" runat="server" Style="z-index: 122; left: 130px; position: absolute;	top: 80px" Text="Distance Y"></asp:Label>
 		<asp:TextBox ID="TextBoxCenterX" runat="server" Style="z-index: 124; left: 220px; position: absolute; top: 20px" Width="40px">-22</asp:TextBox>
 		<asp:TextBox ID="TextBoxCenterY" runat="server" Style="z-index: 125; left: 280px; position: absolute; top: 20px" Width="40px">-95</asp:TextBox>
-		<asp:TextBox ID="TextBoxDistanceXMin" runat="server" Style="z-index: 126; left: 220px; position: absolute; top: 50px" Width="40px">-32</asp:TextBox>
-		<asp:TextBox ID="TextBoxDistanceXMax" runat="server" Style="z-index: 129; left: 280px; position: absolute; top: 50px" Width="40px">-12</asp:TextBox>
+		<asp:TextBox ID="TextBoxDistanceXMin" runat="server" Style="z-index: 126; left: 220px; position: absolute; top: 50px" Width="40px">-42</asp:TextBox>
+		<asp:TextBox ID="TextBoxDistanceXMax" runat="server" Style="z-index: 129; left: 280px; position: absolute; top: 50px" Width="40px">-2</asp:TextBox>
 		<asp:TextBox ID="TextBoxDistanceYMax" runat="server" Style="z-index: 127; left: 220px; position: absolute; top: 80px" Width="40px">-80</asp:TextBox>
 		<asp:TextBox ID="TextBoxDistanceYMin" runat="server" Style="z-index: 130; left: 280px; position: absolute; top: 80px" Width="40px">-120</asp:TextBox>
 
