@@ -45,9 +45,9 @@ namespace twL
 							                      	BuildTaskComment = userComment,
 							                      };
 							String consoleOut = String.Format(CultureInfo.InvariantCulture,
-							                                  "TaskUpdated: VillageId={0}, BuildingId={1}, BuildingLevel={2}, NextCheck={3}",
+															  "TaskUpdated: VillageId={0}, BuildingId={1}, BuildingLevel={2}, NextCheck={3}, BuildTaskComment={4}\r\n",
 							                                  buildTask.VillageId, buildTask.BuildingId, buildTask.WantedBuildingLevel,
-							                                  buildTask.NextCheck.ToString("yyyy-MM-dd HH:mm:ss"));
+							                                  buildTask.NextCheck.ToString("yyyy-MM-dd HH:mm:ss"), buildTask.BuildTaskComment);
 							Console.WriteLine(consoleOut);
 							if (taskListIsEmpty)
 							{
