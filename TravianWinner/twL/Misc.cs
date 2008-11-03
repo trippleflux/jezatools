@@ -97,5 +97,20 @@ namespace twL
 			}
 			return endTime;
 		}
-	}
+
+
+
+        /// <summary>
+        /// Returns <c>true</c> if we are building in village.
+        /// </summary>
+        /// <param name="pageSource">Page source</param>
+        /// <returns><c>true</c> if building</returns>
+        /// 
+        public static bool IsBuildInProgress(String pageSource)
+        {
+            MatchCollection buildTimeCollection =
+                Regex.Matches(pageSource, @"<span id=timer[12]>([0-9]{0,3}.[0-9]{0,3}.[0-9]{0,3})<\/span>");
+            return (buildTimeCollection.Count > 0) ? true : false;
+        }
+    }
 }

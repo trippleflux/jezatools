@@ -188,8 +188,6 @@ namespace twL
 			//http://s6.travian.si/build.php?newdid=73913&id=6
 			string buildUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}&id={2}",
 			                                si.UpgradeBuildingPage, bt.VillageId, bt.BuildingId);
-			string nextCheckUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
-										si.ResourcesPage, bt.VillageId);
 			GetPageSource(buildUrl, ie);
 			//<h1><b>Glinokop Stopnja 2</b></h1>
 			string headName = FirstNameFromTag(ie, "h1");
@@ -214,7 +212,9 @@ namespace twL
 					}
 				}
 			}
-			HTMLDocument source = GetPageSource(nextCheckUrl, ie);
+            string nextCheckUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
+                                        si.ResourcesPage, bt.VillageId);
+            HTMLDocument source = GetPageSource(nextCheckUrl, ie);
 			String pageSource = source.body.innerHTML.ToLower(CultureInfo.InvariantCulture);
 			String nextCheck = Misc.TimeToCompleteBuilding(pageSource);
 			bt.NextCheck = Misc.AddSecondsToTime(nextCheck.Split(':'));
