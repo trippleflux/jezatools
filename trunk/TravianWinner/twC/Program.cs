@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 using mshtml;
 using SHDocVw;
@@ -22,6 +23,7 @@ namespace twC
                 string loginUserName = Misc.GetConfigValue("loginUserName");
                 string loginPassword = Misc.GetConfigValue("loginPassword");
                 string fileBuildTasks = Misc.GetConfigValue("fileBuildTasks");
+                string fileExtensionForAttacks = Misc.GetConfigValue("fileExtensionForAttacks");
 
                 ServerInfo si = new ServerInfo
                                     {
@@ -50,11 +52,11 @@ namespace twC
 
                 if (isLogedIn)
                 {
-					//if (!IO.LoadTasks(fileBuildTasks, e, ie, si))
-					//{
-					//    Console.WriteLine("File '{0}' Not Found!", fileBuildTasks);
-					//}
-					int repeatCount = 0;
+                    //if (!IO.LoadTasks(fileBuildTasks, e, ie, si))
+                    //{
+                    //    Console.WriteLine("File '{0}' Not Found!", fileBuildTasks);
+                    //}
+                    int repeatCount = 0;
                     do
                     {
                         pageSource = Browser.GetPageSource(si.ResourcesPage, ie);
@@ -73,22 +75,20 @@ namespace twC
 
                             #endregion
 
-                            #region Build every 3 minutes
+                            #region Check for build task every minute
 
                             DateTime now = new DateTime(DateTime.Now.Ticks);
-                            //if (repeatCount%3 == 0)
+                            //Console.WriteLine("{0} Checking tasks...", now.ToString(("yyyy-MM-dd HH:mm:ss")));
+                            foreach (var task in e.TaskList)
                             {
-								Console.WriteLine("{0} Checking tasks...", now.ToString(("yyyy-MM-dd HH:mm:ss")));
-								foreach (var task in e.TaskList)
+                                BuildTask bt = task as BuildTask;
+                                if (bt != null)
                                 {
-                                    BuildTask bt = task as BuildTask;
-                                    if (bt != null)
+                                    //Console.WriteLine("Task : {0}", bt);
+                                    if (now.Ticks >= bt.NextCheck.Ticks)
                                     {
-										Console.WriteLine("Task : {0}", bt);
-										if (now.Ticks >= bt.NextCheck.Ticks)
-                                        {
-                                            bt.NextCheck = Browser.TryToBuild(ie, bt, si);
-                                        }
+                                        Console.WriteLine("Checking task : {0}", bt);
+                                        bt.NextCheck = Browser.TryToBuild(ie, bt, si);
                                     }
                                 }
                             }
@@ -96,6 +96,28 @@ namespace twC
                             #endregion
 
                             #region Attack every minute if units available
+
+                            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory());
+                            FileInfo[] attackFiles = di.GetFiles(fileExtensionForAttacks);
+
+                            foreach (FileInfo attackFile in attackFiles)
+                            {
+                                if (File.Exists(attackFile.FullName))
+                                {
+                                    using (StreamReader sr = new StreamReader(attackFile.FullName))
+                                    {
+                                        while (sr.Peek() >= 0)
+                                        {
+                                            String line = sr.ReadLine();
+                                            if ((!line.StartsWith("#")) && (line.Length > 5))
+                                            {
+                                                //villageID|destX|destY|units|...
+                                                //String[] sections = line.Split('|');
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 
                             #endregion
 
@@ -108,9 +130,9 @@ namespace twC
                         Thread.Sleep(60000);
                     } while (repeatCount < 1000);
                 }
-				else
+                else
                 {
-					Console.WriteLine("Not Loged In!!!");
+                    Console.WriteLine("Not Loged In!!!");
                 }
             }
             catch (Exception exception)
