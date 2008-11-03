@@ -63,6 +63,7 @@ namespace twC
 						isLogedIn = Browser.GetIsLogedIn(si, pi, ie, pageSource);
 						if (isLogedIn)
 						{
+							DateTime now = new DateTime(DateTime.Now.Ticks);
 							#region Load And Refresh Build Tasks every 30 minutes
 
 							if (repeatCount%30 == 0)
@@ -77,7 +78,6 @@ namespace twC
 
 							#region Check for build task every minute
 
-							DateTime now = new DateTime(DateTime.Now.Ticks);
 							//Console.WriteLine("{0} Checking tasks...", now.ToString(("yyyy-MM-dd HH:mm:ss")));
 							foreach (var task in e.TaskList)
 							{
@@ -165,7 +165,7 @@ namespace twC
 															              troops,
 															              buttonId
 																);
-														Console.WriteLine("Attack with {0} {1} to {2}", unitsCount, attackUnit, comment);
+														Console.WriteLine("{3} Attack with {0} {1} to {2}", unitsCount, attackUnit, comment, now.ToString("yyyy-MM-dd HH:mm:ss"));
 														object flags = null;
 														object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
 														object name = null;
