@@ -26,6 +26,7 @@ namespace twC
 				String fileBuildTasks = Misc.GetConfigValue("fileBuildTasks");
 				String fileExtensionForAttacks = Misc.GetConfigValue("fileExtensionForAttacks");
 				String fileExtensionForFinishedAttacks = Misc.GetConfigValue("fileExtensionForFinishedAttacks");
+				String fileTrainTroops = Misc.GetConfigValue("fileTrainTroops");
 				String troopList = Misc.GetConfigValue("troopList");
 
 				ServerInfo si = new ServerInfo
@@ -170,7 +171,7 @@ namespace twC
 														object name = null;
 														object data = Encoding.UTF8.GetBytes(parPost);
 														string sendUnitsUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
-																							si.SendUnitsPage, villageID);
+														                                    si.SendUnitsPage, villageID);
 														ie.Navigate(sendUnitsUrl, ref flags, ref name, ref data, ref headers);
 														Browser.WaitForComplete(ie);
 
@@ -204,6 +205,18 @@ namespace twC
 								else
 								{
 									Console.WriteLine("File '{0}' Not Found!", attackFile.Name);
+								}
+							}
+
+							#endregion
+
+							#region Train Troopsevery 60 minutes
+
+							if (repeatCount%60 == 0)
+							{
+								if(!IO.TrainTroops(si, fileTrainTroops, ie))
+								{
+									Console.WriteLine("File '{0}' Not Found!", fileTrainTroops);
 								}
 							}
 

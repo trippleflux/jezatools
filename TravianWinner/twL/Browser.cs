@@ -1,7 +1,6 @@
 #region
 
 using System;
-using System.Configuration;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -149,37 +148,39 @@ namespace twL
 
 
 
-		///// <summary>
-		///// 
-		///// </summary>
-		///// <param name="ie"></param>
-		///// <param name="tag"></param>
-		///// <param name="type"></param>
-		///// <param name="name"></param>
-		///// <returns></returns>
-		///// 
-		//private static string ValueFromTagTypeAndName
-		//    (IWebBrowser2 ie,
-		//     string tag,
-		//     string type,
-		//     string name)
-		//{
-		//    String value = String.Empty;
-		//    IHTMLDocument3 doc3 = (IHTMLDocument3) ie.Document;
-		//    IHTMLElementCollection coll = doc3.getElementsByTagName(tag);
-		//    foreach (IHTMLElement elm in coll)
-		//    {
-		//        if (elm.getAttribute("type", 0).ToString().ToLower() == type)
-		//        {
-		//            if (elm.getAttribute("name", 0).ToString() == name)
-		//            {
-		//                value = elm.getAttribute("value", 0).ToString();
-		//                break;
-		//            }
-		//        }
-		//    }
-		//    return value;
-		//}
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ie"></param>
+		/// <param name="tag"></param>
+		/// <param name="type"></param>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		/// 
+		public static string ValueFromTagTypeAndName
+			(IWebBrowser2 ie,
+			 string tag,
+			 string type,
+			 string name)
+		{
+			String value = String.Empty;
+			IHTMLDocument3 doc3 = (IHTMLDocument3) ie.Document;
+			IHTMLElementCollection coll = doc3.getElementsByTagName(tag);
+			foreach (IHTMLElement elm in coll)
+			{
+				if (elm.getAttribute("type", 0).ToString().ToLower() == type)
+				{
+					if (elm.getAttribute("name", 0).ToString() == name)
+					{
+						value = elm.getAttribute("value", 0).ToString();
+						break;
+					}
+				}
+			}
+			return value;
+		}
+
+
 
 		public static DateTime TryToBuild
 			(InternetExplorer ie,
@@ -213,9 +214,9 @@ namespace twL
 					}
 				}
 			}
-            string nextCheckUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
-                                        si.ResourcesPage, bt.VillageId);
-            HTMLDocument source = GetPageSource(nextCheckUrl, ie);
+			string nextCheckUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
+			                                    si.ResourcesPage, bt.VillageId);
+			HTMLDocument source = GetPageSource(nextCheckUrl, ie);
 			String pageSource = source.body.innerHTML.ToLower(CultureInfo.InvariantCulture);
 			String nextCheck = Misc.TimeToCompleteBuilding(pageSource);
 			bt.NextCheck = Misc.AddSecondsToTime(nextCheck.Split(':'));
@@ -367,7 +368,9 @@ namespace twL
 
 
 
-		public static Int32 GetTroopCountForUnit(HTMLDocument pageSource, String troopType)
+		public static Int32 GetTroopCountForUnit
+			(HTMLDocument pageSource,
+			 String troopType)
 		{
 			Int32 trpCount = 0;
 			if (pageSource != null)
