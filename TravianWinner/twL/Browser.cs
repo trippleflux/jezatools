@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Configuration;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -362,6 +363,31 @@ namespace twL
 				Console.WriteLine("ERROR: pageSource");
 			}
 			return isLogedIn;
+		}
+
+
+
+		public static Int32 GetTroopCountForUnit(HTMLDocument pageSource, String troopType)
+		{
+			Int32 trpCount = 0;
+			if (pageSource != null)
+			{
+				if (pageSource.body != null)
+				{
+					String[] MainPage = pageSource.body.innerText.Split('\n');
+					foreach (String pageLine in MainPage)
+					{
+						if (pageLine.IndexOf(troopType) > -1)
+						{
+							String troopLine = pageLine.Trim();
+							trpCount = Int32.Parse(troopLine.Substring(0, troopLine.Length - troopType.Length));
+							//Console.WriteLine("We Have " + troopLine + " [" + trpCount + "]");
+							break;
+						}
+					}
+				}
+			}
+			return trpCount;
 		}
 	}
 }

@@ -112,5 +112,12 @@ namespace twL
                 Regex.Matches(pageSource, @"<span id=timer[12]>([0-9]{0,3}.[0-9]{0,3}.[0-9]{0,3})<\/span>");
             return (buildTimeCollection.Count > 0) ? true : false;
         }
-    }
+
+
+
+    	public static Int32 CovertXY(Int32 x, Int32 y)
+		{
+			return ((x + 401) + ((400 - y) * 801));
+		}
+	}
 }
