@@ -3,7 +3,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Threading;
 using mshtml;
 using SHDocVw;
@@ -49,7 +48,14 @@ namespace twC
 				                	Password = loginPassword
 				                };
 
-				Events e = new Events();
+                Attacks attacks = new Attacks
+                                      {
+                                          FileExtensionForAttacks = fileExtensionForAttacks,
+                                          FileExtensionForFinishedAttacks = fileExtensionForFinishedAttacks,
+                                          TroopList = troopList,
+                                      };
+
+			    Events e = new Events();
 				InternetExplorer ie = new InternetExplorerClass();
 				HTMLDocument pageSource = Browser.Login(si, pi, ie);
 				bool isLogedIn = Browser.GetIsLogedIn(si, pi, ie, pageSource);
@@ -103,108 +109,18 @@ namespace twC
 							//Console.WriteLine("Found {0} Files in {1}", attackFiles.Length, di.Name);
 							foreach (FileInfo attackFile in attackFiles)
 							{
-								if (File.Exists(attackFile.FullName))
+                                attacks.FileForAttacks = attackFile.FullName;
+                                attacks.FileForFinishedAttacks = attacks.FileForAttacks + fileExtensionForFinishedAttacks;
+                                if (File.Exists(attacks.FileForAttacks))
 								{
-									String tempFile = attackFile.FullName + fileExtensionForFinishedAttacks;
-									if (File.Exists(tempFile))
-									{
-										String tempAttacks;
-										using (StreamReader sr = new StreamReader(tempFile))
-										{
-											tempAttacks = sr.ReadToEnd();
-											sr.Close();
-										}
-
-										bool wasFarmFound = false;
-										using (StreamReader sr = new StreamReader(attackFile.FullName))
-										{
-											while (sr.Peek() >= 0)
-											{
-												String line = sr.ReadLine();
-												if ((!line.StartsWith("#")) && (line.Length > 5))
-												{
-													//destX|destY|attackType|units|unitType|villageID|comment
-													String[] sections = line.Split('|');
-													Int32 destinationX = Int32.Parse(sections[0].Trim());
-													Int32 destinationY = Int32.Parse(sections[1].Trim());
-													String attackType = sections[2].Trim();
-													String[] unitsList = sections[3].Trim().Split(',');
-													Int32 unitType = Int32.Parse(sections[4].Trim());
-													Int32 villageID = Int32.Parse(sections[5].Trim());
-													Int32 unitsCount = Int32.Parse(unitsList[unitType]);
-													String comment = sections[6];
-													String tempCheckLine = sections[0] + "|" + sections[1] + "|" + sections[2] + "|" + sections[3];
-													if (tempAttacks.IndexOf(tempCheckLine) > -1)
-													{
-														continue;
-													}
-													wasFarmFound = true;
-													String attackUnit = troopList.Split(',')[unitType];
-													string resourcesUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
-													                                    si.ResourcesPage, villageID);
-													pageSource = Browser.GetPageSource(resourcesUrl, ie);
-													Int32 availableUnits = Browser.GetTroopCountForUnit(pageSource, attackUnit);
-													if (availableUnits >= unitsCount)
-													{
-														Console.WriteLine("We Have " + availableUnits + " " + attackUnit);
-														Random rnd = new Random();
-														Int32 parA = rnd.Next(10001, 99999);
-														StringBuilder troops = new StringBuilder();
-														for (int t = 0; t < 11; t++)
-														{
-															troops.AppendFormat("&t{0}={1}", (t + 1), unitsList[t].Trim());
-														}
-														String buttonId =
-															String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19));
-														String parPost =
-															String.Format(CultureInfo.InvariantCulture,
-															              "id=39&a={0}&c={1}&kid={2}{3}{4}",
-															              parA,
-															              attackType.Trim(),
-															              Misc.CovertXY(destinationX, destinationY),
-															              troops,
-															              buttonId
-																);
-														Console.WriteLine("{3} Attack with {0} {1} to {2}", unitsCount, attackUnit, comment, now.ToString("yyyy-MM-dd HH:mm:ss"));
-														object flags = null;
-														object headers = "Content-Type: application/x-www-form-urlencoded\n\r";
-														object name = null;
-														object data = Encoding.UTF8.GetBytes(parPost);
-														string sendUnitsUrl = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
-														                                    si.SendUnitsPage, villageID);
-														ie.Navigate(sendUnitsUrl, ref flags, ref name, ref data, ref headers);
-														Browser.WaitForComplete(ie);
-
-														using (StreamWriter sw = new StreamWriter(tempFile, true))
-														{
-															sw.WriteLine(line);
-															sw.Close();
-															//Console.WriteLine(line);
-														}
-														Thread.Sleep(1000);
-													}
-												}
-											}
-											sr.Close();
-										}
-										//Clear temp file
-										if (!wasFarmFound)
-										{
-											using (StreamWriter sw = new StreamWriter(tempFile, false))
-											{
-												sw.WriteLine();
-												sw.Close();
-											}
-										}
-									}
-									else
-									{
-										Console.WriteLine("File '{0}' Not Found!", tempFile);
-									}
+                                    if (!IO.Attack(si, ie, attacks))
+                                    {
+                                        Console.WriteLine("File '{0}' Not Found!", attacks.FileForFinishedAttacks);
+                                    }
 								}
 								else
 								{
-									Console.WriteLine("File '{0}' Not Found!", attackFile.Name);
+                                    Console.WriteLine("File '{0}' Not Found!", attacks.FileForAttacks);
 								}
 							}
 

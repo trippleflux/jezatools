@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attacks.cs" />
     <Compile Include="AutoBuildResources.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="BuildTask.cs" />
