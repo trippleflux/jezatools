@@ -159,21 +159,28 @@ ORDER BY Distance ASC",
 					//player is in aliance
 					if (alianceName.Length > 0)
 					{
+						if (alianceName.Length > 1)
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Gray;
+						}
 						if (allyList.IndexOf(alianceName) > -1)
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Orange;
 						}
-						else if (napList.IndexOf(alianceName) > -1)
+						if (napList.IndexOf(alianceName) > -1)
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Yellow;
 						}
-						else if (warList.IndexOf(alianceName) > -1)
+						if (warList.IndexOf(alianceName) > -1)
 						{
 							tableMap.Rows[row].Cells[cell].BackColor = Color.Red;
 						}
-						else tableMap.Rows[row].Cells[cell].BackColor = aliance.Equals(alianceName) ? Color.Green : Color.Gray;
+						if (aliance.Equals(alianceName))
+						{
+							tableMap.Rows[row].Cells[cell].BackColor = Color.Green;
+						}
 					}
-					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|0|1|\t[P:{4,-5}][D:{7,-4}][U:{2,-20}][V:{3,-25}][A:{5,-20}]\n",
+					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|\t[P:{4,-5}][D:{7,-4}][U:{2,-20}][V:{3,-25}][A:{5,-20}]\n",
 									xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim(), sqlDistance);
 
 					const string insertCommand = "INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
