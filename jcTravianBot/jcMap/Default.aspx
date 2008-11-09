@@ -17,21 +17,21 @@
 		<asp:LinkButton ID="linkButtonImportData" runat="server" Style="z-index: 102; left: 20px; position: absolute; top: 80px" OnClick="linkButtonImportData_Click" Enabled="False" Width="90px" Visible="False">Import Data</asp:LinkButton>
 		
         <asp:Label ID="LabelAlly" runat="server" Style="z-index: 110; left: 340px; position: absolute; top: 20px" Text="Ally" Width="50px" BackColor="Orange"></asp:Label>
-        <asp:TextBox ID="TextBoxAlly" runat="server" Style="z-index: 111; left: 410px; position: absolute; top: 20px" Width="400px"></asp:TextBox>
+        <asp:TextBox ID="TextBoxAlly" runat="server" Style="z-index: 111; left: 410px; position: absolute; top: 20px" Width="400px">Cezar,-NF&amp;NP-</asp:TextBox>
         <asp:Label ID="LabelNap" runat="server" Style="z-index: 112; left: 340px; position: absolute; top: 50px" Text="Nap" Width="50px" BackColor="Yellow"></asp:Label>
         <asp:TextBox ID="TextBoxNap" runat="server" Style="z-index: 113; left: 410px; position: absolute; top: 50px" Width="400px"></asp:TextBox>
         <asp:Label ID="LabelWar" runat="server" Style="z-index: 114; left: 340px; position: absolute; top: 80px" Text="War" Width="50px" BackColor="Red"></asp:Label>
         <asp:TextBox ID="TextBoxWar" runat="server" Style="z-index: 115; left: 410px; position: absolute; top: 80px" Width="400px"></asp:TextBox>
         <asp:Label ID="LabelAliance" runat="server" Style="z-index: 116; left: 340px; position: absolute; top: 110px" Text="Aliance" Width="50px" BackColor="Green"></asp:Label>
-        <asp:TextBox ID="textBoxAliance" runat="server" Style="z-index: 117; left: 410px; position: absolute; top: 110px" Width="400px"></asp:TextBox>
+        <asp:TextBox ID="textBoxAliance" runat="server" Style="z-index: 117; left: 410px; position: absolute; top: 110px" Width="400px">NF&amp;NP</asp:TextBox>
 
 		<asp:Label ID="LabelCenter" runat="server" Style="z-index: 121; left: 130px; position: absolute; top: 20px" Text="Center"></asp:Label>
 		<asp:Label ID="LabelDistanceX" runat="server" Style="z-index: 123; left: 130px; position: absolute;	top: 50px" Text="Distance X"></asp:Label>
 		<asp:Label ID="LabelDistanceY" runat="server" Style="z-index: 122; left: 130px; position: absolute;	top: 80px" Text="Distance Y"></asp:Label>
-		<asp:TextBox ID="TextBoxCenterX" runat="server" Style="z-index: 124; left: 220px; position: absolute; top: 20px" Width="40px">-22</asp:TextBox>
-		<asp:TextBox ID="TextBoxCenterY" runat="server" Style="z-index: 125; left: 280px; position: absolute; top: 20px" Width="40px">-95</asp:TextBox>
-		<asp:TextBox ID="TextBoxDistanceXMin" runat="server" Style="z-index: 126; left: 220px; position: absolute; top: 50px" Width="40px">-42</asp:TextBox>
-		<asp:TextBox ID="TextBoxDistanceXMax" runat="server" Style="z-index: 129; left: 280px; position: absolute; top: 50px" Width="40px">-2</asp:TextBox>
+		<asp:TextBox ID="TextBoxCenterX" runat="server" Style="z-index: 124; left: 220px; position: absolute; top: 20px" Width="40px">-15</asp:TextBox>
+		<asp:TextBox ID="TextBoxCenterY" runat="server" Style="z-index: 125; left: 280px; position: absolute; top: 20px" Width="40px">-93</asp:TextBox>
+		<asp:TextBox ID="TextBoxDistanceXMin" runat="server" Style="z-index: 126; left: 220px; position: absolute; top: 50px" Width="40px">-35</asp:TextBox>
+		<asp:TextBox ID="TextBoxDistanceXMax" runat="server" Style="z-index: 129; left: 280px; position: absolute; top: 50px" Width="40px">0</asp:TextBox>
 		<asp:TextBox ID="TextBoxDistanceYMax" runat="server" Style="z-index: 127; left: 220px; position: absolute; top: 80px" Width="40px">-80</asp:TextBox>
 		<asp:TextBox ID="TextBoxDistanceYMin" runat="server" Style="z-index: 130; left: 280px; position: absolute; top: 80px" Width="40px">-120</asp:TextBox>
 
@@ -54,7 +54,7 @@
 		<asp:TextBox ID="textBoxDistance" runat="server" 
 			Style="z-index: 109; left: 940px; position: absolute; top: 80px" Width="40px" Visible="False">20</asp:TextBox>
         <asp:TextBox ID="textBoxUnits" runat="server" 
-            Style="z-index: 103; left: 840px; position: absolute; top: 110px" Width="260px" Visible="False">20,0,0,0,0,0,0,0,0,0,0,0|?newdid=73913</asp:TextBox>
+            Style="z-index: 103; left: 840px; position: absolute; top: 110px" Width="260px" Visible="False">0,0,50,0,0,0,0,0,0,0,0,0|2|83117</asp:TextBox>
         
     </div>
     </form>
