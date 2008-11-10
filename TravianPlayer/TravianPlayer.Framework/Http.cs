@@ -7,39 +7,34 @@ namespace TravianPlayer.Framework
 {
 	public class Http
 	{
-		public static string GetPageSource(string pageUrl,
-								   CookieContainer cookies)
+		public static HttpWebResponse SendData(string pageUrl,
+		                                       string postData,
+		                                       CookieContainer cookieContainer)
 		{
-			Console.WriteLine("GetPageSource pageUrl={0}", pageUrl);
+			Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
+
 			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
 			httpWebRequest.Method = "GET";
-			httpWebRequest.CookieContainer = cookies;
-			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-			cookies.Add(webResponse.Cookies);
-			StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
-			return loginReader.ReadToEnd();
-		}
+			httpWebRequest.UserAgent =
+				"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.17) Gecko/20080829 Firefox/2.0.0.17 (.NET CLR 3.5.30729)";
+			httpWebRequest.CookieContainer = cookieContainer;
 
-		public static string PostData(string pageUrl,
-							  string postData,
-							  CookieContainer cookies)
-		{
-			Console.WriteLine("PostData pageUrl={0}", pageUrl);
-			Console.WriteLine("PostData postData={0}", postData);
-			ASCIIEncoding encoding = new ASCIIEncoding();
-			byte[] data = encoding.GetBytes(postData);
-			HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
-			httpWebRequest.Method = "POST";
-			httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-			httpWebRequest.ContentLength = data.Length;
-			httpWebRequest.CookieContainer = cookies;
-			Stream postStream = httpWebRequest.GetRequestStream();
-			postStream.Write(data, 0, data.Length);
-			postStream.Close();
+			if (postData != null)
+			{
+				UTF8Encoding encoding = new UTF8Encoding();
+				byte[] data = encoding.GetBytes(postData);
+				
+				httpWebRequest.Method = "POST";
+				httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+				httpWebRequest.ContentLength = data.Length;
+				
+				Stream postStream = httpWebRequest.GetRequestStream();
+				postStream.Write(data, 0, data.Length);
+				postStream.Close();
+			}
+
 			HttpWebResponse webResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-			cookies.Add(webResponse.Cookies);
-			StreamReader loginReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
-			return loginReader.ReadToEnd();
+			return webResponse;
 		}
 	}
 }
