@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿#region
+
+using System;
+using System.IO;
 using System.Net;
 using System.Text;
 using TravianPlayer.Framework;
 
+#endregion
+
 namespace TravianPlayer.Console
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main()
 		{
 			const string userName = "jeza";
 			const string passWord = "kepek";
 			const string serverName = "http://s4.travian.si/";
-			
-			CookieContainer cookies = new CookieContainer();
-			
-			ServerInfo serverInfo = new ServerInfo();
-			serverInfo.LoginUrl = serverName + "login.php";
-			
-			string pageSource = Http.GetPageSource(serverInfo.LoginUrl, cookies);
-			
+
+			ServerInfo serverInfo = new ServerInfo
+			                        {
+			                        	LoginUrl = (serverName + "login.php"),
+			                        	ResourcesUrl = string.Format("{0}dorf1.php?newdid={1}", serverName, 0),
+			                        	BuildingsUrl = string.Format("{0}dorf2.php?newdid={1}", serverName, 0),
+			                        	SendUnitsUrl = string.Format("{0}a2b.php?newdid={1}", serverName, 0)
+			                        };
+			CookieCollection cookieCollection = new CookieCollection();
+			CookieContainer cookieContainer = new CookieContainer();
+
+			HttpWebResponse httpWebResponse = Http.SendData(serverInfo.LoginUrl, null, cookieContainer);
+			string pageSource = GetPageSource(httpWebResponse);
+
 			HtmlParser htmlParser = new HtmlParser();
 			UserInfo userInfo = htmlParser.ParseLoginPage(pageSource);
 			userInfo.Username = userName;
@@ -30,28 +39,38 @@ namespace TravianPlayer.Console
 			System.Console.WriteLine(userInfo.TextBoxPassword);
 
 			serverInfo.LoginCredentials =
-				String.Format("{0}={1}&{2}={3}",
-							  userInfo.TextBoxUserame,
-							  userInfo.Username,
-							  userInfo.TextBoxPassword,
-							  userInfo.Password);
-			serverInfo.ResourcesUrl = string.Format("{0}dorf1.php?newdid={1}&{2}", serverName, 0, serverInfo.LoginCredentials);
-			serverInfo.BuildingsUrl = string.Format("{0}dorf2.php?newdid={1}&{2}", serverName, 0, serverInfo.LoginCredentials);
+				String.Format("login={0}&{1}={2}&{3}={4}&{5}={6}",
+				              userInfo.HiddenLoginValue,
+				              userInfo.TextBoxUserame,
+				              userInfo.Username,
+				              userInfo.TextBoxPassword,
+				              userInfo.Password,
+				              userInfo.HiddenName,
+				              userInfo.HiddenValue);
 
 			string postData =
-				String.Format("w=1152%3A864&login={0}&{1}={2}&{3}={4}&{5}={6}&s1.x=48&s1.y=8",
-							  userInfo.HiddenLoginValue,
-							  userInfo.TextBoxUserame,
-							  userInfo.Username,
-							  userInfo.TextBoxPassword,
-							  userInfo.Password,
-							  userInfo.HiddenName,
-							  userInfo.HiddenValue);
-			
-			pageSource = Http.PostData(serverInfo.ResourcesUrl, postData, cookies);
-			//System.Console.WriteLine(pageSource);
-			pageSource = Http.GetPageSource(serverInfo.BuildingsUrl, cookies);
-			System.Console.WriteLine(pageSource);
+				String.Format("w=1152%3A864&{0}&s1.x=48&s1.y=8", serverInfo.LoginCredentials);
+			httpWebResponse = Http.SendData(serverInfo.ResourcesUrl, postData, cookieContainer);
+			cookieCollection.Add(httpWebResponse.Cookies);
+			cookieContainer.Add(cookieCollection);
+
+			System.Console.WriteLine("Cookies: ");
+			for (int i = 0; i < cookieCollection.Count; i++)
+			{
+				System.Console.WriteLine(cookieCollection[i].Name + "=" + cookieCollection[i].Value + ", Expired=" +
+				                         cookieCollection[i].Expired);
+			}
+
+			httpWebResponse = Http.SendData(serverInfo.BuildingsUrl, null, cookieContainer);
+			System.Console.WriteLine(GetPageSource(httpWebResponse));
+		}
+
+
+
+		private static string GetPageSource(WebResponse httpWebResponse)
+		{
+			StreamReader loginReader = new StreamReader(httpWebResponse.GetResponseStream(), Encoding.UTF8);
+			return loginReader.ReadToEnd();
 		}
 	}
 }
