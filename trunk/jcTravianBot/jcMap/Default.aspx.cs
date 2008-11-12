@@ -129,10 +129,10 @@ ORDER BY Distance ASC",
 			conn.Open();
 			SqlCommand cmd = new SqlCommand(sql, conn);
 			SqlDataReader reader = cmd.ExecuteReader();
-			if (reader != null)
+            StringBuilder farmList = new StringBuilder();
+            if (reader != null)
 			{
 				StringBuilder sb = new StringBuilder();
-				StringBuilder farmList = new StringBuilder();
 				while (reader.Read())
 				{
 					//labelErrorMSG.Text = ;
@@ -182,11 +182,13 @@ ORDER BY Distance ASC",
 					}
 					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|\t[P:{4,-5}][D:{7,-4}][U:{2,-20}][V:{3,-25}][A:{5,-20}]\n",
 									xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim(), sqlDistance);
+                    farmList.AppendFormat(CultureInfo.InvariantCulture, @"<troopSendingRule valid=""valid"" collapsed=""true"" troopSendingTarget=""{0}"" troopSendingTargetX=""{1}"" troopSendingTargetY=""{2}"" troopSendingTroopType=""Troop type"" troopSendingTroopCount=""Troop count"" troopSendingType=""Attack: Normal"" troopSendingStart=""00:01"" troopSendingEnd=""23:59"" troopSendingMinInterval=""600"" troopSendingMaxInterval=""900"" troopSendingType.value=""normalAttack""><attributeChild troopSendingTroopType=""Axefighter"" troopSendingTroopType.value=""teuton.t3"" troopSendingTroopCount=""50"" troopSendingTroopCount.value=""50""/></troopSendingRule>"
+                        ,playerName, xCor, yCor);
 
-					const string insertCommand = "INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
-					int villageDistance = (x - xCor)*(x - xCor) + (y - yCor)*(y - yCor);
-					farmList.AppendFormat(CultureInfo.InvariantCulture, insertCommand, xCor, yCor, villageName, population, alianceName,
-										  playerName, villageDistance);
+					//const string insertCommand = "INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
+					//int villageDistance = (x - xCor)*(x - xCor) + (y - yCor)*(y - yCor);
+                    //farmList.AppendFormat(CultureInfo.InvariantCulture, insertCommand, xCor, yCor, villageName, population, alianceName,
+                    //                      playerName, villageDistance);
 
 					if ((xCor == x) && (yCor == y))
 					{
@@ -200,13 +202,13 @@ ORDER BY Distance ASC",
 					sw.WriteLine(sb);
 					sw.Close();
 				}
-				using (StreamWriter sw = new StreamWriter(@"C:\temp\FarmList.txt"))
-				{
-					sw.WriteLine(farmList);
-					sw.Close();
-				}
 			}
-		}
+            using (StreamWriter sw = new StreamWriter(@"C:\temp\FarmList.txt"))
+            {
+                sw.WriteLine(farmList);
+                sw.Close();
+            }
+        }
 		catch (Exception e)
 		{
 			labelErrorMSG.Text = e.Message;
