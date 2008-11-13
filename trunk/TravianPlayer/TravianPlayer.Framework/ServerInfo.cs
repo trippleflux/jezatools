@@ -1,4 +1,6 @@
-﻿namespace TravianPlayer.Framework
+﻿using System.Collections.Generic;
+
+namespace TravianPlayer.Framework
 {
 	public class ServerInfo
 	{
@@ -52,6 +54,29 @@
 			set { loginCredentials = value; }
 		}
 
+	    public int GetVillageId(string villageName)
+	    {
+	        foreach (VillageInfo villageInfo in villageList)
+	        {
+	            if (villageInfo.Name.Equals(villageName))
+	            {
+	                return villageInfo.Id;
+	            }
+	        }
+	        return 0;
+	    }
+
+	    public void AddVillage(VillageInfo villageInfo)
+	    {
+            villageList.Add(villageInfo);
+	    }
+
+	    public int VillagesCount()
+	    {
+	        return villageList.Count;
+	    }
+
+	    private List<VillageInfo> villageList = new List<VillageInfo>();
 
 
 		public override string ToString()
