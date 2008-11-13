@@ -38,5 +38,32 @@ namespace TravianPlayer.Framework
             cookieContainer.Add(cookieCollection);
             return httpWebResponse;
         }
+
+        public static bool TryToLogin(ServerInfo serverInfo, CookieContainer cookieContainer,
+                                      CookieCollection cookieCollection, HtmlParser htmlParser, UserInfo userInfo)
+        {
+            HttpWebResponse httpWebResponse =
+                SendData(serverInfo.LoginUrl, null, cookieContainer, cookieCollection);
+            string pageSourceOfLoginPage = HtmlParser.GetPageSource(httpWebResponse);
+
+            htmlParser.ParseLoginPage(pageSourceOfLoginPage, userInfo);
+
+            serverInfo.LoginCredentials =
+                String.Format("login={0}&{1}={2}&{3}={4}&{5}={6}",
+                              userInfo.HiddenLoginValue,
+                              userInfo.TextBoxUserame,
+                              userInfo.Username,
+                              userInfo.TextBoxPassword,
+                              userInfo.Password,
+                              userInfo.HiddenName,
+                              userInfo.HiddenValue);
+
+            string postData =
+                String.Format("w=1152%3A864&{0}&s1.x=48&s1.y=8", serverInfo.LoginCredentials);
+            httpWebResponse = SendData(serverInfo.ResourcesUrl, postData, cookieContainer, cookieCollection);
+            //System.Console.WriteLine(HtmlParser.GetPageSource(httpWebResponse));
+            string resourcesPage = HtmlParser.GetPageSource(httpWebResponse);
+            return htmlParser.IsLogedIn(resourcesPage, userInfo);
+        }
     }
 }
