@@ -49,6 +49,7 @@
     <Compile Include="ActionParameters.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Http.cs" />
     <Compile Include="IParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendTroopsParser.cs" />
