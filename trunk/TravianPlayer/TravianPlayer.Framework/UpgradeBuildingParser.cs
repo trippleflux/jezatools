@@ -1,6 +1,6 @@
 namespace TravianPlayer.Framework
 {
-    class UpgradeBuildingParser : IParser
+    class UpgradeBuildingParser : IActionParser
     {
         public TaskList Parse()
         {

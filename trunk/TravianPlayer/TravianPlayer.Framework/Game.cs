@@ -5,6 +5,15 @@ namespace TravianPlayer.Framework
 {
     public class Game
     {
+        public Game()
+        {
+        }
+
+        public Game(LoginInfo loginInfo)
+        {
+            this.loginInfo = loginInfo;
+        }
+
         public int UserId { get; set; }
 
         public void AddVillage(Village village)
@@ -34,6 +43,13 @@ namespace TravianPlayer.Framework
             get { return villages; }
         }
 
-        private Dictionary<int, Village> villages = new Dictionary<int, Village>();
+        public LoginInfo GetLoginData()
+        {
+            return loginInfo;
+        }
+        private readonly Dictionary<int, Village> villages = new Dictionary<int, Village>();
+
+        private readonly LoginInfo loginInfo;
+
     }
 }
