@@ -7,7 +7,7 @@ namespace TravianPlayer.Framework
 {
     public class Http
     {
-        public static HttpWebResponse SendData(string pageUrl, string postData, CookieContainer cookieContainer,
+        public static string SendData(string pageUrl, string postData, CookieContainer cookieContainer,
                                                CookieCollection cookieCollection)
         {
             Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
@@ -36,7 +36,8 @@ namespace TravianPlayer.Framework
             HttpWebResponse httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse();
             cookieCollection.Add(httpWebResponse.Cookies);
             cookieContainer.Add(cookieCollection);
-            return httpWebResponse;
+            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream(), Encoding.UTF8);
+            return streamReader.ReadToEnd();
         }
 
         //public static bool TryToLogin(ServerInfo serverInfo, CookieContainer cookieContainer,

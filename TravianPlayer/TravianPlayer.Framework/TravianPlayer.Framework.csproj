@@ -49,10 +49,13 @@
     <Compile Include="ActionParameters.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />
-    <Compile Include="IParser.cs" />
+    <Compile Include="IActionParser.cs" />
+    <Compile Include="IPageParser.cs" />
+    <Compile Include="LoginInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SendTroopsParser.cs" />
+    <Compile Include="XmlSendTroopsParser.cs" />
     <Compile Include="TaskList.cs" />
     <Compile Include="UpgradeBuildingParser.cs" />
     <Compile Include="UpgradeTroopParser.cs" />
