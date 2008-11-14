@@ -14,7 +14,7 @@ namespace TravianPlayer.Framework
             this.pageSource = pageSource;
         }
 
-        public Game ParseLoginData()
+		public LoginInfo ParseLoginData()
         {
             LoginInfo loginInfo = new LoginInfo();
 			Regex regHiddenLoginValue = new Regex("<input type=\"hidden\" name=\"login\" value=\"(.*)\">");
@@ -45,8 +45,7 @@ namespace TravianPlayer.Framework
 				loginInfo.HiddenName = Mc.Groups[1].Value;
 				loginInfo.HiddenValue = Mc.Groups[2].Value;
 			}
-			Game gameInfo = new Game(loginInfo);
-			return gameInfo;
+			return loginInfo;
         }
 
         private readonly string pageSource;
