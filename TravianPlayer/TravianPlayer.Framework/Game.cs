@@ -43,7 +43,7 @@ namespace TravianPlayer.Framework
             get { return villages; }
         }
 
-        public LoginInfo GetLoginData()
+        public LoginInfo GetLoginInfo()
         {
             return loginInfo;
         }

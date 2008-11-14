@@ -75,6 +75,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)\TestFiles $(TargetDir)\TestFiles</PostBuildEvent>
+    <PostBuildEvent>xcopy $(ProjectDir)TestFiles $(TargetDir)TestFiles /S /C /I /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

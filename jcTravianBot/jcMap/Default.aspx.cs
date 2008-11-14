@@ -197,17 +197,17 @@ ORDER BY Distance ASC",
 				}
 				reader.Close();
 
+				using (StreamWriter sw = new StreamWriter(@"C:\temp\FarmList.xml"))
+				{
+					sw.WriteLine(farmList);
+					sw.Close();
+				}
 				using (StreamWriter sw = new StreamWriter(@"C:\temp\villages.txt"))
 				{
 					sw.WriteLine(sb);
 					sw.Close();
 				}
 			}
-            using (StreamWriter sw = new StreamWriter(@"C:\temp\FarmList.txt"))
-            {
-                sw.WriteLine(farmList);
-                sw.Close();
-            }
         }
 		catch (Exception e)
 		{
