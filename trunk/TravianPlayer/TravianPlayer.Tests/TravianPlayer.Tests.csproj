@@ -65,6 +65,7 @@
     <None Include="TestFiles\dorf1.php" />
     <None Include="TestFiles\dorf2.php" />
     <None Include="TestFiles\login.php" />
+    <None Include="TestFiles\send.php" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
