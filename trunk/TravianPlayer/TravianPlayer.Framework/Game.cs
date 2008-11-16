@@ -13,39 +13,41 @@ namespace TravianPlayer.Framework
 		{
 		}
 
-
-
 		public Game(LoginInfo loginInfo)
 		{
 			this.loginInfo = loginInfo;
 		}
 
-
-
 		public int UserId { get; set; }
 
-
+		public string VillageName { get; set; }
 
 		public void AddVillage(Village village)
 		{
 			villages.Add(village.Id, village);
 		}
 
-
-
 		public void AddLoginInfo(LoginInfo info)
 		{
 			loginInfo = info;
 		}
-
-
 
 		public int GetVillagesCount
 		{
 			get { return villages.Count; }
 		}
 
-
+		public int GetVillageId(string villageName)
+		{
+			foreach (KeyValuePair<int, Village> village in villages)
+			{
+				if (village.Value.Name == villageName)
+				{
+					return village.Value.Id;
+				}
+			}
+			return 0;
+		}
 
 		public string GetVillageName(int villageId)
 		{
@@ -59,21 +61,27 @@ namespace TravianPlayer.Framework
 			return String.Empty;
 		}
 
-
+		public Village GetVillageData(int villageId)
+		{
+			foreach (KeyValuePair<int, Village> village in villages)
+			{
+				if (village.Key == villageId)
+				{
+					return village.Value;
+				}
+			}
+			return null;
+		}
 
 		public Dictionary<int, Village> Villages
 		{
 			get { return villages; }
 		}
 
-
-
 		public LoginInfo GetLoginInfo()
 		{
 			return loginInfo;
 		}
-
-
 
 		private readonly Dictionary<int, Village> villages = new Dictionary<int, Village>();
 
