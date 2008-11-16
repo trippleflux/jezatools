@@ -60,7 +60,48 @@ namespace TravianPlayer.Framework
 			ParseUserId(gameInfo);
 			ParseVillageName(gameInfo);
 			ParseProduction(gameInfo);
+			ParseResourcesProduction(gameInfo);
+			ParseUnitsInVillage(gameInfo);
 			return gameInfo;
+		}
+
+		private void ParseUnitsInVillage(Game gameInfo)
+		{
+			//<\/td><td align=\"right\">(.*)<b>\d+<\/b><\/td><td>\w+<\/td>
+//            int villageId = gameInfo.GetVillageId(gameInfo.VillageName);
+//            const string patternUnits =
+//@"<img class=""unit"" src=""img\/un\/u\/\w+\.gif"" border=""\d+""><\/a><\/td><td align=""right"">(.*)<b>\d+<\/b><\/td><td>(\w+)<\/td>";
+//            MatchCollection unitsCollection =
+//                Regex.Matches(pageSource, patternUnits);
+//            for (int i = 0; i < unitsCollection.Count; i++)
+//            {
+//                for (int j = 0; j < unitsCollection[i].Groups.Count;j++ )
+//                {
+//                    string a = unitsCollection[i].Groups[j].Value.Trim();
+//                }
+//                string unitName = unitsCollection[i].Groups[3].Value.Trim();
+//                int unitCount = Int32.Parse(unitsCollection[i].Groups[2].Value.Trim());
+//                Unit unit = new Unit(unitCount, unitName);
+//                gameInfo.GetVillageData(villageId).AddUnit(unit);
+//            }
+		}
+
+		private void ParseResourcesProduction(Game gameInfo)
+		{
+			//<area href="build.php?id=1" coords="101,33,28" shape="circle" title="Gozdar Stopnja 10">
+			int villageId = gameInfo.GetVillageId(gameInfo.VillageName);
+			const string patternResources =
+@"<area href=""build.php.id=([0-9]{1,3})"" coords=""([0-9]{1,3}.)*"" shape=""circle"" title=""(((\w+\s)*)(\w+\s)(\d+))"">";
+			MatchCollection resourcesCollection =
+				Regex.Matches(pageSource, patternResources);
+			for (int i = 0; i < resourcesCollection.Count; i++)
+			{
+				int resourceId = Int32.Parse(resourcesCollection[i].Groups[1].Value.Trim());
+				int resourceLevel = Int32.Parse(resourcesCollection[i].Groups[7].Value.Trim());
+				string resourceName = resourcesCollection[i].Groups[4].Value.Trim();
+				Building building = new Building(resourceId, resourceName, resourceLevel);
+				gameInfo.GetVillageData(villageId).AddBuilding(building);
+			}
 		}
 
 		private void ParseProduction(Game gameInfo)
