@@ -26,6 +26,11 @@ namespace TravianPlayer.Framework
 			buildings.Add(building);
 		}
 
+		public void AddUnit(Unit unit)
+		{
+			units.Add(unit);
+		}
+
 		public Production Production
 		{
 			get { return production; }
@@ -81,12 +86,56 @@ namespace TravianPlayer.Framework
 			return String.Empty;
 		}
 
+		public int GetVillageBuildingsLevel(int buildingId)
+		{
+			foreach (Building building in buildings)
+			{
+				if (building.Id == buildingId)
+				{
+					return building.Level;
+				}
+			}
+			return 0;
+		}
+
+		public Building GetVillageBuildingsData(int buildingId)
+		{
+			foreach (Building building in buildings)
+			{
+				if (building.Id == buildingId)
+				{
+					return building;
+				}
+			}
+			return null;
+		}
+
+		public int GetUnitCount(string unitName)
+		{
+			foreach (Unit unit in units)
+			{
+				if (unit.UnitName.Equals(unitName))
+				{
+					return unit.UnitCount;
+				}
+			}
+			return 0;
+		}
+
 		public IList<Building> Buildings
 		{
 			get { return buildings; }
 		}
 
+		public int UnitsCount
+		{
+			get { return units.Count; }
+		}
+
 		private readonly List<Building> buildings = new List<Building>();
+
 		private Production production;
+
+		private readonly List<Unit> units = new List<Unit>();
 	}
 }
