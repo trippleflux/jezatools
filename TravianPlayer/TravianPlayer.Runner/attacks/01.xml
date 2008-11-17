@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sendTroops>
+	<attackAction id="1" enabled="1" villageId="12354" coordX="0" coordY="0" attackType="3" attackUnit="3" troopCount="10" comment="some fancy text"></attackAction>
+</sendTroops>
