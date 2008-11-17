@@ -67,23 +67,17 @@ namespace TravianPlayer.Framework
 
 		private void ParseUnitsInVillage(Game gameInfo)
 		{
-			//<\/td><td align=\"right\">(.*)<b>\d+<\/b><\/td><td>\w+<\/td>
-//            int villageId = gameInfo.GetVillageId(gameInfo.VillageName);
-//            const string patternUnits =
-//@"<img class=""unit"" src=""img\/un\/u\/\w+\.gif"" border=""\d+""><\/a><\/td><td align=""right"">(.*)<b>\d+<\/b><\/td><td>(\w+)<\/td>";
-//            MatchCollection unitsCollection =
-//                Regex.Matches(pageSource, patternUnits);
-//            for (int i = 0; i < unitsCollection.Count; i++)
-//            {
-//                for (int j = 0; j < unitsCollection[i].Groups.Count;j++ )
-//                {
-//                    string a = unitsCollection[i].Groups[j].Value.Trim();
-//                }
-//                string unitName = unitsCollection[i].Groups[3].Value.Trim();
-//                int unitCount = Int32.Parse(unitsCollection[i].Groups[2].Value.Trim());
-//                Unit unit = new Unit(unitCount, unitName);
-//                gameInfo.GetVillageData(villageId).AddUnit(unit);
-//            }
+			int villageId = gameInfo.GetVillageId(gameInfo.VillageName);
+			const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";
+			MatchCollection unitsCollection =
+				Regex.Matches(pageSource, patternUnits);
+			for (int i = 0; i < unitsCollection.Count; i++)
+			{
+				string unitName = unitsCollection[i].Groups[2].Value.Trim();
+				int unitCount = Int32.Parse(unitsCollection[i].Groups[1].Value.Trim());
+				Unit unit = new Unit(unitCount, unitName);
+				gameInfo.GetVillageData(villageId).AddUnit(unit);
+			}
 		}
 
 		private void ParseResourcesProduction(Game gameInfo)

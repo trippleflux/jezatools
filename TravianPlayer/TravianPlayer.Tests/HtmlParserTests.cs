@@ -124,45 +124,14 @@ namespace TravianPlayer.Tests
 			string pageSource = File.ReadAllText(@"TestFiles\dorf1.php");
 			HtmlParser htmlParser = new HtmlParser(pageSource);
 			Game gameInfo = htmlParser.ParseResourcesPage();
-			/*
-			 * <table class="f10">
-			 * <tr>
-			 * <td><a href="build.php?gid=16"><img class="unit" src="img/un/u/hero.gif" border="0"></a></td>
-			 * <td align="right">&nbsp;<b>1</b></td>
-			 * <td>Heroj</td>
-			 * </tr>
-			 * <tr>
-			 * <td><a href="build.php?gid=16"><img class="unit" src="img/un/u/11.gif" border="0"></a></td>
-			 * <td align="right">&nbsp;<b>6</b></td>
-			 * <td>Gorjačarjev</td>
-			 * </tr>
-			 * <tr>
-			 * <td><a href="build.php?gid=16"><img class="unit" src="img/un/u/12.gif" border="0"></a></td>
-			 * <td align="right">&nbsp;<b>470</b></td>
-			 * <td>Suličarjev</td></tr>
-			 * <tr>
-			 * <td><a href="build.php?gid=16"><img class="unit" src="img/un/u/13.gif" border="0"></a></td>
-			 * <td align="right">&nbsp;<b>10</b></td>
-			 * <td>Metalcev sekir</td>
-			 * </tr>
-			 * <tr><td><a href="build.php?gid=16"><img class="unit" src="img/un/u/14.gif" border="0"></a></td>
-			 * <td align="right">&nbsp;<b>50</b></td>
-			 * <td>Skavtov</td>
-			 * </tr>
-			 * <tr>
-			 * <td><a href="build.php?gid=16"><img class="unit" src="img/un/u/15.gif" border="0"></a></td>
-			 * <td align="right">&nbsp;<b>12</b></td>
-			 * <td>Paladinov</td>
-			 * </tr>
-			 * </table>
-			 */
-			//Assert.AreEqual(1, gameInfo.GetVillageData(73913).GetUnitCount("Heroj"));
-			//Assert.AreEqual(6, gameInfo.GetVillageData(73913).GetUnitCount("Gorjačarjev"));
-			//Assert.AreEqual(470, gameInfo.GetVillageData(73913).GetUnitCount("Suličarjev"));
-			//Assert.AreEqual(10, gameInfo.GetVillageData(73913).GetUnitCount("Metalcev sekir"));
-			//Assert.AreEqual(50, gameInfo.GetVillageData(73913).GetUnitCount("Skavtov"));
-			//Assert.AreEqual(6, gameInfo.GetVillageData(73913).UnitsCount);
-			//Assert.AreEqual(12, gameInfo.GetVillageData(73913).GetUnitCount("Paladinov"));
+
+			Assert.AreEqual(6, gameInfo.GetVillageData(73913).UnitsCount);
+			Assert.AreEqual(1, gameInfo.GetVillageData(73913).GetUnitCount("Heroj"));
+			Assert.AreEqual(6, gameInfo.GetVillageData(73913).GetUnitCount("Gorjačarjev"));
+			Assert.AreEqual(470, gameInfo.GetVillageData(73913).GetUnitCount("Suličarjev"));
+			Assert.AreEqual(10, gameInfo.GetVillageData(73913).GetUnitCount("Metalcev sekir"));
+			Assert.AreEqual(50, gameInfo.GetVillageData(73913).GetUnitCount("Skavtov"));
+			Assert.AreEqual(12, gameInfo.GetVillageData(73913).GetUnitCount("Paladinov"));
 		}
 	}
 }
