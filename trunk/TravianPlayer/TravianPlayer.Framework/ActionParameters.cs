@@ -17,5 +17,7 @@ namespace TravianPlayer.Framework
         public int TroopCount { get; set; }
 
         public string Comment { get; set; }
+
+    	public bool Enabled { get; set; }
     }
 }

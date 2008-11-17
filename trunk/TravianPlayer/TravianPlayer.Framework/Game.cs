@@ -83,8 +83,26 @@ namespace TravianPlayer.Framework
 			return loginInfo;
 		}
 
+		public void AddUrl(string key, string url)
+		{
+			urls.Add(key, url);
+		}
+
+		public string GetUrl(string key)
+		{
+			foreach (KeyValuePair<string, string> url in urls)
+			{
+				if (url.Key.Equals(key))
+				{
+					return url.Value;
+				}
+			}
+			return String.Empty;
+		}
+
 		private readonly Dictionary<int, Village> villages = new Dictionary<int, Village>();
 
 		private LoginInfo loginInfo;
+		private readonly Dictionary<string, string> urls = new Dictionary<string, string>();
 	}
 }

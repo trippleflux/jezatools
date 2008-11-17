@@ -60,6 +60,13 @@
       <Name>TravianPlayer.Framework</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="attacks\01.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tasks\" />
+    <Folder Include="upgrades\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -68,4 +75,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)attacks $(TargetDir)attacks /S /C /I /Y
+xcopy $(ProjectDir)tasks $(TargetDir)tasks /S /C /I /Y
+xcopy $(ProjectDir)upgrades $(TargetDir)upgrades /S /C /I /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>
