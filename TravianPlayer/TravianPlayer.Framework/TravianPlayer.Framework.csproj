@@ -51,6 +51,7 @@
     <Compile Include="Action.cs" />
     <Compile Include="ActionParameters.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="Executor.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />

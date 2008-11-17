@@ -12,7 +12,7 @@ namespace TravianPlayer.Runner
 {
 	internal class Program
 	{
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			try
 			{
@@ -20,41 +20,50 @@ namespace TravianPlayer.Runner
 				String userName = Misc.GetConfigValue("userName");
 				String password = Misc.GetConfigValue("password");
 
-				CookieContainer cookieContainer = new CookieContainer();
-				CookieCollection cookieCollection = new CookieCollection();
 				const string loginUrl = "loginUrl";
 				const string resourcesUrl = "resourcesUrl";
 				const string buildingsUrl = "buildingsUrl";
 				const string sendUnitsUrl = "sendUnitsUrl";
 				const string buildUrl = "buildUrl";
 
-				Game gameInfo = new Game();
+				Game gameInfo = new Game {CookieContainer = new CookieContainer(), CookieCollection = new CookieCollection()};
 				gameInfo.AddUrl(loginUrl, String.Format(CultureInfo.InvariantCulture, "{0}login.php", serverName));
 				gameInfo.AddUrl(resourcesUrl, String.Format(CultureInfo.InvariantCulture, "{0}dorf1.php", serverName));
 				gameInfo.AddUrl(buildingsUrl, String.Format(CultureInfo.InvariantCulture, "{0}dorf2.php", serverName));
 				gameInfo.AddUrl(sendUnitsUrl, String.Format(CultureInfo.InvariantCulture, "{0}a2b.php", serverName));
 				gameInfo.AddUrl(buildUrl, String.Format(CultureInfo.InvariantCulture, "{0}build.php", serverName));
 
-				string pageSource = Http.SendData(gameInfo.GetUrl(loginUrl), null, cookieContainer, cookieCollection);
+				string pageSource =
+					Http.SendData(gameInfo.GetUrl(loginUrl), null, gameInfo.CookieContainer, gameInfo.CookieCollection);
 				HtmlParser htmlParser = new HtmlParser(pageSource);
 				LoginInfo loginInfo = htmlParser.ParseLoginPage();
 				loginInfo.Username = userName;
 				loginInfo.Password = password;
 				gameInfo.AddLoginInfo(loginInfo);
 
-				bool logedIn = Login(gameInfo, resourcesUrl, cookieContainer, cookieCollection);
+				bool logedIn = Login(gameInfo, resourcesUrl, gameInfo.CookieContainer, gameInfo.CookieCollection);
 
 				if (logedIn)
 				{
 					int repeatCount = 0;
 					do
 					{
-						logedIn = IsLogedIn(gameInfo, resourcesUrl, cookieContainer, cookieCollection, null);
+						logedIn = IsLogedIn(gameInfo, resourcesUrl, gameInfo.CookieContainer, gameInfo.CookieCollection, null);
 
 						if (logedIn)
 						{
-							DateTime now = new DateTime(DateTime.Now.Ticks);
-							Console.WriteLine(now.ToLocalTime());
+							//DateTime now = new DateTime(DateTime.Now.Ticks);
+							//Console.WriteLine(now.ToLocalTime());
+
+							#region attacks
+
+							if (repeatCount%1 == 0)
+							{
+								Executor executor = new Executor(gameInfo);
+								executor.Parse();
+							}
+
+							#endregion
 
 							repeatCount++;
 							if (repeatCount > 100)
@@ -64,7 +73,7 @@ namespace TravianPlayer.Runner
 						}
 						else
 						{
-							Login(gameInfo, resourcesUrl, cookieContainer, cookieCollection);
+							Login(gameInfo, resourcesUrl, gameInfo.CookieContainer, gameInfo.CookieCollection);
 						}
 						Thread.Sleep(60000);
 					} while (repeatCount < 1000);

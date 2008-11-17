@@ -1,4 +1,3 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<sendTroops>
-	<attackAction id="1" enabled="1" villageId="12354" coordX="0" coordY="0" attackType="3" attackUnit="3" troopCount="10" comment="some fancy text"></attackAction>
+﻿<sendTroops>
+	<attackAction id="1" enabled="1" villageId="83117" coordX="-16" coordY="-93" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="10" comment="freewilly/Koka vas (-16|-93)/*FW*"></attackAction>
 </sendTroops>

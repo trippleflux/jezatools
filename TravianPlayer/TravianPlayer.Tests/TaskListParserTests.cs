@@ -11,9 +11,9 @@ namespace TravianPlayer.Tests
         {
             XmlSendTroopsParser xmlSendTroopsParser = new XmlSendTroopsParser(
 @"<sendTroops>
-<attackAction id=""1"" villageId=""12354"" coordX=""0"" coordY=""0"" attackType=""3"" attackUnit=""3"" troopCount=""10"" comment=""some fancy text about village info""></attackAction>
-<attackAction id=""2"" villageId=""12345"" coordX=""-10"" coordY=""-75"" attackType=""3"" attackUnit=""3"" troopCount=""10"" comment=""some fancy text about village info 2""></attackAction>
-<attackAction id=""3"" villageId=""12345"" coordX=""-100"" coordY=""-5"" attackType=""3"" attackUnit=""3"" troopCount=""100"" comment=""some fancy text about village info 3""></attackAction>
+<attackAction id=""1"" villageId=""12354"" coordX=""0"" coordY=""0"" attackType=""3"" attackUnit=""3"" attackUnitName=""Metalcev sekir"" troopCount=""10"" comment=""some fancy text about village info""></attackAction>
+<attackAction id=""2"" villageId=""12345"" coordX=""-10"" coordY=""-75"" attackType=""3"" attackUnit=""3"" attackUnitName=""Metalcev sekir"" troopCount=""10"" comment=""some fancy text about village info 2""></attackAction>
+<attackAction id=""3"" villageId=""12345"" coordX=""-100"" coordY=""-5"" attackType=""3"" attackUnit=""3"" attackUnitName=""Metalcev sekir"" troopCount=""100"" comment=""some fancy text about village info 3""></attackAction>
 </sendTroops>");
 
             TaskList attackList = xmlSendTroopsParser.Parse();
