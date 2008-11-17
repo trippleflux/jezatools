@@ -127,10 +127,17 @@ namespace TravianPlayer.Framework
 			get { return buildings; }
 		}
 
+		public List<Unit> Units
+		{
+			get { return units; }
+		}
+
 		public int UnitsCount
 		{
 			get { return units.Count; }
 		}
+
+		public bool BuildInProgress { get; set; }
 
 		private readonly List<Building> buildings = new List<Building>();
 
