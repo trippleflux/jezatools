@@ -18,5 +18,10 @@ namespace TravianPlayer.Framework
 			}
 			return configValue;
 		}
+
+		public static Int32 ConvertXY(Int32 x, Int32 y)
+		{
+			return ((x + 401) + ((400 - y) * 801));
+		}
 	}
 }

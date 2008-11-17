@@ -9,7 +9,12 @@ namespace TravianPlayer.Framework
             actionList.Add(id, action);
         }
 
-        public Action GetAction(int actionId)
+    	public Dictionary<int, Action> ActionList
+    	{
+			get { return actionList; }
+    	}
+
+		public Action GetAction(int actionId)
         {
             foreach (KeyValuePair<int, Action> action in actionList)
             {
@@ -21,11 +26,11 @@ namespace TravianPlayer.Framework
             return null;
         }
 
-        public int GetActionCount
+    	public int GetActionCount
         {
             get { return actionList.Count; }
         }
 
-        private Dictionary<int, Action> actionList = new Dictionary<int, Action>();
+    	private readonly Dictionary<int, Action> actionList = new Dictionary<int, Action>();
     }
 }

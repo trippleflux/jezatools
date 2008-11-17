@@ -65,7 +65,7 @@ namespace TravianPlayer.Framework
 			return gameInfo;
 		}
 
-		private void ParseUnitsInVillage(Game gameInfo)
+		public void ParseUnitsInVillage(Game gameInfo)
 		{
 			int villageId = gameInfo.GetVillageId(gameInfo.VillageName);
 			const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";

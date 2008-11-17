@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 #endregion
 
@@ -21,6 +22,10 @@ namespace TravianPlayer.Framework
 		public int UserId { get; set; }
 
 		public string VillageName { get; set; }
+
+		public CookieContainer CookieContainer { get; set; }
+
+		public CookieCollection CookieCollection { get; set; }
 
 		public void AddVillage(Village village)
 		{

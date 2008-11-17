@@ -30,7 +30,7 @@ namespace TravianPlayer.Framework
                     {
                         string attributeName = attribute.Name;
                         int attributeValue = 0;
-                        if (!attributeName.Equals("comment"))
+						if (!attributeName.Equals("comment") && !attributeName.Equals("attackUnitName"))
                         {
                             attributeValue = Int32.Parse(attribute.Value);
                         }
@@ -72,7 +72,12 @@ namespace TravianPlayer.Framework
                                     actionParameters.AttackUnit = attributeValue;
                                     break;
                                 }
-                            case "troopCount":
+							case "attackUnitName":
+								{
+									actionParameters.AttackUnitName = attribute.Value;
+									break;
+								}
+							case "troopCount":
                                 {
                                     actionParameters.TroopCount = attributeValue;
                                     break;
