@@ -94,21 +94,23 @@ namespace TravianPlayer.Framework
                 }
                 if (!attackIdFound)
                 {
-                    WriteData(tempContent, sb.ToString());
+                    WriteData(tempContent, sb.ToString(), true);
                 }
                 else
                 {
-                    WriteData(tempContent, "");
+                    WriteData(tempContent, "", false);
                 }
             }
             return taskList;
         }
 
-        private static void WriteData(string fileName, string content)
+        private static void WriteData(string fileName, string content, bool append)
         {
-            using (StreamWriter sw = new StreamWriter(fileName, true, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(fileName, append, Encoding.UTF8))
             {
                 sw.Write(content);
+                sw.Close();
+                sw.Dispose();
             }
         }
 
