@@ -59,8 +59,8 @@ namespace TravianPlayer.Runner
 
 							if (repeatCount%1 == 0)
 							{
-								Executor executor = new Executor(gameInfo);
-								executor.Parse();
+                                AttackExecutor attackExecutor = new AttackExecutor(gameInfo);
+                                attackExecutor.Parse();
 							}
 
 							#endregion
