@@ -50,17 +50,20 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="ActionParameters.cs" />
+    <Compile Include="AttackExecutor.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Executor.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="IActionParser.cs" />
+    <Compile Include="IExecutor.cs" />
     <Compile Include="IPageParser.cs" />
     <Compile Include="LoginInfo.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Production.cs" />
+    <Compile Include="TaskExecutor.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="XmlSendTroopsParser.cs" />
     <Compile Include="TaskList.cs" />
