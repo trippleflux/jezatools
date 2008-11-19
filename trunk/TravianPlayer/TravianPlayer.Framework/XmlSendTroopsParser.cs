@@ -44,7 +44,7 @@ namespace TravianPlayer.Framework
                                 }
 							case "enabled":
 								{
-									actionParameters.Enabled = attributeValue.Equals("1") ? true : false;
+									actionParameters.Enabled = attributeValue == 1 ? true : false;
 									break;
 								}
 							case "villageId":
