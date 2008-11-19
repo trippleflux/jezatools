@@ -130,7 +130,7 @@ ORDER BY Distance ASC",
 			SqlCommand cmd = new SqlCommand(sql, conn);
 			SqlDataReader reader = cmd.ExecuteReader();
             StringBuilder farmList = new StringBuilder();
-		    farmList.AppendFormat(CultureInfo.InvariantCulture, @"<sendTroops>\n");
+		    farmList.AppendLine("<sendTroops>");
             if (reader != null)
 			{
 				StringBuilder sb = new StringBuilder();
@@ -184,8 +184,8 @@ ORDER BY Distance ASC",
 					}
 					sb.AppendFormat("{0,4}|{1,-4}|3|{6}|\t[P:{4,-5}][D:{7,-4}][U:{2,-20}][V:{3,-25}][A:{5,-20}]\n",
 									xCor, yCor, playerName, villageName, population, alianceName, textBoxUnits.Text.Trim(), sqlDistance);
-                    farmList.AppendFormat(CultureInfo.InvariantCulture, @"\t<attackAction id=""{0}"" enabled=""1"" villageId=""83117"" coordX=""{1}"" coordY=""{2}"" attackType=""3"" attackUnit=""2"" attackUnitName=""Metalcev sekir"" troopCount=""50"" comment=""[D:{3}][P:{4}][V:{5}][A:{6}]""></attackAction>\n"
-                        , id, xCor, yCor, sqlDistance, playerName, villageName, alianceName);
+                    farmList.AppendLine(String.Format(CultureInfo.InvariantCulture, @"<attackAction id=""{0}"" enabled=""1"" villageId=""83117"" coordX=""{1}"" coordY=""{2}"" attackType=""3"" attackUnit=""2"" attackUnitName=""Metalcev sekir"" troopCount=""50"" comment=""[D:{3}][P:{4}][V:{5}][A:{6}]""></attackAction>"
+                        , id, xCor, yCor, sqlDistance, playerName.Replace('&', ' '), villageName.Replace('&', ' '), alianceName.Replace('&', ' ')));
 
 					//const string insertCommand = "INSERT INTO [TravianBot].[dbo].[FarmList] ([VillageId],[DestinationX],[DestinationY],[AttackType],[TroopsList],[TroopType],[TroopUnits],[Enabled],[Description],[PlayerId],[AtackInProgress],[TribeId],[Distance])VALUES(1,{0},{1},3,'t1=15&t2=0&t3=0&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0',1,15,1,'[{5}][V:{2}][P:{3}][A:{4}]',1,0,1,{6})\n";
 					//int villageDistance = (x - xCor)*(x - xCor) + (y - yCor)*(y - yCor);
@@ -199,7 +199,7 @@ ORDER BY Distance ASC",
 				    id++;
 				}
 				reader.Close();
-                farmList.AppendFormat(CultureInfo.InvariantCulture, @"</sendTroops>\n");
+                farmList.AppendLine("</sendTroops>");
 
 				using (StreamWriter sw = new StreamWriter(@"C:\temp\FarmList.xml"))
 				{
