@@ -29,7 +29,8 @@ namespace TravianPlayer.Framework
             foreach (FileInfo attackFile in attackFiles)
             {
                 string content = ReadContent(attackFile.FullName);
-                string tempContent = ReadContent(attackFile.FullName + ".temp");
+                string tempFile = String.Format(CultureInfo.InvariantCulture, "{0}.temp", attackFile.FullName);
+                string tempContent = ReadContent(tempFile);
                 XmlSendTroopsParser xmlSendTroopsParser = new XmlSendTroopsParser(content);
                 taskList = xmlSendTroopsParser.Parse();
                 StringBuilder sb = new StringBuilder();
@@ -94,11 +95,11 @@ namespace TravianPlayer.Framework
                 }
                 if (!attackIdFound)
                 {
-                    WriteData(tempContent, sb.ToString(), true);
+                    WriteData(tempFile, sb.ToString(), true);
                 }
                 else
                 {
-                    WriteData(tempContent, "", false);
+                    WriteData(tempFile, "", false);
                 }
             }
             return taskList;
