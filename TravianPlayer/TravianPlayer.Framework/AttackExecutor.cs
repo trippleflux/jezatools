@@ -25,7 +25,7 @@ namespace TravianPlayer.Framework
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\attacks");
 
             FileInfo[] attackFiles = di.GetFiles("*.xml");
-            Console.WriteLine("Found {0} Files in {1}", attackFiles.Length, di.Name);
+            //Console.WriteLine("Found {0} Files in {1}", attackFiles.Length, di.Name);
             foreach (FileInfo attackFile in attackFiles)
             {
                 string content = ReadContent(attackFile.FullName);
@@ -51,6 +51,7 @@ namespace TravianPlayer.Framework
                         int villageId = keyValuePair.Value.GetActionParameters(actionId).VillageId;
                         string unitName = keyValuePair.Value.GetActionParameters(actionId).AttackUnitName;
                         int attackUnits = keyValuePair.Value.GetActionParameters(actionId).AttackUnit;
+                        int troopCount = keyValuePair.Value.GetActionParameters(actionId).TroopCount;
                         string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
                                                    gameInfo.GetUrl("resourcesUrl"),
                                                    villageId);
@@ -59,11 +60,10 @@ namespace TravianPlayer.Framework
                         HtmlParser htmlParser = new HtmlParser(pageSource);
                         Game gameResources = htmlParser.ParseResourcesPage();
                         int availableUnits = gameResources.GetVillageData(villageId).GetUnitCount(unitName);
-                        if (availableUnits >= attackUnits)
+                        if (availableUnits >= troopCount)
                         {
                             DateTime now = new DateTime(DateTime.Now.Ticks);
                             string comment = keyValuePair.Value.GetActionParameters(actionId).Comment;
-                            int troopCount = keyValuePair.Value.GetActionParameters(actionId).TroopCount;
                             Console.WriteLine("{2} We have {0} {1}. Attacking '{3}' with {4} {1}!",
                                               availableUnits, unitName, now.ToString("yyyy-MM-dd HH:mm:ss"), comment,
                                               troopCount);
@@ -94,6 +94,10 @@ namespace TravianPlayer.Framework
                                                              villageId);
                             Http.SendData(attackurl, postData, gameInfo.CookieContainer, gameInfo.CookieCollection);
 
+                        }
+                        else
+                        {
+                            break;
                         }
                         Thread.Sleep(2000);
                     }
