@@ -38,6 +38,11 @@ namespace TravianPlayer.Framework
                 foreach (KeyValuePair<int, Action> keyValuePair in taskList.ActionList)
                 {
                     int actionId = keyValuePair.Key;
+                    bool enabled = keyValuePair.Value.GetActionParameters(actionId).Enabled;
+                    if (!enabled)
+                    {
+                        continue;
+                    }
                     string tempId = String.Format(CultureInfo.InvariantCulture, ".{0}.", actionId);
                     if (tempContent.IndexOf(tempId) == -1)
                     {
