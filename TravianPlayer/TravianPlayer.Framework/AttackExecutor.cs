@@ -33,8 +33,7 @@ namespace TravianPlayer.Framework
                 string tempContent = ReadContent(tempFile);
                 XmlSendTroopsParser xmlSendTroopsParser = new XmlSendTroopsParser(content);
                 taskList = xmlSendTroopsParser.Parse();
-                StringBuilder sb = new StringBuilder();
-                bool attackIdFound = true;
+                bool attackIdFound = false;
                 foreach (KeyValuePair<int, Action> keyValuePair in taskList.ActionList)
                 {
                     int actionId = keyValuePair.Key;
@@ -46,11 +45,9 @@ namespace TravianPlayer.Framework
                     string tempId = String.Format(CultureInfo.InvariantCulture, ".{0}.", actionId);
                     if (tempContent.IndexOf(tempId) == -1)
                     {
-                        sb.Append(tempId);
-                        attackIdFound = false;
+                        attackIdFound = true;
                         int villageId = keyValuePair.Value.GetActionParameters(actionId).VillageId;
                         string unitName = keyValuePair.Value.GetActionParameters(actionId).AttackUnitName;
-                        int attackUnits = keyValuePair.Value.GetActionParameters(actionId).AttackUnit;
                         int troopCount = keyValuePair.Value.GetActionParameters(actionId).TroopCount;
                         string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}",
                                                    gameInfo.GetUrl("resourcesUrl"),
@@ -93,7 +90,7 @@ namespace TravianPlayer.Framework
                                                              gameInfo.GetUrl("sendUnitsUrl"),
                                                              villageId);
                             Http.SendData(attackurl, postData, gameInfo.CookieContainer, gameInfo.CookieCollection);
-
+                            WriteData(tempFile, tempId, true);
                         }
                         else
                         {
@@ -103,10 +100,6 @@ namespace TravianPlayer.Framework
                     }
                 }
                 if (!attackIdFound)
-                {
-                    WriteData(tempFile, sb.ToString(), true);
-                }
-                else
                 {
                     WriteData(tempFile, "", false);
                 }
