@@ -83,11 +83,13 @@ namespace TravianPlayer.Runner
 					Console.WriteLine("Not loged in ...");
 				}
 			}
-			catch (Exception)
+			catch (Exception exception)
 			{
 				Console.WriteLine("Oups...");
-				throw;
-			}
+                Console.WriteLine(exception.Message);
+                Console.WriteLine();
+                Console.WriteLine(exception);
+            }
 		}
 
 		private static bool IsLogedIn
