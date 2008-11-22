@@ -1,5 +1,5 @@
 <sendTroops>
-	<attackAction id="1" enabled="1" villageId="83117" coordX="-16" coordY="-93" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="20" comment="[D:1][P:freewilly][V:Koka vas][A:*FW*]"></attackAction>
+	<attackAction id="1" enabled="1" villageId="83117" coordX="-16" coordY="-93" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:1][P:freewilly][V:Koka vas][A:*FW*]"></attackAction>
 	<attackAction id="2" enabled="1" villageId="83117" coordX="-15" coordY="-94" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:1][P:slos][V:GORENJSKA][A:SDT*]"></attackAction>
 	<attackAction id="3" enabled="1" villageId="83117" coordX="-16" coordY="-92" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:1][P:carrek][V:carrek][A:E.B.]"></attackAction>
 	<attackAction id="4" enabled="1" villageId="83117" coordX="-15" coordY="-91" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:2][P:Rea][V:Emona][A:E.B.]"></attackAction>
@@ -67,7 +67,7 @@
 	<attackAction id="70" enabled="1" villageId="83117" coordX="-20" coordY="-82" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:12][P:Tina-Anahi-Rbd][V:Mia-Dbest][A:]"></attackAction>
 	<attackAction id="71" enabled="1" villageId="83117" coordX="-10" coordY="-104" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="100" comment="[D:12][P:mandarina1][V:Naselje -marjetica][A:IMP]"></attackAction>
 	<attackAction id="72" enabled="1" villageId="83117" coordX="-13" coordY="-81" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="100" comment="[D:12][P:Kastor zid][V:V luži gnije les][A:ARES]"></attackAction>
-	<attackAction id="73" enabled="1" villageId="83117" coordX="-25" coordY="-100" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:12][P:buell][V:buell][A:K.D.]"></attackAction>
+	<attackAction id="73" enabled="0" villageId="83117" coordX="-25" coordY="-100" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="300" comment="[D:12][P:buell][V:buell][A:K.D.]"></attackAction>
 	<attackAction id="74" enabled="1" villageId="83117" coordX="-27" coordY="-96" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:12][P:Sufi][V:Isfahan][A:+!NFS!*]"></attackAction>
 	<attackAction id="75" enabled="0" villageId="83117" coordX="-5" coordY="-101" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:13][P:dr. Norcek][V:IdrijaTown][A:PR0elita]"></attackAction>
 	<attackAction id="76" enabled="1" villageId="83117" coordX="-23" coordY="-83" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:13][P:paradajz][V:paradajz][A:Ap]"></attackAction>
@@ -83,11 +83,11 @@
 	<attackAction id="88" enabled="0" villageId="83117" coordX="-4" coordY="-101" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:dr. Norcek][V:Lj-Polje][A:PR0elita]"></attackAction>
 	<attackAction id="89" enabled="1" villageId="83117" coordX="-1" coordY="-94" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="200" comment="[D:14][P:irina][V:irina land][A:VRT]"></attackAction>
 	<attackAction id="90" enabled="1" villageId="83117" coordX="-16" coordY="-107" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:matej500][V:dmx][A:N.F.S.]"></attackAction>
-	<attackAction id="91" enabled="1" villageId="83117" coordX="-25" coordY="-83" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:alja1][V:aljaž][A:]"></attackAction>
+	<attackAction id="91" enabled="1" villageId="83117" coordX="-25" coordY="-83" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="20" comment="[D:14][P:alja1][V:aljaž][A:]"></attackAction>
 	<attackAction id="92" enabled="0" villageId="83117" coordX="-4" coordY="-84" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:MUSTANG][V:MUSTANG GT-R][A:MUSTANG]"></attackAction>
 	<attackAction id="93" enabled="1" villageId="83117" coordX="-2" coordY="-87" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:bety][V:bar kmet][A:S.E.]"></attackAction>
-	<attackAction id="94" enabled="1" villageId="83117" coordX="-7" coordY="-105" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:floki][V:speedman][A:*V.I.M.*]"></attackAction>
-	<attackAction id="95" enabled="1" villageId="83117" coordX="-23" coordY="-105" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:14][P:bush][V:Naselje - bush][A:]"></attackAction>
+	<attackAction id="94" enabled="1" villageId="83117" coordX="-7" coordY="-105" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="30" comment="[D:14][P:floki][V:speedman][A:*V.I.M.*]"></attackAction>
+	<attackAction id="95" enabled="1" villageId="83117" coordX="-23" coordY="-105" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="20" comment="[D:14][P:bush][V:Naselje - bush][A:]"></attackAction>
 	<attackAction id="96" enabled="0" villageId="83117" coordX="-5" coordY="-104" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:15][P:Snopy][V:Snopy.1][A:]"></attackAction>
 	<attackAction id="97" enabled="1" villageId="83117" coordX="-1" coordY="-88" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="50" comment="[D:15][P:Verona][V:Verona][A:]"></attackAction>
 	<attackAction id="99" enabled="0" villageId="83117" coordX="-27" coordY="-102" attackType="3" attackUnit="2" attackUnitName="Metalcev sekir" troopCount="500" comment="[D:15][P:Medijanus][V:Medijanus][A:ALL41]"></attackAction>
