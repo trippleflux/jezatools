@@ -23,30 +23,12 @@ namespace TravianPlayer.TroopCoordinator {
         protected global::System.Web.UI.HtmlControls.HtmlForm formLogin;
         
         /// <summary>
-        /// labelUsername control.
+        /// LoginId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelUsername;
-        
-        /// <summary>
-        /// textBoxUsername control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox textBoxUsername;
-        
-        /// <summary>
-        /// labelUsername0 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelUsername0;
+        protected global::System.Web.UI.WebControls.Login LoginId;
     }
 }

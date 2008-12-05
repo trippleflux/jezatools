@@ -10,7 +10,7 @@
     <form id="formRegister" runat="server">
         <div>
         
-            
+            Register
         
         </div>
     </form>
