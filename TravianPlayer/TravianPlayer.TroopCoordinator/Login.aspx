@@ -8,12 +8,18 @@
 </head>
 <body>
     <form id="formLogin" runat="server">
-        <div>
+        <div style="height: 251px">
         
-            <asp:Label ID="labelUsername" runat="server" Text="Username"></asp:Label>
-            <asp:TextBox ID="textBoxUsername" runat="server"></asp:TextBox>
-            <asp:Label ID="labelPassword" runat="server" Text="Password"></asp:Label>
-            <asp:TextBox ID="textBoxPassword" runat="server"></asp:TextBox>
+            <asp:Login ID="LoginId" runat="server" BackColor="#F7F6F3" 
+                BorderColor="#E6E2D8" BorderPadding="4" BorderStyle="Solid" BorderWidth="1px" 
+                Font-Names="Verdana" Font-Size="0.8em" ForeColor="#333333">
+                <TextBoxStyle Font-Size="0.8em" />
+                <LoginButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" BorderStyle="Solid" 
+                    BorderWidth="1px" Font-Names="Verdana" Font-Size="0.8em" ForeColor="#284775" />
+                <InstructionTextStyle Font-Italic="True" ForeColor="Black" />
+                <TitleTextStyle BackColor="#5D7B9D" Font-Bold="True" Font-Size="0.9em" 
+                    ForeColor="White" />
+            </asp:Login>
         
         </div>
     </form>
