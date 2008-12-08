@@ -32,6 +32,7 @@ namespace TravianPlayer.Runner
 				gameInfo.AddUrl(buildingsUrl, String.Format(CultureInfo.InvariantCulture, "{0}dorf2.php", serverName));
 				gameInfo.AddUrl(sendUnitsUrl, String.Format(CultureInfo.InvariantCulture, "{0}a2b.php", serverName));
 				gameInfo.AddUrl(buildUrl, String.Format(CultureInfo.InvariantCulture, "{0}build.php", serverName));
+                gameInfo.AddUrl("messagesUrl", String.Format(CultureInfo.InvariantCulture, "{0}berichte.php", serverName));
 
 				string pageSource =
 					Http.SendData(gameInfo.GetUrl(loginUrl), null, gameInfo.CookieContainer, gameInfo.CookieCollection);
@@ -55,17 +56,25 @@ namespace TravianPlayer.Runner
 							//DateTime now = new DateTime(DateTime.Now.Ticks);
 							//Console.WriteLine(now.ToLocalTime());
 
-							#region attacks
-
 							if (repeatCount%1 == 0)
 							{
+                                #region attacks
+
                                 AttackExecutor attackExecutor = new AttackExecutor(gameInfo);
                                 attackExecutor.Parse();
-							}
+                            
+                                #endregion
 
-							#endregion
+                                #region read reports
 
-							repeatCount++;
+							    IReader reportReader = new ReportReader(gameInfo);
+                                reportReader.Parse();
+
+                                #endregion
+
+                            }
+
+                            repeatCount++;
 							if (repeatCount > 100)
 							{
 								repeatCount = 0;

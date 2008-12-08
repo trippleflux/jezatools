@@ -107,7 +107,7 @@ namespace TravianPlayer.Framework
             return taskList;
         }
 
-        private static void WriteData(string fileName, string content, bool append)
+        public static void WriteData(string fileName, string content, bool append)
         {
             using (StreamWriter sw = new StreamWriter(fileName, append, Encoding.UTF8))
             {
