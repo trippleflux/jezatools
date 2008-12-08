@@ -59,10 +59,12 @@
     <Compile Include="IActionParser.cs" />
     <Compile Include="IExecutor.cs" />
     <Compile Include="IPageParser.cs" />
+    <Compile Include="IReader.cs" />
     <Compile Include="LoginInfo.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Production.cs" />
+    <Compile Include="ReportReader.cs" />
     <Compile Include="TaskExecutor.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="XmlSendTroopsParser.cs" />
