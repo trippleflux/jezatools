@@ -20,6 +20,27 @@
 				
        	</div>
 
+       	<div>
+
+			<asp:GridView ID="GridViewTroops" runat="server" 
+				
+				style="z-index: 1; left: 200px; top: 60px; position: absolute; height: 50px; width: 500px" 
+				AutoGenerateColumns="False" DataSourceID="TCSqlDataSource">
+				<Columns>
+					<asp:BoundField DataField="TroopId" HeaderText="TroopId" 
+						SortExpression="TroopId" />
+					<asp:BoundField DataField="TroopCount" HeaderText="TroopCount" 
+						SortExpression="TroopCount" />
+				</Columns>
+			</asp:GridView>
+
+       		<asp:SqlDataSource ID="TCSqlDataSource" runat="server" 
+				ConnectionString="<%$ ConnectionStrings:TroopCoordinatorConnectionString %>" 
+				SelectCommand="SELECT [TroopId], [TroopCount] FROM [Troops] ORDER BY [TroopId]">
+			</asp:SqlDataSource>
+
+       	</div>
+
     </form>
 </body>
 </html>

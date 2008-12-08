@@ -25,5 +25,24 @@ namespace TravianPlayer.TroopCoordinator
             FormsAuthentication.SignOut();
             Response.Redirect(FormsAuthentication.DefaultUrl);
         }
+
+        private DataTable GetTransposedTable(DataTable dt)
+        {
+            DataTable newTable = new DataTable();
+            newTable.Columns.Add(new DataColumn("0", typeof(string)));
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                DataRow newRow = newTable.NewRow();
+                newRow[0] = dt.Columns[i].ColumnName;
+                for (int j = 1; j <= dt.Rows.Count; j++)
+                {
+                    if (newTable.Columns.Count < dt.Rows.Count + 1)
+                        newTable.Columns.Add(new DataColumn(j.ToString(), typeof(string)));
+                    newRow[j] = dt.Rows[j - 1][i];
+                }
+                newTable.Rows.Add(newRow);
+            }
+            return newTable;
+        } 
     }
 }
