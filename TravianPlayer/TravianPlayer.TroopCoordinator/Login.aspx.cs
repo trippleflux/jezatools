@@ -20,13 +20,14 @@ namespace TravianPlayer.TroopCoordinator
 
 		}
 
-        protected void LoginButton_Click(object sender, EventArgs e)
+        protected void LinkButtonLogin_Click(object sender, EventArgs e)
         {
             FormsAuthentication.RedirectFromLoginPage("jeza", true);
-            //if (FormsAuthentication.Authenticate(LoginId.UserName, LoginId.Password))
-            //    FormsAuthentication.RedirectFromLoginPage(LoginId.UserName, true);
-            //else
-            //    LoginId.FailureText = "LoginFailed!";
+        }
+
+        protected void LinkButtonRegister_Click(object sender, EventArgs e)
+        {
+
         }
 	}
 }

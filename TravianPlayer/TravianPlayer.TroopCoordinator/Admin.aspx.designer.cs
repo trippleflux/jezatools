@@ -11,16 +11,16 @@
 namespace TravianPlayer.TroopCoordinator {
     
     
-    public partial class _Default {
+    public partial class Admin {
         
         /// <summary>
-        /// formMain control.
+        /// formAdmin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm formMain;
+        protected global::System.Web.UI.HtmlControls.HtmlForm formAdmin;
         
         /// <summary>
         /// LinkButtonViewTroops control.

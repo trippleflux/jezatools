@@ -13,17 +13,11 @@ using System.Xml.Linq;
 
 namespace TravianPlayer.TroopCoordinator
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class Logout : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-        protected void LinkButtonLogOut_Click(object sender, EventArgs e)
-        {
-            FormsAuthentication.SignOut();
-            Response.Redirect(FormsAuthentication.DefaultUrl);
         }
     }
 }
