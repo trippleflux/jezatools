@@ -17,13 +17,13 @@
 		<asp:LinkButton ID="linkButtonImportData" runat="server" Style="z-index: 102; left: 20px; position: absolute; top: 80px" OnClick="linkButtonImportData_Click" Enabled="False" Width="90px" Visible="False">Import Data</asp:LinkButton>
 		
         <asp:Label ID="LabelAlly" runat="server" Style="z-index: 110; left: 340px; position: absolute; top: 20px" Text="Ally" Width="50px" BackColor="Orange"></asp:Label>
-        <asp:TextBox ID="TextBoxAlly" runat="server" Style="z-index: 111; left: 410px; position: absolute; top: 20px" Width="400px">Cezar,-NF&amp;NP-</asp:TextBox>
+        <asp:TextBox ID="TextBoxAlly" runat="server" Style="z-index: 111; left: 410px; position: absolute; top: 20px" Width="400px">*FOR*</asp:TextBox>
         <asp:Label ID="LabelNap" runat="server" Style="z-index: 112; left: 340px; position: absolute; top: 50px" Text="Nap" Width="50px" BackColor="Yellow"></asp:Label>
-        <asp:TextBox ID="TextBoxNap" runat="server" Style="z-index: 113; left: 410px; position: absolute; top: 50px" Width="400px"></asp:TextBox>
+        <asp:TextBox ID="TextBoxNap" runat="server" Style="z-index: 113; left: 410px; position: absolute; top: 50px" Width="400px">OnDuty™,PR0phecy,PROphecy,</asp:TextBox>
         <asp:Label ID="LabelWar" runat="server" Style="z-index: 114; left: 340px; position: absolute; top: 80px" Text="War" Width="50px" BackColor="Red"></asp:Label>
         <asp:TextBox ID="TextBoxWar" runat="server" Style="z-index: 115; left: 410px; position: absolute; top: 80px" Width="400px"></asp:TextBox>
         <asp:Label ID="LabelAliance" runat="server" Style="z-index: 116; left: 340px; position: absolute; top: 110px" Text="Aliance" Width="50px" BackColor="Green"></asp:Label>
-        <asp:TextBox ID="textBoxAliance" runat="server" Style="z-index: 117; left: 410px; position: absolute; top: 110px" Width="400px">NF&amp;NP</asp:TextBox>
+        <asp:TextBox ID="textBoxAliance" runat="server" Style="z-index: 117; left: 410px; position: absolute; top: 110px" Width="400px">FOR</asp:TextBox>
 
 		<asp:Label ID="LabelCenter" runat="server" Style="z-index: 121; left: 130px; position: absolute; top: 20px" Text="Center"></asp:Label>
 		<asp:Label ID="LabelDistanceX" runat="server" Style="z-index: 123; left: 130px; position: absolute;	top: 50px" Text="Distance X"></asp:Label>
