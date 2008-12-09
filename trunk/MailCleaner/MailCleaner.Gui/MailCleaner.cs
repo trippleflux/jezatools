@@ -26,8 +26,9 @@ namespace MailCleaner.Gui
 
         private void buttonCheckMail_Click(object sender, EventArgs e)
         {
-            Thread startlogin = new Thread(new ThreadStart(loginandretr)) {IsBackground = true};
-            startlogin.Start();
+            //Thread startlogin = new Thread(new ThreadStart(loginandretr)) {IsBackground = true};
+            //startlogin.Start();
+            loginandretr();
         }
 
 	    private void loginandretr()
@@ -43,7 +44,7 @@ namespace MailCleaner.Gui
             }
             catch (SocketException)
             {
-                //labelStatus.Text = "Unable to connect to server";
+                labelStatus.Text = "Unable to connect to server";
                 return;
             }
 
