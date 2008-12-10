@@ -36,6 +36,7 @@ namespace MailCleaner.Gui
             string response;
             string from = null;
             string subject = null;
+            string date = null;
             int totmessages;
 
             try
@@ -97,6 +98,12 @@ namespace MailCleaner.Gui
                 labelStatus.Text = "You have no messages";
             }
 
+            ListViewItem lvi;
+            ListViewItem.ListViewSubItem lvsi;
+            
+            listViewStatus.Items.Clear();
+            listViewStatus.BeginUpdate();
+
             for (int i = 1; i <= totmessages; i++)
             {
                 sw.WriteLine("top " + i + " 0"); //read header of each message
@@ -110,6 +117,8 @@ namespace MailCleaner.Gui
                         break;
                     if (response.Length > 4)
                     {
+                        if (response.Substring(0, 5) == "Date:")
+                            date = response;
                         if (response.Substring(0, 5) == "From:")
                             from = response;
                         if (response.Length > 7)
@@ -119,8 +128,24 @@ namespace MailCleaner.Gui
                         }
                     }
                 }
-                listBoxMessages.Items.Add(i + "  " + from + "  " + subject);
+                lvi = new ListViewItem();
+                lvi.Text = i.ToString();
+                
+                lvsi = new ListViewItem.ListViewSubItem();
+                lvsi.Text = from;
+                lvi.SubItems.Add(lvsi);
+                
+                lvsi = new ListViewItem.ListViewSubItem();
+                lvsi.Text = subject;
+                lvi.SubItems.Add(lvsi);
+                
+                lvsi = new ListViewItem.ListViewSubItem();
+                lvsi.Text = date;
+                lvi.SubItems.Add(lvsi);
+                
+                listViewStatus.Items.Add(lvi);
             }
+            listViewStatus.EndUpdate();
 	    }
 	}
 }
