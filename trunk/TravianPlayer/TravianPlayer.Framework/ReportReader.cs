@@ -40,7 +40,7 @@ namespace TravianPlayer.Framework
                     Match Mc = troopLost.Matches(pageSource)[0];
                     troopLostValue = Mc.Groups[1].Value;
                 }
-                String content = String.Format(CultureInfo.InvariantCulture, "{0}::{1}::{2}{3}", url, reportText,
+                String content = String.Format(CultureInfo.InvariantCulture, "{0} :: {1} [{2}]{3}", url, reportText,
                                                troopLostValue, Environment.NewLine);
                 AttackExecutor.WriteData("Report.txt", content, true);
                 Console.WriteLine(content);
