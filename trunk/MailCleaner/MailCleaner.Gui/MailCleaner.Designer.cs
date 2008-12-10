@@ -91,12 +91,17 @@
             this.From,
             this.Subject,
             this.Date});
+            this.listViewStatus.FullRowSelect = true;
+            this.listViewStatus.GridLines = true;
             this.listViewStatus.Location = new System.Drawing.Point(13, 42);
             this.listViewStatus.Name = "listViewStatus";
             this.listViewStatus.Size = new System.Drawing.Size(888, 180);
+            this.listViewStatus.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.listViewStatus.TabIndex = 9;
             this.listViewStatus.UseCompatibleStateImageBehavior = false;
             this.listViewStatus.View = System.Windows.Forms.View.Details;
+            this.listViewStatus.ItemActivate += new System.EventHandler(this.listViewStatus_ItemActivate);
+            this.listViewStatus.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewStatus_ItemSelectionChanged);
             // 
             // Number
             // 
