@@ -33,7 +33,11 @@
             this.dataGridViewBlackList = new System.Windows.Forms.DataGridView();
             this.textBoxMailMessage = new System.Windows.Forms.TextBox();
             this.labelStatus = new System.Windows.Forms.Label();
-            this.listBoxMessages = new System.Windows.Forms.ListBox();
+            this.listViewStatus = new System.Windows.Forms.ListView();
+            this.Number = new System.Windows.Forms.ColumnHeader();
+            this.From = new System.Windows.Forms.ColumnHeader();
+            this.Subject = new System.Windows.Forms.ColumnHeader();
+            this.Date = new System.Windows.Forms.ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBlackList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,20 +84,45 @@
             this.labelStatus.Size = new System.Drawing.Size(727, 23);
             this.labelStatus.TabIndex = 8;
             // 
-            // listBoxMessages
+            // listViewStatus
             // 
-            this.listBoxMessages.FormattingEnabled = true;
-            this.listBoxMessages.Location = new System.Drawing.Point(13, 42);
-            this.listBoxMessages.Name = "listBoxMessages";
-            this.listBoxMessages.Size = new System.Drawing.Size(888, 173);
-            this.listBoxMessages.TabIndex = 9;
+            this.listViewStatus.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Number,
+            this.From,
+            this.Subject,
+            this.Date});
+            this.listViewStatus.Location = new System.Drawing.Point(13, 42);
+            this.listViewStatus.Name = "listViewStatus";
+            this.listViewStatus.Size = new System.Drawing.Size(888, 180);
+            this.listViewStatus.TabIndex = 9;
+            this.listViewStatus.UseCompatibleStateImageBehavior = false;
+            this.listViewStatus.View = System.Windows.Forms.View.Details;
+            // 
+            // Number
+            // 
+            this.Number.Text = "Item";
+            // 
+            // From
+            // 
+            this.From.Text = "From";
+            this.From.Width = 208;
+            // 
+            // Subject
+            // 
+            this.Subject.Text = "Subject";
+            this.Subject.Width = 412;
+            // 
+            // Date
+            // 
+            this.Date.Text = "Date";
+            this.Date.Width = 203;
             // 
             // MailCleaner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 480);
-            this.Controls.Add(this.listBoxMessages);
+            this.Controls.Add(this.listViewStatus);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.textBoxMailMessage);
             this.Controls.Add(this.dataGridViewBlackList);
@@ -114,7 +143,11 @@
 		private System.Windows.Forms.DataGridView dataGridViewBlackList;
 		private System.Windows.Forms.TextBox textBoxMailMessage;
         private System.Windows.Forms.Label labelStatus;
-        private System.Windows.Forms.ListBox listBoxMessages;
+        private System.Windows.Forms.ListView listViewStatus;
+        private System.Windows.Forms.ColumnHeader Number;
+        private System.Windows.Forms.ColumnHeader From;
+        private System.Windows.Forms.ColumnHeader Subject;
+        private System.Windows.Forms.ColumnHeader Date;
 	}
 }
 
