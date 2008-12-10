@@ -82,7 +82,7 @@ namespace MailCleaner.Gui
                 return;
             }
 
-            sw.WriteLine("stat"); //Send stat command to get number of messages
+            sw.WriteLine("LIST"); //Send stat command to get number of messages
             sw.Flush();
 
             response = sr.ReadLine();
@@ -112,8 +112,11 @@ namespace MailCleaner.Gui
                     {
                         if (response.Substring(0, 5) == "From:")
                             from = response;
-                        if (response.Substring(0, 8) == "Subject:")
-                            subject = response;
+                        if (response.Length > 7)
+                        {
+                            if (response.Substring(0, 8) == "Subject:")
+                                subject = response;
+                        }
                     }
                 }
                 listBoxMessages.Items.Add(i + "  " + from + "  " + subject);
