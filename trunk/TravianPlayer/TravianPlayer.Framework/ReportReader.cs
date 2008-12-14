@@ -26,24 +26,36 @@ namespace TravianPlayer.Framework
             MatchCollection matchCollection = Regex.Matches(pageSource, pattern);
             for (int i = 0; i < matchCollection.Count; i++)
             {
-                Console.WriteLine(i + "::" + matchCollection[i].Groups.Count);
+                //Console.WriteLine(i + "::" + matchCollection[i].Groups.Count);
                 string reportId = matchCollection[i].Groups[1].Value.Trim();
                 string reportText = matchCollection[i].Groups[2].Value.Trim();
-                string troopLostValue = "0";
-                url = String.Format(CultureInfo.InvariantCulture, "{0}?id={1}", gameInfo.GetUrl("messagesUrl"), reportId);
-                pageSource = Http.SendData(url, null, gameInfo.CookieContainer, gameInfo.CookieCollection);
-                Regex troopLost =
-                    new Regex(
-                        @"<td>Žrtve</td><td class=""c"">0</td><td class=""c"">0</td><td class=""c"">([0-9]{0,3})</td>");
-                if (troopLost.IsMatch(pageSource))
+                if (reportText.Contains("je napadel"))
                 {
-                    Match Mc = troopLost.Matches(pageSource)[0];
-                    troopLostValue = Mc.Groups[1].Value;
+                    string troopLostValue = "-";
+                    url = String.Format(CultureInfo.InvariantCulture, "{0}?id={1}", gameInfo.GetUrl("messagesUrl"),
+                                        reportId);
+                    //url = "http://s6.travian.si/berichte.php?id=6042298";
+                    pageSource = Http.SendData(url, null, gameInfo.CookieContainer, gameInfo.CookieCollection);
+                    Regex troopLost =
+                        new Regex(
+                            @"<td>Žrtve</td>(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)");
+                    if (troopLost.IsMatch(pageSource))
+                    {
+                        Match Mc = troopLost.Matches(pageSource)[0];
+                        for (int j = 0; j < Mc.Groups.Count; j++)
+                        {
+                            string match = Mc.Groups[j].Value;
+                            if (Misc.IsNumber(match))
+                            {
+                                troopLostValue += match + "-";
+                            }
+                        }
+                    }
+                    String content = String.Format(CultureInfo.InvariantCulture, "{0} :: {1} [{2}]{3}", url, reportText,
+                                                   troopLostValue, Environment.NewLine);
+                    AttackExecutor.WriteData("Report.txt", content, true);
+                    Console.WriteLine(content);
                 }
-                String content = String.Format(CultureInfo.InvariantCulture, "{0} :: {1} [{2}]{3}", url, reportText,
-                                               troopLostValue, Environment.NewLine);
-                AttackExecutor.WriteData("Report.txt", content, true);
-                Console.WriteLine(content);
             }
         }
 

@@ -23,5 +23,22 @@ namespace TravianPlayer.Framework
 		{
 			return ((x + 401) + ((400 - y) * 801));
 		}
+
+	    public static bool IsNumber(string input)
+	    {
+	        for (int c = 0; c < input.Length; c++)
+	        {
+	            if (!IsNumber(input[c]))
+	            {
+	                return false;
+	            }
+	        }
+	        return true;
+	    }
+
+	    public static bool IsNumber(char c)
+	    {
+	        return Char.IsNumber(c);
+	    }
 	}
 }
