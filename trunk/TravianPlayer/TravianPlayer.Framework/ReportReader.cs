@@ -51,8 +51,18 @@ namespace TravianPlayer.Framework
                             }
                         }
                     }
-                    String content = String.Format(CultureInfo.InvariantCulture, "{0} :: {1} [{2}]{3}", url, reportText,
-                                                   troopLostValue, Environment.NewLine);
+                    string loot = "-";
+                    int lootTotal = 0;
+                    const string lootPattern = @"<img class=""res"" src=""img/un/r/[1234].gif"">([0-9]{0,7})";
+                    MatchCollection lootMatchCollection = Regex.Matches(pageSource, lootPattern);
+                    for (int j = 0; j < lootMatchCollection.Count; j++)
+                    {
+                        int amount = Int32.Parse(lootMatchCollection[j].Groups[1].Value.Trim());
+                        lootTotal += amount;
+                        loot += amount + "-";
+                    }
+                    String content = String.Format(CultureInfo.InvariantCulture, "{0} :: {1} [{2}] :: [{4}={5}]{3}", url, reportText,
+                                                   troopLostValue, Environment.NewLine, loot, lootTotal);
                     AttackExecutor.WriteData("Report.txt", content, true);
                     Console.WriteLine(content);
                 }
