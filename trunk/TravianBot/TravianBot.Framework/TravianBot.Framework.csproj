@@ -52,6 +52,8 @@
     <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="LoginPageData.cs" />
+    <Compile Include="MessagesReader.cs" />
+    <Compile Include="ReportReader.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="IExecutor.cs" />
     <Compile Include="IReader.cs" />
