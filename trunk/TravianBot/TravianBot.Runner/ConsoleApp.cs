@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Threading;
 using TravianBot.Framework;
 
 namespace TravianBot.Runner
@@ -19,7 +20,53 @@ namespace TravianBot.Runner
                 ShowBanner();
 
                 ServerInfo serverInfo = new ServerInfo();
+                LoginPageData loginPageData = new LoginPageData(serverInfo);
 
+                bool logedIn = Misc.Login(serverInfo, loginPageData);
+
+                if (logedIn)
+                {
+                    int repeatCount = 0;
+                    do
+                    {
+                        logedIn = Misc.IsLogedIn(serverInfo, null);
+
+                        if (logedIn)
+                        {
+                            //DateTime now = new DateTime(DateTime.Now.Ticks);
+                            //Console.WriteLine(now.ToLocalTime());
+
+                            if (repeatCount % 1 == 0)
+                            {
+                                #region attacks
+
+
+                                #endregion
+
+                                #region read reports
+
+
+                                #endregion
+
+                            }
+
+                            repeatCount++;
+                            if (repeatCount > 100)
+                            {
+                                repeatCount = 0;
+                            }
+                        }
+                        else
+                        {
+                            Misc.Login(serverInfo, loginPageData);
+                        }
+                        Thread.Sleep(60000);
+                    } while (repeatCount < 1000);
+                }
+                else
+                {
+                    Console.WriteLine("Not loged in ...");
+                }
             }
             catch (Exception ex)
             {
