@@ -2,7 +2,6 @@
 
 using System;
 using System.Configuration;
-using System.Net;
 
 #endregion
 
@@ -28,7 +27,8 @@ namespace TravianBot.Framework
             (ServerInfo serverInfo,
              string postData)
         {
-            string pageSource = Http.SendData(serverInfo.Dorf1Url, postData, serverInfo.CookieContainer, serverInfo.CookieCollection);
+            string pageSource = Http.SendData(serverInfo.Dorf1Url, postData, serverInfo.CookieContainer,
+                                              serverInfo.CookieCollection);
             HtmlParser htmlParser = new HtmlParser(pageSource);
 
             htmlParser.ParseUserId(serverInfo);
@@ -37,7 +37,7 @@ namespace TravianBot.Framework
 
         public static bool Login
             (ServerInfo serverInfo,
-            LoginPageData loginPageData)
+             LoginPageData loginPageData)
         {
             string postData = String.Format("login={0}&{1}={2}&{3}={4}&{5}={6}",
                                             loginPageData.HiddenLoginValue,
