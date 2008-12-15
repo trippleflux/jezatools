@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Net;
 
 namespace TravianBot.Framework
 {
@@ -17,6 +18,8 @@ namespace TravianBot.Framework
             SendUnitsUrl = String.Format(CultureInfo.InvariantCulture, "{0}a2b.php", servername);
             BuildUrl = String.Format(CultureInfo.InvariantCulture, "{0}build.php", servername);
             ReportsUrl = String.Format(CultureInfo.InvariantCulture, "{0}berichte.php", servername);
+            CookieContainer = new CookieContainer();
+            CookieCollection = new CookieCollection();
         }
 
         public string Servername
@@ -39,6 +42,10 @@ namespace TravianBot.Framework
         public string BuildUrl { get; set; }
 
         public string ReportsUrl { get; set; }
+
+        public CookieContainer CookieContainer { get; set; }
+
+        public CookieCollection CookieCollection { get; set; }
 
         private readonly string servername;
     }
