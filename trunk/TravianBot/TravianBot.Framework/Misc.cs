@@ -1,11 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region
+
+using System;
+using System.Configuration;
+
+#endregion
 
 namespace TravianBot.Framework
 {
     public class Misc
     {
+        public static string GetConfigValue(string configKey)
+        {
+            string configValue = String.Empty;
+            try
+            {
+                configValue = ConfigurationManager.AppSettings[configKey];
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Key '{0}' Not Found!!!", configKey);
+            }
+            return configValue;
+        }
     }
 }

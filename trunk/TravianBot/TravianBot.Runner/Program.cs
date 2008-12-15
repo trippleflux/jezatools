@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TravianBot.Runner
+﻿namespace TravianBot.Runner
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
+            ConsoleApp consoleApp = new ConsoleApp(args);
+            consoleApp.Process();
         }
     }
 }
