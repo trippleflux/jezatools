@@ -49,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttackExecutor.cs" />
+    <Compile Include="HtmlParser.cs" />
+    <Compile Include="Http.cs" />
+    <Compile Include="LoginPageData.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="IExecutor.cs" />
     <Compile Include="IReader.cs" />
