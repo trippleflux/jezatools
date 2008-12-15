@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.Runner", "TravianBot.Runner\TravianBot.Runner.csproj", "{FCEB4043-16BD-459A-AE1E-0476F007D9B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.Framework", "TravianBot.Framework\TravianBot.Framework.csproj", "{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.Tests", "TravianBot.Tests\TravianBot.Tests.csproj", "{8BE3D140-7477-4C7C-BD2F-5C0368567E5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCEB4043-16BD-459A-AE1E-0476F007D9B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCEB4043-16BD-459A-AE1E-0476F007D9B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCEB4043-16BD-459A-AE1E-0476F007D9B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCEB4043-16BD-459A-AE1E-0476F007D9B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BE3D140-7477-4C7C-BD2F-5C0368567E5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BE3D140-7477-4C7C-BD2F-5C0368567E5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BE3D140-7477-4C7C-BD2F-5C0368567E5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BE3D140-7477-4C7C-BD2F-5C0368567E5F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
