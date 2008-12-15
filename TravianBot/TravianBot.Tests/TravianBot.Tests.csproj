@@ -12,6 +12,8 @@
     <AssemblyName>TravianBot.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>TravianBot.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +59,9 @@
       <Project>{FCEB4043-16BD-459A-AE1E-0476F007D9B2}</Project>
       <Name>TravianBot.Runner</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TravianBot.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
