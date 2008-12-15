@@ -2,6 +2,8 @@
 
 using System;
 using System.Configuration;
+using System.IO;
+using System.Text;
 
 #endregion
 
@@ -9,6 +11,50 @@ namespace TravianBot.Framework
 {
     public class Misc
     {
+        public static void WriteData(string fileName, string content, bool append)
+        {
+            using (StreamWriter sw = new StreamWriter(fileName, append, Encoding.UTF8))
+            {
+                sw.Write(content);
+                sw.Close();
+                sw.Dispose();
+            }
+        }
+
+        public static string ReadContent(string fileName)
+        {
+            try
+            {
+                StreamReader sr = new StreamReader(fileName);
+                string content = sr.ReadToEnd();
+                sr.Close();
+                sr.Dispose();
+                return content;
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("File '{0}' not found", fileName);
+                return String.Empty;
+            }
+        }
+
+        public static bool IsNumber(string input)
+        {
+            for (int c = 0; c < input.Length; c++)
+            {
+                if (!IsNumber(input[c]))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool IsNumber(char c)
+        {
+            return Char.IsNumber(c);
+        }
+
         public static string GetConfigValue(string configKey)
         {
             string configValue = String.Empty;

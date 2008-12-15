@@ -13,6 +13,11 @@ namespace TravianBot.Runner
             this.args = args;
         }
 
+        public string[] Args
+        {
+            get { return args; }
+        }
+
         public void Process()
         {
             try
@@ -45,6 +50,9 @@ namespace TravianBot.Runner
 
                                 #region read reports
 
+                                IReader reportReader = new ReportReader(serverInfo);
+                                reportReader.Parse();
+                                reportReader.Process();
 
                                 #endregion
 
