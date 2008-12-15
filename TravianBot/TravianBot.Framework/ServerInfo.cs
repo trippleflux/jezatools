@@ -47,6 +47,8 @@ namespace TravianBot.Framework
 
         public CookieCollection CookieCollection { get; set; }
 
+        public int UserId { get; set; }
+
         private readonly string servername;
     }
 }
