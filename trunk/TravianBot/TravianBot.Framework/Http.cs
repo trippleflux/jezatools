@@ -13,6 +13,28 @@ namespace TravianBot.Framework
             CookieContainer cookieContainer,
             CookieCollection cookieCollection)
         {
+            if (Misc.GetConfigValue("fake") == "true")
+            {
+                return SendHttpData(pageUrl, postData, cookieContainer, cookieCollection);
+            }
+            return SendHttpFake(pageUrl);
+        }
+
+        private static string SendHttpFake(string pageUrl)
+        {
+            if (pageUrl.Contains("dorf1.php"))
+            {
+                return null;
+            }
+            return null;
+        }
+
+        public static string SendHttpData(
+            string pageUrl, 
+            string postData, 
+            CookieContainer cookieContainer,
+            CookieCollection cookieCollection)
+        {
             Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
 
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
