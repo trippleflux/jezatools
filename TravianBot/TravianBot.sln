@@ -11,6 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{5964
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{8B9BA7EF-9A25-45DB-9C3E-42A63AC9035F}"
 	ProjectSection(SolutionItems) = preProject
+		Samples\TestFiles\6214004 = Samples\TestFiles\6214004
+		Samples\TestFiles\6214497 = Samples\TestFiles\6214497
+		Samples\TestFiles\6216733 = Samples\TestFiles\6216733
 		Samples\TestFiles\berichte.php = Samples\TestFiles\berichte.php
 	EndProjectSection
 EndProject

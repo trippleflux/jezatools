@@ -13,20 +13,11 @@ namespace TravianBot.Framework
             CookieContainer cookieContainer,
             CookieCollection cookieCollection)
         {
-            if (Misc.GetConfigValue("fake") == "true")
+            if (Misc.GetConfigValue("fake") != "true")
             {
                 return SendHttpData(pageUrl, postData, cookieContainer, cookieCollection);
             }
-            return SendHttpFake(pageUrl);
-        }
-
-        private static string SendHttpFake(string pageUrl)
-        {
-            if (pageUrl.Contains("dorf1.php"))
-            {
-                return null;
-            }
-            return null;
+            return Misc.SendHttpFake(pageUrl);
         }
 
         public static string SendHttpData(

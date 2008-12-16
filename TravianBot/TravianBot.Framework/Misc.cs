@@ -25,11 +25,13 @@ namespace TravianBot.Framework
         {
             try
             {
-                StreamReader sr = new StreamReader(fileName);
-                string content = sr.ReadToEnd();
-                sr.Close();
-                sr.Dispose();
-                return content;
+                using (StreamReader sr = new StreamReader(fileName))
+                {
+                    string content = sr.ReadToEnd();
+                    sr.Close();
+                    sr.Dispose();
+                    return content;
+                }
             }
             catch (FileNotFoundException)
             {
@@ -97,6 +99,27 @@ namespace TravianBot.Framework
                                             loginPageData.HiddenValue);
 
             return IsLogedIn(serverInfo, postData);
+        }
+
+        public static string SendHttpFake(string pageUrl)
+        {
+            if (pageUrl.EndsWith("berichte.php"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\berichte.php");
+            }
+            if (pageUrl.EndsWith("berichte.php?id=6214004"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\6214004");
+            }
+            if (pageUrl.EndsWith("berichte.php?id=6214497"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\6214497");
+            }
+            if (pageUrl.EndsWith("berichte.php?id=6216733"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\6216733");
+            }
+            return null;
         }
     }
 }
