@@ -31,56 +31,95 @@ namespace TravianBot.Framework
         private void ReadAttackReport(string reportText,
                                       string reportId)
         {
+            if (!GetAttackVillages(reportText))
+            {
+                return;
+            }
+
+            string url = String.Format(CultureInfo.InvariantCulture, "{0}?id={1}", serverInfo.ReportsUrl, reportId);
+            string pageSource = Http.SendData(url, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
+            
+            if (!GetTroopLost(pageSource))
+            {
+                return;
+            }
+
+            if (!GetLoot(pageSource))
+            {
+                return;
+            }
+            String fileContent = String.Format(CultureInfo.InvariantCulture,
+                                               "{0} {1,20} <-> {2,-20}, Troop Lost [{3,-25}], Raid [{5} = {6}]{4}"
+                                               , url, attackVillage, attackedVillage, troopLostCollection,
+                                               Environment.NewLine, loot, lootTotal);
+            Misc.WriteData("AttackReport.txt", fileContent, true);
+            String consoleContent = String.Format(CultureInfo.InvariantCulture,
+                                                  "{0} {1} <-> {2}, Troop Lost [{3}], Raid [{4} = {5}]"
+                                                  , reportId, attackVillage, attackedVillage, troopLostCollection, loot,
+                                                  lootTotal);
+            Console.WriteLine(consoleContent);
+        }
+
+        private bool GetLoot(string pageSource)
+        {
+            const string lootPattern = @"<img class=""res"" src=""img/un/r/[1234].gif"">([0-9]{0,7})";
+            MatchCollection lootMatchCollection = Regex.Matches(pageSource, lootPattern);
+            if (lootMatchCollection.Count != 4)
+            {
+                return false;
+            }
+            lootTotal = 0;
+            loot = "";
+            for (int j = 0; j < lootMatchCollection.Count; j++)
+            {
+                int amount = Int32.Parse(lootMatchCollection[j].Groups[1].Value.Trim());
+                lootTotal += amount;
+                loot += amount + " ";
+            }
+            return true;
+        }
+
+        private bool GetTroopLost(string pageSource)
+        {
+            string troopLostString = Misc.GetConfigValue("reportTroopLostString");
+            Regex troopLost =
+                new Regex(
+                    @"<td>" + troopLostString +
+                    @"</td>(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)");
+            if (troopLost.IsMatch(pageSource))
+            {
+                troopLostCollection = "";
+                Match Mc = troopLost.Matches(pageSource)[0];
+                for (int j = 0; j < Mc.Groups.Count; j++)
+                {
+                    string match = Mc.Groups[j].Value;
+                    if (Misc.IsNumber(match) && match.Length > 0)
+                    {
+                        troopLostCollection += match + " ";
+                    }
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private bool GetAttackVillages(string reportText)
+        {
             string attackString = Misc.GetConfigValue("attackReportString");
             if (reportText.Contains(attackString))
             {
-                string troopLostValue = " ";
-                string attackVillage = "";
-                string attackedVillage = "";
+                attackVillage = "";
+                attackedVillage = "";
                 Regex pattern = new Regex(@"(.*)(" + attackString + ")(.*)");
                 if (pattern.IsMatch(reportText))
                 {
                     Match Mc = pattern.Matches(reportText)[0];
                     attackVillage = Mc.Groups[1].Value;
                     attackedVillage = Mc.Groups[3].Value;
+                    return true;
                 }
-                string url = String.Format(CultureInfo.InvariantCulture, "{0}?id={1}", serverInfo.ReportsUrl, reportId);
-                string pageSource = Http.SendData(url, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
-                string troopLostString = Misc.GetConfigValue("reportTroopLostString");
-                Regex troopLost =
-                    new Regex(
-                        @"<td>" + troopLostString + @"</td>(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)(<td(.class=""c"")*>([0-9]{0,7})</td>)");
-                if (troopLost.IsMatch(pageSource))
-                {
-                    Match Mc = troopLost.Matches(pageSource)[0];
-                    for (int j = 0; j < Mc.Groups.Count; j++)
-                    {
-                        string match = Mc.Groups[j].Value;
-                        if (Misc.IsNumber(match) && match.Length > 0)
-                        {
-                            troopLostValue += match + " ";
-                        }
-                    }
-                }
-                string loot = "";
-                int lootTotal = 0;
-                const string lootPattern = @"<img class=""res"" src=""img/un/r/[1234].gif"">([0-9]{0,7})";
-                MatchCollection lootMatchCollection = Regex.Matches(pageSource, lootPattern);
-                for (int j = 0; j < lootMatchCollection.Count; j++)
-                {
-                    int amount = Int32.Parse(lootMatchCollection[j].Groups[1].Value.Trim());
-                    lootTotal += amount;
-                    loot += amount + " ";
-                }
-                String fileContent = String.Format(CultureInfo.InvariantCulture, 
-                    "{0} {1,20} <-> {2,-20}, Troop Lost [{3,-25}], Raid [{5} = {6}]{4}"
-                    , url, attackVillage, attackedVillage, troopLostValue, Environment.NewLine, loot, lootTotal);
-                Misc.WriteData("AttackReport.txt", fileContent, true);
-                String consoleContent = String.Format(CultureInfo.InvariantCulture,
-                    "{0} {1} <-> {2}, Troop Lost [{3}], Raid [{4} = {5}]"
-                    , reportId, attackVillage, attackedVillage, troopLostValue, loot, lootTotal);
-                Console.WriteLine(consoleContent);
             }
+            return false;
         }
 
         public MatchCollection ReportCollection
@@ -92,5 +131,10 @@ namespace TravianBot.Framework
         private readonly ServerInfo serverInfo;
 
         private MatchCollection reportCollection;
+        private string attackVillage;
+        private string attackedVillage;
+        private string troopLostCollection;
+        private string loot;
+        private int lootTotal;
     }
 }
