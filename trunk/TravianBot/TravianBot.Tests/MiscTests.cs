@@ -25,7 +25,7 @@ namespace TravianBot.Tests
         [Test]
         public void ReadContent()
         {
-            string pageSource = Misc.ReadContent(@"..\..\TestFiles\berichte.php");
+            string pageSource = Misc.ReadContent(@"..\..\..\TestFiles\berichte.php");
             Assert.IsNotNull(pageSource);
         }
 
