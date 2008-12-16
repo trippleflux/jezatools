@@ -2,7 +2,10 @@ namespace TravianBot.Framework
 {
     public class TaskExecutor : IExecutor
     {
-        public void Parse()
+        /// <summary>
+        /// Parses XML file with execution actions.
+        /// </summary>
+        public void Parse(string fileName)
         {
             throw new System.NotImplementedException();
         }

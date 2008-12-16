@@ -5,7 +5,7 @@ namespace TravianBot.Framework
         /// <summary>
         /// Parses XML file with execution actions.
         /// </summary>
-        void Parse();
+        void Parse(string fileName);
 
         /// <summary>
         /// Execute parsed actions.
