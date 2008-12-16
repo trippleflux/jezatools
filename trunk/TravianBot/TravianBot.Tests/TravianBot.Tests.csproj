@@ -38,6 +38,7 @@
       <HintPath>..\lib\NUnit-2.4.8-net-2.0\bin\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -52,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttackExecutorTests.cs" />
+    <Compile Include="MiscTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportReaderTests.cs" />
   </ItemGroup>
@@ -66,6 +68,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="TestFiles\berichte.php" />
     <None Include="TravianBot.snk" />
   </ItemGroup>

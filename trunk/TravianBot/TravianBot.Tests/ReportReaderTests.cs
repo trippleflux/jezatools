@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TravianBot.Framework;
 
@@ -10,10 +11,11 @@ namespace TravianBot.Tests
         public void ParseReports()
         {
             ServerInfo serverInfo = new ServerInfo();
-            IReader reportReader = new ReportReader(serverInfo);
-            string pageSource = Misc.ReadContent(@"C:\svn\jezaTools\trunk\TravianBot\TravianBot.Tests\TestFiles\berichte.php");
+            ReportReader reportReader = new ReportReader(serverInfo);
+            string pageSource = Misc.ReadContent(@"..\..\TestFiles\berichte.php");
             reportReader.Parse(pageSource);
-            reportReader.Process();
+            MatchCollection reportCollection = reportReader.ReportCollection;
+            Assert.AreEqual(4, reportCollection.Count);
         }
     }
 }
