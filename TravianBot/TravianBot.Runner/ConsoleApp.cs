@@ -51,7 +51,8 @@ namespace TravianBot.Runner
                                 #region read reports
 
                                 IReader reportReader = new ReportReader(serverInfo);
-                                reportReader.Parse();
+                                string pageSource = Http.SendData(serverInfo.ReportsUrl, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
+                                reportReader.Parse(pageSource);
                                 reportReader.Process();
 
                                 #endregion

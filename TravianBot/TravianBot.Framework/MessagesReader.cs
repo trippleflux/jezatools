@@ -2,7 +2,7 @@ namespace TravianBot.Framework
 {
     public class MessagesReader : IReader
     {
-        public void Parse()
+        public void Parse(string pageSource)
         {
             throw new System.NotImplementedException();
         }

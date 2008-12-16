@@ -11,10 +11,8 @@ namespace TravianBot.Framework
             this.serverInfo = serverInfo;
         }
 
-        public void Parse()
+        public void Parse(string pageSource)
         {
-            string pageSource = Http.SendData(serverInfo.ReportsUrl, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
-
             string newReport = Misc.GetConfigValue("reportNewString");
             string pattern = @"<a href=""berichte.php.id=([0-9]{0,9})"">(.*)</a> ." + newReport + ".</td>";
             matchCollection = Regex.Matches(pageSource, pattern);
