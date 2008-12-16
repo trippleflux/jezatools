@@ -33,8 +33,7 @@ namespace TravianBot.Framework
             }
             catch (FileNotFoundException)
             {
-                Console.WriteLine("File '{0}' not found", fileName);
-                return String.Empty;
+                throw new FileNotFoundException("File '{0}' not found", fileName);
             }
         }
 
@@ -55,18 +54,21 @@ namespace TravianBot.Framework
             return Char.IsNumber(c);
         }
 
+        /// <summary>
+        /// Gets the config value.
+        /// </summary>
+        /// <param name="configKey">The config key.</param>
+        /// <returns></returns>
         public static string GetConfigValue(string configKey)
         {
-            string configValue = String.Empty;
             try
             {
-                configValue = ConfigurationManager.AppSettings[configKey];
+                return ConfigurationManager.AppSettings[configKey];
             }
-            catch (Exception)
+            catch (ConfigurationErrorsException)
             {
-                Console.WriteLine("Key '{0}' Not Found!!!", configKey);
+                throw new ConfigurationErrorsException("Key '" + configKey + "' Not Found!!!");
             }
-            return configValue;
         }
 
         public static bool IsLogedIn

@@ -15,15 +15,15 @@ namespace TravianBot.Framework
         {
             string newReport = Misc.GetConfigValue("reportNewString");
             string pattern = @"<a href=""berichte.php.id=([0-9]{0,9})"">(.*)</a> ." + newReport + ".</td>";
-            matchCollection = Regex.Matches(pageSource, pattern);
+            reportCollection = Regex.Matches(pageSource, pattern);
         }
 
         public void Process()
         {
-            for (int i = 0; i < matchCollection.Count; i++)
+            for (int i = 0; i < reportCollection.Count; i++)
             {
-                string reportId = matchCollection[i].Groups[1].Value.Trim();
-                string reportText = matchCollection[i].Groups[2].Value.Trim();
+                string reportId = reportCollection[i].Groups[1].Value.Trim();
+                string reportText = reportCollection[i].Groups[2].Value.Trim();
                 ReadAttackReport(reportText, reportId);
             }
         }
@@ -83,7 +83,14 @@ namespace TravianBot.Framework
             }
         }
 
+        public MatchCollection ReportCollection
+        {
+            get { return reportCollection; }
+            set { reportCollection = value; }
+        }
+
         private readonly ServerInfo serverInfo;
-        private MatchCollection matchCollection;
+
+        private MatchCollection reportCollection;
     }
 }
