@@ -17,5 +17,17 @@ namespace TravianBot.Tests
             MatchCollection reportCollection = reportReader.ReportCollection;
             Assert.AreEqual(4, reportCollection.Count);
         }
+
+        [Test]
+        public void ProcessReports()
+        {
+            ServerInfo serverInfo = new ServerInfo();
+            ReportReader reportReader = new ReportReader(serverInfo);
+            string pageSource = Misc.ReadContent(@"..\..\..\Samples\TestFiles\berichte.php");
+            reportReader.Parse(pageSource);
+            MatchCollection reportCollection = reportReader.ReportCollection;
+            Assert.AreEqual(4, reportCollection.Count);
+            reportReader.Process();
+        }
     }
 }
