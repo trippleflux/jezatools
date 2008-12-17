@@ -1,8 +1,8 @@
 namespace TravianBot.Framework
 {
-    public class SendResourcesParser : IParser
+    public class SendResourcesParser : ActionParser
     {
-        public ActionList Parse()
+        public override ActionList Parse()
         {
             throw new System.NotImplementedException();
         }

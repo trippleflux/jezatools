@@ -52,7 +52,7 @@
     <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="IAction.cs" />
-    <Compile Include="IParser.cs" />
+    <Compile Include="ActionParser.cs" />
     <Compile Include="LoginPageData.cs" />
     <Compile Include="MessagesReader.cs" />
     <Compile Include="ReportReader.cs" />
