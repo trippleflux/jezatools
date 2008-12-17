@@ -14,6 +14,18 @@ namespace TravianBot.Framework
             get { return ActionParameters; }
         }
 
+        public ActionParameters GetActionParameters(string actionId)
+        {
+            foreach (ActionParameters actionParameter in ActionParameters)
+            {
+                if (actionParameter.Id == actionId)
+                {
+                    return actionParameter;
+                }
+            }
+            return null;
+        }
+
         private readonly List<ActionParameters> ActionParameters = new List<ActionParameters>();
     }
 }

@@ -22,7 +22,7 @@ namespace TravianBot.Framework
                     {
                         IgnoreComments = true,
                         IgnoreProcessingInstructions = true,
-                        IgnoreWhitespace = true
+                        IgnoreWhitespace = true,
                     };
 
             ActionList actionList = new ActionList();
@@ -42,6 +42,12 @@ namespace TravianBot.Framework
 
                                 ReadAction(actionList, xmlReader);
 
+                                break;
+                            }
+
+                        case XmlNodeType.XmlDeclaration:
+                            {
+                                xmlReader.Read();
                                 break;
                             }
 

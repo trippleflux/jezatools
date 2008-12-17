@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		Samples\TestFiles\6214004 = Samples\TestFiles\6214004
 		Samples\TestFiles\6214497 = Samples\TestFiles\6214497
 		Samples\TestFiles\6216733 = Samples\TestFiles\6216733
+		Samples\TestFiles\AttackActions.xml = Samples\TestFiles\AttackActions.xml
 		Samples\TestFiles\berichte.php = Samples\TestFiles\berichte.php
 	EndProjectSection
 EndProject
