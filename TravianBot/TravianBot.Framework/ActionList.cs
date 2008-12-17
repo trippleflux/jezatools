@@ -14,6 +14,18 @@ namespace TravianBot.Framework
             get { return actionsList; }
         }
 
+        public Action GetAction(string actionId)
+        {
+            foreach (KeyValuePair<string, Action> keyValuePair in actionsList)
+            {
+                if (keyValuePair.Key == actionId)
+                {
+                    return keyValuePair.Value;
+                }
+            }
+            return null;
+        }
+
         private readonly Dictionary<string, Action> actionsList = new Dictionary<string, Action>();
     }
 }

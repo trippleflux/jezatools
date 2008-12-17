@@ -29,8 +29,10 @@ namespace TravianBot.Framework
                             actionParameters.UnitId = Int32.Parse(ReadAttribute(xmlReader, "unitId"));
                             actionParameters.UnitName = ReadAttribute(xmlReader, "unitName");
                             actionParameters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
+                            actionParameters.Comment = ReadAttribute(xmlReader, "comment");
                             action.AddActionParameters(actionParameters);
                             actionList.AddAction(actionParameters.Id, action);
+                            xmlReader.Read();
                             break;
                         }
 
