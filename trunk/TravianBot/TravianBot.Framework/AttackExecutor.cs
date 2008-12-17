@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace TravianBot.Framework
 {
     public class AttackExecutor : IExecutor
@@ -7,12 +9,22 @@ namespace TravianBot.Framework
         /// </summary>
         public void Parse(string fileName)
         {
-            throw new System.NotImplementedException();
+            FileInfo[] troopSendFiles = GetTroopSendFiles();
+            foreach (FileInfo troopSendFile in troopSendFiles)
+            {
+
+            }
         }
 
         public void Process()
         {
             throw new System.NotImplementedException();
+        }
+
+        private static FileInfo[] GetTroopSendFiles()
+        {
+            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\troopsend");
+            return di.GetFiles("*.xml");
         }
     }
 }
