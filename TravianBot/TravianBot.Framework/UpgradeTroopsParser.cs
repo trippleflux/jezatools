@@ -1,8 +1,8 @@
 namespace TravianBot.Framework
 {
-    public class UpgradeTroopsParser : IParser
+    public class UpgradeTroopsParser : ActionParser
     {
-        public ActionList Parse()
+        public override ActionList Parse()
         {
             throw new System.NotImplementedException();
         }
