@@ -8,14 +8,14 @@ using TravianBot.Framework;
 namespace TravianBot.Tests
 {
     [TestFixture]
-    public class TroopSendXmlParserTests
+    public class ActionParserTests
     {
         [Test]
-        public void ParseXml()
+        public void ParseAttacksXmlFile()
         {
             const string fileName = @"..\..\..\Samples\TestFiles\AttackActions.xml";
             ActionList actionList;
-            using (ActionParser actionParser = new TroopSendXmlParser(fileName))
+            using (ActionParser actionParser = new ActionParser(fileName))
             {
                 actionList = actionParser.Parse();
             }
@@ -34,7 +34,7 @@ namespace TravianBot.Tests
             byte[] bytes = Encoding.UTF8.GetBytes(xml);
             using (MemoryStream stream = new MemoryStream(bytes))
             {
-                using (ActionParser actionParser = new TroopSendXmlParser(stream))
+                using (ActionParser actionParser = new ActionParser(stream))
                 {
                     actionParser.Parse();
                 }
@@ -49,7 +49,7 @@ namespace TravianBot.Tests
             byte[] bytes = Encoding.UTF8.GetBytes(xml);
             using (MemoryStream stream = new MemoryStream(bytes))
             {
-                using (ActionParser actionParser = new TroopSendXmlParser(stream))
+                using (ActionParser actionParser = new ActionParser(stream))
                 {
                     actionParser.Parse();
                 }

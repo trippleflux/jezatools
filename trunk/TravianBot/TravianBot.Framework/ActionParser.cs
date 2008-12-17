@@ -1,11 +1,66 @@
 using System;
+using System.IO;
 using System.Xml;
 
 namespace TravianBot.Framework
 {
-    public abstract class ActionParser : IDisposable
+    public class ActionParser : IDisposable
     {
-        public abstract ActionList Parse();
+        public ActionParser(Stream xmlStream)
+        {
+            this.xmlStream = xmlStream;
+        }
+
+        public ActionParser(string fileName)
+        {
+            xmlStream = File.OpenRead(fileName);
+        }
+
+        public ActionList Parse()
+        {
+            XmlReaderSettings xmlReaderSettings =
+                new XmlReaderSettings
+                    {
+                        IgnoreComments = true,
+                        IgnoreProcessingInstructions = true,
+                        IgnoreWhitespace = true,
+                    };
+
+            ActionList actionList = new ActionList();
+
+            using (XmlReader xmlReader = XmlReader.Create(xmlStream, xmlReaderSettings))
+            {
+                xmlReader.Read();
+
+                while (false == xmlReader.EOF)
+                {
+                    switch (xmlReader.NodeType)
+                    {
+                        case XmlNodeType.Element:
+                            {
+                                if (xmlReader.Name != "actions")
+                                    throw new XmlException("<actions> (root) element expected.");
+
+                                ReadAction(actionList, xmlReader);
+
+                                break;
+                            }
+
+                        case XmlNodeType.XmlDeclaration:
+                            {
+                                xmlReader.Read();
+                                break;
+                            }
+
+                        default:
+                            {
+                                throw new XmlException();
+                            }
+                    }
+                }
+            }
+            return actionList;
+        }
 
         public static void ReadAction(ActionList actionList, XmlReader xmlReader)
         {
@@ -82,5 +137,7 @@ namespace TravianBot.Framework
         {
             return xmlReader.GetAttribute(attributeName);
         }
+
+        private readonly Stream xmlStream;
     }
 }

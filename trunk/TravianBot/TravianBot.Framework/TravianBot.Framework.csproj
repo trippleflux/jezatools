@@ -56,7 +56,6 @@
     <Compile Include="LoginPageData.cs" />
     <Compile Include="MessagesReader.cs" />
     <Compile Include="ReportReader.cs" />
-    <Compile Include="SendResourcesParser.cs" />
     <Compile Include="ActionParameters.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="IExecutor.cs" />
@@ -66,9 +65,7 @@
     <Compile Include="TaskExecutor.cs" />
     <Compile Include="Action.cs" />
     <Compile Include="ActionList.cs" />
-    <Compile Include="TroopSendXmlParser.cs" />
     <Compile Include="TroopUpgradeExecutor.cs" />
-    <Compile Include="UpgradeTroopsParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TravianBot.snk" />
