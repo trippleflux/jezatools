@@ -57,16 +57,16 @@
     <Compile Include="MessagesReader.cs" />
     <Compile Include="ReportReader.cs" />
     <Compile Include="SendResourcesParser.cs" />
-    <Compile Include="TroopSendActionParameters.cs" />
+    <Compile Include="ActionParameters.cs" />
     <Compile Include="ServerInfo.cs" />
     <Compile Include="IExecutor.cs" />
     <Compile Include="IReader.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaskExecutor.cs" />
-    <Compile Include="TroopSendAction.cs" />
-    <Compile Include="TroopSendData.cs" />
-    <Compile Include="TroopSendParser.cs" />
+    <Compile Include="Action.cs" />
+    <Compile Include="ActionList.cs" />
+    <Compile Include="TroopSendXmlParser.cs" />
     <Compile Include="TroopUpgradeExecutor.cs" />
     <Compile Include="UpgradeTroopsParser.cs" />
   </ItemGroup>
