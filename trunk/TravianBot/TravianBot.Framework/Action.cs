@@ -4,19 +4,19 @@ namespace TravianBot.Framework
 {
     public class Action : IAction
     {
-        public void AddActionParameters(ActionParameters actionParameters)
+        public List<ActionParameters> ActionParameters
         {
-            ActionParameters.Add(actionParameters);
+            get { return actionParameters; }
         }
 
-        public List<ActionParameters> SendActionParameters
+        public void AddActionParameters(ActionParameters parameters)
         {
-            get { return ActionParameters; }
+            actionParameters.Add(parameters);
         }
 
         public ActionParameters GetActionParameters(string actionId)
         {
-            foreach (ActionParameters actionParameter in ActionParameters)
+            foreach (ActionParameters actionParameter in actionParameters)
             {
                 if (actionParameter.Id == actionId)
                 {
@@ -26,6 +26,6 @@ namespace TravianBot.Framework
             return null;
         }
 
-        private readonly List<ActionParameters> ActionParameters = new List<ActionParameters>();
+        private readonly List<ActionParameters> actionParameters = new List<ActionParameters>();
     }
 }

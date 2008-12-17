@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Text;
+using System.Xml;
 using NUnit.Framework;
 using TravianBot.Framework;
 
@@ -20,6 +24,36 @@ namespace TravianBot.Tests
             Assert.AreEqual(
                 "[user3][village3][aliance3]", 
                 actionList.GetAction("3").GetActionParameters("3").Comment);
+        }
+
+        [Test, ExpectedException(typeof(NotSupportedException))]
+        public void NotSupportedElement()
+        {
+            const string xml = "<actions><action></action></actions>";
+
+            byte[] bytes = Encoding.UTF8.GetBytes(xml);
+            using (MemoryStream stream = new MemoryStream(bytes))
+            {
+                using (ActionParser actionParser = new TroopSendXmlParser(stream))
+                {
+                    actionParser.Parse();
+                }
+            }
+        }
+
+        [Test, ExpectedException(typeof(XmlException))]
+        public void WrongRootElement()
+        {
+            const string xml = "<act1ons><attackAction></attackAction></act1ons>";
+
+            byte[] bytes = Encoding.UTF8.GetBytes(xml);
+            using (MemoryStream stream = new MemoryStream(bytes))
+            {
+                using (ActionParser actionParser = new TroopSendXmlParser(stream))
+                {
+                    actionParser.Parse();
+                }
+            }
         }
     }
 }
