@@ -1,16 +1,16 @@
 namespace TravianBot.Framework
 {
-    public class TroopSendActionParameters
+    public class ActionParameters
     {
         /// <summary>
         /// Unique id if the entry.
         /// </summary>
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Enable or disable sending.
         /// </summary>
-        public bool Enabled { get; set; }
+        public int Enabled { get; set; }
 
         /// <summary>
         /// X coordinate of target.

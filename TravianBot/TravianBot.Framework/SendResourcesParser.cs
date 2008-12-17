@@ -2,7 +2,7 @@ namespace TravianBot.Framework
 {
     public class SendResourcesParser : IParser
     {
-        public void Parse()
+        public ActionList Parse()
         {
             throw new System.NotImplementedException();
         }
