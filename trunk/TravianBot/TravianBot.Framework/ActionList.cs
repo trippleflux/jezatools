@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace TravianBot.Framework
 {
+    /// <summary>
+    /// Holds collectionof all actions parsedfrom specified file.
+    /// </summary>
     public class ActionList
     {
         public void AddAction(string id, Action sendAction)

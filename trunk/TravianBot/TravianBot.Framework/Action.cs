@@ -4,7 +4,17 @@ namespace TravianBot.Framework
 {
     public class Action : IAction
     {
-        public List<ActionParameters> ActionParameters
+        public Action(string id)
+        {
+            this.id = id;
+        }
+
+        public string Id
+        {
+            get { return id; }
+        }
+
+        public IList<ActionParameters> ActionParameters
         {
             get { return actionParameters; }
         }
@@ -14,11 +24,11 @@ namespace TravianBot.Framework
             actionParameters.Add(parameters);
         }
 
-        public ActionParameters GetActionParameters(string actionId)
+        public ActionParameters GetActionParameters(string parameterId)
         {
             foreach (ActionParameters actionParameter in actionParameters)
             {
-                if (actionParameter.Id == actionId)
+                if (actionParameter.Id == parameterId)
                 {
                     return actionParameter;
                 }
@@ -27,5 +37,6 @@ namespace TravianBot.Framework
         }
 
         private readonly List<ActionParameters> actionParameters = new List<ActionParameters>();
+        private readonly string id;
     }
 }
