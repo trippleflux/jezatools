@@ -2,9 +2,9 @@
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            ConsoleApp consoleApp = new ConsoleApp(args);
+            ConsoleApp consoleApp = new ConsoleApp();
             consoleApp.Process();
         }
     }

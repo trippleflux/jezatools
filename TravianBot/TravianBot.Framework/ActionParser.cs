@@ -71,7 +71,6 @@ namespace TravianBot.Framework
                 {
                     case "attackAction":
                         {
-                            Action action = new Action();
                             // ReSharper disable UseObjectOrCollectionInitializer
                             ActionParameters actionParameters = new ActionParameters();
                             // ReSharper restore UseObjectOrCollectionInitializer
@@ -85,6 +84,7 @@ namespace TravianBot.Framework
                             actionParameters.UnitName = ReadAttribute(xmlReader, "unitName");
                             actionParameters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
                             actionParameters.Comment = ReadAttribute(xmlReader, "comment");
+                            Action action = new Action(actionParameters.Id);
                             action.AddActionParameters(actionParameters);
                             actionList.AddAction(actionParameters.Id, action);
                             xmlReader.Read();

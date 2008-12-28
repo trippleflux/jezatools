@@ -48,7 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AttackExecutor.cs" />
+    <Compile Include="ActionContainer.cs" />
+    <Compile Include="SendTroopsExecutor.cs" />
     <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="IAction.cs" />

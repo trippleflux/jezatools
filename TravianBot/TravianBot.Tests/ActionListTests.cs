@@ -9,7 +9,7 @@ namespace TravianBot.Tests
         [Test]
         public void ActionsListTest()
         {
-            Action action = new Action();
+            Action action = new Action("1");
 // ReSharper disable UseObjectOrCollectionInitializer
             ActionParameters actionParameters = new ActionParameters();
 // ReSharper restore UseObjectOrCollectionInitializer

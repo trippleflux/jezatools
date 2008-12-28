@@ -8,16 +8,6 @@ namespace TravianBot.Runner
 {
     public class ConsoleApp
     {
-        public ConsoleApp(string[] args)
-        {
-            this.args = args;
-        }
-
-        public string[] Args
-        {
-            get { return args; }
-        }
-
         public void Process()
         {
             try
@@ -50,7 +40,7 @@ namespace TravianBot.Runner
 
                                 #region read reports
 
-                                IReader reportReader = new ReportReader(serverInfo);
+                                ReportReader reportReader = new ReportReader(serverInfo);
                                 string pageSource = Http.SendData(serverInfo.ReportsUrl, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
                                 reportReader.Parse(pageSource);
                                 reportReader.Process();
@@ -91,7 +81,5 @@ namespace TravianBot.Runner
             Console.WriteLine("TravianBot.Runner v{0}", version.FileVersion);
             Console.WriteLine();
         }
-
-        private readonly string[] args;
     }
 }
