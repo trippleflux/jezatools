@@ -22,6 +22,21 @@ namespace TravianBot.Framework
             }
         }
 
+        public void ParseUnitsInVillage(ServerInfo serverInfo,
+                                        int villageId)
+        {
+            const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";
+            MatchCollection unitsCollection =
+                Regex.Matches(pageSource, patternUnits);
+            for (int i = 0; i < unitsCollection.Count; i++)
+            {
+                string unitName = unitsCollection[i].Groups[2].Value.Trim();
+                int unitCount = Int32.Parse(unitsCollection[i].Groups[1].Value.Trim());
+                Unit unit = new Unit(unitCount, unitName);
+                serverInfo.GetVillage(villageId).AddVillageUnit(unit);
+            }
+        }
+
         private readonly string pageSource;
     }
 }

@@ -9,7 +9,8 @@ namespace TravianBot.Tests
         [Test]
         public void TeSendTroopsExecutor()
         {
-            SendTroopsExecutor sendTroopsExecutor = new SendTroopsExecutor();
+            ServerInfo serverInfo = new ServerInfo();
+            SendTroopsExecutor sendTroopsExecutor = new SendTroopsExecutor(serverInfo);
             sendTroopsExecutor.Parse();
             Assert.IsNotNull(sendTroopsExecutor.ActionList);
             Assert.IsNotNull(sendTroopsExecutor.ActionContainer);
