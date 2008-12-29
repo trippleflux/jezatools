@@ -11,6 +11,11 @@ namespace TravianBot.Framework
 {
     public class Misc
     {
+        public static Int32 ConvertXY(Int32 x, Int32 y)
+        {
+            return ((x + 401) + ((400 - y) * 801));
+        }
+
         public static void WriteData(string fileName, string content, bool append)
         {
             using (StreamWriter sw = new StreamWriter(fileName, append, Encoding.UTF8))

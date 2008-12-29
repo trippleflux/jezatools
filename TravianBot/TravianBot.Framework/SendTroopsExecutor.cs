@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 namespace TravianBot.Framework
@@ -70,7 +71,16 @@ namespace TravianBot.Framework
                         int availableUnits = GetAvailableUnitCount(@param);
                         if (availableUnits > unitCount)
                         {
-                            ProcessWithAttack(action);
+                            DateTime now = new DateTime(DateTime.Now.Ticks);
+                            Console.WriteLine("{0} We have {1} {2}. Attacking '{3}[{4}]' with {5}!",
+                                              now.ToString("yyyy-MM-dd HH:mm:ss"),
+                                              availableUnits,
+                                              @param.UnitName,
+                                              @param.PlayerName,
+                                              @param.VillageName,
+                                              @param.UnitCount);
+                            ExecuteAttack(@param);
+                            Misc.WriteData(tempFile, tempId, true);
                         }
                         else
                         {
@@ -87,9 +97,24 @@ namespace TravianBot.Framework
             }
         }
 
-        private static void ProcessWithAttack(KeyValuePair<string, Action> action)
+        private void ExecuteAttack(ActionParameters @param)
         {
-            
+            StringBuilder troops = new StringBuilder();
+            for (int t = 0; t < 11; t++)
+            {
+                troops.AppendFormat("&t{0}={1}", (t + 1), t == @param.UnitId ? @param.UnitCount : 0);
+            }
+            Random rnd = new Random();
+            String postData = String.Format(CultureInfo.InvariantCulture,
+                                            "id=39&a={0}&c={1}&kid={2}{3}{4}",
+                                            rnd.Next(10001, 99999),
+                                            @param.SendTroopType,
+                                            Misc.ConvertXY(@param.CoordinateX, @param.CoordinateY),
+                                            troops,
+                                            String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19)));
+
+            string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}", serverInfo.SendUnitsUrl, @param.VillageId);
+            Http.SendData(url, postData, serverInfo.CookieContainer, serverInfo.CookieCollection);
         }
 
         private int GetAvailableUnitCount(ActionParameters @param)
