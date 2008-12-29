@@ -67,6 +67,8 @@
     <Compile Include="Action.cs" />
     <Compile Include="ActionList.cs" />
     <Compile Include="TroopUpgradeExecutor.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="Village.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TravianBot.snk" />

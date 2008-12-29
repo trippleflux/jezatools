@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
 
@@ -8,6 +9,7 @@ namespace TravianBot.Framework
     {
         public ServerInfo()
         {
+            Villages = new List<Village>();
             servername = Misc.GetConfigValue("serverName");
             Username = Misc.GetConfigValue("userName");
             Password = Misc.GetConfigValue("password");
@@ -26,6 +28,8 @@ namespace TravianBot.Framework
         {
             get { return servername; }
         }
+
+        public IList<Village> Villages { get; set; }
 
         public string Username { get; set; }
 
@@ -48,6 +52,18 @@ namespace TravianBot.Framework
         public CookieCollection CookieCollection { get; set; }
 
         public int UserId { get; set; }
+
+        public Village GetVillage(int villageId)
+        {
+            foreach (Village village in Villages)
+            {
+                if (village.VillageId == villageId)
+                {
+                    return village;
+                }
+            }
+            return null;
+        }
 
         private readonly string servername;
     }
