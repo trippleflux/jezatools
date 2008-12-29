@@ -84,6 +84,10 @@ namespace TravianBot.Framework
                             actionParameters.UnitName = ReadAttribute(xmlReader, "unitName");
                             actionParameters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
                             actionParameters.Comment = ReadAttribute(xmlReader, "comment");
+                            actionParameters.PlayerName = ReadAttribute(xmlReader, "playername");
+                            actionParameters.Population = Int32.Parse(ReadAttribute(xmlReader, "population"));
+                            actionParameters.VillageName = ReadAttribute(xmlReader, "villagename");
+                            actionParameters.Aliance = ReadAttribute(xmlReader, "aliance");
                             Action action = new Action(actionParameters.Id);
                             action.AddActionParameters(actionParameters);
                             actionList.AddAction(actionParameters.Id, action);

@@ -55,7 +55,7 @@
     <Compile Include="ActionContainerTests.cs" />
     <Compile Include="ActionListTests.cs" />
     <Compile Include="ActionTests.cs" />
-    <Compile Include="AttackExecutorTests.cs" />
+    <Compile Include="SendTroopsExecutorTests.cs" />
     <Compile Include="MiscTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportReaderTests.cs" />

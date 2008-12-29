@@ -26,11 +26,11 @@ namespace TravianBot.Framework
 
         public ActionParameters GetActionParameters(string parameterId)
         {
-            foreach (ActionParameters actionParameter in actionParameters)
+            foreach (ActionParameters parameters in actionParameters)
             {
-                if (actionParameter.Id == parameterId)
+                if (parameters.Id == parameterId)
                 {
-                    return actionParameter;
+                    return parameters;
                 }
             }
             return null;

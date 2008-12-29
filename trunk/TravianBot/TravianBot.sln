@@ -19,6 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		Samples\TestFiles\map.php = Samples\TestFiles\map.php
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sendtroops", "sendtroops", "{4AE280D6-7EB5-4FC2-AA94-DED3631E1E62}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\sendtroops\AttackActions.xml = Samples\sendtroops\AttackActions.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +48,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8B9BA7EF-9A25-45DB-9C3E-42A63AC9035F} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
+		{4AE280D6-7EB5-4FC2-AA94-DED3631E1E62} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
 	EndGlobalSection
 EndGlobal
