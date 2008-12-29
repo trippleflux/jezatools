@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd"><html>
+<head>
+<title>Travian si6</title>
+<link rel=stylesheet type="text/css" href="new.css?w">
+<link rel=stylesheet type="text/css" href="unx.css">
+<script src="unx.js?w" type="text/javascript"></script>
+
+<meta http-equiv="cache-control" content="max-age=0">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body onload="start()"><div id="ltop1"><div id="ltop5"><a href="dorf1.php"><img id="n1" src="img/un/a/x.gif" title="Pregled naselbine"></a><a href="dorf2.php"><img id="n2" src="img/un/a/x.gif" title="Center naselja"></a><a href="karte.php"><img id="n3" src="img/un/a/x.gif" title="Zemljevid"></a><a href="statistiken.php"><img id="n4" src="img/un/a/x.gif" title="Statistika"></a><img id="n5" src="img/un/l/m4.gif" usemap="#nb"><a href="plus.php"><img id="lplus1" src="img/si/a/plus.gif" width="80" height="100" title="Plus meni"></a></div></div><map name="nb"><area shape=rect coords="0,0,35,100" href="berichte.php" title="Poročila"><area shape=rect coords="35,0,70,100" href="nachrichten.php" title="Sporočila"></map><div id="lmidall"><div id="lmidlc"><div id="lleft">
+
+<a href="http://www.travian.si/"><img class="logo" src="img/si/a/travian0.gif"></a><table id="navi_table" cellspacing="0" cellpadding="0">
+<tr>
+<td class="menu">
+<a href="http://www.travian.si/">Domača stran</a>
+<a href="#" onClick="return Popup(0,0);">Napotki&Pregled</a>
+<a href="spieler.php?uid=9500">Profil</a><a href="logout.php">Odjava</a><br><br><a href="http://si-forum.travian.com/" target="_blank">Forum</a><a href="http://www.travian.si/chat.php?chatname=si6|jeza" target="_blank">Klepet</a><br><br><a href="plus.php?id=3">Travian <b><font color="#71D000">P</font><font color="#FF6F0F">l</font><font color="#71D000">u</font><font color="#FF6F0F">s</font></b></a><a href="support.php">Podpora</a></td>
+</tr>
+</table></div><div id="lmid1"><div id="lmid2"><div class="dname"><h1>01</h1></div>
+
+<map name="rx"><area href="build.php?id=1" coords="101,33,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=2" coords="165,32,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=3" coords="224,46,28" shape="circle" title="Gozdar Stopnja 4"><area href="build.php?id=4" coords="46,63,28" shape="circle" title="Rudnik železa Stopnja 4"><area href="build.php?id=5" coords="138,74,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=6" coords="203,94,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=7" coords="262,86,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=8" coords="31,117,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=9" coords="83,110,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=10" coords="214,142,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=11" coords="269,146,28" shape="circle" title="Žitno polje Stopnja 10"><area href="build.php?id=12" coords="42,171,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=13" coords="93,164,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=14" coords="160,184,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=15" coords="239,199,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=16" coords="87,217,28" shape="circle" title="Glinokop Stopnja 4"><area href="build.php?id=17" coords="140,231,28" shape="circle" title="Žitno polje Stopnja 8"><area href="build.php?id=18" coords="190,232,28" shape="circle" title="Žitno polje Stopnja 8"><area href="dorf2.php" coords="144,131,36" shape="circle" title="Center naselja"></map>
+
+<div id="f6"><img src="img/un/g/s/s8.gif" id="rf1" class="rf1"><img src="img/un/g/s/s8.gif" id="rf2" class="rf2"><img src="img/un/g/s/s4.gif" id="rf3" class="rf3"><img src="img/un/g/s/s4.gif" id="rf4" class="rf4"><img src="img/un/g/s/s8.gif" id="rf5" class="rf5"><img src="img/un/g/s/s8.gif" id="rf6" class="rf6"><img src="img/un/g/s/s8.gif" id="rf7" class="rf7"><img src="img/un/g/s/s8.gif" id="rf8" class="rf8"><img src="img/un/g/s/s8.gif" id="rf9" class="rf9"><img src="img/un/g/s/s8.gif" id="rf10" class="rf10"><img src="img/un/g/s/s10.gif" id="rf11" class="rf11"><img src="img/un/g/s/s8.gif" id="rf12" class="rf12"><img src="img/un/g/s/s8.gif" id="rf13" class="rf13"><img src="img/un/g/s/s8.gif" id="rf14" class="rf14"><img src="img/un/g/s/s8.gif" id="rf15" class="rf15"><img src="img/un/g/s/s4.gif" id="rf16" class="rf16"><img src="img/un/g/s/s8.gif" id="rf17" class="rf17"><img src="img/un/g/s/s8.gif" id="rf18" class="rf18"></div>
+
+<img id="resfeld" usemap="#rx" src="img/un/a/x.gif">
+<div><div id="lplz1"></div><div id="ltbw1"><div class="f10 b">&nbsp;Premiki enot:</div><table class="f10"><tr>
+	<td><a href="build.php?gid=16"><img src="img/un/a/def1.gif" border="0"></a></td>
+	<td><b class="c3 f10" align="right">&raquo; 5</b></td>
+	<td><b class="c3 f10">Okrepitve</b></td>
+	<td align="center" class="f10">ob</td>
+	<td class=\"f10\"><span id=timer2>0:05:23</span> h</td>
+	</tr></table></div><div id="lrpr">
+
+<div class="f10 b">&nbsp;Proizvodnja:</div>
+
+<table>
+<tr>
+<td><img class="res" src="img/un/r/1.gif"></td>
+<td>Les:</td><td align="right"><b>22&nbsp;</b></td><td>na uro</td>
+</tr>
+<tr>
+<td><img class="res" src="img/un/r/2.gif"></td>
+<td>Glina:</td><td align="right"><b>22&nbsp;</b></td><td>na uro</td>
+</tr>
+<tr>
+<td><img class="res" src="img/un/r/3.gif"></td>
+<td>Železo:</td><td align="right"><b>22&nbsp;</b></td><td>na uro</td>
+</tr>
+<tr>
+<td><img class="res" src="img/un/r/4.gif"></td>
+<td>Žito:</td><td align="right"><b>-325&nbsp;</b></td><td>na uro</td>
+</tr>
+
+</table></div><div id="ltrm">
+
+<div class="f10 b">&nbsp;Enote:</div><table class="f10"><tr><td><a href="build.php?gid=16"><img class="unit" src="img/un/u/hero.gif" border="0"></a></td><td align="right">&nbsp;<b>1</b></td><td>Heroj</td></tr><tr><td><a href="build.php?gid=16"><img class="unit" src="img/un/u/13.gif" border="0"></a></td><td align="right">&nbsp;<b>521</b></td><td>Metalcev sekir</td></tr><tr><td><a href="build.php?gid=16"><img class="unit" src="img/un/u/14.gif" border="0"></a></td><td align="right">&nbsp;<b>20</b></td><td>Skavtov</td></tr></table></div><div id="lbau1"><div class="f10 b">Stavba:</div><table width="100%" class="f10"><tr><td><a href="?d=2964487&a=0&c=4f1"><img src="img/un/a/del.gif" width="12" height="12" title="prekini"></a></td><td>Žitnica (Stopnja 20)</td><td><span id=timer1>0:38:32</span> h</td><td>končano ob 21:45</span><span> uri</td></tr></table></div><script type="text/javascript">var bld=[{"stufe":20,"gid":"11","aid":"19"}]</script></div></div></div></div><div id="lright1"><a href="dorf3.php"><span class="f10 c0 s7 b">Naselbine:</span></a><table class="f10"><tr><td class="nbr"><span>&#8226;</span>&nbsp; <a href="?newdid=73913&id=18&c=7ec">00</a></td><td class="right"><table class="dtbl" cellspacing="0" cellpadding="0">
+<tr>
+<td class="right dlist1">(-22</td>
+<td class="center dlist2">|</td>
+<td class="left dlist3">-95)</td>
+</tr>
+</table></td></tr><tr><td class="nbr"><span class="c2">&#8226;</span>&nbsp; <a href="?newdid=83117&id=18&c=7ec" class="active_vl">01</a></td><td class="right"><table class="dtbl" cellspacing="0" cellpadding="0">
+<tr>
+<td class="right dlist1">(-15</td>
+<td class="center dlist2">|</td>
+<td class="left dlist3">-93)</td>
+</tr>
+</table></td></tr><tr><td class="nbr"><span>&#8226;</span>&nbsp; <a href="?newdid=93284&id=18&c=7ec">02</a></td><td class="right"><table class="dtbl" cellspacing="0" cellpadding="0">
+<tr>
+<td class="right dlist1">(-16</td>
+<td class="center dlist2">|</td>
+<td class="left dlist3">-94)</td>
+</tr>
+</table></td></tr><tr><td class="nbr"><span>&#8226;</span>&nbsp; <a href="?newdid=93663&id=18&c=7ec">03</a></td><td class="right"><table class="dtbl" cellspacing="0" cellpadding="0">
+<tr>
+<td class="right dlist1">(-13</td>
+<td class="center dlist2">|</td>
+<td class="left dlist3">-94)</td>
+</tr>
+</table></td></tr></table></div></div><div id="lres0">
+<table align="center" cellspacing="0" cellpadding="0"><tr valign="top">
+<td><img class="res" src="img/un/r/1.gif" title="Les"></td>
+<td id=l4 title=22>6990/37900</td>
+<td class="s7"> <img class="res" src="img/un/r/2.gif" title="Glina"></td>
+<td id=l3 title=22>3221/37900</td>
+<td class="s7"> <img class="res" src="img/un/r/3.gif" title="Železo"></td>
+<td id=l2 title=22>3431/37900</td><td class="s7"> <img class="res" src="img/un/r/4.gif" title="Žito"></td>
+<td id=l1 title=-325>23516/66400</td>
+<td class="s7"> &nbsp;<img class="res" src="img/un/r/5.gif" title="Poraba žita">&nbsp;3525/3200</td></tr></table>
+</div><div id="ltime">Izračunano v <b>28</b> ms<br>Čas na serverju: <span id="tp1" class="b">21:06:49</span> </div>
+<div id="ce"></div></body>
+</html>
