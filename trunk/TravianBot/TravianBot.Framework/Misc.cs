@@ -40,6 +40,7 @@ namespace TravianBot.Framework
             }
             catch (FileNotFoundException)
             {
+                File.Create(fileName);
                 throw new FileNotFoundException("File '{0}' not found", fileName);
             }
         }
@@ -123,6 +124,22 @@ namespace TravianBot.Framework
             if (pageUrl.EndsWith("berichte.php?id=6216733"))
             {
                 return ReadContent(@"..\..\..\Samples\TestFiles\6216733");
+            }
+            if (pageUrl.EndsWith("dorf1.php?newdid=0"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\dorf1.php-newdid=0");
+            }
+            if (pageUrl.EndsWith("dorf1.php?newdid=1"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\dorf1.php-newdid=1");
+            }
+            if (pageUrl.EndsWith("dorf1.php?newdid=3"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\dorf1.php-newdid=3");
+            }
+            if (pageUrl.EndsWith("dorf1.php?newdid=83117"))
+            {
+                return ReadContent(@"..\..\..\Samples\TestFiles\dorf1.php-newdid=83117");
             }
             return null;
         }

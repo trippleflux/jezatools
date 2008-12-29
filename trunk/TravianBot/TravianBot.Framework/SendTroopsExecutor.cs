@@ -50,13 +50,13 @@ namespace TravianBot.Framework
         {
             foreach (KeyValuePair<string, ActionList> container in actionContainer.ActionsContainer)
             {
-                int i = 0;
                 string tempFile = String.Format(CultureInfo.InvariantCulture, "{0}.temp", container.Key);
                 string tempContent = Misc.ReadContent(tempFile);
                 bool attackIdFound = false;
-                foreach (KeyValuePair<string, Action> action in container.Value.ActionsList)
+                foreach (KeyValuePair<string, Action> list in container.Value.ActionsList)
                 {
-                    ActionParameters @param = action.Value.ActionParameters[i];
+                    ActionParameters @param = list.Value.GetActionParameters(list.Key);
+                    //ActionParameters @param = container.Value.ActionsList[action.Key].ActionParameters[i];
                     int enabled = @param.Enabled;
                     if (enabled != 1)
                     {
@@ -92,7 +92,6 @@ namespace TravianBot.Framework
                     {
                         Misc.WriteData(tempFile, "", false);
                     }
-                    i++;
                 }
             }
         }
@@ -124,7 +123,8 @@ namespace TravianBot.Framework
             string pageSource = Http.SendData(url, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
             HtmlParser htmlParser = new HtmlParser(pageSource);
             htmlParser.ParseUnitsInVillage(serverInfo, villageId);
-            return serverInfo.GetVillage(villageId).GetUnit(@param.UnitName).UnitCount;
+            Unit units = serverInfo.GetVillage(villageId).GetUnit(@param.UnitName);
+            return units != null ? units.UnitCount : 0;
         }
 
         private ActionContainer actionContainer;
