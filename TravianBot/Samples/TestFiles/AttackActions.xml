@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <actions>
-	<attackAction id="1" enabled="1" sendTroopType="3" unitCount="33" comment="[user1][village1][aliance1]" coordinateX="0" coordinateY="0" unitId="2" unitName="Metalcev sekir" villageId="0"/>
-	<attackAction id="2" enabled="1" sendTroopType="4" unitCount="44" comment="[user2][village2][aliance2]" coordinateX="1" coordinateY="1" unitId="3" unitName="Skavtov" villageId="1"/>
-	<attackAction id="3" enabled="0" sendTroopType="2" unitCount="55" comment="[user3][village3][aliance3]" coordinateX="2" coordinateY="2" unitId="1" unitName="Suličarjev" villageId="0"/>
-	<attackAction id="4" enabled="1" sendTroopType="2" unitCount="66" comment="[user4][village4][aliance4]" coordinateX="-3" coordinateY="-3" unitId="4" unitName="Paladinov" villageId="3"/>
+	<attackAction id="1" enabled="1" sendTroopType="3" unitCount="33" playername="asd" villagename="qwe" population="123" aliance="Heroes" comment="[user1][village1][aliance1]" coordinateX="0" coordinateY="0" unitId="2" unitName="Metalcev sekir" villageId="0"/>
+	<attackAction id="2" enabled="1" sendTroopType="4" unitCount="44" playername="sda" villagename="ewq" population="321" aliance="pH" comment="[user2][village2][aliance2]" coordinateX="1" coordinateY="1" unitId="3" unitName="Skavtov" villageId="1"/>
+	<attackAction id="3" enabled="0" sendTroopType="2" unitCount="55" playername="dsa" villagename="weq" population="231" aliance="-=[*]=-" comment="[user3][village3][aliance3]" coordinateX="2" coordinateY="2" unitId="1" unitName="Suličarjev" villageId="0"/>
+	<attackAction id="4" enabled="1" sendTroopType="2" unitCount="66" playername="ads" villagename="wqe" population="132" aliance="" comment="[user4][village4][aliance4]" coordinateX="-3" coordinateY="-3" unitId="4" unitName="Paladinov" villageId="3"/>
 </actions>

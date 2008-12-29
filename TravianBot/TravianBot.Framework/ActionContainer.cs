@@ -17,6 +17,18 @@ namespace TravianBot.Framework
             actionsContainer.Add(fileName, actionList);
         }
 
+        public ActionList GetActionList(string filename)
+        {
+            foreach (KeyValuePair<string, ActionList> keyValuePair in actionsContainer)
+            {
+                if (keyValuePair.Key == filename)
+                {
+                    return keyValuePair.Value;
+                }
+            }
+            return null;
+        }
+
         private readonly Dictionary<string, ActionList> actionsContainer = new Dictionary<string, ActionList>();
     }
 }

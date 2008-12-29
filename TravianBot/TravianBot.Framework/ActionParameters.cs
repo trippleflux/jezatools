@@ -58,6 +58,26 @@ namespace TravianBot.Framework
         public string UnitName { get; set; }
 
         /// <summary>
+        /// Player name.
+        /// </summary>
+        public string PlayerName { get; set; }
+
+        /// <summary>
+        /// Village name.
+        /// </summary>
+        public string VillageName { get; set; }
+
+        /// <summary>
+        /// Village population.
+        /// </summary>
+        public int Population { get; set; }
+
+        /// <summary>
+        /// Name of the aliance.
+        /// </summary>
+        public string Aliance { get; set; }
+
+        /// <summary>
         /// User comment.
         /// </summary>
         public string Comment { get; set; }
@@ -66,9 +86,9 @@ namespace TravianBot.Framework
         {
             return
                 string.Format(
-                    "Id: {0}, Enabled: {1}, CoordinateX: {2}, CoordinateY: {3}, VillageId: {4}, SendTroopType: {5}, UnitId: {6}, UnitCount: {7}, UnitName: {8}, Comment: {9}",
+                    "Id: {0}, Enabled: {1}, CoordinateX: {2}, CoordinateY: {3}, VillageId: {4}, SendTroopType: {5}, UnitId: {6}, UnitCount: {7}, UnitName: {8}, PlayerName: {9}, VillageName: {10}, Population: {11}, Aliance: {12}, Comment: {13}",
                     Id, Enabled, CoordinateX, CoordinateY, VillageId, SendTroopType, UnitId, UnitCount, UnitName,
-                    Comment);
+                    PlayerName, VillageName, Population, Aliance, Comment);
         }
     }
 }
