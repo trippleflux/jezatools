@@ -22,6 +22,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sendtroops", "sendtroops", "{4AE280D6-7EB5-4FC2-AA94-DED3631E1E62}"
 	ProjectSection(SolutionItems) = preProject
 		Samples\sendtroops\AttackActions.xml = Samples\sendtroops\AttackActions.xml
+		Samples\sendtroops\AttackActions.xml.temp = Samples\sendtroops\AttackActions.xml.temp
 	EndProjectSection
 EndProject
 Global
