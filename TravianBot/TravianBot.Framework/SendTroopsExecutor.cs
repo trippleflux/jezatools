@@ -5,19 +5,25 @@ namespace TravianBot.Framework
 {
     public class SendTroopsExecutor : IExecutor
     {
-        public ActionList ActionList
-        {
-            get { return actionList; }
-        }
-
         public SendTroopsExecutor()
         {
-            DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\sendtroops");
+            //DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\sendtroops");
+            DirectoryInfo di = new DirectoryInfo(Misc.GetConfigValue("sendTroopsDirectory"));
             FileInfo[] attackFiles = di.GetFiles("*.xml");
             foreach (FileInfo attackFile in attackFiles)
             {
                 fileNames.Add(attackFile.FullName);
             }
+        }
+
+        public ActionContainer ActionContainer
+        {
+            get { return actionContainer; }
+        }
+
+        public ActionList ActionList
+        {
+            get { return actionList; }
         }
 
         public void Parse()
@@ -30,7 +36,7 @@ namespace TravianBot.Framework
                 {
                     actionList = actionParser.Parse();
                 }
-                ActionContainer actionContainer = new ActionContainer();
+                actionContainer = new ActionContainer();
                 actionContainer.AddActionList(fileName, actionList);
             }
         }
@@ -43,7 +49,8 @@ namespace TravianBot.Framework
             }
         }
 
+        private ActionContainer actionContainer;
         private ActionList actionList;
-        private readonly List<string> fileNames;
+        private readonly List<string> fileNames = new List<string>();
     }
 }
