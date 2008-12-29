@@ -10,11 +10,6 @@ namespace TravianBot.Framework
             get { return actionList; }
         }
 
-        public IList<string> FileNames
-        {
-            get { return fileNames; }
-        }
-
         public SendTroopsExecutor()
         {
             DirectoryInfo di = new DirectoryInfo(Directory.GetCurrentDirectory() + "\\sendtroops");
@@ -42,7 +37,10 @@ namespace TravianBot.Framework
 
         public void Process()
         {
+            foreach (string fileName in fileNames)
+            {
 
+            }
         }
 
         private ActionList actionList;
