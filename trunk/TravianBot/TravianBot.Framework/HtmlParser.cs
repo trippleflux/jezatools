@@ -10,6 +10,30 @@ namespace TravianBot.Framework
             this.pageSource = pageSource;
         }
 
+        public void ParseVillages(ServerInfo serverInfo)
+        {
+            //<a href="?newdid=83117">01</a>
+            MatchCollection villagesCollection =
+                Regex.Matches(pageSource, @"<a href="".newdid=(.*)\"">(.*)<.a>");
+            int villageCount = villagesCollection.Count;
+            for (int i = 0; i < villageCount; i++)
+            {
+                //102706" class="active_vl
+                int villageId = Int32.Parse(Misc.GetOnlyNumbers(villagesCollection[i].Groups[1].Value));
+                string villageName = villagesCollection[i].Groups[2].Value.Trim();
+                Village village = new Village(villageId, villageName);
+                serverInfo.Villages.Add(village);
+            }
+            if (villageCount < 2)
+            {
+                const string regVillageName = @"<div class=""dname""><h1>(.*)</h1></div>";
+                villagesCollection =
+                    Regex.Matches(pageSource, regVillageName);
+                Village village = new Village(0, villagesCollection[0].Groups[1].Value.Trim());
+                serverInfo.Villages.Add(village);
+            }
+        }
+
         public void ParseUserId(ServerInfo serverInfo)
         {
             //<a href="spieler.php?uid=9500">Profil</a>

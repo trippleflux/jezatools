@@ -11,6 +11,26 @@ namespace TravianBot.Framework
 {
     public class Misc
     {
+        /// <summary>
+        /// Return only numbers from string.
+        /// </summary>
+        /// <param name="input">Input string</param>
+        /// <returns>Parsed string</returns>
+        /// 
+        public static string GetOnlyNumbers(string input)
+        {
+            String a = "";
+            for (int c = 0; c < input.Length; c++)
+            {
+                if (IsNumber(input[c]))
+                {
+                    a += input[c];
+                }
+            }
+
+            return a;
+        }
+
         public static Int32 ConvertXY(Int32 x, Int32 y)
         {
             return ((x + 401) + ((400 - y) * 801));
@@ -142,6 +162,21 @@ namespace TravianBot.Framework
                 return ReadContent(@"..\..\..\Samples\TestFiles\dorf1.php-newdid=83117");
             }
             return null;
+        }
+
+        public static void UpdateVillages(ServerInfo serverInfo)
+        {
+            serverInfo.Villages.Clear();
+            string pageSource = Http.SendData(serverInfo.Dorf1Url, null, serverInfo.CookieContainer,
+                                              serverInfo.CookieCollection);
+            HtmlParser htmlParser = new HtmlParser(pageSource);
+            htmlParser.ParseVillages(serverInfo);
+            Console.WriteLine("Updating Villages...");
+            Console.WriteLine("Name                Id");
+            foreach (Village village in serverInfo.Villages)
+            {
+                Console.WriteLine("{0,-20}{1}", village.VillageName, village.VillageId);
+            }
         }
     }
 }
