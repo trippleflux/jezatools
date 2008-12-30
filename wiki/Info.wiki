@@ -1,15 +1,4 @@
 #labels Featured
-
-
 = Introduction =
 
- * It is used to see your resources on [http://www.travian.com Travian] game.
- * More will follow.
-
-
-= Details =
-
-Commands:
- * help
- * resources
- * quit
+ * `TravianBot` will auto attack your neighbors in [http://www.travian.com Travian] web game.
