@@ -79,6 +79,10 @@ namespace TravianBot.Framework
 
         public static bool IsNumber(char c)
         {
+            if (c.Equals('+') || c.Equals('-'))
+            {
+                return true;
+            }
             return Char.IsNumber(c);
         }
 
