@@ -52,12 +52,14 @@ namespace TravianBot.Framework
             const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";
             MatchCollection unitsCollection =
                 Regex.Matches(pageSource, patternUnits);
+            Village village = serverInfo.GetVillage(villageId);
+            village.RemoveVillageUnits();
             for (int i = 0; i < unitsCollection.Count; i++)
             {
                 string unitName = unitsCollection[i].Groups[2].Value.Trim();
                 int unitCount = Int32.Parse(unitsCollection[i].Groups[1].Value.Trim());
                 Unit unit = new Unit(unitCount, unitName);
-                serverInfo.GetVillage(villageId).AddVillageUnit(unit);
+                village.AddVillageUnit(unit);
             }
         }
 

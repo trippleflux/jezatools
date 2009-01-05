@@ -1,6 +1,10 @@
+#region
+
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+
+#endregion
 
 namespace TravianBot.Framework
 {
@@ -28,8 +32,9 @@ namespace TravianBot.Framework
             }
         }
 
-        private void ReadAttackReport(string reportText,
-                                      string reportId)
+        private void ReadAttackReport
+            (string reportText,
+             string reportId)
         {
             if (!GetAttackVillages(reportText))
             {
@@ -38,7 +43,7 @@ namespace TravianBot.Framework
 
             string url = String.Format(CultureInfo.InvariantCulture, "{0}?id={1}", serverInfo.ReportsUrl, reportId);
             string pageSource = Http.SendData(url, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
-            
+
             if (!GetTroopLost(pageSource))
             {
                 return;
@@ -49,12 +54,15 @@ namespace TravianBot.Framework
                 return;
             }
             String fileContent = String.Format(CultureInfo.InvariantCulture,
-                                               "{0} {1,20} <-> {2,-20}, Troop Lost [{3,-25}], Raid [{5} = {6}]{4}"
+                                               "{0} {1,20} <-> {2,-20}, Troop Lost [{3,-25}], Raid [ {5}= {6,8}]{4}"
                                                , url, attackVillage, attackedVillage, troopLostCollection,
                                                Environment.NewLine, loot, lootTotal);
-            Misc.WriteData("AttackReport.txt", fileContent, true);
+            DateTime now = new DateTime(DateTime.Now.Ticks);
+            string fileName = String.Format(CultureInfo.InvariantCulture, "{0}\\{1}AttackReport.txt",
+                                            Misc.GetConfigValue("reportsDirectory"), now.ToString("yyyy-MM-dd"));
+            Misc.WriteData(fileName, fileContent, true);
             String consoleContent = String.Format(CultureInfo.InvariantCulture,
-                                                  "{0} {1} <-> {2}, Troop Lost [{3}], Raid [{4} = {5}]"
+                                                  "{0} {1} <-> {2}, Troop Lost [{3}], Raid [{4}= {5}]"
                                                   , reportId, attackVillage, attackedVillage, troopLostCollection, loot,
                                                   lootTotal);
             Console.WriteLine(consoleContent);
@@ -74,7 +82,7 @@ namespace TravianBot.Framework
             {
                 int amount = Int32.Parse(lootMatchCollection[j].Groups[1].Value.Trim());
                 lootTotal += amount;
-                loot += amount + " ";
+                loot += String.Format("{0,6} ", amount);
             }
             return true;
         }

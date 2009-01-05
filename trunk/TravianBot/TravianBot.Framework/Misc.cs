@@ -61,7 +61,7 @@ namespace TravianBot.Framework
             catch (FileNotFoundException)
             {
                 File.Create(fileName);
-                throw new FileNotFoundException("File '{0}' not found", fileName);
+                throw new FileNotFoundException("File '" + fileName + "' not found");
             }
         }
 
