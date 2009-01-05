@@ -57,6 +57,7 @@ namespace TravianBot.Framework
         {
             foreach (Village village in Villages)
             {
+                //Console.WriteLine("[{1}/{0}] :: {2}", village.VillageId, village.VillageName, villageId);
                 if (village.VillageId == villageId)
                 {
                     return village;

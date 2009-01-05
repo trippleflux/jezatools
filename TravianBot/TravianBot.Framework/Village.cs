@@ -43,6 +43,11 @@ namespace TravianBot.Framework
             return null;
         }
 
+        public void RemoveVillageUnits()
+        {
+            villageUnits.Clear();
+        }
+
         private readonly int villageId;
 
         private readonly string villageName;

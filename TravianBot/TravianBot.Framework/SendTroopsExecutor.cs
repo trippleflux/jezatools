@@ -16,6 +16,7 @@ namespace TravianBot.Framework
             FileInfo[] attackFiles = di.GetFiles("*.xml");
             foreach (FileInfo attackFile in attackFiles)
             {
+                //Console.WriteLine("Found '{0}' in '{1}'", attackFile, di.FullName);
                 fileNames.Add(attackFile.FullName);
             }
             this.serverInfo = serverInfo;
@@ -39,6 +40,7 @@ namespace TravianBot.Framework
                 actionList = new ActionList();
                 using (ActionParser actionParser = new ActionParser(xmlStream))
                 {
+                    //Console.WriteLine("Parsing '{0}'", fileName);
                     actionList = actionParser.Parse();
                 }
                 actionContainer = new ActionContainer();
