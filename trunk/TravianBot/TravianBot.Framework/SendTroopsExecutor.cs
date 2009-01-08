@@ -90,10 +90,10 @@ namespace TravianBot.Framework
                         }
                         Thread.Sleep(2000);
                     }
-                    if (!attackIdFound)
-                    {
-                        Misc.WriteData(tempFile, "", false);
-                    }
+                }
+                if (!attackIdFound)
+                {
+                    Misc.WriteData(tempFile, "", false);
                 }
             }
         }
