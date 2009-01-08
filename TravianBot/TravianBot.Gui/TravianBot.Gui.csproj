@@ -5,15 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{329A0479-3EDE-4915-9499-49DBC8413261}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TravianBot.Framework</RootNamespace>
-    <AssemblyName>TravianBot.Framework</AssemblyName>
+    <RootNamespace>TravianBot.Gui</RootNamespace>
+    <AssemblyName>TravianBot.Gui</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>TravianBot.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -45,35 +42,48 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionContainer.cs" />
-    <Compile Include="AlianceData.cs" />
-    <Compile Include="PlayerData.cs" />
-    <Compile Include="SendTroopsExecutor.cs" />
-    <Compile Include="HtmlParser.cs" />
-    <Compile Include="Http.cs" />
-    <Compile Include="IAction.cs" />
-    <Compile Include="ActionParser.cs" />
-    <Compile Include="LoginPageData.cs" />
-    <Compile Include="MessagesReader.cs" />
-    <Compile Include="ReportReader.cs" />
-    <Compile Include="ActionParameters.cs" />
-    <Compile Include="ServerInfo.cs" />
-    <Compile Include="IExecutor.cs" />
-    <Compile Include="IReader.cs" />
-    <Compile Include="Misc.cs" />
+    <Compile Include="Gui.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui.Designer.cs">
+      <DependentUpon>Gui.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskExecutor.cs" />
-    <Compile Include="Action.cs" />
-    <Compile Include="ActionList.cs" />
-    <Compile Include="TroopUpgradeExecutor.cs" />
-    <Compile Include="Unit.cs" />
-    <Compile Include="Village.cs" />
+    <EmbeddedResource Include="Gui.resx">
+      <DependentUpon>Gui.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TravianBot.snk" />
+    <ProjectReference Include="..\TravianBot.Framework\TravianBot.Framework.csproj">
+      <Project>{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}</Project>
+      <Name>TravianBot.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

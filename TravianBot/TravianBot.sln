@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		Samples\TestFiles\6214004 = Samples\TestFiles\6214004
 		Samples\TestFiles\6214497 = Samples\TestFiles\6214497
 		Samples\TestFiles\6216733 = Samples\TestFiles\6216733
+		Samples\TestFiles\allianz.php = Samples\TestFiles\allianz.php
 		Samples\TestFiles\AttackActions.xml = Samples\TestFiles\AttackActions.xml
 		Samples\TestFiles\berichte.php = Samples\TestFiles\berichte.php
 		Samples\TestFiles\map.php = Samples\TestFiles\map.php
@@ -28,6 +29,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.FarmSearch", "TravianBot.FarmSearch\TravianBot.FarmSearch.csproj", "{7E97EE23-8364-40C8-BB08-9473F5F2FFF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.TroopSender", "TravianBot.TroopSender\TravianBot.TroopSender.csproj", "{49825A35-BACF-4678-BC77-400DFB9DDDEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.Gui", "TravianBot.Gui\TravianBot.Gui.csproj", "{329A0479-3EDE-4915-9499-49DBC8413261}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +58,10 @@ Global
 		{49825A35-BACF-4678-BC77-400DFB9DDDEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49825A35-BACF-4678-BC77-400DFB9DDDEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49825A35-BACF-4678-BC77-400DFB9DDDEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329A0479-3EDE-4915-9499-49DBC8413261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329A0479-3EDE-4915-9499-49DBC8413261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329A0479-3EDE-4915-9499-49DBC8413261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329A0479-3EDE-4915-9499-49DBC8413261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
