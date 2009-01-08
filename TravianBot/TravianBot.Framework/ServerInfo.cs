@@ -20,6 +20,7 @@ namespace TravianBot.Framework
             SendUnitsUrl = String.Format(CultureInfo.InvariantCulture, "{0}a2b.php", servername);
             BuildUrl = String.Format(CultureInfo.InvariantCulture, "{0}build.php", servername);
             ReportsUrl = String.Format(CultureInfo.InvariantCulture, "{0}berichte.php", servername);
+            StatistikAttack = String.Format(CultureInfo.InvariantCulture, "{0}statistiken.php?id=31", servername);
             CookieContainer = new CookieContainer();
             CookieCollection = new CookieCollection();
         }
@@ -30,6 +31,8 @@ namespace TravianBot.Framework
         }
 
         public IList<Village> Villages { get; set; }
+
+        public string StatistikAttack { get; set; }
 
         public string Username { get; set; }
 

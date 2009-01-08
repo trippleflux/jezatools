@@ -11,5 +11,10 @@ namespace TravianBot.Framework
         public int AttackPoints { get; set; }
         public int DefenseRang { get; set; }
         public int DefensePoints { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Number: {0}, Name: {1}, Rang: {2}, Population: {3}, VillageCount: {4}, AttackRang: {5}, AttackPoints: {6}, DefenseRang: {7}, DefensePoints: {8}", Number, Name, Rang, Population, VillageCount, AttackRang, AttackPoints, DefenseRang, DefensePoints);
+        }
     }
 }
