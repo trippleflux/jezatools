@@ -46,6 +46,29 @@ namespace TravianBot.Framework
             }
         }
 
+        public void ParseAttackRang(PlayerData playerData, string username)
+        {
+            /*
+            <tr>
+            <td class="right nbr">21.&nbsp;</td>
+            <td class="s7"><a href="spieler.php?uid=4133">bokson</a></td>
+            <td>4051</td>
+            <td>7</td>
+            <td>17893</td>
+            </tr> 
+             */
+            Regex regPlayerID = new Regex(string.Format(@"<td class=""(.*)"">([0-9]{{0,5}})(.*)</td>[\s]{{0,3}}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{{0,5}})"">{0}</a></td>[\s]{{0,3}}<td>([0-9]{{0,6}})</td>[\s]{{0,3}}<td>([0-9]{{0,6}})</td>[\s]{{0,3}}<td>([0-9]{{0,6}})</td>", username));
+            if (regPlayerID.IsMatch(pageSource))
+            {
+                Match Mc = regPlayerID.Matches(pageSource)[0];
+                playerData.Name = username;
+                playerData.AttackRang = Int32.Parse(Mc.Groups[2].Value.Trim());
+                playerData.Population = Int32.Parse(Mc.Groups[6].Value.Trim());
+                playerData.VillageCount = Int32.Parse(Mc.Groups[7].Value.Trim());
+                playerData.AttackPoints = Int32.Parse(Mc.Groups[8].Value.Trim());
+            }
+        }
+
         public void ParseUnitsInVillage(ServerInfo serverInfo,
                                         int villageId)
         {
