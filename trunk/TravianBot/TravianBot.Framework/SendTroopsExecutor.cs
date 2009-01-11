@@ -36,15 +36,17 @@ namespace TravianBot.Framework
         {
             foreach (string fileName in fileNames)
             {
-                Stream xmlStream = File.OpenRead(fileName);
-                actionList = new ActionList();
-                using (ActionParser actionParser = new ActionParser(xmlStream))
+                using (Stream xmlStream = File.OpenRead(fileName))
                 {
-                    //Console.WriteLine("Parsing '{0}'", fileName);
-                    actionList = actionParser.Parse();
+                    actionList = new ActionList();
+                    using (ActionParser actionParser = new ActionParser(xmlStream))
+                    {
+                        //Console.WriteLine("Parsing '{0}'", fileName);
+                        actionList = actionParser.Parse();
+                    }
+                    actionContainer = new ActionContainer();
+                    actionContainer.AddActionList(fileName, actionList);
                 }
-                actionContainer = new ActionContainer();
-                actionContainer.AddActionList(fileName, actionList);
             }
         }
 
