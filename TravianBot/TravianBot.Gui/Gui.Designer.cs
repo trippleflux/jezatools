@@ -34,26 +34,20 @@
             this.labelAlianceName = new System.Windows.Forms.Label();
             this.tabPageStatus = new System.Windows.Forms.TabPage();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
-            this.labelServer = new System.Windows.Forms.Label();
-            this.labelUsername = new System.Windows.Forms.Label();
-            this.labelPassword = new System.Windows.Forms.Label();
-            this.textBoxServer = new System.Windows.Forms.TextBox();
-            this.textBoxPassword = new System.Windows.Forms.TextBox();
-            this.textBoxUsername = new System.Windows.Forms.TextBox();
+            this.panelData = new System.Windows.Forms.Panel();
             this.labelAlianceId = new System.Windows.Forms.Label();
             this.textBoxAlianceId = new System.Windows.Forms.TextBox();
             this.buttonGetInfoAliance = new System.Windows.Forms.Button();
-            this.panelInfo = new System.Windows.Forms.Panel();
-            this.buttonGetInfoUid = new System.Windows.Forms.Button();
-            this.textBoxUid = new System.Windows.Forms.TextBox();
             this.labelUid = new System.Windows.Forms.Label();
-            this.panelData = new System.Windows.Forms.Panel();
+            this.textBoxUid = new System.Windows.Forms.TextBox();
+            this.buttonGetInfoUid = new System.Windows.Forms.Button();
+            this.panelInfo = new System.Windows.Forms.Panel();
             this.tabControlGui.SuspendLayout();
             this.tabPageAliance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).BeginInit();
             this.tabPageStatus.SuspendLayout();
-            this.panelInfo.SuspendLayout();
             this.panelData.SuspendLayout();
+            this.panelInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlGui
@@ -65,7 +59,7 @@
             this.tabControlGui.Location = new System.Drawing.Point(3, 3);
             this.tabControlGui.Name = "tabControlGui";
             this.tabControlGui.SelectedIndex = 0;
-            this.tabControlGui.Size = new System.Drawing.Size(825, 668);
+            this.tabControlGui.Size = new System.Drawing.Size(981, 668);
             this.tabControlGui.TabIndex = 0;
             // 
             // tabPageAliance
@@ -75,7 +69,7 @@
             this.tabPageAliance.Location = new System.Drawing.Point(4, 22);
             this.tabPageAliance.Name = "tabPageAliance";
             this.tabPageAliance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAliance.Size = new System.Drawing.Size(817, 642);
+            this.tabPageAliance.Size = new System.Drawing.Size(973, 642);
             this.tabPageAliance.TabIndex = 0;
             this.tabPageAliance.Text = "Aliance";
             this.tabPageAliance.UseVisualStyleBackColor = true;
@@ -92,7 +86,7 @@
             this.dataGridViewAliance.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewAliance.Name = "dataGridViewAliance";
             this.dataGridViewAliance.ReadOnly = true;
-            this.dataGridViewAliance.Size = new System.Drawing.Size(811, 636);
+            this.dataGridViewAliance.Size = new System.Drawing.Size(967, 636);
             this.dataGridViewAliance.TabIndex = 1;
             // 
             // labelAlianceName
@@ -108,7 +102,7 @@
             this.tabPageStatus.Controls.Add(this.textBoxStatus);
             this.tabPageStatus.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatus.Name = "tabPageStatus";
-            this.tabPageStatus.Size = new System.Drawing.Size(817, 642);
+            this.tabPageStatus.Size = new System.Drawing.Size(973, 642);
             this.tabPageStatus.TabIndex = 1;
             this.tabPageStatus.Text = "Status";
             this.tabPageStatus.UseVisualStyleBackColor = true;
@@ -120,129 +114,8 @@
             this.textBoxStatus.Multiline = true;
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxStatus.Size = new System.Drawing.Size(817, 642);
+            this.textBoxStatus.Size = new System.Drawing.Size(973, 642);
             this.textBoxStatus.TabIndex = 0;
-            // 
-            // labelServer
-            // 
-            this.labelServer.AutoSize = true;
-            this.labelServer.Location = new System.Drawing.Point(19, 19);
-            this.labelServer.Name = "labelServer";
-            this.labelServer.Size = new System.Drawing.Size(38, 13);
-            this.labelServer.TabIndex = 1;
-            this.labelServer.Text = "Server";
-            // 
-            // labelUsername
-            // 
-            this.labelUsername.AutoSize = true;
-            this.labelUsername.Location = new System.Drawing.Point(19, 41);
-            this.labelUsername.Name = "labelUsername";
-            this.labelUsername.Size = new System.Drawing.Size(55, 13);
-            this.labelUsername.TabIndex = 2;
-            this.labelUsername.Text = "Username";
-            // 
-            // labelPassword
-            // 
-            this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(19, 65);
-            this.labelPassword.Name = "labelPassword";
-            this.labelPassword.Size = new System.Drawing.Size(53, 13);
-            this.labelPassword.TabIndex = 3;
-            this.labelPassword.Text = "Password";
-            // 
-            // textBoxServer
-            // 
-            this.textBoxServer.Location = new System.Drawing.Point(102, 11);
-            this.textBoxServer.Name = "textBoxServer";
-            this.textBoxServer.Size = new System.Drawing.Size(164, 20);
-            this.textBoxServer.TabIndex = 4;
-            // 
-            // textBoxPassword
-            // 
-            this.textBoxPassword.Location = new System.Drawing.Point(102, 58);
-            this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(164, 20);
-            this.textBoxPassword.TabIndex = 5;
-            // 
-            // textBoxUsername
-            // 
-            this.textBoxUsername.Location = new System.Drawing.Point(102, 34);
-            this.textBoxUsername.Name = "textBoxUsername";
-            this.textBoxUsername.Size = new System.Drawing.Size(164, 20);
-            this.textBoxUsername.TabIndex = 6;
-            // 
-            // labelAlianceId
-            // 
-            this.labelAlianceId.AutoSize = true;
-            this.labelAlianceId.Location = new System.Drawing.Point(283, 41);
-            this.labelAlianceId.Name = "labelAlianceId";
-            this.labelAlianceId.Size = new System.Drawing.Size(54, 13);
-            this.labelAlianceId.TabIndex = 7;
-            this.labelAlianceId.Text = "Aliance Id";
-            // 
-            // textBoxAlianceId
-            // 
-            this.textBoxAlianceId.Location = new System.Drawing.Point(343, 34);
-            this.textBoxAlianceId.Name = "textBoxAlianceId";
-            this.textBoxAlianceId.Size = new System.Drawing.Size(164, 20);
-            this.textBoxAlianceId.TabIndex = 8;
-            // 
-            // buttonGetInfoAliance
-            // 
-            this.buttonGetInfoAliance.Location = new System.Drawing.Point(529, 31);
-            this.buttonGetInfoAliance.Name = "buttonGetInfoAliance";
-            this.buttonGetInfoAliance.Size = new System.Drawing.Size(75, 23);
-            this.buttonGetInfoAliance.TabIndex = 9;
-            this.buttonGetInfoAliance.Text = "GetInfo";
-            this.buttonGetInfoAliance.UseVisualStyleBackColor = true;
-            // 
-            // panelInfo
-            // 
-            this.panelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelInfo.Controls.Add(this.buttonGetInfoUid);
-            this.panelInfo.Controls.Add(this.textBoxUid);
-            this.panelInfo.Controls.Add(this.labelUid);
-            this.panelInfo.Controls.Add(this.labelServer);
-            this.panelInfo.Controls.Add(this.buttonGetInfoAliance);
-            this.panelInfo.Controls.Add(this.labelUsername);
-            this.panelInfo.Controls.Add(this.textBoxAlianceId);
-            this.panelInfo.Controls.Add(this.labelPassword);
-            this.panelInfo.Controls.Add(this.labelAlianceId);
-            this.panelInfo.Controls.Add(this.textBoxServer);
-            this.panelInfo.Controls.Add(this.textBoxUsername);
-            this.panelInfo.Controls.Add(this.textBoxPassword);
-            this.panelInfo.Location = new System.Drawing.Point(12, 12);
-            this.panelInfo.Name = "panelInfo";
-            this.panelInfo.Size = new System.Drawing.Size(826, 94);
-            this.panelInfo.TabIndex = 10;
-            // 
-            // buttonGetInfoUid
-            // 
-            this.buttonGetInfoUid.Location = new System.Drawing.Point(529, 55);
-            this.buttonGetInfoUid.Name = "buttonGetInfoUid";
-            this.buttonGetInfoUid.Size = new System.Drawing.Size(75, 23);
-            this.buttonGetInfoUid.TabIndex = 12;
-            this.buttonGetInfoUid.Text = "GetInfo";
-            this.buttonGetInfoUid.UseVisualStyleBackColor = true;
-            this.buttonGetInfoUid.Click += new System.EventHandler(this.buttonGetInfoUid_Click);
-            // 
-            // textBoxUid
-            // 
-            this.textBoxUid.Location = new System.Drawing.Point(343, 58);
-            this.textBoxUid.Name = "textBoxUid";
-            this.textBoxUid.Size = new System.Drawing.Size(164, 20);
-            this.textBoxUid.TabIndex = 11;
-            // 
-            // labelUid
-            // 
-            this.labelUid.AutoSize = true;
-            this.labelUid.Location = new System.Drawing.Point(283, 65);
-            this.labelUid.Name = "labelUid";
-            this.labelUid.Size = new System.Drawing.Size(55, 13);
-            this.labelUid.TabIndex = 10;
-            this.labelUid.Text = "Username";
             // 
             // panelData
             // 
@@ -252,14 +125,82 @@
             this.panelData.Controls.Add(this.tabControlGui);
             this.panelData.Location = new System.Drawing.Point(12, 112);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(826, 668);
+            this.panelData.Size = new System.Drawing.Size(982, 668);
             this.panelData.TabIndex = 11;
+            // 
+            // labelAlianceId
+            // 
+            this.labelAlianceId.AutoSize = true;
+            this.labelAlianceId.Location = new System.Drawing.Point(14, 17);
+            this.labelAlianceId.Name = "labelAlianceId";
+            this.labelAlianceId.Size = new System.Drawing.Size(54, 13);
+            this.labelAlianceId.TabIndex = 7;
+            this.labelAlianceId.Text = "Aliance Id";
+            // 
+            // textBoxAlianceId
+            // 
+            this.textBoxAlianceId.Location = new System.Drawing.Point(74, 10);
+            this.textBoxAlianceId.Name = "textBoxAlianceId";
+            this.textBoxAlianceId.Size = new System.Drawing.Size(164, 20);
+            this.textBoxAlianceId.TabIndex = 8;
+            // 
+            // buttonGetInfoAliance
+            // 
+            this.buttonGetInfoAliance.Location = new System.Drawing.Point(260, 7);
+            this.buttonGetInfoAliance.Name = "buttonGetInfoAliance";
+            this.buttonGetInfoAliance.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetInfoAliance.TabIndex = 9;
+            this.buttonGetInfoAliance.Text = "GetInfo";
+            this.buttonGetInfoAliance.UseVisualStyleBackColor = true;
+            this.buttonGetInfoAliance.Click += new System.EventHandler(this.buttonGetInfoAliance_Click);
+            // 
+            // labelUid
+            // 
+            this.labelUid.AutoSize = true;
+            this.labelUid.Location = new System.Drawing.Point(13, 60);
+            this.labelUid.Name = "labelUid";
+            this.labelUid.Size = new System.Drawing.Size(55, 13);
+            this.labelUid.TabIndex = 10;
+            this.labelUid.Text = "Username";
+            // 
+            // textBoxUid
+            // 
+            this.textBoxUid.Location = new System.Drawing.Point(73, 53);
+            this.textBoxUid.Name = "textBoxUid";
+            this.textBoxUid.Size = new System.Drawing.Size(164, 20);
+            this.textBoxUid.TabIndex = 11;
+            // 
+            // buttonGetInfoUid
+            // 
+            this.buttonGetInfoUid.Location = new System.Drawing.Point(259, 50);
+            this.buttonGetInfoUid.Name = "buttonGetInfoUid";
+            this.buttonGetInfoUid.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetInfoUid.TabIndex = 12;
+            this.buttonGetInfoUid.Text = "GetInfo";
+            this.buttonGetInfoUid.UseVisualStyleBackColor = true;
+            this.buttonGetInfoUid.Click += new System.EventHandler(this.buttonGetInfoUid_Click);
+            // 
+            // panelInfo
+            // 
+            this.panelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelInfo.Controls.Add(this.buttonGetInfoUid);
+            this.panelInfo.Controls.Add(this.textBoxUid);
+            this.panelInfo.Controls.Add(this.labelUid);
+            this.panelInfo.Controls.Add(this.buttonGetInfoAliance);
+            this.panelInfo.Controls.Add(this.textBoxAlianceId);
+            this.panelInfo.Controls.Add(this.labelAlianceId);
+            this.panelInfo.Location = new System.Drawing.Point(12, 12);
+            this.panelInfo.Name = "panelInfo";
+            this.panelInfo.Size = new System.Drawing.Size(982, 94);
+            this.panelInfo.TabIndex = 10;
             // 
             // Gui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(850, 792);
+            this.ClientSize = new System.Drawing.Size(1006, 792);
             this.Controls.Add(this.panelData);
             this.Controls.Add(this.panelInfo);
             this.Name = "Gui";
@@ -271,9 +212,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).EndInit();
             this.tabPageStatus.ResumeLayout(false);
             this.tabPageStatus.PerformLayout();
+            this.panelData.ResumeLayout(false);
             this.panelInfo.ResumeLayout(false);
             this.panelInfo.PerformLayout();
-            this.panelData.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -282,24 +223,18 @@
 
         private System.Windows.Forms.TabControl tabControlGui;
         private System.Windows.Forms.TabPage tabPageAliance;
-        private System.Windows.Forms.Label labelServer;
-        private System.Windows.Forms.Label labelUsername;
-        private System.Windows.Forms.Label labelPassword;
-        private System.Windows.Forms.TextBox textBoxServer;
-        private System.Windows.Forms.TextBox textBoxPassword;
-        private System.Windows.Forms.TextBox textBoxUsername;
-        private System.Windows.Forms.Label labelAlianceId;
-        private System.Windows.Forms.TextBox textBoxAlianceId;
-        private System.Windows.Forms.Button buttonGetInfoAliance;
         private System.Windows.Forms.TabPage tabPageStatus;
         private System.Windows.Forms.Label labelAlianceName;
         private System.Windows.Forms.TextBox textBoxStatus;
         private System.Windows.Forms.DataGridView dataGridViewAliance;
-        private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Panel panelData;
-        private System.Windows.Forms.Button buttonGetInfoUid;
-        private System.Windows.Forms.TextBox textBoxUid;
+        private System.Windows.Forms.Label labelAlianceId;
+        private System.Windows.Forms.TextBox textBoxAlianceId;
+        private System.Windows.Forms.Button buttonGetInfoAliance;
         private System.Windows.Forms.Label labelUid;
+        private System.Windows.Forms.TextBox textBoxUid;
+        private System.Windows.Forms.Button buttonGetInfoUid;
+        private System.Windows.Forms.Panel panelInfo;
     }
 }
 

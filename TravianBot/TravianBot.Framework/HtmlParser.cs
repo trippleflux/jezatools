@@ -57,15 +57,75 @@ namespace TravianBot.Framework
             <td>17893</td>
             </tr> 
              */
-            Regex regPlayerID = new Regex(string.Format(@"<td class=""(.*)"">([0-9]{{0,5}})(.*)</td>[\s]{{0,3}}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{{0,5}})"">{0}</a></td>[\s]{{0,3}}<td>([0-9]{{0,6}})</td>[\s]{{0,3}}<td>([0-9]{{0,6}})</td>[\s]{{0,3}}<td>([0-9]{{0,6}})</td>", username));
-            if (regPlayerID.IsMatch(pageSource))
+            const string patternRang = @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
+            MatchCollection rangCollection =
+                Regex.Matches(pageSource, patternRang);
+            for (int i = 0; i < rangCollection.Count; i++)
             {
-                Match Mc = regPlayerID.Matches(pageSource)[0];
-                playerData.Name = username;
-                playerData.AttackRang = Int32.Parse(Mc.Groups[2].Value.Trim());
-                playerData.Population = Int32.Parse(Mc.Groups[6].Value.Trim());
-                playerData.VillageCount = Int32.Parse(Mc.Groups[7].Value.Trim());
-                playerData.AttackPoints = Int32.Parse(Mc.Groups[8].Value.Trim());
+                string name = rangCollection[i].Groups[5].Value.Trim();
+                if (name == username)
+                {
+                    playerData.Name = name;
+                    playerData.AttackRang = Int32.Parse(rangCollection[i].Groups[2].Value.Trim());
+                    playerData.Population = Int32.Parse(rangCollection[i].Groups[8].Value.Trim());
+                    playerData.VillageCount = Int32.Parse(rangCollection[i].Groups[11].Value.Trim());
+                    playerData.AttackPoints = Int32.Parse(rangCollection[i].Groups[14].Value.Trim());
+                    break;
+                }
+            }
+        }
+
+        public void ParseDefenseRang(PlayerData playerData,
+                                     string username)
+        {
+            /*
+            <tr>
+            <td class="right nbr">21.&nbsp;</td>
+            <td class="s7"><a href="spieler.php?uid=4133">bokson</a></td>
+            <td>4051</td>
+            <td>7</td>
+            <td>17893</td>
+            </tr> 
+             */
+            const string patternRang = @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
+            MatchCollection rangCollection =
+                Regex.Matches(pageSource, patternRang);
+            for (int i = 0; i < rangCollection.Count; i++)
+            {
+                string name = rangCollection[i].Groups[5].Value.Trim();
+                if (name == username)
+                {
+                    playerData.Name = name;
+                    playerData.DefenseRang = Int32.Parse(rangCollection[i].Groups[2].Value.Trim());
+                    playerData.Population = Int32.Parse(rangCollection[i].Groups[8].Value.Trim());
+                    playerData.VillageCount = Int32.Parse(rangCollection[i].Groups[11].Value.Trim());
+                    playerData.DefensePoints = Int32.Parse(rangCollection[i].Groups[14].Value.Trim());
+                    break;
+                }
+            }
+        }
+
+        public void ParseRang(PlayerData playerData,
+                                     string username)
+        {
+            /*
+<td class="li ou nbr" align="right">161.&nbsp;</td>
+<td class="s7 ou"><a href="spieler.php?uid=9500">jeza</a></td>
+<td class="ou"><a href="allianz.php?aid=1467">FOR</a></td>
+             */
+            const string patternRang = @"<td class=""(.*)"" align=""right"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?><a href=""allianz.php.aid=([0-9]{0,6})"">(.*)</a></td>";
+            MatchCollection rangCollection =
+                Regex.Matches(pageSource, patternRang);
+            for (int i = 0; i < rangCollection.Count; i++)
+            {
+                string name = rangCollection[i].Groups[5].Value.Trim();
+                if (name == username)
+                {
+                    playerData.Name = name;
+                    playerData.Rang = Int32.Parse(rangCollection[i].Groups[2].Value.Trim());
+                    playerData.Aliance = rangCollection[i].Groups[9].Value.Trim();
+                    break;
+                }
             }
         }
 

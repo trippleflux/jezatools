@@ -56,9 +56,9 @@
 </tr><tr>
 <td class="li ou nbr right">23.&nbsp;</td>
 <td class="s7 ou"><a href="spieler.php?uid=9500">jeza</a></td>
-<td class="ou">2162</td>
+<td class="ou">2242</td>
 <td class="ou">4</td>
-<td class="re ou">16547</td>
+<td class="re ou">18145</td>
 </tr><tr>
 <td class="right nbr">24.&nbsp;</td>
 <td class="s7"><a href="spieler.php?uid=8877">AloAlo</a></td>
