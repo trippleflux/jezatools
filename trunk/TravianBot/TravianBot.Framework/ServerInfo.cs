@@ -21,6 +21,9 @@ namespace TravianBot.Framework
             BuildUrl = String.Format(CultureInfo.InvariantCulture, "{0}build.php", servername);
             ReportsUrl = String.Format(CultureInfo.InvariantCulture, "{0}berichte.php", servername);
             StatistikAttack = String.Format(CultureInfo.InvariantCulture, "{0}statistiken.php?id=31", servername);
+            StatistikDefense = String.Format(CultureInfo.InvariantCulture, "{0}statistiken.php?id=32", servername);
+            StatistikRang = String.Format(CultureInfo.InvariantCulture, "{0}statistiken.php", servername);
+            AlianceUrl = String.Format(CultureInfo.InvariantCulture, "{0}allianz.php?aid=", servername);
             CookieContainer = new CookieContainer();
             CookieCollection = new CookieCollection();
         }
@@ -33,6 +36,10 @@ namespace TravianBot.Framework
         public IList<Village> Villages { get; set; }
 
         public string StatistikAttack { get; set; }
+
+        public string StatistikDefense { get; set; }
+
+        public string StatistikRang { get; set; }
 
         public string Username { get; set; }
 
@@ -49,6 +56,8 @@ namespace TravianBot.Framework
         public string BuildUrl { get; set; }
 
         public string ReportsUrl { get; set; }
+
+        public string AlianceUrl { get; set; }
 
         public CookieContainer CookieContainer { get; set; }
 
