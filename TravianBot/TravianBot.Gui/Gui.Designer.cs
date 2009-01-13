@@ -42,6 +42,8 @@
             this.textBoxUid = new System.Windows.Forms.TextBox();
             this.buttonGetInfoUid = new System.Windows.Forms.Button();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.comboBoxDelay = new System.Windows.Forms.ComboBox();
+            this.labelDelay = new System.Windows.Forms.Label();
             this.tabControlGui.SuspendLayout();
             this.tabPageAliance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).BeginInit();
@@ -143,6 +145,7 @@
             this.textBoxAlianceId.Name = "textBoxAlianceId";
             this.textBoxAlianceId.Size = new System.Drawing.Size(164, 20);
             this.textBoxAlianceId.TabIndex = 8;
+            this.textBoxAlianceId.Text = "1501";
             // 
             // buttonGetInfoAliance
             // 
@@ -169,6 +172,7 @@
             this.textBoxUid.Name = "textBoxUid";
             this.textBoxUid.Size = new System.Drawing.Size(164, 20);
             this.textBoxUid.TabIndex = 11;
+            this.textBoxUid.Text = "hambo";
             // 
             // buttonGetInfoUid
             // 
@@ -185,6 +189,8 @@
             this.panelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelInfo.Controls.Add(this.comboBoxDelay);
+            this.panelInfo.Controls.Add(this.labelDelay);
             this.panelInfo.Controls.Add(this.buttonGetInfoUid);
             this.panelInfo.Controls.Add(this.textBoxUid);
             this.panelInfo.Controls.Add(this.labelUid);
@@ -195,6 +201,30 @@
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(982, 94);
             this.panelInfo.TabIndex = 10;
+            // 
+            // comboBoxDelay
+            // 
+            this.comboBoxDelay.FormattingEnabled = true;
+            this.comboBoxDelay.Items.AddRange(new object[] {
+            "1000",
+            "2000",
+            "3000",
+            "4000",
+            "5000"});
+            this.comboBoxDelay.Location = new System.Drawing.Point(444, 8);
+            this.comboBoxDelay.Name = "comboBoxDelay";
+            this.comboBoxDelay.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxDelay.TabIndex = 14;
+            this.comboBoxDelay.Text = "5000";
+            // 
+            // labelDelay
+            // 
+            this.labelDelay.AutoSize = true;
+            this.labelDelay.Location = new System.Drawing.Point(389, 16);
+            this.labelDelay.Name = "labelDelay";
+            this.labelDelay.Size = new System.Drawing.Size(34, 13);
+            this.labelDelay.TabIndex = 13;
+            this.labelDelay.Text = "Delay";
             // 
             // Gui
             // 
@@ -235,6 +265,8 @@
         private System.Windows.Forms.TextBox textBoxUid;
         private System.Windows.Forms.Button buttonGetInfoUid;
         private System.Windows.Forms.Panel panelInfo;
+        private System.Windows.Forms.ComboBox comboBoxDelay;
+        private System.Windows.Forms.Label labelDelay;
     }
 }
 
