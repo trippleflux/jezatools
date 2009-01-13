@@ -44,6 +44,7 @@
             this.panelInfo = new System.Windows.Forms.Panel();
             this.comboBoxDelay = new System.Windows.Forms.ComboBox();
             this.labelDelay = new System.Windows.Forms.Label();
+            this.progressBarStatus = new System.Windows.Forms.ProgressBar();
             this.tabControlGui.SuspendLayout();
             this.tabPageAliance.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).BeginInit();
@@ -189,6 +190,7 @@
             this.panelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelInfo.Controls.Add(this.progressBarStatus);
             this.panelInfo.Controls.Add(this.comboBoxDelay);
             this.panelInfo.Controls.Add(this.labelDelay);
             this.panelInfo.Controls.Add(this.buttonGetInfoUid);
@@ -215,7 +217,7 @@
             this.comboBoxDelay.Name = "comboBoxDelay";
             this.comboBoxDelay.Size = new System.Drawing.Size(121, 21);
             this.comboBoxDelay.TabIndex = 14;
-            this.comboBoxDelay.Text = "5000";
+            this.comboBoxDelay.Text = "1000";
             // 
             // labelDelay
             // 
@@ -225,6 +227,15 @@
             this.labelDelay.Size = new System.Drawing.Size(34, 13);
             this.labelDelay.TabIndex = 13;
             this.labelDelay.Text = "Delay";
+            // 
+            // progressBarStatus
+            // 
+            this.progressBarStatus.Location = new System.Drawing.Point(392, 49);
+            this.progressBarStatus.Name = "progressBarStatus";
+            this.progressBarStatus.Size = new System.Drawing.Size(585, 23);
+            this.progressBarStatus.Step = 1;
+            this.progressBarStatus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarStatus.TabIndex = 15;
             // 
             // Gui
             // 
@@ -267,6 +278,7 @@
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.ComboBox comboBoxDelay;
         private System.Windows.Forms.Label labelDelay;
+        private System.Windows.Forms.ProgressBar progressBarStatus;
     }
 }
 
