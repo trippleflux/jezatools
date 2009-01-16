@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControlGui = new System.Windows.Forms.TabControl();
-            this.tabPageAliance = new System.Windows.Forms.TabPage();
+            this.tabPageStats = new System.Windows.Forms.TabPage();
             this.dataGridViewAliance = new System.Windows.Forms.DataGridView();
             this.labelAlianceName = new System.Windows.Forms.Label();
             this.tabPageStatus = new System.Windows.Forms.TabPage();
@@ -42,11 +42,11 @@
             this.textBoxUid = new System.Windows.Forms.TextBox();
             this.buttonGetInfoUid = new System.Windows.Forms.Button();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.progressBarStatus = new System.Windows.Forms.ProgressBar();
             this.comboBoxDelay = new System.Windows.Forms.ComboBox();
             this.labelDelay = new System.Windows.Forms.Label();
-            this.progressBarStatus = new System.Windows.Forms.ProgressBar();
             this.tabControlGui.SuspendLayout();
-            this.tabPageAliance.SuspendLayout();
+            this.tabPageStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).BeginInit();
             this.tabPageStatus.SuspendLayout();
             this.panelData.SuspendLayout();
@@ -57,25 +57,25 @@
             // 
             this.tabControlGui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlGui.Controls.Add(this.tabPageAliance);
             this.tabControlGui.Controls.Add(this.tabPageStatus);
+            this.tabControlGui.Controls.Add(this.tabPageStats);
             this.tabControlGui.Location = new System.Drawing.Point(3, 3);
             this.tabControlGui.Name = "tabControlGui";
             this.tabControlGui.SelectedIndex = 0;
             this.tabControlGui.Size = new System.Drawing.Size(981, 668);
             this.tabControlGui.TabIndex = 0;
             // 
-            // tabPageAliance
+            // tabPageStats
             // 
-            this.tabPageAliance.Controls.Add(this.dataGridViewAliance);
-            this.tabPageAliance.Controls.Add(this.labelAlianceName);
-            this.tabPageAliance.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAliance.Name = "tabPageAliance";
-            this.tabPageAliance.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAliance.Size = new System.Drawing.Size(973, 642);
-            this.tabPageAliance.TabIndex = 0;
-            this.tabPageAliance.Text = "Aliance";
-            this.tabPageAliance.UseVisualStyleBackColor = true;
+            this.tabPageStats.Controls.Add(this.dataGridViewAliance);
+            this.tabPageStats.Controls.Add(this.labelAlianceName);
+            this.tabPageStats.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStats.Name = "tabPageStats";
+            this.tabPageStats.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStats.Size = new System.Drawing.Size(973, 642);
+            this.tabPageStats.TabIndex = 0;
+            this.tabPageStats.Text = "Stats";
+            this.tabPageStats.UseVisualStyleBackColor = true;
             // 
             // dataGridViewAliance
             // 
@@ -204,6 +204,15 @@
             this.panelInfo.Size = new System.Drawing.Size(982, 94);
             this.panelInfo.TabIndex = 10;
             // 
+            // progressBarStatus
+            // 
+            this.progressBarStatus.Location = new System.Drawing.Point(392, 49);
+            this.progressBarStatus.Name = "progressBarStatus";
+            this.progressBarStatus.Size = new System.Drawing.Size(585, 23);
+            this.progressBarStatus.Step = 1;
+            this.progressBarStatus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBarStatus.TabIndex = 15;
+            // 
             // comboBoxDelay
             // 
             this.comboBoxDelay.FormattingEnabled = true;
@@ -228,15 +237,6 @@
             this.labelDelay.TabIndex = 13;
             this.labelDelay.Text = "Delay";
             // 
-            // progressBarStatus
-            // 
-            this.progressBarStatus.Location = new System.Drawing.Point(392, 49);
-            this.progressBarStatus.Name = "progressBarStatus";
-            this.progressBarStatus.Size = new System.Drawing.Size(585, 23);
-            this.progressBarStatus.Step = 1;
-            this.progressBarStatus.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBarStatus.TabIndex = 15;
-            // 
             // Gui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,8 +248,8 @@
             this.Text = "TravianBot.Gui";
             this.Load += new System.EventHandler(this.Gui_Load);
             this.tabControlGui.ResumeLayout(false);
-            this.tabPageAliance.ResumeLayout(false);
-            this.tabPageAliance.PerformLayout();
+            this.tabPageStats.ResumeLayout(false);
+            this.tabPageStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).EndInit();
             this.tabPageStatus.ResumeLayout(false);
             this.tabPageStatus.PerformLayout();
@@ -263,7 +263,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlGui;
-        private System.Windows.Forms.TabPage tabPageAliance;
+        private System.Windows.Forms.TabPage tabPageStats;
         private System.Windows.Forms.TabPage tabPageStatus;
         private System.Windows.Forms.Label labelAlianceName;
         private System.Windows.Forms.TextBox textBoxStatus;
