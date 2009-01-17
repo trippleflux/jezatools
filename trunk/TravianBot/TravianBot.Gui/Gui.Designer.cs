@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.tabControlGui = new System.Windows.Forms.TabControl();
+            this.tabPageStatus = new System.Windows.Forms.TabPage();
+            this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.tabPageStats = new System.Windows.Forms.TabPage();
             this.dataGridViewAliance = new System.Windows.Forms.DataGridView();
             this.labelAlianceName = new System.Windows.Forms.Label();
-            this.tabPageStatus = new System.Windows.Forms.TabPage();
-            this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.panelData = new System.Windows.Forms.Panel();
             this.labelAlianceId = new System.Windows.Forms.Label();
             this.textBoxAlianceId = new System.Windows.Forms.TextBox();
@@ -46,9 +46,9 @@
             this.comboBoxDelay = new System.Windows.Forms.ComboBox();
             this.labelDelay = new System.Windows.Forms.Label();
             this.tabControlGui.SuspendLayout();
+            this.tabPageStatus.SuspendLayout();
             this.tabPageStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).BeginInit();
-            this.tabPageStatus.SuspendLayout();
             this.panelData.SuspendLayout();
             this.panelInfo.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,26 @@
             this.tabControlGui.SelectedIndex = 0;
             this.tabControlGui.Size = new System.Drawing.Size(981, 668);
             this.tabControlGui.TabIndex = 0;
+            // 
+            // tabPageStatus
+            // 
+            this.tabPageStatus.Controls.Add(this.textBoxStatus);
+            this.tabPageStatus.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStatus.Name = "tabPageStatus";
+            this.tabPageStatus.Size = new System.Drawing.Size(973, 642);
+            this.tabPageStatus.TabIndex = 1;
+            this.tabPageStatus.Text = "Status";
+            this.tabPageStatus.UseVisualStyleBackColor = true;
+            // 
+            // textBoxStatus
+            // 
+            this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxStatus.Location = new System.Drawing.Point(0, 0);
+            this.textBoxStatus.Multiline = true;
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxStatus.Size = new System.Drawing.Size(973, 642);
+            this.textBoxStatus.TabIndex = 0;
             // 
             // tabPageStats
             // 
@@ -100,26 +120,6 @@
             this.labelAlianceName.Size = new System.Drawing.Size(0, 13);
             this.labelAlianceName.TabIndex = 0;
             // 
-            // tabPageStatus
-            // 
-            this.tabPageStatus.Controls.Add(this.textBoxStatus);
-            this.tabPageStatus.Location = new System.Drawing.Point(4, 22);
-            this.tabPageStatus.Name = "tabPageStatus";
-            this.tabPageStatus.Size = new System.Drawing.Size(973, 642);
-            this.tabPageStatus.TabIndex = 1;
-            this.tabPageStatus.Text = "Status";
-            this.tabPageStatus.UseVisualStyleBackColor = true;
-            // 
-            // textBoxStatus
-            // 
-            this.textBoxStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxStatus.Location = new System.Drawing.Point(0, 0);
-            this.textBoxStatus.Multiline = true;
-            this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxStatus.Size = new System.Drawing.Size(973, 642);
-            this.textBoxStatus.TabIndex = 0;
-            // 
             // panelData
             // 
             this.panelData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -146,15 +146,15 @@
             this.textBoxAlianceId.Name = "textBoxAlianceId";
             this.textBoxAlianceId.Size = new System.Drawing.Size(164, 20);
             this.textBoxAlianceId.TabIndex = 8;
-            this.textBoxAlianceId.Text = "1501";
+            this.textBoxAlianceId.Text = "1467";
             // 
             // buttonGetInfoAliance
             // 
-            this.buttonGetInfoAliance.Location = new System.Drawing.Point(260, 7);
+            this.buttonGetInfoAliance.Location = new System.Drawing.Point(244, 7);
             this.buttonGetInfoAliance.Name = "buttonGetInfoAliance";
-            this.buttonGetInfoAliance.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetInfoAliance.Size = new System.Drawing.Size(91, 23);
             this.buttonGetInfoAliance.TabIndex = 9;
-            this.buttonGetInfoAliance.Text = "GetInfo";
+            this.buttonGetInfoAliance.Text = "Aliance Stats";
             this.buttonGetInfoAliance.UseVisualStyleBackColor = true;
             this.buttonGetInfoAliance.Click += new System.EventHandler(this.buttonGetInfoAliance_Click);
             // 
@@ -173,15 +173,14 @@
             this.textBoxUid.Name = "textBoxUid";
             this.textBoxUid.Size = new System.Drawing.Size(164, 20);
             this.textBoxUid.TabIndex = 11;
-            this.textBoxUid.Text = "hambo";
             // 
             // buttonGetInfoUid
             // 
-            this.buttonGetInfoUid.Location = new System.Drawing.Point(259, 50);
+            this.buttonGetInfoUid.Location = new System.Drawing.Point(244, 50);
             this.buttonGetInfoUid.Name = "buttonGetInfoUid";
-            this.buttonGetInfoUid.Size = new System.Drawing.Size(75, 23);
+            this.buttonGetInfoUid.Size = new System.Drawing.Size(90, 23);
             this.buttonGetInfoUid.TabIndex = 12;
-            this.buttonGetInfoUid.Text = "GetInfo";
+            this.buttonGetInfoUid.Text = "User Stats";
             this.buttonGetInfoUid.UseVisualStyleBackColor = true;
             this.buttonGetInfoUid.Click += new System.EventHandler(this.buttonGetInfoUid_Click);
             // 
@@ -248,11 +247,11 @@
             this.Text = "TravianBot.Gui";
             this.Load += new System.EventHandler(this.Gui_Load);
             this.tabControlGui.ResumeLayout(false);
+            this.tabPageStatus.ResumeLayout(false);
+            this.tabPageStatus.PerformLayout();
             this.tabPageStats.ResumeLayout(false);
             this.tabPageStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAliance)).EndInit();
-            this.tabPageStatus.ResumeLayout(false);
-            this.tabPageStatus.PerformLayout();
             this.panelData.ResumeLayout(false);
             this.panelInfo.ResumeLayout(false);
             this.panelInfo.PerformLayout();
