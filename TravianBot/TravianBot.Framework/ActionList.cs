@@ -7,14 +7,19 @@ namespace TravianBot.Framework
     /// </summary>
     public class ActionList
     {
-        public void AddAction(string id, Action sendAction)
-        {
-            actionsList.Add(id, sendAction);
-        }
-
         public Dictionary<string, Action> ActionsList
         {
             get { return actionsList; }
+        }
+
+        public IList<Action> TroopSenderList
+        {
+            get { return troopSenderList; }
+        }
+
+        public void AddAction(string id, Action sendAction)
+        {
+            actionsList.Add(id, sendAction);
         }
 
         public Action GetAction(string actionId)
@@ -29,6 +34,25 @@ namespace TravianBot.Framework
             return null;
         }
 
+        public void AddTroopSenderAction(Action troopSenderAction)
+        {
+            troopSenderList.Add(troopSenderAction);
+        }
+
+        public Action GetTroopSenderAction(string actionId)
+        {
+            foreach (Action troopSenderAction in troopSenderList)
+            {
+                if (troopSenderAction.Id == actionId)
+                {
+                    return troopSenderAction;
+                }
+            }
+            return null;
+        }
+
         private readonly Dictionary<string, Action> actionsList = new Dictionary<string, Action>();
+
+        private readonly List<Action> troopSenderList = new List<Action>();
     }
 }

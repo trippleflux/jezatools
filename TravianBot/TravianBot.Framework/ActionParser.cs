@@ -1,6 +1,10 @@
+#region
+
 using System;
 using System.IO;
 using System.Xml;
+
+#endregion
 
 namespace TravianBot.Framework
 {
@@ -20,11 +24,11 @@ namespace TravianBot.Framework
         {
             XmlReaderSettings xmlReaderSettings =
                 new XmlReaderSettings
-                    {
-                        IgnoreComments = true,
-                        IgnoreProcessingInstructions = true,
-                        IgnoreWhitespace = true,
-                    };
+                {
+                    IgnoreComments = true,
+                    IgnoreProcessingInstructions = true,
+                    IgnoreWhitespace = true,
+                };
 
             ActionList actionList = new ActionList();
 
@@ -37,32 +41,36 @@ namespace TravianBot.Framework
                     switch (xmlReader.NodeType)
                     {
                         case XmlNodeType.Element:
+                        {
+                            if (xmlReader.Name != "actions")
                             {
-                                if (xmlReader.Name != "actions")
-                                    throw new XmlException("<actions> (root) element expected.");
-
-                                ReadAction(actionList, xmlReader);
-
-                                break;
+                                throw new XmlException("<actions> (root) element expected.");
                             }
+
+                            ReadAction(actionList, xmlReader);
+
+                            break;
+                        }
 
                         case XmlNodeType.XmlDeclaration:
-                            {
-                                xmlReader.Read();
-                                break;
-                            }
+                        {
+                            xmlReader.Read();
+                            break;
+                        }
 
                         default:
-                            {
-                                throw new XmlException();
-                            }
+                        {
+                            throw new XmlException();
+                        }
                     }
                 }
             }
             return actionList;
         }
 
-        public static void ReadAction(ActionList actionList, XmlReader xmlReader)
+        public static void ReadAction
+            (ActionList actionList,
+             XmlReader xmlReader)
         {
             xmlReader.Read();
             while (xmlReader.NodeType != XmlNodeType.EndElement)
@@ -70,35 +78,55 @@ namespace TravianBot.Framework
                 switch (xmlReader.Name)
                 {
                     case "attackAction":
-                        {
-                            // ReSharper disable UseObjectOrCollectionInitializer
-                            ActionParameters actionParameters = new ActionParameters();
-                            // ReSharper restore UseObjectOrCollectionInitializer
-                            actionParameters.Id = ReadAttribute(xmlReader, "id");
-                            actionParameters.Enabled = Int32.Parse(ReadAttribute(xmlReader, "enabled"));
-                            actionParameters.CoordinateX = Int32.Parse(ReadAttribute(xmlReader, "coordinateX"));
-                            actionParameters.CoordinateY = Int32.Parse(ReadAttribute(xmlReader, "coordinateY"));
-                            actionParameters.SendTroopType = Int32.Parse(ReadAttribute(xmlReader, "sendTroopType"));
-                            actionParameters.UnitCount = Int32.Parse(ReadAttribute(xmlReader, "unitCount"));
-                            actionParameters.UnitId = Int32.Parse(ReadAttribute(xmlReader, "unitId"));
-                            actionParameters.UnitName = ReadAttribute(xmlReader, "unitName");
-                            actionParameters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
-                            actionParameters.Comment = ReadAttribute(xmlReader, "comment");
-                            actionParameters.PlayerName = ReadAttribute(xmlReader, "playername");
-                            actionParameters.Population = Int32.Parse(ReadAttribute(xmlReader, "population"));
-                            actionParameters.VillageName = ReadAttribute(xmlReader, "villagename");
-                            actionParameters.Aliance = ReadAttribute(xmlReader, "aliance");
-                            Action action = new Action(actionParameters.Id);
-                            action.AddActionParameters(actionParameters);
-                            actionList.AddAction(actionParameters.Id, action);
-                            xmlReader.Read();
-                            break;
-                        }
+                    {
+                        // ReSharper disable UseObjectOrCollectionInitializer
+                        ActionParameters actionParameters = new ActionParameters();
+                        // ReSharper restore UseObjectOrCollectionInitializer
+                        actionParameters.Id = ReadAttribute(xmlReader, "id");
+                        actionParameters.Enabled = Int32.Parse(ReadAttribute(xmlReader, "enabled"));
+                        actionParameters.CoordinateX = Int32.Parse(ReadAttribute(xmlReader, "coordinateX"));
+                        actionParameters.CoordinateY = Int32.Parse(ReadAttribute(xmlReader, "coordinateY"));
+                        actionParameters.SendTroopType = Int32.Parse(ReadAttribute(xmlReader, "sendTroopType"));
+                        actionParameters.UnitCount = Int32.Parse(ReadAttribute(xmlReader, "unitCount"));
+                        actionParameters.UnitId = Int32.Parse(ReadAttribute(xmlReader, "unitId"));
+                        actionParameters.UnitName = ReadAttribute(xmlReader, "unitName");
+                        actionParameters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
+                        actionParameters.Comment = ReadAttribute(xmlReader, "comment");
+                        actionParameters.PlayerName = ReadAttribute(xmlReader, "playername");
+                        actionParameters.Population = Int32.Parse(ReadAttribute(xmlReader, "population"));
+                        actionParameters.VillageName = ReadAttribute(xmlReader, "villagename");
+                        actionParameters.Aliance = ReadAttribute(xmlReader, "aliance");
+                        Action action = new Action(actionParameters.Id);
+                        action.AddActionParameters(actionParameters);
+                        actionList.AddAction(actionParameters.Id, action);
+                        xmlReader.Read();
+                        break;
+                    }
+
+                    case "trooSenderAction":
+                    {
+                        TroopSenderParamaters troopSenderParamaters = new TroopSenderParamaters();
+                        troopSenderParamaters.Id = ReadAttribute(xmlReader, "id");
+                        troopSenderParamaters.Time = ReadAttribute(xmlReader, "time");
+                        troopSenderParamaters.UseKatas = Int32.Parse(ReadAttribute(xmlReader, "useKatas"));
+                        troopSenderParamaters.KataDest1 = Int32.Parse(ReadAttribute(xmlReader, "kataDest1"));
+                        troopSenderParamaters.KataDest2 = Int32.Parse(ReadAttribute(xmlReader, "kataDest2"));
+                        troopSenderParamaters.TroopList = ReadAttribute(xmlReader, "troopList");
+                        troopSenderParamaters.DestX = Int32.Parse(ReadAttribute(xmlReader, "destX"));
+                        troopSenderParamaters.DestY = Int32.Parse(ReadAttribute(xmlReader, "destY"));
+                        troopSenderParamaters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
+                        troopSenderParamaters.AttackType = Int32.Parse(ReadAttribute(xmlReader, "attackType"));
+                        Action action = new Action(troopSenderParamaters.Id);
+                        action.AddTroopSenderParameters(troopSenderParamaters);
+                        actionList.AddTroopSenderAction(action);
+                        xmlReader.Read();
+                        break;
+                    }
 
                     default:
-                        {
-                            throw new NotSupportedException(xmlReader.Name + " not supported");
-                        }
+                    {
+                        throw new NotSupportedException(xmlReader.Name + " not supported");
+                    }
                 }
             }
             xmlReader.Read();
@@ -137,7 +165,9 @@ namespace TravianBot.Framework
 
         #endregion
 
-        private static string ReadAttribute(XmlReader xmlReader, string attributeName)
+        private static string ReadAttribute
+            (XmlReader xmlReader,
+             string attributeName)
         {
             return xmlReader.GetAttribute(attributeName);
         }

@@ -26,6 +26,20 @@ namespace TravianBot.Tests
                 actionList.GetAction("3").GetActionParameters("3").Comment);
         }
 
+        [Test]
+        public void ParseTroopSendXmlFile()
+        {
+            const string fileName = @"..\..\..\Samples\TestFiles\SendTroops.xml";
+            ActionList actionList;
+            using (ActionParser actionParser = new ActionParser(fileName))
+            {
+                actionList = actionParser.Parse();
+            }
+            Assert.IsNotNull(actionList.TroopSenderList);
+            Assert.AreEqual(4, actionList.TroopSenderList.Count);
+            Assert.AreEqual("2009-01-19 20:55:02", actionList.GetTroopSenderAction("3").GetTroopSenderParameters("3").Time);
+        }
+
         [Test, ExpectedException(typeof(NotSupportedException))]
         public void NotSupportedElement()
         {
