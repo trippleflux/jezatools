@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<actions>
+	<trooSenderAction id="1" time="2009-01-19 20:55:01" attackType="3" useKatas="1" kataDest1="1" kataDest2="2" troopList="0 0 1000 0 0 50 100 50 0 0 0" destX="0" destY="1" villageId="0"/>
+	<trooSenderAction id="2" time="2009-01-19 20:55:01" attackType="3" useKatas="1" kataDest1="1" kataDest2="2" troopList="0 0 100 0 0 10 0 50 0 0 0" destX="2" destY="3" villageId="0"/>
+	<trooSenderAction id="3" time="2009-01-19 20:55:02" attackType="3" useKatas="1" kataDest1="1" kataDest2="2" troopList="0 0 100 0 0 20 0 50 0 0 0" destX="4" destY="-5" villageId="0"/>
+	<trooSenderAction id="4" time="2009-01-19 21:55:01" attackType="3" useKatas="0" kataDest1="1" kataDest2="2" troopList="0 0 100 0 0 30 0 50 0 0 0" destX="-6" destY="-7" villageId="0"/>
+</actions>

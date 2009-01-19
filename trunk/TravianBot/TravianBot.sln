@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		Samples\TestFiles\AttackActions.xml = Samples\TestFiles\AttackActions.xml
 		Samples\TestFiles\berichte.php = Samples\TestFiles\berichte.php
 		Samples\TestFiles\map.php = Samples\TestFiles\map.php
+		Samples\TestFiles\SendTroops.xml = Samples\TestFiles\SendTroops.xml
 		Samples\TestFiles\statistiken.attack.php = Samples\TestFiles\statistiken.attack.php
 		Samples\TestFiles\statistiken.defense.php = Samples\TestFiles\statistiken.defense.php
 		Samples\TestFiles\statistiken.php = Samples\TestFiles\statistiken.php
