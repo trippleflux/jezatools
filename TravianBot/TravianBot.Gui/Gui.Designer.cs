@@ -42,6 +42,8 @@
             this.textBoxUid = new System.Windows.Forms.TextBox();
             this.buttonGetInfoUid = new System.Windows.Forms.Button();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.textBoxSaveStats = new System.Windows.Forms.TextBox();
+            this.buttonSaveStats = new System.Windows.Forms.Button();
             this.progressBarStatus = new System.Windows.Forms.ProgressBar();
             this.comboBoxDelay = new System.Windows.Forms.ComboBox();
             this.labelDelay = new System.Windows.Forms.Label();
@@ -146,7 +148,7 @@
             this.textBoxAlianceId.Name = "textBoxAlianceId";
             this.textBoxAlianceId.Size = new System.Drawing.Size(164, 20);
             this.textBoxAlianceId.TabIndex = 8;
-            this.textBoxAlianceId.Text = "1467";
+            this.textBoxAlianceId.Text = "184,1501,1502,168,1503,407,1686";
             // 
             // buttonGetInfoAliance
             // 
@@ -189,6 +191,8 @@
             this.panelInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelInfo.Controls.Add(this.textBoxSaveStats);
+            this.panelInfo.Controls.Add(this.buttonSaveStats);
             this.panelInfo.Controls.Add(this.progressBarStatus);
             this.panelInfo.Controls.Add(this.comboBoxDelay);
             this.panelInfo.Controls.Add(this.labelDelay);
@@ -202,6 +206,24 @@
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(982, 94);
             this.panelInfo.TabIndex = 10;
+            // 
+            // textBoxSaveStats
+            // 
+            this.textBoxSaveStats.Location = new System.Drawing.Point(591, 9);
+            this.textBoxSaveStats.Name = "textBoxSaveStats";
+            this.textBoxSaveStats.Size = new System.Drawing.Size(193, 20);
+            this.textBoxSaveStats.TabIndex = 17;
+            this.textBoxSaveStats.Text = "Stats.xml";
+            // 
+            // buttonSaveStats
+            // 
+            this.buttonSaveStats.Location = new System.Drawing.Point(790, 8);
+            this.buttonSaveStats.Name = "buttonSaveStats";
+            this.buttonSaveStats.Size = new System.Drawing.Size(71, 23);
+            this.buttonSaveStats.TabIndex = 16;
+            this.buttonSaveStats.Text = "Save Stats";
+            this.buttonSaveStats.UseVisualStyleBackColor = true;
+            this.buttonSaveStats.Click += new System.EventHandler(this.buttonSaveStats_Click);
             // 
             // progressBarStatus
             // 
@@ -278,6 +300,8 @@
         private System.Windows.Forms.ComboBox comboBoxDelay;
         private System.Windows.Forms.Label labelDelay;
         private System.Windows.Forms.ProgressBar progressBarStatus;
+        private System.Windows.Forms.Button buttonSaveStats;
+        private System.Windows.Forms.TextBox textBoxSaveStats;
     }
 }
 
