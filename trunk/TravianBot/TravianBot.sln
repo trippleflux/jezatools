@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.Tests", "TravianBot.Tests\TravianBot.Tests.csproj", "{8BE3D140-7477-4C7C-BD2F-5C0368567E5F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{5964E166-E564-420F-85C4-3C7DDD9D0358}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\send.pcap = Samples\send.pcap
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{8B9BA7EF-9A25-45DB-9C3E-42A63AC9035F}"
 	ProjectSection(SolutionItems) = preProject
