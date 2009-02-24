@@ -102,6 +102,13 @@ namespace TravianBot.Framework
 
         private void ExecuteAttack(ActionParameters @param)
         {
+            //b=1&t1=&t4=&t7=&t9=&t2=&t5=&t8=&t10=&t3=29&t6=&c=4&dname=&x=-16&y=-93&s1.x=22&s1.y=8&s1=ok
+            //<input type="hidden" name="id" value="39">
+            //<input type="hidden" name="a" value="18979">
+            //<input type="hidden" name="c" value="4">
+            //<input type="hidden" name="kid" value="396080">
+
+            //id=39&a=47889&c=4&kid=395278&t1=0&t2=0&t3=29&t4=0&t5=0&t6=0&t7=0&t8=0&t9=0&t10=0&t11=0&s1.x=39&s1.y=9&s1=ok
             StringBuilder troops = new StringBuilder();
             for (int t = 0; t < 11; t++)
             {
