@@ -148,7 +148,7 @@
             this.textBoxAlianceId.Name = "textBoxAlianceId";
             this.textBoxAlianceId.Size = new System.Drawing.Size(164, 20);
             this.textBoxAlianceId.TabIndex = 8;
-            this.textBoxAlianceId.Text = "355,1137,407,1716";
+            this.textBoxAlianceId.Text = "355,407,1137";
             // 
             // buttonGetInfoAliance
             // 
