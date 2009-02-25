@@ -54,5 +54,10 @@ namespace TravianBot.Framework
         private readonly Dictionary<string, Action> actionsList = new Dictionary<string, Action>();
 
         private readonly List<Action> troopSenderList = new List<Action>();
+
+        public void AddFakeAction(Action action)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
