@@ -123,6 +123,18 @@ namespace TravianBot.Framework
                         break;
                     }
 
+                    case "fakeAttack":
+                    {
+                        FakeParamaters fakeParamaters = new FakeParamaters();
+                        fakeParamaters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
+                        fakeParamaters.UnitId = Int32.Parse(ReadAttribute(xmlReader, "unitId"));
+                        Action action = new Action(Guid.NewGuid().ToString());
+                        action.AddFakeParameters(fakeParamaters);
+                        actionList.AddFakeAction(action);
+                        xmlReader.Read();
+                        break;
+                    }
+
                     default:
                     {
                         throw new NotSupportedException(xmlReader.Name + " not supported");

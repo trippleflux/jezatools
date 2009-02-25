@@ -39,6 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.TroopSender", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.Gui", "TravianBot.Gui\TravianBot.Gui.csproj", "{329A0479-3EDE-4915-9499-49DBC8413261}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravianBot.FakeAttack", "TravianBot.FakeAttack\TravianBot.FakeAttack.csproj", "{2A7F06C7-7E7E-43C6-A947-F787AA63E718}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakeAttack", "FakeAttack", "{40852E83-E2F2-4F99-BA9D-FDF1FD95ECF3}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\FakeAttack\FakeAttack.xml = Samples\FakeAttack\FakeAttack.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +76,10 @@ Global
 		{329A0479-3EDE-4915-9499-49DBC8413261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{329A0479-3EDE-4915-9499-49DBC8413261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{329A0479-3EDE-4915-9499-49DBC8413261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,5 +87,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8B9BA7EF-9A25-45DB-9C3E-42A63AC9035F} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
 		{4AE280D6-7EB5-4FC2-AA94-DED3631E1E62} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
+		{40852E83-E2F2-4F99-BA9D-FDF1FD95ECF3} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
 	EndGlobalSection
 EndGlobal

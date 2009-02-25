@@ -63,5 +63,10 @@ namespace TravianBot.Framework
         private readonly List<TroopSenderParamaters> troopSenderParameters = new List<TroopSenderParamaters>();
 
         private readonly string id;
+
+        public void AddFakeParameters(FakeParamaters fakeParamaters)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
