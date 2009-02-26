@@ -126,9 +126,11 @@ namespace TravianBot.Framework
                     case "fakeAttack":
                     {
                         FakeParamaters fakeParamaters = new FakeParamaters();
+                        fakeParamaters.Id = ReadAttribute(xmlReader, "id");
                         fakeParamaters.VillageId = Int32.Parse(ReadAttribute(xmlReader, "villageId"));
                         fakeParamaters.UnitId = Int32.Parse(ReadAttribute(xmlReader, "unitId"));
-                        Action action = new Action(Guid.NewGuid().ToString());
+                        fakeParamaters.UserIdUrl = ReadAttribute(xmlReader, "uid");
+                        Action action = new Action(fakeParamaters.Id);
                         action.AddFakeParameters(fakeParamaters);
                         actionList.AddFakeAction(action);
                         xmlReader.Read();

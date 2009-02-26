@@ -58,15 +58,29 @@ namespace TravianBot.Framework
             return null;
         }
 
+        public void AddFakeParameters(FakeParamaters fakeParamaters)
+        {
+            fakeActionParamaters.Add(fakeParamaters);
+        }
+
         private readonly List<ActionParameters> actionParameters = new List<ActionParameters>();
 
         private readonly List<TroopSenderParamaters> troopSenderParameters = new List<TroopSenderParamaters>();
 
+        private readonly List<FakeParamaters> fakeActionParamaters = new List<FakeParamaters>();
+
         private readonly string id;
 
-        public void AddFakeParameters(FakeParamaters fakeParamaters)
+        public FakeParamaters GetFakeActionParameters(string id)
         {
-            throw new System.NotImplementedException();
+            foreach (FakeParamaters fakeParamaters in fakeActionParamaters)
+            {
+                if (fakeParamaters.Id == id)
+                {
+                    return fakeParamaters;
+                }
+            }
+            return null;
         }
     }
 }

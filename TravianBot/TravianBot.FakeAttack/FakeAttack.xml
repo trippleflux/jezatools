@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<actions>
+  <fakeAttack id="1" villageId="99874" unitId="2" uid="http://s6.travian.si/spieler.php?uid=10632" />
+  <fakeAttack id="2" villageId="321" unitId="8" uid="http://s6.travian.si/spieler.php?uid=4864" />
+</actions>

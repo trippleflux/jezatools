@@ -46,6 +46,18 @@ namespace TravianBot.Framework
             }
         }
 
+        public void ParseAlianceId(ServerInfo serverInfo)
+        {
+            //<a href="allianz.php?aid=2092">
+            serverInfo.AlianceId = -1;
+            Regex regAlianceID = new Regex(@"<a href=""allianz.php.aid=([0-9]{0,6})"">");
+            if (regAlianceID.IsMatch(pageSource))
+            {
+                Match Mc = regAlianceID.Matches(pageSource)[0];
+                serverInfo.AlianceId = Int32.Parse(Mc.Groups[1].Value.Trim());
+            }
+        }
+
         public void ParseAttackRang(PlayerData playerData, string username)
         {
             /*
