@@ -12,11 +12,6 @@ namespace TravianBot.TroopSender
 {
     public class ConsoleApp
     {
-        public ConsoleApp(string[] args)
-        {
-            this.args = args;
-        }
-
         public void Parse()
         {
             FileInfo fileInfo = new FileInfo("TroopSender.xml");
@@ -141,7 +136,6 @@ namespace TravianBot.TroopSender
             Console.WriteLine();
         }
 
-        private string[] args;
         private ActionList actionList;
     }
 }

@@ -112,7 +112,15 @@ namespace TravianBot.Framework
             HtmlParser htmlParser = new HtmlParser(pageSource);
 
             htmlParser.ParseUserId(serverInfo);
-            return serverInfo.UserId < 0 ? false : true;
+            bool uidFound = serverInfo.UserId < 0 ? false : true;
+            if (uidFound)
+            {
+                pageSource = Http.SendData(serverInfo.SpielerUrl + serverInfo.UserId, null, serverInfo.CookieContainer,
+                                           serverInfo.CookieCollection);
+                htmlParser = new HtmlParser(pageSource);
+                htmlParser.ParseAlianceId(serverInfo);
+            }
+            return uidFound;
         }
 
         public static bool Login
@@ -175,11 +183,13 @@ namespace TravianBot.Framework
                                               serverInfo.CookieCollection);
             HtmlParser htmlParser = new HtmlParser(pageSource);
             htmlParser.ParseVillages(serverInfo);
-            Console.WriteLine("Updating Villages...");
-            Console.WriteLine("Name                Id");
+            Console.WriteLine("User: {1}[{0}]", serverInfo.UserId, serverInfo.Username);
+            Console.WriteLine("AlianceId: {0}", serverInfo.AlianceId);
+            Console.WriteLine("Villages:");
+            Console.WriteLine("Id        Name");
             foreach (Village village in serverInfo.Villages)
             {
-                Console.WriteLine("{0,-20}{1}", village.VillageName, village.VillageId);
+                Console.WriteLine("{1,-10}{0}", village.VillageName, village.VillageId);
             }
         }
     }

@@ -40,6 +40,20 @@ namespace TravianBot.Tests
             Assert.AreEqual("2009-01-19 20:55:02", actionList.GetTroopSenderAction("3").GetTroopSenderParameters("3").Time);
         }
 
+        [Test]
+        public void ParseFakeSendXmlFile()
+        {
+            const string fileName = @"..\..\..\Samples\FakeAttack\FakeAttack.xml";
+            ActionList actionList;
+            using (ActionParser actionParser = new ActionParser(fileName))
+            {
+                actionList = actionParser.Parse();
+            }
+            Assert.IsNotNull(actionList.FakeActionList);
+            Assert.AreEqual(3, actionList.FakeActionList.Count);
+            //Assert.AreEqual("2009-01-19 20:55:02", actionList.GetTroopSenderAction("3").GetTroopSenderParameters("3").Time);
+        }
+
         [Test, ExpectedException(typeof(NotSupportedException))]
         public void NotSupportedElement()
         {

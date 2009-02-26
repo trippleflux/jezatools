@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace TravianBot.TroopSender
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            ConsoleApp consoleApp = new ConsoleApp(args);
+            ConsoleApp consoleApp = new ConsoleApp();
             consoleApp.Parse();
             consoleApp.Process();
+            Console.WriteLine("Pres any key to exit program...");
+            Console.ReadKey();
         }
     }
 }

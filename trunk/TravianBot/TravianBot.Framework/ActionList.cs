@@ -34,6 +34,28 @@ namespace TravianBot.Framework
             return null;
         }
 
+        public IList<Action> FakeActionList
+        {
+            get { return fakeAttackList; }
+        }
+
+        public void AddFakeAction(Action action)
+        {
+            fakeAttackList.Add(action);
+        }
+
+        public Action GetFakeAction(string actionId)
+        {
+            foreach (Action action in fakeAttackList)
+            {
+                if (action.Id == actionId)
+                {
+                    return action;
+                }
+            }
+            return null;
+        }
+
         public void AddTroopSenderAction(Action troopSenderAction)
         {
             troopSenderList.Add(troopSenderAction);
@@ -55,9 +77,6 @@ namespace TravianBot.Framework
 
         private readonly List<Action> troopSenderList = new List<Action>();
 
-        public void AddFakeAction(Action action)
-        {
-            throw new System.NotImplementedException();
-        }
+        private readonly List<Action> fakeAttackList = new List<Action>();
     }
 }
