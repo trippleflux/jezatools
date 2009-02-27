@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using TravianBot.Framework;
 using Action=TravianBot.Framework.Action;
@@ -80,23 +82,38 @@ namespace TravianBot.FakeAttack
             string pageSource = 
                 Http.SendData(userIdUrl, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
             //<td>(-33|128)</td>
-            const string patternUserVillages = @"([-]?\d+\|[-]?\d+)";
-            MatchCollection alianceVillagesCollection =
-                Regex.Matches(pageSource, patternUserVillages);
-            int villages = alianceVillagesCollection.Count;
+            const string patternUserVillages = @"<td>\(([-]?\d+\|[-]?\d+)\)</td>";
+            MatchCollection villagesCollection = Regex.Matches(pageSource, patternUserVillages);
+            int villages = villagesCollection.Count;
             List<string> villageList = new List<string>();
             for (int i = 0; i < villages; i++)
             {
-                villageList.Add(alianceVillagesCollection[i].Groups[1].Value.Trim());
+                villageList.Add(villagesCollection[i].Groups[1].Value.Trim());
             }
             return villageList;
         }
 
-        private static void ExecuteFakeAttack(FakeParamaters fakeParamaters, string villageKoordinates)
+        private void ExecuteFakeAttack(FakeParamaters fakeParamaters, string villageKoordinates)
         {
             string[] possition = villageKoordinates.Split('|');
-            //Console.WriteLine("{0} [{1}]", parameters.UserIdUrl, villageKoordinates);
-            throw new NotImplementedException();
+            //Console.WriteLine("{0} [{1}]", fakeParamaters.UserIdUrl, villageKoordinates);
+            Console.WriteLine("Attacking {0}", villageKoordinates);
+            StringBuilder troops = new StringBuilder();
+            for (int t = 0; t < 11; t++)
+            {
+                troops.AppendFormat("&t{0}={1}", (t + 1), t == fakeParamaters.UnitId ? 1 : 0);
+            }
+            Random rnd = new Random();
+            String postData = String.Format(CultureInfo.InvariantCulture,
+                                            "id=39&a={0}&c={1}&kid={2}{3}{4}",
+                                            rnd.Next(10001, 99999),
+                                            4,
+                                            Misc.ConvertXY(Int32.Parse(possition[0]), Int32.Parse(possition[1])),
+                                            troops,
+                                            String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19)));
+
+            string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}", serverInfo.SendUnitsUrl, fakeParamaters.VillageId);
+            Http.SendData(url, postData, serverInfo.CookieContainer, serverInfo.CookieCollection);
         }
 
         internal static void ShowBanner()
