@@ -107,7 +107,7 @@ namespace TravianBot.FakeAttack
             String postData = String.Format(CultureInfo.InvariantCulture,
                                             "id=39&a={0}&c={1}&kid={2}{3}{4}",
                                             rnd.Next(10001, 99999),
-                                            4,
+                                            3,
                                             Misc.ConvertXY(Int32.Parse(possition[0]), Int32.Parse(possition[1])),
                                             troops,
                                             String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19)));
