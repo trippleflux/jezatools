@@ -93,15 +93,7 @@ namespace TravianBot.Gui
              EventArgs e)
         {
             string alianceId = textBoxAlianceId.Text.Length > 1 ? textBoxAlianceId.Text : "1";
-            string[] allyIds = new string[] {};
-            if (alianceId.IndexOf(',') > -1)
-            {
-                allyIds = alianceId.Split(',');
-            }
-            else
-            {
-                allyIds[0] = alianceId;
-            }
+            string[] allyIds = alianceId.IndexOf(',') > -1 ? alianceId.Split(',') : new[] {alianceId};
             ServerInfo serverInfo = new ServerInfo();
             alianceData = new AlianceData();
             LoginPageData loginPageData = new LoginPageData(serverInfo);

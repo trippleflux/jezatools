@@ -38,7 +38,7 @@ namespace TravianBot.TroopSender
 
             string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}", serverInfo.SendUnitsUrl, parameters.VillageId);
             Http.SendData(url, postData, serverInfo.CookieContainer, serverInfo.CookieCollection);
-            Thread.Sleep(1000);
+            Thread.Sleep(5000);
         }
 
         public Thread thread;
