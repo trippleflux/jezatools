@@ -17,7 +17,7 @@ namespace TravianBot.Framework
             {
                 return SendHttpData(pageUrl, postData, cookieContainer, cookieCollection);
             }
-            Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
+            //Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
             return Misc.SendHttpFake(pageUrl);
         }
 
@@ -27,7 +27,7 @@ namespace TravianBot.Framework
             CookieContainer cookieContainer,
             CookieCollection cookieCollection)
         {
-            Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
+            //Console.WriteLine("SendData '{1}' to '{0}'", pageUrl, postData);
 
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(pageUrl);
             httpWebRequest.Method = "GET";

@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <actions>
-  <fakeAttack id="1" villageId="83117" unitId="2" uid="http://s6.travian.si/spieler.php?uid=7494" />
+  <fakeAttack id="1" villageId="1" unitId="2" uid="http://s6.travian.si/spieler.php?uid=1" />
+  <fakeAttack id="2" villageId="1" unitId="2" uid="http://s6.travian.si/spieler.php?uid=2" />
+  <fakeAttack id="3" villageId="1" unitId="2" uid="http://s6.travian.si/spieler.php?uid=3" />
+  <fakeAttack id="4" villageId="1" unitId="2" uid="http://s6.travian.si/spieler.php?uid=4" />
 </actions>
