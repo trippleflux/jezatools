@@ -12,7 +12,8 @@ namespace TravianBot.FakeAttack
         static void Main(string[] args)
         {
 /*
-POST /jezatools/test/default.aspx__EVENTTARGET=LinkButtonSubmit&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUJNTc0Njc0NDcwD2QWAgIDD2QWAgIFDw8WAh4EVGV4dGVkZGShK5SyYcqarqAhfI2bFmIZ6JgpYw%3D%3D&TextBoxCredentials=qweqweqwe&__EVENTVALIDATION=%2FwEWAwLCh8KBCgLr%2BYqfBAK6xufABhgQY6BbswvttVhxUUP1dMxUsEC0
+POST /jezatools/test/default.aspx
+__EVENTTARGET=LinkButtonSubmit&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUJNTc0Njc0NDcwD2QWAgIDD2QWAgIFDw8WAh4EVGV4dGVkZGShK5SyYcqarqAhfI2bFmIZ6JgpYw%3D%3D&TextBoxCredentials=qweqweqwe&__EVENTVALIDATION=%2FwEWAwLCh8KBCgLr%2BYqfBAK6xufABhgQY6BbswvttVhxUUP1dMxUsEC0
 __EVENTTARGET=LinkButtonSubmit&TextBoxCredentials=qweqweqwe 
  */
             ServerInfo serverInfo = new ServerInfo	();
@@ -26,7 +27,7 @@ __EVENTTARGET=LinkButtonSubmit&TextBoxCredentials=qweqweqwe
                           String.Format("__EVENTTARGET=LinkButtonSubmit&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUJNTc0Njc0NDcwD2QWAgIDD2QWAgIFDw8WAh4EVGV4dGVkZGShK5SyYcqarqAhfI2bFmIZ6JgpYw%3D%3D&TextBoxCredentials={0}&__EVENTVALIDATION=%2FwEWAwLCh8KBCgLr%2BYqfBAK6xufABhgQY6BbswvttVhxUUP1dMxUsEC0", credentials), 
                           serverInfo.CookieContainer,
                           serverInfo.CookieCollection);
-            ArrayList alianceIds = new ArrayList {2092, 2210};
+            ArrayList alianceIds = new ArrayList { 2092, 2210, 1137 };
             ConsoleApp consoleApp = new ConsoleApp();
             if (consoleApp.ConnectToserver())
             {

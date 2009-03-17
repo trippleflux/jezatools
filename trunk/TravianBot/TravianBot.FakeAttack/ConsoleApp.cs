@@ -18,7 +18,7 @@ namespace TravianBot.FakeAttack
         {
             foreach (int alianceId in alianceIds)
             {
-                if (alianceId == serverInfo.AlianceId)
+                if ((alianceId == serverInfo.AlianceId))
                 {
                     return true;
                 }
