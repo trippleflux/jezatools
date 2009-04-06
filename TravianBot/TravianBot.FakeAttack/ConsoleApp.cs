@@ -14,11 +14,20 @@ namespace TravianBot.FakeAttack
 {
     public class ConsoleApp
     {
-        public bool CheckAliance(ArrayList alianceIds)
+        public bool CheckLicense()
         {
+            ArrayList alianceIds = new ArrayList { 2092, 2210 };
             foreach (int alianceId in alianceIds)
             {
                 if ((alianceId == serverInfo.AlianceId))
+                {
+                    return true;
+                }
+            }
+            ArrayList userIds = new ArrayList { 6479 };
+            foreach (int userId in userIds)
+            {
+                if ((userId == serverInfo.UserId))
                 {
                     return true;
                 }
