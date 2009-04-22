@@ -38,6 +38,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.60.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\SQLite-1.0.60.0-binaries\bin\System.Data.SQLite.DLL</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -51,6 +55,7 @@
     <Compile Include="ActionContainer.cs" />
     <Compile Include="AlianceData.cs" />
     <Compile Include="FakeParamaters.cs" />
+    <Compile Include="Loot.cs" />
     <Compile Include="PlayerData.cs" />
     <Compile Include="SendTroopsExecutor.cs" />
     <Compile Include="HtmlParser.cs" />

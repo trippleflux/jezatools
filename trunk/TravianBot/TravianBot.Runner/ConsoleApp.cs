@@ -13,6 +13,7 @@ namespace TravianBot.Runner
             try
             {
                 ShowBanner();
+                //Misc.CreateDB();
 
                 ServerInfo serverInfo = new ServerInfo();
                 LoginPageData loginPageData = new LoginPageData(serverInfo);

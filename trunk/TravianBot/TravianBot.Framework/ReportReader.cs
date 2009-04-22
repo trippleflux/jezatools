@@ -56,7 +56,7 @@ namespace TravianBot.Framework
             String fileContent = String.Format(CultureInfo.InvariantCulture,
                                                "{0} {1,20} <-> {2,-20}, Troop Lost [{3,-25}], Raid [ {5}= {6,8}]{4}"
                                                , url, attackVillage, attackedVillage, troopLostCollection,
-                                               Environment.NewLine, loot, lootTotal);
+                                               Environment.NewLine, loot, loot.Total);
             DateTime now = new DateTime(DateTime.Now.Ticks);
             string fileName = String.Format(CultureInfo.InvariantCulture, "{0}\\{1}AttackReport.txt",
                                             Misc.GetConfigValue("reportsDirectory"), now.ToString("yyyy-MM-dd"));
@@ -64,8 +64,9 @@ namespace TravianBot.Framework
             String consoleContent = String.Format(CultureInfo.InvariantCulture,
                                                   "{0} {1} <-> {2}, Troop Lost [{3}], Raid [{4}= {5}]"
                                                   , reportId, attackVillage, attackedVillage, troopLostCollection, loot,
-                                                  lootTotal);
+                                                  loot.Total);
             Console.WriteLine(consoleContent);
+            //Misc.SaveData2SQL(loot);
         }
 
         private bool GetLoot(string pageSource)
@@ -76,14 +77,14 @@ namespace TravianBot.Framework
             {
                 return false;
             }
-            lootTotal = 0;
-            loot = "";
-            for (int j = 0; j < lootMatchCollection.Count; j++)
-            {
-                int amount = Int32.Parse(lootMatchCollection[j].Groups[1].Value.Trim());
-                lootTotal += amount;
-                loot += String.Format("{0,6} ", amount);
-            }
+            loot = new Loot
+                             {
+                                 Wood = Int32.Parse(lootMatchCollection[0].Groups[1].Value.Trim()),
+                                 Clay = Int32.Parse(lootMatchCollection[1].Groups[1].Value.Trim()),
+                                 Iron = Int32.Parse(lootMatchCollection[2].Groups[1].Value.Trim()),
+                                 Crop = Int32.Parse(lootMatchCollection[3].Groups[1].Value.Trim())
+                             };
+            loot.Total = loot.Sum();
             return true;
         }
 
@@ -142,7 +143,6 @@ namespace TravianBot.Framework
         private string attackVillage;
         private string attackedVillage;
         private string troopLostCollection;
-        private string loot;
-        private int lootTotal;
+        private Loot loot;
     }
 }
