@@ -78,6 +78,8 @@
     <Compile Include="TaskExecutor.cs" />
     <Compile Include="Action.cs" />
     <Compile Include="ActionList.cs" />
+    <Compile Include="Tribe.cs" />
+    <Compile Include="TribeTeutons.cs" />
     <Compile Include="TroopSenderParamaters.cs" />
     <Compile Include="TroopUpgradeExecutor.cs" />
     <Compile Include="Unit.cs" />
