@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<actions>
+	<sendResources id="1" enabled="1" sourceVillageId="0" destX="0" destY="-1" woodAmount="11" clayAmount="22" ironAmount="33" cropAmount="44"/>
+	<sendResources id="2" enabled="1" sourceVillageId="0" destX="1" destY="-2" woodAmount="1111" clayAmount="2222" ironAmount="3333" cropAmount="4444"/>
+	<sendResources id="3" enabled="1" sourceVillageId="0" destX="2" destY="-3" woodAmount="11111" clayAmount="22222" ironAmount="33333" cropAmount="44444"/>
+</actions>

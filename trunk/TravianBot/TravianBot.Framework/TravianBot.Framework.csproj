@@ -56,7 +56,11 @@
     <Compile Include="AlianceData.cs" />
     <Compile Include="FakeParamaters.cs" />
     <Compile Include="Loot.cs" />
+    <Compile Include="Marketplace.cs" />
     <Compile Include="PlayerData.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="SendResourcesExecutor.cs" />
+    <Compile Include="SendResourcesParameters.cs" />
     <Compile Include="SendTroopsExecutor.cs" />
     <Compile Include="HtmlParser.cs" />
     <Compile Include="Http.cs" />

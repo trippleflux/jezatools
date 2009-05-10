@@ -26,6 +26,19 @@ namespace TravianBot.Framework
             get { return villageUnits; }
         }
 
+        public int WoodAvailable { get; set; }
+        public int ClayAvailable { get; set; }
+        public int IronAvailable { get; set; }
+        public int CropAvailable { get; set; }
+
+        public int WoodProduction { get; set; }
+        public int ClayProduction { get; set; }
+        public int IronProduction { get; set; }
+        public int CropProduction { get; set; }
+
+        public int CapacityWarehouse { get; set; }
+        public int CapacityGranary { get; set; }
+
         public void AddVillageUnit(Unit unit)
         {
             villageUnits.Add(unit);

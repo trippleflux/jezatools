@@ -33,7 +33,7 @@ namespace TravianBot.Runner
                             //DateTime now = new DateTime(DateTime.Now.Ticks);
                             //Console.WriteLine(now.ToLocalTime());
 
-                            if (repeatCount%600 == 0)
+                            if (repeatCount % 600 == 0)
                             {
                                 #region update village names and ids
 
@@ -42,7 +42,7 @@ namespace TravianBot.Runner
                                 #endregion
                             }
 
-                            if (repeatCount%1 == 0)
+                            if (repeatCount % 1 == 0)
                             {
                                 #region attacks
 
@@ -63,6 +63,14 @@ namespace TravianBot.Runner
 
                                 #endregion
                             }
+
+                            //if (repeatCount%1 == 0)
+                            //{
+                            //    //Console.WriteLine("resources");
+                            //    SendResourcesExecutor sendResourcesExecutor = new SendResourcesExecutor(serverInfo);
+                            //    sendResourcesExecutor.Parse();
+                            //    sendResourcesExecutor.Process();
+                            //}
 
                             repeatCount++;
                             if (repeatCount > 100)

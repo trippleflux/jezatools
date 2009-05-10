@@ -137,6 +137,25 @@ namespace TravianBot.Framework
                         break;
                     }
 
+                    case "sendResources":
+                    {
+                        SendResourcesParameters sendResourcesParameters = new SendResourcesParameters();
+                        sendResourcesParameters.Id = ReadAttribute(xmlReader, "id");
+                        sendResourcesParameters.Enabled = Int32.Parse(ReadAttribute(xmlReader, "enabled"));
+                        sendResourcesParameters.SourceVillageId = Int32.Parse(ReadAttribute(xmlReader, "sourceVillageId"));
+                        sendResourcesParameters.DestinationVillageX = Int32.Parse(ReadAttribute(xmlReader, "destX"));
+                        sendResourcesParameters.DestinationVillageY = Int32.Parse(ReadAttribute(xmlReader, "destY"));
+                        sendResourcesParameters.WoodAmount = Int32.Parse(ReadAttribute(xmlReader, "woodAmount"));
+                        sendResourcesParameters.ClayAmount = Int32.Parse(ReadAttribute(xmlReader, "clayAmount"));
+                        sendResourcesParameters.IronAmount = Int32.Parse(ReadAttribute(xmlReader, "ironAmount"));
+                        sendResourcesParameters.CropAmount = Int32.Parse(ReadAttribute(xmlReader, "cropAmount"));
+                        Action action = new Action(sendResourcesParameters.Id);
+                        action.AddSendResourcesParameters(sendResourcesParameters);
+                        actionList.AddSendResourcesAction(action);
+                        xmlReader.Read();
+                        break;
+                    }
+
                     default:
                     {
                         throw new NotSupportedException(xmlReader.Name + " not supported");

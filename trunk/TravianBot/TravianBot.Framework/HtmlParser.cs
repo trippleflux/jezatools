@@ -1,5 +1,10 @@
+#region
+
 using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
+
+#endregion
 
 namespace TravianBot.Framework
 {
@@ -58,7 +63,9 @@ namespace TravianBot.Framework
             }
         }
 
-        public void ParseAttackRang(PlayerData playerData, string username)
+        public void ParseAttackRang
+            (PlayerData playerData,
+             string username)
         {
             /*
             <tr>
@@ -69,7 +76,8 @@ namespace TravianBot.Framework
             <td>17893</td>
             </tr> 
              */
-            const string patternRang = @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
+            const string patternRang =
+                @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
             MatchCollection rangCollection =
                 Regex.Matches(pageSource, patternRang);
             for (int i = 0; i < rangCollection.Count; i++)
@@ -87,8 +95,9 @@ namespace TravianBot.Framework
             }
         }
 
-        public void ParseDefenseRang(PlayerData playerData,
-                                     string username)
+        public void ParseDefenseRang
+            (PlayerData playerData,
+             string username)
         {
             /*
             <tr>
@@ -99,7 +108,8 @@ namespace TravianBot.Framework
             <td>17893</td>
             </tr> 
              */
-            const string patternRang = @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
+            const string patternRang =
+                @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
             MatchCollection rangCollection =
                 Regex.Matches(pageSource, patternRang);
             for (int i = 0; i < rangCollection.Count; i++)
@@ -117,15 +127,17 @@ namespace TravianBot.Framework
             }
         }
 
-        public void ParseRang(PlayerData playerData,
-                                     string username)
+        public void ParseRang
+            (PlayerData playerData,
+             string username)
         {
             /*
 <td class="li ou nbr" align="right">161.&nbsp;</td>
 <td class="s7 ou"><a href="spieler.php?uid=9500">jeza</a></td>
 <td class="ou"><a href="allianz.php?aid=1467">FOR</a></td>
              */
-            const string patternRang = @"<td class=""(.*)"" align=""right"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?><a href=""allianz.php.aid=([0-9]{0,6})"">(.*)</a></td>";
+            const string patternRang =
+                @"<td class=""(.*)"" align=""right"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?><a href=""allianz.php.aid=([0-9]{0,6})"">(.*)</a></td>";
             MatchCollection rangCollection =
                 Regex.Matches(pageSource, patternRang);
             for (int i = 0; i < rangCollection.Count; i++)
@@ -141,8 +153,9 @@ namespace TravianBot.Framework
             }
         }
 
-        public void ParseUnitsInVillage(ServerInfo serverInfo,
-                                        int villageId)
+        public void ParseUnitsInVillage
+            (ServerInfo serverInfo,
+             int villageId)
         {
             const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";
             MatchCollection unitsCollection =
@@ -159,5 +172,78 @@ namespace TravianBot.Framework
         }
 
         private readonly string pageSource;
+
+        public void ParseMarketplace(Marketplace marketplace)
+        {
+            string patternMerchants = String.Format(CultureInfo.InvariantCulture, @"<tr><td colspan=""2"">{0} (\d+)/(\d+)<br><br></td></tr>", Misc.GetConfigValue("availableMerchantsString"));
+            Regex merchants = new Regex(patternMerchants);
+            if (merchants.IsMatch(pageSource))
+            {
+                Match Mc = merchants.Matches(pageSource)[0];
+                marketplace.AvailableMerchants = Int32.Parse(Mc.Groups[1].Value.Trim());
+                marketplace.TotalMerchants = Int32.Parse(Mc.Groups[2].Value.Trim());
+            }
+            //<p>Vsak tvoj trgovec lahko prepelje <b>2000</b>
+            string patternCarryMerchants = String.Format(CultureInfo.InvariantCulture, @"<p>{0} <b>(\d+)</b>", Misc.GetConfigValue("carryString"));
+            Regex carry = new Regex(patternCarryMerchants);
+            if (carry.IsMatch(pageSource))
+            {
+                Match Mc = carry.Matches(pageSource)[0];
+                marketplace.TotalCarry = Int32.Parse(Mc.Groups[1].Value.Trim());
+            }
+        }
+
+        public void ParseVillageProduction(Village village)
+        {
+            const string patternWood = @"<td id=l4 title=(\d+)>(\d+)/(\d+)</td>";
+            Regex wood = new Regex(patternWood);
+            if (wood.IsMatch(pageSource))
+            {
+                Match Mc = wood.Matches(pageSource)[0];
+                village.WoodAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                village.WoodProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
+                village.CapacityWarehouse = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            const string patternClay = @"<td id=l3 title=(\d+)>(\d+)/(\d+)</td>";
+            Regex clay = new Regex(patternClay);
+            if (clay.IsMatch(pageSource))
+            {
+                Match Mc = clay.Matches(pageSource)[0];
+                village.ClayAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                village.ClayProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
+                village.CapacityWarehouse = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            const string patternIron = @"<td id=l2 title=(\d+)>(\d+)/(\d+)</td>";
+            Regex iron = new Regex(patternIron);
+            if (iron.IsMatch(pageSource))
+            {
+                Match Mc = iron.Matches(pageSource)[0];
+                village.IronAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                village.IronProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
+                village.CapacityWarehouse = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+            const string patternCrop = @"<td id=l1 title=(\d+)>(\d+)/(\d+)</td>";
+            Regex crop = new Regex(patternCrop);
+            if (crop.IsMatch(pageSource))
+            {
+                Match Mc = crop.Matches(pageSource)[0];
+                village.CropAvailable = Int32.Parse(Mc.Groups[2].Value.Trim());
+                village.CropProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
+                village.CapacityGranary = Int32.Parse(Mc.Groups[3].Value.Trim());
+            }
+        }
+
+        public int ParseMarketPlaceHiddenData()
+        {
+            //<input type="hidden" name="sz" value="47406">
+            const string pattern = @"<input type=""hidden"" name=""sz"" value=""(\d+)"">";
+            Regex crop = new Regex(pattern);
+            if (crop.IsMatch(pageSource))
+            {
+                Match Mc = crop.Matches(pageSource)[0];
+                return Int32.Parse(Mc.Groups[1].Value.Trim());
+            }
+            return -1;
+        }
     }
 }
