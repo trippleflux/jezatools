@@ -46,25 +46,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakeAttack", "FakeAttack", 
 		Samples\FakeAttack\FakeAttack.xml = Samples\FakeAttack\FakeAttack.xml
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TravianBot.Portal", "..\TravianBot.Portal\", "{8230C5F6-20A5-4B6F-982D-9D063E3761DC}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFramework = "3.5"
-		Debug.AspNetCompiler.VirtualPath = "/TravianBot.Portal"
-		Debug.AspNetCompiler.PhysicalPath = "..\TravianBot.Portal\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\TravianBot.Portal\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/TravianBot.Portal"
-		Release.AspNetCompiler.PhysicalPath = "..\TravianBot.Portal\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\TravianBot.Portal\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "1654"
-		DefaultWebSiteLanguage = "Visual C#"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sendmerchants", "sendmerchants", "{AC035700-5889-459B-A0BE-2A8FF08DF153}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\sendmerchants\ResourceSending.xml = Samples\sendmerchants\ResourceSending.xml
 	EndProjectSection
 EndProject
 Global
@@ -147,16 +131,6 @@ Global
 		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2A7F06C7-7E7E-43C6-A947-F787AA63E718}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Debug|.NET.ActiveCfg = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Debug|.NET.Build.0 = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Debug|Any CPU.ActiveCfg = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Debug|Mixed Platforms.Build.0 = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Release|.NET.ActiveCfg = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Release|.NET.Build.0 = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Release|Any CPU.ActiveCfg = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
-		{8230C5F6-20A5-4B6F-982D-9D063E3761DC}.Release|Mixed Platforms.Build.0 = Debug|.NET
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,5 +139,6 @@ Global
 		{8B9BA7EF-9A25-45DB-9C3E-42A63AC9035F} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
 		{4AE280D6-7EB5-4FC2-AA94-DED3631E1E62} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
 		{40852E83-E2F2-4F99-BA9D-FDF1FD95ECF3} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
+		{AC035700-5889-459B-A0BE-2A8FF08DF153} = {5964E166-E564-420F-85C4-3C7DDD9D0358}
 	EndGlobalSection
 EndGlobal

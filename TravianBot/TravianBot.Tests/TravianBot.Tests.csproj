@@ -60,6 +60,7 @@
     <Compile Include="ActionListTests.cs" />
     <Compile Include="ActionTests.cs" />
     <Compile Include="HtmlParserTests.cs" />
+    <Compile Include="SendResourcesExecutorTests.cs" />
     <Compile Include="SendTroopsExecutorTests.cs" />
     <Compile Include="MiscTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

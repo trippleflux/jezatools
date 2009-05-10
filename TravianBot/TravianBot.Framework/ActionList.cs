@@ -12,6 +12,16 @@ namespace TravianBot.Framework
             get { return actionsList; }
         }
 
+        public IList<Action> FakeActionList
+        {
+            get { return fakeAttackList; }
+        }
+
+        public IList<Action> SendResourcesList
+        {
+            get { return sendResourcesList; }
+        }
+
         public IList<Action> TroopSenderList
         {
             get { return troopSenderList; }
@@ -20,6 +30,21 @@ namespace TravianBot.Framework
         public void AddAction(string id, Action sendAction)
         {
             actionsList.Add(id, sendAction);
+        }
+
+        public void AddFakeAction(Action action)
+        {
+            fakeAttackList.Add(action);
+        }
+
+        public void AddSendResourcesAction(Action sendAction)
+        {
+            sendResourcesList.Add(sendAction);
+        }
+
+        public void AddTroopSenderAction(Action troopSenderAction)
+        {
+            troopSenderList.Add(troopSenderAction);
         }
 
         public Action GetAction(string actionId)
@@ -34,16 +59,6 @@ namespace TravianBot.Framework
             return null;
         }
 
-        public IList<Action> FakeActionList
-        {
-            get { return fakeAttackList; }
-        }
-
-        public void AddFakeAction(Action action)
-        {
-            fakeAttackList.Add(action);
-        }
-
         public Action GetFakeAction(string actionId)
         {
             foreach (Action action in fakeAttackList)
@@ -56,9 +71,16 @@ namespace TravianBot.Framework
             return null;
         }
 
-        public void AddTroopSenderAction(Action troopSenderAction)
+        public Action GetSendResourcesAction(string actionId)
         {
-            troopSenderList.Add(troopSenderAction);
+            foreach (Action action in sendResourcesList)
+            {
+                if (action.Id == actionId)
+                {
+                    return action;
+                }
+            }
+            return null;
         }
 
         public Action GetTroopSenderAction(string actionId)
@@ -74,9 +96,8 @@ namespace TravianBot.Framework
         }
 
         private readonly Dictionary<string, Action> actionsList = new Dictionary<string, Action>();
-
-        private readonly List<Action> troopSenderList = new List<Action>();
-
         private readonly List<Action> fakeAttackList = new List<Action>();
+        private readonly List<Action> sendResourcesList = new List<Action>();
+        private readonly List<Action> troopSenderList = new List<Action>();
     }
 }
