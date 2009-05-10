@@ -64,13 +64,13 @@ namespace TravianBot.Runner
                                 #endregion
                             }
 
-                            //if (repeatCount%1 == 0)
-                            //{
-                            //    //Console.WriteLine("resources");
-                            //    SendResourcesExecutor sendResourcesExecutor = new SendResourcesExecutor(serverInfo);
-                            //    sendResourcesExecutor.Parse();
-                            //    sendResourcesExecutor.Process();
-                            //}
+                            if (repeatCount % 30 == 0)
+                            {
+                                //Console.WriteLine("resources");
+                                SendResourcesExecutor sendResourcesExecutor = new SendResourcesExecutor(serverInfo);
+                                sendResourcesExecutor.Parse();
+                                sendResourcesExecutor.Process();
+                            }
 
                             repeatCount++;
                             if (repeatCount > 100)
