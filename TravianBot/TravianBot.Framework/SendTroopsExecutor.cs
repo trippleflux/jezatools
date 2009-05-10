@@ -59,31 +59,31 @@ namespace TravianBot.Framework
                 bool attackIdFound = false;
                 foreach (KeyValuePair<string, Action> list in container.Value.ActionsList)
                 {
-                    ActionParameters @param = list.Value.GetActionParameters(list.Key);
+                    ActionParameters parameters = list.Value.GetActionParameters(list.Key);
                     //ActionParameters @param = container.Value.ActionsList[action.Key].ActionParameters[i];
-                    int enabled = @param.Enabled;
+                    int enabled = parameters.Enabled;
                     if (enabled != 1)
                     {
                         continue;
                     }
-                    string actionId = @param.Id;
+                    string actionId = parameters.Id;
                     string tempId = String.Format(CultureInfo.InvariantCulture, ".{0}.", actionId);
                     if (tempContent.IndexOf(tempId) == -1)
                     {
                         attackIdFound = true;
-                        int unitCount = @param.UnitCount;
-                        int availableUnits = GetAvailableUnitCount(@param);
+                        int unitCount = parameters.UnitCount;
+                        int availableUnits = GetAvailableUnitCount(parameters);
                         if (availableUnits > unitCount)
                         {
                             DateTime now = new DateTime(DateTime.Now.Ticks);
                             Console.WriteLine("{0} We have {1} {2}. Attacking '{3}[{4}]' with {5}!",
                                               now.ToString("yyyy-MM-dd HH:mm:ss"),
                                               availableUnits,
-                                              @param.UnitName,
-                                              @param.PlayerName,
-                                              @param.VillageName,
-                                              @param.UnitCount);
-                            ExecuteAttack(@param);
+                                              parameters.UnitName,
+                                              parameters.PlayerName,
+                                              parameters.VillageName,
+                                              parameters.UnitCount);
+                            ExecuteAttack(parameters);
                             Misc.WriteData(tempFile, tempId, true);
                         }
                         else
@@ -100,7 +100,7 @@ namespace TravianBot.Framework
             }
         }
 
-        private void ExecuteAttack(ActionParameters @param)
+        private void ExecuteAttack(ActionParameters parameters)
         {
             //b=1&t1=&t4=&t7=&t9=&t2=&t5=&t8=&t10=&t3=29&t6=&c=4&dname=&x=-16&y=-93&s1.x=22&s1.y=8&s1=ok
             //<input type="hidden" name="id" value="39">
@@ -112,29 +112,29 @@ namespace TravianBot.Framework
             StringBuilder troops = new StringBuilder();
             for (int t = 0; t < 11; t++)
             {
-                troops.AppendFormat("&t{0}={1}", (t + 1), t == @param.UnitId ? @param.UnitCount : 0);
+                troops.AppendFormat("&t{0}={1}", (t + 1), t == parameters.UnitId ? parameters.UnitCount : 0);
             }
             Random rnd = new Random();
             String postData = String.Format(CultureInfo.InvariantCulture,
                                             "id=39&a={0}&c={1}&kid={2}{3}{4}",
                                             rnd.Next(10001, 99999),
-                                            @param.SendTroopType,
-                                            Misc.ConvertXY(@param.CoordinateX, @param.CoordinateY),
+                                            parameters.SendTroopType,
+                                            Misc.ConvertXY(parameters.CoordinateX, parameters.CoordinateY),
                                             troops,
                                             String.Format("&s1.x={0}&s1.y={1}&s1=ok", rnd.Next(0, 79), rnd.Next(0, 19)));
 
-            string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}", serverInfo.SendUnitsUrl, @param.VillageId);
+            string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}", serverInfo.SendUnitsUrl, parameters.VillageId);
             Http.SendData(url, postData, serverInfo.CookieContainer, serverInfo.CookieCollection);
         }
 
-        private int GetAvailableUnitCount(ActionParameters @param)
+        private int GetAvailableUnitCount(ActionParameters parameters)
         {
-            int villageId = @param.VillageId;
+            int villageId = parameters.VillageId;
             string url = String.Format(CultureInfo.InvariantCulture, "{0}?newdid={1}", serverInfo.Dorf1Url, villageId);
             string pageSource = Http.SendData(url, null, serverInfo.CookieContainer, serverInfo.CookieCollection);
             HtmlParser htmlParser = new HtmlParser(pageSource);
             htmlParser.ParseUnitsInVillage(serverInfo, villageId);
-            Unit units = serverInfo.GetVillage(villageId).GetUnit(@param.UnitName);
+            Unit units = serverInfo.GetVillage(villageId).GetUnit(parameters.UnitName);
             return units != null ? units.UnitCount : 0;
         }
 
