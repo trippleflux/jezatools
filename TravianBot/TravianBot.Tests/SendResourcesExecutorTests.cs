@@ -11,7 +11,6 @@ namespace TravianBot.Tests
         {
             ServerInfo serverInfo = new ServerInfo();
             SendResourcesExecutor sendResourcesExecutor = new SendResourcesExecutor(serverInfo);
-
             sendResourcesExecutor.Parse();
             Assert.IsNotNull(sendResourcesExecutor.ActionList);
             Assert.IsNotNull(sendResourcesExecutor.ActionContainer);
@@ -30,7 +29,6 @@ namespace TravianBot.Tests
             serverInfo.Villages.Add(new Village(3, "01"));
             serverInfo.Villages.Add(new Village(83117, "01"));
             SendResourcesExecutor sendResourcesExecutor = new SendResourcesExecutor(serverInfo);
-
             sendResourcesExecutor.Parse();
             sendResourcesExecutor.Process();
         }
