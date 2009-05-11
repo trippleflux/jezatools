@@ -1,3 +1,0 @@
-#villageID|enabled|comment
-?newdid=81313|1|Muta01
-?newdid=88452|1|Muta02
