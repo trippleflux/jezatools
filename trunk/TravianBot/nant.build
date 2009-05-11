@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="BuildRunner" default="build" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+	<property name="DotNetFrameworkDir" value="C:\WINDOWS\Microsoft.NET\Framework\v3.5" />
+	<property name="MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
+	<property name="Configuration" value="Release" />
+	
+	<property name="Folder.Source" value="." />
+	<property name="Folder.Build" value="${path::combine(Folder.Source, 'build')}" />
+	<property name="Folder.Output" value="${path::combine(Folder.Build, 'release')}" />
+	<property name="Folder.Results" value="${path::combine(Folder.Build, 'results')}" />
+	<property name="Folder.Tests" value="${path::combine(path::combine(Folder.Source, 'TravianBot.Tests/bin'), Configuration)}" />
+
+	<property name="File.Solution" value="TravianBot.sln" />
+	<property name="File.Zip" value="${path::combine(Folder.Output, 'TravianBot.zip')}" />
+	<property name="File.Tests" value="${path::combine(Folder.Tests, 'TravianBot.Tests.dll')}" />
+
+	<target name="clean" descripton="Removes output files and directories.">
+		<delete includeemptydirs="true" failonerror="true">
+			<fileset basedir="${Folder.Source}">
+				<include name="_ReSharper.*/**"/>
+				<include name="${Folder.Build}/**"/>
+				<include name="**/*.user"/>
+				<include name="**/*.suo"/>
+				<include name="**/*.ncb"/>
+				<include name="**/*.cache"/>
+			</fileset>
+		</delete>			
+	</target>
+
+	<target name="init" descripton="Creates Build folder">
+		<mkdir dir="${Folder.Build}"/>
+		<mkdir dir="${Folder.Output}"/>
+		<mkdir dir="${Folder.Results}"/>
+	</target>
+
+	<target name="compile" depends="clean init" descripton="Compile solution">
+		<exec program="${MSBuild}" workingdir="${Folder.Source}" verbose="true">
+			<arg value="/property:Configuration=${Configuration}" />
+			<arg value="/target:Rebuild" />
+			<arg value="/consoleloggerparameters:NoSummary" />
+			<arg value="${File.Solution}" />
+		</exec>
+	</target>
+
+	<target name="zip" depends="init" descripton="Prepares binaries." includeemptydirs="true">
+		<zip zipfile="${File.Zip}" duplicate="Preserve">
+			<fileset failonempty="true"
+					  basedir="${path::combine(path::combine(Folder.Source, 'TravianBot.FakeAttack/bin'), Configuration)}"
+					  prefix="TravianBot.FakeAttack">
+				<include name="*" />
+			</fileset>
+			<fileset failonempty="true"
+								  basedir="${path::combine(path::combine(Folder.Source, 'TravianBot.Gui/bin'), Configuration)}"
+								  prefix="TravianBot.Gui">
+				<include name="*" />
+			</fileset>
+			<fileset failonempty="true"
+								  basedir="${path::combine(path::combine(Folder.Source, 'TravianBot.Runner/bin'), Configuration)}"
+								  prefix="TravianBot.Runner">
+				<include name="*" />
+			</fileset>
+			<fileset failonempty="true"
+								  basedir="${path::combine(path::combine(Folder.Source, 'TravianBot.TroopSender/bin'), Configuration)}"
+								  prefix="TravianBot.TroopSender">
+				<include name="*" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="test" depends="init" descripton="Run Unit tests." >
+		<nunit2 failonerror="false">
+			<formatter type="Xml" usefile="true" extension=".xml" />
+			<test assemblyname="${File.Tests}"/>
+		</nunit2>
+	</target>
+
+	<target name="report">
+		<nunit2report todir="${Folder.Results}">
+			<fileset>
+				<include name="${Folder.Tests}\*results.xml" />
+			</fileset>
+		</nunit2report>
+	</target>
+
+	<target name="build" depends="clean init compile zip test report">
+	</target>
+
+</project>
+
