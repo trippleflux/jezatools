@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="TravianBot" default="build" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+  <!-- Private Properties -->
+  <property name="DotNetFrameworkDir" value="C:\WINDOWS\Microsoft.NET\Framework\v3.5" />
+  <property name="Configuration" value="Release" overwrite="false" />
+  <fail
+		message="Property 'Configuration' supports only values 'Release' and 'Debug'."
+		unless="${Configuration=='Release' or Configuration=='Debug'}"
+		/>
+  <property name="Source.Dir" value="."/>
+  <property name="Build.Dir" value="${path::combine(Source.Dir, 'build')}" />
+  <property name="Output.Dir" value="${path::combine(Build.Dir, Configuration)}"/>
+  <property name="SolutionFile" value="${path::combine(Source.Dir, 'TravianBot.sln')}"/>
+  <property name="Zip.File" value="${path::combine(Output.Dir, 'TravianBot.zip')}"/>
+  <property name="BuildTrace.File" value="${path::combine(Build.Dir, 'Build.Trace')}"/>
+  <property name="MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}"/>
+  <property name="Test.Dir" value="${path::combine(Build.Dir, 'Tests')}"/>
+  <property name="Test.Assembly" value="TravianBot.Tests.dll"/>
+  
+  <target name="build"
+    description="Do the build."
+    depends="clean.full compile zip" />
+
+  <target name="clean.full"
+			description="removes all private and output files">
+    <delete includeemptydirs="true" failonerror="true">
+      <fileset basedir="${Source.Dir}">
+        <include name="_ReSharper.SsmSystemTest/**"/>
+        <include name="**/*.user"/>
+        <include name="**/*.suo"/>
+        <include name="**/*.ncb"/>
+        <include name="**/*.cache"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="init"
+			description="prepares build directory structure">
+    <mkdir dir="${Output.Dir}"/>
+    <mkdir dir="${Test.Dir}"/>
+  </target>
+
+  <target name="compile"
+		depends="init">
+    <exec
+			program="${MSBuild}"
+			workingdir="."
+			verbose="true">
+      <arg value="/property:Configuration=${Configuration}" />
+      <arg value="/target:Rebuild" />
+      <arg value="/consoleloggerparameters:NoSummary" />
+      <!--arg value="/l:ConsoleLogger,Microsoft.Build.Engine.dll;performancesummary" /-->
+      <arg value="${SolutionFile}" />
+      <environment>
+        <variable name="DevEnvDir" dir="${environment::get-variable('VS90COMNTOOLS')}" />
+      </environment>
+    </exec>
+  </target>
+
+  <target name="zip"
+			description="Prepares binaries"
+			depends="init"
+			includeemptydirs="true">
+    <delete>
+      <fileset>
+        <include name="${Zip.File}"/>
+      </fileset>
+    </delete>
+
+    <zip zipfile="${Zip.File}" duplicate="Preserve">
+
+      <fileset failonempty="true"
+							basedir="${path::combine(path::combine(Source.Dir, 'TravianBot.FakeAttack/bin'), Configuration)}"
+							prefix="TravianBot.FakeAttack">
+        <include name="*" />
+      </fileset>
+
+      <fileset failonempty="true"
+							basedir="${path::combine(path::combine(Source.Dir, 'TravianBot.Gui/bin'), Configuration)}"
+							prefix="TravianBot.Gui">
+        <include name="*" />
+      </fileset>
+
+      <fileset failonempty="true"
+							basedir="${path::combine(path::combine(Source.Dir, 'TravianBot.Runner/bin'), Configuration)}"
+							prefix="TravianBot.Runner">
+        <include name="*" />
+      </fileset>
+
+      <fileset failonempty="true"
+							basedir="${path::combine(path::combine(Source.Dir, 'TravianBot.TroopSender/bin'), Configuration)}"
+							prefix="TravianBot.TroopSender">
+        <include name="*" />
+      </fileset>
+
+      <fileset failonempty="true"
+							basedir="${path::combine(path::combine(Source.Dir, 'TravianBot.Tests/bin'), Configuration)}"
+							prefix="TravianBot.Tests">
+        <include name="*" />
+      </fileset>
+
+    </zip>
+  </target>
+
+  <target name="test">
+    <copy todir="${Test.Dir}">
+      <fileset
+        basedir="${path::combine(path::combine(Source.Dir, 'TravianBot.Tests/bin'), Configuration)}">
+        <include name="*" />
+      </fileset>
+    </copy>
+    <nunit2 failonerror="false">
+      <formatter type="Xml" usefile="true" extension=".xml" />
+      <test assemblyname="${Test.Dir}\${Test.Assembly}"/>
+    </nunit2>
+  </target>
+
+  <target name="report">
+    <echo message="Starting With Report."/>
+    <nunit2report>
+      <fileset>
+        <include name="${Test.Dir}\*results.xml" />
+      </fileset>
+    </nunit2report>
+    <echo message="NUnit report generated."/>
+  </target>
+
+</project>
