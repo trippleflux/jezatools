@@ -113,7 +113,7 @@ namespace TravianBot.Framework
             string pageSource = Http.SendData(serverInfo.Dorf1Url, postData, serverInfo.CookieContainer,
                                               serverInfo.CookieCollection);
             HtmlParser htmlParser = new HtmlParser(pageSource);
-
+            //Console.WriteLine(pageSource);
             htmlParser.ParseUserId(serverInfo);
             bool uidFound = serverInfo.UserId < 0 ? false : true;
             if (uidFound)
@@ -130,7 +130,7 @@ namespace TravianBot.Framework
             (ServerInfo serverInfo,
              LoginPageData loginPageData)
         {
-            string postData = String.Format("login={0}&{1}={2}&{3}={4}&{5}={6}",
+            string postData = String.Format("login={0}&{1}={2}&{3}={4}&{5}={6}&{5}={6}&s1.x=83&s1.y=7&s1=login",
                                             loginPageData.HiddenLoginValue,
                                             loginPageData.TextBoxUserame,
                                             serverInfo.Username,
@@ -138,8 +138,14 @@ namespace TravianBot.Framework
                                             serverInfo.Password,
                                             loginPageData.HiddenName,
                                             loginPageData.HiddenValue);
-
+            Console.WriteLine(postData);
             return IsLogedIn(serverInfo, postData);
+        }
+
+        public static bool Login35()
+        {
+            //w=1680%3A1050&login=1242744256&ec852d4=jeza&e4b7736=*********&edcf8e3=9082b30900&edcf8e3=9082b30900&s1.x=83&s1.y=7&s1=login
+            return false;
         }
 
         public static string SendHttpFake(string pageUrl)

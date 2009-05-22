@@ -64,7 +64,7 @@ namespace TravianBot.Runner
                                 #endregion
                             }
 
-                            if (repeatCount % 30 == 0)
+                            if (repeatCount % 15 == 0)
                             {
                                 //Console.WriteLine("resources");
                                 SendResourcesExecutor sendResourcesExecutor = new SendResourcesExecutor(serverInfo);
