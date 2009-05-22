@@ -18,14 +18,20 @@ namespace TravianBot.Framework
         public void ParseVillages(ServerInfo serverInfo)
         {
             //<a href="?newdid=83117">01</a>
+            //<a href="?newdid=73913">01</a> 3.5
+            //<a href=\"\?newdid=([0-9]{0,7})\"\s?(accesskey=\"\w\")?>([\w\W\d\D\s\S]{0,50})<\/a>
             MatchCollection villagesCollection =
-                Regex.Matches(pageSource, @"<a href="".newdid=(.*)\"">(.*)<.a>");
+                Regex.Matches(pageSource, @"<a href="".newdid=([0-9]{0,7})""\s?(accesskey=""\w"")?>([\w\W\d\D\s\S]{0,50})<.a>");
             int villageCount = villagesCollection.Count;
+            //Console.WriteLine("villageCount=" + villageCount);
             for (int i = 0; i < villageCount; i++)
             {
+                //Console.WriteLine(villagesCollection[i].Groups[0].Value);
+                //Console.WriteLine(villagesCollection[i].Groups[1].Value);
+                //Console.WriteLine(villagesCollection[i].Groups[3].Value);
                 //102706" class="active_vl
                 int villageId = Int32.Parse(Misc.GetOnlyNumbers(villagesCollection[i].Groups[1].Value));
-                string villageName = villagesCollection[i].Groups[2].Value.Trim();
+                string villageName = villagesCollection[i].Groups[3].Value.Trim();
                 Village village = new Village(villageId, villageName);
                 serverInfo.Villages.Add(village);
             }
@@ -157,14 +163,28 @@ namespace TravianBot.Framework
             (ServerInfo serverInfo,
              int villageId)
         {
-            const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";
+            /*
+<tr>
+						<td><a href="build.php?gid=16"><img class="unit u15" src="img/x.gif" alt="Paladinov" title="Paladinov" /></a></td>
+						<td class="u_count"><b>747</b></td>
+						<td class="u_name">Paladinov</td>
+					</tr>
+             */
+            const string patternUnits = @"<td class=""u_count""><b>(\d+)</b></td>(.|[\r\n])*?<td class=""u_name"">((\w*)(\s*)(\w*))</td>";
+            //const string patternUnits = @"<b>(\d+)</b></td><td>((\w*)(\s*)(\w*))</td>";
             MatchCollection unitsCollection =
                 Regex.Matches(pageSource, patternUnits);
+            //Console.WriteLine("unitsCollection.Count=" + unitsCollection.Count);
             Village village = serverInfo.GetVillage(villageId);
             village.RemoveVillageUnits();
             for (int i = 0; i < unitsCollection.Count; i++)
             {
-                string unitName = unitsCollection[i].Groups[2].Value.Trim();
+                //Console.WriteLine("0" + unitsCollection[i].Groups[0].Value.Trim());
+                //Console.WriteLine("1" + unitsCollection[i].Groups[1].Value.Trim());
+                //Console.WriteLine("2" + unitsCollection[i].Groups[2].Value.Trim());
+                //Console.WriteLine("3" + unitsCollection[i].Groups[3].Value.Trim());
+                //Console.WriteLine("4" + unitsCollection[i].Groups[4].Value.Trim());
+                string unitName = unitsCollection[i].Groups[4].Value.Trim();
                 int unitCount = Int32.Parse(unitsCollection[i].Groups[1].Value.Trim());
                 Unit unit = new Unit(unitCount, unitName);
                 village.AddVillageUnit(unit);
