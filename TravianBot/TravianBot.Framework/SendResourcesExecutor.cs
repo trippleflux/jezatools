@@ -108,6 +108,7 @@ namespace TravianBot.Framework
         private bool SendResources(SendResourcesParameters parameters)
         {
             //id=33&r1=&r2=&r3=20000&r4=&dname=&x=-16&y=-93&s1.x=27&s1.y=14&s1=ok
+            //id=33&r1=172&r2=206&r3=172&r4=100&dname=&x=-15&y=-93&s1.x=35&s1.y=5&s1=ok
             //<input type="hidden" name="id" value="33">
             //<input type="hidden" name="a" value="83117">
             //<input type="hidden" name="sz" value="47406">
@@ -138,6 +139,7 @@ namespace TravianBot.Framework
                 return false;
             }
             //id=33&a=83117&sz=47406&kid=395278&r1=&r2=&r3=20000&r4=&s1.x=24&s1.y=11&s1=ok
+            //id=33&a=93284&sz=53492&kid=395279&r1=172&r2=206&r3=172&r4=100&s1.x=26&s1.y=10&s1=ok
             button = String.Format(CultureInfo.InvariantCulture,
                                    "&s1.x={0}&s1.y={1}&s1=ok",
                                    rnd.Next(0, 79),

@@ -195,6 +195,7 @@ namespace TravianBot.Framework
 
         public void ParseMarketplace(Marketplace marketplace)
         {
+            //<tr><td colspan="2">Trgovci 4/20<br><br></td></tr>
             string patternMerchants = String.Format(CultureInfo.InvariantCulture, @"<tr><td colspan=""2"">{0} (\d+)/(\d+)<br><br></td></tr>", Misc.GetConfigValue("availableMerchantsString"));
             Regex merchants = new Regex(patternMerchants);
             if (merchants.IsMatch(pageSource))
@@ -215,7 +216,30 @@ namespace TravianBot.Framework
 
         public void ParseVillageProduction(Village village)
         {
-            const string patternWood = @"<td id=l4 title=(\d+)>(\d+)/(\d+)</td>";
+/*
+<div id="res">
+	<table>
+		<tr>
+							<td><img src="img/x.gif" class="r1" alt="Les" title="Les" /></td>
+				<td id="l4" title="22">159274/400000</td>
+
+							<td><img src="img/x.gif" class="r2" alt="Glina" title="Glina" /></td>
+				<td id="l3" title="22">161168/400000</td>
+							<td><img src="img/x.gif" class="r3" alt="Železo" title="Železo" /></td>
+				<td id="l2" title="22">166435/400000</td>
+							<td><img src="img/x.gif" class="r4" alt="Žito" title="Žito" /></td>
+				<td id="l1" title="5955">53916/320000</td>
+							</tr>
+
+		<tr>
+			<td colspan="6"></td>
+					<td><img src="img/x.gif" class="r5" alt="Poraba žita" title="Poraba žita" /></td>
+			<td>41070/47025</td>
+		</tr>
+	</table>
+</div>
+*/
+            const string patternWood = @"<td id=""l4"" title=""(\d+)"">(\d+)/(\d+)</td>";
             Regex wood = new Regex(patternWood);
             if (wood.IsMatch(pageSource))
             {
@@ -224,7 +248,7 @@ namespace TravianBot.Framework
                 village.WoodProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
                 village.CapacityWarehouse = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
-            const string patternClay = @"<td id=l3 title=(\d+)>(\d+)/(\d+)</td>";
+            const string patternClay = @"<td id=""l3"" title=""(\d+)"">(\d+)/(\d+)</td>";
             Regex clay = new Regex(patternClay);
             if (clay.IsMatch(pageSource))
             {
@@ -233,7 +257,7 @@ namespace TravianBot.Framework
                 village.ClayProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
                 village.CapacityWarehouse = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
-            const string patternIron = @"<td id=l2 title=(\d+)>(\d+)/(\d+)</td>";
+            const string patternIron = @"<td id=""l2"" title=""(\d+)"">(\d+)/(\d+)</td>";
             Regex iron = new Regex(patternIron);
             if (iron.IsMatch(pageSource))
             {
@@ -242,7 +266,7 @@ namespace TravianBot.Framework
                 village.IronProduction = Int32.Parse(Mc.Groups[1].Value.Trim());
                 village.CapacityWarehouse = Int32.Parse(Mc.Groups[3].Value.Trim());
             }
-            const string patternCrop = @"<td id=l1 title=(\d+)>(\d+)/(\d+)</td>";
+            const string patternCrop = @"<td id=""l1"" title=""(\d+)"">(\d+)/(\d+)</td>";
             Regex crop = new Regex(patternCrop);
             if (crop.IsMatch(pageSource))
             {
