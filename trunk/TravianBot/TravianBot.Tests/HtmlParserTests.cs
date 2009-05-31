@@ -45,5 +45,31 @@ namespace TravianBot.Tests
             Assert.AreEqual(80000, village.CapacityWarehouse);
             Assert.AreEqual(80000, village.CapacityGranary);
         }
+
+        [Test]
+        public void Merchants35()
+        {
+            string pageSource = Misc.ReadContent("..\\..\\..\\Samples\\TestFiles\\build.php-newdid=73229-gid=17");
+            HtmlParser htmlParser = new HtmlParser(pageSource);
+            Marketplace marketplace = new Marketplace();
+            const int villageId = 73229;
+            marketplace.VillageId = villageId;
+            htmlParser.ParseMarketplace(marketplace);
+            Assert.AreEqual(0, marketplace.AvailableMerchants);
+            Assert.AreEqual(20, marketplace.TotalMerchants);
+            Assert.AreEqual(2000, marketplace.TotalCarry);
+            Village village = new Village(villageId, "some name");
+            htmlParser.ParseVillageProduction(village);
+            Assert.AreEqual(3736, village.WoodAvailable);
+            Assert.AreEqual(1000, village.WoodProduction);
+            Assert.AreEqual(3736, village.ClayAvailable);
+            Assert.AreEqual(1000, village.ClayProduction);
+            Assert.AreEqual(5036, village.IronAvailable);
+            Assert.AreEqual(1000, village.IronProduction);
+            Assert.AreEqual(15804, village.CropAvailable);
+            Assert.AreEqual(442, village.CropProduction);
+            Assert.AreEqual(160000, village.CapacityWarehouse);
+            Assert.AreEqual(160000, village.CapacityGranary);
+        }
     }
 }

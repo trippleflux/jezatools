@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<title>Travian si6</title>
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<script src="mt-full.js?azg" type="text/javascript"></script>
+	<script src="unx.js?azg" type="text/javascript"></script>
+	<script src="new.js?azg" type="text/javascript"></script>
+	<link href="img/unx.css?azg" rel="stylesheet" type="text/css" />
+	<link href="img/img.css?azg" rel="stylesheet" type="text/css" />
+	<link href="img/si/lang.css?azg" rel="stylesheet" type="text/css" />
+</head>
+
+<body onload="start()">
+<img src="img/x.gif" id="msfilter" alt="" />
+
+<div id="dynamic_header" class="norm">
+	</div>
+
+<div id="header">
+	<div id="mtop" class="T3">
+		<a href="dorf1.php" id="n1" accesskey="1"><img src="img/x.gif" title="Pregled naselbine" alt="Pregled naselbine" /></a>
+		<a href="dorf2.php" id="n2" accesskey="2"><img src="img/x.gif" title="Center naselja" alt="Center naselja" /></a>
+		<a href="karte.php" id="n3" accesskey="3"><img src="img/x.gif" title="Zemljevid" alt="Zemljevid" /></a>
+		<a href="statistiken.php" id="n4" accesskey="4"><img src="img/x.gif" title="Statistika" alt="Statistika" /></a>
+		<div id="n5" class="i4">
+			<a href="berichte.php" accesskey="5"><img src="img/x.gif" class="l" title="Poročila" alt="Poročila"/></a>
+			<a href="nachrichten.php" accesskey="6"><img src="img/x.gif" class="r" title="Sporočila" alt="Sporočila" /></a>
+		</div>
+		<a href="plus.php" id="plus"><img src="img/x.gif" title="Plus meni" alt="Plus meni" /></a>
+		<div class="clear"></div>
+	</div>
+</div>
+
+
+<div id="mid">
+
+		<div id="sleft">
+
+		<a href="http://www.travian.si/"><img id="logo"  src="img/x.gif" alt="Travian" /></a>
+		
+		
+		<p>
+			<a href="http://www.travian.si/">Domača stran</a>
+			<a href="#" onclick="return Popup(0,0);">Napotki&Pregled</a>
+			<a href="spieler.php?uid=9500">Profil</a>
+			<a href="logout.php">Odjava</a>
+			<br/><br/>
+			
+							<a href="http://forum.travian.si/" target="_blank">Forum</a>
+						
+								
+				<a href="http://www.travian.si/chat.php?chatname=si6|jeza" target="_blank">Klepet</a>
+						<br/><br/>
+			<a href="plus.php?id=3 ">Travian <b><font color="#71D000">P</font><font color="#FF6F0F">l</font><font color="#71D000">u</font><font color="#FF6F0F">s</font></b></a>
+			<a href="support.php">Podpora</a>
+		</p>
+			
+					</div>
+
+		<div id="content" class="ingame">
+
+<h1>Tržnica Stopnja 20</h1>
+<p>Preko trgovcev na tržnici lahko trguješ z drugimi igralci ali pa med svojimi naselji. Bolj kot je tržnica nadgrajena več surovin lahko pošlješ naenkrat.</p>
+
+<p class="txt_menue">
+<a href="build.php?id=22">Pošlji surovine</a> |
+<a href="build.php?id=22&t=1">Kupi</a> |
+<a href="build.php?id=22&t=2">Ponudi</a> | <a href="build.php?id=22&t=3">NPC trgovanje</a></p><script language="JavaScript">
+<!--
+var haendler = 0;
+var carry = 2000;
+//-->
+</script><p>
+<form method="POST" name="snd" action="build.php">
+<input type="hidden" name="id" value="22">
+<table cellspacing="0" cellpadding="0" width="100%" valign="top">
+<tr valign="top">
+
+<td width="45%">
+<table class="f10" style="width:85%;"><tr><td><a href="#" onClick="upd_res(1,1); return false;"><img class="r1" src="img/x.gif" alt="Les" title="Les" /></a></td>
+<td>Les:</td><td align="right"><input class="fm" type="Text" name="r1" id="r1" value="" size="4" maxlength="5" onKeyUp="upd_res(1)" tabindex="1"></td>
+<td class="s7 f8"><a href="#" onMouseUp="add_res(1);" onClick="return false;">(2000)</a></td>
+</tr><tr><td><a href="#" onClick="upd_res(2,1); return false;"><img class="r2" src="img/x.gif" alt="Glina" title="Glina" /></a></td>
+<td>Glina:</td><td align="right"><input class="fm" type="Text" name="r2" id="r2" value="" size="4" maxlength="5" onKeyUp="upd_res(2)" tabindex="2"></td>
+<td class="s7 f8"><a href="#" onMouseUp="add_res(2);" onClick="return false;">(2000)</a></td>
+</tr><tr><td><a href="#" onClick="upd_res(3,1); return false;"><img class="r3" src="img/x.gif" alt="Železo" title="Železo" /></a></td>
+<td>Železo:</td><td align="right"><input class="fm" type="Text" name="r3" id="r3" value="" size="4" maxlength="5" onKeyUp="upd_res(3)" tabindex="3"></td>
+<td class="s7 f8"><a href="#" onMouseUp="add_res(3);" onClick="return false;">(2000)</a></td>
+</tr><tr><td><a href="#" onClick="upd_res(4,1); return false;"><img class="r4" src="img/x.gif" alt="Žito" title="Žito" /></a></td>
+<td>Žito:</td><td align="right"><input class="fm" type="Text" name="r4" id="r4" value="" size="4" maxlength="5" onKeyUp="upd_res(4)" tabindex="4"></td>
+<td class="s7 f8"><a href="#" onMouseUp="add_res(4);" onClick="return false;">(2000)</a></td>
+</tr></table>
+</td><td width="55%" valign="top">
+
+<table class="f10">
+<tr><td colspan="2">Trgovci 0/20<br><br></td></tr>
+
+<tr><td colspan="2"><span class="f135 b">Naselje:</span>
+
+<input class="fm" type="Text" name="dname" value="" size="10" maxlength="20" tabindex="5"></td>
+</tr>
+
+
+<tr><td colspan="2"><i>ali</i></td></tr>
+
+<tr>
+<td colspan="2">
+<span class="f135 b">
+X:
+<input class="fm" type="Text" name="x" value="" size="2" maxlength="4" tabindex="6">
+Y:
+<input class="fm" type="Text" name="y" value="" size="2" maxlength="4" tabindex="7">
+</span></td>
+</tr>
+
+</table>
+
+</td></tr>
+</table><p><input type="image" value="ok" name="s1" id="btn_ok" class="dynamic_img" src="img/x.gif" tabindex="8" alt="OK" /></form></p><script language="JavaScript" type="text/javascript">
+//<!--
+document.snd.r1.focus();
+//-->
+</script><p>Vsak tvoj trgovec lahko prepelje <b>2000</b> surovin.</p><p class="b">Lastni trgovci na poti:</p><p><table cellpadding="2" class="tbg">
+	<tr class="cbg1">
+	<td width="21%"><a href="spieler.php?uid=9500"><span class="c0">jeza</span></a></td>
+	<td colspan="2"><a href="karte.php?d=395279&c=8d"><span class="c0">Vračanje iz metropola</span></a></td>
+	</tr>
+
+	<tr><td>Prihod</td><td><span id=timer1>0:15:50</span> h</td><td>ob 20:29</td></tr>
+
+	<tr class="cbg1"><td>Surovine</td><td class="s7" colspan="2"><span class="c f10"><img class="r1" src="img/x.gif" alt="Les" title="Les" />13000 | <img class="r2" src="img/x.gif" alt="Glina" title="Glina" />13000 | <img class="r3" src="img/x.gif" alt="Železo" title="Železo" />13000 | <img class="r4" src="img/x.gif" alt="Žito" title="Žito" />0</td></tr></table></p><p class="c">Zgradba Tržnica je že dokončno izpopolnjena</p>
+</div>
+
+<div id="sright">
+
+<div id="vlist"><a href="dorf3.php" accesskey="9"><span class="f10 c0 s7 b">Naselbine:</span></a><table class="vlist"><tbody><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=73913&amp;gid=17&amp;id=22">01</a></td><td class="x">(-22</td><td>|</td><td class="y">-95)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=93284&amp;gid=17&amp;id=22">02</a></td><td class="x">(-16</td><td>|</td><td class="y">-94)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=93663&amp;gid=17&amp;id=22" accesskey="l">03</a></td><td class="x">(-13</td><td>|</td><td class="y">-94)</td></tr><tr class="sel"><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=73229&amp;gid=17&amp;id=22" >04 RaR</a></td><td class="x">(-24</td><td>|</td><td class="y">-88)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=90572&amp;gid=17&amp;id=22" accesskey="n">05 mackica</a></td><td class="x">(-15</td><td>|</td><td class="y">-86)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=95334&amp;gid=17&amp;id=22">06 mackica</a></td><td class="x">(-16</td><td>|</td><td class="y">-87)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=71907&amp;gid=17&amp;id=22">07 mackica</a></td><td class="x">(-17</td><td>|</td><td class="y">-86)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=90602&amp;gid=17&amp;id=22">08 dr. Norcek</a></td><td class="x">(-10</td><td>|</td><td class="y">-98)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=111618&amp;gid=17&amp;id=22">09</a></td><td class="x">(-20</td><td>|</td><td class="y">-98)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=105604&amp;gid=17&amp;id=22">10 strauss</a></td><td class="x">(-18</td><td>|</td><td class="y">-101)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=110161&amp;gid=17&amp;id=22">11 strauss</a></td><td class="x">(-20</td><td>|</td><td class="y">-102)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=100126&amp;gid=17&amp;id=22">12 ZuroS</a></td><td class="x">(-17</td><td>|</td><td class="y">-100)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=73320&amp;gid=17&amp;id=22">13 Metadron</a></td><td class="x">(-7</td><td>|</td><td class="y">-94)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=118061&amp;gid=17&amp;id=22">14</a></td><td class="x">(-16</td><td>|</td><td class="y">-93)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=120008&amp;gid=17&amp;id=22">15</a></td><td class="x">(-16</td><td>|</td><td class="y">-92)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=103583&amp;gid=17&amp;id=22">16 qlimax</a></td><td class="x">(-22</td><td>|</td><td class="y">-86)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=122083&amp;gid=17&amp;id=22">17</a></td><td class="x">(-15</td><td>|</td><td class="y">-94)</td></tr><tr><td class="dot">&#x25CF;</td><td class="text"><a href="?newdid=83117&amp;gid=17&amp;id=22">metropola</a></td><td class="x">(-15</td><td>|</td><td class="y">-93)</td></tr></tbody></table></div></div>
+</div>
+
+
+<div id="footer">
+	<div id="mfoot">		
+			
+							<a href="http://www.travian.si/anleitung.php?s=3">FAQ</a> | 
+				<a href="http://www.travian.si/screenshots.php">Zaslonske slike</a> | 
+				<a href="http://www.travian.si/links.php">Povezave</a> | 
+				<a href="http://www.travian.si/spielregeln.php">Pravila igre</a> | 
+				<a href="http://www.travian.si/spielregeln.php?agb">Pogoji</a> | 
+				<a href="http://www.travian.si/impressum.php">Impresum</a>
+				<br />
+				<div class="copyright">© 2004 - 2009 Travian Games GmbH</div>
+							</div>	
+</div>
+	
+<div id="res">
+	<table>
+		<tr>
+							<td><img src="img/x.gif" class="r1" alt="Les" title="Les" /></td>
+				<td id="l4" title="1000">3736/160000</td>
+							<td><img src="img/x.gif" class="r2" alt="Glina" title="Glina" /></td>
+				<td id="l3" title="1000">3736/160000</td>
+							<td><img src="img/x.gif" class="r3" alt="Železo" title="Železo" /></td>
+				<td id="l2" title="1000">5036/160000</td>
+							<td><img src="img/x.gif" class="r4" alt="Žito" title="Žito" /></td>
+				<td id="l1" title="442">15804/160000</td>
+							</tr>
+		<tr>
+			<td colspan="6"></td>
+					<td><img src="img/x.gif" class="r5" alt="Poraba žita" title="Poraba žita" /></td>
+			<td>1958/2400</td>
+		</tr>
+	</table>
+</div>
+
+
+
+<div id="ltime">
+	Izračunano v <b>14</b> ms
+	
+<br />Čas na strežniku: <span id="tp1" class="b">20:13:28</span>
+
+
+
+
+</div>
+
+<div id="ce"></div>
+
+</body>
+</html>
