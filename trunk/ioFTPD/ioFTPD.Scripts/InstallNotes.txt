@@ -1,0 +1,27 @@
+In ioFTPD.ini add under:
+
+[Events]
+OnUploadComplete = EXEC ..\scripts\jcScripts\Release\jcScripts.exe imdbTop250upload
+OnNewDir = EXEC ..\scripts\jcScripts\Release\jcScripts.exe newdir
+OnDelDir = EXEC ..\scripts\jcScripts\Release\jcScripts.exe deldir
+
+[Scheduler]
+imdb250 = 0 5 * * EXEC ..\scripts\jcScripts\Release\jcScripts.exe imdbTop250scheduler
+
+[FTP_Custom_Commands]
+imdb250 = EXEC ..\scripts\jcScripts\Release\jcScripts.exe imdbTop250complete
+addimdb250 = EXEC ..\scripts\jcScripts\Release\jcScripts.exe imdbTop250single
+checksymlinks = EXEC ..\scripts\jcScripts\Release\jcScripts.exe imdbTop250checksymlinks
+dupe = EXEC ..\scripts\jcScripts\Release\jcScripts.exe dupe
+undupe = EXEC ..\scripts\jcScripts\Release\jcScripts.exe undupe
+adddupe = EXEC ..\scripts\jcScripts\Release\jcScripts.exe adddupe
+adddupedirs = EXEC ..\scripts\jcScripts\Release\jcScripts.exe adddupedirs
+
+[FTP_SITE_Permissions]
+imdb250 = 1
+addimdb250 = 1
+checksymlinks = 1
+dupe = *
+undupe = 1N
+adddupe = 1
+adddupedirs = 1
