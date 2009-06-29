@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.ZipScript", "ioFTPD.ZipScript\ioFTPD.ZipScript.csproj", "{4C916287-0460-4FBF-AFA4-B859D03362BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.Framework", "ioFTPD.Framework\ioFTPD.Framework.csproj", "{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.Tests", "ioFTPD.Tests\ioFTPD.Tests.csproj", "{62C6B033-8726-4B1D-ACA2-FD2D5521E570}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C916287-0460-4FBF-AFA4-B859D03362BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C916287-0460-4FBF-AFA4-B859D03362BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C916287-0460-4FBF-AFA4-B859D03362BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C916287-0460-4FBF-AFA4-B859D03362BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
