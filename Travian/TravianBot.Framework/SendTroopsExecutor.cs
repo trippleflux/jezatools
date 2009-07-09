@@ -52,6 +52,7 @@ namespace TravianBot.Framework
 
         public void Process()
         {
+            Random random = new Random(99999999);
             foreach (KeyValuePair<string, ActionList> container in actionContainer.ActionsContainer)
             {
                 string tempFile = String.Format(CultureInfo.InvariantCulture, "{0}.temp", container.Key);
@@ -90,7 +91,7 @@ namespace TravianBot.Framework
                         {
                             break;
                         }
-                        Thread.Sleep(2000);
+                        Thread.Sleep(random.Next(5000, 15000));
                     }
                 }
                 if (!attackIdFound)
