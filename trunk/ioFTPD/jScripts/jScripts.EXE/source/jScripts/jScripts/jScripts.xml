@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jScripts>
+	<affils>
+		<groupname>testgroup</groupname>
+		<realpath>"c:\\mp3\\test"</realpath>
+		<virtualpath>/test</virtualpath>
+		<presource>/mp3/test</presource>
+		<type>mp3</type>
+		<order>0</order>
+		<owneruser>testuser</owneruser>
+		<ownergroup>testgroup</ownergroup>
+		<description>testgroup pre</description>
+	</affils>
+	<affils>
+		<groupname>testgroup</groupname>
+		<realpath>"c:\\0day\\test"</realpath>
+		<virtualpath>/0day/test</virtualpath>
+		<presource>/test</presource>
+		<type>0day</type>
+		<order>0</order>
+		<owneruser>testuser</owneruser>
+		<ownergroup>testgroup</ownergroup>
+		<description>testgroup pre</description>
+	</affils>
+	<freespace>
+		<realpath>"c:\\0day\\test"</realpath>
+		<virtualpath>/0day/test</virtualpath>
+		<section>0day</section>
+		<method>0</method>
+		<minbytes>1024000000</minbytes>
+		<maxbytes>102400000000</maxbytes>
+		<mindirs>10</mindirs>
+		<maxdirs>100</maxdirs>
+		<mindays>10</mindays>
+		<maxdays>100</maxdays>
+	</freespace>
+</jScripts>
