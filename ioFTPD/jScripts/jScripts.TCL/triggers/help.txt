@@ -1,0 +1,26 @@
+!allup/dn                       Shows ALLUP/ALLDN Stats
+!affils                         Shows Affils Groups
+!banned                         Shows Banned Groups
+!bnc <sitename>                 Shows BNC(s) List
+!bnctest <sitename>             Tests BNC(s)
+!bw                             Shows Bandwidth
+!credits login                  Shows Users Credits
+!dayup/dn                       Shows DAYUP/DAYDN Stats
+!df                             Shows Free Space
+!dn                             Shows Downloaders
+!gstats group all/mn/wk/day     Shows Groups Stats
+!idle                           Shows Idle Users
+!mnup/dn                        Shows MNUP/MNDN Stats
+!passed login                   Shows Users Quota Status
+!reqadd name                    Adds A Request
+!reqdel #                       Deletes A Request
+!reqfill #                      Marks Request As Filled
+!requests                       Shows Requests
+!sections                       Shows Sections
+!speed login                    Shows Users Speed
+!trials                         Shows Users On Trial
+!up                             Shows Uploaders
+!ustats login all/mn/wk/day     Shows Users Stats
+!quotas                         Shows Users On Quota
+!who                            Shows Online Users
+!wkup/dn                        Shows WKUP/WKDN Stats
