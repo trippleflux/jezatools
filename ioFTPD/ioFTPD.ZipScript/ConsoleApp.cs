@@ -4,19 +4,19 @@ namespace ioFTPD.ZipScript
 {
     public class ConsoleApp
     {
-        public ConsoleApp(string[] args)
+        public ConsoleApp (string[] args)
         {
             this.args = args;
         }
 
-        public void Parse()
+        public void Parse ()
         {
             int numberOfArguments = args.Length;
-            switch(numberOfArguments)
+            switch (numberOfArguments)
             {
                 case 4:
                 {
-                    if (args[0].ToLower().Equals("upload"))
+                    if (args [0].ToLower ().Equals ("upload"))
                     {
                         target = Target.Upload;
                     }
@@ -31,23 +31,23 @@ namespace ioFTPD.ZipScript
             }
         }
 
-        public bool Process()
+        public bool Process ()
         {
-            bool returnValue = false;
-            switch(target)
+            bool returnValue;
+            switch (target)
             {
                 case Target.Upload:
                 {
-                    Race race = new Race(args);
-                    race.Parse();
-                    race.Process();
+                    Race race = new Race (args);
+                    race.Parse ();
+                    race.Process ();
                     returnValue = race.IsValid;
                     break;
                 }
 
                 default:
                 {
-                    return returnValue;
+                    return false;
                 }
             }
             return returnValue;
