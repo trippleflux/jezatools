@@ -17,12 +17,10 @@ namespace ioFTPD.Framework
         private const int DC_GID_TO_GROUP = 4;
 // ReSharper restore InconsistentNaming
 
-        Message message = new Message();
-
         public void Status ()
         {
             //Find the window, using the CORRECT Window Title, for example, Notepad
-            int hWnd = IoFtpd.FindWindow (null, "ioFTPD::MessageWindow");
+            int hWnd = IoFtpd.FindWindow ("ioFTPD::MessageWindow", null);
             if (hWnd > 0) //If found
             {
                 Console.WriteLine ("Window found...");
@@ -33,12 +31,5 @@ namespace ioFTPD.Framework
                 Console.WriteLine ("Window NOT found...");
             }
         }
-    }
-
-    internal class Message
-    {
-        Int32 dwIdentifier;
-        Int32 dwReturn;
-        String lpContext;
     }
 }
