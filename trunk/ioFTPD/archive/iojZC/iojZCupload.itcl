@@ -1,0 +1,371 @@
+set iojZC(nocheck)			"/private/* /groups/* /request/speedtest/*"
+set iojZC(binary)			"c:/ioFTPD/scripts/iojZC/unzip.exe"
+set iojZC(max_users)			5
+set iojZC(max_groups)			1
+set iojZC(iomsg)			true
+
+if { ([string match -nocase "*.diz" [lindex $args 0]]) } { 
+  set ioerror 1
+  return 1
+}
+
+if { !([string match -nocase "*.zip" [lindex $args 0]]) } { return }
+
+foreach sect $iojZC(nocheck) {
+  if { ([string match -nocase $sect $pwd]) } { return }
+}
+
+if { !([file exists $iojZC(binary)]) } { return }
+
+regsub -all -- {\\} $path {/} path
+regsub -all -- {\"} $path {} path
+set iojZC(path_f) [lindex [split $args] 0]
+regsub -all -- {\\} $iojZC(path_f) {/} iojZC(path_f)
+regsub -all -- {\"} $iojZC(path_f) {} iojZC(path_f)
+set iojZC(path_i)	[resolve pwd "$pwd/.."]
+set iojZC(dir_n)	[lindex [split $pwd "/"] end-1]
+set iojZC(file_n)	[lindex [split $iojZC(path_f) "/"] end]
+set iojZC(file_sp)	[format %.0f $speed]
+
+if { [file exists $iojZC(path_f)] } { set iojZC(file_s) [file size $iojZC(path_f)] } else { set iojZC(file_s) 0 }
+
+if { $iojZC(file_s) == 0 } {
+  catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)" }
+  catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)" 1 "$pwd" }
+  iputs -nobuffer ".-------------=\[ iojZC_v.1.02 by Jeza \]=-------------------------------------."
+  iputs -nobuffer "| + 0 byte.....: [format %-60.60s $iojZC(file_n)]|"
+  iputs -nobuffer "'----------------------------------------------------------------------------'"
+  set ioerror 1
+  return 1
+}
+
+if { !([file exists "$path/file_id.diz"]) } {
+  catch { [ exec $iojZC(binary) -qqnjCL "$iojZC(path_f)" "file_id.diz" -d "$path" ] }
+}
+
+proc Sort { sList } {
+  
+  set temp ""
+  
+  set i 0
+  while { $i < [llength $sList] } {
+    set j 0
+    while { $j < [llength $sList] } {
+      set ea [lindex $sList $j]
+      set eb [lindex $sList [expr $j+1]]
+      if { ([lindex [split $ea ":"] 0] < [lindex [split $eb ":"] 0]) } { 
+        set temp [lreplace $sList $j $j [lindex $sList [expr $j+1]]]
+        set temp [lreplace $temp [expr $j+1] [expr $j+1] [lindex $sList $j] ]
+      } else {
+        set temp $sList
+      }
+      set sList $temp
+      incr j
+    }
+    incr i
+  }
+  
+  return $temp
+
+}
+
+proc size { bytes } {
+  for {set i 0} {$bytes >= 1024} {incr i} { set bytes [expr $bytes / 1024] }
+  set post "B kB MB GB TB"
+  return "$bytes [lindex $post $i]"
+}
+
+proc iojZC:WriteStats { } {
+
+  global iojZC path user group
+
+  catch { set FILEzc [open "$path/.ioFTPD.iojZC" "a+"] }
+  catch { puts $FILEzc "[clock seconds]|$iojZC(file_n)|$iojZC(file_s)|$iojZC(file_sp)|$user|$group" }
+  catch { close $FILEzc }
+
+  return
+}
+
+proc iojZC:ReadStats { } {
+
+  global iojZC path pwd user group
+
+  catch { set FILEzc [open "$path/.ioFTPD.iojZC" "r"] }
+  catch { set FILEin [read $FILEzc] }
+  catch { close $FILEzc }
+  
+  set usr	""
+  set list_usr	""
+  set grp	""
+  set list_grp	""
+  set total_f 	0
+  set total_mb	0
+  foreach line [split $FILEin "\n"] {
+    if { $line != "" } { 
+      set usr [lindex [split $line "|"] 4]
+      set grp [lindex [split $line "|"] 5]
+      if { [lsearch $list_usr $usr] == -1 } { set list_usr [concat $list_usr "$usr "] }
+      if { [lsearch $list_grp $grp] == -1 } { set list_grp [concat $list_grp "$grp "] }
+      if { ![info exists stats(mbs,$usr)] } { set stats(mbs,$usr) 0 }
+      if { ![info exists stats(fil,$usr)] } { set stats(fil,$usr) 0 }
+      if { ![info exists stats(spd,$usr)] } { set stats(spd,$usr) 0 }
+      if { ![info exists stats(mbs,$grp)] } { set stats(mbs,$grp) 0 }
+      if { ![info exists stats(fil,$grp)] } { set stats(fil,$grp) 0 }
+      if { ![info exists stats(spd,$grp)] } { set stats(spd,$grp) 0 }
+      incr stats(fil,$usr)
+      incr stats(fil,$grp)
+      set stats(mbs,$usr) [expr $stats(mbs,$usr)+[lindex [split $line "|"] 2]]
+      set stats(spd,$usr) [expr $stats(spd,$usr)+[lindex [split $line "|"] 3]]
+      set stats(mbs,$grp) [expr $stats(mbs,$grp)+[lindex [split $line "|"] 2]]
+      set stats(spd,$grp) [expr $stats(spd,$grp)+[lindex [split $line "|"] 3]]
+      incr total_f
+      set total_mb [expr $total_mb+[lindex [split $line "|"] 2]]
+    }
+  }
+  
+  set dircontents [glob -nocomplain -directory [resolve pwd $pwd] *]
+
+  if { ($iojZC(diz)) } {
+    
+    foreach entry $dircontents {
+
+      if { ([file exists "$entry"]) } {
+        if { ([file size "$entry"] == 0) && ([file isfile "$entry"]) } {
+          catch { [file delete -force -- "$entry"] }
+        }
+      }
+    }
+    
+    if { ($total_f == 1) } {
+      putlog "UPDATE: \"$pwd\" \"\00303\002info\002\003 \002$iojZC(dir_n)\002 \[\002[size [expr $iojZC(file_s)*$iojZC(total)]]\002 in \002$iojZC(total)F\002\]\""
+    }
+    
+    if { ($total_f < $iojZC(total)) } {
+    
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      catch { vfs flush $iojZC(path_i) }
+    
+      if { ![file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+        catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)" }
+        catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)" 1 "$pwd" }
+      }
+      
+      catch { set FILEnd [open "$path/\]-\[iNCOMPLETE\]-\[ [expr [expr $total_f*100]/$iojZC(total)]% Done \]-\[iNCOMPLETE\]-\[" "w"] }
+      catch { close $FILEnd }
+      
+    }
+    
+    if { ($total_f == $iojZC(total)) } {
+    
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] }
+      }
+          
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      catch { vfs flush $iojZC(path_i) }
+    
+      catch { set FILEnd [open "$path/\]-\[ Complete $iojZC(total) F [size $total_mb] \]-\[" "w"] }
+      catch { close $FILEnd }
+      
+      if { [llength $list_usr] > 1 } {
+        putlog "COMPLETE: \"$pwd\" \"\00312\002complete\002\003 \002$iojZC(dir_n)\002 \[\002[size $total_mb]\002 in \002$iojZC(total)F\002\]\""
+      } else {
+        putlog "COMPLETE: \"$pwd\" \"\00312\002complete\002\003 \002$iojZC(dir_n)\002 \[\002[size $total_mb]\002 in \002$iojZC(total)F\002\] by \002$list_usr\002 @ \002[expr $stats(spd,$list_usr)/$stats(fil,$list_usr)] kB/s\002\""
+      }
+      
+      if { $iojZC(iomsg) } {
+        if { ([file exists "$path/file_id.diz"]) } {
+          
+          set FILEi ""
+          catch { set FILEdiz [open "$path/file_id.diz" "r"] }
+          catch { set FILEi [read $FILEdiz] }
+          catch { close $FILEdiz }
+          
+          catch { set FILEio [open "$path/.ioFTPD.message" "w"] }
+          catch { puts $FILEio $FILEi }
+          catch { puts $FILEio "" }
+          catch { close $FILEio }
+    
+        }
+      }
+      
+    }
+    
+    if { ($total_f > $iojZC(total)) } {
+    
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] }
+      }
+          
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      catch { vfs flush $iojZC(path_i) }
+    
+      if { ![file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] } {
+        catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)" }
+        catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)" 1 "$pwd" }
+      }
+    
+      catch { set FILEnd [open "$path/\]-\[ bad file_id \]-\[" "w"] }
+      catch { close $FILEnd }
+    
+      catch { set FILEnd [open "$path/\]-\[ Complete $iojZC(total) F [size $total_mb] \]-\[" "w"] }
+      catch { close $FILEnd }
+      
+    }
+    
+  };#($iojZC(diz))
+  
+  iputs -nobuffer "|-------------=\[ UserTop  \]=-------------------------------------------------|"
+  
+  if { ($total_f == $iojZC(total)) && ($iojZC(iomsg)) } {
+    catch { set FILEio [open "$path/.ioFTPD.message" "a"] }
+    catch { puts $FILEio " .-------------=\[ UserTop  \]=-------------------------------------------------." }
+    catch { close $FILEio }
+  }
+
+  set temp_u ""
+  foreach u $list_usr {
+    set temp_u [concat $temp_u "$stats(mbs,$u):$u:$stats(fil,$u):[expr $stats(spd,$u)/$stats(fil,$u)] "]
+  }
+  catch { set sort_u [Sort $temp_u] } 
+  
+  set i 1
+  foreach u_t $sort_u {
+    set u [lindex [split $u_t ":"] 1]
+
+    iputs -nobuffer "| [format %3d $i].   [format %-20s $u] [format %10s [size $stats(mbs,$u)]] [format %10s $stats(fil,$u)] F [format %15s [expr $stats(spd,$u)/$stats(fil,$u)]] kB/s   |"
+    
+    if { ($total_f == $iojZC(total)) && ($iojZC(iomsg)) } {
+      catch { set FILEio [open "$path/.ioFTPD.message" "a"] }
+      catch { puts $FILEio " | [format %3d $i].   [format %-20s $u] [format %10s [size $stats(mbs,$u)]] [format %10s $stats(fil,$u)] F [format %15s [expr $stats(spd,$u)/$stats(fil,$u)]] kB/s   |" }
+      catch { close $FILEio }
+    }
+    
+    if { ([llength $list_usr] > 1) && ($total_f == $iojZC(total)) && ($i <= $iojZC(max_users)) } {
+      putlog "STATS: \"$pwd\" \"\002u[format %-3d $i]\002 \002[format %-20s $u]\002 \[[format %8s [size $stats(mbs,$u)]] [format %5s $stats(fil,$u)] F [format %6s [expr $stats(spd,$u)/$stats(fil,$u)]] kB/s \] \""
+    }
+
+    if { ($user == $u) && ($total_f > 1) && ($iojZC(total) > 1) && ($stats(fil,$u) == 1) } {
+      putlog "RACE: \"$pwd\" \"\00303\002race\002\003 \002$iojZC(dir_n)\002 by \002$u\002 @ \002$stats(spd,$u) kB/s\002 \""
+    }
+
+    incr i
+  }
+
+  iputs -nobuffer "|-------------=\[ GroupTop \]=-------------------------------------------------|"
+
+  if { ($total_f == $iojZC(total)) && ($iojZC(iomsg)) } {
+    catch { set FILEio [open "$path/.ioFTPD.message" "a"] }
+    catch { puts $FILEio " |-------------=\[ GroupTop \]=-------------------------------------------------|" }
+    catch { close $FILEio }
+  }
+
+  set temp_g ""
+  foreach g $list_grp {
+    set temp_g [concat $temp_g "$stats(mbs,$g):$g:$stats(fil,$g):[expr $stats(spd,$g)/$stats(fil,$g)] "]
+  }
+  catch { set sort_g [Sort $temp_g] } 
+
+  set i 1
+  foreach g_t $sort_g {
+    set g [lindex [split $g_t ":"] 1]
+
+    iputs -nobuffer "| [format %3d $i].   [format %-20s $g] [format %10s [size $stats(mbs,$g)]] [format %10s $stats(fil,$g)] F [format %15s [expr $stats(spd,$g)/$stats(fil,$g)]] kB/s   |"
+
+    if { ($total_f == $iojZC(total)) && ($iojZC(iomsg)) } {
+      catch { set FILEio [open "$path/.ioFTPD.message" "a"] }
+      catch { puts $FILEio " | [format %3d $i].   [format %-20s $g] [format %10s [size $stats(mbs,$g)]] [format %10s $stats(fil,$g)] F [format %15s [expr $stats(spd,$g)/$stats(fil,$g)]] kB/s   |" }
+      catch { close $FILEio }
+    }
+
+    if { ([llength $list_usr] > 1) && ($total_f == $iojZC(total)) && ($i <= $iojZC(max_groups)) } {
+      putlog "STATS: \"$pwd\" \"\002g[format %-3d $i]\002 \002[format %-20s $g]\002 \[[format %8s [size $stats(mbs,$g)]] [format %5s $stats(fil,$g)] F [format %6s [expr $stats(spd,$g)/$stats(fil,$g)]] kB/s \] \""
+    }
+
+    incr i
+  }
+  
+  iputs -nobuffer "'---------------------------------------------------------------=\[[format %3d $total_f]/[format %-3d $iojZC(total)]\]=--'"
+
+  if { ($total_f == $iojZC(total)) && ($iojZC(iomsg)) } {
+    catch { set FILEio [open "$path/.ioFTPD.message" "a"] }
+    catch { puts $FILEio " '----------------------------------------------------------------------------'" }
+    catch { close $FILEio }
+  }
+  
+  return
+}
+
+if { !([file exists "$path/file_id.diz"]) } { 
+  
+  set iojZC(diz) false
+  set iojZC(total) -1
+  catch { set FILEnd [open "$path/\]-\[ file_id is missing \]-\[" "w"] }
+  catch { close $FILEnd }
+  catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)" }
+  catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)" 1 "$pwd" }
+  iojZC:WriteStats
+  iputs -nobuffer ".-------------=\[ iojZC_v.1.02 by Jeza \]=-------------------------------------."
+  iputs -nobuffer "| + No DiZ.....: [format %-60.60s $iojZC(file_n)]|"
+  iojZC:ReadStats
+  iputs -nobuffer "'----------------------------------------------------------------------------'"
+  
+  return
+}
+
+if { ([file exists "$path/file_id.diz"]) } { 
+  
+  set iojZC(diz) true
+  if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+    catch { [file delete -force "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+    catch { vfs flush $iojZC(path_i) }
+  }
+  
+  if { [file exists "$path/\]-\[ file_id is missing \]-\["] } {
+    catch { [file delete -force "$path/\]-\[ file_id is missing \]-\["] }
+  }
+  
+  set iojZC(diz) true
+  set iojZC(total) -1
+  set FILEin ""
+  catch { set FILEid [open "$path/file_id.diz" "r"] }
+  catch { set FILEin [read $FILEid] }
+  catch { close $FILEid }
+  regsub -all -nocase -- {x|o} $FILEin 0 FILEin
+  regsub -all {\[|\]|\(|\)|\<|\>|\$|\"|\'|\!|\%|\&|\?|\:|;|_|-|\.|\,|[0-9]{1,4}/[0-9]{1,4}/[0-9]{1,4}} $FILEin { } FILEin
+  foreach line $FILEin {
+    if { [regexp -nocase -- {[0-9]{1,3}/[0-9]{1,3}} $line out] } {
+      set out [lindex [split $out "/"] 1]
+      set iojZC(total) [format %.0f $out]
+      break
+    }
+  }
+
+  iojZC:WriteStats
+
+  iputs -nobuffer ".-------------=\[ iojZC_v.1.02 by Jeza \]=-------------------------------------."
+  iputs -nobuffer "| + FiLE OK....: [format %-60.60s $iojZC(file_n)]|"
+
+  iojZC:ReadStats
+  
+  return
+}
+
+
