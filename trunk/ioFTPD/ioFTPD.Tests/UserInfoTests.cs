@@ -11,6 +11,8 @@ namespace ioFTPD.Tests
         {
             UserInfo userInfo = new UserInfo ();
             userInfo.Status ();
+            IoFtpd ioFtpd = new IoFtpd();
+            ioFtpd.AllocateSharedMemory(24);
         }
     }
 }
