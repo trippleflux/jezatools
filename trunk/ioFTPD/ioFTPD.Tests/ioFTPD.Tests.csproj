@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OutputTests.cs" />
+    <Compile Include="UserInfoTests.cs" />
     <Compile Include="ZipScriptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
