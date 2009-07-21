@@ -1,0 +1,106 @@
+
+----------------------------------------------------------------------------------
+iNFO
+----------------------------------------------------------------------------------
+
+some functions are from
+zipscript-c	by d1		http://www.glftpd.com/
+Project-ZS	by Caladan	http://www.ioftpd.com/
+mp3sort		by error404	?
+unzip		by ljw1004	http://www.codeproject.com/file/zip_utils.asp
+
+
+write2log	by ToKi``	...
+newleader	by ToKi``	...
+
+----------------------------------------------------------------------------------
+COMPiLE
+----------------------------------------------------------------------------------
+
+edit iojZSconfig.h
+
+compile 
+
+-- i use free BCC32 compiler
+-- Borland C++ 5.5.1 for Win32 Copyright (c) 1993, 2000 Borland
+-- http://www.borland.com/products/downloads/download_cbuilder.html#
+
+
+copy iojZS.exe to ioFTPD/system/
+
+
+----------------------------------------------------------------------------------
+iNSTALL
+----------------------------------------------------------------------------------
+
+ioFTPD.ini
+
+[Events]
+OnUploadComplete	= EXEC iojZS.exe upload
+OnUploadError    	= EXEC iojZS.exe error
+
+if u dont use ioFTPD.log for NEWDIR and DELDIR anounce add this 2 lines
+or if u like to anounce %tagline on NEWDIR and DELDIR
+OnNewDir		= %EXEC iojZS.exe newdir "%[$unfo]"
+OnDelDir		= %EXEC iojZS.exe deldir "%[$unfo]"
+
+[FTP_Post-Command_Events]
+dele			= EXEC iojZS.exe delete
+
+ioftpd.env
+
+GID=%[$gid]
+GROUP=%[$group]
+PATH=%[$path]
+SPEED=%.[speed]
+SystemDrive=%[environment(SystemDrive)]
+SYSTEMPATH=%[$path]
+SYSTEMROOT=%[environment(SYSTEMROOT)]
+UID=%[$uid]
+USER=%[$user]
+VIRTUALPATH=%[$pwd]
+WINDIR=%[environment(WINDIR)]
+
+dZSbot
+
+set msgtypes(RACE)		"... NEWDIR BLA DELDIR BLE..."
+set msgtypes(DEFAULT)		"INVITE LOGIN LOGOUT ... SPEEDTEST"
+set disable(SPEEDTEST)		0
+set disable(BLA)		0
+set disable(BLE)		0
+set variables(SPEEDTEST)	"%msg"
+set variables(BLA)		"%pf %user %group %tagline"
+set variables(BLE)		"%pf %user %group %tagline"
+set announce(SPEEDTEST)		"%msg"
+set announce(BLA)		"\[%bold%section%bold\] %color07%boldnew%bold%color %bold%path/%release%bold By %bold%user%bold (%uline%tagline%uline)"
+set announce(BLE)		"\[%bold%section%bold\] %color04%bolddelete%bold%color %path/%bold%release%bold by %bold%user%bold (%uline%tagline%uline)""
+
+
+
+find proc readlog {}
+
+...
+	while {![eof $of]} {
+		set line [gets $of]
+		if {$line == ""} {continue}
+		set msgtype [string trim [lindex $line 2] ":"]
+		if { ! [info exists disable($msgtype)] } {continue}
+		if { $msgtype == "BLA" || $msgtype == "BLE" } {
+		  set path [lindex $line 7]
+		  if { $msgtype == "BLE" } { set path [string trimright $path "/"] }
+		  set var1 "{$path} [lrange $line 3 5]"
+		} elseif { $msgtype == "NEWDIR" || $msgtype == "DELDIR" } {
+			set path [lindex $line 5]
+			if { $msgtype == "DELDIR" } { set path [string trimright $path "/"] }
+			set var1 "{$path} [lrange $line 3 4]"
+		} elseif { $msgtype == "IMDB" } {
+
+...
+
+
+
+----------------------------------------------------------------------------------
+CHANGE LOG
+----------------------------------------------------------------------------------
+
+who cares ;)

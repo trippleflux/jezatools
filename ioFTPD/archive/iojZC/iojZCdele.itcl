@@ -1,0 +1,189 @@
+if { !([string match -nocase "*.zip" [lindex $args 1]]) } { return }
+
+set iojZC(path_i)	[resolve pwd "$pwd/.."]
+set iojZC(dir_n)	[lindex [split $pwd "/"] end-1]
+
+proc iojZC:ReadStats { } {
+
+  global iojZC args path pwd user group
+
+  set FILEin ""
+  catch { set FILEst [open "$path/.ioFTPD.iojZC" "r+"] }
+  catch { set FILEin [read $FILEst] }
+  catch { close $FILEst }
+
+  catch { set FILEns [open "$path/.ioFTPD.iojZC" "w+"] }
+
+  foreach line [split $FILEin "\n"] {
+
+    if { $line == "" } { continue }
+    if { [lindex [split $line "|"] 1] == [lindex $args 1] } { continue }
+    catch { puts $FILEns "$line"}
+
+  }
+
+  catch { close $FILEns }
+  
+  set FILEin ""
+  catch { set FILEzc [open "$path/.ioFTPD.iojZC" "r+"] }
+  catch { set FILEin [read $FILEzc] }
+  catch { close $FILEzc }
+  
+  set usr	""
+  set list_usr	""
+  set grp	""
+  set list_grp	""
+  set total_f 	0
+  set total_mb	0
+  foreach line [split $FILEin "\n"] {
+    if { $line != "" } { 
+      set usr [lindex [split $line "|"] 4]
+      set grp [lindex [split $line "|"] 5]
+      if { [lsearch $list_usr $usr] == -1 } { set list_usr [concat $list_usr "$usr "] }
+      if { [lsearch $list_grp $grp] == -1 } { set list_grp [concat $list_grp "$grp "] }
+      if { ![info exists stats(mbs,$usr)] } { set stats(mbs,$usr) 0 }
+      if { ![info exists stats(fil,$usr)] } { set stats(fil,$usr) 0 }
+      if { ![info exists stats(spd,$usr)] } { set stats(spd,$usr) 0 }
+      if { ![info exists stats(mbs,$grp)] } { set stats(mbs,$grp) 0 }
+      if { ![info exists stats(fil,$grp)] } { set stats(fil,$grp) 0 }
+      if { ![info exists stats(spd,$grp)] } { set stats(spd,$grp) 0 }
+      incr stats(fil,$usr)
+      incr stats(fil,$grp)
+      set stats(mbs,$usr) [expr $stats(mbs,$usr)+[lindex [split $line "|"] 2]]
+      set stats(spd,$usr) [expr $stats(spd,$usr)+[lindex [split $line "|"] 3]]
+      set stats(mbs,$grp) [expr $stats(mbs,$grp)+[lindex [split $line "|"] 2]]
+      set stats(spd,$grp) [expr $stats(spd,$grp)+[lindex [split $line "|"] 3]]
+      incr total_f
+      set total_mb [expr $total_mb+[lindex [split $line "|"] 2]]
+    }
+  }
+  
+  if { $total_f == 0 } {
+
+    if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+      catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] }
+    }
+        
+    if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] } {
+      catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] }
+    }
+    
+    if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+      catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+    }
+    
+    catch { [file delete -force -- "$path/.ioFTPD.iojZC"] }
+
+    catch { vfs flush $iojZC(path_i) }
+    
+    return
+  }
+  
+  set dircontents [glob -nocomplain -directory [resolve pwd $pwd] *]
+
+  if { ($iojZC(diz)) } {
+    
+    foreach entry $dircontents {
+
+      if { ([file exists "$entry"]) } {
+        if { ([file size "$entry"] == 0) && ([file isfile "$entry"]) } {
+          catch { [file delete -force -- "$entry"] }
+        }
+      }
+    }
+    
+    if { ($total_f < $iojZC(total)) } {
+    
+      if { ![file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+        catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)" }
+        catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)" 1 "$pwd" }
+      }
+      
+      catch { set FILEnd [open "$path/\]-\[iNCOMPLETE\]-\[ [expr [expr $total_f*100]/$iojZC(total)]% Done \]-\[iNCOMPLETE\]-\[" "w"] }
+      catch { close $FILEnd }
+      
+    }
+    
+    if { ($total_f == $iojZC(total)) } {
+    
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] }
+      }
+          
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      catch { vfs flush $iojZC(path_i) }
+    
+      catch { set FILEnd [open "$path/\]-\[ Complete $iojZC(total) F [size $total_mb] \]-\[" "w"] }
+      catch { close $FILEnd }
+      
+    }
+    
+    if { ($total_f > $iojZC(total))} {
+    
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-$iojZC(dir_n)"] }
+      }
+          
+      if { [file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] } {
+        catch { [file delete -force -- "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)"] }
+      }
+      
+      catch { vfs flush $iojZC(path_i) }
+    
+      if { ![file exists "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)"] } {
+        catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)" }
+        catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-\[bad_diz\]-$iojZC(dir_n)" 1 "$pwd" }
+      }
+    
+      catch { set FILEnd [open "$path/\]-\[ bad file_id \]-\[" "w"] }
+      catch { close $FILEnd }
+    
+      catch { set FILEnd [open "$path/\]-\[ Complete $iojZC(total) F [size $total_mb] \]-\[" "w"] }
+      catch { close $FILEnd }
+      
+    }
+  
+  }
+  
+  return
+}
+
+if { ([file exists "$path/file_id.diz"]) } { 
+  
+  set iojZC(diz) true
+  set iojZC(total) -1
+  set FILEin ""
+  catch { set FILEid [open "$path/file_id.diz" "r"] }
+  catch { set FILEin [read $FILEid] }
+  catch { close $FILEid }
+  regsub -all -nocase -- {x|o} $FILEin 0 FILEin
+  regsub -all {\[|\]|\(|\)|\<|\>|\$|\"|\'|\!|\%|\&|\?|\:|;|_|-|\.|\,|[0-9]{1,4}/[0-9]{1,4}/[0-9]{1,4}} $FILEin { } FILEin
+  foreach line $FILEin {
+    if { [regexp -nocase -- {[0-9]{1,3}/[0-9]{1,3}} $line out] } {
+      set out [lindex [split $out "/"] 1]
+      set iojZC(total) [format %.0f $out]
+      break
+    }
+  }
+
+  iojZC:ReadStats
+  
+} else {
+	
+  set iojZC(diz) false
+  set iojZC(total) -1
+  catch { set FILEnd [open "$path/\]-\[ file_id is missing \]-\[" "w"] }
+  catch { close $FILEnd }
+  catch { file mkdir "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)" }
+  catch { vfs chattr "$iojZC(path_i)/\[iNCOMPLETE\]-\[no_diz\]-$iojZC(dir_n)" 1 "$pwd" }
+  iojZC:ReadStats
+  return
+
+}
