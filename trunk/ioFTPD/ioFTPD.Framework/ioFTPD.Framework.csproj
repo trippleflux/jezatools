@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ioFTPD.cs" />
     <Compile Include="MyFormat.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Crc32.cs" />

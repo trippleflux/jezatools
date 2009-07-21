@@ -6,17 +6,6 @@ namespace ioFTPD.Framework
     public class UserInfo
     {
         //Import the FindWindow API to find our window
-        [DllImport ("User32.dll")]
-        private static extern int FindWindow
-            (String className,
-             String windowName);
-
-        [DllImport ("user32.dll", CharSet = CharSet.Auto)]
-        public static extern int SendMessage
-            (Int32 hWnd,
-             Int32 wMsg,
-             IntPtr wParam,
-             IntPtr lParam);
 
 // ReSharper disable InconsistentNaming
         private const int WM_USER = 0x0400;
@@ -33,11 +22,11 @@ namespace ioFTPD.Framework
         public void Status ()
         {
             //Find the window, using the CORRECT Window Title, for example, Notepad
-            int hWnd = FindWindow (null, "ioFTPD::MessageWindow");
+            int hWnd = IoFtpd.FindWindow (null, "ioFTPD::MessageWindow");
             if (hWnd > 0) //If found
             {
                 Console.WriteLine ("Window found...");
-                SendMessage (hWnd, WM_SHMEM, IntPtr.Zero, IntPtr.Zero);
+                IoFtpd.SendMessage(hWnd, WM_SHMEM, IntPtr.Zero, IntPtr.Zero);
             }
             else
             {
