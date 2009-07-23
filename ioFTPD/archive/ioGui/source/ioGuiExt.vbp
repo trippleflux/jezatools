@@ -1,0 +1,37 @@
+Type=Exe
+Class=clsMemMap; clsMemMap.cls
+Module=mdlMemMap; mdlMemMap.bas
+Module=mdlCommon; mdlCommonFunctions.bas
+Module=mdlMain; mdlMain.bas
+Startup="Sub Main"
+HelpFile=""
+Title="ioGuiExt"
+ExeName32="ioGuiExt.exe"
+Command32="copyuser 103 104"
+Name="ioGuiExt"
+HelpContextID="0"
+CompatibleMode="0"
+MajorVer=1
+MinorVer=0
+RevisionVer=4
+AutoIncrementVer=0
+ServerSupportFiles=0
+VersionCompanyName="*"
+CompilationType=0
+OptimizationType=0
+FavorPentiumPro(tm)=0
+CodeViewDebugInfo=0
+NoAliasing=0
+BoundsCheck=0
+OverflowCheck=0
+FlPointCheck=0
+FDIVCheck=0
+UnroundedFP=0
+StartMode=0
+Unattended=0
+Retained=0
+ThreadPerObject=0
+MaxNumberOfThreads=1
+
+[MS Transaction Server]
+AutoRefresh=1
