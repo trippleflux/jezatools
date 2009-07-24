@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -45,13 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LpMessage.cs" />
+    <Compile Include="FileMapAccessType.cs" />
+    <Compile Include="FileMapProtection.cs" />
     <Compile Include="ioFTPD.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="MapAccess.cs" />
+    <Compile Include="MemoryMappedFile.cs" />
     <Compile Include="MyFormat.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="FileInfo.cs" />
+    <Compile Include="Native.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
