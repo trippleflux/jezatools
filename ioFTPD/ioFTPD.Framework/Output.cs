@@ -48,6 +48,11 @@ namespace ioFTPD.Framework
                         args[i] = race.TotalFilesExpected.ToString();
                         break;
                     }
+                    case "totalfilesuploaded":
+                    {
+                        args [i] = race.TotalFilesUploaded.ToString ();
+                        break;
+                    }
                     default:
                     {
                         break;
