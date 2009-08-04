@@ -15,6 +15,6 @@ namespace ioFTPD.Framework
         public const string ClientFileNameSfvExists = "| Deleting.: {0,-80:B79}|¤SFV allready exists!";
 
         public const string ClientFoot =
-            "'---------------------------------------------------------------------=[ {0,-3:B3}/{1,-3:B3} ]=----------'¤TotalFilesUploaded TotalFilesExpected";
+            "'---------------------------------------------------------------------=[ {0,3:B3}/{1,-3:B3} ]=----------'¤TotalFilesUploaded TotalFilesExpected";
     }
 }
