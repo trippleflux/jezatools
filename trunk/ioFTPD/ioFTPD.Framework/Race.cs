@@ -62,8 +62,40 @@ namespace ioFTPD.Framework
                     break;
                 }
 
+                case RaceType.Rar:
+                {
+                    FileInfo fileInfo = new FileInfo();
+                    fileInfo.ParseRaceFile (this);
+                    if (fileInfo.GetCrc32ForFile(FileName).Equals (UploadCrc))
+                    {
+                        //fileInfo.UpdateRaceData (this);
+                        Output output = new Output(this);
+                        output
+                            .Client(Config.ClientHead)
+                            .Client(Config.ClientFileNameOk)
+                            .Client(Config.ClientFoot);
+                        IsValid = true;
+                    }
+                    else
+                    {
+                        Output output = new Output(this);
+                        output
+                            .Client(Config.ClientHead)
+                            .Client(Config.ClientFileNameBadCrc)
+                            .Client(Config.ClientFoot);
+                        IsValid = false;
+                    }
+                    break;
+                }
+
                 default:
                 {
+                    Output output = new Output(this);
+                    output
+                        .Client(Config.ClientHead)
+                        .Client(Config.ClientFileName)
+                        .Client(Config.ClientFoot);
+                    IsValid = false;
                     break;
                 }
             }
@@ -120,6 +152,7 @@ namespace ioFTPD.Framework
         public bool IsValid { get; set; }
 
         public int TotalFilesExpected { get; set; }
+        public int TotalFilesUploaded { get; set; }
 
         private readonly string[] args;
         private Dictionary<string, string> sfvData = new Dictionary<string, string>();
