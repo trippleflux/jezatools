@@ -53,9 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ioFTPDTests.cs" />
     <Compile Include="OutputTests.cs" />
-    <Compile Include="UserInfoTests.cs" />
     <Compile Include="ZipScriptTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

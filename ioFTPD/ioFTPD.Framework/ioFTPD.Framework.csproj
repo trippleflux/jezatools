@@ -45,21 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileMapAccessType.cs" />
-    <Compile Include="FileMapProtection.cs" />
     <Compile Include="ioFTPD.cs" />
-    <Compile Include="MapAccess.cs" />
-    <Compile Include="MemoryMappedFile.cs" />
     <Compile Include="MyFormat.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="FileInfo.cs" />
-    <Compile Include="Native.cs" />
     <Compile Include="Output.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaceType.cs" />
-    <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
