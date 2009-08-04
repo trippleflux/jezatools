@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading;
 
 #endregion
 
@@ -14,6 +15,7 @@ namespace ioFTPD.Framework
         public void ParseRaceFile(Race race)
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.DirectoryPath, Config.FileNameRace));
+            raceMutex.WaitOne();
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -43,6 +45,7 @@ namespace ioFTPD.Framework
                     race.TotalFilesUploaded = uploadedFiles;
                 }
             }
+            raceMutex.ReleaseMutex();
         }
 
         public void UpdateRaceData(Race race)
@@ -50,6 +53,7 @@ namespace ioFTPD.Framework
             int position = 0;
             string fileName = "", fileCrc = "";
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.DirectoryPath, Config.FileNameRace));
+            raceMutex.WaitOne();
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -91,6 +95,7 @@ namespace ioFTPD.Framework
                 }
                 race.TotalFilesUploaded++;
             }
+            raceMutex.ReleaseMutex();
         }
 
         /// <summary>
@@ -148,6 +153,7 @@ namespace ioFTPD.Framework
         public void CreateSfvRaceDataFile(Race race)
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.DirectoryPath, Config.FileNameRace));
+            raceMutex.WaitOne();
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -172,6 +178,7 @@ namespace ioFTPD.Framework
                     }
                 }
             }
+            raceMutex.ReleaseMutex();
         }
 
         public void DeleteFiles
@@ -210,5 +217,6 @@ namespace ioFTPD.Framework
         }
 
         private readonly Dictionary<string, string> sfvData = new Dictionary<string, string>();
+        private static readonly Mutex raceMutex = new Mutex(false, "raceMutex");
     }
 }
