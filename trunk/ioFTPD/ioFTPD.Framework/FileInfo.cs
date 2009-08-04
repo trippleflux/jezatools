@@ -23,17 +23,58 @@ namespace ioFTPD.Framework
                     stream.Seek (0, SeekOrigin.Begin);
                     int totalFiles = reader.ReadInt32 ();
                     int uploadedFiles = 0;
-                    for (int i = 0; i < totalFiles; i++)
+                    for (int i = 1; i <= totalFiles; i++)
                     {
                         stream.Seek (256 * i, SeekOrigin.Begin);
-                        sfvData.Add (reader.ReadString (), reader.ReadString ());
+                        string fileNmae = reader.ReadString ();
+                        string crc32 = reader.ReadString ();
+                        sfvData.Add (fileNmae, crc32);
                         if (reader.ReadBoolean ())
                         {
                             uploadedFiles++;
                         }
+                        int size = reader.ReadInt32 ();
+                        int speed = reader.ReadInt32 ();
+                        string username = reader.ReadString ();
+                        string groupname = reader.ReadString ();
                     }
                     race.TotalFilesExpected = totalFiles;
                     race.TotalFilesUploaded = uploadedFiles;
+                }
+            }
+        }
+
+        public void UpdateRaceData (Race race)
+        {
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo (Path.Combine (race.DirectoryPath, Config.FileNameRace));
+            using (FileStream stream = new FileStream (fileInfo.FullName,
+                                                       FileMode.Open,
+                                                       FileAccess.ReadWrite,
+                                                       FileShare.None))
+            {
+                long position = 0l;
+                using (BinaryReader reader = new BinaryReader (stream))
+                {
+                    for (int i = 1; i <= race.TotalFilesExpected; i++)
+                    {
+                        stream.Seek (256 * i, SeekOrigin.Begin);
+                        string fileName = reader.ReadString ();
+                        if (fileName.Equals (race.FileName))
+                        {
+                            string crc32 = reader.ReadString ();
+                            position = stream.Position;
+                            break;
+                        }
+                    }
+                }
+                using (BinaryWriter writer = new BinaryWriter (stream))
+                {
+                    stream.Seek (position, SeekOrigin.Begin);
+                    writer.Write (true);
+                    writer.Write (666); //file Size
+                    writer.Write (111); //upload speed
+                    writer.Write ("pepi"); //username
+                    writer.Write ("groupPepI"); //groupname
                 }
             }
         }
@@ -106,8 +147,8 @@ namespace ioFTPD.Framework
                     foreach (KeyValuePair<string, string> keyValuePair in race.SfvData)
                     {
                         stream.Seek (count * 256, SeekOrigin.Begin);
-                        writer.Write (keyValuePair.Key);    //file name
-                        writer.Write (keyValuePair.Value);  //CRC32
+                        writer.Write (keyValuePair.Key); //file name
+                        writer.Write (keyValuePair.Value); //CRC32
                         writer.Write (false); //was file already uploaded
                         writer.Write (0); //file Size
                         writer.Write (0); //upload speed
@@ -155,10 +196,5 @@ namespace ioFTPD.Framework
         }
 
         private readonly Dictionary<string, string> sfvData = new Dictionary<string, string> ();
-
-        public void UpdateRaceData (Race race)
-        {
-            throw new NotImplementedException ();
-        }
     }
 }

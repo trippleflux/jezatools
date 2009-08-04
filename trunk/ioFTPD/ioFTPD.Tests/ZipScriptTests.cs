@@ -38,7 +38,6 @@ namespace ioFTPD.Tests
         /// Uploads the first file. Delete file with missing extension, update RACE file.
         /// </summary>
         [Test]
-        [DependsOn("RaceSfv")]
         public void RaceRar()
         {
             Race race = new Race(argsRar);

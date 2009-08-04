@@ -68,7 +68,7 @@ namespace ioFTPD.Framework
                     fileInfo.ParseRaceFile (this);
                     if (fileInfo.GetCrc32ForFile(FileName).Equals (UploadCrc))
                     {
-                        //fileInfo.UpdateRaceData (this);
+                        fileInfo.UpdateRaceData (this);
                         Output output = new Output(this);
                         output
                             .Client(Config.ClientHead)
