@@ -14,36 +14,77 @@
                 onclick="LinkButtonLogout_Click">Logout</asp:LinkButton>
         </div>
         <div>
-            <table>
-                <tr>
-                    <td class="Navigation"  >
-                        <asp:LinkButton ID="linkButtonFarms" runat="server" 
-                            onclick="LinkButtonFarms_Click">Farms</asp:LinkButton>
-                    </td>
-                    <td class="Navigation"  >
-                        <asp:LinkButton ID="linkButtonVillages" runat="server">Villages</asp:LinkButton>
-                    </td>
-                    <td class="Navigation"  >
-                        <asp:LinkButton ID="linkButtonNotes" runat="server">Notes</asp:LinkButton>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div style="background-color: #CCFFCC">
             <div>
-                <asp:Label ID="labelCoordinatesStart" runat="server" Text="Coordinates: ("></asp:Label>
-                <asp:TextBox ID="textBoxCoordsX" runat="server" CssClass="Coordinates"></asp:TextBox>
-                <asp:Label ID="labelCoordinatesMidle" runat="server" Text=")|("></asp:Label>
-                <asp:TextBox ID="textBoxCoordsY" runat="server" CssClass="Coordinates"></asp:TextBox>
-                <asp:Label ID="labelCoordinatesEnd" runat="server" Text=")"></asp:Label>
+				<table>
+					<tr>
+						<td class="Navigation">
+							<asp:Label ID="LabelVillages" runat="server" Text="Villages"></asp:Label>
+						</td>
+						<td class="Navigation">
+							<asp:Label ID="LabelExludedUsers" runat="server" Text="Exluded Users"></asp:Label>
+						</td>
+						<td class="Navigation">
+							<asp:Label ID="LabelExludedAliances" runat="server" Text="Exluded Aliances"></asp:Label>
+						</td>
+						<td class="Navigation">
+							<asp:Label ID="LabelNextFarm" runat="server" Text="Next Farm"></asp:Label>
+						</td>
+					</tr>
+					<tr>
+						<td class="Navigation">
+							<asp:DropDownList ID="DropDownListVillages" runat="server">
+							</asp:DropDownList>
+						</td>
+						<td class="Navigation">
+							<asp:DropDownList ID="DropDownListExcludedUsers" runat="server">
+							</asp:DropDownList>
+						</td>
+						<td class="Navigation">
+							<asp:DropDownList ID="DropDownListExcludedAliances" runat="server">
+							</asp:DropDownList>
+						</td>
+						<td class="Navigation">
+							<asp:LinkButton ID="linkButtonNextFarm" runat="server">[NOT SET]</asp:LinkButton>
+						</td>
+					</tr>
+				</table>
             </div>
             <div>
                 <asp:LinkButton ID="linkButtonGetFarms" runat="server" 
                     onclick="LinkButtonGetFarms_Click" >GetFarms</asp:LinkButton>
             </div>
             <div>
-                <asp:GridView ID="gridViewFarms" runat="server">
+                <asp:GridView ID="gridViewFarms" runat="server" AllowPaging="True" 
+					AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" 
+					DataSourceID="SqlDataSourceCoordinator" ForeColor="#333333" GridLines="None" 
+					PageSize="20">
+					<RowStyle BackColor="#E3EAEB" />
+					<Columns>
+						<asp:BoundField DataField="PlayerName" HeaderText="PlayerName" 
+							SortExpression="PlayerName" />
+						<asp:BoundField DataField="AlianceName" HeaderText="AlianceName" 
+							SortExpression="AlianceName" />
+						<asp:BoundField DataField="VillageName" HeaderText="VillageName" 
+							SortExpression="VillageName" />
+						<asp:BoundField DataField="TribeId" HeaderText="TribeId" 
+							SortExpression="TribeId" />
+						<asp:BoundField DataField="Population" HeaderText="Population" 
+							SortExpression="Population" />
+						<asp:CommandField InsertVisible="False" 
+							ShowEditButton="True" ShowSelectButton="True" />
+					</Columns>
+					<FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+					<PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+					<SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+					<HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+					<EditRowStyle BackColor="#7C6F57" />
+					<AlternatingRowStyle BackColor="White" />
                 </asp:GridView>
+            	<asp:SqlDataSource ID="SqlDataSourceCoordinator" runat="server" 
+					ConnectionString="<%$ ConnectionStrings:Coordinator %>" 
+					ProviderName="<%$ ConnectionStrings:Coordinator.ProviderName %>" 
+					SelectCommand="SELECT [PlayerName], [AlianceName], [VillageName], [TribeId], [Population] FROM [Map]">
+				</asp:SqlDataSource>
             </div>
         </div>
     </form>
