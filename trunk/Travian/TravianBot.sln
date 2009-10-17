@@ -76,7 +76,28 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TravianBot.Coordinator", "T
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "4512"
+		VWDPort = "3341"
+	EndProjectSection
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TravianBot.FarmList", "TravianBot.FarmList\", "{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/TravianBot.FarmList"
+		Debug.AspNetCompiler.PhysicalPath = "TravianBot.FarmList\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\TravianBot.FarmList\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/TravianBot.FarmList"
+		Release.AspNetCompiler.PhysicalPath = "TravianBot.FarmList\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\TravianBot.FarmList\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1305"
+		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
 Global
@@ -169,6 +190,12 @@ Global
 		{CEC3EE1D-6DC2-4D7A-9031-C870BD9236BB}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{CEC3EE1D-6DC2-4D7A-9031-C870BD9236BB}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{CEC3EE1D-6DC2-4D7A-9031-C870BD9236BB}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}.Debug|.NET.ActiveCfg = Debug|.NET
+		{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}.Release|.NET.ActiveCfg = Debug|.NET
+		{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{F7F87ACF-F7F1-4BC6-8DD7-917BA0E8E72F}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
