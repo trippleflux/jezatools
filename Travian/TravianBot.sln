@@ -62,7 +62,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TravianBot.Coordinator", "TravianBot.Coordinator\", "{CEC3EE1D-6DC2-4D7A-9031-C870BD9236BB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
-		ProjectReferences = "{93D87334-7BD1-4AFC-AC17-C2A1D87C38AF}|TravianBot.Framework.dll;"
+		ProjectReferences = ""
 		Debug.AspNetCompiler.VirtualPath = "/TravianBot.Coordinator"
 		Debug.AspNetCompiler.PhysicalPath = "TravianBot.Coordinator\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\TravianBot.Coordinator\"
