@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.UidChanger", "ioFTPD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.Scripts", "ioFTPD.Scripts\ioFTPD.Scripts.csproj", "{8DE81D0B-75DB-4CF1-B6A6-4C2023D09FA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.NewDay", "ioFTPD.NewDay\ioFTPD.NewDay.csproj", "{A6D387C9-3DAC-4714-AFE2-4A66B6CFEF59}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{8CA77A16-B086-4727-AEF1-4FF68895C325}"
 	ProjectSection(SolutionItems) = preProject
 		nant.bat = nant.bat
@@ -59,6 +61,10 @@ Global
 		{8DE81D0B-75DB-4CF1-B6A6-4C2023D09FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DE81D0B-75DB-4CF1-B6A6-4C2023D09FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DE81D0B-75DB-4CF1-B6A6-4C2023D09FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6D387C9-3DAC-4714-AFE2-4A66B6CFEF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D387C9-3DAC-4714-AFE2-4A66B6CFEF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D387C9-3DAC-4714-AFE2-4A66B6CFEF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D387C9-3DAC-4714-AFE2-4A66B6CFEF59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
