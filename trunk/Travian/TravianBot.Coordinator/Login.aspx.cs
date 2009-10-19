@@ -1,7 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+
+#endregion
 
 public partial class Default : Page
 {
@@ -19,7 +22,8 @@ public partial class Default : Page
         (object sender,
          EventArgs e)
     {
-        if (textBoxUsername.Text.Equals ("jeza") && textBoxPassword.Text.Equals ("asdqweasd"))
+        if ((textBoxUsername.Text.Equals("jeza") && textBoxPassword.Text.Equals("asdqweasd"))
+            || (textBoxUsername.Text.Equals("bb") && textBoxPassword.Text.Equals("krtek13")))
         {
             FormsAuthentication.RedirectFromLoginPage(textBoxUsername.Text, true);
         }
