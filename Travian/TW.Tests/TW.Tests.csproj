@@ -89,6 +89,7 @@
     <Content Include="TestFiles\berichte.raid.html" />
     <Content Include="TestFiles\berichte.reinforcement.html" />
     <Content Include="TestFiles\berichte.unknown.html" />
+    <Content Include="TestFiles\berichte.yesterday.html" />
     <Content Include="TestFiles\dorf1.attack.html" />
     <Content Include="TestFiles\dorf1.html" />
   </ItemGroup>
