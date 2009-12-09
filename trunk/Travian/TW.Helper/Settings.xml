@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <language id="sl-SI">
+    <reports>
+      <rowAttackerTroops>Enote</rowAttackerTroops>
+      <rowAttackerCasualties>Žrtve</rowAttackerCasualties>
+      <rowAttackerPrisoners>Ujetniki</rowAttackerPrisoners>
+      <rowAttackerInformation>Informacija</rowAttackerInformation>
+      <rowAttackerBounty>Plen</rowAttackerBounty>
+      <rowDefenderTroops>Enote</rowDefenderTroops>
+      <rowDefenderCasualties>Žrtve</rowDefenderCasualties>
+      <nameOfCurrentDay>danes</nameOfCurrentDay>
+    </reports>
+  </language>
+  <language id="en-EN">
+    <reports>
+      <rowAttackerTroops>Troops</rowAttackerTroops>
+      <rowAttackerCasualties>Casualties</rowAttackerCasualties>
+      <rowAttackerPrisoners>Prisoners</rowAttackerPrisoners>
+      <rowAttackerInformation>Information</rowAttackerInformation>
+      <rowAttackerBounty>Bounty</rowAttackerBounty>
+      <rowDefenderTroops>Troops</rowDefenderTroops>
+      <rowDefenderCasualties>Casualties</rowDefenderCasualties>
+      <nameOfCurrentDay>today</nameOfCurrentDay>
+    </reports>
+  </language>
+</settings>

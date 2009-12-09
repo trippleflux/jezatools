@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.labelStyle
+{
+	width:120px;
+	float:right;
+	text-align:right;
+}
+
+.textBoxStyle
+{
+	width:50px;
+}
+
+.textBoxNextFarm
+{
+	width:300px;
+}
