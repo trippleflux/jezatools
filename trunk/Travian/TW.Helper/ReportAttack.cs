@@ -58,9 +58,9 @@ namespace TW.Helper
                         Log.DebugFormat("reportId={0}, reportText={1}, reportUrl={2}", reportId,
                                         reportText, reportUrl);
                         Report report = new Report(reportUrl, reportText)
-                                        {
-                                            Id = reportId,
-                                        };
+                            {
+                                Id = reportId,
+                            };
                         reports.Add(report);
                     }
                 }
@@ -89,9 +89,15 @@ namespace TW.Helper
                 Log.DebugFormat("date={0}", date);
                 string[] reportDate = date.Split(' ');
                 string currentDay = gameData.Settings.Reports.NameOfCurrentDay;
-                Log.DebugFormat("settings={0}", currentDay);
+                string previousDay = gameData.Settings.Reports.NameOfPreviousDay;
+                Log.DebugFormat("currentDay={0}", currentDay);
+                Log.DebugFormat("previousDay={0}", previousDay);
                 Log.DebugFormat("report={0}", reportDate[1]);
-                string day = reportDate[1].Equals(currentDay) ? DateTime.Now.ToShortDateString() : reportDate[1];
+                string day = reportDate[1].Equals(currentDay)
+                                 ? DateTime.Now.ToShortDateString()
+                                 : reportDate[1].Equals(previousDay)
+                                       ? DateTime.Now.AddDays(-1).ToShortDateString()
+                                       : reportDate[1];
                 DateTime dateTime =
                     DateTime.Parse(String.Format(CultureInfo.InvariantCulture, "{0} {1}", day, reportDate[3]));
                 report.Date = dateTime;
