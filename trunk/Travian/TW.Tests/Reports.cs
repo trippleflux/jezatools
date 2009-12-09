@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Globalization;
 using MbUnit.Framework;
 using TW.Helper;
 
@@ -11,6 +12,21 @@ namespace TW.Tests
     [TestFixture]
     public class Reports : TestBase
     {
+        [Test]
+        public void SaveReportYesterday()
+        {
+            GetBrowser("berichte.yesterday.html");
+            GameData gameData = new GameData();
+            gameData.GameSettings("sl-SI");
+            ReportAttack reportAttack = new ReportAttack(Browser, gameData);
+            Report report = new Report("url", "report text") { Date = DateTime.Now, Id = 123456, };
+            reportAttack.ParseDate(report);
+            string yesterday = DateTime.Now.AddDays(-1).ToShortDateString();
+            DateTime dateTime =
+                DateTime.Parse(String.Format(CultureInfo.InvariantCulture, "{0} {1}", yesterday, "22:58:44"));
+            Assert.AreEqual(report.Date, dateTime);
+        }
+
         [Test]
         public void SaveReportPrisoners()
         {

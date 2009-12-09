@@ -10,6 +10,7 @@
       <rowDefenderTroops>Enote</rowDefenderTroops>
       <rowDefenderCasualties>Žrtve</rowDefenderCasualties>
       <nameOfCurrentDay>danes</nameOfCurrentDay>
+      <nameOfPreviousDay>včeraj</nameOfPreviousDay>
     </reports>
   </language>
   <language id="en-EN">
@@ -22,6 +23,7 @@
       <rowDefenderTroops>Troops</rowDefenderTroops>
       <rowDefenderCasualties>Casualties</rowDefenderCasualties>
       <nameOfCurrentDay>today</nameOfCurrentDay>
+      <nameOfPreviousDay>yesterday</nameOfPreviousDay>
     </reports>
   </language>
 </settings>

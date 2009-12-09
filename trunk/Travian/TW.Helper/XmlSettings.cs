@@ -76,5 +76,11 @@ namespace TW.Helper
 
         [XmlIgnore]
         public bool NameOfCurrentDaySpecified { get; set; }
+
+        [XmlElement(ElementName = "nameOfPreviousDay")]
+        public string NameOfPreviousDay { get; set; }
+
+        [XmlIgnore]
+        public bool NameOfPreviousDaySpecified { get; set; }
     }
 }
