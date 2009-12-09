@@ -29,7 +29,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TW.WebGui", "TW.WebGui\", "
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "2024"
+		VWDPort = "2884"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
