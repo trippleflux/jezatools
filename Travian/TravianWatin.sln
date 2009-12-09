@@ -35,6 +35,12 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "TW.WebGui", "TW.WebGui\", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Neighbour", "TW.Neighbour\TW.Neighbour.csproj", "{FC1C2CD2-E386-4A19-B2EF-DA7D880EAC30}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{98B75421-4FC9-42EB-919F-BD64C8B08907}"
+	ProjectSection(SolutionItems) = preProject
+		nant.bat = nant.bat
+		nant.build = nant.build
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

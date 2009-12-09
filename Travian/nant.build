@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="BuildRunner" default="compile" xmlns="http://nant.sf.net/schemas/nant.xsd">
+
+  <loadtasks assembly="..\lib\GallioBundle-3.1.397.0\bin\Gallio.NAntTasks.dll" />
+  <property name="DotNetFrameworkDir" value="${path::combine(environment::get-variable('SystemRoot'), 'Microsoft.NET\Framework\v3.5')}" />
+  <property name="Configuration" value="Release" />
+
+  <property name="Folder.Source" value="." />
+
+  <property name="File.Solution" value="TravianWatin.sln" />
+
+  <property name="MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
+
+  <target name="clean" descripton="Removes output files and directories.">
+    <delete includeemptydirs="true" failonerror="true">
+      <fileset basedir="${Folder.Source}">
+        <include name="_ReSharper.*/**"/>
+        <include name="**/*.user"/>
+        <include name="**/*.suo"/>
+        <include name="**/*.ncb"/>
+        <include name="**/*.cache"/>
+      </fileset>
+    </delete>
+  </target>
+
+  <target name="compile" depends="clean" descripton="Compile solution">
+    <exec program="${MSBuild}" workingdir="${Folder.Source}" verbose="true">
+      <arg value="/property:Configuration=${Configuration}" />
+      <arg value="/target:Rebuild" />
+      <arg value="/consoleloggerparameters:NoSummary" />
+      <arg value="${File.Solution}" />
+    </exec>
+  </target>
+
+</project>
+
