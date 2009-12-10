@@ -2,12 +2,9 @@
 
 using System;
 using System.Data;
-using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TW.Helper;
-using ZedGraph;
-using ZedGraph.Web;
 
 #endregion
 
@@ -17,6 +14,8 @@ public partial class Default : Page
         (object sender,
          EventArgs e)
     {
+        PanelStats.Visible = false;
+        TotalStats.Visible = false;
         if (!IsPostBack)
         {
             PopulateSettings();
@@ -29,84 +28,10 @@ public partial class Default : Page
         }
     }
 
-    /// <summary>
-    /// This method is where you generate your graph.
-    /// </summary>
-    /// <param name="masterPane">You are provided with a MasterPane instance that
-    /// contains one GraphPane by default (accessible via masterPane[0]).</param>
-    /// <param name="g">A graphics instance so you can easily make the call to AxisChange()</param>
-    /// <param name="z">And a ZedGraphWeb instance because the event handler requires it</param>
-    /// <param name="row">Selected row n gridview.</param>
-    private static void OnRenderGraphVillagePie
-        (ZedGraphWeb z,
-         Graphics g,
-         MasterPane masterPane,
-         TableRow row)
-    {
-        // Get the GraphPane so we can work with it
-        GraphPane myPane = masterPane[0];
-
-        // Fill the pane background with a color gradient
-        myPane.Fill = new Fill(Color.White, Color.White, 45.0f);
-        // No fill for the chart background
-        myPane.Chart.Fill.Type = FillType.None;
-
-        myPane.Legend.IsVisible = false;
-        myPane.Legend.IsShowLegendSymbols = true;
-        myPane.Legend.IsHStack = false;
-
-        // Add some pie slices
-        const string srcTable = "Goods";
-        DataBase dataBase = new DataBase();
-        DataSet dataSet = dataBase.GetGoods(srcTable, Misc.String2Number(row.Cells[0].Text.Trim()));
-        DataRow dataRow = dataSet.Tables[srcTable].Rows[0];
-        int wood = Misc.String2Number(dataRow.ItemArray[0].ToString());
-        int clay = Misc.String2Number(dataRow.ItemArray[1].ToString());
-        int iron = Misc.String2Number(dataRow.ItemArray[2].ToString());
-        int crop = Misc.String2Number(dataRow.ItemArray[3].ToString());
-
-        PieItem segmentWood = myPane.AddPieSlice(wood, Color.Green, Color.Green, 45f, 0, wood.ToString());
-        PieItem segmentClay = myPane.AddPieSlice(clay, Color.OrangeRed, Color.OrangeRed, 45f, .0, clay.ToString());
-        PieItem segmentIron = myPane.AddPieSlice(iron, Color.Blue, Color.Blue, 45f, 0, iron.ToString());
-        PieItem segmentCrop = myPane.AddPieSlice(crop, Color.Yellow, Color.Yellow, 45f, 0.2, crop.ToString());
-
-        segmentWood.LabelDetail.FontSpec.Size = 20f;
-        segmentClay.LabelDetail.FontSpec.Size = 20f;
-        segmentIron.LabelDetail.FontSpec.Size = 20f;
-        segmentCrop.LabelDetail.FontSpec.Size = 20f;
-
-        // Sum up the pie values                                                               
-        CurveList curves = myPane.CurveList;
-        double total = 0;
-        for (int x = 0; x < curves.Count; x++)
-        {
-            total += ((PieItem) curves[x]).Value;
-        }
-
-        // Set the GraphPane title
-        //myPane.Title.Text = String.Format("Total Goods : {0}\nWood : {1}\nClay : {2}\nIron : {3}\nCrop : {4}", total,
-        //                                  wood, clay, iron, crop);
-        myPane.Title.Text = String.Format("Total Goods : {0}", total);
-        myPane.Title.FontSpec.IsItalic = true;
-        myPane.Title.FontSpec.Size = 24f;
-        myPane.Title.FontSpec.Family = "Times New Roman";
-
-        masterPane.AxisChange(g);
-    }
-
     private void UpdateGui()
     {
-        PanelGraphs.Visible = false;
         PopulateGridView();
         ClearTextFields();
-    }
-
-    private void CreateGraph(TableRow row)
-    {
-        PanelGraphs.Visible = true;
-        VillagePie.RenderGraph += ((webobject,
-                                    g,
-                                    pane) => OnRenderGraphVillagePie(webobject, g, pane, row));
     }
 
     private void PopulateSettings()
@@ -238,7 +163,7 @@ public partial class Default : Page
         (object sender,
          EventArgs e)
     {
-        GridViewRow row = GridViewVillages.SelectedRow;
+        //GridViewRow row = GridViewVillages.SelectedRow;
     }
 
     protected void GridViewVillages_SelectedIndexChanging
@@ -246,7 +171,36 @@ public partial class Default : Page
          GridViewSelectEventArgs e)
     {
         GridViewRow row = GridViewVillages.Rows[e.NewSelectedIndex];
-        CreateGraph(row);
+        int villageId = Misc.String2Number(row.Cells[0].Text.Trim());
+        PanelStats.Visible = true;
+        TotalStats.Visible = true;
+        string srcTable = "Goods";
+        DataBase dataBase = new DataBase();
+        DataSet dataSet = dataBase.GetGoods(srcTable, villageId);
+        DataRow dataRow = dataSet.Tables[srcTable].Rows[0];
+        string inputWood = dataRow.ItemArray[0].ToString();
+        string inputClay = dataRow.ItemArray[1].ToString();
+        string inputIron = dataRow.ItemArray[2].ToString();
+        string inputCrop = dataRow.ItemArray[3].ToString();
+        string inputVillageName = dataRow.ItemArray[4].ToString();
+        LabelGoodsWood.Text = inputWood;
+        LabelGoodsClay.Text = inputClay;
+        LabelGoodsIron.Text = inputIron;
+        LabelGoodsCrop.Text = inputCrop;
+        int wood = Misc.String2Number(inputWood);
+        int clay = Misc.String2Number(inputClay);
+        int iron = Misc.String2Number(inputIron);
+        int crop = Misc.String2Number(inputIron);
+        int total = wood + clay + iron + crop;
+        LabelGoodsTotal.Text = total.ToString();
+        LabelVillageName.Text = inputVillageName;
+
+        srcTable = "Reports";
+        dataBase = new DataBase();
+        dataSet = dataBase.GetLast5Reports(srcTable, villageId);
+        RepeaterReports.DataSource = dataSet;
+        RepeaterReports.DataMember = srcTable;
+        RepeaterReports.DataBind();
     }
 
     protected void LinkButtonPopulate_Click

@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeFile="Default.aspx.cs" Inherits="Default" %>
-<%@ Register TagPrefix="zgw" Namespace="ZedGraph.Web" Assembly="ZedGraph.Web" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -189,68 +188,163 @@
                     <asp:Label ID="LabelStatus" runat="server" Text=""></asp:Label>
                 </div>
                 <div>
-                    <asp:GridView ID="GridViewVillages" runat="server" 
-		                AllowPaging="True" 
-		                onpageindexchanging="GridViewVillages_PageIndexChanging" CellPadding="4" ForeColor="#333333" 
-		                GridLines="None" AutoGenerateColumns="False" PageSize="15" 
-		                onrowcancelingedit="GridViewVillages_RowCancelingEdit" 
-		                onrowediting="GridViewVillages_RowEditing" 
-		                onrowupdating="GridViewVillages_RowUpdating" 
-                        onselectedindexchanged="GridViewVillages_SelectedIndexChanged" 
-                        onselectedindexchanging="GridViewVillages_SelectedIndexChanging">
-		                <RowStyle BackColor="#E3EAEB" />
-		                <Columns>
-			                <asp:BoundField DataField="VillageId" HeaderText="Coordinates" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:BoundField>
-			                <asp:HyperLinkField DataNavigateUrlFields="UserLink" 
-				                DataNavigateUrlFormatString="{0}" 
-				                DataTextField="UserName" HeaderText="Player" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:HyperLinkField>
-			                <asp:HyperLinkField DataNavigateUrlFields="AllianceLink" 
-				                DataNavigateUrlFormatString="{0}" 
-				                DataTextField="AllianceName" HeaderText="Aliance" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:HyperLinkField>
-			                <asp:HyperLinkField DataNavigateUrlFields="VillageLink" 
-				                DataNavigateUrlFormatString="{0}" 
-				                DataTextField="VillageName" HeaderText="Village" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:HyperLinkField>
-			                <asp:BoundField DataField="TribeName" HeaderText="Tribe" ReadOnly="True" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:BoundField>
-			                <asp:BoundField DataField="Population" HeaderText="Population" 
-				                ReadOnly="True" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:BoundField>
-			                <asp:BoundField DataField="Distance" HeaderText="Distance" ReadOnly="True" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:BoundField>
-			                <asp:HyperLinkField DataNavigateUrlFields="PlayerStatusLink" 
-                                DataNavigateUrlFormatString="{0}" DataTextField="PlayerStatus" 
-                                HeaderText="Status" />
-			                <asp:BoundField DataField="Notes" HeaderText="Notes" >
-				                <HeaderStyle HorizontalAlign="Left" />
-			                </asp:BoundField>
-			                <asp:CommandField ShowEditButton="True" />
-		                    <asp:CommandField ShowSelectButton="True" />
-		                </Columns>
-		                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-		                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-		                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-		                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-		                <EditRowStyle BackColor="#7C6F57" />
-		                <AlternatingRowStyle BackColor="White" />
-	                </asp:GridView>
+                    <table id="stats" cellpadding="1" cellspacing="1">
+                        <tr>
+                            <td>
+                                <asp:GridView ID="GridViewVillages" runat="server" 
+		                            AllowPaging="True" 
+		                            onpageindexchanging="GridViewVillages_PageIndexChanging" CellPadding="4" ForeColor="#333333" 
+		                            GridLines="None" AutoGenerateColumns="False" PageSize="15" 
+		                            onrowcancelingedit="GridViewVillages_RowCancelingEdit" 
+		                            onrowediting="GridViewVillages_RowEditing" 
+		                            onrowupdating="GridViewVillages_RowUpdating" 
+                                    onselectedindexchanged="GridViewVillages_SelectedIndexChanged" 
+                                    onselectedindexchanging="GridViewVillages_SelectedIndexChanging">
+		                            <RowStyle BackColor="#E3EAEB" />
+		                            <Columns>
+			                            <asp:BoundField DataField="VillageId" HeaderText="Coordinates" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:BoundField>
+			                            <asp:HyperLinkField DataNavigateUrlFields="UserLink" 
+				                            DataNavigateUrlFormatString="{0}" 
+				                            DataTextField="UserName" HeaderText="Player" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:HyperLinkField>
+			                            <asp:HyperLinkField DataNavigateUrlFields="AllianceLink" 
+				                            DataNavigateUrlFormatString="{0}" 
+				                            DataTextField="AllianceName" HeaderText="Aliance" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:HyperLinkField>
+			                            <asp:HyperLinkField DataNavigateUrlFields="VillageLink" 
+				                            DataNavigateUrlFormatString="{0}" 
+				                            DataTextField="VillageName" HeaderText="Village" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:HyperLinkField>
+			                            <asp:BoundField DataField="TribeName" HeaderText="Tribe" ReadOnly="True" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:BoundField>
+			                            <asp:BoundField DataField="Population" HeaderText="Population" 
+				                            ReadOnly="True" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:BoundField>
+			                            <asp:BoundField DataField="Distance" HeaderText="Distance" ReadOnly="True" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:BoundField>
+			                            <asp:HyperLinkField DataNavigateUrlFields="PlayerStatusLink" 
+                                            DataNavigateUrlFormatString="{0}" DataTextField="PlayerStatus" 
+                                            HeaderText="Status" />
+			                            <asp:BoundField DataField="Notes" HeaderText="Notes" >
+				                            <HeaderStyle HorizontalAlign="Left" />
+			                            </asp:BoundField>
+			                            <asp:CommandField ShowEditButton="True" />
+		                                <asp:CommandField ShowSelectButton="True" />
+		                            </Columns>
+		                            <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+		                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+		                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+		                            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+		                            <EditRowStyle BackColor="#7C6F57" />
+		                            <AlternatingRowStyle BackColor="White" />
+	                            </asp:GridView>
+                            </td>
+                            <td>
+                                <asp:Panel ID="TotalStats" runat="server">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <table id="village" cellpadding="1" cellspacing="1">
+                                                    <tr>
+                                                        <td><b><asp:Label ID="LabelVillageName" runat="server" Text=""></asp:Label></b></td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table id="goods" cellpadding="1" cellspacing="1">
+                                                    <tbody>	
+                                                        <tr>
+                                                            <td class="ico"><img class="pic" src="Images/wood.gif" alt="wood" title="wood" /></td>
+                                                            <td class="res">Wood:</td>
+                                                            <td class="num"><asp:Label ID="LabelGoodsWood" runat="server" Text=""></asp:Label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="ico"><img class="pic" src="Images/clay.gif" alt="clay" title="clay" /></td>
+                                                            <td class="res">Clay:</td>
+                                                            <td class="num"><asp:Label ID="LabelGoodsClay" runat="server" Text=""></asp:Label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="ico"><img class="pic" src="Images/iron.gif" alt="iron" title="iron" /></td>
+                                                            <td class="res">Iron:</td>
+                                                            <td class="num"><asp:Label ID="LabelGoodsIron" runat="server" Text=""></asp:Label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="ico"><img class="pic" src="Images/crop.gif" alt="crop" title="crop" /></td>
+                                                            <td class="res">Crop:</td>
+                                                            <td class="num"><asp:Label ID="LabelGoodsCrop" runat="server" Text=""></asp:Label></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="ico"></td>
+                                                            <td class="res">Total:</td>
+                                                            <td class="num"><b><asp:Label ID="LabelGoodsTotal" runat="server" Text=""></asp:Label></b></td>
+                                                        </tr>
+                                                    </tbody>	
+                                                </table>  
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </asp:Panel>
+                            </td>
+                        </tr>
                 </div>
                 <div>
-                    <asp:Panel ID="PanelGraphs" runat="server">
-	                    <ZGW:ZEDGRAPHWEB id="VillagePie" runat="server" RenderMode="ImageTag">
-                        </ZGW:ZEDGRAPHWEB>
-	                    <ZGW:ZEDGRAPHWEB id="GoodsDate" runat="server" RenderMode="ImageTag">
-                        </ZGW:ZEDGRAPHWEB>
+                    <asp:Panel ID="PanelStats" runat="server">
+                        <div>
+                            <table id="reports" cellpadding="1" cellspacing="1">
+                                <tbody>	
+                                    <tr>
+                                        <asp:Repeater ID="RepeaterReports" runat="server">
+                                            <HeaderTemplate>
+                                                <table cellpadding="1" cellspacing="1" >
+                                                    <tr>
+                                                        <td class="date">Date</td>
+                                                        <td class="res"><img class="pic" src="Images/wood.gif" alt="wood" title="wood" /></td>
+                                                        <td class="res"><img class="pic" src="Images/clay.gif" alt="clay" title="clay" /></td>
+                                                        <td class="res"><img class="pic" src="Images/iron.gif" alt="iron" title="iron" /></td>
+                                                        <td class="res"><img class="pic" src="Images/crop.gif" alt="crop" title="crop" /></td>
+                                                        <td class="res">Sum</td>
+                                                    </tr>
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                    <tr>
+                                                        <td><%# DataBinder.Eval(Container.DataItem, "ReportDate")%></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Wood") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Clay") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Iron") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Crop") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Sum") %></td>
+                                                    </tr>
+                                            </ItemTemplate>
+                                            <AlternatingItemTemplate>
+                                                    <tr bgcolor="#ccccff">
+                                                        <td><%# DataBinder.Eval(Container.DataItem, "ReportDate")%></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Wood") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Clay") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Iron") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Crop") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Sum") %></td>
+                                                    </tr>
+                                            </AlternatingItemTemplate>
+                                            <FooterTemplate>
+                                                </table>
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </tbody>	
+                            </table>
+                        </div>
                     </asp:Panel>
                 </div>
             </div>

@@ -93,8 +93,8 @@ namespace SimpleFTP
 			try 
 			{	// create a TcpClient control for Transport connection
 				m_tcpClient = new TcpClient(sHost, sPort);
-				m_tcpClient.ReceiveTimeout = 10000; // wait 10 seconds before aborting read
-				m_tcpClient.SendTimeout = 10000; // wait 10 seconds before aborting write
+				m_tcpClient.ReceiveTimeout = 20000; // wait 10 seconds before aborting read
+				m_tcpClient.SendTimeout = 20000; // wait 10 seconds before aborting write
 				m_comRead = new StreamReader(m_tcpClient.GetStream());  // reads lines of text
 				m_comWrite = new StreamWriter(m_tcpClient.GetStream()); // write lines of text
 				bConnected = true;
@@ -122,7 +122,13 @@ namespace SimpleFTP
 			// the server must reply with 331
 			if (sReply[0] != '3') throw new FtpClientException(sReply);
 			sReply = SendCommand("PASS " + sPassword);
-			// the server must reply with 230, which is a successful login
+            if (sReply[0] == '5')
+            {
+                //530- The server has been shut down, try again later.
+                bLoggedIn = false;
+                return;
+            }
+		    // the server must reply with 230, which is a successful login
 			if (sReply[0] != '2') throw new FtpClientException(sReply);
             sReply = SendCommand("TYPE I"); // set system to binary transfer mode
             if (sReply[0] != '2') throw new FtpClientException(sReply);
