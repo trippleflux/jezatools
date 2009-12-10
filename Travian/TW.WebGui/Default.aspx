@@ -19,6 +19,8 @@
                             <td>
                                 <asp:TextBox ID="TextBoxCoordinateX" runat="server" CssClass="textBoxStyle"></asp:TextBox>
                             </td>
+                            <td class="columnMiddle">
+                            </td>
                             <td>
                                 <asp:Label ID="LabelExcludedPlayers" runat="server" Text="Excluded Players" CssClass="labelStyle"></asp:Label>
                             </td>
@@ -31,7 +33,7 @@
                                 <asp:LinkButton ID="LinkButtonRemoveExcludedPlayer" runat="server" 
                                     onclick="LinkButtonRemoveExcludedPlayer_Click">remove</asp:LinkButton>
                             </td>
-                            <td>
+                            <td class="columnMiddle">
                             </td>
                             <td>
                                 <asp:Label ID="LabelAddExcludedPlayerId" runat="server" Text="Player Id" CssClass="labelStyle"></asp:Label>
@@ -56,6 +58,8 @@
                             <td>
                                 <asp:TextBox ID="TextBoxCoordinateY" runat="server" CssClass="textBoxStyle"></asp:TextBox>
                             </td>
+                            <td class="columnMiddle">
+                            </td>
                             <td>
                                 <asp:Label ID="LabelAlly" runat="server" Text="Ally" CssClass="labelStyle"></asp:Label>
                             </td>
@@ -68,7 +72,7 @@
                                 <asp:LinkButton ID="LinkButtonRemoveAlly" runat="server" 
                                     onclick="LinkButtonRemoveAlly_Click">remove</asp:LinkButton>
                             </td>
-                            <td>
+                            <td class="columnMiddle">
                             </td>
                             <td>
                                 <asp:Label ID="LabelAddAllyId" runat="server" Text="Alliance Id" CssClass="labelStyle"></asp:Label>
@@ -94,6 +98,8 @@
                             <td>
                                 <asp:TextBox ID="TextBoxDistanceX" runat="server" CssClass="textBoxStyle"></asp:TextBox>
                             </td>
+                            <td class="columnMiddle">
+                            </td>
                             <td>
                                 <asp:Label ID="LabelNap" runat="server" Text="Nap" CssClass="labelStyle"></asp:Label>
                             </td>
@@ -106,7 +112,7 @@
                                 <asp:LinkButton ID="LinkButtonRemoveNap" runat="server" 
                                     onclick="LinkButtonRemoveNap_Click">remove</asp:LinkButton>
                             </td>
-                            <td>
+                            <td class="columnMiddle">
                             </td>
                             <td>
                                 <asp:Label ID="LabelAddNapId" runat="server" Text="Alliance Id" CssClass="labelStyle"></asp:Label>
@@ -132,6 +138,8 @@
                             <td>
                                 <asp:TextBox ID="TextBoxDistanceY" runat="server" CssClass="textBoxStyle"></asp:TextBox>
                             </td>
+                            <td class="columnMiddle">
+                            </td>
                             <td>
                                 <asp:Label ID="LabelAllyFriends" runat="server" Text="Ally Friends" CssClass="labelStyle"></asp:Label>
                             </td>
@@ -144,7 +152,7 @@
                                 <asp:LinkButton ID="LinkButtonRemoveAllyFriends" runat="server" 
                                     onclick="LinkButtonRemoveAllyFriends_Click">remove</asp:LinkButton>
                             </td>
-                            <td>
+                            <td class="columnMiddle">
                             </td>
                             <td>
                                 <asp:Label ID="LabelAddFriendsId" runat="server" Text="Alliance Id" CssClass="labelStyle"></asp:Label>
@@ -172,10 +180,40 @@
                                 <asp:Label ID="LabelNextFarm" runat="server" Text="NextFarm" CssClass="labelStyle"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBoxNextFarm" runat="server" CssClass="textBoxNextFarm"></asp:TextBox>
+                                <asp:TextBox ID="TextBoxNextFarm" runat="server" CssClass="textBoxStyle"></asp:TextBox>
+                            </td>
+                            <td class="columnMiddle">
+                                <asp:LinkButton ID="LinkButtonSave" runat="server" onclick="LinkButtonSave_Click">save</asp:LinkButton>
                             </td>
                             <td>
-                                <asp:LinkButton ID="LinkButtonSave" runat="server" onclick="LinkButtonSave_Click">save</asp:LinkButton>
+                                <asp:Label ID="LabelNoGoods" runat="server" Text="No Goods" CssClass="labelStyle"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="DropDownListNoGoods" runat="server" 
+                                    AutoPostBack="True" DataTextField="PlayerName" DataValueField="PlayerId">
+                                </asp:DropDownList>
+                            </td>
+                            <td>
+                                <asp:LinkButton ID="LinkButtonNoGoodsRemove" runat="server" 
+                                    onclick="LinkButtonNoGoodsRemove_Click">remove</asp:LinkButton>
+                            </td>
+                            <td class="columnMiddle">
+                            </td>
+                            <td>
+                                <asp:Label ID="LabelNoGoodsId" runat="server" Text="Player Id" CssClass="labelStyle"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBoxNoGoodsId" runat="server" CssClass="textBoxStyle"></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:Label ID="LabelNoGoodsName" runat="server" Text="Player Name" CssClass="labelStyle"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBoxNoGoodsName" runat="server" CssClass="textBoxStyle"></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:LinkButton ID="LinkButtonNoGoodsAdd" runat="server" 
+                                    onclick="LinkButtonNoGoodsAdd_Click">add</asp:LinkButton>
                             </td>
                         </tr>
                     </table>

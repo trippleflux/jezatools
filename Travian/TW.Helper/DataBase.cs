@@ -297,6 +297,27 @@ namespace TW.Helper
         /// <returns><c>null</c> if failed; else new <see cref="DataSet"/></returns>
         public DataSet GetExcludedPlayers(string srcTable)
         {
+            return GetExcludedPlayers(srcTable, (int) ExcludedPlayerType.Excluded);
+        }
+
+        /// <summary>
+        /// Gets the excluded players wo have no goods.
+        /// </summary>
+        /// <param name="srcTable">The SRC table.</param>
+        /// <returns><c>null</c> if failed; else new <see cref="DataSet"/></returns>
+        public DataSet GetNoGoodsPlayers(string srcTable)
+        {
+            return GetExcludedPlayers(srcTable, (int)ExcludedPlayerType.NoGoods);
+        }
+
+        /// <summary>
+        /// Gets the excluded players.
+        /// </summary>
+        /// <param name="srcTable">The SRC table.</param>
+        /// <param name="type">Type of excluded player.</param>
+        /// <returns><c>null</c> if failed; else new <see cref="DataSet"/></returns>
+        public DataSet GetExcludedPlayers(string srcTable, int type)
+        {
             DataSet dataSet = new DataSet();
             try
             {
@@ -306,6 +327,7 @@ namespace TW.Helper
                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.CommandText = "SelectExcludedPlayers";
+                    sqlCommand.Parameters.Add(new SqlParameter("@ExludedType", SqlDbType.Int)).Value = type;
                     sqlCommand.ExecuteNonQuery();
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCommand);
                     dataAdapter.Fill(dataSet, srcTable);
@@ -711,6 +733,19 @@ namespace TW.Helper
         }
 
         /// <summary>
+        /// Adds the player to the list of excluded players because we have no goods from him.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> on success; else <c>false</c>.</returns>
+        public bool AddNoGoods
+            (string id,
+             string name)
+        {
+            return AddExcludedPlayer(id, name, (int)ExcludedPlayerType.NoGoods);
+        }
+
+        /// <summary>
         /// Adds the excluded player to the list.
         /// </summary>
         /// <param name="id">The id.</param>
@@ -719,6 +754,14 @@ namespace TW.Helper
         public bool AddExcludedPlayer
             (string id,
              string name)
+        {
+            return AddExcludedPlayer(id, name, (int) ExcludedPlayerType.Excluded);
+        }
+
+        public bool AddExcludedPlayer
+            (string id,
+             string name,
+            int type)
         {
             try
             {
@@ -730,6 +773,7 @@ namespace TW.Helper
                     sqlCommand.CommandText = "UpdateExcludedPlayer";
                     sqlCommand.Parameters.Add(new SqlParameter("@PlayerId", SqlDbType.Int)).Value = id;
                     sqlCommand.Parameters.Add(new SqlParameter("@PlayerName", SqlDbType.NVarChar)).Value = name;
+                    sqlCommand.Parameters.Add(new SqlParameter("@ExludedType", SqlDbType.Int)).Value = type;
                     sqlCommand.ExecuteNonQuery();
                 }
             }
