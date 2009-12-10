@@ -20,7 +20,8 @@ public partial class Default : Page
         {
             PopulateSettings();
             PopulateExcludedPlayers();
-            PopulateExcludedAlliances((int) AllianceExcludedType.Ally, DropDownListAlly);
+            PopulateNoGoods();
+            PopulateExcludedAlliances((int)AllianceExcludedType.Ally, DropDownListAlly);
             PopulateExcludedAlliances((int) AllianceExcludedType.Nap, DropDownListNap);
             PopulateExcludedAlliances((int) AllianceExcludedType.Friend, DropDownListAllyFriends);
             UpdateGui();
@@ -84,6 +85,23 @@ public partial class Default : Page
         {
             DropDownListExcludedPlayers.DataSource = dataSet.Tables[srcTable].DefaultView;
             DropDownListExcludedPlayers.DataBind();
+            ClearTextFields();
+        }
+    }
+
+    private void PopulateNoGoods()
+    {
+        const string srcTable = "NoGoods";
+        DataBase dataBase = new DataBase();
+        DataSet dataSet = dataBase.GetNoGoodsPlayers(srcTable);
+        if (dataSet == null)
+        {
+            LabelStatus.Text = "Can't get list of NoGoods players!";
+        }
+        else
+        {
+            DropDownListNoGoods.DataSource = dataSet.Tables[srcTable].DefaultView;
+            DropDownListNoGoods.DataBind();
             ClearTextFields();
         }
     }
@@ -210,6 +228,26 @@ public partial class Default : Page
         UpdateGui();
     }
 
+    protected void LinkButtonNoGoodsAdd_Click(object sender, EventArgs e)
+    {
+        string id = TextBoxNoGoodsId.Text;
+        string name = TextBoxNoGoodsName.Text;
+        if (!Misc.IsNumber(id) || (name.Length < 1))
+        {
+            LabelStatus.Text = "Specify correct values...";
+            return;
+        }
+        DataBase dataBase = new DataBase();
+        if (dataBase.AddNoGoods(id, name))
+        {
+            PopulateNoGoods();
+        }
+        else
+        {
+            LabelStatus.Text = "Can't save excluded Player!";
+        }
+    }
+
     protected void LinkButtonAddExcludedPlayer_Click
         (object sender,
          EventArgs e)
@@ -253,6 +291,20 @@ public partial class Default : Page
         if (!dataBase.SaveSettings(webGuiSettings))
         {
             LabelStatus.Text = "Can't save settings to DataBase!";
+        }
+    }
+
+    protected void LinkButtonNoGoodsRemove_Click(object sender, EventArgs e)
+    {
+        string selectedValue = DropDownListNoGoods.SelectedValue;
+        DataBase dataBase = new DataBase();
+        if (dataBase.RemoveExcludedPlayer(selectedValue))
+        {
+            PopulateNoGoods();
+        }
+        else
+        {
+            LabelStatus.Text = "Can't remove excluded Player!";
         }
     }
 
