@@ -853,8 +853,53 @@ namespace TW.Helper
                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.CommandText = String.Format(CultureInfo.InvariantCulture, @"
-SELECT SUM([Wood]) AS Wood, SUM([Clay]) AS Clay, SUM([Iron]) AS Iron, SUM([Crop]) AS Crop FROM [ReportGoods]
+SELECT SUM([Wood]) AS Wood, 
+    SUM([Clay]) AS Clay, 
+    SUM([Iron]) AS Iron, 
+    SUM([Crop]) AS Crop ,
+    (SELECT TOP 1 [DefenderVillageName] FROM [Coordinator].[dbo].[ReportInfo] WHERE [DefenderVillageId] = {0}) AS Village 
+FROM [ReportGoods]
 WHERE [DefenderVillageId] = {0}", villageId);
+                    sqlCommand.ExecuteNonQuery();
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCommand);
+                    dataAdapter.Fill(dataSet, srcTable);
+                }
+            }
+            catch (SqlException exception)
+            {
+                Log.Error(exception.Message);
+                Log.Error(exception);
+                return null;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+            return dataSet;
+        }
+
+        public DataSet GetLast5Reports(string srcTable,
+                                int villageId)
+        {
+            DataSet dataSet = new DataSet();
+            try
+            {
+                using (sqlConnection = new SqlConnection(connectionString))
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
+                    sqlCommand.CommandType = CommandType.Text;
+                    sqlCommand.CommandText = String.Format(CultureInfo.InvariantCulture, @"
+SELECT TOP 10 [ReportId]
+      ,[Wood]
+      ,[Clay]
+      ,[Iron]
+      ,[Crop]
+      ,[Wood]+[Clay]+[Iron]+[Crop] AS Sum
+      ,[ReportDate]
+  FROM [ReportGoods]
+WHERE [DefenderVillageId] = {0}
+ORDER BY [ReportDate] DESC", villageId);
                     sqlCommand.ExecuteNonQuery();
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCommand);
                     dataAdapter.Fill(dataSet, srcTable);

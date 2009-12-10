@@ -62,26 +62,34 @@ namespace jcReleaseCollector
 
 					ftpClient.Connect(hostName, Int32.Parse(portName));
 					ftpClient.Login(userName, password);
-
-					string[] ftpFolders = ftpClient.GetDir(remotePath, FtpClient.DirMode.NamesOnly);
-					foreach (String folder in ftpFolders)
-					{
-						String releaseName;
-						if (folder.IndexOf('/') > -1)
-						{
-							String[] splitFolder = folder.Split('/');
-							releaseName = splitFolder[splitFolder.Length - 1];
-						}
-						else
-						{
-							releaseName = folder;
-						}
-						WriteClientResponse(String.Format(CultureInfo.InvariantCulture, "releaseName: '{0}'", releaseName));
-						Directory.CreateDirectory(
-							String.Format(CultureInfo.InvariantCulture, "{0}\\{1}", localPath, releaseName));
-					}
-					ftpClient.Disconnect();
-					ftpClient.Close();
+                    if (ftpClient.LoggedIn)
+                    {
+                        string[] ftpFolders = ftpClient.GetDir (remotePath, FtpClient.DirMode.NamesOnly);
+                        foreach (String folder in ftpFolders)
+                        {
+                            String releaseName;
+                            if (folder.IndexOf ('/') > -1)
+                            {
+                                String[] splitFolder = folder.Split ('/');
+                                releaseName = splitFolder [splitFolder.Length - 1];
+                            }
+                            else
+                            {
+                                releaseName = folder;
+                            }
+                            WriteClientResponse (String.Format (CultureInfo.InvariantCulture,
+                                                                "releaseName: '{0}'",
+                                                                releaseName));
+                            Directory.CreateDirectory (
+                                String.Format (CultureInfo.InvariantCulture, "{0}\\{1}", localPath, releaseName));
+                        }
+                        ftpClient.Disconnect ();
+                        ftpClient.Close ();
+                    }
+                    else
+                    {
+                        WriteClientResponse("Login failed...");
+                    }
 				}
 				catch (Exception ex)
 				{
@@ -89,7 +97,7 @@ namespace jcReleaseCollector
 					Log("c:\\ioFTPD\\logs\\ReleaseCollectorErrors.log", ex.ToString());
 					if (ftpClient.Connected)
 					{
-						ftpClient.Disconnect();
+						//ftpClient.Disconnect();
 						ftpClient.Close();
 					}
 					return 1;

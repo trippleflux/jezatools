@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Reports.aspx.cs" Inherits="Reports" %>
+<%@ Register TagPrefix="zgw" Namespace="ZedGraph.Web" Assembly="ZedGraph.Web" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -37,6 +38,12 @@
                         <EditRowStyle BackColor="#7C6F57" />
                         <AlternatingRowStyle BackColor="White" />
                     </asp:GridView>
+                </div>
+                <div>
+                    <asp:Panel ID="PanelGraphs" runat="server">
+	                    <ZGW:ZEDGRAPHWEB id="VillagePie" runat="server" RenderMode="ImageTag">
+                        </ZGW:ZEDGRAPHWEB>
+                    </asp:Panel>
                 </div>
             </div>
         </form>
