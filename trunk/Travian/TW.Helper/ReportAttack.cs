@@ -124,6 +124,7 @@ namespace TW.Helper
                 report.Casualties = tableInfo.Casualties;
                 report.Goods = tableInfo.Goods;
                 report.Prisoners = tableInfo.Prisoners;
+                report.Carry = tableInfo.Carry;
             }
         }
 
@@ -202,6 +203,7 @@ namespace TW.Helper
                 {
                     goods[i] = Misc.String2Number(resources[i].Trim());
                 }
+                tableInfo.Carry = tableBodyGoods.TableRows[0].TableCells[0].Divs[1].Text;
             }
             tableInfo.Goods = goods;
         }
@@ -411,5 +413,6 @@ namespace TW.Helper
         public int[] Casualties { get; set; }
         public int[] Goods { get; set; }
         public int[] Prisoners { get; set; }
+        public string Carry { get; set; }
     }
 }

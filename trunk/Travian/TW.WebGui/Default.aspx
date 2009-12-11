@@ -351,6 +351,7 @@
                                                         <td class="res"><img class="pic" src="Images/iron.gif" alt="iron" title="iron" /></td>
                                                         <td class="res"><img class="pic" src="Images/crop.gif" alt="crop" title="crop" /></td>
                                                         <td class="res">Sum</td>
+                                                        <td class="res">Carry</td>
                                                     </tr>
                                             </HeaderTemplate>
                                             <ItemTemplate>
@@ -361,6 +362,7 @@
                                                         <td><%# DataBinder.Eval(Container.DataItem,"Iron") %></td>
                                                         <td><%# DataBinder.Eval(Container.DataItem,"Crop") %></td>
                                                         <td><%# DataBinder.Eval(Container.DataItem,"Sum") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Carry") %></td>
                                                     </tr>
                                             </ItemTemplate>
                                             <AlternatingItemTemplate>
@@ -371,6 +373,7 @@
                                                         <td><%# DataBinder.Eval(Container.DataItem,"Iron") %></td>
                                                         <td><%# DataBinder.Eval(Container.DataItem,"Crop") %></td>
                                                         <td><%# DataBinder.Eval(Container.DataItem,"Sum") %></td>
+                                                        <td><%# DataBinder.Eval(Container.DataItem,"Carry") %></td>
                                                     </tr>
                                             </AlternatingItemTemplate>
                                             <FooterTemplate>

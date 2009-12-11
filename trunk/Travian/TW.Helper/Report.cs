@@ -37,6 +37,6 @@ namespace TW.Helper
         public int[] Prisoners { get; set; }
         public int[] TroopsDefender { get; set; }
         public int[] CasualtiesDefender { get; set; }
-
+        public string Carry { get; set; }
     }
 }

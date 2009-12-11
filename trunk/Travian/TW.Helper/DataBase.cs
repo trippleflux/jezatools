@@ -553,6 +553,7 @@ namespace TW.Helper
                             SqlParameter goodsClay = new SqlParameter("@GoodsClay", SqlDbType.Int);
                             SqlParameter goodsIron = new SqlParameter("@GoodsIron", SqlDbType.Int);
                             SqlParameter goodsCrop = new SqlParameter("@GoodsCrop", SqlDbType.Int);
+                            SqlParameter carry = new SqlParameter("@Carry", SqlDbType.NVarChar);
                             sqlCommand.Parameters.Add(reportId);
                             sqlCommand.Parameters.Add(reportLink);
                             sqlCommand.Parameters.Add(reportText);
@@ -569,6 +570,7 @@ namespace TW.Helper
                             sqlCommand.Parameters.Add(goodsClay);
                             sqlCommand.Parameters.Add(goodsIron);
                             sqlCommand.Parameters.Add(goodsCrop);
+                            sqlCommand.Parameters.Add(carry);
 
                             foreach (Report report in reports)
                             {
@@ -588,6 +590,7 @@ namespace TW.Helper
                                 goodsClay.Value = report.Goods[1];
                                 goodsIron.Value = report.Goods[2];
                                 goodsCrop.Value = report.Goods[3];
+                                carry.Value = report.Carry;
                                 sqlCommand.ExecuteNonQuery();
                             }
                         }
@@ -940,6 +943,7 @@ SELECT TOP 10 [ReportId]
       ,[Iron]
       ,[Crop]
       ,[Wood]+[Clay]+[Iron]+[Crop] AS Sum
+      ,[Carry]
       ,[ReportDate]
   FROM [ReportGoods]
 WHERE [DefenderVillageId] = {0}
