@@ -185,6 +185,7 @@ namespace TW.Tests
             Assert.AreEqual(21, report.Goods[1]);
             Assert.AreEqual(0, report.Goods[2]);
             Assert.AreEqual(0, report.Goods[3]);
+            Assert.AreEqual("21/330", report.Carry);
             reportAttack.ParseDefenderInfo(report);
             Assert.AreEqual(12465, report.DefenderId);
             Assert.AreEqual("jeza", report.DefenderName);
