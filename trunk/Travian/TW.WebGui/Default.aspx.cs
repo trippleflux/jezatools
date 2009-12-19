@@ -170,7 +170,7 @@ public partial class Default : Page
     {
         GridViewRow row = GridViewVillages.Rows[e.RowIndex];
         int coordinates = Int32.Parse(((TextBox) row.Cells[0].Controls[0]).Text);
-        string notes = ((TextBox) row.Cells[7].Controls[0]).Text;
+        string notes = ((TextBox) row.Cells[8].Controls[0]).Text;
         DataBase dataBase = new DataBase();
         dataBase.UpdateNotes(coordinates, notes);
         GridViewVillages.EditIndex = -1;
