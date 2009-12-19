@@ -196,6 +196,7 @@ namespace TW.Helper
         {
             TableBody tableBodyGoods = table.TableBody(Find.ByClass("goods"));
             int[] goods = new int[4];
+            tableInfo.Carry = "0/0";
             if (tableBodyGoods.Exists)
             {
                 string[] resources = tableBodyGoods.TableRows[0].TableCells[0].Divs[0].Text.Split('|');
@@ -203,7 +204,8 @@ namespace TW.Helper
                 {
                     goods[i] = Misc.String2Number(resources[i].Trim());
                 }
-                tableInfo.Carry = tableBodyGoods.TableRows[0].TableCells[0].Divs[1].Text;
+                Div div = tableBodyGoods.TableRows[0].TableCells[0].Divs[1];
+                tableInfo.Carry = div.Exists ? div.Text : "0/0";
             }
             tableInfo.Goods = goods;
         }

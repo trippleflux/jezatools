@@ -13,6 +13,18 @@ namespace TW.Tests
     public class Reports : TestBase
     {
         [Test]
+        public void NoCarry()
+        {
+            GetBrowser("berichte.attack.no.carry.html");
+            GameData gameData = new GameData();
+            gameData.GameSettings("sl-SI");
+            ReportAttack reportAttack = new ReportAttack(Browser, gameData);
+            Report report = new Report("url", "report text") { Date = DateTime.Now, Id = 123456, };
+            reportAttack.ParseAttackerInfo(report);
+            Assert.AreEqual("0/0", report.Carry);
+        }
+
+        [Test]
         public void SaveReportYesterday()
         {
             GetBrowser("berichte.yesterday.html");
