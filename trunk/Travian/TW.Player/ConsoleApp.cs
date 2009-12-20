@@ -94,6 +94,7 @@ namespace TW.Player
                                         else
                                         {
                                             dataBase.SaveVillageToDb(mapCoordinate);
+                                            Log.InfoFormat("Updated village : {0}", mapCoordinate);
                                         }
                                         raidedFarms.Add(mapCoordinate);
                                         if (count++ > 5)
@@ -308,6 +309,7 @@ namespace TW.Player
                             else
                             {
                                 Log.WarnFormat("Attack to '{0}' failed.", mapCoordinate.VillageName);
+                                return;
                             }
                         }
                         else
