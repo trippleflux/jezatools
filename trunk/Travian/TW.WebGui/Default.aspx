@@ -26,7 +26,8 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListExcludedPlayers" runat="server" 
-                                    AutoPostBack="True" DataTextField="PlayerName" DataValueField="PlayerId">
+                                    AutoPostBack="True" DataTextField="PlayerName" DataValueField="PlayerId" 
+                                    CssClass="dropDownStyle">
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -65,7 +66,8 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListAlly" runat="server" 
-                                    AutoPostBack="True" DataTextField="AllianceName" DataValueField="AllianceId">
+                                    AutoPostBack="True" DataTextField="AllianceName" 
+                                    DataValueField="AllianceId" CssClass="dropDownStyle">
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -105,7 +107,8 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListNap" runat="server" 
-                                    AutoPostBack="True" DataTextField="AllianceName" DataValueField="AllianceId">
+                                    AutoPostBack="True" DataTextField="AllianceName" 
+                                    DataValueField="AllianceId" CssClass="dropDownStyle">
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -145,7 +148,8 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListAllyFriends" runat="server" 
-                                    AutoPostBack="True" DataTextField="AllianceName" DataValueField="AllianceId">
+                                    AutoPostBack="True" DataTextField="AllianceName" 
+                                    DataValueField="AllianceId" CssClass="dropDownStyle">
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -190,7 +194,8 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="DropDownListNoGoods" runat="server" 
-                                    AutoPostBack="True" DataTextField="PlayerName" DataValueField="PlayerId">
+                                    AutoPostBack="True" DataTextField="PlayerName" DataValueField="PlayerId" 
+                                    CssClass="dropDownStyle">
                                 </asp:DropDownList>
                             </td>
                             <td>
@@ -217,6 +222,14 @@
                             </td>
                         </tr>
                     </table>
+                </div>
+                <div>
+                    <asp:RadioButtonList ID="RadioButtonListSelection" runat="server" 
+                        AutoPostBack="True" RepeatDirection="Horizontal">
+                        <asp:ListItem Selected="True" Value="1">Farms</asp:ListItem>
+                        <asp:ListItem Value="2">Excluded Players</asp:ListItem>
+                        <asp:ListItem Value="3">No Goods</asp:ListItem>                        
+                    </asp:RadioButtonList>
                 </div>
                 <div>
                     <asp:LinkButton ID="LinkButtonPopulate" runat="server" 
