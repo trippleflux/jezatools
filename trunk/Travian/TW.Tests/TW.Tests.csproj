@@ -69,8 +69,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Dorf1.cs" />
+    <Compile Include="TroopSender.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TW.Helper.Http\TW.Helper.Http.csproj">
+      <Project>{CABB40E1-E98A-4C7C-8734-C7F55E701056}</Project>
+      <Name>TW.Helper.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TW.Helper\TW.Helper.csproj">
       <Project>{AF12064B-1795-4A89-8407-5DD1025515A0}</Project>
       <Name>TW.Helper</Name>
@@ -93,6 +98,7 @@
     <Content Include="TestFiles\berichte.yesterday.html" />
     <Content Include="TestFiles\dorf1.attack.html" />
     <Content Include="TestFiles\dorf1.html" />
+    <Content Include="TestFiles\login.php.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
