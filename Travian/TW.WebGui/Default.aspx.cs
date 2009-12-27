@@ -333,6 +333,7 @@ public partial class Default : Page
             return;
         }
         RemoveAllianceFromExcludedList(DropDownListAlly.SelectedValue);
+        PopulateExcludedAlliances((int)AllianceExcludedType.Ally, DropDownListAlly);
     }
 
     protected void LinkButtonRemoveNap_Click
@@ -344,6 +345,7 @@ public partial class Default : Page
             return;
         }
         RemoveAllianceFromExcludedList(DropDownListNap.SelectedValue);
+        PopulateExcludedAlliances((int)AllianceExcludedType.Nap, DropDownListNap);
     }
 
     protected void LinkButtonRemoveAllyFriends_Click
@@ -355,6 +357,7 @@ public partial class Default : Page
             return;
         }
         RemoveAllianceFromExcludedList(DropDownListAllyFriends.SelectedValue);
+        PopulateExcludedAlliances((int)AllianceExcludedType.Friend, DropDownListAllyFriends);
     }
 
     private void ClearTextFields()
@@ -368,6 +371,8 @@ public partial class Default : Page
         TextBoxAddNapName.Text = empty;
         TextBoxAddFriendsId.Text = empty;
         TextBoxAddFriendsName.Text = empty;
+        TextBoxNoGoodsId.Text = empty;
+        TextBoxNoGoodsName.Text = empty;
     }
 
     private void RemoveAllianceFromExcludedList(string selectedValue)
@@ -400,6 +405,7 @@ public partial class Default : Page
         if (dataBase.AddExcludedAlliance(id, name, type))
         {
             PopulateExcludedAlliances(type, downListAlly);
+            ClearTextFields();
         }
         else
         {

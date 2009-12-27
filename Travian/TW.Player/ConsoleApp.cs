@@ -63,8 +63,11 @@ namespace TW.Player
                             }
                             if (raid)
                             {
-                                dorf1Page.ClickDorf1Link();
-                                Raid(browserPage);
+                                if (!SleepTime())
+                                {
+                                    dorf1Page.ClickDorf1Link();
+                                    Raid(browserPage);
+                                }
                             }
                             //if (dorf1Page.RemoveTroops)
                             //{
@@ -136,6 +139,13 @@ namespace TW.Player
                 }
             }
             browser.Dispose();
+        }
+
+        private bool SleepTime()
+        {
+            DateTime dateTime = new DateTime(DateTime.Now.Ticks);
+            int hourNow = dateTime.Hour;
+            return (hourNow > sleepStart) && (hourNow < sleepStop);
         }
 
         private string SetPlayerFarmUnits(Tribes playersTribe)
@@ -347,5 +357,7 @@ namespace TW.Player
         private readonly string language = ConfigurationManager.AppSettings["language"];
         private readonly bool raid = Misc.String2Bool(ConfigurationManager.AppSettings["raid"]);
         private readonly bool report = Misc.String2Bool(ConfigurationManager.AppSettings["report"]);
+        private readonly int sleepStart = Misc.String2Number(ConfigurationManager.AppSettings["sleepStart"]);
+        private readonly int sleepStop = Misc.String2Number(ConfigurationManager.AppSettings["sleepStop"]);
     }
 }
