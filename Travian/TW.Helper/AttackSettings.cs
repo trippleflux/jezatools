@@ -1,3 +1,5 @@
+using System;
+
 namespace TW.Helper
 {
     public class AttackSettings
@@ -44,6 +46,11 @@ namespace TW.Helper
                 }
             }
             return attackType;
+        }
+
+        public AttackSettings UnitTextBox(string troopClass)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -13,8 +13,15 @@ namespace TW.Helper
             Class = className;
         }
 
+        public Unit AddTextBoxName(string name)
+        {
+            TextBoxName = name;
+            return this;
+        }
+
         public string Name { get; set; }
         public string Class { get; set; }
+        public string TextBoxName { get; set; }
         public string Alt { get; set; }
         public string Title { get; set; }
     }

@@ -70,6 +70,7 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="Dorf1.cs" />
     <Compile Include="TroopSender.cs" />
+    <Compile Include="Units.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TW.Helper.Http\TW.Helper.Http.csproj">
