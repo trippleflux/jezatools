@@ -18,8 +18,8 @@ namespace TW.Player
 {
     public class ConsoleApp
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ConsoleApp));
-        
+        private static readonly ILog Log = LogManager.GetLogger(typeof (ConsoleApp));
+
         public ConsoleApp()
         {
             Settings.CloseExistingBrowserInstances = false;
@@ -34,7 +34,10 @@ namespace TW.Player
             using (browser)
             {
                 Log.InfoFormat("Report reader : {0}, Raid : {1}", report, raid);
-                DefaultPage browserPage = new DefaultPage(browser, server, username, password, defaultVillageId);
+                DefaultPage browserPage = new DefaultPage(browser, server, username, password, defaultVillageId)
+                                          {
+                                              DefaultVillageId = 0,
+                                          };
                 browserPage.LoginPage().LoginToGame();
                 isLoggedIn = browserPage.IsLogedIn;
                 if (isLoggedIn)
@@ -42,10 +45,9 @@ namespace TW.Player
                     int repeatCount = 0;
                     int loginCount = 0;
 
-                    Village village = new Village(0, "00");
+                    Village village = new Village(attackVillageId, attackVillageName);
                     gameData.AddVillage(village);
                     gameData.GameSettings(language);
-                    browserPage.DefaultVillageId = 0;
                     Dorf1 dorf1Page = browserPage.Dorf1Page(gameData);
                     dorf1Page.Village = village;
                     dorf1Page.ClickDorf1Link();
@@ -69,14 +71,6 @@ namespace TW.Player
                                     Raid(browserPage);
                                 }
                             }
-                            //if (dorf1Page.RemoveTroops)
-                            //{
-                            //    //remove troops
-                            //}
-                            //else
-                            //{
-                            //    Raid(browserPage);
-                            //}
                             if (report)
                             {
                                 IReportReader reportReader = browserPage.AttackReport(gameData);
@@ -144,8 +138,15 @@ namespace TW.Player
         private bool SleepTime()
         {
             DateTime dateTime = new DateTime(DateTime.Now.Ticks);
-            int hourNow = dateTime.Hour;
-            return (hourNow > sleepStart) && (hourNow < sleepStop);
+            string hourNow = dateTime.Hour.ToString();
+            foreach (string time in sleepTime)
+            {
+                if (hourNow == time)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private string SetPlayerFarmUnits(Tribes playersTribe)
@@ -155,27 +156,27 @@ namespace TW.Player
             switch (playersTribe)
             {
                 case Tribes.Teutons:
-                    {
-                        Teutons teutons = new Teutons();
-                        farmUnitList = teutons.GetClassNames(list);
-                        break;
-                    }
+                {
+                    Teutons teutons = new Teutons();
+                    farmUnitList = teutons.GetClassNames(list);
+                    break;
+                }
                 case Tribes.Gauls:
-                    {
-                        Gauls gauls = new Gauls();
-                        farmUnitList = gauls.GetClassNames(list);
-                        break;
-                    }
+                {
+                    Gauls gauls = new Gauls();
+                    farmUnitList = gauls.GetClassNames(list);
+                    break;
+                }
                 case Tribes.Romans:
-                    {
-                        Romans romans = new Romans();
-                        farmUnitList = romans.GetClassNames(list);
-                        break;
-                    }
+                {
+                    Romans romans = new Romans();
+                    farmUnitList = romans.GetClassNames(list);
+                    break;
+                }
                 default:
-                    {
-                        throw new NotImplementedException("Unknown Tribe specified!!!");
-                    }
+                {
+                    throw new NotImplementedException("Unknown Tribe specified!!!");
+                }
             }
             return farmUnitList;
         }
@@ -185,24 +186,24 @@ namespace TW.Player
             switch (tribe)
             {
                 case 1:
-                    {
-                        playerTribe = Tribes.Teutons;
-                        break;
-                    }
+                {
+                    playerTribe = Tribes.Teutons;
+                    break;
+                }
                 case 2:
-                    {
-                        playerTribe = Tribes.Gauls;
-                        break;
-                    }
+                {
+                    playerTribe = Tribes.Gauls;
+                    break;
+                }
                 case 3:
-                    {
-                        playerTribe = Tribes.Romans;
-                        break;
-                    }
+                {
+                    playerTribe = Tribes.Romans;
+                    break;
+                }
                 default:
-                    {
-                        throw new NotImplementedException("Unknown Tribe specified!!!");
-                    }
+                {
+                    throw new NotImplementedException("Unknown Tribe specified!!!");
+                }
             }
             return playerTribe;
         }
@@ -210,7 +211,7 @@ namespace TW.Player
         private void SaveVillagesToXml(IList<MapCoordinates> farms)
         {
             Log.Debug("SaveVillagesToXml");
-            XmlSerializer serializer = new XmlSerializer(typeof(List<MapCoordinates>));
+            XmlSerializer serializer = new XmlSerializer(typeof (List<MapCoordinates>));
             TextWriter textWriter = new StreamWriter(fileFarms);
             serializer.Serialize(textWriter, farms);
             textWriter.Close();
@@ -267,16 +268,54 @@ namespace TW.Player
                 {
                     if (troopList.Count >= minUnits4Send)
                     {
-                        RaidFarms(troopList, browserPage, unitInVillage);
+                        RaidFarms(troopList, browserPage, unitInVillage,
+                                  GetUnitTextBox(playerTribe, troopList.TroopClass));
                     }
                 }
             }
         }
 
+        private static string GetUnitTextBox
+            (Tribes tribes,
+             string troopName)
+        {
+            string textBoxName = "t1";
+            switch (tribes)
+            {
+                case Tribes.Gauls:
+                {
+                    Gauls units = new Gauls();
+                    textBoxName = units.GetTextBoxName(troopName);
+                    break;
+                }
+
+                case Tribes.Romans:
+                {
+                    Romans units = new Romans();
+                    textBoxName = units.GetTextBoxName(troopName);
+                    break;
+                }
+
+                case Tribes.Teutons:
+                {
+                    Romans units = new Romans();
+                    textBoxName = units.GetTextBoxName(troopName);
+                    break;
+                }
+
+                default:
+                {
+                    break;
+                }
+            }
+            return textBoxName;
+        }
+
         private void RaidFarms
             (TroopList troopList,
              DefaultPage browserPage,
-             KeyValuePair<Village, List<TroopList>> unitInVillage)
+             KeyValuePair<Village, List<TroopList>> unitInVillage,
+             string textBox)
         {
             Log.Debug("RaidFarms");
             int availableUnits = troopList.Count;
@@ -306,7 +345,7 @@ namespace TW.Player
                                 randomUnitCount = availableUnits;
                             }
                             SendTroops sendTroops = browserPage.SendTroopsPage();
-                            if (sendTroops.Attack(new AttackSettings(mapCoordinate.VillageId, AttackType.Raid, "t1",
+                            if (sendTroops.Attack(new AttackSettings(mapCoordinate.VillageId, AttackType.Raid, textBox,
                                                                      randomUnitCount.ToString())))
                             {
                                 availableUnits -= randomUnitCount;
@@ -357,7 +396,10 @@ namespace TW.Player
         private readonly string language = ConfigurationManager.AppSettings["language"];
         private readonly bool raid = Misc.String2Bool(ConfigurationManager.AppSettings["raid"]);
         private readonly bool report = Misc.String2Bool(ConfigurationManager.AppSettings["report"]);
-        private readonly int sleepStart = Misc.String2Number(ConfigurationManager.AppSettings["sleepStart"]);
-        private readonly int sleepStop = Misc.String2Number(ConfigurationManager.AppSettings["sleepStop"]);
+        private readonly int attackVillageId = Misc.String2Number(ConfigurationManager.AppSettings["attackVillageId"]);
+        private readonly string attackVillageName = ConfigurationManager.AppSettings["attackVillageName"];
+
+        private readonly string[] sleepTime =
+            Misc.StringFromCommaDelimited(ConfigurationManager.AppSettings["sleepTime"]);
     }
 }

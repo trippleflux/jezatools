@@ -22,5 +22,27 @@ namespace TW.Helper
             }
             return stringBuilder.ToString();
         }
+
+        public string GetTextBoxName(string troopName)
+        {
+            foreach (Unit unit in Units)
+            {
+                if ((unit.Name == troopName) || (unit.Class == troopName))
+                {
+                    return unit.TextBoxName;
+                }
+            }
+            return "t1";
+        }
+
+        public string UnitList()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (Unit unit in Units)
+            {
+                stringBuilder.Append(unit.Name).Append(",");
+            }
+            return stringBuilder.ToString();
+        }
     }
 }

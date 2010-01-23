@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Configuration;
 
 #endregion
 
@@ -81,6 +82,16 @@ namespace TW.Helper
                 return true;
             }
             return Char.IsNumber(c);
+        }
+
+        /// <summary>
+        /// Comma delimited listto array.
+        /// </summary>
+        /// <param name="appSetting">The app setting.</param>
+        /// <returns></returns>
+        public static string[] StringFromCommaDelimited(string appSetting)
+        {
+            return appSetting.Split(',');
         }
     }
 }
