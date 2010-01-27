@@ -16,5 +16,9 @@ namespace ioFTPD.Framework
 
         public const string ClientFoot =
             "'---------------------------------------------------------------------=[ {0,3:B3}/{1,-3:B3} ]=----------'¤TotalFilesUploaded TotalFilesExpected";
+
+        public const string TagCleanUpString = "]-[iNCOMPLETE]-[";  //deete all files that start with this string in race folder
+        public const string TagInCompleteRar = "]-[iNCOMPLETE]-[ {0}% ]-[{1}FiLE(s) of {2}FiLE(s)]-[iNCOMPLETE]-[¤PercentComplete TotalFilesUploaded TotalFilesExpected";
+        public const string TagCompleteRar = "]-[Complete {0}MB - {1}/{2}F]-[¤TotalMBytesUploaded TotalFilesUploaded TotalFilesExpected";
     }
 }

@@ -1,15 +1,45 @@
+using System;
+using System.Globalization;
+using System.IO;
+using System.Threading;
+using ioFTPD.Framework;
 using MbUnit.Framework;
+using FileInfo=ioFTPD.Framework.FileInfo;
 
 namespace ioFTPD.Tests.ZipScript
 {
     public class ZipScriptBase
     {
-        protected readonly string[] ArgsRar = new[]
+        protected readonly string[] ArgsRarPart1 = new[]
             {
                 "upload"
                 , @"..\..\TestFiles\Rar\infected.part1.rar"
                 , "2e04944c"
                 , "/TestFiles/Rar/infected.part1.rar"
+            };
+
+        protected readonly string[] ArgsRarPart2 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Rar\infected.part2.rar"
+                , "1c7c24a5"
+                , "/TestFiles/Rar/infected.part2.rar"
+            };
+
+        protected readonly string[] ArgsRarPart3 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Rar\infected.part3.rar"
+                , "d5d617e3"
+                , "/TestFiles/Rar/infected.part3.rar"
+            };
+
+        protected readonly string[] ArgsRarPart4 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Rar\infected.part4.rar"
+                , "0edb20ea"
+                , "/TestFiles/Rar/infected.part4.rar"
             };
 
         protected readonly string[] ArgsSfv = new[]
@@ -20,31 +50,27 @@ namespace ioFTPD.Tests.ZipScript
                 , "/TestFiles/Rar/infected.sfv"
             };
 
-        protected void AssertIsFalse
-            (bool value,
-             string message)
+        protected void PrepareCleanRarRace ()
         {
-            Assert.IsFalse (value, message);
+            FileInfo fileInfo = new FileInfo ();
+            fileInfo.DeleteFiles (@"..\..\TestFiles\Rar", Config.FileExtensionMissing);
+            //Thread.Sleep (5000);
+            Assert.IsFalse (File.Exists (@"..\..\TestFiles\Rar\infected.part1.rar" + Config.FileExtensionMissing),
+                            String.Format (CultureInfo.InvariantCulture,
+                                           "Unexpected '{0}' files!",
+                                           Config.FileExtensionMissing));
         }
 
-        protected void AssertIsTrue
-            (bool value,
-             string message)
+        protected Race UploadSfvFile ()
         {
-            Assert.IsTrue (value, message);
-        }
-
-        protected void AssertAreEqual
-            (object expectedValue,
-             object actualValue,
-             string message)
-        {
-            Assert.AreEqual (expectedValue, actualValue, message);
-        }
-
-        protected void AssertIsNotNull(object actualValue, string message)
-        {
-            Assert.IsNotNull (actualValue, message);
+            Race race = new Race (ArgsSfv);
+            race.Parse ();
+            Assert.AreEqual (".sfv", race.FileExtension, "FileExtension");
+            Assert.AreEqual ("infected.sfv", race.FileName, "FileName");
+            Assert.AreEqual (432, race.FileSize, "FileSize");
+            Assert.AreEqual ("Rar", race.DirectoryName, "DirectoryName");
+            race.Process ();
+            return race;
         }
     }
 }
