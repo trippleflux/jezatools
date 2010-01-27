@@ -17,7 +17,7 @@ namespace ioFTPD.Tests.ZipScript
         [Test]
         public void RaceRar ()
         {
-            Race race = new Race (argsRar);
+            Race race = new Race (ArgsRar);
             race.Parse ();
             race.Process ();
             FileInfo fileInfo = new FileInfo (Path.Combine (race.DirectoryPath, Config.FileNameRace));

@@ -1,5 +1,4 @@
 ﻿#region
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,28 +9,35 @@ namespace ioFTPD.Framework
 {
     public class Race
     {
-        public Race(string[] args)
+        public Race (string[] args)
         {
             this.args = args;
         }
 
-        public Race Parse()
+        /// <summary>
+        /// Parses input arguments based on UPLOAD.
+        /// </summary>
+        /// <returns></returns>
+        public Race Parse ()
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(args[1]);
-            FileExtension = Path.GetExtension(fileInfo.FullName);
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo (args [1]);
+            FileExtension = Path.GetExtension (fileInfo.FullName);
             FileName = fileInfo.Name;
             DirectoryName = fileInfo.Directory == null ? "" : fileInfo.Directory.Name;
             DirectoryPath = fileInfo.Directory == null ? "" : fileInfo.Directory.FullName;
             FileSize = fileInfo.Length;
-            UploadFile = args[1];
-            UploadCrc = args[2];
-            UploadVirtualFile = args[3];
+            UploadFile = args [1];
+            UploadCrc = args [2];
+            UploadVirtualFile = args [3];
             return this;
         }
 
-        public void Process()
+        /// <summary>
+        /// Starts with the file check.
+        /// </summary>
+        public void Process ()
         {
-            SelectRaceType();
+            SelectRaceType ();
             if (!IsValid)
             {
                 return;
@@ -40,99 +46,146 @@ namespace ioFTPD.Framework
             {
                 case RaceType.Sfv:
                 {
-                    if(SfvCheck())
+                    if (SfvCheck ())
                     {
                         return;
                     }
-                    FileInfo fileInfo = new FileInfo();
-                    fileInfo.ParseSfv(UploadFile);
-                    sfvData = fileInfo.SfvData;
-                    foreach (KeyValuePair<string, string> keyValuePair in fileInfo.SfvData)
-                    {
-                        fileInfo.Create0ByteFile(Path.Combine(DirectoryPath, keyValuePair.Key) +
-                                                 Config.FileExtensionMissing);
-                    }
-                    TotalFilesExpected = fileInfo.SfvData.Count;
-                    fileInfo.CreateSfvRaceDataFile(this);
-                    Output output = new Output(this);
-                    output
-                        .Client(Config.ClientHead)
-                        .Client(Config.ClientFileNameSfv)
-                        .Client(Config.ClientFoot);
+                    ProcessSfv ();
                     break;
                 }
 
                 case RaceType.Rar:
                 {
-                    FileInfo fileInfo = new FileInfo();
-                    fileInfo.ParseRaceFile (this);
-                    if (fileInfo.GetCrc32ForFile(FileName).Equals (UploadCrc))
-                    {
-                        fileInfo.UpdateRaceData (this);
-                        Output output = new Output(this);
-                        output
-                            .Client(Config.ClientHead)
-                            .Client(Config.ClientFileNameOk)
-                            .Client(Config.ClientFoot);
-                        IsValid = true;
-                    }
-                    else
-                    {
-                        Output output = new Output(this);
-                        output
-                            .Client(Config.ClientHead)
-                            .Client(Config.ClientFileNameBadCrc)
-                            .Client(Config.ClientFoot);
-                        IsValid = false;
-                    }
+                    ProcessRar ();
                     break;
+                }
+
+                case RaceType.Mp3:
+                {
+                    IsValid = false;
+                    throw new NotImplementedException ("MP3 file type is not supported");
+                }
+
+                case RaceType.Zip:
+                {
+                    IsValid = false;
+                    throw new NotImplementedException ("ZIP file type is not supported");
                 }
 
                 default:
                 {
-                    Output output = new Output(this);
-                    output
-                        .Client(Config.ClientHead)
-                        .Client(Config.ClientFileName)
-                        .Client(Config.ClientFoot);
                     IsValid = false;
+                    Output output = new Output (this);
+                    output
+                        .Client (Config.ClientHead)
+                        .Client (Config.ClientFileName)
+                        .Client (Config.ClientFoot);
                     break;
                 }
             }
         }
 
-        private bool SfvCheck()
+        /// <summary>
+        /// Processes with file check for type <see cref="Framework.RaceType.Rar"/>.
+        /// </summary>
+        private void ProcessRar ()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(DirectoryPath);
-            System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles("*.sfv");
+            FileInfo fileInfo = new FileInfo ();
+            fileInfo.ParseRaceFile (this);
+            if (fileInfo.GetCrc32ForFile (FileName).Equals (UploadCrc))
+            {
+                fileInfo.UpdateRaceData (this);
+                Output output = new Output (this);
+                output
+                    .Client (Config.ClientHead)
+                    .Client (Config.ClientFileNameOk)
+                    .Client (Config.ClientFoot);
+                IsValid = true;
+            }
+            else
+            {
+                Output output = new Output (this);
+                output
+                    .Client (Config.ClientHead)
+                    .Client (Config.ClientFileNameBadCrc)
+                    .Client (Config.ClientFoot);
+                IsValid = false;
+            }
+        }
+
+        /// <summary>
+        /// Processes with file check for type <see cref="Framework.RaceType.Sfv"/>.
+        /// </summary>
+        private void ProcessSfv ()
+        {
+            FileInfo fileInfo = new FileInfo ();
+            fileInfo.ParseSfv (UploadFile);
+            sfvData = fileInfo.SfvData;
+            foreach (KeyValuePair<string, string> keyValuePair in fileInfo.SfvData)
+            {
+                fileInfo.Create0ByteFile (Path.Combine (DirectoryPath, keyValuePair.Key) +
+                                          Config.FileExtensionMissing);
+            }
+            TotalFilesExpected = fileInfo.SfvData.Count;
+            fileInfo.CreateSfvRaceDataFile (this);
+            Output output = new Output (this);
+            output
+                .Client (Config.ClientHead)
+                .Client (Config.ClientFileNameSfv)
+                .Client (Config.ClientFoot);
+        }
+
+        /// <summary>
+        /// Checks if SFV exists.
+        /// </summary>
+        /// <returns><c>true</c> if SFV file was found.</returns>
+        private bool SfvCheck ()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo (DirectoryPath);
+            System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles ("*.sfv");
             if (fileInfo.Length != 1)
             {
                 IsValid = false;
-                Output output = new Output(this);
+                Output output = new Output (this);
                 output
-                    .Client(Config.ClientHead)
-                    .Client(Config.ClientFileNameSfv)
-                    .Client(Config.ClientFileNameSfvExists)
-                    .Client(Config.ClientFoot);
+                    .Client (Config.ClientHead)
+                    .Client (Config.ClientFileNameSfv)
+                    .Client (Config.ClientFileNameSfvExists)
+                    .Client (Config.ClientFoot);
             }
             return false;
         }
 
-        private void SelectRaceType()
+        /// <summary>
+        /// Selects the type of the race based on the file extension.
+        /// </summary>
+        private void SelectRaceType ()
         {
-            if (string.IsNullOrEmpty(FileExtension))
+            if (string.IsNullOrEmpty (FileExtension))
             {
                 IsValid = false;
                 return;
             }
             IsValid = true;
-            RaceType = FileExtension.Equals(".sfv", StringComparison.InvariantCultureIgnoreCase)
+            RaceType = EqualsRaceType (".sfv")
                            ? RaceType.Sfv
-                           : FileExtension.Equals(".mp3", StringComparison.InvariantCultureIgnoreCase)
+                           : EqualsRaceType (".mp3")
                                  ? RaceType.Mp3
-                                 : FileExtension.Equals(".zip", StringComparison.InvariantCultureIgnoreCase)
+                                 : EqualsRaceType (".zip")
                                        ? RaceType.Zip
-                                       : RaceType.Rar;
+                                       : EqualsRaceType (".rar")
+                                             ? RaceType.Rar
+                                             : RaceType.None;
+        }
+
+        /// <summary>
+        /// Checks if the file extension matches.
+        /// </summary>
+        /// <param name="fileExtension">The file extension.</param>
+        /// <returns><c>true</c> on match.</returns>
+        private bool EqualsRaceType (string fileExtension)
+        {
+            return FileExtension.Equals (fileExtension, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public string FileExtension { get; set; }
@@ -144,6 +197,7 @@ namespace ioFTPD.Framework
         public string UploadCrc { get; set; }
         public string UploadFile { get; set; }
         public string UploadVirtualFile { get; set; }
+
         public Dictionary<string, string> SfvData
         {
             get { return sfvData; }
@@ -155,6 +209,6 @@ namespace ioFTPD.Framework
         public int TotalFilesUploaded { get; set; }
 
         private readonly string[] args;
-        private Dictionary<string, string> sfvData = new Dictionary<string, string>();
+        private Dictionary<string, string> sfvData = new Dictionary<string, string> ();
     }
 }

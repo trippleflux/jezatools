@@ -15,7 +15,7 @@ namespace ioFTPD.Framework
         public void ParseRaceFile(Race race)
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.DirectoryPath, Config.FileNameRace));
-            raceMutex.WaitOne();
+            RaceMutex.WaitOne();
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -36,16 +36,16 @@ namespace ioFTPD.Framework
                         {
                             uploadedFiles++;
                         }
-                        int size = reader.ReadInt32();
-                        int speed = reader.ReadInt32();
-                        string username = reader.ReadString();
-                        string groupname = reader.ReadString();
+                        //int size = reader.ReadInt32();
+                        //int speed = reader.ReadInt32();
+                        //string username = reader.ReadString();
+                        //string groupname = reader.ReadString();
                     }
                     race.TotalFilesExpected = totalFiles;
                     race.TotalFilesUploaded = uploadedFiles;
                 }
             }
-            raceMutex.ReleaseMutex();
+            RaceMutex.ReleaseMutex();
         }
 
         public void UpdateRaceData(Race race)
@@ -53,7 +53,7 @@ namespace ioFTPD.Framework
             int position = 0;
             string fileName = "", fileCrc = "";
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.DirectoryPath, Config.FileNameRace));
-            raceMutex.WaitOne();
+            RaceMutex.WaitOne();
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -95,7 +95,7 @@ namespace ioFTPD.Framework
                 }
                 race.TotalFilesUploaded++;
             }
-            raceMutex.ReleaseMutex();
+            RaceMutex.ReleaseMutex();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace ioFTPD.Framework
         public void CreateSfvRaceDataFile(Race race)
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.DirectoryPath, Config.FileNameRace));
-            raceMutex.WaitOne();
+            RaceMutex.WaitOne();
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -178,7 +178,7 @@ namespace ioFTPD.Framework
                     }
                 }
             }
-            raceMutex.ReleaseMutex();
+            RaceMutex.ReleaseMutex();
         }
 
         public void DeleteFiles
@@ -217,6 +217,6 @@ namespace ioFTPD.Framework
         }
 
         private readonly Dictionary<string, string> sfvData = new Dictionary<string, string>();
-        private static readonly Mutex raceMutex = new Mutex(false, "raceMutex");
+        private static readonly Mutex RaceMutex = new Mutex(false, "raceMutex");
     }
 }

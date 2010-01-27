@@ -27,7 +27,7 @@ namespace ioFTPD.Framework
 
         [DllImport("Kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern SafeWaitHandle CreateEvent
-            (SECURITY_ATTRIBUTES lpSecurityAttributes,
+            (SecurityAttributes lpSecurityAttributes,
              bool isManualReset,
              bool initialState,
              string name);
@@ -35,7 +35,7 @@ namespace ioFTPD.Framework
         [DllImport("Kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern IntPtr CreateFileMapping
             (IntPtr hFile,
-             [MarshalAs(UnmanagedType.LPStruct)] NativeTypes.SECURITY_ATTRIBUTES lpAttributes,
+             [MarshalAs(UnmanagedType.LPStruct)] NativeTypes.SecurityAttributes lpAttributes,
              int flProtect,
              int dwMaxSizeHi,
              int dwMaxSizeLow,
@@ -80,12 +80,12 @@ namespace ioFTPD.Framework
 
     internal class NativeTypes
     {
-        public class SECURITY_ATTRIBUTES
+        public class SecurityAttributes
         {
         }
     }
 
-    public class SECURITY_ATTRIBUTES
+    public class SecurityAttributes
     {
     }
 }

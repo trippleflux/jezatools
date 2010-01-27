@@ -6,5 +6,6 @@ namespace ioFTPD.Framework
         Zip,
         Mp3,
         Rar,
+        None
     }
 }
