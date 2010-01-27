@@ -1,13 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <project name="BuildRunner" default="compile" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
-  <loadtasks assembly="..\lib\GallioBundle-3.0.6.787\bin\Gallio.NAntTasks.dll" />
+  <loadtasks assembly="..\lib\GallioBundle-3.1.397.0\bin\Gallio.NAntTasks.dll" />
   <property name="DotNetFrameworkDir" value="${path::combine(environment::get-variable('SystemRoot'), 'Microsoft.NET\Framework\v3.5')}" />
   <property name="Configuration" value="Release" />
 
   <property name="Folder.Source" value="." />
+  <property name="Folder.Project" value="${path::combine(Folder.Source, 'ioFTPD.Tests')}" />
+  <property name="Folder.Release" value="${path::combine(path::combine(Folder.Project, 'bin'), Configuration)}" />
+  <property name="Folder.Results" value="${path::combine(Folder.Source, 'TestResults')}" />
+  <property name="Folder.LastTestResults" value="${path::combine(Folder.Results, 'LastTest')}" />
+
   <property name="File.Solution" value="ioFTPDTools.sln" />
-  <property name="MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
+  <property name="File.Tests" value="${path::combine(Folder.Release, 'ioFTPD.Tests.dll')}" />
+  <property name="File.TestsResults" value="Results" />
+  <property name="File.MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
 
   <target name="clean" descripton="Removes output files and directories.">
     <delete includeemptydirs="true" failonerror="true">
@@ -22,12 +29,29 @@
   </target>
 
   <target name="compile" depends="clean" descripton="Compile solution">
-    <exec program="${MSBuild}" workingdir="${Folder.Source}" verbose="true">
+    <exec program="${File.MSBuild}" workingdir="${Folder.Source}" verbose="true">
       <arg value="/property:Configuration=${Configuration}" />
       <arg value="/target:Rebuild" />
       <arg value="/consoleloggerparameters:NoSummary" />
       <arg value="${File.Solution}" />
     </exec>
+  </target>
+
+  <target name="test" depends="compile" descripton="Run unit tests">
+    <echo>report-directory=${Folder.LastTestResults}</echo>
+    <echo>report-name-format=${File.TestsResults}</echo>
+    <echo>test-file=${File.Tests}</echo>
+    <echo>report-types=Html;Xml;Text</echo>
+    <gallio
+      report-directory="${Folder.LastTestResults}"
+      report-name-format="${File.TestsResults}"
+      report-types="Html;Xml;Text"
+      echo-results="true"
+      failonerror="false">
+      <files>
+        <include name="${File.Tests}" />
+      </files>
+    </gallio>
   </target>
 
 </project>

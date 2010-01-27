@@ -47,7 +47,7 @@ namespace ioFTPD.Framework
             set { crc = value; }
         }
 
-        public static uint GetStreamCRC32(Stream stream)
+        public static uint GetStreamCrc32(Stream stream)
         {
             if (stream == null)
             {
@@ -69,7 +69,7 @@ namespace ioFTPD.Framework
             return crc32.Value;
         }
 
-        public static uint GetFileCRC32(string path)
+        public static uint GetFileCrc32(string path)
         {
             if (path == null)
             {
