@@ -29,7 +29,26 @@ namespace ioFTPD.Framework
             UploadFile = args [1];
             UploadCrc = args [2];
             UploadVirtualFile = args [3];
+            Speed = GetSpeed ();
+            UserName = GetUserName ();
+            GroupName = GetGroupName ();
+            TotalBytesUploaded = 0;
             return this;
+        }
+
+        private string GetGroupName ()
+        {
+            return "Non Existing GroupName";
+        }
+
+        private string GetUserName ()
+        {
+            return "Non Existing Username";
+        }
+
+        private ulong GetSpeed ()
+        {
+            return 0;
         }
 
         /// <summary>
@@ -95,7 +114,10 @@ namespace ioFTPD.Framework
             if (fileInfo.GetCrc32ForFile (FileName).Equals (UploadCrc))
             {
                 fileInfo.UpdateRaceData (this);
-                Output output = new Output (this);
+                fileInfo.DeleteFile (DirectoryPath, FileName + Config.FileExtensionMissing);
+                Output output = new Output(this);
+                fileInfo.DeleteFilesThatStartsWith(DirectoryPath, Config.TagCleanUpString);
+                fileInfo.Create0ByteFile(Path.Combine(DirectoryPath, output.Format(Config.TagInCompleteRar)));
                 output
                     .Client (Config.ClientHead)
                     .Client (Config.ClientFileNameOk)
@@ -197,6 +219,16 @@ namespace ioFTPD.Framework
         public string UploadCrc { get; set; }
         public string UploadFile { get; set; }
         public string UploadVirtualFile { get; set; }
+        public string UserName { get; set; }
+        public string GroupName { get; set; }
+        public int TotalFilesExpected { get; set; }
+        public int TotalFilesUploaded { get; set; }
+        public UInt64 Speed { get; set; }
+        public UInt64 TotalBytesUploaded { get; set; }
+        public UInt64 TotalMBytesUploaded
+        {
+            get { return TotalBytesUploaded / 1000; }
+        }
 
         public Dictionary<string, string> SfvData
         {
@@ -204,9 +236,6 @@ namespace ioFTPD.Framework
         }
 
         public bool IsValid { get; set; }
-
-        public int TotalFilesExpected { get; set; }
-        public int TotalFilesUploaded { get; set; }
 
         private readonly string[] args;
         private Dictionary<string, string> sfvData = new Dictionary<string, string> ();
