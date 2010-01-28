@@ -17,6 +17,8 @@ namespace Watin
                 google
                     .SetBrowser(TestBrowser)
                     .SearchFor("Watin")
+                    .AssertTextExists("Watin")
+                    .SearchFor("Watin")
                     .AssertTextExists("Watin");
             }
         }

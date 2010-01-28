@@ -65,11 +65,11 @@ namespace Watin
 
         private bool Disposed;
 
-        [FindBy(Name = "q")] private readonly TextField TextBoxSearch;
+        [FindBy(Name = "q")] private TextField TextBoxSearch;
 
-        [FindBy(Name = "btnG")] private readonly Button ButtonSearch;
+        [FindBy(Name = "btnG")] private Button ButtonSearch;
 
-        [FindBy(Name = "btnI")] private readonly Button ButtonIFeelLucky;
+        [FindBy(Name = "btnI")] private Button ButtonIFeelLucky;
 
         private const string Url = "http://www.google.com";
     }
