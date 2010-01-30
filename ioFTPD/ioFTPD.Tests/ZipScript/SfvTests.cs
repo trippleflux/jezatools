@@ -48,7 +48,7 @@ namespace ioFTPD.Tests.ZipScript
         public void RaceSfv ()
         {
             Race race = UploadSfvFile ();
-            FileInfo fileInfo = new FileInfo (Path.Combine (race.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
                                                        FileAccess.ReadWrite,

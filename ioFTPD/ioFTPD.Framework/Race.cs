@@ -21,18 +21,21 @@ namespace ioFTPD.Framework
         public Race Parse ()
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo (args [1]);
-            FileExtension = Path.GetExtension (fileInfo.FullName);
-            FileName = fileInfo.Name;
-            DirectoryName = fileInfo.Directory == null ? "" : fileInfo.Directory.Name;
-            DirectoryPath = fileInfo.Directory == null ? "" : fileInfo.Directory.FullName;
-            FileSize = fileInfo.Length;
-            UploadFile = args [1];
-            UploadCrc = args [2];
-            UploadVirtualFile = args [3];
-            Speed = GetSpeed ();
-            UserName = GetUserName ();
-            GroupName = GetGroupName ();
-            TotalBytesUploaded = 0;
+            RaceData = new RaceData
+                {
+                    FileExtension = Path.GetExtension (fileInfo.FullName),
+                    FileName = fileInfo.Name,
+                    DirectoryName = fileInfo.Directory == null ? "" : fileInfo.Directory.Name,
+                    DirectoryPath = fileInfo.Directory == null ? "" : fileInfo.Directory.FullName,
+                    FileSize = fileInfo.Length,
+                    UploadFile = args [1],
+                    UploadCrc = args [2],
+                    UploadVirtualFile = args [3],
+                    Speed = GetSpeed (),
+                    UserName = GetUserName (),
+                    GroupName = GetGroupName (),
+                    TotalBytesUploaded = 0
+                };
             return this;
         }
 
@@ -61,12 +64,13 @@ namespace ioFTPD.Framework
             {
                 return;
             }
-            switch (RaceType)
+            switch (RaceData.RaceType)
             {
                 case RaceType.Sfv:
                 {
-                    if (SfvCheck ())
+                    if (!SfvCheck ())
                     {
+                        OutputSfvFirst (Config.ClientFileNameSfv, Config.ClientFileNameSfvExists);
                         return;
                     }
                     ProcessSfv ();
@@ -75,12 +79,22 @@ namespace ioFTPD.Framework
 
                 case RaceType.Rar:
                 {
+                    if (!SfvCheck ())
+                    {
+                        OutputSfvFirst (Config.ClientFileName, Config.ClientFileNameSfvFirst);
+                        return;
+                    }
                     ProcessRar ();
                     break;
                 }
 
                 case RaceType.Mp3:
                 {
+                    if (!SfvCheck ())
+                    {
+                        OutputSfvFirst (Config.ClientFileName, Config.ClientFileNameSfvFirst);
+                        return;
+                    }
                     IsValid = false;
                     throw new NotImplementedException ("MP3 file type is not supported");
                 }
@@ -104,6 +118,18 @@ namespace ioFTPD.Framework
             }
         }
 
+        private void OutputSfvFirst
+            (string fileInfo,
+             string fileReason)
+        {
+            Output output = new Output (this);
+            output
+                .Client (Config.ClientHead)
+                .Client (fileInfo)
+                .Client (fileReason)
+                .Client (Config.ClientFoot);
+        }
+
         /// <summary>
         /// Processes with file check for type <see cref="Framework.RaceType.Rar"/>.
         /// </summary>
@@ -111,17 +137,26 @@ namespace ioFTPD.Framework
         {
             FileInfo fileInfo = new FileInfo ();
             fileInfo.ParseRaceFile (this);
-            if (fileInfo.GetCrc32ForFile (FileName).Equals (UploadCrc))
+            if (fileInfo.GetCrc32ForFile (RaceData.FileName).Equals (RaceData.UploadCrc))
             {
                 fileInfo.UpdateRaceData (this);
-                fileInfo.DeleteFile (DirectoryPath, FileName + Config.FileExtensionMissing);
-                Output output = new Output(this);
-                fileInfo.DeleteFilesThatStartsWith(DirectoryPath, Config.TagCleanUpString);
-                fileInfo.Create0ByteFile(Path.Combine(DirectoryPath, output.Format(Config.TagInCompleteRar)));
+                fileInfo.DeleteFile (RaceData.DirectoryPath, RaceData.FileName + Config.FileExtensionMissing);
+                fileInfo.DeleteFilesThatStartsWith (RaceData.DirectoryPath, Config.TagCleanUpString);
+                Output output = new Output (this);
                 output
                     .Client (Config.ClientHead)
                     .Client (Config.ClientFileNameOk)
                     .Client (Config.ClientFoot);
+                if (RaceData.IsRaceComplete)
+                {
+                    fileInfo.Create0ByteFile (Path.Combine (RaceData.DirectoryPath,
+                                                            output.Format (Config.TagCompleteRar)));
+                }
+                else
+                {
+                    fileInfo.Create0ByteFile (Path.Combine (RaceData.DirectoryPath,
+                                                            output.Format (Config.TagInCompleteRar)));
+                }
                 IsValid = true;
             }
             else
@@ -141,14 +176,14 @@ namespace ioFTPD.Framework
         private void ProcessSfv ()
         {
             FileInfo fileInfo = new FileInfo ();
-            fileInfo.ParseSfv (UploadFile);
+            fileInfo.ParseSfv (RaceData.UploadFile);
             sfvData = fileInfo.SfvData;
             foreach (KeyValuePair<string, string> keyValuePair in fileInfo.SfvData)
             {
-                fileInfo.Create0ByteFile (Path.Combine (DirectoryPath, keyValuePair.Key) +
+                fileInfo.Create0ByteFile (Path.Combine (RaceData.DirectoryPath, keyValuePair.Key) +
                                           Config.FileExtensionMissing);
             }
-            TotalFilesExpected = fileInfo.SfvData.Count;
+            RaceData.TotalFilesExpected = fileInfo.SfvData.Count;
             fileInfo.CreateSfvRaceDataFile (this);
             Output output = new Output (this);
             output
@@ -163,18 +198,13 @@ namespace ioFTPD.Framework
         /// <returns><c>true</c> if SFV file was found.</returns>
         private bool SfvCheck ()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo (DirectoryPath);
+            DirectoryInfo directoryInfo = new DirectoryInfo (RaceData.DirectoryPath);
             System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles ("*.sfv");
-            if (fileInfo.Length != 1)
+            if (fileInfo.Length == 1)
             {
-                IsValid = false;
-                Output output = new Output (this);
-                output
-                    .Client (Config.ClientHead)
-                    .Client (Config.ClientFileNameSfv)
-                    .Client (Config.ClientFileNameSfvExists)
-                    .Client (Config.ClientFoot);
+                return true;
             }
+            IsValid = false;
             return false;
         }
 
@@ -183,21 +213,21 @@ namespace ioFTPD.Framework
         /// </summary>
         private void SelectRaceType ()
         {
-            if (string.IsNullOrEmpty (FileExtension))
+            if (string.IsNullOrEmpty (RaceData.FileExtension))
             {
                 IsValid = false;
                 return;
             }
             IsValid = true;
-            RaceType = EqualsRaceType (".sfv")
-                           ? RaceType.Sfv
-                           : EqualsRaceType (".mp3")
-                                 ? RaceType.Mp3
-                                 : EqualsRaceType (".zip")
-                                       ? RaceType.Zip
-                                       : EqualsRaceType (".rar")
-                                             ? RaceType.Rar
-                                             : RaceType.None;
+            RaceData.RaceType = EqualsRaceType (".sfv")
+                                    ? RaceType.Sfv
+                                    : EqualsRaceType (".mp3")
+                                          ? RaceType.Mp3
+                                          : EqualsRaceType (".zip")
+                                                ? RaceType.Zip
+                                                : EqualsRaceType (".rar")
+                                                      ? RaceType.Rar
+                                                      : RaceType.None;
         }
 
         /// <summary>
@@ -207,27 +237,7 @@ namespace ioFTPD.Framework
         /// <returns><c>true</c> on match.</returns>
         private bool EqualsRaceType (string fileExtension)
         {
-            return FileExtension.Equals (fileExtension, StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        public string FileExtension { get; set; }
-        public string FileName { get; set; }
-        public long FileSize { get; set; }
-        public string DirectoryName { get; set; }
-        public string DirectoryPath { get; set; }
-        public RaceType RaceType { get; set; }
-        public string UploadCrc { get; set; }
-        public string UploadFile { get; set; }
-        public string UploadVirtualFile { get; set; }
-        public string UserName { get; set; }
-        public string GroupName { get; set; }
-        public int TotalFilesExpected { get; set; }
-        public int TotalFilesUploaded { get; set; }
-        public UInt64 Speed { get; set; }
-        public UInt64 TotalBytesUploaded { get; set; }
-        public UInt64 TotalMBytesUploaded
-        {
-            get { return TotalBytesUploaded / 1000; }
+            return RaceData.FileExtension.Equals (fileExtension, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public Dictionary<string, string> SfvData
@@ -235,8 +245,8 @@ namespace ioFTPD.Framework
             get { return sfvData; }
         }
 
+        public RaceData RaceData { get; set; }
         public bool IsValid { get; set; }
-
         private readonly string[] args;
         private Dictionary<string, string> sfvData = new Dictionary<string, string> ();
     }

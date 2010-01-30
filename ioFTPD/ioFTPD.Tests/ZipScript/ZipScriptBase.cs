@@ -1,10 +1,12 @@
+#region
 using System;
 using System.Globalization;
 using System.IO;
-using System.Threading;
 using ioFTPD.Framework;
 using MbUnit.Framework;
 using FileInfo=ioFTPD.Framework.FileInfo;
+
+#endregion
 
 namespace ioFTPD.Tests.ZipScript
 {
@@ -65,10 +67,10 @@ namespace ioFTPD.Tests.ZipScript
         {
             Race race = new Race (ArgsSfv);
             race.Parse ();
-            Assert.AreEqual (".sfv", race.FileExtension, "FileExtension");
-            Assert.AreEqual ("infected.sfv", race.FileName, "FileName");
-            Assert.AreEqual (432, race.FileSize, "FileSize");
-            Assert.AreEqual ("Rar", race.DirectoryName, "DirectoryName");
+            Assert.AreEqual (".sfv", race.RaceData.FileExtension, "FileExtension");
+            Assert.AreEqual ("infected.sfv", race.RaceData.FileName, "FileName");
+            Assert.AreEqual (432, race.RaceData.FileSize, "FileSize");
+            Assert.AreEqual ("Rar", race.RaceData.DirectoryName, "DirectoryName");
             race.Process ();
             return race;
         }

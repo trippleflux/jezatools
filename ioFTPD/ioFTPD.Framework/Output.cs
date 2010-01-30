@@ -9,7 +9,7 @@ namespace ioFTPD.Framework
     {
         public Output (Race race)
         {
-            this.race = race;
+            raceData = race.RaceData;
         }
 
         public Output Client (string line)
@@ -39,27 +39,27 @@ namespace ioFTPD.Framework
                 {
                     case "filename":
                     {
-                        args [i] = race.FileName;
+                        args [i] = raceData.FileName;
                         break;
                     }
                     case "totalfilesexpected":
                     {
-                        args [i] = race.TotalFilesExpected.ToString ();
+                        args [i] = raceData.TotalFilesExpected.ToString ();
                         break;
                     }
                     case "totalfilesuploaded":
                     {
-                        args [i] = race.TotalFilesUploaded.ToString ();
+                        args [i] = raceData.TotalFilesUploaded.ToString ();
                         break;
                     }
                     case "totalbytesuploaded":
                     {
-                        args [i] = race.TotalBytesUploaded.ToString ();
+                        args [i] = raceData.TotalBytesUploaded.ToString ();
                         break;
                     }
                     case "totalmbytesuploaded":
                     {
-                        args [i] = race.TotalMBytesUploaded.ToString ();
+                        args [i] = raceData.TotalMBytesUploaded.ToString ();
                         break;
                     }
                     default:
@@ -72,6 +72,6 @@ namespace ioFTPD.Framework
             return text;
         }
 
-        private readonly Race race;
+        private readonly RaceData raceData;
     }
 }
