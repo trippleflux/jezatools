@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</ProjectGuid>
+    <ProjectGuid>{62C6B033-8726-4B1D-ACA2-FD2D5521E570}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ioFTPD.Framework</RootNamespace>
-    <AssemblyName>jeza.ioFTPD.Framework</AssemblyName>
+    <RootNamespace>jeza.ioFTPD.Tests</RootNamespace>
+    <AssemblyName>jeza.ioFTPD.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\GallioBundle-3.1.397.0\bin\Gallio.dll</HintPath>
+    </Reference>
+    <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\GallioBundle-3.1.397.0\bin\MbUnit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -45,16 +53,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ioFTPD.cs" />
-    <Compile Include="MyFormat.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="Crc32.cs" />
-    <Compile Include="FileInfo.cs" />
-    <Compile Include="Output.cs" />
-    <Compile Include="Race.cs" />
+    <Compile Include="OutputTests.cs" />
+    <Compile Include="ZipScript\RarTests.cs" />
+    <Compile Include="ZipScript\SfvTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RaceData.cs" />
-    <Compile Include="RaceType.cs" />
+    <Compile Include="ZipScript\ZipScriptBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
+      <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
+      <Name>jeza.ioFTPD.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.csproj">
+      <Project>{4C916287-0460-4FBF-AFA4-B859D03362BB}</Project>
+      <Name>jeza.ioFTPD.ZipScript</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestFiles\Mp3\01-jozek.Pepek-2009-asd-Ind.mp3" />
+    <Content Include="TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind .mp3" />
+    <Content Include="TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind %282%29.mp3" />
+    <Content Include="TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind %283%29.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestFiles\Mp3\jozek.Pepek-2009-asd-Ind.sfv" />
+    <None Include="TestFiles\Rar\infected.part1.rar" />
+    <None Include="TestFiles\Rar\infected.part2.rar" />
+    <None Include="TestFiles\Rar\infected.part3.rar" />
+    <None Include="TestFiles\Rar\infected.part4.rar" />
+    <None Include="TestFiles\Rar\infected.sfv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestFiles\Zip\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

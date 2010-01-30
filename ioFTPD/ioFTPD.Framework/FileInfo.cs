@@ -7,7 +7,7 @@ using System.Threading;
 
 #endregion
 
-namespace ioFTPD.Framework
+namespace jeza.ioFTPD.Framework
 {
     public class FileInfo
     {

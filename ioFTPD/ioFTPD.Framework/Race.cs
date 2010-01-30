@@ -5,7 +5,7 @@ using System.IO;
 
 #endregion
 
-namespace ioFTPD.Framework
+namespace jeza.ioFTPD.Framework
 {
     public class Race
     {
@@ -131,7 +131,7 @@ namespace ioFTPD.Framework
         }
 
         /// <summary>
-        /// Processes with file check for type <see cref="Framework.RaceType.Rar"/>.
+        /// Processes with file check for type <see cref="RaceType.Rar"/>.
         /// </summary>
         private void ProcessRar ()
         {
@@ -171,7 +171,7 @@ namespace ioFTPD.Framework
         }
 
         /// <summary>
-        /// Processes with file check for type <see cref="Framework.RaceType.Sfv"/>.
+        /// Processes with file check for type <see cref="RaceType.Sfv"/>.
         /// </summary>
         private void ProcessSfv ()
         {

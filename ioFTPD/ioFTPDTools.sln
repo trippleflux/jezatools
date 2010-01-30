@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.ZipScript", "ioFTPD.ZipScript\ioFTPD.ZipScript.csproj", "{4C916287-0460-4FBF-AFA4-B859D03362BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.ZipScript", "ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.csproj", "{4C916287-0460-4FBF-AFA4-B859D03362BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.Framework", "ioFTPD.Framework\ioFTPD.Framework.csproj", "{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Framework", "ioFTPD.Framework\jeza.ioFTPD.Framework.csproj", "{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.Tests", "ioFTPD.Tests\ioFTPD.Tests.csproj", "{62C6B033-8726-4B1D-ACA2-FD2D5521E570}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Tests", "ioFTPD.Tests\jeza.ioFTPD.Tests.csproj", "{62C6B033-8726-4B1D-ACA2-FD2D5521E570}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ioFTPD.Mp3Sort", "ioFTPD.Mp3Sort\ioFTPD.Mp3Sort.csproj", "{1F9F0647-C6FB-48DE-BED4-741FAD649ACE}"
 EndProject

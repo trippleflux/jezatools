@@ -3,13 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using ioFTPD.Framework;
+using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
 using FileInfo=System.IO.FileInfo;
 
 #endregion
 
-namespace ioFTPD.Tests.ZipScript
+namespace jeza.ioFTPD.Tests.ZipScript
 {
     [TestFixture]
     public class SfvTests : ZipScriptBase
@@ -71,7 +71,7 @@ namespace ioFTPD.Tests.ZipScript
         public void SfvData ()
         {
             const string fileName = @"..\..\TestFiles\Rar\infected.sfv";
-            Framework.FileInfo fileInfo = new Framework.FileInfo ();
+            global::jeza.ioFTPD.Framework.FileInfo fileInfo = new global::jeza.ioFTPD.Framework.FileInfo ();
             fileInfo.ParseSfv (fileName);
             Dictionary<string, string> sfvData = fileInfo.SfvData;
             Assert.IsNotNull (sfvData, "sfvData");
