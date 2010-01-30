@@ -2,13 +2,13 @@
 using System;
 using System.Globalization;
 using System.IO;
-using ioFTPD.Framework;
+using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
-using FileInfo=ioFTPD.Framework.FileInfo;
+using FileInfo=jeza.ioFTPD.Framework.FileInfo;
 
 #endregion
 
-namespace ioFTPD.Tests.ZipScript
+namespace jeza.ioFTPD.Tests.ZipScript
 {
     public class ZipScriptBase
     {

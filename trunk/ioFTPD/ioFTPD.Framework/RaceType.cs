@@ -1,4 +1,4 @@
-namespace ioFTPD.Framework
+namespace jeza.ioFTPD.Framework
 {
     public enum RaceType
     {

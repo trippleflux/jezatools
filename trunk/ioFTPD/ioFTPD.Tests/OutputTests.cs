@@ -1,11 +1,10 @@
 #region
-
-using ioFTPD.Framework;
+using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
 
 #endregion
 
-namespace ioFTPD.Tests
+namespace jeza.ioFTPD.Tests
 {
     [TestFixture]
     public class OutputTests

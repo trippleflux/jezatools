@@ -3,7 +3,7 @@ using System;
 
 #endregion
 
-namespace ioFTPD.Framework
+namespace jeza.ioFTPD.Framework
 {
     public class Output
     {

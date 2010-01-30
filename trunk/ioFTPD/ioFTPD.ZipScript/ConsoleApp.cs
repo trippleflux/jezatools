@@ -1,6 +1,6 @@
-using ioFTPD.Framework;
+using jeza.ioFTPD.Framework;
 
-namespace ioFTPD.ZipScript
+namespace jeza.ioFTPD.ZipScript
 {
     public class ConsoleApp
     {

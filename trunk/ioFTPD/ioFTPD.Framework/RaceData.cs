@@ -1,6 +1,6 @@
 using System;
 
-namespace ioFTPD.Framework
+namespace jeza.ioFTPD.Framework
 {
     public class RaceData
     {

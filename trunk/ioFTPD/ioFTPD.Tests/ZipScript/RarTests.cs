@@ -1,13 +1,13 @@
 ﻿#region
 using System;
 using System.IO;
-using ioFTPD.Framework;
+using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
 using FileInfo=System.IO.FileInfo;
 
 #endregion
 
-namespace ioFTPD.Tests.ZipScript
+namespace jeza.ioFTPD.Tests.ZipScript
 {
     [TestFixture]
     public class RarTests : ZipScriptBase
@@ -50,9 +50,9 @@ namespace ioFTPD.Tests.ZipScript
             race.Process();
             fileInfo = new FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                       FileMode.Open,
-                                                       FileAccess.Read,
-                                                       FileShare.None))
+                                                      FileMode.Open,
+                                                      FileAccess.Read,
+                                                      FileShare.None))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
@@ -74,9 +74,9 @@ namespace ioFTPD.Tests.ZipScript
             race.Process();
             fileInfo = new FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                       FileMode.Open,
-                                                       FileAccess.Read,
-                                                       FileShare.None))
+                                                      FileMode.Open,
+                                                      FileAccess.Read,
+                                                      FileShare.None))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
@@ -98,9 +98,9 @@ namespace ioFTPD.Tests.ZipScript
             race.Process();
             fileInfo = new FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                       FileMode.Open,
-                                                       FileAccess.Read,
-                                                       FileShare.None))
+                                                      FileMode.Open,
+                                                      FileAccess.Read,
+                                                      FileShare.None))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {

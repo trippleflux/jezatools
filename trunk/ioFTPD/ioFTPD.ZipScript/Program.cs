@@ -1,4 +1,4 @@
-﻿namespace ioFTPD.ZipScript
+﻿namespace jeza.ioFTPD.ZipScript
 {
     public class Program
     {
