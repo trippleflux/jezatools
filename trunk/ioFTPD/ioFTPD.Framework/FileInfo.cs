@@ -13,7 +13,7 @@ namespace ioFTPD.Framework
     {
         public void ParseRaceFile (Race race)
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo (Path.Combine (race.DirectoryPath, Config.FileNameRace));
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             RaceMutex.WaitOne ();
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
@@ -44,9 +44,9 @@ namespace ioFTPD.Framework
                         //string username = reader.ReadString();
                         //string groupname = reader.ReadString();
                     }
-                    race.TotalFilesExpected = totalFiles;
-                    race.TotalFilesUploaded = uploadedFiles;
-                    race.TotalBytesUploaded = totalBytes;
+                    race.RaceData.TotalFilesExpected = totalFiles;
+                    race.RaceData.TotalFilesUploaded = uploadedFiles;
+                    race.RaceData.TotalBytesUploaded = totalBytes;
                 }
             }
             RaceMutex.ReleaseMutex ();
@@ -56,7 +56,7 @@ namespace ioFTPD.Framework
         {
             int position = 0;
             string fileName = "", fileCrc = "";
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo (Path.Combine (race.DirectoryPath, Config.FileNameRace));
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             RaceMutex.WaitOne ();
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.Open,
@@ -65,11 +65,11 @@ namespace ioFTPD.Framework
             {
                 using (BinaryReader reader = new BinaryReader (stream))
                 {
-                    for (int i = 1; i <= race.TotalFilesExpected; i++)
+                    for (int i = 1; i <= race.RaceData.TotalFilesExpected; i++)
                     {
                         stream.Seek (256 * i, SeekOrigin.Begin);
                         fileName = reader.ReadString ();
-                        if (fileName.Equals (race.FileName))
+                        if (fileName.Equals(race.RaceData.FileName))
                         {
                             position = i;
                             fileCrc = reader.ReadString ();
@@ -91,14 +91,14 @@ namespace ioFTPD.Framework
                         writer.Write (fileName);
                         writer.Write (fileCrc);
                         writer.Write (true);
-                        writer.Write (race.FileSize); //file Size
-                        writer.Write (race.Speed); //upload speed
-                        writer.Write (race.UserName); //username
-                        writer.Write (race.GroupName); //groupname
+                        writer.Write(race.RaceData.FileSize); //file Size
+                        writer.Write(race.RaceData.Speed); //upload speed
+                        writer.Write(race.RaceData.UserName); //username
+                        writer.Write(race.RaceData.GroupName); //groupname
                     }
                 }
-                race.TotalFilesUploaded++;
-                race.TotalBytesUploaded += (UInt64) race.FileSize;
+                race.RaceData.TotalFilesUploaded++;
+                race.RaceData.TotalBytesUploaded += (UInt64)race.RaceData.FileSize;
             }
             RaceMutex.ReleaseMutex ();
         }
@@ -159,7 +159,7 @@ namespace ioFTPD.Framework
 
         public void CreateSfvRaceDataFile (Race race)
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo (Path.Combine (race.DirectoryPath, Config.FileNameRace));
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
             RaceMutex.WaitOne ();
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
@@ -169,7 +169,7 @@ namespace ioFTPD.Framework
                 using (BinaryWriter writer = new BinaryWriter (stream))
                 {
                     stream.Seek (0, SeekOrigin.Begin);
-                    writer.Write (race.TotalFilesExpected);
+                    writer.Write(race.RaceData.TotalFilesExpected);
                     int count = 1;
                     foreach (KeyValuePair<string, string> keyValuePair in race.SfvData)
                     {
