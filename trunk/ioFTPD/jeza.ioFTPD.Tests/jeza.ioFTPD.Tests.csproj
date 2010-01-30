@@ -60,11 +60,11 @@
     <Compile Include="ZipScript\ZipScriptBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
+    <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
       <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
       <Name>jeza.ioFTPD.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.csproj">
+    <ProjectReference Include="..\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.csproj">
       <Project>{4C916287-0460-4FBF-AFA4-B859D03362BB}</Project>
       <Name>jeza.ioFTPD.ZipScript</Name>
     </ProjectReference>
