@@ -6,13 +6,13 @@
   <property name="Configuration" value="Release" />
 
   <property name="Folder.Source" value="." />
-  <property name="Folder.Project" value="${path::combine(Folder.Source, 'ioFTPD.Tests')}" />
+  <property name="Folder.Project" value="${path::combine(Folder.Source, 'jeza.ioFTPD.Tests')}" />
   <property name="Folder.Release" value="${path::combine(path::combine(Folder.Project, 'bin'), Configuration)}" />
   <property name="Folder.Results" value="${path::combine(Folder.Source, 'TestResults')}" />
   <property name="Folder.LastTestResults" value="${path::combine(Folder.Results, 'LastTest')}" />
 
-  <property name="File.Solution" value="ioFTPDTools.sln" />
-  <property name="File.Tests" value="${path::combine(Folder.Release, 'ioFTPD.Tests.dll')}" />
+  <property name="File.Solution" value="jeza.ioFTPD.Tools.sln" />
+  <property name="File.Tests" value="${path::combine(Folder.Release, 'jeza.ioFTPD.Tests.dll')}" />
   <property name="File.TestsResults" value="Results" />
   <property name="File.MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
 
