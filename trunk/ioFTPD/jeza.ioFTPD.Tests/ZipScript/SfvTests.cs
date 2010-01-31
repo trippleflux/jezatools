@@ -48,7 +48,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         public void RaceSfv ()
         {
             Race race = UploadSfvFile ();
-            FileInfo fileInfo = new FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
                                                        FileAccess.ReadWrite,
@@ -70,12 +70,13 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void SfvData ()
         {
-            const string fileName = @"..\..\TestFiles\Rar\infected.sfv";
-            global::jeza.ioFTPD.Framework.FileInfo fileInfo = new global::jeza.ioFTPD.Framework.FileInfo ();
-            fileInfo.ParseSfv (fileName);
-            Dictionary<string, string> sfvData = fileInfo.SfvData;
+            Race race = new Race (ArgsSfv);
+            race.Parse ();
+            DataParserSfv sfvParser = new DataParserSfv (race);
+            sfvParser.Parse ();
+            Assert.AreEqual (4, race.TotalFilesExpected, "TotalFilesExpected");
+            Dictionary<string, string> sfvData = sfvParser.SfvData;
             Assert.IsNotNull (sfvData, "sfvData");
-            Assert.AreEqual (4, sfvData.Count, "sfvData.Count");
             Dictionary<string, string> expectedSfvData = new Dictionary<string, string>
                 {
                     {"infected.part1.rar", "2e04944c"},

@@ -1,7 +1,6 @@
 #region
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Threading;
 
@@ -11,52 +10,12 @@ namespace jeza.ioFTPD.Framework
 {
     public class FileInfo
     {
-        public void ParseRaceFile (Race race)
-        {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
-            RaceMutex.WaitOne ();
-            using (FileStream stream = new FileStream (fileInfo.FullName,
-                                                       FileMode.OpenOrCreate,
-                                                       FileAccess.ReadWrite,
-                                                       FileShare.None))
-            {
-                using (BinaryReader reader = new BinaryReader (stream))
-                {
-                    stream.Seek (0, SeekOrigin.Begin);
-                    int totalFiles = reader.ReadInt32 ();
-                    int uploadedFiles = 0;
-                    UInt64 totalBytes = 0;
-                    //UInt64 totalSpeed= 0;
-                    for (int i = 1; i <= totalFiles; i++)
-                    {
-                        stream.Seek (256 * i, SeekOrigin.Begin);
-                        string fileNmae = reader.ReadString ();
-                        string crc32 = reader.ReadString ();
-                        sfvData.Add (fileNmae, crc32);
-                        if (reader.ReadBoolean ())
-                        {
-                            uploadedFiles++;
-                        }
-                        UInt64 size = reader.ReadUInt64 ();
-                        totalBytes += size;
-                        //UInt64 speed = reader.ReadUInt64 ();
-                        //totalSpeed += speed;
-                        //string username = reader.ReadString();
-                        //string groupname = reader.ReadString();
-                    }
-                    race.RaceData.TotalFilesExpected = totalFiles;
-                    race.RaceData.TotalFilesUploaded = uploadedFiles;
-                    race.RaceData.TotalBytesUploaded = totalBytes;
-                }
-            }
-            RaceMutex.ReleaseMutex ();
-        }
-
         public void UpdateRaceData (Race race)
         {
             int position = 0;
             string fileName = "", fileCrc = "";
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
+            System.IO.FileInfo fileInfo =
+                new System.IO.FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
             RaceMutex.WaitOne ();
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.Open,
@@ -65,11 +24,11 @@ namespace jeza.ioFTPD.Framework
             {
                 using (BinaryReader reader = new BinaryReader (stream))
                 {
-                    for (int i = 1; i <= race.RaceData.TotalFilesExpected; i++)
+                    for (int i = 1; i <= race.TotalFilesExpected; i++)
                     {
                         stream.Seek (256 * i, SeekOrigin.Begin);
                         fileName = reader.ReadString ();
-                        if (fileName.Equals(race.RaceData.FileName))
+                        if (fileName.Equals (race.CurrentUploadData.FileName))
                         {
                             position = i;
                             fileCrc = reader.ReadString ();
@@ -91,101 +50,23 @@ namespace jeza.ioFTPD.Framework
                         writer.Write (fileName);
                         writer.Write (fileCrc);
                         writer.Write (true);
-                        writer.Write(race.RaceData.FileSize); //file Size
-                        writer.Write(race.RaceData.Speed); //upload speed
-                        writer.Write(race.RaceData.UserName); //username
-                        writer.Write(race.RaceData.GroupName); //groupname
+                        writer.Write (race.CurrentUploadData.FileSize); //file Size
+                        writer.Write (race.CurrentUploadData.Speed); //upload speed
+                        writer.Write (race.CurrentUploadData.UserName); //username
+                        writer.Write (race.CurrentUploadData.GroupName); //groupname
                     }
                 }
-                race.RaceData.TotalFilesUploaded++;
-                race.RaceData.TotalBytesUploaded += (UInt64)race.RaceData.FileSize;
+                race.TotalBytesUploaded += (UInt64) race.CurrentUploadData.FileSize;
             }
             RaceMutex.ReleaseMutex ();
         }
 
-        /// <summary>
-        /// Parse CRC32 values for filenames.
-        /// </summary>
-        /// <param name="fileName">Filename with full path.</param>
-        /// <remarks>Spaces in filename are not supported.</remarks>
-        /// 
-        public void ParseSfv (string fileName)
+        public static void Create0ByteFile (string fileName)
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo (fileName);
-            using (StreamReader streamReader = new StreamReader (fileInfo.FullName))
+            using (FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
             {
-                while (!streamReader.EndOfStream)
-                {
-                    string line = streamReader.ReadLine ();
-                    if ((line [0].Equals (';')) || (line.Length < 10))
-                    {
-                        continue;
-                    }
-                    if (line.IndexOf (' ') == -1)
-                    {
-                        throw new ArgumentOutOfRangeException (String.Format (CultureInfo.InvariantCulture,
-                                                                              "Line in SFV file should be separated with [SPACE]. Line '{0}'",
-                                                                              line));
-                    }
-                    //[FILENAME][SPACE][CRC32]
-                    string[] data = line.Split (' ');
-                    string key = data [0];
-                    string crc32 = data [1];
-                    if (sfvData.ContainsKey (key))
-                    {
-                        throw new ArgumentException (String.Format (CultureInfo.InvariantCulture,
-                                                                    "Duplicated entry in SFV file [{0}]",
-                                                                    key));
-                    }
-                    if (!IsHex (crc32))
-                    {
-                        throw new ArgumentException (String.Format (CultureInfo.InvariantCulture,
-                                                                    "Incorrect CRC32 [{0}]. Line '{1}'",
-                                                                    crc32,
-                                                                    line));
-                    }
-                    sfvData.Add (key, crc32);
-                }
+                stream.Flush ();
             }
-        }
-
-        public void Create0ByteFile (string fileName)
-        {
-            using(FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
-            {
-                stream.Flush();
-            }
-        }
-
-        public void CreateSfvRaceDataFile (Race race)
-        {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.RaceData.DirectoryPath, Config.FileNameRace));
-            RaceMutex.WaitOne ();
-            using (FileStream stream = new FileStream (fileInfo.FullName,
-                                                       FileMode.OpenOrCreate,
-                                                       FileAccess.ReadWrite,
-                                                       FileShare.None))
-            {
-                using (BinaryWriter writer = new BinaryWriter (stream))
-                {
-                    stream.Seek (0, SeekOrigin.Begin);
-                    writer.Write(race.RaceData.TotalFilesExpected);
-                    int count = 1;
-                    foreach (KeyValuePair<string, string> keyValuePair in race.SfvData)
-                    {
-                        stream.Seek (count * 256, SeekOrigin.Begin);
-                        writer.Write (keyValuePair.Key); //file name
-                        writer.Write (keyValuePair.Value); //CRC32
-                        writer.Write (false); //was file already uploaded
-                        writer.Write (0); //file Size
-                        writer.Write (0); //upload speed
-                        writer.Write (String.Empty); //username
-                        writer.Write (String.Empty); //groupname
-                        count++;
-                    }
-                }
-            }
-            RaceMutex.ReleaseMutex ();
         }
 
         /// <summary>
@@ -283,12 +164,6 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             return null;
-        }
-
-        private static bool IsHex (string crc32)
-        {
-            int output;
-            return Int32.TryParse (crc32, NumberStyles.HexNumber, null, out output);
         }
 
         public Dictionary<string, string> SfvData

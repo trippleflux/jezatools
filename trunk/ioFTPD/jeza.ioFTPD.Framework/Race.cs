@@ -21,7 +21,7 @@ namespace jeza.ioFTPD.Framework
         public Race Parse ()
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo (args [1]);
-            RaceData = new RaceData
+            CurrentUploadData = new CurrentUploadData
                 {
                     FileExtension = Path.GetExtension (fileInfo.FullName),
                     FileName = fileInfo.Name,
@@ -34,24 +34,24 @@ namespace jeza.ioFTPD.Framework
                     Speed = GetSpeed (),
                     UserName = GetUserName (),
                     GroupName = GetGroupName (),
-                    TotalBytesUploaded = 0
                 };
             return this;
         }
 
-        private string GetGroupName ()
+        private static string GetGroupName ()
         {
-            return "Non Existing GroupName";
+            return Environment.GetEnvironmentVariable ("GROUP") ?? "NoGroup";
         }
 
-        private string GetUserName ()
+        private static string GetUserName ()
         {
-            return "Non Existing Username";
+            return Environment.GetEnvironmentVariable ("USER") ?? "NoUser";
         }
 
-        private ulong GetSpeed ()
+        private static int GetSpeed ()
         {
-            return 0;
+            string speed = Environment.GetEnvironmentVariable ("SPEED");
+            return speed == null ? 0 : Int32.Parse (speed);
         }
 
         /// <summary>
@@ -64,37 +64,31 @@ namespace jeza.ioFTPD.Framework
             {
                 return;
             }
-            switch (RaceData.RaceType)
+            if (!SfvCheck ())
+            {
+                OutputSfvFirst (Config.ClientFileNameSfv, Config.ClientFileNameSfvExists);
+                return;
+            }
+            switch (CurrentUploadData.RaceType)
             {
                 case RaceType.Sfv:
                 {
-                    if (!SfvCheck ())
-                    {
-                        OutputSfvFirst (Config.ClientFileNameSfv, Config.ClientFileNameSfvExists);
-                        return;
-                    }
-                    ProcessSfv ();
+                    IDataParser dataParser = new DataParserSfv (this);
+                    dataParser.Parse ();
+                    dataParser.Process ();
                     break;
                 }
 
                 case RaceType.Rar:
                 {
-                    if (!SfvCheck ())
-                    {
-                        OutputSfvFirst (Config.ClientFileName, Config.ClientFileNameSfvFirst);
-                        return;
-                    }
-                    ProcessRar ();
+                    IDataParser dataParser = new DataParser (this);
+                    dataParser.Parse ();
+                    //dataParser.Process();
                     break;
                 }
 
                 case RaceType.Mp3:
                 {
-                    if (!SfvCheck ())
-                    {
-                        OutputSfvFirst (Config.ClientFileName, Config.ClientFileNameSfvFirst);
-                        return;
-                    }
                     IsValid = false;
                     throw new NotImplementedException ("MP3 file type is not supported");
                 }
@@ -135,61 +129,38 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         private void ProcessRar ()
         {
-            FileInfo fileInfo = new FileInfo ();
-            fileInfo.ParseRaceFile (this);
-            if (fileInfo.GetCrc32ForFile (RaceData.FileName).Equals (RaceData.UploadCrc))
-            {
-                fileInfo.UpdateRaceData (this);
-                fileInfo.DeleteFile (RaceData.DirectoryPath, RaceData.FileName + Config.FileExtensionMissing);
-                fileInfo.DeleteFilesThatStartsWith (RaceData.DirectoryPath, Config.TagCleanUpString);
-                Output output = new Output (this);
-                output
-                    .Client (Config.ClientHead)
-                    .Client (Config.ClientFileNameOk)
-                    .Client (Config.ClientFoot);
-                if (RaceData.IsRaceComplete)
-                {
-                    fileInfo.Create0ByteFile (Path.Combine (RaceData.DirectoryPath,
-                                                            output.Format (Config.TagCompleteRar)));
-                }
-                else
-                {
-                    fileInfo.Create0ByteFile (Path.Combine (RaceData.DirectoryPath,
-                                                            output.Format (Config.TagInCompleteRar)));
-                }
-                IsValid = true;
-            }
-            else
-            {
-                Output output = new Output (this);
-                output
-                    .Client (Config.ClientHead)
-                    .Client (Config.ClientFileNameBadCrc)
-                    .Client (Config.ClientFoot);
-                IsValid = false;
-            }
-        }
-
-        /// <summary>
-        /// Processes with file check for type <see cref="RaceType.Sfv"/>.
-        /// </summary>
-        private void ProcessSfv ()
-        {
-            FileInfo fileInfo = new FileInfo ();
-            fileInfo.ParseSfv (RaceData.UploadFile);
-            sfvData = fileInfo.SfvData;
-            foreach (KeyValuePair<string, string> keyValuePair in fileInfo.SfvData)
-            {
-                fileInfo.Create0ByteFile (Path.Combine (RaceData.DirectoryPath, keyValuePair.Key) +
-                                          Config.FileExtensionMissing);
-            }
-            RaceData.TotalFilesExpected = fileInfo.SfvData.Count;
-            fileInfo.CreateSfvRaceDataFile (this);
-            Output output = new Output (this);
-            output
-                .Client (Config.ClientHead)
-                .Client (Config.ClientFileNameSfv)
-                .Client (Config.ClientFoot);
+            //FileInfo fileInfo = new FileInfo ();
+            //fileInfo.ParseRaceFile (this);
+            //if (fileInfo.GetCrc32ForFile (CurrentUploadData.FileName).Equals (CurrentUploadData.UploadCrc))
+            //{
+            //    fileInfo.UpdateRaceData (this);
+            //    fileInfo.DeleteFile (CurrentUploadData.DirectoryPath, CurrentUploadData.FileName + Config.FileExtensionMissing);
+            //    fileInfo.DeleteFilesThatStartsWith (CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
+            //    Output output = new Output (this);
+            //    output
+            //        .Client (Config.ClientHead)
+            //        .Client (Config.ClientFileNameOk)
+            //        .Client (Config.ClientFoot);
+            //    TagManager tagManager = new TagManager ();
+            //    if (CurrentUploadData.IsRaceComplete)
+            //    {
+            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
+            //    }
+            //    else
+            //    {
+            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagIncompleteRar));
+            //    }
+            //    IsValid = true;
+            //}
+            //else
+            //{
+            //    Output output = new Output (this);
+            //    output
+            //        .Client (Config.ClientHead)
+            //        .Client (Config.ClientFileNameBadCrc)
+            //        .Client (Config.ClientFoot);
+            //    IsValid = false;
+            //}
         }
 
         /// <summary>
@@ -198,7 +169,11 @@ namespace jeza.ioFTPD.Framework
         /// <returns><c>true</c> if SFV file was found.</returns>
         private bool SfvCheck ()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo (RaceData.DirectoryPath);
+            if (CurrentUploadData.RaceType == RaceType.Zip)
+            {
+                return true;
+            }
+            DirectoryInfo directoryInfo = new DirectoryInfo (CurrentUploadData.DirectoryPath);
             System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles ("*.sfv");
             if (fileInfo.Length == 1)
             {
@@ -213,21 +188,21 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         private void SelectRaceType ()
         {
-            if (string.IsNullOrEmpty (RaceData.FileExtension))
+            if (string.IsNullOrEmpty (CurrentUploadData.FileExtension))
             {
                 IsValid = false;
                 return;
             }
             IsValid = true;
-            RaceData.RaceType = EqualsRaceType (".sfv")
-                                    ? RaceType.Sfv
-                                    : EqualsRaceType (".mp3")
-                                          ? RaceType.Mp3
-                                          : EqualsRaceType (".zip")
-                                                ? RaceType.Zip
-                                                : EqualsRaceType (".rar")
-                                                      ? RaceType.Rar
-                                                      : RaceType.None;
+            CurrentUploadData.RaceType = EqualsRaceType (".sfv")
+                                             ? RaceType.Sfv
+                                             : EqualsRaceType (".mp3")
+                                                   ? RaceType.Mp3
+                                                   : EqualsRaceType (".zip")
+                                                         ? RaceType.Zip
+                                                         : EqualsRaceType (".rar")
+                                                               ? RaceType.Rar
+                                                               : RaceType.None;
         }
 
         /// <summary>
@@ -237,17 +212,43 @@ namespace jeza.ioFTPD.Framework
         /// <returns><c>true</c> on match.</returns>
         private bool EqualsRaceType (string fileExtension)
         {
-            return RaceData.FileExtension.Equals (fileExtension, StringComparison.InvariantCultureIgnoreCase);
+            return CurrentUploadData.FileExtension.Equals (fileExtension, StringComparison.InvariantCultureIgnoreCase);
         }
 
-        public Dictionary<string, string> SfvData
+        public List<RaceStats> RaceStats
         {
-            get { return sfvData; }
+            get { return raceStats; }
         }
 
-        public RaceData RaceData { get; set; }
+        public void AddRaceStats (RaceStats stats)
+        {
+            if (raceStats.Contains (stats))
+            {
+                return;
+            }
+            raceStats.Add (stats);
+        }
+
+        public int TotalFilesExpected { get; set; }
+        public int TotalFilesUploaded
+        {
+            get { return raceStats.Count; }
+        }
+        public UInt64 TotalBytesUploaded { get; set; }
+
+        public bool IsRaceComplete
+        {
+            get { return TotalFilesExpected == TotalFilesUploaded; }
+        }
+
+        public UInt64 TotalMegaBytesUploaded
+        {
+            get { return TotalBytesUploaded / 1000000; }
+        }
+
+        public CurrentUploadData CurrentUploadData { get; set; }
         public bool IsValid { get; set; }
         private readonly string[] args;
-        private Dictionary<string, string> sfvData = new Dictionary<string, string> ();
+        private readonly List<RaceStats> raceStats = new List<RaceStats> ();
     }
 }
