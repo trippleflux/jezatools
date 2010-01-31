@@ -67,10 +67,10 @@ namespace jeza.ioFTPD.Tests.ZipScript
         {
             Race race = new Race (ArgsSfv);
             race.Parse ();
-            Assert.AreEqual (".sfv", race.RaceData.FileExtension, "FileExtension");
-            Assert.AreEqual ("infected.sfv", race.RaceData.FileName, "FileName");
-            Assert.AreEqual (432, race.RaceData.FileSize, "FileSize");
-            Assert.AreEqual ("Rar", race.RaceData.DirectoryName, "DirectoryName");
+            Assert.AreEqual (".sfv", race.CurrentUploadData.FileExtension, "FileExtension");
+            Assert.AreEqual ("infected.sfv", race.CurrentUploadData.FileName, "FileName");
+            Assert.AreEqual (432, race.CurrentUploadData.FileSize, "FileSize");
+            Assert.AreEqual ("Rar", race.CurrentUploadData.DirectoryName, "DirectoryName");
             race.Process ();
             return race;
         }

@@ -1,8 +1,11 @@
+#region
 using System;
+
+#endregion
 
 namespace jeza.ioFTPD.Framework
 {
-    public class RaceData
+    public class CurrentUploadData
     {
         public string FileExtension { get; set; }
         public string FileName { get; set; }
@@ -15,19 +18,6 @@ namespace jeza.ioFTPD.Framework
         public string UploadVirtualFile { get; set; }
         public string UserName { get; set; }
         public string GroupName { get; set; }
-        public int TotalFilesExpected { get; set; }
-        public int TotalFilesUploaded { get; set; }
-        public UInt64 Speed { get; set; }
-        public UInt64 TotalBytesUploaded { get; set; }
-
-        public bool IsRaceComplete
-        {
-            get { return TotalFilesExpected == TotalFilesUploaded; }
-        }
-
-        public UInt64 TotalMBytesUploaded
-        {
-            get { return TotalBytesUploaded / 1000; }
-        }
+        public int Speed { get; set; }
     }
 }

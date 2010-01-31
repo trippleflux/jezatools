@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OutputTests.cs" />
+    <Compile Include="ZipScript\RaceTests.cs" />
     <Compile Include="ZipScript\RarTests.cs" />
     <Compile Include="ZipScript\SfvTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,9 +75,11 @@
     <Content Include="TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind .mp3" />
     <Content Include="TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind %282%29.mp3" />
     <Content Include="TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind %283%29.mp3" />
+    <None Include="TestFiles\Race\File.race" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TestFiles\Mp3\jozek.Pepek-2009-asd-Ind.sfv" />
+    <None Include="TestFiles\Race\.ioFTPD.race" />
     <None Include="TestFiles\Rar\infected.part1.rar" />
     <None Include="TestFiles\Rar\infected.part2.rar" />
     <None Include="TestFiles\Rar\infected.part3.rar" />

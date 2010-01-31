@@ -9,7 +9,7 @@ namespace jeza.ioFTPD.Framework
     {
         public Output (Race race)
         {
-            raceData = race.RaceData;
+            this.race = race;
         }
 
         public Output Client (string line)
@@ -39,27 +39,27 @@ namespace jeza.ioFTPD.Framework
                 {
                     case "filename":
                     {
-                        args [i] = raceData.FileName;
+                        args [i] = race.CurrentUploadData.FileName;
                         break;
                     }
                     case "totalfilesexpected":
                     {
-                        args [i] = raceData.TotalFilesExpected.ToString ();
+                        args [i] = race.TotalFilesExpected.ToString ();
                         break;
                     }
                     case "totalfilesuploaded":
                     {
-                        args [i] = raceData.TotalFilesUploaded.ToString ();
+                        args [i] = race.TotalFilesUploaded.ToString ();
                         break;
                     }
                     case "totalbytesuploaded":
                     {
-                        args [i] = raceData.TotalBytesUploaded.ToString ();
+                        args [i] = race.TotalBytesUploaded.ToString ();
                         break;
                     }
-                    case "totalmbytesuploaded":
+                    case "totalmegabytesuploaded":
                     {
-                        args [i] = raceData.TotalMBytesUploaded.ToString ();
+                        args [i] = race.TotalMegaBytesUploaded.ToString ();
                         break;
                     }
                     default:
@@ -72,6 +72,6 @@ namespace jeza.ioFTPD.Framework
             return text;
         }
 
-        private readonly RaceData raceData;
+        private readonly Race race;
     }
 }
