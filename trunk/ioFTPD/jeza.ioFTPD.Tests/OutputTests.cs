@@ -16,10 +16,18 @@ namespace jeza.ioFTPD.Tests
             Output output = new Output(race);
             Assert.AreEqual("=[   0/5   ]=", output.Format("=[   0/{0,-3:B3} ]=三otalFilesExpected"));
             Assert.AreEqual("=[   0/asd ]=", output.Format("=[   0/{0,-3:B3} ]=兀sd"));
-            race.TotalBytesUploaded = 5000;
-            Assert.AreEqual("]-[Complete 5MB - 0/5F]-[", output.Format("]-[Complete {0}MB - {1}/{2}F]-[三otalMegaBytesUploaded TotalFilesUploaded TotalFilesExpected"));
-            race.TotalBytesUploaded = 123456789;
-            Assert.AreEqual("]-[Complete 123456MB - 0/5F]-[", output.Format("]-[Complete {0}MB - {1}/{2}F]-[三otalMegaBytesUploaded TotalFilesUploaded TotalFilesExpected"));
+            RaceStats raceStats = new RaceStats();
+            raceStats
+                .AddFileName("a.txt")
+                .AddCrc32("aabbccdd")
+                .AddFileUploaded(true)
+                .AddFileSpeed(100)
+                .AddFileSize(123456789)
+                .AddUserName("user1")
+                .AddGroupName("group1");
+            race.AddRaceStats(raceStats); 
+            Assert.AreEqual("]-[Complete 123456789MB - 1/5F]-[", output.Format("]-[Complete {0}MB - {1}/{2}F]-[三otalBytesUploaded TotalFilesUploaded TotalFilesExpected"));
+            Assert.AreEqual("]-[Complete 123MB - 1/5F]-[", output.Format("]-[Complete {0}MB - {1}/{2}F]-[三otalMegaBytesUploaded TotalFilesUploaded TotalFilesExpected"));
         }
     }
 }

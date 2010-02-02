@@ -74,6 +74,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race.Parse ();
             DataParserSfv sfvParser = new DataParserSfv (race);
             sfvParser.Parse ();
+            sfvParser.Process ();
             Assert.AreEqual (4, race.TotalFilesExpected, "TotalFilesExpected");
             Dictionary<string, string> sfvData = sfvParser.SfvData;
             Assert.IsNotNull (sfvData, "sfvData");
