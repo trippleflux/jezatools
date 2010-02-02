@@ -50,6 +50,38 @@ namespace jeza.ioFTPD.Framework
         public void Process ()
         {
             throw new NotImplementedException ();
+            //FileInfo fileInfo = new FileInfo ();
+            //fileInfo.ParseRaceFile (this);
+            //if (fileInfo.GetCrc32ForFile (CurrentUploadData.FileName).Equals (CurrentUploadData.UploadCrc))
+            //{
+            //    fileInfo.UpdateRaceData (this);
+            //    fileInfo.DeleteFile (CurrentUploadData.DirectoryPath, CurrentUploadData.FileName + Config.FileExtensionMissing);
+            //    fileInfo.DeleteFilesThatStartsWith (CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
+            //    Output output = new Output (this);
+            //    output
+            //        .Client (Config.ClientHead)
+            //        .Client (Config.ClientFileNameOk)
+            //        .Client (Config.ClientFoot);
+            //    TagManager tagManager = new TagManager ();
+            //    if (CurrentUploadData.IsRaceComplete)
+            //    {
+            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
+            //    }
+            //    else
+            //    {
+            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagIncompleteRar));
+            //    }
+            //    IsValid = true;
+            //}
+            //else
+            //{
+            //    Output output = new Output (this);
+            //    output
+            //        .Client (Config.ClientHead)
+            //        .Client (Config.ClientFileNameBadCrc)
+            //        .Client (Config.ClientFoot);
+            //    IsValid = false;
+            //}
         }
 
         public string RaceFile { get; set;}

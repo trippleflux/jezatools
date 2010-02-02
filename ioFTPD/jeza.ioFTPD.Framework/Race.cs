@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 #endregion
 
@@ -125,45 +126,6 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Processes with file check for type <see cref="RaceType.Rar"/>.
-        /// </summary>
-        private void ProcessRar ()
-        {
-            //FileInfo fileInfo = new FileInfo ();
-            //fileInfo.ParseRaceFile (this);
-            //if (fileInfo.GetCrc32ForFile (CurrentUploadData.FileName).Equals (CurrentUploadData.UploadCrc))
-            //{
-            //    fileInfo.UpdateRaceData (this);
-            //    fileInfo.DeleteFile (CurrentUploadData.DirectoryPath, CurrentUploadData.FileName + Config.FileExtensionMissing);
-            //    fileInfo.DeleteFilesThatStartsWith (CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
-            //    Output output = new Output (this);
-            //    output
-            //        .Client (Config.ClientHead)
-            //        .Client (Config.ClientFileNameOk)
-            //        .Client (Config.ClientFoot);
-            //    TagManager tagManager = new TagManager ();
-            //    if (CurrentUploadData.IsRaceComplete)
-            //    {
-            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
-            //    }
-            //    else
-            //    {
-            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagIncompleteRar));
-            //    }
-            //    IsValid = true;
-            //}
-            //else
-            //{
-            //    Output output = new Output (this);
-            //    output
-            //        .Client (Config.ClientHead)
-            //        .Client (Config.ClientFileNameBadCrc)
-            //        .Client (Config.ClientFoot);
-            //    IsValid = false;
-            //}
-        }
-
-        /// <summary>
         /// Checks if SFV exists.
         /// </summary>
         /// <returns><c>true</c> if SFV file was found.</returns>
@@ -229,12 +191,157 @@ namespace jeza.ioFTPD.Framework
             raceStats.Add (stats);
         }
 
+        public List<RaceStatsGroups> GetGroupStats()
+        {
+            List<RaceStatsGroups> stats = new List<RaceStatsGroups>();
+            var query = from s in raceStats
+                        group s by s.GroupName;
+            foreach (var result in query)
+            {
+                UInt64 totalBytesUplaoded = 0ul;
+                int speed = 0;
+                int totalFileUploaded = 0;
+                foreach (RaceStats raceStat in result)
+                {
+                    if (!raceStat.FileUploaded)
+                    {
+                        continue;
+                    }
+                    totalBytesUplaoded += raceStat.FileSize;
+                    speed += raceStat.FileSpeed;
+                    totalFileUploaded++;
+                }
+                if (totalFileUploaded > 0)
+                {
+                    RaceStatsGroups raceStatsGroups = new RaceStatsGroups
+                    {
+                        GroupName = result.Key,
+                        BytesUplaoded = totalBytesUplaoded,
+                        Speed = speed / totalFileUploaded,
+                        FilesUplaoded = totalFileUploaded,
+                    };
+                    stats.Add(raceStatsGroups);
+                }
+            }
+            return stats;
+        }
+
+        public List<RaceStatsUsers> GetUserStats ()
+        {
+            List<RaceStatsUsers> stats = new List<RaceStatsUsers> ();
+            var query = from s in raceStats
+                        group s by s.UserName;
+            foreach (var result in query)
+            {
+                UInt64 totalBytesUplaoded = 0ul;
+                int speed = 0;
+                string groupName = "";
+                int totalFileUploaded = 0;
+                foreach (RaceStats raceStat in result)
+                {
+                    if (!raceStat.FileUploaded)
+                    {
+                        continue;
+                    }
+                    totalBytesUplaoded += raceStat.FileSize;
+                    speed += raceStat.FileSpeed;
+                    groupName = raceStat.GroupName;
+                    totalFileUploaded++;
+                }
+                if (totalFileUploaded > 0)
+                {
+                    RaceStatsUsers raceStatsUsers = new RaceStatsUsers
+                        {
+                            UserName = result.Key,
+                            GroupName = groupName,
+                            BytesUplaoded = totalBytesUplaoded,
+                            Speed = speed / totalFileUploaded,
+                            FilesUplaoded = totalFileUploaded,
+                        };
+                    stats.Add (raceStatsUsers);
+                }
+            }
+            return stats;
+        }
+
+        private UInt64 GetTotalBytesUploaded ()
+        {
+            UInt64 total = 0;
+            foreach (RaceStats stats in raceStats)
+            {
+                if (stats.FileUploaded)
+                {
+                    total += stats.FileSize;
+                }
+            }
+            return total;
+        }
+
+        private int GetTotalGroupsRacing ()
+        {
+            List<string> groups = new List<string> ();
+            foreach (RaceStats stats in raceStats)
+            {
+                if (stats.FileUploaded)
+                {
+                    string groupName = stats.GroupName;
+                    if (groups.Contains (groupName))
+                    {
+                        continue;
+                    }
+                    groups.Add (groupName);
+                }
+            }
+            return groups.Count;
+        }
+
+        private int GetTotalUsersRacing ()
+        {
+            List<string> users = new List<string> ();
+            foreach (RaceStats stats in raceStats)
+            {
+                if (stats.FileUploaded)
+                {
+                    string userName = stats.UserName;
+                    if (users.Contains (userName))
+                    {
+                        continue;
+                    }
+                    users.Add (userName);
+                }
+            }
+            return users.Count;
+        }
+
+        private int GetTotalFilesUploaded ()
+        {
+            int total = 0;
+            foreach (RaceStats stats in raceStats)
+            {
+                if (stats.FileUploaded)
+                {
+                    total++;
+                }
+            }
+            return total;
+        }
+
         public int TotalFilesExpected { get; set; }
+
+        public int TotalGroupsRacing
+        {
+            get { return GetTotalGroupsRacing (); }
+        }
+
         public int TotalFilesUploaded
         {
-            get { return raceStats.Count; }
+            get { return GetTotalFilesUploaded (); }
         }
-        public UInt64 TotalBytesUploaded { get; set; }
+
+        public UInt64 TotalBytesUploaded
+        {
+            get { return GetTotalBytesUploaded (); }
+        }
 
         public bool IsRaceComplete
         {
@@ -247,7 +354,14 @@ namespace jeza.ioFTPD.Framework
         }
 
         public CurrentUploadData CurrentUploadData { get; set; }
+
         public bool IsValid { get; set; }
+
+        public int TotalUsersRacing
+        {
+            get { return GetTotalUsersRacing (); }
+        }
+
         private readonly string[] args;
         private readonly List<RaceStats> raceStats = new List<RaceStats> ();
     }

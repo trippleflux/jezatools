@@ -1,5 +1,4 @@
 #region
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -56,7 +55,7 @@ namespace jeza.ioFTPD.Framework
                         writer.Write (race.CurrentUploadData.GroupName); //groupname
                     }
                 }
-                race.TotalBytesUploaded += (UInt64) race.CurrentUploadData.FileSize;
+                //race.TotalBytesUploaded += (UInt64) race.CurrentUploadData.FileSize;
             }
             RaceMutex.ReleaseMutex ();
         }
