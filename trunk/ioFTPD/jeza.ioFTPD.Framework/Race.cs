@@ -223,6 +223,8 @@ namespace jeza.ioFTPD.Framework
                     stats.Add(raceStatsGroups);
                 }
             }
+            //stats.Sort((stats1, stats2) => Comparer<UInt64>.Default.Compare(stats1.BytesUplaoded, stats2.BytesUplaoded));
+            stats.Sort(new RaceStatsGroupsComparer());
             return stats;
         }
 
@@ -261,6 +263,8 @@ namespace jeza.ioFTPD.Framework
                     stats.Add (raceStatsUsers);
                 }
             }
+            //stats.Sort ((stats1, stats2) => Comparer<UInt64>.Default.Compare (stats1.BytesUplaoded, stats2.BytesUplaoded));
+            stats.Sort(new RaceStatsUsersComparer());
             return stats;
         }
 

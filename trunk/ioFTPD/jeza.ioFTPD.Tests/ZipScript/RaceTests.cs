@@ -1,5 +1,6 @@
 #region
 using System;
+using System.Collections.Generic;
 using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
 
@@ -35,17 +36,18 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 .AddUserName ("user1")
                 .AddGroupName ("group1");
             race.AddRaceStats (raceStats);
-            raceStats = new RaceStats ();
+            // Ignored because file was not uploaded
+            raceStats = new RaceStats();
             raceStats
-                .AddFileName ("b.txt")
-                .AddCrc32 ("11bbccdd")
-                .AddFileUploaded (true)
-                .AddFileSpeed (200)
-                .AddFileSize (2000000)
-                .AddUserName ("user2")
-                .AddGroupName ("group2");
-            race.AddRaceStats (raceStats);
-            raceStats = new RaceStats ();
+                .AddFileName("d.txt")
+                .AddCrc32("33bbccdd")
+                .AddFileUploaded(false)
+                .AddFileSpeed(400)
+                .AddFileSize(4000000)
+                .AddUserName("user4")
+                .AddGroupName("group3");
+            race.AddRaceStats(raceStats);
+            raceStats = new RaceStats();
             raceStats
                 .AddFileName ("c.txt")
                 .AddCrc32 ("22bbccdd")
@@ -55,29 +57,33 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 .AddUserName ("user3")
                 .AddGroupName ("group1");
             race.AddRaceStats (raceStats);
-            // Ignored because file was not uploaded
-            raceStats = new RaceStats ();
+            raceStats = new RaceStats();
             raceStats
-                .AddFileName ("d.txt")
-                .AddCrc32 ("33bbccdd")
-                .AddFileUploaded (false)
-                .AddFileSpeed (400)
-                .AddFileSize (4000000)
-                .AddUserName ("user4")
-                .AddGroupName ("group3");
-            race.AddRaceStats (raceStats);
-            Assert.AreEqual (3, race.TotalFilesUploaded, "TotalFilesUploaded");
+                .AddFileName("b.txt")
+                .AddCrc32("11bbccdd")
+                .AddFileUploaded(true)
+                .AddFileSpeed(200)
+                .AddFileSize(2000000)
+                .AddUserName("user2")
+                .AddGroupName("group2");
+            race.AddRaceStats(raceStats);
+            Assert.AreEqual(3, race.TotalFilesUploaded, "TotalFilesUploaded");
             Assert.AreEqual ((UInt64) 6000000, race.TotalBytesUploaded, "TotalBytesUploaded");
             Assert.AreEqual ((UInt64) 6, race.TotalMegaBytesUploaded, "TotalMegaBytesUploaded");
             Assert.AreEqual (2, race.TotalGroupsRacing, "TotalGroupsRacing");
             Assert.AreEqual (3, race.TotalUsersRacing, "TotalUsersRacing");
             Assert.AreEqual (3, race.GetUserStats ().Count, "GetUserStats");
             Assert.AreEqual(2, race.GetGroupStats().Count, "GetGroupStats");
-            foreach (RaceStatsUsers raceStatsUser in race.GetUserStats())
+            List<RaceStatsUsers> statsUsers = race.GetUserStats();
+            Assert.Sorted(statsUsers, SortOrder.Decreasing);
+            List<RaceStatsGroups> statsGroups = race.GetGroupStats ();
+            Assert.Sorted(statsGroups, SortOrder.Decreasing);
+            //Console
+            foreach (RaceStatsUsers raceStatsUser in statsUsers)
             {
                 Console.WriteLine (raceStatsUser);
             }
-            foreach (RaceStatsGroups raceStatsGroups in race.GetGroupStats())
+            foreach (RaceStatsGroups raceStatsGroups in statsGroups)
             {
                 Console.WriteLine(raceStatsGroups);
             }
