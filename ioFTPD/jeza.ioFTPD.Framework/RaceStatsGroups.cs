@@ -5,7 +5,7 @@ using System;
 
 namespace jeza.ioFTPD.Framework
 {
-    public class RaceStatsGroups
+    public class RaceStatsGroups : RaceStatsEnumerator<RaceStatsGroups>
     {
         public string GroupName { get; set; }
         public int Speed { get; set; }
