@@ -1,5 +1,4 @@
 #region
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
@@ -9,57 +8,6 @@ namespace jeza.ioFTPD.Framework
 {
     public class FileInfo
     {
-        public void UpdateRaceData (Race race)
-        {
-            int position = 0;
-            string fileName = "", fileCrc = "";
-            System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
-            RaceMutex.WaitOne ();
-            using (FileStream stream = new FileStream (fileInfo.FullName,
-                                                       FileMode.Open,
-                                                       FileAccess.Read,
-                                                       FileShare.None))
-            {
-                using (BinaryReader reader = new BinaryReader (stream))
-                {
-                    for (int i = 1; i <= race.TotalFilesExpected; i++)
-                    {
-                        stream.Seek (256 * i, SeekOrigin.Begin);
-                        fileName = reader.ReadString ();
-                        if (fileName.Equals (race.CurrentUploadData.FileName))
-                        {
-                            position = i;
-                            fileCrc = reader.ReadString ();
-                            break;
-                        }
-                    }
-                }
-            }
-            if (position > 0)
-            {
-                using (FileStream stream = new FileStream (fileInfo.FullName,
-                                                           FileMode.Open,
-                                                           FileAccess.Write,
-                                                           FileShare.None))
-                {
-                    using (BinaryWriter writer = new BinaryWriter (stream))
-                    {
-                        stream.Seek (position * 256, SeekOrigin.Begin);
-                        writer.Write (fileName);
-                        writer.Write (fileCrc);
-                        writer.Write (true);
-                        writer.Write (race.CurrentUploadData.FileSize); //file Size
-                        writer.Write (race.CurrentUploadData.Speed); //upload speed
-                        writer.Write (race.CurrentUploadData.UserName); //username
-                        writer.Write (race.CurrentUploadData.GroupName); //groupname
-                    }
-                }
-                //race.TotalBytesUploaded += (UInt64) race.CurrentUploadData.FileSize;
-            }
-            RaceMutex.ReleaseMutex ();
-        }
-
         public static void Create0ByteFile (string fileName)
         {
             using (FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
@@ -153,25 +101,6 @@ namespace jeza.ioFTPD.Framework
             OByteMutex.ReleaseMutex ();
         }
 
-        public string GetCrc32ForFile (string fileName)
-        {
-            foreach (KeyValuePair<string, string> keyValuePair in sfvData)
-            {
-                if (keyValuePair.Key.Equals (fileName))
-                {
-                    return keyValuePair.Value;
-                }
-            }
-            return null;
-        }
-
-        public Dictionary<string, string> SfvData
-        {
-            get { return sfvData; }
-        }
-
-        private readonly Dictionary<string, string> sfvData = new Dictionary<string, string> ();
-        private static readonly Mutex RaceMutex = new Mutex (false, "raceMutex");
         private static readonly Mutex OByteMutex = new Mutex (false, "OByteMutex");
     }
 }

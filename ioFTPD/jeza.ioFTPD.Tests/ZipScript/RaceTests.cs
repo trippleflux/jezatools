@@ -36,6 +36,8 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 .AddUserName ("user1")
                 .AddGroupName ("group1");
             race.AddRaceStats (raceStats);
+            Assert.AreEqual(1, race.TotalFilesUploaded, "TotalFilesUploaded");
+            Assert.AreEqual((UInt64)1000000, race.TotalBytesUploaded, "TotalBytesUploaded");
             // Ignored because file was not uploaded
             raceStats = new RaceStats();
             raceStats
@@ -47,6 +49,8 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 .AddUserName("user4")
                 .AddGroupName("group3");
             race.AddRaceStats(raceStats);
+            Assert.AreEqual(1, race.TotalFilesUploaded, "TotalFilesUploaded");
+            Assert.AreEqual((UInt64)1000000, race.TotalBytesUploaded, "TotalBytesUploaded");
             raceStats = new RaceStats();
             raceStats
                 .AddFileName ("c.txt")
@@ -57,6 +61,8 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 .AddUserName ("user3")
                 .AddGroupName ("group1");
             race.AddRaceStats (raceStats);
+            Assert.AreEqual(2, race.TotalFilesUploaded, "TotalFilesUploaded");
+            Assert.AreEqual((UInt64)4000000, race.TotalBytesUploaded, "TotalBytesUploaded");
             raceStats = new RaceStats();
             raceStats
                 .AddFileName("b.txt")
@@ -79,14 +85,14 @@ namespace jeza.ioFTPD.Tests.ZipScript
             List<RaceStatsGroups> statsGroups = race.GetGroupStats ();
             Assert.Sorted(statsGroups, SortOrder.Decreasing);
             //Console
-            foreach (RaceStatsUsers raceStatsUser in statsUsers)
-            {
-                Console.WriteLine (raceStatsUser);
-            }
-            foreach (RaceStatsGroups raceStatsGroups in statsGroups)
-            {
-                Console.WriteLine(raceStatsGroups);
-            }
+            //foreach (RaceStatsUsers raceStatsUser in statsUsers)
+            //{
+            //    Console.WriteLine (raceStatsUser);
+            //}
+            //foreach (RaceStatsGroups raceStatsGroups in statsGroups)
+            //{
+            //    Console.WriteLine(raceStatsGroups);
+            //}
         }
     }
 }

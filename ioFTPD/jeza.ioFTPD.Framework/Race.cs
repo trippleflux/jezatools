@@ -39,22 +39,6 @@ namespace jeza.ioFTPD.Framework
             return this;
         }
 
-        private static string GetGroupName ()
-        {
-            return Environment.GetEnvironmentVariable ("GROUP") ?? "NoGroup";
-        }
-
-        private static string GetUserName ()
-        {
-            return Environment.GetEnvironmentVariable ("USER") ?? "NoUser";
-        }
-
-        private static int GetSpeed ()
-        {
-            string speed = Environment.GetEnvironmentVariable ("SPEED");
-            return speed == null ? 0 : Int32.Parse (speed);
-        }
-
         /// <summary>
         /// Starts with the file check.
         /// </summary>
@@ -84,7 +68,7 @@ namespace jeza.ioFTPD.Framework
                 {
                     IDataParser dataParser = new DataParser (this);
                     dataParser.Parse ();
-                    //dataParser.Process();
+                    dataParser.Process();
                     break;
                 }
 
@@ -111,6 +95,22 @@ namespace jeza.ioFTPD.Framework
                     break;
                 }
             }
+        }
+
+        private static string GetGroupName ()
+        {
+            return Environment.GetEnvironmentVariable ("GROUP") ?? "NoGroup";
+        }
+
+        private static string GetUserName ()
+        {
+            return Environment.GetEnvironmentVariable ("USER") ?? "NoUser";
+        }
+
+        private static int GetSpeed ()
+        {
+            string speed = Environment.GetEnvironmentVariable ("SPEED");
+            return speed == null ? 1 : Int32.Parse (speed);
         }
 
         private void OutputSfvFirst
@@ -189,6 +189,11 @@ namespace jeza.ioFTPD.Framework
                 return;
             }
             raceStats.Add (stats);
+        }
+
+        public void ClearRaceStats()
+        {
+            raceStats.Clear ();
         }
 
         public List<RaceStatsGroups> GetGroupStats()
