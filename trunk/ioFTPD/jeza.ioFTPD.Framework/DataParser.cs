@@ -1,5 +1,4 @@
 #region
-using System;
 using System.IO;
 using System.Threading;
 
@@ -17,76 +16,143 @@ namespace jeza.ioFTPD.Framework
 
         public void Parse ()
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(RaceFile);
+            race.ClearRaceStats ();
             RaceMutex.WaitOne();
-            using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                      FileMode.OpenOrCreate,
-                                                      FileAccess.ReadWrite,
-                                                      FileShare.None))
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(RaceFile);
+            using (FileStream stream = new FileStream (fileInfo.FullName,
+                                                       FileMode.OpenOrCreate,
+                                                       FileAccess.ReadWrite,
+                                                       FileShare.None))
             {
-                using (BinaryReader reader = new BinaryReader(stream))
+                using (BinaryReader reader = new BinaryReader (stream))
                 {
-                    stream.Seek(0, SeekOrigin.Begin);
-                    race.TotalFilesExpected = reader.ReadInt32();
-                    for (int i = 1; i <= reader.ReadInt32(); i++)
+                    stream.Seek (0, SeekOrigin.Begin);
+                    race.TotalFilesExpected = reader.ReadInt32 ();
+                    for (int i = 1; i <= race.TotalFilesExpected; i++)
                     {
-                        stream.Seek(256 * i, SeekOrigin.Begin);
-                        RaceStats raceStats = new RaceStats();
+                        stream.Seek (256 * i, SeekOrigin.Begin);
+                        RaceStats raceStats = new RaceStats ();
                         raceStats
-                            .AddFileName (reader.ReadString())
-                            .AddCrc32 (reader.ReadString())
-                            .AddFileUploaded (reader.ReadBoolean())
-                            .AddFileSize (reader.ReadUInt64())
+                            .AddFileName (reader.ReadString ())
+                            .AddCrc32 (reader.ReadString ())
+                            .AddFileUploaded (reader.ReadBoolean ())
+                            .AddFileSize (reader.ReadUInt64 ())
                             .AddFileSpeed (reader.ReadInt32 ())
-                            .AddUserName (reader.ReadString())
-                            .AddGroupName (reader.ReadString());
+                            .AddUserName (reader.ReadString ())
+                            .AddGroupName (reader.ReadString ());
                         race.AddRaceStats (raceStats);
                     }
                 }
             }
-            RaceMutex.ReleaseMutex();
+            RaceMutex.ReleaseMutex ();
         }
 
         public void Process ()
         {
-            throw new NotImplementedException ();
-            //FileInfo fileInfo = new FileInfo ();
-            //fileInfo.ParseRaceFile (this);
-            //if (fileInfo.GetCrc32ForFile (CurrentUploadData.FileName).Equals (CurrentUploadData.UploadCrc))
-            //{
-            //    fileInfo.UpdateRaceData (this);
-            //    fileInfo.DeleteFile (CurrentUploadData.DirectoryPath, CurrentUploadData.FileName + Config.FileExtensionMissing);
-            //    fileInfo.DeleteFilesThatStartsWith (CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
-            //    Output output = new Output (this);
-            //    output
-            //        .Client (Config.ClientHead)
-            //        .Client (Config.ClientFileNameOk)
-            //        .Client (Config.ClientFoot);
-            //    TagManager tagManager = new TagManager ();
-            //    if (CurrentUploadData.IsRaceComplete)
-            //    {
-            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
-            //    }
-            //    else
-            //    {
-            //        tagManager.Create (CurrentUploadData.DirectoryPath, output.Format (Config.TagIncompleteRar));
-            //    }
-            //    IsValid = true;
-            //}
-            //else
-            //{
-            //    Output output = new Output (this);
-            //    output
-            //        .Client (Config.ClientHead)
-            //        .Client (Config.ClientFileNameBadCrc)
-            //        .Client (Config.ClientFoot);
-            //    IsValid = false;
-            //}
+            if (GetCrc32ForFile (race.CurrentUploadData.FileName) != null)
+            {
+                UpdateRaceData ();
+                Parse ();
+                FileInfo fileInfo = new FileInfo ();
+                fileInfo.DeleteFile (race.CurrentUploadData.DirectoryPath,
+                                     race.CurrentUploadData.FileName + Config.FileExtensionMissing);
+                fileInfo.DeleteFilesThatStartsWith (race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
+                Output output = new Output (race);
+                output
+                    .Client (Config.ClientHead)
+                    .Client (Config.ClientFileNameOk)
+                    .ClientStatsUsers (Config.ClientStatsUsersHead)
+                    .ClientStatsUsers (Config.ClientStatsUsers)
+                    .ClientStatsGroups (Config.ClientStatsGroupsHead)
+                    .ClientStatsGroups(Config.ClientStatsGroups)
+                    .Client (Config.ClientFoot);
+                TagManager tagManager = new TagManager ();
+                if (race.IsRaceComplete)
+                {
+                    tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
+                }
+                else
+                {
+                    tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagIncompleteRar));
+                }
+                race.IsValid = true;
+            }
+            else
+            {
+                Output output = new Output (race);
+                output
+                    .Client (Config.ClientHead)
+                    .Client (Config.ClientFileNameBadCrc)
+                    .Client (Config.ClientFoot);
+                race.IsValid = false;
+            }
         }
 
-        public string RaceFile { get; set;}
+        private void UpdateRaceData ()
+        {
+            RaceMutex.WaitOne();
+            int position = 0;
+            string fileName = "", fileCrc = "";
+            System.IO.FileInfo fileInfo =
+                new System.IO.FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            using (FileStream stream = new FileStream (fileInfo.FullName,
+                                                       FileMode.Open,
+                                                       FileAccess.Read,
+                                                       FileShare.None))
+            {
+                using (BinaryReader reader = new BinaryReader (stream))
+                {
+                    for (int i = 1; i <= race.TotalFilesExpected; i++)
+                    {
+                        stream.Seek (256 * i, SeekOrigin.Begin);
+                        fileName = reader.ReadString ();
+                        if (fileName.Equals (race.CurrentUploadData.FileName))
+                        {
+                            position = i;
+                            fileCrc = reader.ReadString ();
+                            break;
+                        }
+                    }
+                }
+            }
+            if (position > 0)
+            {
+                using (FileStream stream = new FileStream (fileInfo.FullName,
+                                                           FileMode.Open,
+                                                           FileAccess.Write,
+                                                           FileShare.None))
+                {
+                    using (BinaryWriter writer = new BinaryWriter (stream))
+                    {
+                        stream.Seek (position * 256, SeekOrigin.Begin);
+                        writer.Write (fileName);
+                        writer.Write (fileCrc);
+                        writer.Write (true);
+                        writer.Write (race.CurrentUploadData.FileSize); //file Size
+                        writer.Write (race.CurrentUploadData.Speed); //upload speed
+                        writer.Write (race.CurrentUploadData.UserName); //username
+                        writer.Write (race.CurrentUploadData.GroupName); //groupname
+                    }
+                }
+            }
+            RaceMutex.ReleaseMutex ();
+        }
 
-        private static readonly Mutex RaceMutex = new Mutex(false, "rarMutex");
+        private string GetCrc32ForFile (string fileName)
+        {
+            foreach (RaceStats raceStats in race.RaceStats)
+            {
+                if (raceStats.FileName.Equals (fileName))
+                {
+                    return raceStats.Crc32;
+                }
+            }
+            return null;
+        }
+
+        public string RaceFile { get; set; }
+
+        private static readonly Mutex RaceMutex = new Mutex (false, "raceMutex");
         private readonly Race race;
     }
 }

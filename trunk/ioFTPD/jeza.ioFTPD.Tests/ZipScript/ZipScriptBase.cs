@@ -56,6 +56,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         {
             FileInfo fileInfo = new FileInfo ();
             fileInfo.DeleteFiles (@"..\..\TestFiles\Rar", Config.FileExtensionMissing);
+            fileInfo.DeleteFile(@"..\..\TestFiles\Rar", Config.FileNameRace);
             //Thread.Sleep (5000);
             Assert.IsFalse (File.Exists (@"..\..\TestFiles\Rar\infected.part1.rar" + Config.FileExtensionMissing),
                             String.Format (CultureInfo.InvariantCulture,

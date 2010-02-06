@@ -13,10 +13,9 @@ namespace jeza.ioFTPD.Tests.ZipScript
     public class RarTests : ZipScriptBase
     {
         /// <summary>
-        /// Uploads the first file. Delete file with missing extension, update RACE file.
+        /// completes the race with RAR extension.
         /// </summary>
         [Test]
-        [Pending("not ready yet!")]
         public void RaceRar ()
         {
             PrepareCleanRarRace ();

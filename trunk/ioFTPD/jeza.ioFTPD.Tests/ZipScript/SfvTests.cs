@@ -47,6 +47,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void RaceSfv ()
         {
+            PrepareCleanRarRace();
             Race race = UploadSfvFile ();
             FileInfo fileInfo = new FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
@@ -58,8 +59,22 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 {
                     stream.Seek (0, SeekOrigin.Begin);
                     Assert.AreEqual (4, reader.ReadInt32 (), "Expected integer value (4)");
-                    stream.Seek (256 * 3, SeekOrigin.Begin);
-                    Assert.AreEqual ("infected.part3.rar", reader.ReadString (), "infected.part3.rar");
+                    stream.Seek(256 * 1, SeekOrigin.Begin);
+                    Assert.AreEqual("infected.part1.rar", reader.ReadString(), "infected.part1.rar");
+                    Assert.AreEqual("2e04944c", reader.ReadString(), "2e04944c");
+                    Assert.AreEqual(false, reader.ReadBoolean(), "FileUploaded");
+                    stream.Seek(256 * 2, SeekOrigin.Begin);
+                    Assert.AreEqual("infected.part2.rar", reader.ReadString(), "infected.part2.rar");
+                    Assert.AreEqual("1c7c24a5", reader.ReadString(), "1c7c24a5");
+                    Assert.AreEqual(false, reader.ReadBoolean(), "FileUploaded");
+                    stream.Seek(256 * 3, SeekOrigin.Begin);
+                    Assert.AreEqual("infected.part3.rar", reader.ReadString(), "infected.part3.rar");
+                    Assert.AreEqual("d5d617e3", reader.ReadString(), "d5d617e3");
+                    Assert.AreEqual(false, reader.ReadBoolean(), "FileUploaded");
+                    stream.Seek(256 * 4, SeekOrigin.Begin);
+                    Assert.AreEqual("infected.part4.rar", reader.ReadString(), "infected.part4.rar");
+                    Assert.AreEqual("0edb20ea", reader.ReadString(), "0edb20ea");
+                    Assert.AreEqual(false, reader.ReadBoolean(), "FileUploaded");
                 }
             }
         }

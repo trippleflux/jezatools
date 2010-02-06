@@ -83,9 +83,9 @@ namespace jeza.ioFTPD.Framework
 
         private void CreateSfvRaceDataFile ()
         {
+            RaceMutex.WaitOne();
             System.IO.FileInfo fileInfo =
                 new System.IO.FileInfo (Path.Combine (currentUploadData.DirectoryPath, Config.FileNameRace));
-            RaceMutex.WaitOne ();
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
                                                        FileAccess.ReadWrite,
@@ -102,12 +102,14 @@ namespace jeza.ioFTPD.Framework
                         writer.Write (keyValuePair.Key); //file name
                         writer.Write (keyValuePair.Value); //CRC32
                         writer.Write (false); //was file already uploaded
-                        writer.Write (0); //file Size
-                        writer.Write (0); //upload speed
+                        writer.Write (1); //file Size
+                        writer.Write (1); //upload speed
                         writer.Write (String.Empty); //username
                         writer.Write (String.Empty); //groupname
                         count++;
                     }
+                    stream.Seek(count * 256, SeekOrigin.Begin);
+                    writer.Write("END");
                 }
             }
             RaceMutex.ReleaseMutex ();
