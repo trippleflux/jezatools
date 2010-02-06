@@ -15,6 +15,12 @@ namespace jeza.ioFTPD.Framework
         public const string ClientFileNameSfvExists = "| Deleting.: {0,-80:B79}|¤SFV allready exists!";
         public const string ClientFileNameSfvFirst = "| Deleting.: {0,-80:B79}|¤Upload SFV first!";
 
+        public const string ClientMp3InfoHead =
+            "|----------=[ Mp3 Info          ]=-----------------------------------------------------------|";
+
+        public const string ClientMp3Info =
+            "| Track....: {0,-80:B79}|\r\n| Title....: {1,-80:B79}|\r\n| Artist...: {2,-80:B79}|\r\n| Album....: {3,-80:B79}|\r\n| Year.....: {4,-80:B79}|\r\n| Genre....: {5,-80:B79}|¤TrackNumber Title Artist Album Year Genre";
+
         public const string ClientStatsUsersHead =
             "|----------=[ User Stats        ]=-----------------------------------------------------------|";
 

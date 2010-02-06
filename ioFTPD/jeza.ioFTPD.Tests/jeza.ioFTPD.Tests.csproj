@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OutputTests.cs" />
+    <Compile Include="ZipScript\Mp3Tests.cs" />
     <Compile Include="ZipScript\RaceTests.cs" />
     <Compile Include="ZipScript\RarTests.cs" />
     <Compile Include="ZipScript\SfvTests.cs" />
@@ -71,7 +72,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestFiles\Mp3\01-jozek.Pepek-2009-asd-Ind.mp3" />
+    <Content Include="TestFiles\Mp3\01-jozek.Pepek-2009-asd-Ind.mp3">
+    </Content>
     <Content Include="TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind .mp3" />
     <Content Include="TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind %282%29.mp3" />
     <Content Include="TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind %283%29.mp3" />
