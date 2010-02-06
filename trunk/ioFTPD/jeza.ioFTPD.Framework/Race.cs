@@ -74,8 +74,10 @@ namespace jeza.ioFTPD.Framework
 
                 case RaceType.Mp3:
                 {
-                    IsValid = false;
-                    throw new NotImplementedException ("MP3 file type is not supported");
+                    IDataParser dataParser = new DataParser(this);
+                    dataParser.Parse();
+                    dataParser.Process();
+                    break;
                 }
 
                 case RaceType.Zip:

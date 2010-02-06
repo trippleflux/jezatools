@@ -1,6 +1,7 @@
 #region
 using System;
 using System.Collections.Generic;
+using TagLib;
 
 #endregion
 
@@ -16,6 +17,12 @@ namespace jeza.ioFTPD.Framework
         public Output Client (string line)
         {
             Console.WriteLine (Format (line));
+            return this;
+        }
+
+        public Output ClientMp3 (string line)
+        {
+            Console.WriteLine (FormatMp3 (line));
             return this;
         }
 
@@ -41,6 +48,72 @@ namespace jeza.ioFTPD.Framework
                 possition++;
             }
             return this;
+        }
+
+        private string FormatMp3 (string line)
+        {
+            if (line.Length < 2)
+            {
+                return "";
+            }
+            const char splitChar = '¤';
+            if (line.IndexOf (splitChar) == -1)
+            {
+                return line;
+            }
+            string[] sections = line.Split (splitChar);
+            string text = sections [0];
+            string[] args = sections [1].Split (' ');
+            int count = args.Length;
+            try
+            {
+                File file = File.Create (race.CurrentUploadData.FileName);
+                for (int i = 0; i < count; i++)
+                {
+                    switch (args [i].ToLower ())
+                    {
+                        case "artist":
+                        {
+                            args [i] = file.Tag.FirstAlbumArtist;
+                            break;
+                        }
+                        case "album":
+                        {
+                            args [i] = file.Tag.Album;
+                            break;
+                        }
+                        case "genre":
+                        {
+                            args [i] = file.Tag.FirstGenre;
+                            break;
+                        }
+                        case "year":
+                        {
+                            args [i] = file.Tag.Year.ToString ();
+                            break;
+                        }
+                        case "title":
+                        {
+                            args [i] = file.Tag.Title;
+                            break;
+                        }
+                        case "tracknumber":
+                        {
+                            args [i] = file.Tag.Track.ToString ();
+                            break;
+                        }
+                        default:
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (CorruptFileException)
+            {
+            }
+            text = String.Format (new MyFormat (), text, args);
+            return text;
         }
 
         public string FormatUserStats

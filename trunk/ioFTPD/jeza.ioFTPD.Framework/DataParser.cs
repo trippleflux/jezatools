@@ -60,7 +60,14 @@ namespace jeza.ioFTPD.Framework
                 Output output = new Output (race);
                 output
                     .Client (Config.ClientHead)
-                    .Client (Config.ClientFileNameOk)
+                    .Client (Config.ClientFileNameOk);
+                if (race.CurrentUploadData.RaceType == RaceType.Mp3)
+                {
+                    output
+                        .ClientMp3(Config.ClientMp3InfoHead)
+                        .ClientMp3(Config.ClientMp3Info);
+                }
+                output
                     .ClientStatsUsers (Config.ClientStatsUsersHead)
                     .ClientStatsUsers (Config.ClientStatsUsers)
                     .ClientStatsGroups (Config.ClientStatsGroupsHead)
