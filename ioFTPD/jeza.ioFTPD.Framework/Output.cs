@@ -1,6 +1,7 @@
 #region
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TagLib;
 
 #endregion
@@ -44,7 +45,7 @@ namespace jeza.ioFTPD.Framework
             int possition = 1;
             foreach (RaceStatsGroups item in stats)
             {
-                Console.WriteLine (FormatGrouptats (possition, item, line));
+                Console.WriteLine (FormatGroupStats (possition, item, line));
                 possition++;
             }
             return this;
@@ -67,7 +68,7 @@ namespace jeza.ioFTPD.Framework
             int count = args.Length;
             try
             {
-                File file = File.Create (race.CurrentUploadData.FileName);
+                File file = File.Create (race.CurrentUploadData.UploadFile);
                 for (int i = 0; i < count; i++)
                 {
                     switch (args [i].ToLower ())
@@ -168,6 +169,11 @@ namespace jeza.ioFTPD.Framework
                         args [i] = (stats.BytesUplaoded / 1000000000).ToString ();
                         break;
                     }
+                    case "formatbytesuploaded":
+                    {
+                        args[i] = FormatSize(stats.BytesUplaoded);
+                        break;
+                    }
                     case "averagespeed":
                     {
                         args [i] = stats.Speed.ToString ();
@@ -188,7 +194,7 @@ namespace jeza.ioFTPD.Framework
             return text;
         }
 
-        public string FormatGrouptats
+        public string FormatGroupStats
             (int possition,
              RaceStatsGroups stats,
              string line)
@@ -233,6 +239,11 @@ namespace jeza.ioFTPD.Framework
                     case "gigabytesuploaded":
                     {
                         args [i] = (stats.BytesUplaoded / 1000000000).ToString ();
+                        break;
+                    }
+                    case "formatbytesuploaded":
+                    {
+                        args[i] = FormatSize(stats.BytesUplaoded);
                         break;
                     }
                     case "averagespeed":
@@ -299,6 +310,21 @@ namespace jeza.ioFTPD.Framework
                         args [i] = race.TotalMegaBytesUploaded.ToString ();
                         break;
                     }
+                    case "formatbytesuploaded":
+                    {
+                        args [i] = FormatSize (race.TotalBytesUploaded);
+                        break;
+                    }
+                    case "progressbar":
+                    {
+                        args[i] = race.ProgressBar;
+                        break;
+                    }
+                    case "percentcomplete":
+                    {
+                        args[i] = race.PercentComplete.ToString();
+                        break;
+                    }
                     default:
                     {
                         break;
@@ -307,6 +333,19 @@ namespace jeza.ioFTPD.Framework
             }
             text = String.Format (new MyFormat (), text, args);
             return text;
+        }
+
+        public string FormatSize(UInt64 bytes)
+        {
+            UInt64 formatedSize = bytes;
+            string[] postFix = new string[] { "B", "kB", "MB", "GB", "TB" };
+            int count = 0;
+            while (formatedSize > 1000)
+            {
+                formatedSize = formatedSize / 1000;
+                count++;
+            }
+            return String.Format(CultureInfo.InvariantCulture, "{0}{1}", formatedSize, postFix[count]);
         }
 
         private readonly Race race;

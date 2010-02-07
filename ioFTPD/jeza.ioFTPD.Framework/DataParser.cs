@@ -64,7 +64,7 @@ namespace jeza.ioFTPD.Framework
                 if (race.CurrentUploadData.RaceType == RaceType.Mp3)
                 {
                     output
-                        .ClientMp3(Config.ClientMp3InfoHead)
+                        .Client(Config.ClientMp3InfoHead)
                         .ClientMp3(Config.ClientMp3Info);
                 }
                 output
@@ -72,7 +72,7 @@ namespace jeza.ioFTPD.Framework
                     .ClientStatsUsers (Config.ClientStatsUsers)
                     .ClientStatsGroups (Config.ClientStatsGroupsHead)
                     .ClientStatsGroups(Config.ClientStatsGroups)
-                    .Client (Config.ClientFoot);
+                    .Client(Config.ClientFootProgressBar);
                 TagManager tagManager = new TagManager ();
                 if (race.IsRaceComplete)
                 {
