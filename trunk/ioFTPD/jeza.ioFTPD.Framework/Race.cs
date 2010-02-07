@@ -1,8 +1,10 @@
 ﻿#region
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 #endregion
 
@@ -68,15 +70,15 @@ namespace jeza.ioFTPD.Framework
                 {
                     IDataParser dataParser = new DataParser (this);
                     dataParser.Parse ();
-                    dataParser.Process();
+                    dataParser.Process ();
                     break;
                 }
 
                 case RaceType.Mp3:
                 {
-                    IDataParser dataParser = new DataParser(this);
-                    dataParser.Parse();
-                    dataParser.Process();
+                    IDataParser dataParser = new DataParser (this);
+                    dataParser.Parse ();
+                    dataParser.Process ();
                     break;
                 }
 
@@ -193,14 +195,14 @@ namespace jeza.ioFTPD.Framework
             raceStats.Add (stats);
         }
 
-        public void ClearRaceStats()
+        public void ClearRaceStats ()
         {
             raceStats.Clear ();
         }
 
-        public List<RaceStatsGroups> GetGroupStats()
+        public List<RaceStatsGroups> GetGroupStats ()
         {
-            List<RaceStatsGroups> stats = new List<RaceStatsGroups>();
+            List<RaceStatsGroups> stats = new List<RaceStatsGroups> ();
             var query = from s in raceStats
                         group s by s.GroupName;
             foreach (var result in query)
@@ -221,17 +223,17 @@ namespace jeza.ioFTPD.Framework
                 if (totalFileUploaded > 0)
                 {
                     RaceStatsGroups raceStatsGroups = new RaceStatsGroups
-                    {
-                        GroupName = result.Key,
-                        BytesUplaoded = totalBytesUplaoded,
-                        Speed = speed / totalFileUploaded,
-                        FilesUplaoded = totalFileUploaded,
-                    };
-                    stats.Add(raceStatsGroups);
+                        {
+                            GroupName = result.Key,
+                            BytesUplaoded = totalBytesUplaoded,
+                            Speed = speed / totalFileUploaded,
+                            FilesUplaoded = totalFileUploaded,
+                        };
+                    stats.Add (raceStatsGroups);
                 }
             }
             //stats.Sort((stats1, stats2) => Comparer<UInt64>.Default.Compare(stats1.BytesUplaoded, stats2.BytesUplaoded));
-            stats.Sort(new RaceStatsGroupsComparer());
+            stats.Sort (new RaceStatsGroupsComparer ());
             return stats;
         }
 
@@ -271,7 +273,7 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             //stats.Sort ((stats1, stats2) => Comparer<UInt64>.Default.Compare (stats1.BytesUplaoded, stats2.BytesUplaoded));
-            stats.Sort(new RaceStatsUsersComparer());
+            stats.Sort (new RaceStatsUsersComparer ());
             return stats;
         }
 
@@ -337,6 +339,23 @@ namespace jeza.ioFTPD.Framework
             return total;
         }
 
+        private string CreateProgressBar ()
+        {
+            StringBuilder bar = new StringBuilder ();
+            for (int i = 0; i < Config.ProgressBarLength; i++)
+            {
+                if (i < (TotalFilesUploaded * Config.ProgressBarLength / TotalFilesExpected))
+                {
+                    bar.Append (Config.ProgressBarCharFilled);
+                }
+                else
+                {
+                    bar.Append (Config.ProgressBarCharMissing);
+                }
+            }
+            return bar.ToString ();
+        }
+
         public int TotalFilesExpected { get; set; }
 
         public int TotalGroupsRacing
@@ -371,6 +390,16 @@ namespace jeza.ioFTPD.Framework
         public int TotalUsersRacing
         {
             get { return GetTotalUsersRacing (); }
+        }
+
+        public string ProgressBar
+        {
+            get { return CreateProgressBar (); }
+        }
+
+        public int PercentComplete
+        {
+            get { return (TotalFilesUploaded * 100 / TotalFilesExpected); }
         }
 
         private readonly string[] args;
