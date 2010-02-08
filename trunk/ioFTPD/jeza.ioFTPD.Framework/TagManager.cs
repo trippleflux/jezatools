@@ -34,10 +34,8 @@ namespace jeza.ioFTPD.Framework
             string symLink = Path.Combine (path, link);
             FileInfo.CreateFolder (symLink);
             CurrentUploadData data = race.CurrentUploadData;
-            Console.WriteLine ("!vfs:chattr 1 \"{0}\" \"{1}\"", symLink, data.UploadVirtualPath);
-            Console.WriteLine ("!vfs:add {3} {1}:{2} {0}", data.UploadVirtualPath, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
-            //printf("!vfs:chattr 1 \"%s\" \"%s\"\n", (char*)var->dir.symlink, (char*)var->loc.env_pwd);
-            //printf("!vfs:add %i %i:%i %s\n", iojZS_chmod_symlink, atoi(getenv("UID")), atoi(getenv("GID")), (char*)var->dir.symlink);
+            Console.Write ("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
+            Console.Write ("!vfs:add {3} {1}:{2} {0}\n", symLink, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
         }
 
         private readonly bool tagType;
