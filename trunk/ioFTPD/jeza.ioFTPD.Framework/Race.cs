@@ -1,7 +1,6 @@
 ﻿#region
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -51,54 +50,31 @@ namespace jeza.ioFTPD.Framework
             {
                 return;
             }
-            if (!SfvCheck ())
+            IDataParser dataParser;
+            if (CurrentUploadData.RaceType == RaceType.Nfo)
             {
-                OutputSfvFirst (Config.ClientFileNameSfv, Config.ClientFileNameSfvExists);
+                OutputFileName ();
                 return;
             }
-            switch (CurrentUploadData.RaceType)
+            if (CurrentUploadData.RaceType == RaceType.Zip)
             {
-                case RaceType.Sfv:
-                {
-                    IDataParser dataParser = new DataParserSfv (this);
-                    dataParser.Parse ();
-                    dataParser.Process ();
-                    break;
-                }
-
-                case RaceType.Rar:
-                {
-                    IDataParser dataParser = new DataParser (this);
-                    dataParser.Parse ();
-                    dataParser.Process ();
-                    break;
-                }
-
-                case RaceType.Mp3:
-                {
-                    IDataParser dataParser = new DataParser (this);
-                    dataParser.Parse ();
-                    dataParser.Process ();
-                    break;
-                }
-
-                case RaceType.Zip:
-                {
-                    IsValid = false;
-                    throw new NotImplementedException ("ZIP file type is not supported");
-                }
-
-                default:
-                {
-                    IsValid = false;
-                    Output output = new Output (this);
-                    output
-                        .Client (Config.ClientHead)
-                        .Client (Config.ClientFileName)
-                        .Client (Config.ClientFoot);
-                    break;
-                }
+                OutputFileName();
+                return;
             }
+            if (CurrentUploadData.RaceType == RaceType.Sfv)
+            {
+                dataParser = new DataParserSfv (this);
+                dataParser.Parse ();
+                dataParser.Process ();
+                return;
+            }
+            if (!SfvCheck ())
+            {
+                return;
+            }
+            dataParser = new DataParser (this);
+            dataParser.Parse ();
+            dataParser.Process ();
         }
 
         private static string GetGroupName ()
@@ -115,6 +91,15 @@ namespace jeza.ioFTPD.Framework
         {
             string speed = Environment.GetEnvironmentVariable ("SPEED");
             return speed == null ? 1 : Int32.Parse (speed);
+        }
+
+        private void OutputFileName ()
+        {
+            Output output = new Output(this);
+            output
+                .Client(Config.ClientHead)
+                .Client(Config.ClientFileName)
+                .Client(Config.ClientFoot);
         }
 
         private void OutputSfvFirst
@@ -135,10 +120,6 @@ namespace jeza.ioFTPD.Framework
         /// <returns><c>true</c> if SFV file was found.</returns>
         private bool SfvCheck ()
         {
-            if (CurrentUploadData.RaceType == RaceType.Zip)
-            {
-                return true;
-            }
             DirectoryInfo directoryInfo = new DirectoryInfo (CurrentUploadData.DirectoryPath);
             System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles ("*.sfv");
             if (fileInfo.Length == 1)
@@ -146,6 +127,7 @@ namespace jeza.ioFTPD.Framework
                 return true;
             }
             IsValid = false;
+            OutputSfvFirst(Config.ClientFileNameSfv, Config.ClientFileNameSfvExists);
             return false;
         }
 
@@ -166,9 +148,9 @@ namespace jeza.ioFTPD.Framework
                                                    ? RaceType.Mp3
                                                    : EqualsRaceType (".zip")
                                                          ? RaceType.Zip
-                                                         : EqualsRaceType (".rar")
-                                                               ? RaceType.Rar
-                                                               : RaceType.None;
+                                                         : EqualsRaceType (".nfo")
+                                                               ? RaceType.Nfo
+                                                               : RaceType.Default;
         }
 
         /// <summary>
@@ -233,7 +215,8 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             //stats.Sort((stats1, stats2) => Comparer<UInt64>.Default.Compare(stats1.BytesUplaoded, stats2.BytesUplaoded));
-            stats.Sort (new RaceStatsGroupsComparer ());
+            stats.Sort ();
+            stats.Reverse();
             return stats;
         }
 
@@ -273,7 +256,9 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             //stats.Sort ((stats1, stats2) => Comparer<UInt64>.Default.Compare (stats1.BytesUplaoded, stats2.BytesUplaoded));
-            stats.Sort (new RaceStatsUsersComparer ());
+            //UserStatsSortOrder<RaceStatsUsers> order = new UserStatsSortOrder<RaceStatsUsers>();
+            stats.Sort();
+            stats.Reverse ();
             return stats;
         }
 
