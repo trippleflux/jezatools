@@ -51,9 +51,6 @@
     <Compile Include="Target.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
       <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
       <Name>jeza.ioFTPD.Framework</Name>

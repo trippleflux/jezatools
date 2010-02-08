@@ -5,12 +5,17 @@ using System;
 
 namespace jeza.ioFTPD.Framework
 {
-    public class RaceStatsGroups : RaceStatsEnumerator<RaceStatsGroups>
+    public class RaceStatsGroups : IComparable<RaceStatsGroups>
     {
         public string GroupName { get; set; }
         public int Speed { get; set; }
         public int FilesUplaoded { get; set; }
         public UInt64 BytesUplaoded { get; set; }
+
+        public int CompareTo (RaceStatsGroups other)
+        {
+            return BytesUplaoded.CompareTo (other.BytesUplaoded);
+        }
 
         public override string ToString ()
         {

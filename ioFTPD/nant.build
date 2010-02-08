@@ -6,14 +6,14 @@
   <property name="Configuration" value="Release" />
 
   <property name="Folder.Source" value="." />
-  <property name="Folder.Project" value="${path::combine(Folder.Source, 'jeza.ioFTPD.Tests')}" />
-  <property name="Folder.Release" value="${path::combine(path::combine(Folder.Project, 'bin'), Configuration)}" />
-  <property name="Folder.Results" value="${path::combine(Folder.Source, 'TestResults')}" />
-  <property name="Folder.LastTestResults" value="${path::combine(Folder.Results, 'LastTest')}" />
+  <property name="Folder.Tests" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.Tests'), 'bin'), Configuration)}" />
+  <property name="Folder.ZipScript" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.ZipScript'), 'bin'), Configuration)}" />
+  <property name="Folder.TestResults" value="${path::combine(Folder.Source, 'TestResults')}" />
+  <property name="Folder.Release" value="${path::combine(Folder.Source, 'Release')}" />
 
   <property name="File.Solution" value="jeza.ioFTPD.Tools.sln" />
-  <property name="File.Tests" value="${path::combine(Folder.Release, 'jeza.ioFTPD.Tests.dll')}" />
-  <property name="File.TestsResults" value="Results" />
+  <property name="File.Tests" value="${path::combine(Folder.Tests, 'jeza.ioFTPD.Tests.dll')}" />
+  <property name="File.TestResults" value="Results" />
   <property name="File.MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
 
   <target name="clean" descripton="Removes output files and directories.">
@@ -35,16 +35,17 @@
       <arg value="/consoleloggerparameters:NoSummary" />
       <arg value="${File.Solution}" />
     </exec>
+    <call target="copy.release" />
   </target>
 
   <target name="test" depends="compile" descripton="Run unit tests">
-    <echo>report-directory=${Folder.LastTestResults}</echo>
-    <echo>report-name-format=${File.TestsResults}</echo>
+    <echo>report-directory=${Folder.TestResults}</echo>
+    <echo>report-name-format=${File.TestResults}</echo>
     <echo>test-file=${File.Tests}</echo>
     <echo>report-types=Html;Xml;Text</echo>
     <gallio
-      report-directory="${Folder.LastTestResults}"
-      report-name-format="${File.TestsResults}"
+      report-directory="${Folder.TestResults}"
+      report-name-format="${File.TestResults}"
       report-types="Html;Xml;Text"
       echo-results="true"
       failonerror="false">
@@ -54,5 +55,20 @@
     </gallio>
   </target>
 
+  <target name="copy.release" description="Copies script files to release directory">
+    <copy todir="${path::combine(Folder.Release, 'jeza.ioFTPD.ZipScript')}">
+      <fileset basedir="${Folder.ZipScript}">
+        <include name="*.exe" />
+        <include name="*.dll" />
+      </fileset>
+    </copy>
+
+    <copy todir="${path::combine(Folder.Release, 'jeza.ioFTPD.Tests')}">
+      <fileset basedir="${Folder.Tests}">
+        <include name="*.*" />
+      </fileset>
+    </copy>
+  </target>
+  
 </project>
 

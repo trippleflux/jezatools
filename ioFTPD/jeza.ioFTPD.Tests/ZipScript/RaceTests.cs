@@ -31,7 +31,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 .AddFileName ("a.txt")
                 .AddCrc32 ("aabbccdd")
                 .AddFileUploaded (true)
-                .AddFileSpeed (100)
+                .AddFileSpeed (1000)
                 .AddFileSize (1000000)
                 .AddUserName ("user1")
                 .AddGroupName ("group1");
@@ -85,14 +85,14 @@ namespace jeza.ioFTPD.Tests.ZipScript
             List<RaceStatsGroups> statsGroups = race.GetGroupStats ();
             Assert.Sorted(statsGroups, SortOrder.Decreasing);
             //Console
-            //foreach (RaceStatsUsers raceStatsUser in statsUsers)
-            //{
-            //    Console.WriteLine (raceStatsUser);
-            //}
-            //foreach (RaceStatsGroups raceStatsGroups in statsGroups)
-            //{
-            //    Console.WriteLine(raceStatsGroups);
-            //}
+            foreach (RaceStatsUsers raceStatsUser in statsUsers)
+            {
+                Console.WriteLine(raceStatsUser);
+            }
+            foreach (RaceStatsGroups raceStatsGroups in statsGroups)
+            {
+                Console.WriteLine(raceStatsGroups);
+            }
         }
     }
 }

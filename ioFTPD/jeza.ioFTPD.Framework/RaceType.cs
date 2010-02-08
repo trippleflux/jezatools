@@ -5,7 +5,7 @@ namespace jeza.ioFTPD.Framework
         Sfv,
         Zip,
         Mp3,
-        Rar,
-        None
+        Nfo,
+        Default,
     }
 }
