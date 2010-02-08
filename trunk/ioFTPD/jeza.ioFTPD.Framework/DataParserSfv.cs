@@ -60,7 +60,7 @@ namespace jeza.ioFTPD.Framework
 
         public void Process ()
         {
-            ITagManager tagManager = new TagManager();
+            TagManager tagManager = new TagManager(race);
             foreach (KeyValuePair<string, string> keyValuePair in sfvData)
             {
                 tagManager.Create(currentUploadData.DirectoryPath, keyValuePair.Key + Config.FileExtensionMissing);
@@ -73,6 +73,7 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientFileNameSfv)
                 .Client(Config.ClientFoot);
             tagManager.Create(currentUploadData.DirectoryPath, output.Format(Config.TagIncompleteRar));
+            tagManager.CreateSymLink(currentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
         }
 
         private static bool IsHex (string crc32)

@@ -156,22 +156,22 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "kilobytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1000).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024).ToString ();
                         break;
                     }
                     case "megabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1000000).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024*1024).ToString ();
                         break;
                     }
                     case "gigabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1000000000).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024*1024*1204).ToString ();
                         break;
                     }
                     case "formatbytesuploaded":
                     {
-                        args[i] = FormatSize(stats.BytesUplaoded);
+                        args [i] = FormatSize (stats.BytesUplaoded);
                         break;
                     }
                     case "averagespeed":
@@ -228,22 +228,22 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "kilobytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1000).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024).ToString ();
                         break;
                     }
                     case "megabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1000000).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024*1024).ToString ();
                         break;
                     }
                     case "gigabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1000000000).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024*1024*1024).ToString ();
                         break;
                     }
                     case "formatbytesuploaded":
                     {
-                        args[i] = FormatSize(stats.BytesUplaoded);
+                        args [i] = FormatSize (stats.BytesUplaoded);
                         break;
                     }
                     case "averagespeed":
@@ -290,6 +290,11 @@ namespace jeza.ioFTPD.Framework
                         args [i] = race.CurrentUploadData.FileName;
                         break;
                     }
+                    case "releasename":
+                    {
+                        args[i] = race.CurrentUploadData.DirectoryName;
+                        break;
+                    }
                     case "totalfilesexpected":
                     {
                         args [i] = race.TotalFilesExpected.ToString ();
@@ -317,12 +322,12 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "progressbar":
                     {
-                        args[i] = race.ProgressBar;
+                        args [i] = race.ProgressBar;
                         break;
                     }
                     case "percentcomplete":
                     {
-                        args[i] = race.PercentComplete.ToString();
+                        args [i] = race.PercentComplete.ToString ();
                         break;
                     }
                     default:
@@ -335,17 +340,17 @@ namespace jeza.ioFTPD.Framework
             return text;
         }
 
-        public string FormatSize(UInt64 bytes)
+        public string FormatSize (UInt64 bytes)
         {
             UInt64 formatedSize = bytes;
-            string[] postFix = new string[] { "B", "kB", "MB", "GB", "TB" };
+            string[] postFix = new string[] {"B", "kB", "MB", "GB", "TB"};
             int count = 0;
-            while (formatedSize > 1000)
+            while (formatedSize > 1024)
             {
-                formatedSize = formatedSize / 1000;
+                formatedSize = formatedSize / 1024;
                 count++;
             }
-            return String.Format(CultureInfo.InvariantCulture, "{0}{1}", formatedSize, postFix[count]);
+            return String.Format (CultureInfo.InvariantCulture, "{0}{1}", formatedSize, postFix [count]);
         }
 
         private readonly Race race;

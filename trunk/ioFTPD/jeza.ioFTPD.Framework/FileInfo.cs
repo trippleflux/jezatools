@@ -1,4 +1,5 @@
 #region
+using System;
 using System.IO;
 using System.Threading;
 
@@ -99,6 +100,11 @@ namespace jeza.ioFTPD.Framework
                 DeleteFile (file.FullName);
             }
             OByteMutex.ReleaseMutex ();
+        }
+
+        public static void CreateFolder (string path)
+        {
+            Directory.CreateDirectory (path);
         }
 
         private static readonly Mutex OByteMutex = new Mutex (false, "OByteMutex");
