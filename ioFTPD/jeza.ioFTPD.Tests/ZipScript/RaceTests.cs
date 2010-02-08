@@ -23,6 +23,28 @@ namespace jeza.ioFTPD.Tests.ZipScript
         }
 
         [Test]
+        public void CurrentUploadData()
+        {
+            Race race = new Race(ArgsRarPart1);
+            race.Parse();
+            Assert.AreEqual("Rar", race.CurrentUploadData.DirectoryName, "DirectoryName");
+            Assert.EndsWith(race.CurrentUploadData.DirectoryPath, @"\TestFiles\Rar", "DirectoryPath");
+            Assert.EndsWith(race.CurrentUploadData.DirectoryParent, @"\TestFiles", "DirectoryParent");
+            Assert.AreEqual(".rar", race.CurrentUploadData.FileExtension, "FileExtension");
+            Assert.AreEqual("infected.part1.rar", race.CurrentUploadData.FileName, "FileName");
+            Assert.AreEqual(5000, race.CurrentUploadData.FileSize, "FileSize");
+            Assert.AreEqual("NoGroup", race.CurrentUploadData.GroupName, "GroupName");
+            Assert.AreEqual(1, race.CurrentUploadData.Speed, "Speed");
+            Assert.AreEqual("2e04944c", race.CurrentUploadData.UploadCrc, "UploadCrc");
+            Assert.AreEqual(@"..\..\TestFiles\Rar\infected.part1.rar", race.CurrentUploadData.UploadFile, "UploadFile");
+            Assert.AreEqual("/TestFiles/Rar/infected.part1.rar", race.CurrentUploadData.UploadVirtualFile, "UploadVirtualFile");
+            Assert.AreEqual("NoUser", race.CurrentUploadData.UserName, "UserName");
+            Assert.AreEqual("0", race.CurrentUploadData.Uid, "UID");
+            Assert.AreEqual("0", race.CurrentUploadData.Gid, "GID");
+            Assert.AreEqual("/NoPath", race.CurrentUploadData.UploadVirtualPath, "UploadVirtualPath");
+        }
+
+        [Test]
         public void AddRaceStats ()
         {
             Race race = new Race (ArgsRarPart1);
@@ -75,7 +97,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race.AddRaceStats(raceStats);
             Assert.AreEqual(3, race.TotalFilesUploaded, "TotalFilesUploaded");
             Assert.AreEqual ((UInt64) 6000000, race.TotalBytesUploaded, "TotalBytesUploaded");
-            Assert.AreEqual ((UInt64) 6, race.TotalMegaBytesUploaded, "TotalMegaBytesUploaded");
+            Assert.AreEqual ((UInt64) 5, race.TotalMegaBytesUploaded, "TotalMegaBytesUploaded");
             Assert.AreEqual (2, race.TotalGroupsRacing, "TotalGroupsRacing");
             Assert.AreEqual (3, race.TotalUsersRacing, "TotalUsersRacing");
             Assert.AreEqual (3, race.GetUserStats ().Count, "GetUserStats");

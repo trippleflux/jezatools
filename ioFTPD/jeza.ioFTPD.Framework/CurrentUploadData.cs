@@ -1,7 +1,5 @@
 #region
-
 #endregion
-
 namespace jeza.ioFTPD.Framework
 {
     public class CurrentUploadData
@@ -18,5 +16,9 @@ namespace jeza.ioFTPD.Framework
         public string UserName { get; set; }
         public string GroupName { get; set; }
         public int Speed { get; set; }
+        public string DirectoryParent { get; set; }
+        public string UploadVirtualPath { get; set; }
+        public string Uid { get; set; }
+        public string Gid { get; set; }
     }
 }

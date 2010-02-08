@@ -68,12 +68,12 @@ namespace jeza.ioFTPD.Framework
                         .ClientMp3(Config.ClientMp3Info);
                 }
                 output
-                    .ClientStatsUsers (Config.ClientStatsUsersHead)
+                    .Client (Config.ClientStatsUsersHead)
                     .ClientStatsUsers (Config.ClientStatsUsers)
-                    .ClientStatsGroups (Config.ClientStatsGroupsHead)
+                    .Client (Config.ClientStatsGroupsHead)
                     .ClientStatsGroups(Config.ClientStatsGroups)
                     .Client(Config.ClientFootProgressBar);
-                TagManager tagManager = new TagManager ();
+                TagManager tagManager = new TagManager (race);
                 if (race.IsRaceComplete)
                 {
                     tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));

@@ -1,4 +1,8 @@
+#region
+using System;
 using jeza.ioFTPD.Framework;
+
+#endregion
 
 namespace jeza.ioFTPD.ZipScript
 {
@@ -6,6 +10,7 @@ namespace jeza.ioFTPD.ZipScript
     {
         public ConsoleApp (string[] args)
         {
+            Console.WriteLine (ticks);
             this.args = args;
         }
 
@@ -50,10 +55,14 @@ namespace jeza.ioFTPD.ZipScript
                     return false;
                 }
             }
+            long ticks1 = DateTime.Now.Ticks;
+            Console.WriteLine ("Checked in {0}", (ticks1-ticks));
+            Console.WriteLine (returnValue);
             return returnValue;
         }
 
         private readonly string[] args;
         private Target target;
+        private readonly long ticks = DateTime.Now.Ticks;
     }
 }

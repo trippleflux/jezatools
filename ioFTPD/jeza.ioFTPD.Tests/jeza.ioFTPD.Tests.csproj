@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileFolderTests.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="ZipScript\Mp3Tests.cs" />
     <Compile Include="ZipScript\RaceTests.cs" />

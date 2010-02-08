@@ -29,13 +29,19 @@ namespace jeza.ioFTPD.Framework
                     FileName = fileInfo.Name,
                     DirectoryName = fileInfo.Directory == null ? "" : fileInfo.Directory.Name,
                     DirectoryPath = fileInfo.Directory == null ? "" : fileInfo.Directory.FullName,
+// ReSharper disable PossibleNullReferenceException
+                    DirectoryParent = fileInfo.Directory == null ? "" : fileInfo.Directory.Parent.FullName,
+// ReSharper restore PossibleNullReferenceException
                     FileSize = fileInfo.Length,
                     UploadFile = args [1],
                     UploadCrc = args [2],
                     UploadVirtualFile = args [3],
+                    UploadVirtualPath = GetVirtualPath(),
                     Speed = GetSpeed (),
                     UserName = GetUserName (),
                     GroupName = GetGroupName (),
+                    Uid = GetUid (),
+                    Gid = GetGid (),
                 };
             return this;
         }
@@ -75,6 +81,21 @@ namespace jeza.ioFTPD.Framework
             dataParser = new DataParser (this);
             dataParser.Parse ();
             dataParser.Process ();
+        }
+
+        private static string GetUid()
+        {
+            return Environment.GetEnvironmentVariable("UID") ?? "0";
+        }
+
+        private static string GetGid()
+        {
+            return Environment.GetEnvironmentVariable("GID") ?? "0";
+        }
+
+        private static string GetVirtualPath()
+        {
+            return Environment.GetEnvironmentVariable("VIRTUALPATH") ?? "/NoPath";
         }
 
         private static string GetGroupName ()
@@ -126,8 +147,15 @@ namespace jeza.ioFTPD.Framework
             {
                 return true;
             }
+            if (fileInfo.Length == 1)
+            {
+                OutputSfvFirst (Config.ClientFileName, Config.ClientFileNameSfvFirst);
+            }
+            else
+            {
+                OutputSfvFirst(Config.ClientFileName, Config.ClientFileNameSfvExists);
+            }
             IsValid = false;
-            OutputSfvFirst(Config.ClientFileNameSfv, Config.ClientFileNameSfvExists);
             return false;
         }
 
@@ -365,7 +393,7 @@ namespace jeza.ioFTPD.Framework
 
         public UInt64 TotalMegaBytesUploaded
         {
-            get { return TotalBytesUploaded / 1000000; }
+            get { return TotalBytesUploaded / (1024*1024); }
         }
 
         public CurrentUploadData CurrentUploadData { get; set; }
