@@ -1,6 +1,4 @@
 #region
-using System;
-using System.Text;
 using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
 
@@ -41,10 +39,10 @@ namespace jeza.ioFTPD.Tests
                                                      "| {0,2:B2}. {1,15:B15}/{2,-15:B15} {3,6:B6} {4,5:B5}kBit/s {5,3:B3}F |¤Possition UserName GroupName FormatBytesUploaded AverageSpeed FilesUploaded"));
             Assert.AreEqual ("|  1. group1           117MB   100kBit/s   1F |",
                              output.FormatGroupStats (1,
-                                                     race.GetGroupStats () [0],
-                                                     "| {0,2:B2}. {1,-15:B15} {2,6:B6} {3,5:B5}kBit/s {4,3:B3}F |¤Possition GroupName FormatBytesUploaded AverageSpeed FilesUploaded"));
-            Assert.AreEqual("###--------------", output.Format("{0}¤ProgressBar"), "ProgressBar");
-            Assert.AreEqual("117MB", output.FormatSize(bytes), "FormatBytesUploaded");
+                                                      race.GetGroupStats () [0],
+                                                      "| {0,2:B2}. {1,-15:B15} {2,6:B6} {3,5:B5}kBit/s {4,3:B3}F |¤Possition GroupName FormatBytesUploaded AverageSpeed FilesUploaded"));
+            Assert.AreEqual ("###--------------", output.Format ("{0}¤ProgressBar"), "ProgressBar");
+            Assert.AreEqual ("117MB", output.FormatSize (bytes), "FormatBytesUploaded");
         }
     }
 }
