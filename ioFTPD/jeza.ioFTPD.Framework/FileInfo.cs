@@ -1,5 +1,4 @@
 #region
-using System;
 using System.IO;
 using System.Threading;
 
@@ -9,6 +8,10 @@ namespace jeza.ioFTPD.Framework
 {
     public class FileInfo
     {
+        /// <summary>
+        /// Creates new empty file.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
         public static void Create0ByteFile (string fileName)
         {
             using (FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
@@ -102,9 +105,25 @@ namespace jeza.ioFTPD.Framework
             OByteMutex.ReleaseMutex ();
         }
 
+        /// <summary>
+        /// Creates the folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
         public static void CreateFolder (string path)
         {
             Directory.CreateDirectory (path);
+        }
+
+        /// <summary>
+        /// Removes the folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        public void RemoveFolder (string path)
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete (path);
+            }
         }
 
         private static readonly Mutex OByteMutex = new Mutex (false, "OByteMutex");

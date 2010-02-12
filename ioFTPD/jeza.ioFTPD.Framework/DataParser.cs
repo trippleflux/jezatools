@@ -77,6 +77,7 @@ namespace jeza.ioFTPD.Framework
                 if (race.IsRaceComplete)
                 {
                     tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
+                    tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
                 }
                 else
                 {
