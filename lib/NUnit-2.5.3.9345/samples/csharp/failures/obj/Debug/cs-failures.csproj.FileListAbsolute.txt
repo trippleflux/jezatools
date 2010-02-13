@@ -1,0 +1,1 @@
+E:\svn\jezatools\lib\NUnit-2.5.3.9345\samples\csharp\failures\obj\Debug\ResolveAssemblyReference.cache
