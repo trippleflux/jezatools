@@ -11,48 +11,42 @@ namespace jeza.ioFTPD.Framework
     {
         public static void Debug(string line)
         {
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-            if (Config.Debug)
-            {
-                Debug(line, null);
-            }
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
+#if DEBUG
+            Debug(line, null);
+#endif
         }
 
         public static void Debug(string line,
                                  params object[] args)
         {
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-            if (Config.Debug)
+#if DEBUG
+            string path = Environment.GetEnvironmentVariable("PATH");
+            if ((path == null) || (path.IndexOf(';') > -1))
             {
-                string path = Environment.GetEnvironmentVariable("PATH");
-                if ((path == null) || (path.IndexOf(';') > -1))
+                path = "";
+            }
+            string fileName = Path.Combine(path, Config.FileNameDebug);
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+            LogMutex.WaitOne();
+            using (FileStream stream = new FileStream(fileInfo.FullName,
+                                                      FileMode.Append,
+                                                      FileAccess.Write,
+                                                      FileShare.None))
+            {
+                using (StreamWriter streamWriter = new StreamWriter(stream))
                 {
-                    path = "";
-                }
-                string fileName = Path.Combine(path, Config.FileNameDebug);
-                System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
-                LogMutex.WaitOne();
-                using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                          FileMode.Append,
-                                                          FileAccess.Write,
-                                                          FileShare.None))
-                {
-                    using (StreamWriter streamWriter = new StreamWriter(stream))
+                    if (args != null)
                     {
-                        if (args != null)
-                        {
-                            streamWriter.WriteLine(line, args);
-                        }
-                        else
-                        {
-                            streamWriter.WriteLine(line);
-                        }
+                        streamWriter.WriteLine(line, args);
+                    }
+                    else
+                    {
+                        streamWriter.WriteLine(line);
                     }
                 }
-                LogMutex.ReleaseMutex();
             }
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
+            LogMutex.ReleaseMutex();
+#endif
         }
 
         private static readonly Mutex LogMutex = new Mutex(false, "logMutex");
