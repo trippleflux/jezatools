@@ -33,9 +33,8 @@ namespace jeza.ioFTPD.Framework
                     }
                     if (line.IndexOf(' ') == -1)
                     {
-                        throw new ArgumentOutOfRangeException(String.Format(CultureInfo.InvariantCulture,
-                                                                            "Line in SFV file should be separated with [SPACE]. Line '{0}'",
-                                                                            line));
+                        Log.Debug("new ArgumentOutOfRangeException: Line in SFV file should be separated with [SPACE]. Line '{0}'", line);
+                        continue;
                     }
                     //[FILENAME][SPACE][CRC32]
                     string[] data = line.Split(' ');
@@ -43,16 +42,13 @@ namespace jeza.ioFTPD.Framework
                     string crc32 = data [1];
                     if (sfvData.ContainsKey(key))
                     {
-                        throw new ArgumentException(String.Format(CultureInfo.InvariantCulture,
-                                                                  "Duplicated entry in SFV file [{0}]",
-                                                                  key));
+                        Log.Debug("ArgumentException: Duplicated entry in SFV file [{0}]", key);
+                        continue;
                     }
                     if (!IsHex(crc32))
                     {
-                        throw new ArgumentException(String.Format(CultureInfo.InvariantCulture,
-                                                                  "Incorrect CRC32 [{0}]. Line '{1}'",
-                                                                  crc32,
-                                                                  line));
+                        Log.Debug("ArgumentException: Incorrect CRC32 [{0}]. Line '{1}'",crc32,line);
+                        continue;
                     }
                     sfvData.Add(key, crc32);
                 }
