@@ -12,6 +12,14 @@ namespace jeza.ioFTPD.Tests.ZipScript
     public class RaceTests : ZipScriptBase
     {
         [Test]
+        public void SkipPath()
+        {
+            Race race = new Race(ArgsRarPart1);
+            race.Parse();
+            Assert.IsFalse(race.SkipPath, "race.SkipPath");
+        }
+
+        [Test]
         public void ParseRaceData ()
         {
             Race race = new Race (ArgsRarPart1);

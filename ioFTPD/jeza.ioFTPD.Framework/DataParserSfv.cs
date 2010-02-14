@@ -72,7 +72,7 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientHead)
                 .Client(Config.ClientFileNameSfv)
                 .Client(Config.ClientFoot);
-            tagManager.Create(currentUploadData.DirectoryPath, output.Format(Config.TagIncompleteRar));
+            tagManager.Create(currentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
             tagManager.CreateSymLink(currentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
         }
 

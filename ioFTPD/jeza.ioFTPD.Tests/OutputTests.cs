@@ -10,6 +10,13 @@ namespace jeza.ioFTPD.Tests
     public class OutputTests
     {
         [Test]
+        public void Log()
+        {
+            Framework.Log.Debug("test line");
+            Framework.Log.Debug("test linewith arguments {0} {1}", 1, 2);
+        }
+
+        [Test]
         public void Client ()
         {
             Race race = new Race (new[] {"asdfasdf"}) {TotalFilesExpected = 5};

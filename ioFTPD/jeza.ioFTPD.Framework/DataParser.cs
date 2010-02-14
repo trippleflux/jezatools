@@ -76,12 +76,12 @@ namespace jeza.ioFTPD.Framework
                 TagManager tagManager = new TagManager (race);
                 if (race.IsRaceComplete)
                 {
-                    tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagCompleteRar));
+                    tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagComplete));
                     tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
                 }
                 else
                 {
-                    tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagIncompleteRar));
+                    tagManager.Create (race.CurrentUploadData.DirectoryPath, output.Format (Config.TagIncomplete));
                 }
                 race.IsValid = true;
             }

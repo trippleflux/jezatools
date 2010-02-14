@@ -1,5 +1,6 @@
 #region
 using System;
+using System.Text;
 using jeza.ioFTPD.Framework;
 
 #endregion
@@ -8,19 +9,21 @@ namespace jeza.ioFTPD.ZipScript
 {
     public class ConsoleApp
     {
-        public ConsoleApp (string[] args)
+        public ConsoleApp(string[] args)
         {
             this.args = args;
+            startTime = new DateTime(DateTime.Now.Ticks);
+            Log.Debug("args: {0}", ArgsToString);
         }
 
-        public void Parse ()
+        public void Parse()
         {
             int numberOfArguments = args.Length;
             switch (numberOfArguments)
             {
                 case 4:
                 {
-                    if (args [0].ToLower ().Equals ("upload"))
+                    if (args [0].ToLower().Equals("upload"))
                     {
                         target = Target.Upload;
                     }
@@ -35,16 +38,16 @@ namespace jeza.ioFTPD.ZipScript
             }
         }
 
-        public bool Process ()
+        public bool Process()
         {
             bool returnValue;
             switch (target)
             {
                 case Target.Upload:
                 {
-                    Race race = new Race (args);
-                    race.Parse ();
-                    race.Process ();
+                    Race race = new Race(args);
+                    race.Parse();
+                    race.Process();
                     returnValue = race.IsValid;
                     break;
                 }
@@ -54,14 +57,28 @@ namespace jeza.ioFTPD.ZipScript
                     return false;
                 }
             }
-            Console.WriteLine ("Script returned code {0}", returnValue);
+            Log.Debug("Script returned code {0}", returnValue);
             DateTime endTime = new DateTime(DateTime.Now.Ticks);
             Console.WriteLine("Checked in {0}ms", (endTime - startTime).TotalMilliseconds);
             return returnValue;
         }
 
+        private string ArgsToString
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                int i = 0;
+                foreach (string arg in args)
+                {
+                    sb.AppendFormat("args[{0}]='{1}' ", i++, arg);
+                }
+                return sb.ToString();
+            }
+        }
+
         private readonly string[] args;
         private Target target;
-        readonly DateTime startTime = new DateTime(DateTime.Now.Ticks);
+        private readonly DateTime startTime;
     }
 }

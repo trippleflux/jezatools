@@ -2,11 +2,18 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Config
     {
+        public const bool Debug = true;
+
+        public const string FileNameDebug = ".ioFTPD.race.Debug";
         public const string FileNameRace = ".ioFTPD.race";
         public const string FileExtensionMissing = ".missing";
+
+        public const string SkipPath = "/private/"; 
+        
         public const string ClientHead = ",----------=[ ZipScript by Jeza ]=-----------------------------------------------------------,";
         public const string ClientFileName = "| File.....: {0,-80:B79}|了ileName";
         public const string ClientFileNameOk = "| File OK..: {0,-80:B79}|了ileName";
+        public const string ClientFileNameSkip = "| Skip.....: {0,-80:B79}|了ileName";
         public const string ClientFileNameBadCrc = "| Bad CRC..: {0,-80:B79}|了ileName";
         public const string ClientFileNameSfv = "| SFV......: {0,-80:B79}|了ileName";
         public const string ClientFileNameSfvExists = "| Deleting.: SFV allready exists!                                                            |";
@@ -28,8 +35,8 @@ namespace jeza.ioFTPD.Framework
          */
         public const bool TagAsFile = true;
         public const string TagCleanUpString = "]-["; //deete all files that start with this string in race folder
-        public const string TagIncompleteRar = "]-[iNCOMPLETE]-[ {0}% ]-[{1}FiLE(s) of {2}FiLE(s)]-[iNCOMPLETE]-[匕ercentComplete TotalFilesUploaded TotalFilesExpected";
-        public const string TagCompleteRar = "]-[Complete]-[{2}%]-[ {0} - {1}F]-[了ormatBytesUploaded TotalFilesUploaded PercentComplete";
+        public const string TagIncomplete = "]-[iNCOMPLETE]-[ {0}% ]-[{1}FiLE(s) of {2}FiLE(s)]-[iNCOMPLETE]-[匕ercentComplete TotalFilesUploaded TotalFilesExpected";
+        public const string TagComplete = "]-[Complete]-[{2}%]-[ {0} - {1}F]-[了ormatBytesUploaded TotalFilesUploaded PercentComplete";
         public const string TagIncompleteLink = "[iNCOMPLETE]-{0}卜eleaseName";
         public const string TagIncompleteLinkDiscNumber = "[iNCOMPLETE]-{0}_{1}卜eleaseName DiscNumber";
         public const int TagIncompleteLinkChMod = 755;
