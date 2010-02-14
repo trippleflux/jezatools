@@ -43,6 +43,7 @@ namespace jeza.ioFTPD.Framework
                                     Uid = GetUid(),
                                     Gid = GetGid(),
                                 };
+            SelectRaceType();
             Log.Debug("CurrentUploadData: {0}", CurrentUploadData);
             return this;
         }
@@ -57,9 +58,9 @@ namespace jeza.ioFTPD.Framework
                 OutputFileName(true);
                 return;
             }
-            SelectRaceType();
             if (!IsValid)
             {
+                Log.Debug("Not Valid!");
                 return;
             }
             IDataParser dataParser;
@@ -232,6 +233,19 @@ namespace jeza.ioFTPD.Framework
                 return;
             }
             raceStats.Add(stats);
+        }
+
+        public string GetRaceStats
+        {
+            get
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (RaceStats list in raceStats)
+                {
+                    sb.AppendLine(list.ToString());
+                }
+                return sb.ToString();
+            }
         }
 
         public void ClearRaceStats()

@@ -1,4 +1,7 @@
+#region
 using System;
+
+#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -53,5 +56,10 @@ namespace jeza.ioFTPD.Framework
         public int FileSpeed { get; set; }
         public string UserName { get; set; }
         public string GroupName { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("FileName: {0}, Crc32: {1}, FileUploaded: {2}, FileSize: {3}, FileSpeed: {4}, UserName: {5}, GroupName: {6}", FileName, Crc32, FileUploaded, FileSize, FileSpeed, UserName, GroupName);
+        }
     }
 }
