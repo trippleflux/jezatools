@@ -10,7 +10,6 @@ namespace jeza.ioFTPD.Framework
     {
         public TagManager(Race race)
         {
-            tagType = Config.TagAsFile;
             this.race = race;
         }
 
@@ -25,10 +24,6 @@ namespace jeza.ioFTPD.Framework
         {
             string tag2Create = Path.Combine(path, tag);
             FileInfo.Create0ByteFile(tag2Create);
-            if (!tagType)
-            {
-                Log.Debug("Only FILE is supported as TAG!");
-            }
         }
 
         /// <summary>
@@ -62,7 +57,6 @@ namespace jeza.ioFTPD.Framework
             fileInfo.RemoveFolder(symLink);
         }
 
-        private readonly bool tagType;
         private readonly Race race;
     }
 }

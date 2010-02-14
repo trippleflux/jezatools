@@ -2,8 +2,6 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Config
     {
-        public const bool Debug = true;
-
         public const string FileNameDebug = ".ioFTPD.race.Debug";
         public const string FileNameRace = ".ioFTPD.race";
         public const string FileExtensionMissing = ".missing";
@@ -30,10 +28,10 @@ namespace jeza.ioFTPD.Framework
         public const int ProgressBarLength = 17;
         public const char ProgressBarCharFilled = '#';
         public const char ProgressBarCharMissing = '-';
+
         /*
          * Th tag cannot contain the following characters : \ / : * ? " < > |
          */
-        public const bool TagAsFile = true;
         public const string TagCleanUpString = "]-["; //deete all files that start with this string in race folder
         public const string TagIncomplete = "]-[iNCOMPLETE]-[ {0}% ]-[{1}FiLE(s) of {2}FiLE(s)]-[iNCOMPLETE]-[¤PercentComplete TotalFilesUploaded TotalFilesExpected";
         public const string TagComplete = "]-[Complete]-[{2}%]-[ {0} - {1}F]-[¤FormatBytesUploaded TotalFilesUploaded PercentComplete";
