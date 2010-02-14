@@ -8,7 +8,7 @@ namespace jeza.ioFTPD.Framework
 {
     public class TagManager
     {
-        public TagManager (Race race)
+        public TagManager(Race race)
         {
             tagType = Config.TagAsFile;
             this.race = race;
@@ -19,17 +19,15 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="tag">The tag.</param>
-        public void Create
+        public void CreateTag
             (string path,
              string tag)
         {
-            if (tagType)
+            string tag2Create = Path.Combine(path, tag);
+            FileInfo.Create0ByteFile(tag2Create);
+            if (!tagType)
             {
-                FileInfo.Create0ByteFile (Path.Combine (path, tag));
-            }
-            else
-            {
-                throw new NotSupportedException ("Tag as folder");
+                Log.Debug("Only FILE is supported as TAG!");
             }
         }
 
@@ -38,14 +36,15 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="link">The link.</param>
-        public void CreateSymLink (string path,
-                                   string link)
+        public void CreateSymLink(string path,
+                                  string link)
         {
-            string symLink = Path.Combine (path, link);
-            FileInfo.CreateFolder (symLink);
+            string symLink = Path.Combine(path, link);
+            Log.Debug("CreateSymLink: {0}", symLink);
+            FileInfo.CreateFolder(symLink);
             CurrentUploadData data = race.CurrentUploadData;
-            Console.Write ("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
-            Console.Write ("!vfs:add {3} {1}:{2} {0}\n", symLink, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
+            Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
+            Console.Write("!vfs:add {3} {1}:{2} {0}\n", symLink, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
         }
 
         /// <summary>
@@ -53,13 +52,14 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="link">The format.</param>
-        public void DeleteSymlink (string path,
-                                   string link)
+        public void DeleteSymlink(string path,
+                                  string link)
         {
             string symLink = Path.Combine(path, link);
-            FileInfo fileInfo = new FileInfo ();
-            fileInfo.DeleteFile (symLink, ".ioFTPD");
-            fileInfo.RemoveFolder (symLink);
+            Log.Debug("DeleteSymlink: {0}", symLink);
+            FileInfo fileInfo = new FileInfo();
+            fileInfo.DeleteFile(symLink, ".ioFTPD");
+            fileInfo.RemoveFolder(symLink);
         }
 
         private readonly bool tagType;

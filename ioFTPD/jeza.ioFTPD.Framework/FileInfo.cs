@@ -14,6 +14,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="fileName">Name of the file.</param>
         public static void Create0ByteFile (string fileName)
         {
+            Log.Debug("Create0ByteFile: {0}", fileName);
             using (FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
             {
                 stream.Flush ();
@@ -29,19 +30,24 @@ namespace jeza.ioFTPD.Framework
             (string path,
              string fileName)
         {
-            string file = Path.Combine (path, fileName);
-            DeleteFile (file);
+            string file = Path.Combine(path, fileName);
+            DeleteFile(file);
         }
 
-        private static void DeleteFile (string file)
+        private static void DeleteFile (string fileName)
         {
-            if (File.Exists (file))
+            Log.Debug("DeleteFile: '{0}'", fileName);
+            if (File.Exists(fileName))
             {
                 do
                 {
                     Thread.Sleep (100);
-                } while (IsFileOpen (file));
-                File.Delete (file);
+                } while (IsFileOpen (fileName));
+                File.Delete (fileName);
+            }
+            else
+            {
+                Log.Debug("File not found! '{0}'", fileName);
             }
         }
 
