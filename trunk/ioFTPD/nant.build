@@ -11,7 +11,6 @@
   <property name="Folder.Framework" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.Framework'), 'bin'), Configuration)}" />
   <property name="Folder.TestResults" value="${path::combine(Folder.Source, 'TestResults')}" />
   <property name="Folder.BuildOutput" value="${path::combine(Folder.Source, 'jeza.ioFTPD.Tools')}" />
-  <property name="Folder.Release" value="${path::combine(Folder.Source, 'Release')}" />
 
   <property name="File.Solution" value="jeza.ioFTPD.Tools.sln" />
   <property name="File.Tests" value="${path::combine(Folder.Tests, 'jeza.ioFTPD.Tests.dll')}" />
@@ -44,7 +43,8 @@
     <call target="copy.build" />
   </target>
 
-  <target name="test" depends="compile" descripton="Run unit tests">
+  <target name="test" descripton="Run unit tests">
+    <call target="compile" />
     <echo>report-directory=${Folder.TestResults}</echo>
     <echo>report-name-format=${File.TestResults}</echo>
     <echo>test-file=${File.Tests}</echo>
@@ -89,6 +89,11 @@
     <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
     <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
     <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
+  </target>
+
+  <target name="release" description="Prepares new versioned release">
+    <call target="version.Increment" />
+    <call target="compile" />
   </target>
 
 </project>

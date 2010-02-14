@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataParser.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="RaceStatsEnumerator.cs" />
     <Compile Include="RaceStatsGroups.cs" />
     <Compile Include="IDataParser.cs" />

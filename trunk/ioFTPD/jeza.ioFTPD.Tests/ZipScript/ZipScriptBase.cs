@@ -20,6 +20,30 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 , "/TestFiles/Mp3/01-jozek.Pepek-2009-asd-Ind.mp3"
             };
 
+        protected readonly string[] ArgsMp3File2 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind.mp3"
+                , "1c7c24a5"
+                , "/TestFiles/Mp3/02-jozek.Pepek-2009-asd-Ind.mp3"
+            };
+
+        protected readonly string[] ArgsMp3File3 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind(2).mp3"
+                , "d5d617e3"
+                , "/TestFiles/Mp3/03-jozek.Pepek-2009-asd-Ind(2).mp3"
+            };
+
+        protected readonly string[] ArgsMp3File4 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind(3).mp3"
+                , "0edb20ea"
+                , "/TestFiles/Mp3/04-jozek.Pepek-2009-asd-Ind(3).mp3"
+            };
+
         protected readonly string[] ArgsRarPart1 = new[]
             {
                 "upload"

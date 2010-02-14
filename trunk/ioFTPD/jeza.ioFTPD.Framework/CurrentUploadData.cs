@@ -20,5 +20,10 @@ namespace jeza.ioFTPD.Framework
         public string UploadVirtualPath { get; set; }
         public string Uid { get; set; }
         public string Gid { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("FileExtension: {0}, FileName: {1}, FileSize: {2}, DirectoryName: {3}, DirectoryPath: {4}, RaceType: {5}, UploadCrc: {6}, UploadFile: {7}, UploadVirtualFile: {8}, UserName: {9}, GroupName: {10}, Speed: {11}, DirectoryParent: {12}, UploadVirtualPath: {13}, Uid: {14}, Gid: {15}", FileExtension, FileName, FileSize, DirectoryName, DirectoryPath, RaceType, UploadCrc, UploadFile, UploadVirtualFile, UserName, GroupName, Speed, DirectoryParent, UploadVirtualPath, Uid, Gid);
+        }
     }
 }
