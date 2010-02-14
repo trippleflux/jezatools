@@ -8,13 +8,19 @@
   <property name="Folder.Source" value="." />
   <property name="Folder.Tests" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.Tests'), 'bin'), Configuration)}" />
   <property name="Folder.ZipScript" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.ZipScript'), 'bin'), Configuration)}" />
+  <property name="Folder.Framework" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.Framework'), 'bin'), Configuration)}" />
   <property name="Folder.TestResults" value="${path::combine(Folder.Source, 'TestResults')}" />
+  <property name="Folder.BuildOutput" value="${path::combine(Folder.Source, 'jeza.ioFTPD.Tools')}" />
   <property name="Folder.Release" value="${path::combine(Folder.Source, 'Release')}" />
 
   <property name="File.Solution" value="jeza.ioFTPD.Tools.sln" />
   <property name="File.Tests" value="${path::combine(Folder.Tests, 'jeza.ioFTPD.Tests.dll')}" />
   <property name="File.TestResults" value="Results" />
   <property name="File.MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
+  <property name="File.UpdateVersion" value="..\lib\UpdateVersion.exe" />
+  <property name="File.AssemblyInfo.Framework" value="jeza.ioFTPD.Framework\Properties\AssemblyInfo.cs" />
+  <property name="File.AssemblyInfo.ZipScript" value="jeza.ioFTPD.ZipScript\Properties\AssemblyInfo.cs" />
+  <property name="File.AssemblyInfo.Tests" value="jeza.ioFTPD.Tests\Properties\AssemblyInfo.cs" />
 
   <target name="clean" descripton="Removes output files and directories.">
     <delete includeemptydirs="true" failonerror="true">
@@ -35,7 +41,7 @@
       <arg value="/consoleloggerparameters:NoSummary" />
       <arg value="${File.Solution}" />
     </exec>
-    <call target="copy.release" />
+    <call target="copy.build" />
   </target>
 
   <target name="test" depends="compile" descripton="Run unit tests">
@@ -55,20 +61,35 @@
     </gallio>
   </target>
 
-  <target name="copy.release" description="Copies script files to release directory">
-    <copy todir="${path::combine(Folder.Release, 'jeza.ioFTPD.ZipScript')}">
+  <target name="copy.build" description="Copies script files to release directory">
+    <copy todir="${path::combine(Folder.BuildOutput, 'jeza.ioFTPD.ZipScript')}">
       <fileset basedir="${Folder.ZipScript}">
-        <include name="*.exe" />
+        <include name="jeza.ioFTPD.ZipScript.exe" />
         <include name="*.dll" />
       </fileset>
     </copy>
 
-    <copy todir="${path::combine(Folder.Release, 'jeza.ioFTPD.Tests')}">
+    <copy todir="${path::combine(Folder.BuildOutput, 'jeza.ioFTPD.Framework')}">
+      <fileset basedir="${Folder.Framework}">
+        <include name="*.dll" />
+      </fileset>
+    </copy>
+
+    <copy todir="${path::combine(Folder.BuildOutput, 'jeza.ioFTPD.Tests')}">
       <fileset basedir="${Folder.Tests}">
         <include name="*.*" />
       </fileset>
     </copy>
   </target>
-  
+
+  <target name="version.Increment" description="Updates version number using UpdateVersion.exe">
+    <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.Framework} -o ${File.AssemblyInfo.Framework}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.Framework} -o ${File.AssemblyInfo.Framework}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
+  </target>
+
 </project>
 
