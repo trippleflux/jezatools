@@ -81,21 +81,34 @@ namespace TravianBot.Framework
             <td>7</td>
             <td>17893</td>
             </tr> 
-             */
+
+<tr class="hl" >
+   <td class="ra  fc" >5345.</td>
+   <td class="pla " ><a href="spieler.php?uid=10850">jezonsky</a> </td>
+
+   <td class="pop " >336</td>
+   <td class="vil " >2</td>
+   <td class="po  lc" >0</td>
+  </tr>
+
+
+             * */
+            //const string patternRang =
+            //    @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
             const string patternRang =
-                @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
+                @"<td class=""ra  fc"" >([0-9]{0,6}).</td>[\s]{0,4}<td class=""pla "" ><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a> </td>[\s]{0,5}<td class=""pop "" >([0-9]{0,6})</td>[\s]{0,5}<td class=""vil "" >([0-9]{0,6})</td>[\s]{0,5}<td class=""po  lc"" >([0-9]{0,6})</td>";
             MatchCollection rangCollection =
                 Regex.Matches(pageSource, patternRang);
             for (int i = 0; i < rangCollection.Count; i++)
             {
-                string name = rangCollection[i].Groups[5].Value.Trim();
+                string name = rangCollection[i].Groups[3].Value.Trim();
                 if (name == username)
                 {
                     playerData.Name = name;
-                    playerData.AttackRang = Int32.Parse(rangCollection[i].Groups[2].Value.Trim());
-                    playerData.Population = Int32.Parse(rangCollection[i].Groups[8].Value.Trim());
-                    playerData.VillageCount = Int32.Parse(rangCollection[i].Groups[11].Value.Trim());
-                    playerData.AttackPoints = Int32.Parse(rangCollection[i].Groups[14].Value.Trim());
+                    playerData.AttackRang = Int32.Parse(rangCollection[i].Groups[1].Value.Trim());
+                    playerData.Population = Int32.Parse(rangCollection[i].Groups[4].Value.Trim());
+                    playerData.VillageCount = Int32.Parse(rangCollection[i].Groups[5].Value.Trim());
+                    playerData.AttackPoints = Int32.Parse(rangCollection[i].Groups[6].Value.Trim());
                     break;
                 }
             }
@@ -113,21 +126,32 @@ namespace TravianBot.Framework
             <td>7</td>
             <td>17893</td>
             </tr> 
-             */
+
+  <tr class="hl" >
+   <td class="ra  fc" >2175.</td>
+   <td class="pla " ><a href="spieler.php?uid=10850">jezonsky</a> </td>
+
+   <td class="pop " >337</td>
+   <td class="vil " >2</td>
+   <td class="po  lc" >27</td>
+  </tr>
+             * */
+            //const string patternRang =
+            //    @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
             const string patternRang =
-                @"<td class=""(.*)"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>[\s]{0,3}<td(\sclass=""(.*)"")?>([0-9]{0,6})</td>";
+                @"<td class=""ra  fc"" >([0-9]{0,6}).</td>[\s]{0,4}<td class=""pla "" ><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a> </td>[\s]{0,5}<td class=""pop "" >([0-9]{0,6})</td>[\s]{0,5}<td class=""vil "" >([0-9]{0,6})</td>[\s]{0,5}<td class=""po  lc"" >([0-9]{0,6})</td>";
             MatchCollection rangCollection =
                 Regex.Matches(pageSource, patternRang);
             for (int i = 0; i < rangCollection.Count; i++)
             {
-                string name = rangCollection[i].Groups[5].Value.Trim();
+                string name = rangCollection[i].Groups[3].Value.Trim();
                 if (name == username)
                 {
                     playerData.Name = name;
-                    playerData.DefenseRang = Int32.Parse(rangCollection[i].Groups[2].Value.Trim());
-                    playerData.Population = Int32.Parse(rangCollection[i].Groups[8].Value.Trim());
-                    playerData.VillageCount = Int32.Parse(rangCollection[i].Groups[11].Value.Trim());
-                    playerData.DefensePoints = Int32.Parse(rangCollection[i].Groups[14].Value.Trim());
+                    playerData.DefenseRang = Int32.Parse(rangCollection[i].Groups[1].Value.Trim());
+                    playerData.Population = Int32.Parse(rangCollection[i].Groups[4].Value.Trim());
+                    playerData.VillageCount = Int32.Parse(rangCollection[i].Groups[5].Value.Trim());
+                    playerData.DefensePoints = Int32.Parse(rangCollection[i].Groups[6].Value.Trim());
                     break;
                 }
             }
@@ -141,19 +165,28 @@ namespace TravianBot.Framework
 <td class="li ou nbr" align="right">161.&nbsp;</td>
 <td class="s7 ou"><a href="spieler.php?uid=9500">jeza</a></td>
 <td class="ou"><a href="allianz.php?aid=1467">FOR</a></td>
-             */
+
+  <tr class="hl" >
+   <td class="ra  fc" >1374.</td>
+   <td class="pla " ><a href="spieler.php?uid=10850">jezonsky</a> </td>
+
+   <td class="al " ><a href="allianz.php?aid=355">Legacy</a></td>
+   <td class="pop " >337</td>
+   <td class="vil  lc" >2</td>
+  </tr>
+             * */
             const string patternRang =
-                @"<td class=""(.*)"" align=""right"">([0-9]{0,6}).&nbsp;</td>[\s]{0,3}<td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>[\s]{0,3}<td(\sclass=""(.*)"")?><a href=""allianz.php.aid=([0-9]{0,6})"">(.*)</a></td>";
+                @"<td class=""ra  fc"" >([0-9]{0,6}).</td>[\s]{0,4}<td class=""pla "" ><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a> </td>[\s]{0,5}<td class=""al "" ><a href=""allianz.php.aid=([0-9]{0,6})"">(.*)</a></td>";
             MatchCollection rangCollection =
                 Regex.Matches(pageSource, patternRang);
             for (int i = 0; i < rangCollection.Count; i++)
             {
-                string name = rangCollection[i].Groups[5].Value.Trim();
+                string name = rangCollection[i].Groups[3].Value.Trim();
                 if (name == username)
                 {
                     playerData.Name = name;
-                    playerData.Rang = Int32.Parse(rangCollection[i].Groups[2].Value.Trim());
-                    playerData.Aliance = rangCollection[i].Groups[9].Value.Trim();
+                    playerData.Rang = Int32.Parse(rangCollection[i].Groups[1].Value.Trim());
+                    playerData.Aliance = rangCollection[i].Groups[5].Value.Trim();
                     break;
                 }
             }

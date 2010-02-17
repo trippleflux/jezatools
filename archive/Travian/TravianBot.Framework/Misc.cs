@@ -132,9 +132,9 @@ namespace TravianBot.Framework
         {
             string postData = String.Format("login={0}&{1}={2}&{3}={4}&{5}={6}&{5}={6}&s1.x=83&s1.y=7&s1=login",
                                             loginPageData.HiddenLoginValue,
-                                            loginPageData.TextBoxUserame,
+                                            "name",
                                             serverInfo.Username,
-                                            loginPageData.TextBoxPassword,
+                                            "password",
                                             serverInfo.Password,
                                             loginPageData.HiddenName,
                                             loginPageData.HiddenValue);
@@ -145,6 +145,7 @@ namespace TravianBot.Framework
         public static bool Login35()
         {
             //w=1680%3A1050&login=1242744256&ec852d4=jeza&e4b7736=*********&edcf8e3=9082b30900&edcf8e3=9082b30900&s1.x=83&s1.y=7&s1=login
+            //w=1680%3A1050&login=1266431960&name=jezonsky&password=******&s1.x=20&s1.y=4&s1=login
             return false;
         }
 
