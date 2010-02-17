@@ -59,6 +59,7 @@ namespace TravianBot.Framework
         /*
          w=1680%3A1050&login=1242744256&ec852d4=jeza&e4b7736=*********&edcf8e3=9082b30900&edcf8e3=9082b30900&s1.x=83&s1.y=7&s1=login
          w=resolution&login=
+         w=1680%3A1050&login=1266431960&name=jezonsky&password=******&s1.x=20&s1.y=4&s1=login
          */
         /*
         <input type="hidden" name="w" value="">

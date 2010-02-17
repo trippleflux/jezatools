@@ -63,22 +63,22 @@ namespace TravianBot.Gui
              AlianceData data)
         {
             PlayerData playerData = new PlayerData {Number = number};
-
-            string postData = String.Format("id=31&rang=1&spieler={0}&s1.x=38&s1.y=6&s1=ok", username);
+            //rank=&name=jasa&submit.x=7&submit.y=8&submit=submit
+            string postData = String.Format("&rank=1&name={0}&submit.x=7&submit.y=8&submit=submit", username);
             textBoxStatus.Text += postData + "\r\n";
             string pageSource = Http.SendData(serverInfo.StatistikAttack, postData, serverInfo.CookieContainer,
                                               serverInfo.CookieCollection);
             HtmlParser htmlParser = new HtmlParser(pageSource);
             htmlParser.ParseAttackRang(playerData, username);
 
-            postData = String.Format("id=32&rang=1&spieler={0}&s1.x=38&s1.y=6&s1=ok", username);
+            postData = String.Format("&rank=1&name={0}&submit.x=7&submit.y=8&submit=submit", username);
             textBoxStatus.Text += postData + "\r\n";
             pageSource = Http.SendData(serverInfo.StatistikDefense, postData, serverInfo.CookieContainer,
                                        serverInfo.CookieCollection);
             htmlParser = new HtmlParser(pageSource);
             htmlParser.ParseDefenseRang(playerData, username);
 
-            postData = String.Format("rang=1&spieler={0}&s1.x=38&s1.y=6&s1=ok", username);
+            postData = String.Format("?rank=1&name={0}&submit.x=7&submit.y=8&submit=submit", username);
             pageSource = Http.SendData(serverInfo.StatistikRang, postData, serverInfo.CookieContainer,
                                        serverInfo.CookieCollection);
             htmlParser = new HtmlParser(pageSource);
@@ -124,8 +124,10 @@ namespace TravianBot.Gui
             int delay = Int32.Parse(comboBoxDelay.Text);
             //<td align="right">1.</td><td class="s7"><a href="spieler.php?uid=9446">NoBody.</a></td>
             //<td align=""right"">([0-9{0,2}]).</td><td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>
+            //<td class="ra">1.</td><td class="pla"><a href="spieler.php?uid=2485">klukec</a></td><td class="hab">689</td>
+
             const string patternAlianceMembers =
-                @"<td align=""right"">([0-9]{0,3}).</td><td class=""(.*)""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>";
+                @"<td class=""ra"">([0-9]{0,3}).</td><td class=""pla""><a href=""spieler.php.uid=([0-9]{0,6})"">(.*)</a></td>";
             MatchCollection alianceMembersCollection =
                 Regex.Matches(pageSource, patternAlianceMembers);
             int alianceMembers = alianceMembersCollection.Count;
@@ -135,7 +137,7 @@ namespace TravianBot.Gui
             for (int i = 0; i < alianceMembers; i++)
             {
                 int number = Int32.Parse(alianceMembersCollection[i].Groups[1].Value.Trim());
-                string username = alianceMembersCollection[i].Groups[4].Value.Trim();
+                string username = alianceMembersCollection[i].Groups[3].Value.Trim();
                 GetStats(serverInfo, number, username, data);
                 Thread.Sleep(delay);
                 //this checking is automatically done as stated in the Ref Documentation 
