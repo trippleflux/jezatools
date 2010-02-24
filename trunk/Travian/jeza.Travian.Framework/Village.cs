@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace jeza.Travian.Framework
 {
@@ -50,6 +54,15 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Gets the available troops in village.
+        /// </summary>
+        /// <value>The troops available.</value>
+        public Troops TroopsAvailable
+        {
+            get { return troopsAvailable; }
+        }
+
+        /// <summary>
         /// Adds the id of the village.
         /// </summary>
         /// <param name="villageId">The id.</param>
@@ -95,12 +108,23 @@ namespace jeza.Travian.Framework
             return this;
         }
 
+        /// <summary>
+        /// Updates the troops in village.
+        /// </summary>
+        /// <param name="troops">The troops.</param>
+        /// <returns></returns>
+        public Village UpdateTroopsInVillage(Troops troops)
+        {
+            troopsAvailable = troops;
+            return this;
+        }
+
         private int id;
         private string name;
         private Production production;
         private int coordinateX;
         private int coordinateY;
         private List<TroopMovement> troopMovement = new List<TroopMovement>();
-        private List<TroopsAvailable> troopsAvailable = new List<TroopsAvailable>();
+        private Troops troopsAvailable;
     }
 }

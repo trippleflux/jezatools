@@ -1,5 +1,9 @@
+#region
+
 using jeza.Travian.Framework;
 using MbUnit.Framework;
+
+#endregion
 
 namespace jeza.Travian.Tests
 {
@@ -52,12 +56,32 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(firstVillageId, firstAccountVillage.Id, "Village id!");
             Assert.AreEqual(firstVillageName, firstAccountVillage.Name, "Village name!");
             Assert.IsNull(firstAccountVillage.Production, "Village production!");
+            Assert.IsNull(firstAccountVillage.TroopsAvailable, "Village troops!");
 
             Village secondAccountVillage = account.GetVillage(secondVillageId);
             Assert.IsNotNull(secondAccountVillage, "Village not found!");
             Assert.AreEqual(secondVillageId, secondAccountVillage.Id, "Village id!");
             Assert.AreEqual(secondVillageName, secondAccountVillage.Name, "Village name!");
             Assert.AreEqual(production, secondAccountVillage.Production, "Village production!");
+            Assert.IsNull(secondAccountVillage.TroopsAvailable, "Village troops!");
+
+            Gauls gauls = new Gauls();
+            TroopUnit phalanx = gauls.Phalanx.AddTroopCount(123);
+            TroopUnit haeduan = gauls.Haeduan.AddTroopCount(13);
+            Romans romans = new Romans();
+            TroopUnit legionnaire = romans.Legionnaire.AddTroopCount(2222);
+            TroopUnit praetorian = romans.Praetorian.AddTroopCount(45632);
+            Teutons teutons = new Teutons();
+            TroopUnit spearman = teutons.Spearman.AddTroopCount(5123);
+            Troops troops = new Troops();
+            troops
+                .AddTroop(phalanx).AddTroop(haeduan)
+                .AddTroop(legionnaire).AddTroop(praetorian)
+                .AddTroop(spearman);
+            secondAccountVillage.UpdateTroopsInVillage(troops);
+            Assert.IsNull(firstAccountVillage.TroopsAvailable, "Village troops!"); 
+            Assert.IsNotNull(secondAccountVillage.TroopsAvailable, "Village troops!");
+            Assert.AreEqual(13, secondAccountVillage.TroopsAvailable.GetTroopCount("unit u26"), "Haeduan count!");
         }
     }
 }
