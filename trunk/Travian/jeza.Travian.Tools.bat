@@ -1,0 +1,1 @@
+..\lib\NAnt\NAnt.exe -buildfile:jeza.Travian.Tools.build %*
