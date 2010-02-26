@@ -27,7 +27,7 @@ namespace jeza.Travian.Tests
             TroopUnit axeman = new TroopUnit();
             axeman.AddName("Axeman").AddHtmlClassName("unit u3").AddTroopCount(22);
             Troops troops = new Troops();
-            troops.AddTroop(phalanx).AddTroop(axeman);
+            troops.AddTroopUnit(phalanx).AddTroopUnit(axeman);
             Assert.IsNotNull(troops.TroopsList, "Troop list is null!");
 
             const int villageId = 0;

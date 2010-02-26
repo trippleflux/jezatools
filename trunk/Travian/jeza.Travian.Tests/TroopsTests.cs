@@ -11,13 +11,25 @@ namespace jeza.Travian.Tests
     public class TroopsTests
     {
         [Test]
+        public void TroopMovements()
+        {
+            Troops troops = new Troops();
+            TroopUnit unit = new TroopUnit();
+            unit.AddName("Falanga").AddHtmlClassName("unit u11").AddTroopCount(123);
+            troops.AddTroopUnit(unit);
+            unit = new TroopUnit();
+            unit.AddName("sekira").AddHtmlClassName("unit u12").AddTroopCount(1234);
+            troops.AddTroopUnit(unit);
+        }
+
+        [Test]
         public void GaulsTroopsData()
         {
             Gauls gauls = new Gauls();
             gauls.Phalanx.AddTroopCount(11);
             gauls.Swordsman.AddTroopCount(22);
             Troops troops = new Troops();
-            troops.AddTroop(gauls.Phalanx).AddTroop(gauls.Swordsman);
+            troops.AddTroopUnit(gauls.Phalanx).AddTroopUnit(gauls.Swordsman);
 
             Assert.IsNotNull(troops.TroopsList, "Troop list is null!");
             Assert.AreEqual(2, troops.TroopsList.Count, "Count!");
@@ -36,7 +48,7 @@ namespace jeza.Travian.Tests
             romans.BatteringRam.AddTroopCount(11);
             romans.Imperian.AddTroopCount(22);
             Troops troops = new Troops();
-            troops.AddTroop(romans.BatteringRam).AddTroop(romans.Imperian);
+            troops.AddTroopUnit(romans.BatteringRam).AddTroopUnit(romans.Imperian);
 
             Assert.IsNotNull(troops.TroopsList, "Troop list is null!");
             Assert.AreEqual(2, troops.TroopsList.Count, "Count!");
@@ -55,7 +67,7 @@ namespace jeza.Travian.Tests
             teutons.Axeman.AddTroopCount(11);
             teutons.Paladin.AddTroopCount(22);
             Troops troops = new Troops();
-            troops.AddTroop(teutons.Axeman).AddTroop(teutons.Paladin);
+            troops.AddTroopUnit(teutons.Axeman).AddTroopUnit(teutons.Paladin);
 
             Assert.IsNotNull(troops.TroopsList, "Troop list is null!");
             Assert.AreEqual(2, troops.TroopsList.Count, "Count!");

@@ -22,7 +22,7 @@ namespace jeza.Travian.Framework
         /// </summary>
         /// <param name="troopUnit">The troop unit.</param>
         /// <returns></returns>
-        public Troops AddTroop(TroopUnit troopUnit)
+        public Troops AddTroopUnit(TroopUnit troopUnit)
         {
             if (!troopList.Contains(troopUnit))
             {
