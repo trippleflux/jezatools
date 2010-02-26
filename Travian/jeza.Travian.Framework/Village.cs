@@ -63,6 +63,15 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Gets the troop movement.
+        /// </summary>
+        /// <value>The troop movement.</value>
+        public List<TroopMovement> TroopMovement
+        {
+            get { return troopMovement; }
+        }
+
+        /// <summary>
         /// Adds the id of the village.
         /// </summary>
         /// <param name="villageId">The id.</param>
@@ -81,6 +90,16 @@ namespace jeza.Travian.Framework
         public Village AddName(string villageName)
         {
             name = villageName;
+            return this;
+        }
+
+        /// <summary>
+        /// Clears the troop movements list.
+        /// </summary>
+        /// <returns></returns>
+        public Village ClearTroopMovementsList()
+        {
+            troopMovement.Clear();
             return this;
         }
 
@@ -119,12 +138,23 @@ namespace jeza.Travian.Framework
             return this;
         }
 
+        /// <summary>
+        /// Updates the troops movement in village.
+        /// </summary>
+        /// <param name="troops">The troops.</param>
+        /// <returns></returns>
+        public Village UpdateTroopsMovement(TroopMovement troops)
+        {
+            troopMovement.Add(troops);
+            return this;
+        }
+
         private int id;
         private string name;
         private Production production;
         private int coordinateX;
         private int coordinateY;
-        private List<TroopMovement> troopMovement = new List<TroopMovement>();
+        private readonly List<TroopMovement> troopMovement = new List<TroopMovement>();
         private Troops troopsAvailable;
     }
 }

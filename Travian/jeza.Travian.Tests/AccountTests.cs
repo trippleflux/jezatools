@@ -75,9 +75,9 @@ namespace jeza.Travian.Tests
             TroopUnit spearman = teutons.Spearman.AddTroopCount(5123);
             Troops troops = new Troops();
             troops
-                .AddTroop(phalanx).AddTroop(haeduan)
-                .AddTroop(legionnaire).AddTroop(praetorian)
-                .AddTroop(spearman);
+                .AddTroopUnit(phalanx).AddTroopUnit(haeduan)
+                .AddTroopUnit(legionnaire).AddTroopUnit(praetorian)
+                .AddTroopUnit(spearman);
             secondAccountVillage.UpdateTroopsInVillage(troops);
             Assert.IsNull(firstAccountVillage.TroopsAvailable, "Village troops!"); 
             Assert.IsNotNull(secondAccountVillage.TroopsAvailable, "Village troops!");
