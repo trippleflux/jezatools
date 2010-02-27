@@ -1,6 +1,12 @@
+#region
+
+using System.Collections.Generic;
+
+#endregion
+
 namespace jeza.Travian.Framework
 {
-    public class Teutons
+    public class Teutons : ITribe
     {
         public Teutons()
         {
@@ -17,6 +23,16 @@ namespace jeza.Travian.Framework
             chief = new TroopUnit().AddName("Chief").AddHtmlClassName("unit u19").AddSendTroopTextBoxName("t9");
             settler = new TroopUnit().AddName("Settler").AddHtmlClassName("unit u20").AddSendTroopTextBoxName("t10");
             hero = new TroopUnit().AddName("Hero").AddHtmlClassName("unit uhero").AddSendTroopTextBoxName("t11");
+            troops.Add(clubswinger);
+            troops.Add(spearman);
+            troops.Add(axeman);
+            troops.Add(scout);
+            troops.Add(paladin);
+            troops.Add(teutonicKnight);
+            troops.Add(ram);
+            troops.Add(catapult);
+            troops.Add(chief);
+            troops.Add(settler);
         }
 
         public TroopUnit Clubswinger
@@ -74,6 +90,11 @@ namespace jeza.Travian.Framework
             get { return hero; }
         }
 
+        public IEnumerable<TroopUnit> Troops
+        {
+            get { return troops; }
+        }
+
         private readonly TroopUnit clubswinger;
         private readonly TroopUnit spearman;
         private readonly TroopUnit axeman;
@@ -85,5 +106,6 @@ namespace jeza.Travian.Framework
         private readonly TroopUnit chief;
         private readonly TroopUnit settler;
         private readonly TroopUnit hero;
+        private readonly List<TroopUnit> troops = new List<TroopUnit>();
     }
 }

@@ -1,20 +1,20 @@
 #region
 
 using System;
-using System.Collections.Generic;
 
 #endregion
 
 namespace jeza.Travian.Framework
 {
     public class TroopMovement
+
     {
         public TroopMovementType Type
         {
             get { return type; }
         }
 
-        public List<Troops> Troops
+        public Troops Troops
         {
             get { return troops; }
         }
@@ -51,17 +51,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public TroopMovement AddTroops(Troops troopList)
         {
-            troops.Add(troopList);
-            return this;
-        }
-
-        /// <summary>
-        /// Clears the troops list.
-        /// </summary>
-        /// <returns></returns>
-        public TroopMovement ClearTroopsList()
-        {
-            troops.Clear();
+            troops = troopList;
             return this;
         }
 
@@ -114,7 +104,7 @@ namespace jeza.Travian.Framework
         }
 
         private TroopMovementType type;
-        private readonly List<Troops> troops = new List<Troops>();
+        private Troops troops;
         private DateTime dateTime;
         private string sourceVillageName;
         private string destinationVillageName;

@@ -45,6 +45,15 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Gets the own attacks countin village.
+        /// </summary>
+        /// <value>The own attacks.</value>
+        public int OwnAttacks
+        {
+            get { return GetMovementCount(TroopMovementType.AttackOutgoing); }
+        }
+
+        /// <summary>
         /// Gets the production of the village.
         /// </summary>
         /// <value>The production.</value>
@@ -54,21 +63,34 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Gets the troop movement.
+        /// </summary>
+        /// <value>The troop movement.</value>
+        public IEnumerable<TroopMovement> TroopMovement
+        {
+            get
+            {
+                troopMovement.Sort(new TroopMovementComparer());
+                return troopMovement;
+            }
+        }
+
+        /// <summary>
+        /// Gets the troop movement count.
+        /// </summary>
+        /// <value>The troop movement count.</value>
+        public int TroopMovementCount
+        {
+            get { return troopMovement.Count; }
+        }
+
+        /// <summary>
         /// Gets the available troops in village.
         /// </summary>
         /// <value>The troops available.</value>
         public Troops TroopsAvailable
         {
             get { return troopsAvailable; }
-        }
-
-        /// <summary>
-        /// Gets the troop movement.
-        /// </summary>
-        /// <value>The troop movement.</value>
-        public List<TroopMovement> TroopMovement
-        {
-            get { return troopMovement; }
         }
 
         /// <summary>
@@ -90,6 +112,17 @@ namespace jeza.Travian.Framework
         public Village AddName(string villageName)
         {
             name = villageName;
+            return this;
+        }
+
+        /// <summary>
+        /// Updates the troops movement in village.
+        /// </summary>
+        /// <param name="troops">The troops.</param>
+        /// <returns></returns>
+        public Village AddTroopsMovement(TroopMovement troops)
+        {
+            troopMovement.Add(troops);
             return this;
         }
 
@@ -138,15 +171,17 @@ namespace jeza.Travian.Framework
             return this;
         }
 
-        /// <summary>
-        /// Updates the troops movement in village.
-        /// </summary>
-        /// <param name="troops">The troops.</param>
-        /// <returns></returns>
-        public Village UpdateTroopsMovement(TroopMovement troops)
+        private int GetMovementCount(TroopMovementType movementType)
         {
-            troopMovement.Add(troops);
-            return this;
+            int count = 0;
+            foreach (TroopMovement movement in troopMovement)
+            {
+                if (movement.Type == movementType)
+                {
+                    count++;
+                }
+            }
+            return count;
         }
 
         private int id;

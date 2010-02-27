@@ -19,12 +19,12 @@ namespace jeza.Travian.Tests
             Account account = new Account();
             const string accountName = "kekec";
             const int accountId = 123;
-            const Tribes accountTribe = Tribes.Gauls;
+            const TribeTypes accountTribe = TribeTypes.Gauls;
             account.AddName(accountName).AddId(accountId).AddTribe(accountTribe);
             Assert.IsNotNull(account, "Account is null!");
             Assert.AreEqual(accountName, account.Name);
             Assert.AreEqual(accountId, account.Id);
-            Assert.AreEqual(accountTribe, account.Tribe);
+            Assert.AreEqual(accountTribe, account.TribeType);
 
             Village firstVillage = new Village();
             const int firstVillageId = 0;

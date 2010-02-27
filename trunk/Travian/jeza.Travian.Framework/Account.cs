@@ -26,12 +26,12 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
-        /// Gets the tribe.
+        /// Gets the tribeType.
         /// </summary>
-        /// <value>The tribe.</value>
-        public Tribes Tribe
+        /// <value>The tribeType.</value>
+        public TribeTypes TribeType
         {
-            get { return tribe; }
+            get { return tribeType; }
         }
 
         /// <summary>
@@ -65,13 +65,13 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
-        /// Adds the tribe of the player.
+        /// Adds the tribeType of the player.
         /// </summary>
-        /// <param name="accountTribe">The account tribe.</param>
+        /// <param name="accountTribeType">The account tribe.</param>
         /// <returns></returns>
-        public Account AddTribe(Tribes accountTribe)
+        public Account AddTribe(TribeTypes accountTribeType)
         {
-            tribe = accountTribe;
+            tribeType = accountTribeType;
             return this;
         }
 
@@ -108,6 +108,6 @@ namespace jeza.Travian.Framework
         private readonly List<Village> villages = new List<Village>();
         private string name;
         private int id;
-        private Tribes tribe;
+        private TribeTypes tribeType;
     }
 }

@@ -1,6 +1,6 @@
 namespace jeza.Travian.Framework
 {
-    public enum Tribes
+    public enum TribeTypes
     {
         Romans,
         Gauls,
