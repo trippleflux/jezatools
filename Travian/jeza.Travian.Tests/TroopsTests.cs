@@ -1,5 +1,6 @@
 #region
 
+using System;
 using jeza.Travian.Framework;
 using MbUnit.Framework;
 
@@ -13,13 +14,39 @@ namespace jeza.Travian.Tests
         [Test]
         public void TroopMovements()
         {
+            Tribes tribes = new Tribes();
+            TroopUnit unit = tribes.GetUnit("unit u21");
+            Assert.IsNotNull(unit, "Unit not found!");
+            Assert.AreEqual(unit.Name, "Phalanx", "Unit not found!");
+            unit.AddTroopCount(123).AddName("Falanga");
+            Assert.AreEqual(unit.Name, "Falanga", "Unit not found!");
             Troops troops = new Troops();
-            TroopUnit unit = new TroopUnit();
-            unit.AddName("Falanga").AddHtmlClassName("unit u11").AddTroopCount(123);
             troops.AddTroopUnit(unit);
-            unit = new TroopUnit();
-            unit.AddName("sekira").AddHtmlClassName("unit u12").AddTroopCount(1234);
+            unit = tribes.GetUnit("unit u22");
+            unit.AddTroopCount(321).AddName("Mecevalec");
             troops.AddTroopUnit(unit);
+
+            TroopMovement troopMovement = new TroopMovement();
+            DateTime arrivalDateTime = new DateTime(9999, 12, 31, 1, 2, 3);
+            const string villageNameDestination = "01";
+            const string villageNameSource = "00";
+            const string urlDestination = "http://speed.travian.com/karte.php?id=123";
+            const string urlSource = "http://asd.php";
+            troopMovement
+                .AddTroops(troops)
+                .SetDate(arrivalDateTime)
+                .SetType(TroopMovementType.AttackOutgoing)
+                .SetDestination(villageNameDestination, urlDestination)
+                .SetSource(villageNameSource, urlSource);
+
+            Assert.IsNotNull(troopMovement, "TroopMovement");
+            Assert.AreEqual(TroopMovementType.AttackOutgoing, troopMovement.Type, "Type");
+            Assert.AreEqual(arrivalDateTime, troopMovement.DateTime, "arrivalDateTime");
+            Assert.AreEqual(villageNameDestination, troopMovement.DestinationVillageName, "villageNameDestination");
+            Assert.AreEqual(urlDestination, troopMovement.DestinationVillageUrl, "urlDestination");
+            Assert.AreEqual(villageNameSource, troopMovement.SourceVillageName, "villageNameSource");
+            Assert.AreEqual(urlSource, troopMovement.SourceVillageUrl, "urlSource");
+            Assert.AreEqual(troops, troopMovement.Troops, "troops");
         }
 
         [Test]

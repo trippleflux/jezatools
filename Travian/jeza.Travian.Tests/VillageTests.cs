@@ -1,5 +1,10 @@
+#region
+
+using System;
 using jeza.Travian.Framework;
 using MbUnit.Framework;
+
+#endregion
 
 namespace jeza.Travian.Tests
 {
@@ -41,7 +46,7 @@ namespace jeza.Travian.Tests
                 .UpdateCoordinates(coordinateX, coordinateY)
                 .UpdateProduction(production)
                 .UpdateTroopsInVillage(troops);
-            
+
             Assert.IsNotNull(village.Production, "Production is null!");
             Assert.IsNotNull(village.TroopsAvailable, "TroopsAvailable is null!");
             Assert.AreEqual(production, village.Production, "Village production!");
@@ -50,6 +55,41 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(granary, village.Production.Granary, "Granary!");
             Assert.AreEqual(coordinateX, village.CoordinateX, "CoordinateX!");
             Assert.AreEqual(coordinateY, village.CoordinateY, "CoordinateY!");
+            village
+                .AddTroopsMovement(new TroopMovement()
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit11", 12)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit12", 13)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit13", 14)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit14", 15)))
+                                       .SetDate(new DateTime(2222, 12, 1, 1, 1, 1))
+                                       .SetType(TroopMovementType.AttackIncomming))
+                .AddTroopsMovement(new TroopMovement()
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit31", 1201)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit32", 1202)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit33", 1203)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit34", 1204)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit35", 1205)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit36", 1206)))
+                                       .SetDate(new DateTime(2222, 10, 1, 1, 1, 1))
+                                       .SetType(TroopMovementType.AttackOutgoing))
+                .AddTroopsMovement(new TroopMovement()
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit21", 121)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit22", 122)))
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit23", 123)))
+                                       .SetDate(new DateTime(2222, 11, 1, 1, 1, 1))
+                                       .SetType(TroopMovementType.AttackOutgoing))
+                .AddTroopsMovement(new TroopMovement()
+                                       .AddTroops(new Troops().AddTroopUnit(new TroopUnit("unit4", 12000)))
+                                       .SetDate(new DateTime(2222, 9, 1, 1, 1, 1))
+                                       .SetType(TroopMovementType.ReinforcementIncomming))
+                ;
+
+            Assert.IsNotNull(village.TroopMovement, "Troop movement!");
+            Assert.AreEqual(4, village.TroopMovementCount, "Troop movement count!");
+            Assert.AreEqual(2, village.OwnAttacks, "Own attacks!");
+            Assert.Sorted(village.TroopMovement, SortOrder.Increasing, new TroopMovementComparer());
+            village.ClearTroopMovementsList();
+            Assert.AreEqual(0, village.TroopMovementCount, "Troop movement count!");
         }
     }
 }

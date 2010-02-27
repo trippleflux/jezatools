@@ -1,6 +1,12 @@
+#region
+
+using System.Collections.Generic;
+
+#endregion
+
 namespace jeza.Travian.Framework
 {
-    public class Gauls
+    public class Gauls : ITribe
     {
         public Gauls()
         {
@@ -16,6 +22,21 @@ namespace jeza.Travian.Framework
             chieftain = new TroopUnit().AddName("Chieftain").AddHtmlClassName("unit u29").AddSendTroopTextBoxName("t9");
             settler = new TroopUnit().AddName("Settler").AddHtmlClassName("unit u30").AddSendTroopTextBoxName("t10");
             hero = new TroopUnit().AddName("Hero").AddHtmlClassName("unit uhero").AddSendTroopTextBoxName("t11");
+            troops.Add(phalanx);
+            troops.Add(swordsman);
+            troops.Add(pathfinder);
+            troops.Add(theutatesThunder);
+            troops.Add(druidrider);
+            troops.Add(haeduan);
+            troops.Add(ram);
+            troops.Add(trebuchet);
+            troops.Add(chieftain);
+            troops.Add(settler);
+        }
+
+        public List<TroopUnit> Troops
+        {
+            get { return troops; }
         }
 
         public TroopUnit Phalanx
@@ -84,5 +105,6 @@ namespace jeza.Travian.Framework
         private readonly TroopUnit chieftain;
         private readonly TroopUnit settler;
         private readonly TroopUnit hero;
+        private readonly List<TroopUnit> troops = new List<TroopUnit>();
     }
 }

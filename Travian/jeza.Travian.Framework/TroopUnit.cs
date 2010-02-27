@@ -2,6 +2,21 @@ namespace jeza.Travian.Framework
 {
     public class TroopUnit
     {
+        public TroopUnit()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TroopUnit"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="count">The count.</param>
+        public TroopUnit(string name, int count)
+        {
+            this.name = name;
+            this.count = count;
+        }
+
         /// <summary>
         /// Gets the html class attribute.
         /// </summary>
@@ -26,7 +41,7 @@ namespace jeza.Travian.Framework
         /// <value>The name.</value>
         public string Name
         {
-            get { return attribute; }
+            get { return name; }
         }
 
         /// <summary>
@@ -56,7 +71,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public TroopUnit AddName(string troopName)
         {
-            attribute = troopName;
+            name = troopName;
             return this;
         }
 
@@ -82,7 +97,7 @@ namespace jeza.Travian.Framework
             return this;
         }
 
-        private string attribute;
+        private string name;
         private string classAttribute;
         private int count;
         private string sendTroopsTextBoxName;

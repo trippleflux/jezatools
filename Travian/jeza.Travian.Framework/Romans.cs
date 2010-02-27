@@ -1,6 +1,12 @@
+#region
+
+using System.Collections.Generic;
+
+#endregion
+
 namespace jeza.Travian.Framework
 {
-    public class Romans
+    public class Romans : ITribe
     {
         public Romans()
         {
@@ -21,6 +27,16 @@ namespace jeza.Travian.Framework
             senator = new TroopUnit().AddName("Senator").AddHtmlClassName("unit u9").AddSendTroopTextBoxName("t9");
             settler = new TroopUnit().AddName("Settler").AddHtmlClassName("unit u10").AddSendTroopTextBoxName("t10");
             hero = new TroopUnit().AddName("Hero").AddHtmlClassName("unit uhero").AddSendTroopTextBoxName("t11");
+            troops.Add(legionnaire);
+            troops.Add(praetorian);
+            troops.Add(imperian);
+            troops.Add(equitesLegati);
+            troops.Add(equitesImperatoris);
+            troops.Add(equitesCaesaris);
+            troops.Add(batteringRam);
+            troops.Add(fireCatapult);
+            troops.Add(senator);
+            troops.Add(settler);
         }
 
         public TroopUnit Legionnaire
@@ -78,6 +94,11 @@ namespace jeza.Travian.Framework
             get { return hero; }
         }
 
+        public IEnumerable<TroopUnit> Troops
+        {
+            get { return troops; }
+        }
+
         private readonly TroopUnit legionnaire;
         private readonly TroopUnit praetorian;
         private readonly TroopUnit imperian;
@@ -89,5 +110,6 @@ namespace jeza.Travian.Framework
         private readonly TroopUnit senator;
         private readonly TroopUnit settler;
         private readonly TroopUnit hero;
+        private readonly List<TroopUnit> troops = new List<TroopUnit>();
     }
 }
