@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9E7FAE6A-644F-456A-877D-388C89E04000}</ProjectGuid>
+    <ProjectGuid>{B79A5167-D001-4EB2-8333-3E3B6934FCE7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jeza.Travian.Framework</RootNamespace>
-    <AssemblyName>jeza.Travian.Framework</AssemblyName>
+    <RootNamespace>jeza.Travian.Parser</RootNamespace>
+    <AssemblyName>jeza.Travian.Parser</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.3.9.1, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\HtmlAgilityPack.1.4.0.beta2.binaries\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -43,30 +47,16 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WebDriver.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\selenium-dotnet-2.0a2\WebDriver.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="Misc.cs" />
-    <Compile Include="Neighborhood.cs" />
-    <Compile Include="TroopMovementComparer.cs" />
-    <Compile Include="Gauls.cs" />
-    <Compile Include="ITribe.cs" />
-    <Compile Include="Production.cs" />
-    <Compile Include="Romans.cs" />
-    <Compile Include="Teutons.cs" />
-    <Compile Include="TribeTypes.cs" />
-    <Compile Include="Tribes.cs" />
-    <Compile Include="TroopMovement.cs" />
-    <Compile Include="TroopMovementType.cs" />
-    <Compile Include="Troops.cs" />
-    <Compile Include="TroopUnit.cs" />
-    <Compile Include="Village.cs" />
+    <Compile Include="HtmlParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\jeza.Travian.Framework\jeza.Travian.Framework.csproj">
+      <Project>{9E7FAE6A-644F-456A-877D-388C89E04000}</Project>
+      <Name>jeza.Travian.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

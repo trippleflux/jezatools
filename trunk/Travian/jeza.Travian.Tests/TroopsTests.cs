@@ -1,7 +1,10 @@
 #region
 
 using System;
+using System.Collections.Generic;
+using HtmlAgilityPack;
 using jeza.Travian.Framework;
+using jeza.Travian.Parser;
 using MbUnit.Framework;
 
 #endregion
@@ -11,6 +14,22 @@ namespace jeza.Travian.Tests
     [TestFixture]
     public class TroopsTests
     {
+        [Test]
+        public void HtmlParser()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\RallyPoint.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            List<TroopMovement> troopMovements = htmlParser.TroopMovements();
+            Assert.IsNotNull(troopMovements, "TroopMovement is null!");
+            Village village = new Village();
+            village.SetTroopMovements(troopMovements);
+            Assert.AreEqual(23, village.TroopMovementCount, "Troop movement count!");
+            Assert.Sorted(village.TroopMovement, SortOrder.Increasing, new TroopMovementComparer());
+            village.ClearTroopMovementsList();
+            Assert.AreEqual(0, village.TroopMovementCount, "Troop movement count!");
+        }
+
         [Test]
         public void TroopMovements()
         {
