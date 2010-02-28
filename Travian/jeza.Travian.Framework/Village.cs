@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
 
 #endregion
@@ -137,6 +138,18 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Sets the troop movements.
+        /// </summary>
+        /// <param name="movements">The movements.</param>
+        /// <returns></returns>
+        public Village SetTroopMovements(List<TroopMovement> movements)
+        {
+            ClearTroopMovementsList();
+            troopMovement = movements;
+            return this;
+        }
+
+        /// <summary>
         /// Updates the village coordinates.
         /// </summary>
         /// <param name="x">The x coordinate.</param>
@@ -189,7 +202,7 @@ namespace jeza.Travian.Framework
         private Production production;
         private int coordinateX;
         private int coordinateY;
-        private readonly List<TroopMovement> troopMovement = new List<TroopMovement>();
+        private List<TroopMovement> troopMovement = new List<TroopMovement>();
         private Troops troopsAvailable;
     }
 }

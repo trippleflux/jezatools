@@ -35,6 +35,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\GallioBundle-3.1.397.0\bin\Gallio.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.3.9.1, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\HtmlAgilityPack.1.4.0.beta2.binaries\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\GallioBundle-3.1.397.0\bin\MbUnit.dll</HintPath>
@@ -55,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AccountTests.cs" />
     <Compile Include="AttackTests.cs" />
+    <Compile Include="MapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TroopsTests.cs" />
     <Compile Include="VillageTests.cs" />
@@ -64,9 +69,22 @@
       <Project>{9E7FAE6A-644F-456A-877D-388C89E04000}</Project>
       <Name>jeza.Travian.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\jeza.Travian.Parser\jeza.Travian.Parser.csproj">
+      <Project>{B79A5167-D001-4EB2-8333-3E3B6934FCE7}</Project>
+      <Name>jeza.Travian.Parser</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Test Files\a2b.cofirm.php.html" />
+    <Content Include="Test Files\a2b.php.html" />
+    <Content Include="Test Files\berichte.php.html" />
+    <Content Include="Test Files\dorf1.php.html" />
+    <Content Include="Test Files\dorf2.php.html" />
+    <Content Include="Test Files\empty.php.html" />
+    <Content Include="Test Files\karte.php.html" />
+    <Content Include="Test Files\Marketplace.php.html" />
     <Content Include="Test Files\RallyPoint.php.html" />
+    <Content Include="Test Files\village.php.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
