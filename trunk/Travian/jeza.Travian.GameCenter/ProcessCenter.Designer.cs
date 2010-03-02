@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using HtmlAgilityPack;
+using HtmlDocument=HtmlAgilityPack.HtmlDocument;
 
 namespace jeza.Travian.GameCenter
 {
@@ -33,29 +35,66 @@ namespace jeza.Travian.GameCenter
         private void InitializeComponent()
         {
             this.panelMain = new System.Windows.Forms.Panel();
+            this.panelTabs = new System.Windows.Forms.Panel();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageOverview = new System.Windows.Forms.TabPage();
+            this.dataGridViewOverview = new System.Windows.Forms.DataGridView();
+            this.tabPageRallyPoint = new System.Windows.Forms.TabPage();
+            this.panelRallyPointVillage = new System.Windows.Forms.Panel();
+            this.buttonUpdateRallyPoint = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.panelRallyPoint = new System.Windows.Forms.Panel();
+            this.dataGridViewRallyPoint = new System.Windows.Forms.DataGridView();
+            this.tabPageMap = new System.Windows.Forms.TabPage();
+            this.panelMapSelection = new System.Windows.Forms.Panel();
+            this.checkBoxFarms = new System.Windows.Forms.CheckBox();
+            this.buttonMapUpdate = new System.Windows.Forms.Button();
+            this.checkBoxExcludedAlliances = new System.Windows.Forms.CheckBox();
+            this.checkBoxExcludedPlayers = new System.Windows.Forms.CheckBox();
+            this.checkBoxOases = new System.Windows.Forms.CheckBox();
+            this.checkBoxWar = new System.Windows.Forms.CheckBox();
+            this.checkBoxNap = new System.Windows.Forms.CheckBox();
+            this.checkBoxAlly = new System.Windows.Forms.CheckBox();
+            this.panelMapList = new System.Windows.Forms.Panel();
+            this.dataGridViewMap = new System.Windows.Forms.DataGridView();
+            this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
+            this.tabPageReports = new System.Windows.Forms.TabPage();
+            this.tabPageStatistics = new System.Windows.Forms.TabPage();
+            this.tabPageMarketPlace = new System.Windows.Forms.TabPage();
+            this.tabPageBrowser = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.textBoxBrowserUrl = new System.Windows.Forms.TextBox();
+            this.buttonBrowserGo = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelHead = new System.Windows.Forms.Panel();
             this.textBoxServer = new System.Windows.Forms.TextBox();
             this.labelServer = new System.Windows.Forms.Label();
-            this.labelStatus = new System.Windows.Forms.Label();
             this.buttonRun = new System.Windows.Forms.Button();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.labelUsername = new System.Windows.Forms.Label();
-            this.panelTabs = new System.Windows.Forms.Panel();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageOverview = new System.Windows.Forms.TabPage();
-            this.tabPageRallyPoint = new System.Windows.Forms.TabPage();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
-            this.dataGridViewOverview = new System.Windows.Forms.DataGridView();
             this.panelMain.SuspendLayout();
-            this.panelHead.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageOverview.SuspendLayout();
-            this.panelStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOverview)).BeginInit();
+            this.tabPageRallyPoint.SuspendLayout();
+            this.panelRallyPointVillage.SuspendLayout();
+            this.panelRallyPoint.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRallyPoint)).BeginInit();
+            this.tabPageMap.SuspendLayout();
+            this.panelMapSelection.SuspendLayout();
+            this.panelMapList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).BeginInit();
+            this.tabPageBrowser.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panelHead.SuspendLayout();
+            this.panelStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -70,12 +109,344 @@ namespace jeza.Travian.GameCenter
             this.panelMain.Size = new System.Drawing.Size(1027, 865);
             this.panelMain.TabIndex = 0;
             // 
+            // panelTabs
+            // 
+            this.panelTabs.Controls.Add(this.tabControl);
+            this.panelTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTabs.Location = new System.Drawing.Point(0, 31);
+            this.panelTabs.Name = "panelTabs";
+            this.panelTabs.Size = new System.Drawing.Size(1027, 719);
+            this.panelTabs.TabIndex = 1;
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPageOverview);
+            this.tabControl.Controls.Add(this.tabPageRallyPoint);
+            this.tabControl.Controls.Add(this.tabPageMap);
+            this.tabControl.Controls.Add(this.tabPageBuildQueue);
+            this.tabControl.Controls.Add(this.tabPageReports);
+            this.tabControl.Controls.Add(this.tabPageStatistics);
+            this.tabControl.Controls.Add(this.tabPageMarketPlace);
+            this.tabControl.Controls.Add(this.tabPageBrowser);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(1027, 719);
+            this.tabControl.TabIndex = 0;
+            // 
+            // tabPageOverview
+            // 
+            this.tabPageOverview.Controls.Add(this.dataGridViewOverview);
+            this.tabPageOverview.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOverview.Name = "tabPageOverview";
+            this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOverview.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageOverview.TabIndex = 0;
+            this.tabPageOverview.Text = "Overview";
+            this.tabPageOverview.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewOverview
+            // 
+            this.dataGridViewOverview.AllowUserToAddRows = false;
+            this.dataGridViewOverview.AllowUserToDeleteRows = false;
+            this.dataGridViewOverview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewOverview.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewOverview.Name = "dataGridViewOverview";
+            this.dataGridViewOverview.ReadOnly = true;
+            this.dataGridViewOverview.Size = new System.Drawing.Size(1013, 687);
+            this.dataGridViewOverview.TabIndex = 0;
+            // 
+            // tabPageRallyPoint
+            // 
+            this.tabPageRallyPoint.Controls.Add(this.panelRallyPointVillage);
+            this.tabPageRallyPoint.Controls.Add(this.panelRallyPoint);
+            this.tabPageRallyPoint.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRallyPoint.Name = "tabPageRallyPoint";
+            this.tabPageRallyPoint.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRallyPoint.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageRallyPoint.TabIndex = 1;
+            this.tabPageRallyPoint.Text = "Rally Point";
+            this.tabPageRallyPoint.UseVisualStyleBackColor = true;
+            // 
+            // panelRallyPointVillage
+            // 
+            this.panelRallyPointVillage.Controls.Add(this.buttonUpdateRallyPoint);
+            this.panelRallyPointVillage.Controls.Add(this.comboBox1);
+            this.panelRallyPointVillage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelRallyPointVillage.Location = new System.Drawing.Point(3, 3);
+            this.panelRallyPointVillage.Name = "panelRallyPointVillage";
+            this.panelRallyPointVillage.Size = new System.Drawing.Size(1013, 35);
+            this.panelRallyPointVillage.TabIndex = 3;
+            // 
+            // buttonUpdateRallyPoint
+            // 
+            this.buttonUpdateRallyPoint.Location = new System.Drawing.Point(207, 3);
+            this.buttonUpdateRallyPoint.Name = "buttonUpdateRallyPoint";
+            this.buttonUpdateRallyPoint.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdateRallyPoint.TabIndex = 1;
+            this.buttonUpdateRallyPoint.Text = "Update";
+            this.buttonUpdateRallyPoint.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(3, 3);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(198, 21);
+            this.comboBox1.TabIndex = 0;
+            // 
+            // panelRallyPoint
+            // 
+            this.panelRallyPoint.Controls.Add(this.dataGridViewRallyPoint);
+            this.panelRallyPoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRallyPoint.Location = new System.Drawing.Point(3, 3);
+            this.panelRallyPoint.Name = "panelRallyPoint";
+            this.panelRallyPoint.Size = new System.Drawing.Size(1013, 687);
+            this.panelRallyPoint.TabIndex = 2;
+            // 
+            // dataGridViewRallyPoint
+            // 
+            this.dataGridViewRallyPoint.AllowUserToAddRows = false;
+            this.dataGridViewRallyPoint.AllowUserToDeleteRows = false;
+            this.dataGridViewRallyPoint.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRallyPoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewRallyPoint.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewRallyPoint.Name = "dataGridViewRallyPoint";
+            this.dataGridViewRallyPoint.ReadOnly = true;
+            this.dataGridViewRallyPoint.Size = new System.Drawing.Size(1013, 687);
+            this.dataGridViewRallyPoint.TabIndex = 0;
+            // 
+            // tabPageMap
+            // 
+            this.tabPageMap.Controls.Add(this.panelMapSelection);
+            this.tabPageMap.Controls.Add(this.panelMapList);
+            this.tabPageMap.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMap.Name = "tabPageMap";
+            this.tabPageMap.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageMap.TabIndex = 2;
+            this.tabPageMap.Text = "Map";
+            this.tabPageMap.UseVisualStyleBackColor = true;
+            // 
+            // panelMapSelection
+            // 
+            this.panelMapSelection.Controls.Add(this.checkBoxFarms);
+            this.panelMapSelection.Controls.Add(this.buttonMapUpdate);
+            this.panelMapSelection.Controls.Add(this.checkBoxExcludedAlliances);
+            this.panelMapSelection.Controls.Add(this.checkBoxExcludedPlayers);
+            this.panelMapSelection.Controls.Add(this.checkBoxOases);
+            this.panelMapSelection.Controls.Add(this.checkBoxWar);
+            this.panelMapSelection.Controls.Add(this.checkBoxNap);
+            this.panelMapSelection.Controls.Add(this.checkBoxAlly);
+            this.panelMapSelection.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelMapSelection.Location = new System.Drawing.Point(0, 0);
+            this.panelMapSelection.Name = "panelMapSelection";
+            this.panelMapSelection.Size = new System.Drawing.Size(173, 693);
+            this.panelMapSelection.TabIndex = 1;
+            // 
+            // checkBoxFarms
+            // 
+            this.checkBoxFarms.AutoSize = true;
+            this.checkBoxFarms.Checked = true;
+            this.checkBoxFarms.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxFarms.Location = new System.Drawing.Point(4, 142);
+            this.checkBoxFarms.Name = "checkBoxFarms";
+            this.checkBoxFarms.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxFarms.TabIndex = 7;
+            this.checkBoxFarms.Text = "Show Farms";
+            this.checkBoxFarms.UseVisualStyleBackColor = true;
+            // 
+            // buttonMapUpdate
+            // 
+            this.buttonMapUpdate.Location = new System.Drawing.Point(15, 165);
+            this.buttonMapUpdate.Name = "buttonMapUpdate";
+            this.buttonMapUpdate.Size = new System.Drawing.Size(75, 23);
+            this.buttonMapUpdate.TabIndex = 6;
+            this.buttonMapUpdate.Text = "Update";
+            this.buttonMapUpdate.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxExcludedAlliances
+            // 
+            this.checkBoxExcludedAlliances.AutoSize = true;
+            this.checkBoxExcludedAlliances.Location = new System.Drawing.Point(3, 119);
+            this.checkBoxExcludedAlliances.Name = "checkBoxExcludedAlliances";
+            this.checkBoxExcludedAlliances.Size = new System.Drawing.Size(145, 17);
+            this.checkBoxExcludedAlliances.TabIndex = 5;
+            this.checkBoxExcludedAlliances.Text = "Show Excluded Alliances";
+            this.checkBoxExcludedAlliances.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxExcludedPlayers
+            // 
+            this.checkBoxExcludedPlayers.AutoSize = true;
+            this.checkBoxExcludedPlayers.Location = new System.Drawing.Point(4, 96);
+            this.checkBoxExcludedPlayers.Name = "checkBoxExcludedPlayers";
+            this.checkBoxExcludedPlayers.Size = new System.Drawing.Size(137, 17);
+            this.checkBoxExcludedPlayers.TabIndex = 4;
+            this.checkBoxExcludedPlayers.Text = "Show Excluded Players";
+            this.checkBoxExcludedPlayers.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxOases
+            // 
+            this.checkBoxOases.AutoSize = true;
+            this.checkBoxOases.Location = new System.Drawing.Point(4, 73);
+            this.checkBoxOases.Name = "checkBoxOases";
+            this.checkBoxOases.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxOases.TabIndex = 3;
+            this.checkBoxOases.Text = "Show Oases";
+            this.checkBoxOases.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxWar
+            // 
+            this.checkBoxWar.AutoSize = true;
+            this.checkBoxWar.Location = new System.Drawing.Point(4, 50);
+            this.checkBoxWar.Name = "checkBoxWar";
+            this.checkBoxWar.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxWar.TabIndex = 2;
+            this.checkBoxWar.Text = "Show Alliance War";
+            this.checkBoxWar.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxNap
+            // 
+            this.checkBoxNap.AutoSize = true;
+            this.checkBoxNap.Location = new System.Drawing.Point(3, 27);
+            this.checkBoxNap.Name = "checkBoxNap";
+            this.checkBoxNap.Size = new System.Drawing.Size(116, 17);
+            this.checkBoxNap.TabIndex = 1;
+            this.checkBoxNap.Text = "Show Alliance Nap";
+            this.checkBoxNap.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAlly
+            // 
+            this.checkBoxAlly.AutoSize = true;
+            this.checkBoxAlly.Location = new System.Drawing.Point(4, 4);
+            this.checkBoxAlly.Name = "checkBoxAlly";
+            this.checkBoxAlly.Size = new System.Drawing.Size(112, 17);
+            this.checkBoxAlly.TabIndex = 0;
+            this.checkBoxAlly.Text = "Show Alliance Ally";
+            this.checkBoxAlly.UseVisualStyleBackColor = true;
+            // 
+            // panelMapList
+            // 
+            this.panelMapList.Controls.Add(this.dataGridViewMap);
+            this.panelMapList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMapList.Location = new System.Drawing.Point(0, 0);
+            this.panelMapList.Name = "panelMapList";
+            this.panelMapList.Size = new System.Drawing.Size(1019, 693);
+            this.panelMapList.TabIndex = 0;
+            // 
+            // dataGridViewMap
+            // 
+            this.dataGridViewMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewMap.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewMap.Name = "dataGridViewMap";
+            this.dataGridViewMap.Size = new System.Drawing.Size(1019, 693);
+            this.dataGridViewMap.TabIndex = 0;
+            // 
+            // tabPageBuildQueue
+            // 
+            this.tabPageBuildQueue.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBuildQueue.Name = "tabPageBuildQueue";
+            this.tabPageBuildQueue.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageBuildQueue.TabIndex = 3;
+            this.tabPageBuildQueue.Text = "Build Queue";
+            this.tabPageBuildQueue.UseVisualStyleBackColor = true;
+            // 
+            // tabPageReports
+            // 
+            this.tabPageReports.Location = new System.Drawing.Point(4, 22);
+            this.tabPageReports.Name = "tabPageReports";
+            this.tabPageReports.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageReports.TabIndex = 4;
+            this.tabPageReports.Text = "Reports";
+            this.tabPageReports.UseVisualStyleBackColor = true;
+            // 
+            // tabPageStatistics
+            // 
+            this.tabPageStatistics.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStatistics.Name = "tabPageStatistics";
+            this.tabPageStatistics.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageStatistics.TabIndex = 5;
+            this.tabPageStatistics.Text = "Statistics";
+            this.tabPageStatistics.UseVisualStyleBackColor = true;
+            // 
+            // tabPageMarketPlace
+            // 
+            this.tabPageMarketPlace.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMarketPlace.Name = "tabPageMarketPlace";
+            this.tabPageMarketPlace.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageMarketPlace.TabIndex = 6;
+            this.tabPageMarketPlace.Text = "MarketPlace";
+            this.tabPageMarketPlace.UseVisualStyleBackColor = true;
+            // 
+            // tabPageBrowser
+            // 
+            this.tabPageBrowser.Controls.Add(this.panel2);
+            this.tabPageBrowser.Controls.Add(this.panel1);
+            this.tabPageBrowser.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBrowser.Name = "tabPageBrowser";
+            this.tabPageBrowser.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageBrowser.TabIndex = 7;
+            this.tabPageBrowser.Text = "Browser";
+            this.tabPageBrowser.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.textBoxBrowserUrl);
+            this.panel2.Controls.Add(this.buttonBrowserGo);
+            this.panel2.Location = new System.Drawing.Point(9, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1002, 39);
+            this.panel2.TabIndex = 1;
+            // 
+            // textBoxBrowserUrl
+            // 
+            this.textBoxBrowserUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxBrowserUrl.Location = new System.Drawing.Point(-1, 5);
+            this.textBoxBrowserUrl.Name = "textBoxBrowserUrl";
+            this.textBoxBrowserUrl.Size = new System.Drawing.Size(919, 20);
+            this.textBoxBrowserUrl.TabIndex = 4;
+            // 
+            // buttonBrowserGo
+            // 
+            this.buttonBrowserGo.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.buttonBrowserGo.Location = new System.Drawing.Point(924, 3);
+            this.buttonBrowserGo.Name = "buttonBrowserGo";
+            this.buttonBrowserGo.Size = new System.Drawing.Size(75, 23);
+            this.buttonBrowserGo.TabIndex = 3;
+            this.buttonBrowserGo.Text = "Go";
+            this.buttonBrowserGo.UseVisualStyleBackColor = true;
+            this.buttonBrowserGo.Click += new System.EventHandler(this.buttonBrowserGo_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.webBrowser);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1019, 693);
+            this.panel1.TabIndex = 0;
+            // 
+            // webBrowser
+            // 
+            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser.Location = new System.Drawing.Point(7, 49);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(1001, 641);
+            this.webBrowser.TabIndex = 0;
+            this.webBrowser.Url = new System.Uri("", System.UriKind.Relative);
+            this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+            // 
             // panelHead
             // 
             this.panelHead.AutoSize = true;
             this.panelHead.Controls.Add(this.textBoxServer);
             this.panelHead.Controls.Add(this.labelServer);
-            this.panelHead.Controls.Add(this.labelStatus);
             this.panelHead.Controls.Add(this.buttonRun);
             this.panelHead.Controls.Add(this.textBoxPassword);
             this.panelHead.Controls.Add(this.labelPassword);
@@ -103,15 +474,6 @@ namespace jeza.Travian.GameCenter
             this.labelServer.TabIndex = 6;
             this.labelServer.Text = "Server";
             // 
-            // labelStatus
-            // 
-            this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(719, 10);
-            this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(24, 13);
-            this.labelStatus.TabIndex = 5;
-            this.labelStatus.Text = "Idle";
-            // 
             // buttonRun
             // 
             this.buttonRun.Location = new System.Drawing.Point(629, 5);
@@ -120,6 +482,7 @@ namespace jeza.Travian.GameCenter
             this.buttonRun.TabIndex = 4;
             this.buttonRun.Text = "Start";
             this.buttonRun.UseVisualStyleBackColor = true;
+            this.buttonRun.Click += new System.EventHandler(this.SetBotStatus);
             // 
             // textBoxPassword
             // 
@@ -153,55 +516,14 @@ namespace jeza.Travian.GameCenter
             this.labelUsername.TabIndex = 0;
             this.labelUsername.Text = "Username";
             // 
-            // panelTabs
-            // 
-            this.panelTabs.Controls.Add(this.tabControl);
-            this.panelTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTabs.Location = new System.Drawing.Point(0, 31);
-            this.panelTabs.Name = "panelTabs";
-            this.panelTabs.Size = new System.Drawing.Size(1027, 622);
-            this.panelTabs.TabIndex = 1;
-            // 
-            // tabControl
-            // 
-            this.tabControl.Controls.Add(this.tabPageOverview);
-            this.tabControl.Controls.Add(this.tabPageRallyPoint);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1027, 622);
-            this.tabControl.TabIndex = 0;
-            // 
-            // tabPageOverview
-            // 
-            this.tabPageOverview.Controls.Add(this.dataGridViewOverview);
-            this.tabPageOverview.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOverview.Name = "tabPageOverview";
-            this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOverview.Size = new System.Drawing.Size(1019, 596);
-            this.tabPageOverview.TabIndex = 0;
-            this.tabPageOverview.Text = "Overview";
-            this.tabPageOverview.UseVisualStyleBackColor = true;
-            // 
-            // tabPageRallyPoint
-            // 
-            this.tabPageRallyPoint.Location = new System.Drawing.Point(4, 22);
-            this.tabPageRallyPoint.Name = "tabPageRallyPoint";
-            this.tabPageRallyPoint.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRallyPoint.Size = new System.Drawing.Size(1019, 596);
-            this.tabPageRallyPoint.TabIndex = 1;
-            this.tabPageRallyPoint.Text = "Rally Point";
-            this.tabPageRallyPoint.UseVisualStyleBackColor = true;
-            // 
             // panelStatus
             // 
             this.panelStatus.AutoSize = true;
             this.panelStatus.Controls.Add(this.textBoxStatus);
             this.panelStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelStatus.Location = new System.Drawing.Point(0, 653);
+            this.panelStatus.Location = new System.Drawing.Point(0, 750);
             this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(1027, 212);
+            this.panelStatus.Size = new System.Drawing.Size(1027, 115);
             this.panelStatus.TabIndex = 0;
             // 
             // textBoxStatus
@@ -212,20 +534,10 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus.Location = new System.Drawing.Point(4, 4);
             this.textBoxStatus.Multiline = true;
             this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.Size = new System.Drawing.Size(1019, 205);
+            this.textBoxStatus.ReadOnly = true;
+            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxStatus.Size = new System.Drawing.Size(1019, 108);
             this.textBoxStatus.TabIndex = 0;
-            // 
-            // dataGridViewOverview
-            // 
-            this.dataGridViewOverview.AllowUserToAddRows = false;
-            this.dataGridViewOverview.AllowUserToDeleteRows = false;
-            this.dataGridViewOverview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOverview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewOverview.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewOverview.Name = "dataGridViewOverview";
-            this.dataGridViewOverview.ReadOnly = true;
-            this.dataGridViewOverview.Size = new System.Drawing.Size(1013, 590);
-            this.dataGridViewOverview.TabIndex = 0;
             // 
             // ProcessCenter
             // 
@@ -235,14 +547,27 @@ namespace jeza.Travian.GameCenter
             this.Load += new System.EventHandler(this.ProcessCenter_Load);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
-            this.panelHead.ResumeLayout(false);
-            this.panelHead.PerformLayout();
             this.panelTabs.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageOverview.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOverview)).EndInit();
+            this.tabPageRallyPoint.ResumeLayout(false);
+            this.panelRallyPointVillage.ResumeLayout(false);
+            this.panelRallyPoint.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRallyPoint)).EndInit();
+            this.tabPageMap.ResumeLayout(false);
+            this.panelMapSelection.ResumeLayout(false);
+            this.panelMapSelection.PerformLayout();
+            this.panelMapList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).EndInit();
+            this.tabPageBrowser.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panelHead.ResumeLayout(false);
+            this.panelHead.PerformLayout();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOverview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -257,7 +582,6 @@ namespace jeza.Travian.GameCenter
         private TabPage tabPageRallyPoint;
         private Panel panelStatus;
         private Panel panelHead;
-        private Label labelStatus;
         private Button buttonRun;
         private TextBox textBoxPassword;
         private Label labelPassword;
@@ -267,7 +591,39 @@ namespace jeza.Travian.GameCenter
         private TextBox textBoxServer;
         private Label labelServer;
         private DataGridView dataGridViewOverview;
-
+        private Panel panelRallyPointVillage;
+        private Button buttonUpdateRallyPoint;
+        private ComboBox comboBox1;
+        private Panel panelRallyPoint;
+        private DataGridView dataGridViewRallyPoint;
+        private TabPage tabPageMap;
+        private Panel panelMapSelection;
+        private CheckBox checkBoxExcludedAlliances;
+        private CheckBox checkBoxExcludedPlayers;
+        private CheckBox checkBoxOases;
+        private CheckBox checkBoxWar;
+        private CheckBox checkBoxNap;
+        private CheckBox checkBoxAlly;
+        private Panel panelMapList;
+        private Button buttonMapUpdate;
+        private DataGridView dataGridViewMap;
+        private CheckBox checkBoxFarms;
+        private TabPage tabPageBuildQueue;
+        private TabPage tabPageReports;
+        private TabPage tabPageStatistics;
+        private TabPage tabPageMarketPlace;
+        private TabPage tabPageBrowser;
+        private Panel panel1;
+        private WebBrowser webBrowser;
+        private Panel panel2;
+        private TextBox textBoxBrowserUrl;
+        private Button buttonBrowserGo;
+        
+        readonly object stateLock = new object();
+        private bool botActive;
+        delegate void StringParameterDelegate(string value);
+        private readonly HtmlWeb htmlWeb = new HtmlWeb();
+        private HtmlDocument htmlDocument;
     }
 }
 
