@@ -24,6 +24,15 @@ namespace jeza.Travian.Tests
         }
 
         [Test]
+        public void ParseOases()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\karte.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            List<Oases> oases = htmlParser.GetOasesFromMap();
+            Assert.AreEqual(7, oases.Count, "Oases count!");
+        }
+        [Test]
         public void VillageInfo()
         {
             HtmlDocument htmlDocument = new HtmlDocument();
