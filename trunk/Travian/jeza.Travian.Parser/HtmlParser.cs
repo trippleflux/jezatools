@@ -53,6 +53,38 @@ namespace jeza.Travian.Parser
             return neighborhood;
         }
 
+        public List<Oases> GetOasesFromMap()
+        {
+            List<Oases> oasesList = new List<Oases>();
+            List<string> table = new List<string>();
+            FillTable(table, 'o');
+            foreach (string list in table)
+            {
+                //<area id="a_0_0" shape="poly" coords="53, 137, 90, 157, 53, 177, 16, 157" title="Nezasedena pokrajina" href="karte.php?d=273457&c=e4" />
+                HtmlNodeCollection areaNode =
+                    htmlDocument.DocumentNode.SelectNodes(String.Format(CultureInfo.InvariantCulture,
+                                                                        "//area[@id='{0}']", list));
+                Oases oases = new Oases();
+                oases.AddClassName(areaNode[0].Attributes["title"].Value).AddUrl(areaNode[0].Attributes["href"].Value);
+                oasesList.Add(oases);
+            }
+            return oasesList;
+        }
+
+        //private Dictionary<string , string> oasesTable = new Dictionary<string, string>();
+        //o1 : +25%wood
+        //o2 : +25%wood
+        //o3 : +25%wood, +25%crop
+        //o4 : +25%clay
+        //o5 : +25%clay
+        //o6 : +25%clay, +25%crop
+        //o7 : +25%iron
+        //o8 : +25%iron
+        //o9 : +25%iron, +25%crop
+        //o10 : +25%crop
+        //o11 : +25%crop
+        //o12 : +50%crop
+
         /// <summary>
         /// Parse villages from map field.
         /// </summary>
@@ -60,17 +92,7 @@ namespace jeza.Travian.Parser
         {
             List<Neighborhood> neighborhood = new List<Neighborhood>();
             List<string> villages = new List<string>();
-            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//div[@id='map_content']");
-            if (nodes != null)
-            {
-                foreach (HtmlNode mapContentNode in nodes)
-                {
-                    foreach (HtmlNode htmlNode in mapContentNode.SelectNodes(".//div[starts-with(@class, 'b')]"))
-                    {
-                        villages.Add("a" + htmlNode.Attributes["id"].Value.Substring(1));
-                    }
-                }
-            }
+            FillTable(villages, 'b');
             foreach (string list in villages)
             {
                 //<area id="a_0_0" shape="poly" coords="53, 137, 90, 157, 53, 177, 16, 157" title="Nezasedena pokrajina" href="karte.php?d=273457&c=e4" />
@@ -151,6 +173,21 @@ namespace jeza.Travian.Parser
                 }
             }
             return troopMovement;
+        }
+
+        private void FillTable(ICollection<string> table, char prefix)
+        {
+            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//div[@id='map_content']");
+            if (nodes != null)
+            {
+                foreach (HtmlNode mapContentNode in nodes)
+                {
+                    foreach (HtmlNode htmlNode in mapContentNode.SelectNodes(".//div[starts-with(@class, '" + prefix + "')]"))
+                    {
+                        table.Add("a" + htmlNode.Attributes["id"].Value.Substring(1));
+                    }
+                }
+            }
         }
 
         private readonly HtmlDocument htmlDocument;
