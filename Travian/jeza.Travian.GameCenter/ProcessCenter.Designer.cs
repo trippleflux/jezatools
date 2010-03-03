@@ -34,6 +34,8 @@ namespace jeza.Travian.GameCenter
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProcessCenter));
             this.panelMain = new System.Windows.Forms.Panel();
             this.panelTabs = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
@@ -77,6 +79,7 @@ namespace jeza.Travian.GameCenter
             this.labelUsername = new System.Windows.Forms.Label();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -539,12 +542,21 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus.Size = new System.Drawing.Size(1019, 108);
             this.textBoxStatus.TabIndex = 0;
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Game Center";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
+            // 
             // ProcessCenter
             // 
             this.ClientSize = new System.Drawing.Size(1027, 865);
             this.Controls.Add(this.panelMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProcessCenter";
             this.Load += new System.EventHandler(this.ProcessCenter_Load);
+            this.Resize += new System.EventHandler(this.ProcessCenter_Resize);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.panelTabs.ResumeLayout(false);
@@ -618,6 +630,7 @@ namespace jeza.Travian.GameCenter
         private Panel panel2;
         private TextBox textBoxBrowserUrl;
         private Button buttonBrowserGo;
+        private NotifyIcon notifyIcon;
         
         readonly object stateLock = new object();
         private bool botActive;
