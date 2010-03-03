@@ -18,6 +18,44 @@ namespace jeza.Travian.Parser
         }
 
         /// <summary>
+        /// Gets the available villages.
+        /// </summary>
+        /// <returns></returns>
+        public List<Village> GetAvailableVillages()
+        {
+            List<Village> villages = new List<Village>();
+            HtmlNode tableVillages = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='vlist']");
+            if (tableVillages == null)
+            {
+                //single village
+            }
+            else
+            {
+                foreach (HtmlNode htmlNodeVillage in tableVillages.SelectNodes("./tbody//tr"))
+                {
+                    //<td class="link"><a href="?newdid=75579" >01</a></td>
+                    HtmlNode htmlNode = htmlNodeVillage.SelectSingleNode("./td[@class='link']/a");
+                    string villageName = htmlNode.InnerText.Trim();
+                    string villageId = htmlNode.Attributes["href"].Value.Trim();
+                    //<div class="cox">(-82</div>
+                    HtmlNode nodeCoordsX = htmlNodeVillage.SelectSingleNode(".//div[@class='cox']");
+                    string x = nodeCoordsX.InnerText.Trim().Substring(1);
+                    //<div class="coy">64)</div>
+                    HtmlNode nodeCoordsY = htmlNodeVillage.SelectSingleNode(".//div[@class='coy']");
+                    string trimY = nodeCoordsY.InnerText.Trim();
+                    string y = trimY.Substring(0, trimY.Length - 1);
+                    Village village = new Village();
+                    village
+                        .AddName(villageName)
+                        .AddId(Misc.String2Number(villageId.Substring(8)))
+                        .UpdateCoordinates(Misc.String2Number(x), Misc.String2Number(y));
+                    villages.Add(village);
+                }
+            }
+            return villages;
+        }
+
+        /// <summary>
         /// Gets the village details.
         /// </summary>
         /// <returns><see cref="Neighborhood"/></returns>
@@ -31,7 +69,8 @@ namespace jeza.Travian.Parser
                 HtmlNode nodeVillageName = head.SelectSingleNode("./div");
                 string villageName = nodeVillageName.InnerText;
                 HtmlNode nodeVillageCoords = head.SelectSingleNode(".");
-                string coordinates = nodeVillageCoords.InnerText.Substring(nodeVillageCoords.InnerText.LastIndexOf('(')).Trim();
+                string coordinates =
+                    nodeVillageCoords.InnerText.Substring(nodeVillageCoords.InnerText.LastIndexOf('(')).Trim();
                 string[] strings = coordinates.Split('|', '(', ')');
                 int coordinateX = Misc.String2Number(strings[1]);
                 int coordinateY = Misc.String2Number(strings[2]);
@@ -182,7 +221,9 @@ namespace jeza.Travian.Parser
             {
                 foreach (HtmlNode mapContentNode in nodes)
                 {
-                    foreach (HtmlNode htmlNode in mapContentNode.SelectNodes(".//div[starts-with(@class, '" + prefix + "')]"))
+                    foreach (
+                        HtmlNode htmlNode in mapContentNode.SelectNodes(".//div[starts-with(@class, '" + prefix + "')]")
+                        )
                     {
                         table.Add("a" + htmlNode.Attributes["id"].Value.Substring(1));
                     }

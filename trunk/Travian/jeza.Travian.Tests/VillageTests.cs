@@ -1,7 +1,10 @@
 #region
 
 using System;
+using System.Collections.Generic;
+using HtmlAgilityPack;
 using jeza.Travian.Framework;
+using jeza.Travian.Parser;
 using MbUnit.Framework;
 
 #endregion
@@ -11,6 +14,19 @@ namespace jeza.Travian.Tests
     [TestFixture]
     public class VillageTests
     {
+        [Test]
+        public void ParseAvailableVillages()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\dorf1.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            List<Village> villages = htmlParser.GetAvailableVillages();
+            Assert.IsNotNull(villages, "villages is null!");
+            Assert.AreEqual(2, villages.Count, "Villages count!");
+            Assert.AreEqual(-82, villages[0].CoordinateX, "CoordinateX!");
+            Assert.AreEqual(64, villages[0].CoordinateY, "CoordinateY!");
+        }
+
         /// <summary>
         /// Tests if village is properly updated.
         /// </summary>
