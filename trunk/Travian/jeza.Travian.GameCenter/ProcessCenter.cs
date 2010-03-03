@@ -159,6 +159,18 @@ namespace jeza.Travian.GameCenter
             textBoxStatus.ScrollToCaret();
         }
 
+        private void ProcessCenter_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == WindowState)
+                Hide();
+        }
+
+        private void notifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
         //private void UpdateCount()
         //{
         //    int tmpCount;
