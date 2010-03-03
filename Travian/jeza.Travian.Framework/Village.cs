@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 #endregion
 
@@ -9,6 +10,15 @@ namespace jeza.Travian.Framework
 {
     public class Village
     {
+        /// <summary>
+        /// Gets the coordinates in format (x|y).
+        /// </summary>
+        /// <value>The coordinates.</value>
+        public string Coordinates
+        {
+            get { return String.Format(CultureInfo.InvariantCulture, "({0}|{1})", coordinateX, coordinateY); }
+        }
+
         /// <summary>
         /// Gets the coordinate X.
         /// </summary>

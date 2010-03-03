@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using HtmlAgilityPack;
 using HtmlDocument=HtmlAgilityPack.HtmlDocument;
 
@@ -13,7 +15,34 @@ namespace jeza.Travian.GameCenter
         public ProcessCenter()
         {
             InitializeComponent();
+            DeserializeSettings();
+            FillLoginData();
             htmlWeb.UseCookies = true;
+        }
+
+        private void FillLoginData()
+        {
+            textBoxServer.Text = settings.LoginData.Servername;
+            textBoxUsername.Text = settings.LoginData.Username;
+            textBoxPassword.Text = settings.LoginData.Password;
+        }
+
+        private void DeserializeSettings()
+        {
+            using(FileStream fileStream = new FileStream("Settings.xml", FileMode.Open))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Settings));
+                settings = (Settings)xmlSerializer.Deserialize(fileStream);
+            }
+        }
+
+        private void SerializeSettings()
+        {
+            using (FileStream fileStream = new FileStream("Settings.xml", FileMode.Open))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Settings));
+                xmlSerializer.Serialize(fileStream, settings);
+            }
         }
 
         private void ProcessCenter_Load(object sender, EventArgs e)
@@ -43,21 +72,30 @@ namespace jeza.Travian.GameCenter
         {
             if (!botActive)
             {
+                //SerializeSettings();
                 botActive = true;
                 Thread t = new Thread(StartBot) {IsBackground = true};
                 t.Start();
                 buttonRun.Text = "Stop";
+                ChangeStatusOfElements(true);
             }
             else
             {
                 botActive = false;
                 UpdateStatus("Disconnecting...");
                 buttonRun.Text = "Start";
+                ChangeStatusOfElements(false);
             }
             //lock (stateLock)
             //{
             //    target = rng.Next(100);
             //}
+        }
+
+        private void ChangeStatusOfElements(bool status)
+        {
+            buttonMapUpdate.Enabled = status;
+            textBoxServer.Enabled = status;
         }
 
         private void StartBot()

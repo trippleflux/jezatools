@@ -49,7 +49,7 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewRallyPoint = new System.Windows.Forms.DataGridView();
             this.tabPageMap = new System.Windows.Forms.TabPage();
             this.panelMapSelection = new System.Windows.Forms.Panel();
-            this.checkBoxFarms = new System.Windows.Forms.CheckBox();
+            this.checkBoxFarmsNoProfit = new System.Windows.Forms.CheckBox();
             this.buttonMapUpdate = new System.Windows.Forms.Button();
             this.checkBoxExcludedAlliances = new System.Windows.Forms.CheckBox();
             this.checkBoxExcludedPlayers = new System.Windows.Forms.CheckBox();
@@ -80,6 +80,14 @@ namespace jeza.Travian.GameCenter
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.checkBoxFarmsHighRish = new System.Windows.Forms.CheckBox();
+            this.checkBoxFarmsLowRisk = new System.Windows.Forms.CheckBox();
+            this.checkBoxFarmsMiddleRisk = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelMapDistance = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.labelMapVillage = new System.Windows.Forms.Label();
+            this.buttonMapPopulate = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -109,7 +117,7 @@ namespace jeza.Travian.GameCenter
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(1027, 865);
+            this.panelMain.Size = new System.Drawing.Size(1193, 865);
             this.panelMain.TabIndex = 0;
             // 
             // panelTabs
@@ -118,7 +126,7 @@ namespace jeza.Travian.GameCenter
             this.panelTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTabs.Location = new System.Drawing.Point(0, 31);
             this.panelTabs.Name = "panelTabs";
-            this.panelTabs.Size = new System.Drawing.Size(1027, 719);
+            this.panelTabs.Size = new System.Drawing.Size(1193, 719);
             this.panelTabs.TabIndex = 1;
             // 
             // tabControl
@@ -135,7 +143,7 @@ namespace jeza.Travian.GameCenter
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1027, 719);
+            this.tabControl.Size = new System.Drawing.Size(1193, 719);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageOverview
@@ -227,14 +235,22 @@ namespace jeza.Travian.GameCenter
             this.tabPageMap.Controls.Add(this.panelMapList);
             this.tabPageMap.Location = new System.Drawing.Point(4, 22);
             this.tabPageMap.Name = "tabPageMap";
-            this.tabPageMap.Size = new System.Drawing.Size(1019, 693);
+            this.tabPageMap.Size = new System.Drawing.Size(1185, 693);
             this.tabPageMap.TabIndex = 2;
             this.tabPageMap.Text = "Map";
             this.tabPageMap.UseVisualStyleBackColor = true;
             // 
             // panelMapSelection
             // 
-            this.panelMapSelection.Controls.Add(this.checkBoxFarms);
+            this.panelMapSelection.Controls.Add(this.buttonMapPopulate);
+            this.panelMapSelection.Controls.Add(this.labelMapVillage);
+            this.panelMapSelection.Controls.Add(this.comboBox2);
+            this.panelMapSelection.Controls.Add(this.labelMapDistance);
+            this.panelMapSelection.Controls.Add(this.textBox1);
+            this.panelMapSelection.Controls.Add(this.checkBoxFarmsMiddleRisk);
+            this.panelMapSelection.Controls.Add(this.checkBoxFarmsLowRisk);
+            this.panelMapSelection.Controls.Add(this.checkBoxFarmsHighRish);
+            this.panelMapSelection.Controls.Add(this.checkBoxFarmsNoProfit);
             this.panelMapSelection.Controls.Add(this.buttonMapUpdate);
             this.panelMapSelection.Controls.Add(this.checkBoxExcludedAlliances);
             this.panelMapSelection.Controls.Add(this.checkBoxExcludedPlayers);
@@ -248,23 +264,22 @@ namespace jeza.Travian.GameCenter
             this.panelMapSelection.Size = new System.Drawing.Size(173, 693);
             this.panelMapSelection.TabIndex = 1;
             // 
-            // checkBoxFarms
+            // checkBoxFarmsNoProfit
             // 
-            this.checkBoxFarms.AutoSize = true;
-            this.checkBoxFarms.Checked = true;
-            this.checkBoxFarms.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxFarms.Location = new System.Drawing.Point(4, 142);
-            this.checkBoxFarms.Name = "checkBoxFarms";
-            this.checkBoxFarms.Size = new System.Drawing.Size(84, 17);
-            this.checkBoxFarms.TabIndex = 7;
-            this.checkBoxFarms.Text = "Show Farms";
-            this.checkBoxFarms.UseVisualStyleBackColor = true;
+            this.checkBoxFarmsNoProfit.AutoSize = true;
+            this.checkBoxFarmsNoProfit.Location = new System.Drawing.Point(4, 142);
+            this.checkBoxFarmsNoProfit.Name = "checkBoxFarmsNoProfit";
+            this.checkBoxFarmsNoProfit.Size = new System.Drawing.Size(123, 17);
+            this.checkBoxFarmsNoProfit.TabIndex = 7;
+            this.checkBoxFarmsNoProfit.Text = "Show No Profit Farm";
+            this.checkBoxFarmsNoProfit.UseVisualStyleBackColor = true;
             // 
             // buttonMapUpdate
             // 
-            this.buttonMapUpdate.Location = new System.Drawing.Point(15, 165);
+            this.buttonMapUpdate.Enabled = false;
+            this.buttonMapUpdate.Location = new System.Drawing.Point(8, 363);
             this.buttonMapUpdate.Name = "buttonMapUpdate";
-            this.buttonMapUpdate.Size = new System.Drawing.Size(75, 23);
+            this.buttonMapUpdate.Size = new System.Drawing.Size(123, 23);
             this.buttonMapUpdate.TabIndex = 6;
             this.buttonMapUpdate.Text = "Update";
             this.buttonMapUpdate.UseVisualStyleBackColor = true;
@@ -335,7 +350,7 @@ namespace jeza.Travian.GameCenter
             this.panelMapList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMapList.Location = new System.Drawing.Point(0, 0);
             this.panelMapList.Name = "panelMapList";
-            this.panelMapList.Size = new System.Drawing.Size(1019, 693);
+            this.panelMapList.Size = new System.Drawing.Size(1185, 693);
             this.panelMapList.TabIndex = 0;
             // 
             // dataGridViewMap
@@ -344,7 +359,7 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewMap.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMap.Name = "dataGridViewMap";
-            this.dataGridViewMap.Size = new System.Drawing.Size(1019, 693);
+            this.dataGridViewMap.Size = new System.Drawing.Size(1185, 693);
             this.dataGridViewMap.TabIndex = 0;
             // 
             // tabPageBuildQueue
@@ -458,7 +473,7 @@ namespace jeza.Travian.GameCenter
             this.panelHead.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHead.Location = new System.Drawing.Point(0, 0);
             this.panelHead.Name = "panelHead";
-            this.panelHead.Size = new System.Drawing.Size(1027, 31);
+            this.panelHead.Size = new System.Drawing.Size(1193, 31);
             this.panelHead.TabIndex = 2;
             // 
             // textBoxServer
@@ -526,7 +541,7 @@ namespace jeza.Travian.GameCenter
             this.panelStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelStatus.Location = new System.Drawing.Point(0, 750);
             this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(1027, 115);
+            this.panelStatus.Size = new System.Drawing.Size(1193, 115);
             this.panelStatus.TabIndex = 0;
             // 
             // textBoxStatus
@@ -539,7 +554,7 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxStatus.Size = new System.Drawing.Size(1019, 108);
+            this.textBoxStatus.Size = new System.Drawing.Size(1185, 108);
             this.textBoxStatus.TabIndex = 0;
             // 
             // notifyIcon
@@ -549,9 +564,86 @@ namespace jeza.Travian.GameCenter
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
+            // checkBoxFarmsHighRish
+            // 
+            this.checkBoxFarmsHighRish.AutoSize = true;
+            this.checkBoxFarmsHighRish.Location = new System.Drawing.Point(4, 211);
+            this.checkBoxFarmsHighRish.Name = "checkBoxFarmsHighRish";
+            this.checkBoxFarmsHighRish.Size = new System.Drawing.Size(133, 17);
+            this.checkBoxFarmsHighRish.TabIndex = 10;
+            this.checkBoxFarmsHighRish.Text = "Show High Risk Farms";
+            this.checkBoxFarmsHighRish.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFarmsLowRisk
+            // 
+            this.checkBoxFarmsLowRisk.AutoSize = true;
+            this.checkBoxFarmsLowRisk.Checked = true;
+            this.checkBoxFarmsLowRisk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxFarmsLowRisk.Location = new System.Drawing.Point(4, 165);
+            this.checkBoxFarmsLowRisk.Name = "checkBoxFarmsLowRisk";
+            this.checkBoxFarmsLowRisk.Size = new System.Drawing.Size(134, 17);
+            this.checkBoxFarmsLowRisk.TabIndex = 11;
+            this.checkBoxFarmsLowRisk.Text = "Show Low Risk  Farms";
+            this.checkBoxFarmsLowRisk.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxFarmsMiddleRisk
+            // 
+            this.checkBoxFarmsMiddleRisk.AutoSize = true;
+            this.checkBoxFarmsMiddleRisk.Checked = true;
+            this.checkBoxFarmsMiddleRisk.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxFarmsMiddleRisk.Location = new System.Drawing.Point(4, 188);
+            this.checkBoxFarmsMiddleRisk.Name = "checkBoxFarmsMiddleRisk";
+            this.checkBoxFarmsMiddleRisk.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxFarmsMiddleRisk.TabIndex = 12;
+            this.checkBoxFarmsMiddleRisk.Text = "Show Middle Risk Farms";
+            this.checkBoxFarmsMiddleRisk.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(8, 297);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(119, 20);
+            this.textBox1.TabIndex = 13;
+            this.textBox1.Text = "20";
+            // 
+            // labelMapDistance
+            // 
+            this.labelMapDistance.AutoSize = true;
+            this.labelMapDistance.Location = new System.Drawing.Point(8, 281);
+            this.labelMapDistance.Name = "labelMapDistance";
+            this.labelMapDistance.Size = new System.Drawing.Size(49, 13);
+            this.labelMapDistance.TabIndex = 14;
+            this.labelMapDistance.Text = "Distance";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(8, 336);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 15;
+            // 
+            // labelMapVillage
+            // 
+            this.labelMapVillage.AutoSize = true;
+            this.labelMapVillage.Location = new System.Drawing.Point(8, 320);
+            this.labelMapVillage.Name = "labelMapVillage";
+            this.labelMapVillage.Size = new System.Drawing.Size(38, 13);
+            this.labelMapVillage.TabIndex = 16;
+            this.labelMapVillage.Text = "Village";
+            // 
+            // buttonMapPopulate
+            // 
+            this.buttonMapPopulate.Location = new System.Drawing.Point(4, 235);
+            this.buttonMapPopulate.Name = "buttonMapPopulate";
+            this.buttonMapPopulate.Size = new System.Drawing.Size(75, 23);
+            this.buttonMapPopulate.TabIndex = 17;
+            this.buttonMapPopulate.Text = "Populate";
+            this.buttonMapPopulate.UseVisualStyleBackColor = true;
+            // 
             // ProcessCenter
             // 
-            this.ClientSize = new System.Drawing.Size(1027, 865);
+            this.ClientSize = new System.Drawing.Size(1193, 865);
             this.Controls.Add(this.panelMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProcessCenter";
@@ -619,7 +711,7 @@ namespace jeza.Travian.GameCenter
         private Panel panelMapList;
         private Button buttonMapUpdate;
         private DataGridView dataGridViewMap;
-        private CheckBox checkBoxFarms;
+        private CheckBox checkBoxFarmsNoProfit;
         private TabPage tabPageBuildQueue;
         private TabPage tabPageReports;
         private TabPage tabPageStatistics;
@@ -637,6 +729,16 @@ namespace jeza.Travian.GameCenter
         delegate void StringParameterDelegate(string value);
         private readonly HtmlWeb htmlWeb = new HtmlWeb();
         private HtmlDocument htmlDocument;
+        private Settings settings;
+
+        private CheckBox checkBoxFarmsMiddleRisk;
+        private CheckBox checkBoxFarmsLowRisk;
+        private CheckBox checkBoxFarmsHighRish;
+        private Label labelMapVillage;
+        private ComboBox comboBox2;
+        private Label labelMapDistance;
+        private TextBox textBox1;
+        private Button buttonMapPopulate;
     }
 }
 
