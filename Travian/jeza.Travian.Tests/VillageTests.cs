@@ -25,6 +25,14 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(2, villages.Count, "Villages count!");
             Assert.AreEqual(-82, villages[0].CoordinateX, "CoordinateX!");
             Assert.AreEqual(64, villages[0].CoordinateY, "CoordinateY!");
+
+            htmlDocument.Load("..\\..\\Test Files\\dorf1.php.1.village.html");
+            htmlParser = new HtmlParser(htmlDocument);
+            villages = htmlParser.GetAvailableVillages();
+            Assert.IsNotNull(villages, "villages is null!");
+            Assert.AreEqual(1, villages.Count, "Villages count!");
+            Assert.AreEqual(0, villages[0].CoordinateX, "CoordinateX!");
+            Assert.AreEqual(0, villages[0].CoordinateY, "CoordinateY!");
         }
 
         /// <summary>
