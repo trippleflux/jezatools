@@ -1,20 +1,30 @@
 namespace jeza.Travian.Framework
 {
-    public class Oases
+    public class Oases : Neighborhood
     {
-        public Oases AddClassName(string className)
-        {
-            this.className = className;
-            return this;
-        }
+        //public string ClassNameAttribute
+        //{
+        //    get { return classNameAttribute; }
+        //}
 
-        public Oases AddUrl(string url)
-        {
-            this.url = url;
-            return this;
-        }
+        //public string UrlAttribute
+        //{
+        //    get { return urlAttribute; }
+        //}
 
-        private string className;
-        private string url;
+        //public Oases AddClassName(string className)
+        //{
+        //    classNameAttribute = className;
+        //    return this;
+        //}
+
+        //public Oases AddUrl(string url)
+        //{
+        //    urlAttribute = url;
+        //    return this;
+        //}
+
+        //private string classNameAttribute;
+        //private string urlAttribute;
     }
 }

@@ -207,6 +207,11 @@ namespace jeza.Travian.Framework
             return count;
         }
 
+        public override string ToString()
+        {
+            return string.Format(name);
+        }
+
         private int id;
         private string name;
         private Production production;

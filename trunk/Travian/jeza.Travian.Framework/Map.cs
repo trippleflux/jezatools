@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Collections.Generic;
 
 #endregion
@@ -20,6 +21,15 @@ namespace jeza.Travian.Framework
         public void AddVillage(Neighborhood village)
         {
             neighborhood.Add(village);
+        }
+
+        /// <summary>
+        /// Adds the villages.
+        /// </summary>
+        /// <param name="neighborhoods">The neighborhoods.</param>
+        public void AddVillages(List<Neighborhood> neighborhoods)
+        {
+            neighborhood.AddRange(neighborhoods);
         }
 
         private readonly List<Neighborhood> neighborhood = new List<Neighborhood>();

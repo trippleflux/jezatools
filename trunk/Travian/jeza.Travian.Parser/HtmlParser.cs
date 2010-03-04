@@ -27,7 +27,10 @@ namespace jeza.Travian.Parser
             HtmlNode tableVillages = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='vlist']");
             if (tableVillages == null)
             {
-                //single village
+                HtmlNode nodeVillage = htmlDocument.DocumentNode.SelectSingleNode("//h1");
+                Village village = new Village();
+                village.AddName(nodeVillage.InnerText.Trim());
+                villages.Add(village);
             }
             else
             {
@@ -104,7 +107,7 @@ namespace jeza.Travian.Parser
                     htmlDocument.DocumentNode.SelectNodes(String.Format(CultureInfo.InvariantCulture,
                                                                         "//area[@id='{0}']", list));
                 Oases oases = new Oases();
-                oases.AddClassName(areaNode[0].Attributes["title"].Value).AddUrl(areaNode[0].Attributes["href"].Value);
+                oases.AddName(areaNode[0].Attributes["title"].Value).AddUrl(areaNode[0].Attributes["href"].Value);
                 oasesList.Add(oases);
             }
             return oasesList;
