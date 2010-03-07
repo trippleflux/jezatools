@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+  <language id="sl-SI">
+    <rallyPoint>
+      <AttackOut>Napad proti</AttackOut>
+      <AttackIn>Napad proti</AttackIn>
+      <RaidOut>Roparski pohod proti</RaidOut>
+      <RaidIn>Roparski pohod proti</RaidIn>
+      <ReinforcementIn>Okrepitve za</ReinforcementIn>
+      <ReinforcementBack>Vrnitev iz</ReinforcementBack>
+      <ReinforcementOut>Okrepitve za</ReinforcementOut>
+      <Scout>Izvidnica</Scout>
+    </rallyPoint>
+  </language>
+</languages>

@@ -1,6 +1,7 @@
 #region
 
 using System.Collections.Generic;
+using System.Text;
 
 #endregion
 
@@ -63,6 +64,16 @@ namespace jeza.Travian.Framework
                 }
             }
             return null;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (TroopUnit troopUnit in troopList)
+            {
+                sb.AppendFormat("{0} ", troopUnit.Count);
+            }
+            return sb.ToString();
         }
 
         private readonly List<TroopUnit> troopList = new List<TroopUnit>();
