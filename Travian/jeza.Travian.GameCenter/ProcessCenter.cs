@@ -23,10 +23,11 @@ namespace jeza.Travian.GameCenter
         public ProcessCenter()
         {
             InitializeComponent();
-            DeserializeSettings();
-            htmlWeb.UseCookies = true;
+            settings = new Settings();
             account = new Account();
             map = new Map();
+            DeserializeSettings();
+            htmlWeb.UseCookies = true;
         }
 
         #region gui actions
@@ -48,10 +49,13 @@ namespace jeza.Travian.GameCenter
 
         private void buttonOwerviewSave_Click(object sender, EventArgs e)
         {
-            Login loginData = settings.LoginData;
-            loginData.Servername = textBoxServer.Text.Trim();
-            loginData.Username = textBoxUsername.Text.Trim();
-            loginData.Password = textBoxPassword.Text.Trim();
+            Login loginData = new Login
+                {
+                    Servername = textBoxServer.Text.Trim(),
+                    Username = textBoxUsername.Text.Trim(),
+                    Password = textBoxPassword.Text.Trim()
+                };
+            settings.LoginData = loginData;
             SerializeSettings();
         }
 
@@ -69,16 +73,6 @@ namespace jeza.Travian.GameCenter
         {
             if (FormWindowState.Minimized == WindowState)
                 Hide();
-        }
-
-        private void tabControl_Click(object sender, EventArgs e)
-        {
-            comboBoxMapVillages.Items.Clear();
-            foreach (Village village in account.Villages)
-            {
-                comboBoxMapVillages.Items.Add(village);
-            }
-            comboBoxMapVillages.SelectedItem = comboBoxMapVillages.Items[0];
         }
 
         private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -104,11 +98,35 @@ namespace jeza.Travian.GameCenter
         /// </summary>
         private void DeserializeSettings()
         {
-            using (FileStream fileStream = new FileStream("Settings.xml", FileMode.Open))
+            if (File.Exists(settingsXml))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
-                settings = (Settings) xmlSerializer.Deserialize(fileStream);
+                using (FileStream fileStream = new FileStream(settingsXml, FileMode.Open))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
+                    settings = (Settings) xmlSerializer.Deserialize(fileStream);
+                }
+                textBoxServer.Text = settings.LoginData.Servername;
+                textBoxUsername.Text = settings.LoginData.Username;
+                textBoxPassword.Text = settings.LoginData.Password;
             }
+            else
+            {
+                SerializeSettings();
+            }
+        }
+
+        private void DisableButtons()
+        {
+            UpdateButtonStatus(buttonMapUpdate, false);
+            UpdateButtonStatus(buttonMapPopulate, false);
+            UpdateButtonStatus(buttonUpdateRallyPoint, false);
+        }
+
+        private void EnableButtons()
+        {
+            UpdateButtonStatus(buttonMapUpdate, true);
+            UpdateButtonStatus(buttonMapPopulate, true);
+            UpdateButtonStatus(buttonUpdateRallyPoint, true);
         }
 
         private void GetMapInfo(Village selectedVillage)
@@ -155,11 +173,6 @@ namespace jeza.Travian.GameCenter
                 dataGridViewMap.DataSource = list;
             }
             UpdateButtonStatus(buttonMapUpdate, true);
-        }
-
-        private void SetDataSource(DataGridView field, ArrayList list)
-        {
-            dataGridViewMap.DataSource = list;
         }
 
         private void GetMapInfoAt(int x, int y)
@@ -234,7 +247,7 @@ namespace jeza.Travian.GameCenter
         /// </summary>
         private void SerializeSettings()
         {
-            using (FileStream fileStream = new FileStream("Settings.xml", FileMode.Open))
+            using (FileStream fileStream = new FileStream(settingsXml, FileMode.OpenOrCreate))
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
                 xmlSerializer.Serialize(fileStream, settings);
@@ -259,13 +272,19 @@ namespace jeza.Travian.GameCenter
             else
             {
                 botActive = false;
-                UpdateStatus("Disconnecting...");
                 buttonRun.Text = "Start";
+                DisableButtons();
+                UpdateStatus("Disconnecting...");
             }
             //lock (stateLock)
             //{
             //    target = rng.Next(100);
             //}
+        }
+
+        private void SetDataSource(DataGridView field, ArrayList list)
+        {
+            dataGridViewMap.DataSource = list;
         }
 
         /// <summary>
@@ -289,7 +308,7 @@ namespace jeza.Travian.GameCenter
                     }
                 }
                 UpdateAccountInfo();
-                //UpdateGuiElements();
+                EnableButtons();
                 Thread.Sleep(300000);
             }
             botActive = false;
@@ -335,6 +354,8 @@ namespace jeza.Travian.GameCenter
             account.AddVillages(villages);
             settings.Account = account;
             SerializeSettings();
+            UpdateComboBoxVillages(comboBoxMapVillages);
+            UpdateComboBoxVillages(comboBoxRallyPointVillages);
         }
 
         private void UpdateButtonStatus(Button button, bool enabled)
@@ -347,19 +368,20 @@ namespace jeza.Travian.GameCenter
             button.Enabled = enabled;
         }
 
-        ///// <summary>
-        ///// Updates the GUI elements.
-        ///// </summary>
-        //private void UpdateGuiElements()
-        //{
-        //    UpdateStatus("UpdateGuiElements");
-        //    comboBoxMapVillages.Items.Clear();
-        //    foreach (Village village in account.Villages)
-        //    {
-        //        comboBoxMapVillages.Items.Add(village);
-        //    }
-        //    comboBoxMapVillages.SelectedItem = comboBoxMapVillages.Items[0];
-        //}
+        private void UpdateComboBoxVillages(ComboBox field)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetComboBoxStatus(UpdateComboBoxVillages), field);
+                return;
+            }
+            field.Items.Clear();
+            foreach (Village village in account.Villages)
+            {
+                field.Items.Add(village);
+            }
+            field.SelectedItem = field.Items[0];
+        }
 
         /// <summary>
         /// Writes message to status text box.
