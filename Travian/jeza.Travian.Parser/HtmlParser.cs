@@ -260,6 +260,11 @@ namespace jeza.Travian.Parser
                         TimeSpan timeSpan = Misc.String2TimeSpan(arrivalSpan[0].InnerText);
                         movement.SetDate(dt + timeSpan);
                     }
+                    else
+                    {
+                        movement.SetType(TroopMovementType.Idle);
+                        movement.SetDestination("", "");
+                    }
                     troopMovement.Add(movement);
                 }
             }

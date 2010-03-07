@@ -13,6 +13,9 @@ namespace jeza.Travian.GameCenter
     {
         [XmlElement(ElementName = "login")]
         public Login LoginData { get; set; }
+
+        [XmlElement(ElementName = "languageId")]
+        public string LanguageId { get; set; }
     }
 
     [Serializable]

@@ -8,5 +8,6 @@ namespace jeza.Travian.Framework
         ReinforcementIncomming,
         ReinforcementOutgoing,
         ReinforcementIncommingOazis,
+        Idle,
     }
 }

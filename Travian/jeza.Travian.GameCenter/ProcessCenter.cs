@@ -13,6 +13,7 @@ using HtmlAgilityPack;
 using jeza.Travian.Framework;
 using jeza.Travian.Parser;
 using HtmlDocument=HtmlAgilityPack.HtmlDocument;
+using Timer=System.Windows.Forms.Timer;
 
 #endregion
 
@@ -29,6 +30,8 @@ namespace jeza.Travian.GameCenter
             map.DeserializeValleys();
             DeserializeSettings();
             htmlWeb.UseCookies = true;
+            Timer timer = new Timer {Interval = 1000, Enabled = true};
+            timer.Tick += new EventHandler(TimerTick);
         }
 
         #region gui actions
@@ -55,14 +58,17 @@ namespace jeza.Travian.GameCenter
 
         private void buttonOwerviewSave_Click(object sender, EventArgs e)
         {
-            Login loginData = new Login
-                {
-                    Servername = textBoxServer.Text.Trim(),
-                    Username = textBoxUsername.Text.Trim(),
-                    Password = textBoxPassword.Text.Trim()
-                };
-            settings.LoginData = loginData;
-            SerializeSettings();
+            SaveSettings();
+        }
+
+        private void buttonUpdateRallyPoint_Click(object sender, EventArgs e)
+        {
+            Village selectedVillage = comboBoxRallyPointVillages.SelectedItem as Village;
+            if (selectedVillage != null)
+            {
+                Thread t = new Thread(rallyPoint => PopulateRallyPoint(selectedVillage)) {IsBackground = true};
+                t.Start();
+            }
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -111,16 +117,17 @@ namespace jeza.Travian.GameCenter
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
                     settings = (Settings) xmlSerializer.Deserialize(fileStream);
                 }
-                if (settings.LoginData == null)
-                {
-                    SerializeSettings();
-                }
-                else
-                {
-                    textBoxServer.Text = settings.LoginData.Servername;
-                    textBoxUsername.Text = settings.LoginData.Username;
-                    textBoxPassword.Text = settings.LoginData.Password;
-                }
+                //if ((settings.LoginData == null) || (settings.LanguageId == null))
+                //{
+                //    SaveSettings();
+                //}
+                //else
+                //{
+                textBoxServer.Text = settings.LoginData.Servername;
+                textBoxUsername.Text = settings.LoginData.Username;
+                textBoxPassword.Text = settings.LoginData.Password;
+                textBoxLanguageId.Text = settings.LanguageId;
+                //}
             }
             else
             {
@@ -280,7 +287,7 @@ namespace jeza.Travian.GameCenter
             ArrayList list = new ArrayList();
             foreach (Valley valley in map.Valleys)
             {
-                if (checkBoxUnoccupiedOasis.Checked && valley.ValleyType==ValleyType.UnoccupiedOasis)
+                if (checkBoxUnoccupiedOasis.Checked && valley.ValleyType == ValleyType.UnoccupiedOasis)
                 {
                     list.Add(valley);
                 }
@@ -298,13 +305,49 @@ namespace jeza.Travian.GameCenter
             }
             if (dataGridViewMap.InvokeRequired)
             {
-                SetDataGridViewDataBind d = SetDataSource;
-                Invoke(d, new object[] { dataGridViewMap, list });
+                SetDataGridViewDataBind m = SetDataSource;
+                Invoke(m, new object[] {dataGridViewMap, list});
             }
             else
             {
                 dataGridViewMap.DataSource = list;
             }
+        }
+
+        private void PopulateRallyPoint(Village village)
+        {
+            string servername = settings.LoginData.Servername;
+            //http://s1.travian.com/build.php?newdid=75579&gid=16&id=39
+            string url = String.Format(CultureInfo.InvariantCulture, "{0}build.php?newdid={1}&gid=16&id=39",
+                                       servername, village.Id);
+            htmlDocument = htmlWeb.Load(url);
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            List<TroopMovement> troopMovements = htmlParser.TroopMovements();
+            ArrayList list = new ArrayList();
+            list.AddRange(troopMovements);
+            if (dataGridViewRallyPoint.InvokeRequired)
+            {
+                SetDataGridViewDataBind r = SetDataSource;
+                Invoke(r, new object[] {dataGridViewRallyPoint, list});
+            }
+            else
+            {
+                dataGridViewRallyPoint.DataSource = list;
+            }
+            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Populate Rally Point in {0}", village.Name));
+        }
+
+        private void SaveSettings()
+        {
+            Login loginData = new Login
+            {
+                Servername = textBoxServer.Text.Trim(),
+                Username = textBoxUsername.Text.Trim(),
+                Password = textBoxPassword.Text.Trim()
+            };
+            settings.LoginData = loginData;
+            settings.LanguageId = textBoxLanguageId.Text.Trim();
+            SerializeSettings();
         }
 
         /// <summary>
@@ -347,9 +390,9 @@ namespace jeza.Travian.GameCenter
             //}
         }
 
-        private void SetDataSource(DataGridView field, ArrayList list)
+        private static void SetDataSource(DataGridView field, ArrayList list)
         {
-            dataGridViewMap.DataSource = list;
+            field.DataSource = list;
         }
 
         /// <summary>
@@ -406,6 +449,12 @@ namespace jeza.Travian.GameCenter
             //    }
             //    UpdateStatus("Finished");
             //    Invoke(new MethodInvoker(EnableButton));
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            DateTime t = DateTime.Now;
+            labelDateTime.Text = t.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         /// <summary>
