@@ -18,9 +18,9 @@ namespace jeza.Travian.Tests
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.Load("..\\..\\Test Files\\karte.php.html");
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            List<Neighborhood> neighborhood = htmlParser.GetVillagesFromMap();
-            Assert.IsNotNull(neighborhood, "Neighborhood is null!");
-            Assert.AreEqual(4, neighborhood.Count, "Villages count!");
+            List<Valley> valleys = htmlParser.GetVillagesFromMap();
+            Assert.IsNotNull(valleys, "valleys is null!");
+            Assert.AreEqual(4, valleys.Count, "Valleys count!");
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace jeza.Travian.Tests
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.Load("..\\..\\Test Files\\karte.php.html");
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            List<Oases> oases = htmlParser.GetOasesFromMap();
+            List<Valley> oases = htmlParser.GetOasesFromMap();
             Assert.AreEqual(7, oases.Count, "Oases count!");
         }
         [Test]
@@ -38,16 +38,16 @@ namespace jeza.Travian.Tests
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.Load("..\\..\\Test Files\\village.php.html");
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            Neighborhood village = htmlParser.GetVillageDetails();
-            Assert.IsNotNull(village, "village is null!");
-            Assert.AreEqual("gajo123", village.VillageName, "VillageName!");
-            Assert.AreEqual(-80, village.X, "X coordinate!");
-            Assert.AreEqual(67, village.Y, "Y coordinate!");
-            Assert.AreEqual("allianz.php?aid=0", village.AllianceUrl, "Alliance url!");
-            Assert.AreEqual("", village.AllianceName, "Alliance name!");
-            Assert.AreEqual("novakm", village.PlayerName, "Player name!");
-            Assert.AreEqual("spieler.php?uid=11436", village.PlayerUrl, "Player url!");
-            Assert.AreEqual(36, village.VillagePopulation, "Village Population!");
+            Valley valley = htmlParser.GetVillageDetails();
+            Assert.IsNotNull(valley, "valley is null!");
+            Assert.AreEqual("gajo123", valley.VillageName, "VillageName!");
+            Assert.AreEqual(-80, valley.X, "X coordinate!");
+            Assert.AreEqual(67, valley.Y, "Y coordinate!");
+            Assert.AreEqual("allianz.php?aid=0", valley.AllianceUrl, "Alliance url!");
+            Assert.AreEqual("", valley.AllianceName, "Alliance name!");
+            Assert.AreEqual("novakm", valley.PlayerName, "Player name!");
+            Assert.AreEqual("spieler.php?uid=11436", valley.PlayerUrl, "Player url!");
+            Assert.AreEqual(36, valley.VillagePopulation, "Village Population!");
         }
     }
 }

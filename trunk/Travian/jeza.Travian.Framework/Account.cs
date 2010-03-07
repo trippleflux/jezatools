@@ -11,19 +11,13 @@ namespace jeza.Travian.Framework
         /// Gets the id.
         /// </summary>
         /// <value>The id.</value>
-        public int Id
-        {
-            get { return id; }
-        }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
-        public string Name
-        {
-            get { return name; }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets the tribeType.
@@ -49,7 +43,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Account AddName(string accountName)
         {
-            name = accountName;
+            Name = accountName;
             return this;
         }
 
@@ -60,7 +54,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Account AddId(int accountId)
         {
-            id = accountId;
+            Id = accountId;
             return this;
         }
 
@@ -116,8 +110,6 @@ namespace jeza.Travian.Framework
         }
 
         private readonly List<Village> villages = new List<Village>();
-        private string name;
-        private int id;
         private TribeTypes tribeType;
     }
 }

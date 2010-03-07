@@ -2,6 +2,7 @@
 
 using System;
 using System.Xml.Serialization;
+using jeza.Travian.Framework;
 
 #endregion
 
@@ -13,6 +14,9 @@ namespace jeza.Travian.GameCenter
     {
         [XmlElement(ElementName = "login")]
         public Login LoginData { get; set; }
+
+        [XmlElement(ElementName = "Account")]
+        public Account Account { get; set; }
     }
 
     [Serializable]

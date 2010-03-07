@@ -1,6 +1,6 @@
 namespace jeza.Travian.Framework
 {
-    public class Neighborhood
+    public class Valley
     {
         public string AllianceName
         {
@@ -37,6 +37,12 @@ namespace jeza.Travian.Framework
             get { return villageUrl; }
         }
 
+        public ValleyType ValleyType
+        {
+            get { return valleyType; }
+            set { valleyType = value; }
+        }
+
         public int X
         {
             get { return x; }
@@ -53,7 +59,7 @@ namespace jeza.Travian.Framework
         /// <param name="name">The name.</param>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
-        public Neighborhood AddAlliance(string name, string url)
+        public Valley AddAlliance(string name, string url)
         {
             allianceName = name;
             allianceUrl = url;
@@ -63,13 +69,13 @@ namespace jeza.Travian.Framework
         /// <summary>
         /// Adds the coordinates of the village.
         /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
+        /// <param name="xCoords">The x.</param>
+        /// <param name="yCoords">The y.</param>
         /// <returns></returns>
-        public Neighborhood AddCoordinates(int x, int y)
+        public Valley AddCoordinates(int xCoords, int yCoords)
         {
-            this.x = x;
-            this.y = y;
+            x = xCoords;
+            y = yCoords;
             return this;
         }
 
@@ -78,7 +84,7 @@ namespace jeza.Travian.Framework
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns></returns>
-        public Neighborhood AddName(string name)
+        public Valley AddName(string name)
         {
             villageName = name;
             return this;
@@ -90,7 +96,7 @@ namespace jeza.Travian.Framework
         /// <param name="name">The name.</param>
         /// <param name="url">The url to profile.</param>
         /// <returns></returns>
-        public Neighborhood AddPlayer(string name, string url)
+        public Valley AddPlayer(string name, string url)
         {
             playerName = name;
             playerUrl = url;
@@ -102,7 +108,7 @@ namespace jeza.Travian.Framework
         /// </summary>
         /// <param name="count">The count.</param>
         /// <returns></returns>
-        public Neighborhood AddPopulation(int count)
+        public Valley AddPopulation(int count)
         {
             villagePopulation = count;
             return this;
@@ -113,9 +119,20 @@ namespace jeza.Travian.Framework
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <returns></returns>
-        public Neighborhood AddUrl(string url)
+        public Valley AddUrl(string url)
         {
             villageUrl = url;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        public Valley AddType(ValleyType type)
+        {
+            valleyType = type;
             return this;
         }
 
@@ -123,6 +140,7 @@ namespace jeza.Travian.Framework
         private string allianceUrl;
         private string playerName;
         private string playerUrl;
+        private ValleyType valleyType;
         private string villageName;
         private int villagePopulation;
         private string villageUrl;
