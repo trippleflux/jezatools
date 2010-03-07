@@ -2,56 +2,16 @@ namespace jeza.Travian.Framework
 {
     public class Valley
     {
-        public string AllianceName
-        {
-            get { return allianceName; }
-        }
-
-        public string AllianceUrl
-        {
-            get { return allianceUrl; }
-        }
-
-        public string PlayerName
-        {
-            get { return playerName; }
-        }
-
-        public string PlayerUrl
-        {
-            get { return playerUrl; }
-        }
-
-        public string VillageName
-        {
-            get { return villageName; }
-        }
-
-        public int VillagePopulation
-        {
-            get { return villagePopulation; }
-        }
-
-        public string VillageUrl
-        {
-            get { return villageUrl; }
-        }
-
-        public ValleyType ValleyType
-        {
-            get { return valleyType; }
-            set { valleyType = value; }
-        }
-
-        public int X
-        {
-            get { return x; }
-        }
-
-        public int Y
-        {
-            get { return y; }
-        }
+        public string Alliance { get; set; }
+        public string AllianceUrl { get; set; }
+        public string Player { get; set; }
+        public string PlayerUrl { get; set; }
+        public string Name { get; set; }
+        public int Population { get; set; }
+        public string VillageUrl { get; set; }
+        public ValleyType ValleyType { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         /// <summary>
         /// Adds the alliance data.
@@ -61,8 +21,8 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddAlliance(string name, string url)
         {
-            allianceName = name;
-            allianceUrl = url;
+            Alliance = name;
+            AllianceUrl = url;
             return this;
         }
 
@@ -74,8 +34,8 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddCoordinates(int xCoords, int yCoords)
         {
-            x = xCoords;
-            y = yCoords;
+            X = xCoords;
+            Y = yCoords;
             return this;
         }
 
@@ -86,7 +46,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddName(string name)
         {
-            villageName = name;
+            Name = name;
             return this;
         }
 
@@ -98,8 +58,8 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddPlayer(string name, string url)
         {
-            playerName = name;
-            playerUrl = url;
+            Player = name;
+            PlayerUrl = url;
             return this;
         }
 
@@ -110,7 +70,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddPopulation(int count)
         {
-            villagePopulation = count;
+            Population = count;
             return this;
         }
 
@@ -121,7 +81,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddUrl(string url)
         {
-            villageUrl = url;
+            VillageUrl = url;
             return this;
         }
 
@@ -132,19 +92,8 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Valley AddType(ValleyType type)
         {
-            valleyType = type;
+            ValleyType = type;
             return this;
         }
-
-        private string allianceName;
-        private string allianceUrl;
-        private string playerName;
-        private string playerUrl;
-        private ValleyType valleyType;
-        private string villageName;
-        private int villagePopulation;
-        private string villageUrl;
-        private int x;
-        private int y;
     }
 }

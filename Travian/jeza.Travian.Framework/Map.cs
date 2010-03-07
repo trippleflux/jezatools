@@ -1,6 +1,8 @@
 #region
 
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 #endregion
 
@@ -8,6 +10,31 @@ namespace jeza.Travian.Framework
 {
     public class Map
     {
+        public void DeserializeValleys()
+        {
+            if (File.Exists(ValleysXml))
+            {
+                using (FileStream fileStream = new FileStream(ValleysXml, FileMode.Open))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Valley>));
+                    valleys = (List<Valley>)xmlSerializer.Deserialize(fileStream);
+                }
+            }
+            else
+            {
+                SerializeValleys();
+            }
+        }
+
+        public void SerializeValleys()
+        {
+            using(TextWriter textWriter = new StreamWriter(ValleysXml))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Valley>));
+                xmlSerializer.Serialize(textWriter, valleys);
+            }
+        }
+
         public List<Valley> Valleys
         {
             get { return valleys; }
@@ -31,6 +58,7 @@ namespace jeza.Travian.Framework
             valleys.AddRange(valleyList);
         }
 
-        private readonly List<Valley> valleys = new List<Valley>();
+        private List<Valley> valleys = new List<Valley>();
+        const string ValleysXml = "Valleys.xml";
     }
 }
