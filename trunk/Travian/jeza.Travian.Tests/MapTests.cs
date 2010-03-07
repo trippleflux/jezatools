@@ -32,6 +32,7 @@ namespace jeza.Travian.Tests
             List<Valley> oases = htmlParser.GetOasesFromMap();
             Assert.AreEqual(7, oases.Count, "Oases count!");
         }
+
         [Test]
         public void VillageInfo()
         {
@@ -40,14 +41,46 @@ namespace jeza.Travian.Tests
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
             Valley valley = htmlParser.GetVillageDetails();
             Assert.IsNotNull(valley, "valley is null!");
-            Assert.AreEqual("gajo123", valley.VillageName, "VillageName!");
+            Assert.AreEqual("gajo123", valley.Name, "Name!");
             Assert.AreEqual(-80, valley.X, "X coordinate!");
             Assert.AreEqual(67, valley.Y, "Y coordinate!");
             Assert.AreEqual("allianz.php?aid=0", valley.AllianceUrl, "Alliance url!");
-            Assert.AreEqual("", valley.AllianceName, "Alliance name!");
-            Assert.AreEqual("novakm", valley.PlayerName, "Player name!");
+            Assert.AreEqual("", valley.Alliance, "Alliance name!");
+            Assert.AreEqual("novakm", valley.Player, "Player name!");
             Assert.AreEqual("spieler.php?uid=11436", valley.PlayerUrl, "Player url!");
-            Assert.AreEqual(36, valley.VillagePopulation, "Village Population!");
+            Assert.AreEqual(36, valley.Population, "Village Population!");
+        }
+
+        [Test]
+        public void UnoccupiedOasisInfo()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\karte.unoccupied.oases.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Valley valley = htmlParser.GetOasesDetails();
+            Assert.IsNotNull(valley, "valley is null!");
+            Assert.AreEqual(-85, valley.X, "X coordinate!");
+            Assert.AreEqual(61, valley.Y, "Y coordinate!");
+            Assert.AreEqual("+25% zeleza na uro", valley.Name, "Name");
+            Assert.AreEqual("Nezasedena pokrajina", valley.Alliance, "Alliance");
+            Assert.AreEqual("Nezasedena pokrajina", valley.Player, "Player");
+            Assert.AreEqual(ValleyType.UnoccupiedOasis, valley.ValleyType, "ValleyType.UnoccupiedOasis");
+        }
+
+        [Test]
+        public void OccupiedOasisInfo()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\karte.ocupied.oases.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Valley valley = htmlParser.GetOasesDetails();
+            Assert.IsNotNull(valley, "valley is null!");
+            Assert.AreEqual(-85, valley.X, "X coordinate!");
+            Assert.AreEqual(59, valley.Y, "Y coordinate!");
+            Assert.AreEqual("Thor[+25% zita na uro]", valley.Name, "Name");
+            Assert.AreEqual("LegacyTM", valley.Alliance, "Alliance");
+            Assert.AreEqual("Olaf", valley.Player, "Player");
+            Assert.AreEqual(ValleyType.OccupiedOasis, valley.ValleyType, "ValleyType.UnoccupiedOasis");
         }
     }
 }

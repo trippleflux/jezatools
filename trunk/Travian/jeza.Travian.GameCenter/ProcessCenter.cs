@@ -26,6 +26,7 @@ namespace jeza.Travian.GameCenter
             settings = new Settings();
             account = new Account();
             map = new Map();
+            map.DeserializeValleys();
             DeserializeSettings();
             htmlWeb.UseCookies = true;
         }
@@ -35,6 +36,11 @@ namespace jeza.Travian.GameCenter
         private void buttonBrowserGo_Click(object sender, EventArgs e)
         {
             webBrowser.Navigate(settings.LoginData.Servername);
+        }
+
+        private void buttonMapPopulate_Click(object sender, EventArgs e)
+        {
+            PopulateMap();
         }
 
         private void buttonMapUpdate_Click(object sender, EventArgs e)
@@ -98,16 +104,23 @@ namespace jeza.Travian.GameCenter
         /// </summary>
         private void DeserializeSettings()
         {
-            if (File.Exists(settingsXml))
+            if (File.Exists(SettingsXml))
             {
-                using (FileStream fileStream = new FileStream(settingsXml, FileMode.Open))
+                using (FileStream fileStream = new FileStream(SettingsXml, FileMode.Open))
                 {
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
                     settings = (Settings) xmlSerializer.Deserialize(fileStream);
                 }
-                textBoxServer.Text = settings.LoginData.Servername;
-                textBoxUsername.Text = settings.LoginData.Username;
-                textBoxPassword.Text = settings.LoginData.Password;
+                if (settings.LoginData == null)
+                {
+                    SerializeSettings();
+                }
+                else
+                {
+                    textBoxServer.Text = settings.LoginData.Servername;
+                    textBoxUsername.Text = settings.LoginData.Username;
+                    textBoxPassword.Text = settings.LoginData.Password;
+                }
             }
             else
             {
@@ -117,25 +130,35 @@ namespace jeza.Travian.GameCenter
 
         private void DisableButtons()
         {
+            DisableMapButtons();
+            UpdateButtonStatus(buttonUpdateRallyPoint, false);
+        }
+
+        private void DisableMapButtons()
+        {
             UpdateButtonStatus(buttonMapUpdate, false);
             UpdateButtonStatus(buttonMapPopulate, false);
-            UpdateButtonStatus(buttonUpdateRallyPoint, false);
         }
 
         private void EnableButtons()
         {
+            EnableMapButtons();
+            UpdateButtonStatus(buttonUpdateRallyPoint, true);
+        }
+
+        private void EnableMapButtons()
+        {
             UpdateButtonStatus(buttonMapUpdate, true);
             UpdateButtonStatus(buttonMapPopulate, true);
-            UpdateButtonStatus(buttonUpdateRallyPoint, true);
         }
 
         private void GetMapInfo(Village selectedVillage)
         {
-            map.Valleys.Clear();
-            UpdateButtonStatus(buttonMapUpdate, false);
+            DisableMapButtons();
             int x = selectedVillage.CoordinateX;
             int y = selectedVillage.CoordinateY;
             int distance = Misc.String2Number(textBoxMapDistance.Text.Trim());
+            map.Valleys.Clear();
             if (distance < 2)
             {
                 GetMapInfoAt(x, y);
@@ -160,35 +183,45 @@ namespace jeza.Travian.GameCenter
                     }
                 }
             }
-            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Map {0}", map.Valleys.Count));
-            ArrayList list = new ArrayList();
-            list.AddRange(map.Valleys);
-            if (dataGridViewMap.InvokeRequired)
-            {
-                SetDataGridViewDataBind d = SetDataSource;
-                Invoke(d, new object[] {dataGridViewMap, list});
-            }
-            else
-            {
-                dataGridViewMap.DataSource = list;
-            }
-            UpdateButtonStatus(buttonMapUpdate, true);
+            //UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Valleys count: {0}", map.Valleys.Count));
+            map.SerializeValleys();
+            EnableMapButtons();
         }
 
         private void GetMapInfoAt(int x, int y)
         {
             string servername = settings.LoginData.Servername;
-            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Get villages around ({0}|{1})", x, y));
             string url = String.Format(CultureInfo.InvariantCulture, "{0}karte.php?xp={1}&yp={2}&s1.x=32&s1.y=11&s1=ok",
                                        servername, x, y);
             htmlDocument = htmlWeb.Load(url);
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            List<Valley> villages = htmlParser.GetVillagesFromMap();
-            List<Valley> oases = htmlParser.GetOasesFromMap();
-            map.AddVillages(villages);
-            map.AddVillages(oases);
-            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {0} villages", villages.Count));
-            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {0} oases", oases.Count));
+            List<Valley> villagesFromMap = htmlParser.GetVillagesFromMap();
+            List<Valley> oasesFromMap = htmlParser.GetOasesFromMap();
+            List<Valley> updatedValleys = new List<Valley>();
+            //List<Valley> existingValleys = map.Valleys;
+            foreach (Valley valley in villagesFromMap)
+            {
+                url = String.Format(CultureInfo.InvariantCulture, "{0}{1}", servername, valley.VillageUrl);
+                htmlDocument = htmlWeb.Load(url);
+                htmlParser = new HtmlParser(htmlDocument);
+                Valley villageDetails = htmlParser.GetVillageDetails();
+                villageDetails
+                    .AddUrl(valley.VillageUrl)
+                    .AddType(ValleyType.Village);
+                updatedValleys.Add(villageDetails);
+            }
+            foreach (Valley valley in oasesFromMap)
+            {
+                url = String.Format(CultureInfo.InvariantCulture, "{0}{1}", servername, valley.VillageUrl);
+                htmlDocument = htmlWeb.Load(url);
+                htmlParser = new HtmlParser(htmlDocument);
+                Valley oasesDetails = htmlParser.GetOasesDetails();
+                updatedValleys.Add(oasesDetails);
+            }
+            map.AddVillages(updatedValleys);
+            //map.AddVillages(oasesFromMap);
+            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {2} villages and {3} oases around ({0}|{1})",
+                                       x, y, updatedValleys.Count, oasesFromMap.Count));
         }
 
         /// <summary>
@@ -242,12 +275,44 @@ namespace jeza.Travian.GameCenter
             return isLogedIn;
         }
 
+        private void PopulateMap()
+        {
+            ArrayList list = new ArrayList();
+            foreach (Valley valley in map.Valleys)
+            {
+                if (checkBoxUnoccupiedOasis.Checked && valley.ValleyType==ValleyType.UnoccupiedOasis)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxMapOccupiedOasis.Checked && valley.ValleyType == ValleyType.OccupiedOasis)
+                {
+                    list.Add(valley);
+                }
+                else
+                {
+                    if (valley.ValleyType == ValleyType.Village)
+                    {
+                        list.Add(valley);
+                    }
+                }
+            }
+            if (dataGridViewMap.InvokeRequired)
+            {
+                SetDataGridViewDataBind d = SetDataSource;
+                Invoke(d, new object[] { dataGridViewMap, list });
+            }
+            else
+            {
+                dataGridViewMap.DataSource = list;
+            }
+        }
+
         /// <summary>
         /// Saves settnigs to XML.
         /// </summary>
         private void SerializeSettings()
         {
-            using (FileStream fileStream = new FileStream(settingsXml, FileMode.OpenOrCreate))
+            using (FileStream fileStream = new FileStream(SettingsXml, FileMode.OpenOrCreate))
             {
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
                 xmlSerializer.Serialize(fileStream, settings);
@@ -352,8 +417,6 @@ namespace jeza.Travian.GameCenter
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
             List<Village> villages = htmlParser.GetAvailableVillages();
             account.AddVillages(villages);
-            settings.Account = account;
-            SerializeSettings();
             UpdateComboBoxVillages(comboBoxMapVillages);
             UpdateComboBoxVillages(comboBoxRallyPointVillages);
         }

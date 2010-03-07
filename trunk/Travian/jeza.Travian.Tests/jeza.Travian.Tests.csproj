@@ -83,7 +83,9 @@
     <Content Include="Test Files\dorf1.php.html" />
     <Content Include="Test Files\dorf2.php.html" />
     <Content Include="Test Files\empty.php.html" />
+    <Content Include="Test Files\karte.ocupied.oases.php.html" />
     <Content Include="Test Files\karte.php.html" />
+    <Content Include="Test Files\karte.unoccupied.oases.php.html" />
     <Content Include="Test Files\Marketplace.php.html" />
     <Content Include="Test Files\RallyPoint.php.html" />
     <Content Include="Test Files\village.php.html" />

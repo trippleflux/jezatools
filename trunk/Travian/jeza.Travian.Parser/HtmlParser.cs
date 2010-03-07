@@ -58,6 +58,100 @@ namespace jeza.Travian.Parser
             return villages;
         }
 
+        public List<Valley> GetOasesFromMap()
+        {
+            return GetValleys('o', ValleyType.UnoccupiedOasis);
+        }
+
+        /// <summary>
+        /// Gets the oases details.
+        /// </summary>
+        /// <returns><see cref="Valley"/></returns>
+        public Valley GetOasesDetails()
+        {
+            Valley valley = new Valley();
+            HtmlNode nodeHead = htmlDocument.DocumentNode.SelectSingleNode("//h1");
+            if (nodeHead != null)
+            {
+                string innerText = nodeHead.InnerText.Trim();
+                int indexOf = innerText.LastIndexOf('(');
+                if (indexOf > -1)
+                {
+                    string name = innerText.Substring(0, indexOf - 1);
+                    string coordinates = innerText.Substring(indexOf).Trim();
+                    string[] strings = coordinates.Split('|', '(', ')');
+                    int coordinateX = Misc.String2Number(strings[1]);
+                    int coordinateY = Misc.String2Number(strings[2]);
+                    valley
+                        .AddName(name)
+                        .AddCoordinates(coordinateX, coordinateY)
+                        .AddAlliance(name, "")
+                        .AddPlayer(name, "")
+                        .AddPopulation(0)
+                        .AddType(ValleyType.UnoccupiedOasis);
+                }
+            }
+            //<img src="img/x.gif" id="detailed_map" class="w8" alt="+25% železa na uro" title="+25% železa na uro" />
+            HtmlNode nodeInfo = htmlDocument.DocumentNode.SelectSingleNode("//img[@id='detailed_map']");
+            if (nodeInfo!=null)
+            {
+                valley.AddName(nodeInfo.Attributes["title"].Value.Trim());
+            }
+            //<table cellpadding="1" cellspacing="1" id="village_info" class="tableNone">
+            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//table[@id='village_info']");
+            if (nodes != null)
+            {
+                HtmlNode alliance = nodes[0].SelectSingleNode("./tr[1]/td/a");
+                string allianceUrl = alliance.Attributes["href"].Value;
+                string allianceName = alliance.InnerText.Trim();
+                HtmlNode player = nodes[0].SelectSingleNode("./tr[2]/td/a");
+                string playerUrl = player.Attributes["href"].Value;
+                string playerName = player.InnerText.Trim();
+                HtmlNode village = nodes[0].SelectSingleNode("./tr[3]/td/a");
+                string villageName = String.Format(CultureInfo.InvariantCulture, "{0}[{1}]", village.InnerText.Trim(), valley.Name);
+                valley
+                    .AddName(villageName)
+                    .AddAlliance(allianceName, allianceUrl)
+                    .AddPlayer(playerName, playerUrl)
+                    .AddType(ValleyType.OccupiedOasis);
+            }
+            return valley;
+        }
+
+        private List<Valley> GetValleys(char prefix, ValleyType valleyType)
+        {
+            //o1 : +25%wood
+            //o2 : +25%wood
+            //o3 : +25%wood, +25%crop
+            //o4 : +25%clay
+            //o5 : +25%clay
+            //o6 : +25%clay, +25%crop
+            //o7 : +25%iron
+            //o8 : +25%iron
+            //o9 : +25%iron, +25%crop
+            //o10 : +25%crop
+            //o11 : +25%crop
+            //o12 : +50%crop
+
+            List<Valley> valleys = new List<Valley>();
+            List<string> table = new List<string>();
+            FillTable(table, prefix);
+            foreach (string list in table)
+            {
+                //<area id="a_0_0" shape="poly" coords="53, 137, 90, 157, 53, 177, 16, 157" title="Nezasedena pokrajina" href="karte.php?d=273457&c=e4" />
+                HtmlNodeCollection areaNode =
+                    htmlDocument.DocumentNode.SelectNodes(String.Format(CultureInfo.InvariantCulture,
+                                                                        "//area[@id='{0}']", list));
+                Valley oases = new Valley();
+                oases
+                    .AddName(areaNode[0].Attributes["title"].Value)
+                    .AddUrl(areaNode[0].Attributes["href"].Value)
+                    .AddType(valleyType);
+                valleys.Add(oases);
+            }
+            return valleys;
+        }
+
         /// <summary>
         /// Gets the village details.
         /// </summary>
@@ -93,46 +187,6 @@ namespace jeza.Travian.Parser
                     .AddPopulation(villagePopulation);
             }
             return valley;
-        }
-
-        public List<Valley> GetOasesFromMap()
-        {
-            return GetValleys('o', ValleyType.UnoccupiedOasis);
-        }
-
-        //private Dictionary<string , string> oasesTable = new Dictionary<string, string>();
-        //o1 : +25%wood
-        //o2 : +25%wood
-        //o3 : +25%wood, +25%crop
-        //o4 : +25%clay
-        //o5 : +25%clay
-        //o6 : +25%clay, +25%crop
-        //o7 : +25%iron
-        //o8 : +25%iron
-        //o9 : +25%iron, +25%crop
-        //o10 : +25%crop
-        //o11 : +25%crop
-        //o12 : +50%crop
-
-        private List<Valley> GetValleys(char prefix, ValleyType valleyType)
-        {
-            List<Valley> valleys = new List<Valley>();
-            List<string> table = new List<string>();
-            FillTable(table, prefix);
-            foreach (string list in table)
-            {
-                //<area id="a_0_0" shape="poly" coords="53, 137, 90, 157, 53, 177, 16, 157" title="Nezasedena pokrajina" href="karte.php?d=273457&c=e4" />
-                HtmlNodeCollection areaNode =
-                    htmlDocument.DocumentNode.SelectNodes(String.Format(CultureInfo.InvariantCulture,
-                                                                        "//area[@id='{0}']", list));
-                Valley oases = new Valley();
-                oases
-                    .AddName(areaNode[0].Attributes["title"].Value)
-                    .AddUrl(areaNode[0].Attributes["href"].Value)
-                    .AddType(valleyType);
-                valleys.Add(oases);
-            }
-            return valleys;
         }
 
         /// <summary>
