@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -11,6 +13,8 @@ using HtmlAgilityPack;
 using jeza.Travian.Framework;
 using jeza.Travian.Parser;
 using HtmlDocument=HtmlAgilityPack.HtmlDocument;
+
+#endregion
 
 namespace jeza.Travian.GameCenter
 {
@@ -67,6 +71,16 @@ namespace jeza.Travian.GameCenter
                 Hide();
         }
 
+        private void tabControl_Click(object sender, EventArgs e)
+        {
+            comboBoxMapVillages.Items.Clear();
+            foreach (Village village in account.Villages)
+            {
+                comboBoxMapVillages.Items.Add(village);
+            }
+            comboBoxMapVillages.SelectedItem = comboBoxMapVillages.Items[0];
+        }
+
         private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             //HtmlDocument htmlDocument = webBrowser.Document;
@@ -99,8 +113,8 @@ namespace jeza.Travian.GameCenter
 
         private void GetMapInfo(Village selectedVillage)
         {
-            map.Neighborhood.Clear();
-            buttonMapUpdate.Enabled = false;
+            map.Valleys.Clear();
+            UpdateButtonStatus(buttonMapUpdate, false);
             int x = selectedVillage.CoordinateX;
             int y = selectedVillage.CoordinateY;
             int distance = Misc.String2Number(textBoxMapDistance.Text.Trim());
@@ -116,23 +130,36 @@ namespace jeza.Travian.GameCenter
                     {
                         continue;
                     }
-                    int size = 7 * i;
+                    int size = 7*i;
                     for (int j = (1 - distance); j < distance; j++)
                     {
                         for (int k = (1 - distance); k < distance; k++)
                         {
-                            int distX = size * k;
-                            int distY = size * j;
+                            int distX = size*k;
+                            int distY = size*j;
                             GetMapInfoAt(x + distX, y + distY);
                         }
                     }
                 }
             }
-            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Map {0}", map.Neighborhood.Count));
+            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Map {0}", map.Valleys.Count));
             ArrayList list = new ArrayList();
-            list.AddRange(map.Neighborhood);
+            list.AddRange(map.Valleys);
+            if (dataGridViewMap.InvokeRequired)
+            {
+                SetDataGridViewDataBind d = SetDataSource;
+                Invoke(d, new object[] {dataGridViewMap, list});
+            }
+            else
+            {
+                dataGridViewMap.DataSource = list;
+            }
+            UpdateButtonStatus(buttonMapUpdate, true);
+        }
+
+        private void SetDataSource(DataGridView field, ArrayList list)
+        {
             dataGridViewMap.DataSource = list;
-            buttonMapUpdate.Enabled = true;
         }
 
         private void GetMapInfoAt(int x, int y)
@@ -143,14 +170,12 @@ namespace jeza.Travian.GameCenter
                                        servername, x, y);
             htmlDocument = htmlWeb.Load(url);
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            List<Neighborhood> neighborhood = htmlParser.GetVillagesFromMap();
-            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {0} villages", neighborhood.Count));
-            if (checkBoxOases.Checked)
-            {
-                List<Oases> oases = htmlParser.GetOasesFromMap();
-                UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {0} oases", oases.Count));
-            }
-            map.AddVillages(neighborhood);
+            List<Valley> villages = htmlParser.GetVillagesFromMap();
+            List<Valley> oases = htmlParser.GetOasesFromMap();
+            map.AddVillages(villages);
+            map.AddVillages(oases);
+            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {0} villages", villages.Count));
+            UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {0} oases", oases.Count));
         }
 
         /// <summary>
@@ -264,7 +289,7 @@ namespace jeza.Travian.GameCenter
                     }
                 }
                 UpdateAccountInfo();
-                UpdateGuiElements();
+                //UpdateGuiElements();
                 Thread.Sleep(300000);
             }
             botActive = false;
@@ -308,21 +333,33 @@ namespace jeza.Travian.GameCenter
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
             List<Village> villages = htmlParser.GetAvailableVillages();
             account.AddVillages(villages);
+            settings.Account = account;
+            SerializeSettings();
         }
 
-        /// <summary>
-        /// Updates the GUI elements.
-        /// </summary>
-        private void UpdateGuiElements()
+        private void UpdateButtonStatus(Button button, bool enabled)
         {
-            UpdateStatus("UpdateGuiElements");
-            comboBoxMapVillages.Items.Clear();
-            foreach (Village village in account.Villages)
+            if (InvokeRequired)
             {
-                comboBoxMapVillages.Items.Add(village);
+                BeginInvoke(new SetButtonStatus(UpdateButtonStatus), button, enabled);
+                return;
             }
-            comboBoxMapVillages.SelectedItem = comboBoxMapVillages.Items[0];
+            button.Enabled = enabled;
         }
+
+        ///// <summary>
+        ///// Updates the GUI elements.
+        ///// </summary>
+        //private void UpdateGuiElements()
+        //{
+        //    UpdateStatus("UpdateGuiElements");
+        //    comboBoxMapVillages.Items.Clear();
+        //    foreach (Village village in account.Villages)
+        //    {
+        //        comboBoxMapVillages.Items.Add(village);
+        //    }
+        //    comboBoxMapVillages.SelectedItem = comboBoxMapVillages.Items[0];
+        //}
 
         /// <summary>
         /// Writes message to status text box.

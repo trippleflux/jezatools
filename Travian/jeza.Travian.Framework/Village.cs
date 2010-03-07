@@ -8,6 +8,7 @@ using System.Globalization;
 
 namespace jeza.Travian.Framework
 {
+    [Serializable]
     public class Village
     {
         /// <summary>
@@ -16,44 +17,33 @@ namespace jeza.Travian.Framework
         /// <value>The coordinates.</value>
         public string Coordinates
         {
-            get { return String.Format(CultureInfo.InvariantCulture, "({0}|{1})", coordinateX, coordinateY); }
+            get { return String.Format(CultureInfo.InvariantCulture, "({0}|{1})", CoordinateX, CoordinateY); }
         }
 
         /// <summary>
         /// Gets the coordinate X.
         /// </summary>
         /// <value>The coordinate X.</value>
-        public int CoordinateX
-        {
-            get { return coordinateX; }
-        }
+        public int CoordinateX { get; set; }
+
 
         /// <summary>
         /// Gets the coordinate Y.
         /// </summary>
         /// <value>The coordinate Y.</value>
-        public int CoordinateY
-        {
-            get { return coordinateY; }
-        }
+        public int CoordinateY { get; set; }
 
         /// <summary>
         /// Gets the id of the village.
         /// </summary>
         /// <value>The id.</value>
-        public int Id
-        {
-            get { return id; }
-        }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets the name of the village.
         /// </summary>
         /// <value>The name.</value>
-        public string Name
-        {
-            get { return name; }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets the own attacks countin village.
@@ -111,7 +101,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Village AddId(int villageId)
         {
-            id = villageId;
+            Id = villageId;
             return this;
         }
 
@@ -122,7 +112,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Village AddName(string villageName)
         {
-            name = villageName;
+            Name = villageName;
             return this;
         }
 
@@ -167,8 +157,8 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public Village UpdateCoordinates(int x, int y)
         {
-            coordinateX = x;
-            coordinateY = y;
+            CoordinateX = x;
+            CoordinateY = y;
             return this;
         }
 
@@ -209,14 +199,10 @@ namespace jeza.Travian.Framework
 
         public override string ToString()
         {
-            return string.Format(name);
+            return string.Format(Name);
         }
 
-        private int id;
-        private string name;
         private Production production;
-        private int coordinateX;
-        private int coordinateY;
         private List<TroopMovement> troopMovement = new List<TroopMovement>();
         private Troops troopsAvailable;
     }

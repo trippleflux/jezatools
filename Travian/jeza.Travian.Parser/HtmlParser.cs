@@ -61,10 +61,10 @@ namespace jeza.Travian.Parser
         /// <summary>
         /// Gets the village details.
         /// </summary>
-        /// <returns><see cref="Neighborhood"/></returns>
-        public Neighborhood GetVillageDetails()
+        /// <returns><see cref="Valley"/></returns>
+        public Valley GetVillageDetails()
         {
-            Neighborhood neighborhood = new Neighborhood();
+            Valley valley = new Valley();
             HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//table[@id='village_info']");
             if (nodes != null)
             {
@@ -85,32 +85,19 @@ namespace jeza.Travian.Parser
                 string playerName = player.InnerText.Trim();
                 HtmlNode population = nodes[0].SelectSingleNode("./tbody/tr[4]/td");
                 int villagePopulation = Misc.String2Number(population.InnerText.Trim());
-                neighborhood
+                valley
                     .AddName(villageName)
                     .AddCoordinates(coordinateX, coordinateY)
                     .AddAlliance(allianceName, allianceUrl)
                     .AddPlayer(playerName, playerUrl)
                     .AddPopulation(villagePopulation);
             }
-            return neighborhood;
+            return valley;
         }
 
-        public List<Oases> GetOasesFromMap()
+        public List<Valley> GetOasesFromMap()
         {
-            List<Oases> oasesList = new List<Oases>();
-            List<string> table = new List<string>();
-            FillTable(table, 'o');
-            foreach (string list in table)
-            {
-                //<area id="a_0_0" shape="poly" coords="53, 137, 90, 157, 53, 177, 16, 157" title="Nezasedena pokrajina" href="karte.php?d=273457&c=e4" />
-                HtmlNodeCollection areaNode =
-                    htmlDocument.DocumentNode.SelectNodes(String.Format(CultureInfo.InvariantCulture,
-                                                                        "//area[@id='{0}']", list));
-                Oases oases = new Oases();
-                oases.AddName(areaNode[0].Attributes["title"].Value).AddUrl(areaNode[0].Attributes["href"].Value);
-                oasesList.Add(oases);
-            }
-            return oasesList;
+            return GetValleys('o', ValleyType.UnoccupiedOasis);
         }
 
         //private Dictionary<string , string> oasesTable = new Dictionary<string, string>();
@@ -127,25 +114,33 @@ namespace jeza.Travian.Parser
         //o11 : +25%crop
         //o12 : +50%crop
 
-        /// <summary>
-        /// Parse villages from map field.
-        /// </summary>
-        public List<Neighborhood> GetVillagesFromMap()
+        private List<Valley> GetValleys(char prefix, ValleyType valleyType)
         {
-            List<Neighborhood> neighborhood = new List<Neighborhood>();
-            List<string> villages = new List<string>();
-            FillTable(villages, 'b');
-            foreach (string list in villages)
+            List<Valley> valleys = new List<Valley>();
+            List<string> table = new List<string>();
+            FillTable(table, prefix);
+            foreach (string list in table)
             {
                 //<area id="a_0_0" shape="poly" coords="53, 137, 90, 157, 53, 177, 16, 157" title="Nezasedena pokrajina" href="karte.php?d=273457&c=e4" />
                 HtmlNodeCollection areaNode =
                     htmlDocument.DocumentNode.SelectNodes(String.Format(CultureInfo.InvariantCulture,
                                                                         "//area[@id='{0}']", list));
-                Neighborhood village = new Neighborhood();
-                village.AddName(areaNode[0].Attributes["title"].Value).AddUrl(areaNode[0].Attributes["href"].Value);
-                neighborhood.Add(village);
+                Valley oases = new Valley();
+                oases
+                    .AddName(areaNode[0].Attributes["title"].Value)
+                    .AddUrl(areaNode[0].Attributes["href"].Value)
+                    .AddType(valleyType);
+                valleys.Add(oases);
             }
-            return neighborhood;
+            return valleys;
+        }
+
+        /// <summary>
+        /// Parse villages from map field.
+        /// </summary>
+        public List<Valley> GetVillagesFromMap()
+        {
+            return GetValleys('b', ValleyType.Village);
         }
 
         /// <summary>
@@ -224,11 +219,17 @@ namespace jeza.Travian.Parser
             {
                 foreach (HtmlNode mapContentNode in nodes)
                 {
-                    foreach (
-                        HtmlNode htmlNode in mapContentNode.SelectNodes(".//div[starts-with(@class, '" + prefix + "')]")
-                        )
+                    if (mapContentNode != null)
                     {
-                        table.Add("a" + htmlNode.Attributes["id"].Value.Substring(1));
+                        HtmlNodeCollection htmlNodeCollection =
+                            mapContentNode.SelectNodes(".//div[starts-with(@class, '" + prefix + "')]");
+                        if (htmlNodeCollection != null)
+                        {
+                            foreach (HtmlNode htmlNode in htmlNodeCollection)
+                            {
+                                if (htmlNode != null) table.Add("a" + htmlNode.Attributes["id"].Value.Substring(1));
+                            }
+                        }
                     }
                 }
             }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using HtmlAgilityPack;
@@ -91,7 +93,6 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mapBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.VillageName = new System.Windows.Forms.DataGridViewLinkColumn();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -150,6 +151,7 @@ namespace jeza.Travian.GameCenter
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1193, 722);
             this.tabControl.TabIndex = 0;
+            this.tabControl.Click += new System.EventHandler(this.tabControl_Click);
             // 
             // tabPageOverview
             // 
@@ -502,14 +504,13 @@ namespace jeza.Travian.GameCenter
             // 
             this.dataGridViewMap.AllowUserToAddRows = false;
             this.dataGridViewMap.AllowUserToDeleteRows = false;
+            this.dataGridViewMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.VillageName});
-            this.dataGridViewMap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewMap.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMap.Name = "dataGridViewMap";
             this.dataGridViewMap.ReadOnly = true;
-            this.dataGridViewMap.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
             // 
@@ -665,14 +666,6 @@ namespace jeza.Travian.GameCenter
             // 
             this.mapBindingSource.DataSource = typeof(jeza.Travian.Framework.Map);
             // 
-            // VillageName
-            // 
-            this.VillageName.DataPropertyName = "VillageName";
-            this.VillageName.HeaderText = "Village Name";
-            this.VillageName.Name = "VillageName";
-            this.VillageName.ReadOnly = true;
-            this.VillageName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // ProcessCenter
             // 
             this.ClientSize = new System.Drawing.Size(1193, 865);
@@ -752,12 +745,15 @@ namespace jeza.Travian.GameCenter
         
         readonly object stateLock = new object();
         private bool botActive;
-        delegate void StringParameterDelegate(string value);
         private readonly HtmlWeb htmlWeb = new HtmlWeb();
         private HtmlDocument htmlDocument;
         private Settings settings;
         private Account account;
         private Map map;
+
+        delegate void StringParameterDelegate(string value);
+        delegate void SetDataGridViewDataBind(DataGridView field, ArrayList list);
+        delegate void SetButtonStatus(Button button, bool enabled);
 
         private CheckBox checkBoxFarmsMiddleRisk;
         private CheckBox checkBoxFarmsLowRisk;
@@ -776,7 +772,6 @@ namespace jeza.Travian.GameCenter
         private Label labelUsername;
         private Button buttonOwerviewSave;
         private BindingSource mapBindingSource;
-        private DataGridViewLinkColumn VillageName;
     }
 }
 

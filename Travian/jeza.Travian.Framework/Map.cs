@@ -1,6 +1,5 @@
 #region
 
-using System;
 using System.Collections.Generic;
 
 #endregion
@@ -9,29 +8,29 @@ namespace jeza.Travian.Framework
 {
     public class Map
     {
-        public List<Neighborhood> Neighborhood
+        public List<Valley> Valleys
         {
-            get { return neighborhood; }
+            get { return valleys; }
         }
 
         /// <summary>
         /// Adds the villageto the list.
         /// </summary>
-        /// <param name="village">The village.</param>
-        public void AddVillage(Neighborhood village)
+        /// <param name="valley">The valley.</param>
+        public void AddVillage(Valley valley)
         {
-            neighborhood.Add(village);
+            valleys.Add(valley);
         }
 
         /// <summary>
         /// Adds the villages.
         /// </summary>
-        /// <param name="neighborhoods">The neighborhoods.</param>
-        public void AddVillages(List<Neighborhood> neighborhoods)
+        /// <param name="valleyList">The valleyList.</param>
+        public void AddVillages(List<Valley> valleyList)
         {
-            neighborhood.AddRange(neighborhoods);
+            valleys.AddRange(valleyList);
         }
 
-        private readonly List<Neighborhood> neighborhood = new List<Neighborhood>();
+        private readonly List<Valley> valleys = new List<Valley>();
     }
 }
