@@ -17,7 +17,22 @@ namespace jeza.Travian.Tests
     public class TroopsTests
     {
         [Test]
-        public void HtmlParser()
+        public void HtmlParserAvailableTroops()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\dorf1.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Troops troops = htmlParser.GetAvailableTroops(new Village().AddId(1).AddName("01"));
+            Assert.IsNotNull(troops, "troops is null!");
+            Assert.AreEqual(1, troops.GetTroopCount("unit u21"), "Falanga!");
+            Assert.AreEqual(1, troops.GetTroopCount("unit uhero"), "Heroj!");
+            Assert.AreEqual(5, troops.GetTroopCount("unit u23"), "Stezosledcev!");
+            Assert.AreEqual(30, troops.GetTroopCount("unit u25"), "Druidov!");
+            Assert.AreEqual(0, troops.GetTroopCount("unit xxx"), "Crap!");
+        }
+
+        [Test]
+        public void HtmlParserTroopMovements()
         {
             DeserializeLanguage();
             Language language = languages.GetLanguage("sl-SI");

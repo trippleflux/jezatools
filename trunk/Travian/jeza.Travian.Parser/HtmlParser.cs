@@ -25,6 +25,35 @@ namespace jeza.Travian.Parser
         }
 
         /// <summary>
+        /// Gets the available troops in village.
+        /// </summary>
+        /// <param name="village">The village.</param>
+        /// <returns></returns>
+        public Troops GetAvailableTroops(Village village)
+        {
+            Troops troops = new Troops();
+            HtmlNode tableTroops = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='troops']");
+            if (tableTroops != null)
+            {
+                HtmlNodeCollection htmlNodeCollection = tableTroops.SelectNodes("./tbody//tr");
+                if (htmlNodeCollection!=null)
+                {
+                    foreach (HtmlNode htmlNode in htmlNodeCollection)
+                    {
+                        if (htmlNode!=null)
+                        {
+                            string classAttribute = htmlNode.Element("td").Element("a").Element("img").Attributes["class"].Value;
+                            int unitCount = Misc.String2Number(htmlNode.SelectSingleNode("./td[2]").InnerText);
+                            string titleAttribute = htmlNode.SelectSingleNode("./td[3]").InnerText;
+                            troops.AddTroopUnit(new TroopUnit(titleAttribute, unitCount).AddHtmlClassName(classAttribute));
+                        }
+                    }
+                }
+            }
+            return troops;
+        }
+
+        /// <summary>
         /// Gets the available villages.
         /// </summary>
         /// <returns></returns>
