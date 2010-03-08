@@ -42,6 +42,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxLanguage = new System.Windows.Forms.GroupBox();
+            this.comboBoxSettingsLanguages = new System.Windows.Forms.ComboBox();
             this.labelLanguageId = new System.Windows.Forms.Label();
             this.panelOverviewLogins = new System.Windows.Forms.Panel();
             this.groupBoxOverview = new System.Windows.Forms.GroupBox();
@@ -103,7 +104,7 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mapBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.comboBoxSettingsLanguages = new System.Windows.Forms.ComboBox();
+            this.SetStatus = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -206,6 +207,14 @@ namespace jeza.Travian.GameCenter
             this.groupBoxLanguage.TabIndex = 1;
             this.groupBoxLanguage.TabStop = false;
             this.groupBoxLanguage.Text = "Language";
+            // 
+            // comboBoxSettingsLanguages
+            // 
+            this.comboBoxSettingsLanguages.FormattingEnabled = true;
+            this.comboBoxSettingsLanguages.Location = new System.Drawing.Point(94, 20);
+            this.comboBoxSettingsLanguages.Name = "comboBoxSettingsLanguages";
+            this.comboBoxSettingsLanguages.Size = new System.Drawing.Size(150, 21);
+            this.comboBoxSettingsLanguages.TabIndex = 1;
             // 
             // labelLanguageId
             // 
@@ -662,11 +671,12 @@ namespace jeza.Travian.GameCenter
             // dataGridViewMap
             // 
             this.dataGridViewMap.AllowUserToAddRows = false;
-            this.dataGridViewMap.AllowUserToDeleteRows = false;
             this.dataGridViewMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SetStatus});
             this.dataGridViewMap.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMap.Name = "dataGridViewMap";
             this.dataGridViewMap.ReadOnly = true;
@@ -836,13 +846,11 @@ namespace jeza.Travian.GameCenter
             // 
             this.mapBindingSource.DataSource = typeof(jeza.Travian.Framework.Map);
             // 
-            // comboBoxSettingsLanguages
+            // SetStatus
             // 
-            this.comboBoxSettingsLanguages.FormattingEnabled = true;
-            this.comboBoxSettingsLanguages.Location = new System.Drawing.Point(94, 20);
-            this.comboBoxSettingsLanguages.Name = "comboBoxSettingsLanguages";
-            this.comboBoxSettingsLanguages.Size = new System.Drawing.Size(150, 21);
-            this.comboBoxSettingsLanguages.TabIndex = 1;
+            this.SetStatus.HeaderText = "SetStatus";
+            this.SetStatus.Name = "SetStatus";
+            this.SetStatus.ReadOnly = true;
             // 
             // ProcessCenter
             // 
@@ -984,6 +992,7 @@ namespace jeza.Travian.GameCenter
 
         const string SettingsXml = "Settings.xml";
         const string LanguagesXml = "Language.xml";
+        private DataGridViewComboBoxColumn SetStatus;
     }
 }
 
