@@ -40,6 +40,9 @@ namespace jeza.Travian.GameCenter
             this.panelTabs = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBoxLanguage = new System.Windows.Forms.GroupBox();
+            this.labelLanguageId = new System.Windows.Forms.Label();
             this.panelOverviewLogins = new System.Windows.Forms.Panel();
             this.groupBoxOverview = new System.Windows.Forms.GroupBox();
             this.buttonOwerviewSave = new System.Windows.Forms.Button();
@@ -94,20 +97,19 @@ namespace jeza.Travian.GameCenter
             this.panelBrowser = new System.Windows.Forms.Panel();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panelHead = new System.Windows.Forms.Panel();
+            this.labelDateTime = new System.Windows.Forms.Label();
             this.buttonRun = new System.Windows.Forms.Button();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mapBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.labelDateTime = new System.Windows.Forms.Label();
-            this.groupBoxLanguage = new System.Windows.Forms.GroupBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.labelLanguageId = new System.Windows.Forms.Label();
-            this.textBoxLanguageId = new System.Windows.Forms.TextBox();
+            this.comboBoxSettingsLanguages = new System.Windows.Forms.ComboBox();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBoxLanguage.SuspendLayout();
             this.panelOverviewLogins.SuspendLayout();
             this.groupBoxOverview.SuspendLayout();
             this.tabPageRallyPoint.SuspendLayout();
@@ -131,8 +133,6 @@ namespace jeza.Travian.GameCenter
             this.panelHead.SuspendLayout();
             this.panelStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapBindingSource)).BeginInit();
-            this.groupBoxLanguage.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -184,6 +184,37 @@ namespace jeza.Travian.GameCenter
             this.tabPageSettings.TabIndex = 0;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.groupBoxLanguage);
+            this.panel1.Location = new System.Drawing.Point(8, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(275, 66);
+            this.panel1.TabIndex = 2;
+            // 
+            // groupBoxLanguage
+            // 
+            this.groupBoxLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxLanguage.Controls.Add(this.comboBoxSettingsLanguages);
+            this.groupBoxLanguage.Controls.Add(this.labelLanguageId);
+            this.groupBoxLanguage.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxLanguage.Name = "groupBoxLanguage";
+            this.groupBoxLanguage.Size = new System.Drawing.Size(264, 53);
+            this.groupBoxLanguage.TabIndex = 1;
+            this.groupBoxLanguage.TabStop = false;
+            this.groupBoxLanguage.Text = "Language";
+            // 
+            // labelLanguageId
+            // 
+            this.labelLanguageId.AutoSize = true;
+            this.labelLanguageId.Location = new System.Drawing.Point(14, 20);
+            this.labelLanguageId.Name = "labelLanguageId";
+            this.labelLanguageId.Size = new System.Drawing.Size(55, 13);
+            this.labelLanguageId.TabIndex = 0;
+            this.labelLanguageId.Text = "Language";
             // 
             // panelOverviewLogins
             // 
@@ -751,6 +782,16 @@ namespace jeza.Travian.GameCenter
             this.panelHead.Size = new System.Drawing.Size(1193, 28);
             this.panelHead.TabIndex = 2;
             // 
+            // labelDateTime
+            // 
+            this.labelDateTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelDateTime.AutoSize = true;
+            this.labelDateTime.Location = new System.Drawing.Point(1075, 12);
+            this.labelDateTime.Name = "labelDateTime";
+            this.labelDateTime.Size = new System.Drawing.Size(106, 13);
+            this.labelDateTime.TabIndex = 5;
+            this.labelDateTime.Text = "0000-01-01 01:01:01";
+            // 
             // buttonRun
             // 
             this.buttonRun.Location = new System.Drawing.Point(12, 2);
@@ -795,54 +836,13 @@ namespace jeza.Travian.GameCenter
             // 
             this.mapBindingSource.DataSource = typeof(jeza.Travian.Framework.Map);
             // 
-            // labelDateTime
+            // comboBoxSettingsLanguages
             // 
-            this.labelDateTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelDateTime.AutoSize = true;
-            this.labelDateTime.Location = new System.Drawing.Point(1075, 12);
-            this.labelDateTime.Name = "labelDateTime";
-            this.labelDateTime.Size = new System.Drawing.Size(106, 13);
-            this.labelDateTime.TabIndex = 5;
-            this.labelDateTime.Text = "0000-01-01 01:01:01";
-            // 
-            // groupBoxLanguage
-            // 
-            this.groupBoxLanguage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxLanguage.Controls.Add(this.textBoxLanguageId);
-            this.groupBoxLanguage.Controls.Add(this.labelLanguageId);
-            this.groupBoxLanguage.Location = new System.Drawing.Point(3, 3);
-            this.groupBoxLanguage.Name = "groupBoxLanguage";
-            this.groupBoxLanguage.Size = new System.Drawing.Size(264, 53);
-            this.groupBoxLanguage.TabIndex = 1;
-            this.groupBoxLanguage.TabStop = false;
-            this.groupBoxLanguage.Text = "Language";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.groupBoxLanguage);
-            this.panel1.Location = new System.Drawing.Point(8, 6);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(275, 66);
-            this.panel1.TabIndex = 2;
-            // 
-            // labelLanguageId
-            // 
-            this.labelLanguageId.AutoSize = true;
-            this.labelLanguageId.Location = new System.Drawing.Point(14, 20);
-            this.labelLanguageId.Name = "labelLanguageId";
-            this.labelLanguageId.Size = new System.Drawing.Size(55, 13);
-            this.labelLanguageId.TabIndex = 0;
-            this.labelLanguageId.Text = "Language";
-            // 
-            // textBoxLanguageId
-            // 
-            this.textBoxLanguageId.Location = new System.Drawing.Point(94, 20);
-            this.textBoxLanguageId.Name = "textBoxLanguageId";
-            this.textBoxLanguageId.Size = new System.Drawing.Size(150, 20);
-            this.textBoxLanguageId.TabIndex = 1;
-            this.textBoxLanguageId.Text = "sl-SI";
+            this.comboBoxSettingsLanguages.FormattingEnabled = true;
+            this.comboBoxSettingsLanguages.Location = new System.Drawing.Point(94, 20);
+            this.comboBoxSettingsLanguages.Name = "comboBoxSettingsLanguages";
+            this.comboBoxSettingsLanguages.Size = new System.Drawing.Size(150, 21);
+            this.comboBoxSettingsLanguages.TabIndex = 1;
             // 
             // ProcessCenter
             // 
@@ -857,6 +857,9 @@ namespace jeza.Travian.GameCenter
             this.panelTabs.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.groupBoxLanguage.ResumeLayout(false);
+            this.groupBoxLanguage.PerformLayout();
             this.panelOverviewLogins.ResumeLayout(false);
             this.groupBoxOverview.ResumeLayout(false);
             this.groupBoxOverview.PerformLayout();
@@ -889,9 +892,6 @@ namespace jeza.Travian.GameCenter
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mapBindingSource)).EndInit();
-            this.groupBoxLanguage.ResumeLayout(false);
-            this.groupBoxLanguage.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -959,6 +959,14 @@ namespace jeza.Travian.GameCenter
         private GroupBox groupBoxMapExcluded;
         private GroupBox groupBoxMapOases;
         private GroupBox groupBoxMapAlliace;
+        private Label labelDateTime;
+        private Panel panel1;
+        private GroupBox groupBoxLanguage;
+        private Label labelLanguageId;
+        private GroupBox groupBoxMapUpdate;
+        private GroupBox groupBoxMapFarms;
+        private GroupBox groupBoxOverview;
+        private ComboBox comboBoxSettingsLanguages;
         
         //readonly object stateLock = new object();
         private bool botActive;
@@ -967,9 +975,7 @@ namespace jeza.Travian.GameCenter
         private Settings settings;
         private readonly Account account;
         private readonly Map map;
-        private GroupBox groupBoxMapUpdate;
-        private GroupBox groupBoxMapFarms;
-        private GroupBox groupBoxOverview;
+        private Languages languages;
 
         delegate void StringParameterDelegate(string value);
         delegate void SetDataGridViewDataBind(DataGridView field, ArrayList list);
@@ -977,11 +983,7 @@ namespace jeza.Travian.GameCenter
         delegate void SetComboBoxStatus(ComboBox comboBox);
 
         const string SettingsXml = "Settings.xml";
-        private Label labelDateTime;
-        private Panel panel1;
-        private GroupBox groupBoxLanguage;
-        private TextBox textBoxLanguageId;
-        private Label labelLanguageId;
+        const string LanguagesXml = "Language.xml";
     }
 }
 

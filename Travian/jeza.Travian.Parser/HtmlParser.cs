@@ -15,6 +15,13 @@ namespace jeza.Travian.Parser
         public HtmlParser(HtmlDocument htmlDocument)
         {
             this.htmlDocument = htmlDocument;
+            language = null;
+        }
+
+        public HtmlParser(HtmlDocument htmlDocument, Language language)
+        {
+            this.htmlDocument = htmlDocument;
+            this.language = language;
         }
 
         /// <summary>
@@ -93,7 +100,7 @@ namespace jeza.Travian.Parser
             }
             //<img src="img/x.gif" id="detailed_map" class="w8" alt="+25% železa na uro" title="+25% železa na uro" />
             HtmlNode nodeInfo = htmlDocument.DocumentNode.SelectSingleNode("//img[@id='detailed_map']");
-            if (nodeInfo!=null)
+            if (nodeInfo != null)
             {
                 valley.AddName(nodeInfo.Attributes["title"].Value.Trim());
             }
@@ -108,7 +115,8 @@ namespace jeza.Travian.Parser
                 string playerUrl = player.Attributes["href"].Value;
                 string playerName = player.InnerText.Trim();
                 HtmlNode village = nodes[0].SelectSingleNode("./tr[3]/td/a");
-                string villageName = String.Format(CultureInfo.InvariantCulture, "{0}[{1}]", village.InnerText.Trim(), valley.Name);
+                string villageName = String.Format(CultureInfo.InvariantCulture, "{0}[{1}]", village.InnerText.Trim(),
+                                                   valley.Name);
                 valley
                     .AddName(villageName)
                     .AddAlliance(allianceName, allianceUrl)
@@ -201,7 +209,7 @@ namespace jeza.Travian.Parser
         /// Gets troop movements from rally point.
         /// </summary>
         /// <returns><see cref="List{T}"/></returns>
-        public List<TroopMovement> TroopMovements()
+        public List<TroopMovement> TroopMovements(Village village)
         {
             List<TroopMovement> troopMovement = new List<TroopMovement>();
             DateTime dt = new DateTime(DateTime.Now.Ticks);
@@ -212,7 +220,6 @@ namespace jeza.Travian.Parser
                 {
                     TroopMovement movement = new TroopMovement();
                     //source and destination
-                    //<thead><tr><td class="role"><a href="karte.php?d=271057&c=cf">02</a></td><td colspan="10"><a href="karte.php?d=260630&c=88">Vrnitev iz lčolipops lol</a></td></tr></thead>
                     HtmlNodeCollection htmlNodeCollection = tableNode.SelectNodes(".//thead/tr/td//a");
                     if (htmlNodeCollection != null)
                     {
@@ -222,12 +229,6 @@ namespace jeza.Travian.Parser
                         HtmlNode nodeDestination = htmlNodeCollection[1];
                         movement.SetDestination(nodeDestination.InnerText,
                                                 nodeDestination.Attributes["href"].Value);
-                        //foreach (HtmlNode theadNode in htmlNodeCollection)
-                        //{
-                        //    HtmlNode htmlNode = theadNode.SelectSingleNode("./a");
-                        //    Console.WriteLine("Name:{1}, href={0}", htmlNode.Attributes["href"].Value,
-                        //                      htmlNode.InnerText);
-                        //}
                     }
                     //units
                     HtmlNodeCollection nodeCollection = tableNode.SelectNodes(".//tbody[@class='units']//td");
@@ -235,30 +236,57 @@ namespace jeza.Travian.Parser
                     {
                         Troops troops = new Troops();
                         int totalUnits = nodeCollection.Count/2;
-                        //<td><img src="img/x.gif" class="unit u21" title="Falanga" alt="Falanga" /></td>
                         for (int i = 0; i < totalUnits; i++)
                         {
                             string classAttribute = nodeCollection[i].Element("img").Attributes["class"].Value;
                             string titleAttribute = nodeCollection[i].Element("img").Attributes["title"].Value;
                             int unitCount = Misc.String2Number(nodeCollection[i + totalUnits].InnerText);
                             troops.AddTroopUnit(new TroopUnit(titleAttribute, unitCount).AddHtmlClassName(classAttribute));
-                            //Console.Write(classAttribute + " " + titleAttribute + unitCount + ", ");
                         }
                         movement.AddTroops(troops);
-                        //Console.WriteLine();
                     }
                     //resoures
-                    //<div class="res" style="width: auto;"><img class="r1" src="img/x.gif" alt="les" title="les" />27 | <img class="r2" src="img/x.gif" alt="glina" title="glina" />27 | <img class="r3" src="img/x.gif" alt="železo" title="železo" />27 | <img class="r4" src="img/x.gif" alt="žito" title="žito" />8</div>
-                    //carry
-                    //<div class="carry" style="float: right; width: auto;"><img class="car" src="img/x.gif" alt="nosilnost" title="nosilnost" />89/225</div>
-                    //infos
-                    //<tbody class="infos"><tr><th>Prihod</th><td colspan="10"><div class="in">v <span id=timer1>0:07:30</span> h</div><div class="at">ob 18:51:03</span><span> uri</div></td></tr></tbody>
                     HtmlNodeCollection arrivalSpan =
                         tableNode.SelectNodes(".//tbody[@class='infos']//span[starts-with(@id, 'timer')]");
                     if (arrivalSpan != null)
                     {
                         TimeSpan timeSpan = Misc.String2TimeSpan(arrivalSpan[0].InnerText);
                         movement.SetDate(dt + timeSpan);
+                        if (movement.SourceVillageName.Equals(village.Name))
+                        {
+                            //own troops
+                            string destinationVillageName = movement.DestinationVillageName;
+                            if ((destinationVillageName.StartsWith(language.RallyPoint.AttackOut)) ||
+                                (destinationVillageName.StartsWith(language.RallyPoint.RaidOut)))
+                            {
+                                movement.SetType(TroopMovementType.AttackOutgoing);
+                            }
+                            else if (destinationVillageName.StartsWith(language.RallyPoint.ReinforcementBack))
+                            {
+                                movement.SetType(TroopMovementType.ReinforcementIncomming);
+                            }
+                            else if (destinationVillageName.StartsWith(language.RallyPoint.Scout))
+                            {
+                                movement.SetType(TroopMovementType.Scouting);
+                            }
+                            else
+                            {
+                                movement.SetType(TroopMovementType.ReinforcementOutgoing);
+                            }
+                        }
+                        else
+                        {
+                            string destinationVillageName = movement.DestinationVillageName;
+                            if ((destinationVillageName.StartsWith(language.RallyPoint.AttackIn)) ||
+                                (destinationVillageName.StartsWith(language.RallyPoint.RaidIn)))
+                            {
+                                movement.SetType(TroopMovementType.AttackIncomming);
+                            }
+                            else
+                            {
+                                movement.SetType(TroopMovementType.ReinforcementIncomming);
+                            }
+                        }
                     }
                     else
                     {
@@ -295,5 +323,6 @@ namespace jeza.Travian.Parser
         }
 
         private readonly HtmlDocument htmlDocument;
+        private readonly Language language;
     }
 }
