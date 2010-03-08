@@ -2,6 +2,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
 using jeza.Travian.Parser;
@@ -17,10 +19,13 @@ namespace jeza.Travian.Tests
         [Test]
         public void HtmlParser()
         {
+            DeserializeLanguage();
+            Language language = languages.GetLanguage("sl-SI");
+            Assert.IsNotNull(language, "Language is null!");
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.Load("..\\..\\Test Files\\RallyPoint.php.html");
-            HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            List<TroopMovement> troopMovements = htmlParser.TroopMovements();
+            HtmlParser htmlParser = new HtmlParser(htmlDocument, language);
+            List<TroopMovement> troopMovements = htmlParser.TroopMovements(new Village().AddId(1).AddName("02"));
             Assert.IsNotNull(troopMovements, "TroopMovement is null!");
             Village village = new Village();
             village.SetTroopMovements(troopMovements);
@@ -136,5 +141,16 @@ namespace jeza.Travian.Tests
             gauls.Swordsman.AddTroopCount(123);
             Assert.AreEqual(123, gauls.Swordsman.Count, "Count");
         }
+
+        private void DeserializeLanguage()
+        {
+            using (FileStream fileStream = new FileStream("Language.xml", FileMode.Open))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Languages));
+                languages = (Languages)xmlSerializer.Deserialize(fileStream);
+            }
+        }
+
+        private Languages languages = new Languages();
     }
 }

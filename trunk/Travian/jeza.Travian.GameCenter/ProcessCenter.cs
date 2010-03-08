@@ -29,9 +29,11 @@ namespace jeza.Travian.GameCenter
             map = new Map();
             map.DeserializeValleys();
             DeserializeSettings();
+            languages = new Languages();
+            DeserializeLanguage();
             htmlWeb.UseCookies = true;
             Timer timer = new Timer {Interval = 1000, Enabled = true};
-            timer.Tick += new EventHandler(TimerTick);
+            timer.Tick += TimerTick;
         }
 
         #region gui actions
@@ -106,6 +108,19 @@ namespace jeza.Travian.GameCenter
         #region helper methods
 
         /// <summary>
+        /// Load language settings from XML.
+        /// </summary>
+        private void DeserializeLanguage()
+        {
+            using (FileStream fileStream = new FileStream(LanguagesXml, FileMode.Open))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof (Languages));
+                languages = (Languages) xmlSerializer.Deserialize(fileStream);
+            }
+            UpdateComboBoxLanguages(comboBoxSettingsLanguages);
+        }
+
+        /// <summary>
         /// Load settings from XML.
         /// </summary>
         private void DeserializeSettings()
@@ -117,17 +132,16 @@ namespace jeza.Travian.GameCenter
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof (Settings));
                     settings = (Settings) xmlSerializer.Deserialize(fileStream);
                 }
-                //if ((settings.LoginData == null) || (settings.LanguageId == null))
-                //{
-                //    SaveSettings();
-                //}
-                //else
-                //{
-                textBoxServer.Text = settings.LoginData.Servername;
-                textBoxUsername.Text = settings.LoginData.Username;
-                textBoxPassword.Text = settings.LoginData.Password;
-                textBoxLanguageId.Text = settings.LanguageId;
-                //}
+                if (settings.LoginData != null)
+                {
+                    textBoxServer.Text = settings.LoginData.Servername;
+                    textBoxUsername.Text = settings.LoginData.Username;
+                    textBoxPassword.Text = settings.LoginData.Password;
+                }
+                if (settings.LanguageId!=null)
+                {
+                    comboBoxSettingsLanguages.SelectedText = settings.LanguageId;
+                }
             }
             else
             {
@@ -321,8 +335,9 @@ namespace jeza.Travian.GameCenter
             string url = String.Format(CultureInfo.InvariantCulture, "{0}build.php?newdid={1}&gid=16&id=39",
                                        servername, village.Id);
             htmlDocument = htmlWeb.Load(url);
-            HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            List<TroopMovement> troopMovements = htmlParser.TroopMovements();
+            Language language = languages.GetLanguage(settings.LanguageId);
+            HtmlParser htmlParser = new HtmlParser(htmlDocument, language);
+            List<TroopMovement> troopMovements = htmlParser.TroopMovements(village);
             ArrayList list = new ArrayList();
             list.AddRange(troopMovements);
             if (dataGridViewRallyPoint.InvokeRequired)
@@ -340,13 +355,13 @@ namespace jeza.Travian.GameCenter
         private void SaveSettings()
         {
             Login loginData = new Login
-            {
-                Servername = textBoxServer.Text.Trim(),
-                Username = textBoxUsername.Text.Trim(),
-                Password = textBoxPassword.Text.Trim()
-            };
+                {
+                    Servername = textBoxServer.Text.Trim(),
+                    Username = textBoxUsername.Text.Trim(),
+                    Password = textBoxPassword.Text.Trim()
+                };
             settings.LoginData = loginData;
-            settings.LanguageId = textBoxLanguageId.Text.Trim();
+            settings.LanguageId = comboBoxSettingsLanguages.SelectedItem.ToString().Trim();
             SerializeSettings();
         }
 
@@ -478,6 +493,21 @@ namespace jeza.Travian.GameCenter
                 return;
             }
             button.Enabled = enabled;
+        }
+
+        private void UpdateComboBoxLanguages(ComboBox field)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetComboBoxStatus(UpdateComboBoxLanguages), field);
+                return;
+            }
+            field.Items.Clear();
+            foreach (Language language in languages.Language)
+            {
+                field.Items.Add(language.Id);
+            }
+            field.SelectedItem = field.Items[0];
         }
 
         private void UpdateComboBoxVillages(ComboBox field)
