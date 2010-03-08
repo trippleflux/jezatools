@@ -227,8 +227,7 @@ namespace jeza.Travian.GameCenter
                 htmlParser = new HtmlParser(htmlDocument);
                 Valley villageDetails = htmlParser.GetVillageDetails();
                 villageDetails
-                    .AddUrl(valley.VillageUrl)
-                    .AddType(ValleyType.Village);
+                    .AddUrl(valley.VillageUrl);
                 updatedValleys.Add(villageDetails);
             }
             foreach (Valley valley in oasesFromMap)
@@ -309,9 +308,45 @@ namespace jeza.Travian.GameCenter
                 {
                     list.Add(valley);
                 }
+                else if (checkBoxFarmsNoProfit.Checked && valley.ValleyType == ValleyType.FarmNoProfit)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxFarmsLowRisk.Checked && valley.ValleyType == ValleyType.FarmLowRisk)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxFarmsMiddleRisk.Checked && valley.ValleyType == ValleyType.FarmMiddleRisk)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxFarmsHighRish.Checked && valley.ValleyType == ValleyType.FarmHighRisk)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxAlly.Checked && valley.ValleyType == ValleyType.AllianceAlly)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxNap.Checked && valley.ValleyType == ValleyType.AllianceNap)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxWar.Checked && valley.ValleyType == ValleyType.AllianceWar)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxExcludedPlayers.Checked && valley.ValleyType == ValleyType.ExcludedPlayer)
+                {
+                    list.Add(valley);
+                }
+                else if (checkBoxExcludedAlliances.Checked && valley.ValleyType == ValleyType.ExcludedAlliance)
+                {
+                    list.Add(valley);
+                }
                 else
                 {
-                    if (valley.ValleyType == ValleyType.Village)
+                    if (valley.ValleyType == ValleyType.UnknownType)
                     {
                         list.Add(valley);
                     }

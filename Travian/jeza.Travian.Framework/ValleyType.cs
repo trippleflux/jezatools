@@ -5,6 +5,15 @@ namespace jeza.Travian.Framework
         AbandonedValley,
         OccupiedOasis,
         UnoccupiedOasis,
-        Village,
+        UnknownType,
+        FarmNoProfit,
+        FarmLowRisk,
+        FarmMiddleRisk,
+        FarmHighRisk,
+        AllianceAlly,
+        AllianceNap,
+        AllianceWar,
+        ExcludedPlayer,
+        ExcludedAlliance,
     }
 }

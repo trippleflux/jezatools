@@ -67,6 +67,7 @@
     <Compile Include="Troops.cs" />
     <Compile Include="TroopUnit.cs" />
     <Compile Include="ValleyType.cs" />
+    <Compile Include="ValleyTypeList.cs" />
     <Compile Include="Village.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +75,7 @@
     <Content Include="Language.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ValleyTypeList.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
