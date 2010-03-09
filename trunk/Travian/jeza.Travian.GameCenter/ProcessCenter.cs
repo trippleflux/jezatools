@@ -28,6 +28,8 @@ namespace jeza.Travian.GameCenter
             account = new Account();
             map = new Map();
             map.DeserializeValleys();
+            valleyTypeList = new ValleyTypeList();
+            DeserializeValleyTypeList();
             DeserializeSettings();
             languages = new Languages();
             DeserializeLanguage();
@@ -41,6 +43,16 @@ namespace jeza.Travian.GameCenter
         private void buttonBrowserGo_Click(object sender, EventArgs e)
         {
             webBrowser.Navigate(settings.LoginData.Servername);
+        }
+
+        private void buttonBuildQueueSelect_Click(object sender, EventArgs e)
+        {
+            Village selectedVillage = comboBoxBuildQueueVillages.SelectedItem as Village;
+            if (selectedVillage != null)
+            {
+                Thread t = new Thread(mapInfo => PopulateBuildQueueForVillage(selectedVillage)) { IsBackground = true };
+                t.Start();
+            }
         }
 
         private void buttonMapPopulate_Click(object sender, EventArgs e)
@@ -63,6 +75,21 @@ namespace jeza.Travian.GameCenter
             SaveSettings();
         }
 
+        private void buttonSettingsAllyAdd_Click(object sender, EventArgs e)
+        {
+            //TODO: todo
+        }
+
+        private void buttonSettingsNapAdd_Click(object sender, EventArgs e)
+        {
+            //TODO: todo
+        }
+
+        private void buttonSettingsWarAdd_Click(object sender, EventArgs e)
+        {
+            //TODO: todo
+        }
+
         private void buttonUpdateRallyPoint_Click(object sender, EventArgs e)
         {
             Village selectedVillage = comboBoxRallyPointVillages.SelectedItem as Village;
@@ -71,6 +98,62 @@ namespace jeza.Travian.GameCenter
                 Thread t = new Thread(rallyPoint => PopulateRallyPoint(selectedVillage)) {IsBackground = true};
                 t.Start();
             }
+        }
+
+        private void dataGridViewMap_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ignore clicks that are not on button cells. 
+            // ReSharper disable PossibleNullReferenceException
+            if (e.RowIndex < 0 || e.ColumnIndex != dataGridViewMap.Columns["Save"].Index) return;
+            // ReSharper restore PossibleNullReferenceException
+
+            // Retrieve the task ID.
+            object objuserNotes = dataGridViewMap[7, e.RowIndex].Value;
+            object objnewValleyType = dataGridViewMap[8, e.RowIndex].Value;
+            String userNotes = "";
+            String newValleyType = "";
+            if (objuserNotes != null)
+            {
+                userNotes = objuserNotes.ToString();
+            }
+            if (objnewValleyType != null)
+            {
+                newValleyType = objnewValleyType.ToString();
+            }
+            valleyTypeList.Items.Add(new ValleyItem
+                {
+                    ValleyNotes = userNotes, 
+                    ValleyType = GetValleyType(newValleyType), 
+                    VillageId = "asd",
+                });
+            //MessageBox.Show(String.Format("Notes '{0}', newValleyType '{1}'", userNotes, newValleyType), "Update");
+            SerializeValeyTypeList();
+            // Retrieve the Employee object from the "Assigned To" cell.
+            //Employee assignedTo = dataGridView1.Rows[e.RowIndex]
+            //    .Cells["Assigned To"].Value as Employee;
+
+            // Request status through the Employee object if present. 
+            //if (assignedTo != null)
+            //{
+            //    assignedTo.RequestStatus(taskId);
+            //}
+            //else
+            //{
+            //    MessageBox.Show(String.Format("Task {0} is unassigned.", taskId), "Status Request");
+            //}
+        }
+
+        private static ValleyType GetValleyType(string valleyType)
+        {
+            foreach (ValleyType value in Enum.GetValues(typeof (ValleyType)))
+            {
+                string name = Enum.GetName(typeof (ValleyType), value);
+                if (name.Equals(valleyType))
+                {
+                    return value;
+                }
+            }
+            return ValleyType.FarmLowRisk;
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -138,7 +221,7 @@ namespace jeza.Travian.GameCenter
                     textBoxUsername.Text = settings.LoginData.Username;
                     textBoxPassword.Text = settings.LoginData.Password;
                 }
-                if (settings.LanguageId!=null)
+                if (settings.LanguageId != null)
                 {
                     comboBoxSettingsLanguages.SelectedText = settings.LanguageId;
                 }
@@ -146,6 +229,15 @@ namespace jeza.Travian.GameCenter
             else
             {
                 SerializeSettings();
+            }
+        }
+
+        private void DeserializeValleyTypeList()
+        {
+            using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.Open))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
+                valleyTypeList = (ValleyTypeList) xmlSerializer.Deserialize(fileStream);
             }
         }
 
@@ -295,6 +387,25 @@ namespace jeza.Travian.GameCenter
             return isLogedIn;
         }
 
+        private void PopulateBuildQueueForVillage(Village village)
+        {
+            string servername = settings.LoginData.Servername;
+            string url = String.Format(CultureInfo.InvariantCulture, "{0}dorf1.php?newdid={1}",
+                                       servername, village.Id);
+            htmlDocument = htmlWeb.Load(url);
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            List<Buildings> resources = htmlParser.GetResourceBuildings(village);
+            url = String.Format(CultureInfo.InvariantCulture, "{0}dorf2.php?newdid={1}",
+                                       servername, village.Id);
+            htmlDocument = htmlWeb.Load(url);
+            htmlParser = new HtmlParser(htmlDocument);
+            List<Buildings> center = htmlParser.GetCenterBuildings(village);
+            ArrayList list = new ArrayList();
+            list.AddRange(resources);
+            list.AddRange(center);
+            UpdateComboBoxQueues(comboBoxBuildQueueBuilding, list);
+        }
+
         private void PopulateMap()
         {
             ArrayList list = new ArrayList();
@@ -413,6 +524,18 @@ namespace jeza.Travian.GameCenter
         }
 
         /// <summary>
+        /// Saves notes to XML.
+        /// </summary>
+        private void SerializeValeyTypeList()
+        {
+            using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.OpenOrCreate))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
+                xmlSerializer.Serialize(fileStream, valleyTypeList);
+            }
+        }
+
+        /// <summary>
         /// Starts the bot.
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -518,6 +641,7 @@ namespace jeza.Travian.GameCenter
             account.AddVillages(villages);
             UpdateComboBoxVillages(comboBoxMapVillages);
             UpdateComboBoxVillages(comboBoxRallyPointVillages);
+            UpdateComboBoxVillages(comboBoxBuildQueueVillages);
         }
 
         private void UpdateButtonStatus(Button button, bool enabled)
@@ -528,6 +652,21 @@ namespace jeza.Travian.GameCenter
                 return;
             }
             button.Enabled = enabled;
+        }
+
+        private void UpdateComboBoxQueues(ComboBox field, ArrayList list)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetComboBoxStatusQueues(UpdateComboBoxQueues), field, list);
+                return;
+            }
+            field.Items.Clear();
+            foreach (Buildings buildings in list)
+            {
+                field.Items.Add(buildings.Name);
+            }
+            field.SelectedItem = field.Items[0];
         }
 
         private void UpdateComboBoxLanguages(ComboBox field)
@@ -579,7 +718,6 @@ namespace jeza.Travian.GameCenter
             textBoxStatus.Select(textBoxStatus.Text.Length, 0);
             textBoxStatus.ScrollToCaret();
         }
-
         //private void UpdateCount()
         //{
         //    int tmpCount;

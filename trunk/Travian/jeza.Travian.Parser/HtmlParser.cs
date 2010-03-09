@@ -36,13 +36,14 @@ namespace jeza.Travian.Parser
             if (tableTroops != null)
             {
                 HtmlNodeCollection htmlNodeCollection = tableTroops.SelectNodes("./tbody//tr");
-                if (htmlNodeCollection!=null)
+                if (htmlNodeCollection != null)
                 {
                     foreach (HtmlNode htmlNode in htmlNodeCollection)
                     {
-                        if (htmlNode!=null)
+                        if (htmlNode != null)
                         {
-                            string classAttribute = htmlNode.Element("td").Element("a").Element("img").Attributes["class"].Value;
+                            string classAttribute =
+                                htmlNode.Element("td").Element("a").Element("img").Attributes["class"].Value;
                             int unitCount = Misc.String2Number(htmlNode.SelectSingleNode("./td[2]").InnerText);
                             string titleAttribute = htmlNode.SelectSingleNode("./td[3]").InnerText;
                             troops.AddTroopUnit(new TroopUnit(titleAttribute, unitCount).AddHtmlClassName(classAttribute));
@@ -153,6 +154,90 @@ namespace jeza.Travian.Parser
                     .AddType(ValleyType.OccupiedOasis);
             }
             return valley;
+        }
+
+        /// <summary>
+        /// Gets the center village buildings levels.
+        /// </summary>
+        /// <param name="village">The village.</param>
+        /// <returns></returns>
+        public List<Buildings> GetCenterBuildings(Village village)
+        {
+            List<Buildings> resources = new List<Buildings>();
+            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//map[@id='map2']//area");
+            if (nodes != null)
+            {
+                bool wallAdded = false;
+                foreach (HtmlNode htmlNode in nodes)
+                {
+                    if (htmlNode != null)
+                    {
+                        //<area href="build.php?id=19" title="Žitnica Stopnja 10" alt="Žitnica Stopnja 10" coords="53,91,53,37,128,37,128,91,91,112" shape="poly"/>
+                        string url = htmlNode.Attributes["href"].Value;
+                        if (url.StartsWith("build.php"))
+                        {
+                            int id = Misc.String2Number(url.Substring(13));
+                            string name = htmlNode.Attributes["title"].Value;
+                            int index = name.LastIndexOf(' ');
+                            int level = Misc.String2Number(name.Substring(index + 1));
+                            if (!wallAdded)
+                            {
+                                if (id==40)
+                                {
+                                    wallAdded = true;
+                                }
+                                resources.Add(
+                                    new Buildings
+                                        {
+                                            Id = id,
+                                            Name = name,
+                                            Url = url,
+                                            Level = level,
+                                        });
+                            }
+                        }
+                    }
+                }
+            }
+            return resources;
+        }
+
+        /// <summary>
+        /// Gets the resource buildings levels.
+        /// </summary>
+        /// <param name="village">The village.</param>
+        /// <returns></returns>
+        public List<Buildings> GetResourceBuildings(Village village)
+        {
+            List<Buildings> resources = new List<Buildings>();
+            HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//map[@id='rx']//area");
+            if (nodes != null)
+            {
+                foreach (HtmlNode htmlNode in nodes)
+                {
+                    if (htmlNode != null)
+                    {
+                        //<area href="build.php?id=1" coords="101,33,28" shape="circle" title="Gozdar Stopnja 10" alt="Gozdar Stopnja 10"/>
+                        string url = htmlNode.Attributes["href"].Value;
+                        if (url.StartsWith("build.php"))
+                        {
+                            int id = Misc.String2Number(url.Substring(13));
+                            string name = htmlNode.Attributes["title"].Value;
+                            int index = name.LastIndexOf(' ');
+                            int level = Misc.String2Number(name.Substring(index + 1));
+                            resources.Add(
+                                new Buildings
+                                    {
+                                        Id = id,
+                                        Name = name,
+                                        Url = url,
+                                        Level = level,
+                                    });
+                        }
+                    }
+                }
+            }
+            return resources;
         }
 
         private List<Valley> GetValleys(char prefix, ValleyType valleyType)

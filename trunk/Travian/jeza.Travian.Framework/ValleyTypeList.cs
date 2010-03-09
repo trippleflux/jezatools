@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace jeza.Travian.Framework
@@ -5,15 +6,18 @@ namespace jeza.Travian.Framework
     public class ValleyTypeList
     {
         [XmlElement(ElementName = "valleyItem")]
-        public ValleyItem[] Item { get; set; }
+        public List<ValleyItem> Items { get; set; }
     }
 
     public class ValleyItem
     {
-        [XmlElement(ElementName = "villageId")]
+        [XmlAttribute(AttributeName = "villageId")]
         public string VillageId { get; set; }
 
-        [XmlElement(ElementName = "valleyType")]
+        [XmlAttribute(AttributeName = "valleyType")]
         public ValleyType ValleyType { get; set; }
+
+        [XmlAttribute(AttributeName = "valleyNotes")]
+        public string ValleyNotes { get; set; }
     }
 }

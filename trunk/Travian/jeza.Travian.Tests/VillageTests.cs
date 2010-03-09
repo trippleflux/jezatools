@@ -15,6 +15,32 @@ namespace jeza.Travian.Tests
     public class VillageTests
     {
         [Test]
+        public void ParseResources()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\dorf1.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Village village = new Village();
+            village.AddId(123).AddName("01");
+            List<Buildings> buildings = htmlParser.GetResourceBuildings(village);
+            Assert.IsNotNull(buildings, "NULL");
+            Assert.AreEqual(18, buildings.Count, "COUNT");
+        }
+
+        [Test]
+        public void ParseCenterBuildings()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\dorf2.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Village village = new Village();
+            village.AddId(123).AddName("01");
+            List<Buildings> buildings = htmlParser.GetCenterBuildings(village);
+            Assert.IsNotNull(buildings, "NULL");
+            Assert.AreEqual(22, buildings.Count, "COUNT");
+        }
+
+        [Test]
         public void ParseAvailableVillages()
         {
             HtmlDocument htmlDocument = new HtmlDocument();
