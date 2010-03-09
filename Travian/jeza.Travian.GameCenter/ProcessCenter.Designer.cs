@@ -40,6 +40,22 @@ namespace jeza.Travian.GameCenter
             this.panelTabs = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBoxAlly = new System.Windows.Forms.GroupBox();
+            this.labelSettingsAllyId = new System.Windows.Forms.Label();
+            this.labelSettingsAllyName = new System.Windows.Forms.Label();
+            this.buttonSettingsNapAdd = new System.Windows.Forms.Button();
+            this.buttonSettingsWarAdd = new System.Windows.Forms.Button();
+            this.buttonSettingsAllyAdd = new System.Windows.Forms.Button();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.labelSettingsWar = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.labelSettingsNap = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelSettingsAlly = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxLanguage = new System.Windows.Forms.GroupBox();
             this.comboBoxSettingsLanguages = new System.Windows.Forms.ComboBox();
@@ -87,7 +103,29 @@ namespace jeza.Travian.GameCenter
             this.textBoxMapDistance = new System.Windows.Forms.TextBox();
             this.panelMapList = new System.Windows.Forms.Panel();
             this.dataGridViewMap = new System.Windows.Forms.DataGridView();
+            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.xDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.changedValleyType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.save = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
+            this.panelBuildQueueSelect = new System.Windows.Forms.Panel();
+            this.labelBuildQueueLevel = new System.Windows.Forms.Label();
+            this.labelBuildQueueBuilding = new System.Windows.Forms.Label();
+            this.buttonBuildQueueAdd = new System.Windows.Forms.Button();
+            this.comboBoxBuildQueueLevel = new System.Windows.Forms.ComboBox();
+            this.comboBoxBuildQueueBuilding = new System.Windows.Forms.ComboBox();
+            this.panelBuildQueueList = new System.Windows.Forms.Panel();
+            this.listBoxBuildQueues = new System.Windows.Forms.ListBox();
+            this.panelBuildQueueHead = new System.Windows.Forms.Panel();
+            this.buttonBuildQueueSelect = new System.Windows.Forms.Button();
+            this.comboBoxBuildQueueVillages = new System.Windows.Forms.ComboBox();
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.tabPageStatistics = new System.Windows.Forms.TabPage();
             this.tabPageMarketPlace = new System.Windows.Forms.TabPage();
@@ -103,12 +141,12 @@ namespace jeza.Travian.GameCenter
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.mapBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.SetStatus = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.groupBoxAlly.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBoxLanguage.SuspendLayout();
             this.panelOverviewLogins.SuspendLayout();
@@ -128,12 +166,16 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMapUpdate.SuspendLayout();
             this.panelMapList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).BeginInit();
+            this.tabPageBuildQueue.SuspendLayout();
+            this.panelBuildQueueSelect.SuspendLayout();
+            this.panelBuildQueueList.SuspendLayout();
+            this.panelBuildQueueHead.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
             this.panelBrowserUrl.SuspendLayout();
             this.panelBrowser.SuspendLayout();
             this.panelHead.SuspendLayout();
             this.panelStatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panelMain
@@ -176,6 +218,7 @@ namespace jeza.Travian.GameCenter
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.panel2);
             this.tabPageSettings.Controls.Add(this.panel1);
             this.tabPageSettings.Controls.Add(this.panelOverviewLogins);
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
@@ -185,6 +228,154 @@ namespace jeza.Travian.GameCenter
             this.tabPageSettings.TabIndex = 0;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.groupBoxAlly);
+            this.panel2.Location = new System.Drawing.Point(289, 6);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(379, 123);
+            this.panel2.TabIndex = 3;
+            // 
+            // groupBoxAlly
+            // 
+            this.groupBoxAlly.Controls.Add(this.labelSettingsAllyId);
+            this.groupBoxAlly.Controls.Add(this.labelSettingsAllyName);
+            this.groupBoxAlly.Controls.Add(this.buttonSettingsNapAdd);
+            this.groupBoxAlly.Controls.Add(this.buttonSettingsWarAdd);
+            this.groupBoxAlly.Controls.Add(this.buttonSettingsAllyAdd);
+            this.groupBoxAlly.Controls.Add(this.textBox5);
+            this.groupBoxAlly.Controls.Add(this.textBox6);
+            this.groupBoxAlly.Controls.Add(this.labelSettingsWar);
+            this.groupBoxAlly.Controls.Add(this.textBox3);
+            this.groupBoxAlly.Controls.Add(this.textBox4);
+            this.groupBoxAlly.Controls.Add(this.labelSettingsNap);
+            this.groupBoxAlly.Controls.Add(this.textBox2);
+            this.groupBoxAlly.Controls.Add(this.textBox1);
+            this.groupBoxAlly.Controls.Add(this.labelSettingsAlly);
+            this.groupBoxAlly.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxAlly.Name = "groupBoxAlly";
+            this.groupBoxAlly.Size = new System.Drawing.Size(373, 109);
+            this.groupBoxAlly.TabIndex = 0;
+            this.groupBoxAlly.TabStop = false;
+            this.groupBoxAlly.Text = "Ally";
+            // 
+            // labelSettingsAllyId
+            // 
+            this.labelSettingsAllyId.AutoSize = true;
+            this.labelSettingsAllyId.Location = new System.Drawing.Point(181, 16);
+            this.labelSettingsAllyId.Name = "labelSettingsAllyId";
+            this.labelSettingsAllyId.Size = new System.Drawing.Size(22, 13);
+            this.labelSettingsAllyId.TabIndex = 13;
+            this.labelSettingsAllyId.Text = "Aid";
+            // 
+            // labelSettingsAllyName
+            // 
+            this.labelSettingsAllyName.AutoSize = true;
+            this.labelSettingsAllyName.Location = new System.Drawing.Point(65, 16);
+            this.labelSettingsAllyName.Name = "labelSettingsAllyName";
+            this.labelSettingsAllyName.Size = new System.Drawing.Size(35, 13);
+            this.labelSettingsAllyName.TabIndex = 12;
+            this.labelSettingsAllyName.Text = "Name";
+            // 
+            // buttonSettingsNapAdd
+            // 
+            this.buttonSettingsNapAdd.Location = new System.Drawing.Point(291, 54);
+            this.buttonSettingsNapAdd.Name = "buttonSettingsNapAdd";
+            this.buttonSettingsNapAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsNapAdd.TabIndex = 11;
+            this.buttonSettingsNapAdd.Text = "Add";
+            this.buttonSettingsNapAdd.UseVisualStyleBackColor = true;
+            this.buttonSettingsNapAdd.Click += new System.EventHandler(this.buttonSettingsNapAdd_Click);
+            // 
+            // buttonSettingsWarAdd
+            // 
+            this.buttonSettingsWarAdd.Location = new System.Drawing.Point(291, 80);
+            this.buttonSettingsWarAdd.Name = "buttonSettingsWarAdd";
+            this.buttonSettingsWarAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsWarAdd.TabIndex = 10;
+            this.buttonSettingsWarAdd.Text = "Add";
+            this.buttonSettingsWarAdd.UseVisualStyleBackColor = true;
+            this.buttonSettingsWarAdd.Click += new System.EventHandler(this.buttonSettingsWarAdd_Click);
+            // 
+            // buttonSettingsAllyAdd
+            // 
+            this.buttonSettingsAllyAdd.Location = new System.Drawing.Point(291, 27);
+            this.buttonSettingsAllyAdd.Name = "buttonSettingsAllyAdd";
+            this.buttonSettingsAllyAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsAllyAdd.TabIndex = 9;
+            this.buttonSettingsAllyAdd.Text = "Add";
+            this.buttonSettingsAllyAdd.UseVisualStyleBackColor = true;
+            this.buttonSettingsAllyAdd.Click += new System.EventHandler(this.buttonSettingsAllyAdd_Click);
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(184, 83);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 8;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(68, 82);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(100, 20);
+            this.textBox6.TabIndex = 7;
+            // 
+            // labelSettingsWar
+            // 
+            this.labelSettingsWar.AutoSize = true;
+            this.labelSettingsWar.Location = new System.Drawing.Point(8, 89);
+            this.labelSettingsWar.Name = "labelSettingsWar";
+            this.labelSettingsWar.Size = new System.Drawing.Size(27, 13);
+            this.labelSettingsWar.TabIndex = 6;
+            this.labelSettingsWar.Text = "War";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(184, 58);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 5;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(68, 57);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(100, 20);
+            this.textBox4.TabIndex = 4;
+            // 
+            // labelSettingsNap
+            // 
+            this.labelSettingsNap.AutoSize = true;
+            this.labelSettingsNap.Location = new System.Drawing.Point(8, 64);
+            this.labelSettingsNap.Name = "labelSettingsNap";
+            this.labelSettingsNap.Size = new System.Drawing.Size(27, 13);
+            this.labelSettingsNap.TabIndex = 3;
+            this.labelSettingsNap.Text = "Nap";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(184, 32);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 2;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(68, 32);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // labelSettingsAlly
+            // 
+            this.labelSettingsAlly.AutoSize = true;
+            this.labelSettingsAlly.Location = new System.Drawing.Point(8, 38);
+            this.labelSettingsAlly.Name = "labelSettingsAlly";
+            this.labelSettingsAlly.Size = new System.Drawing.Size(23, 13);
+            this.labelSettingsAlly.TabIndex = 0;
+            this.labelSettingsAlly.Text = "Ally";
             // 
             // panel1
             // 
@@ -674,23 +865,242 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewMap.AutoGenerateColumns = false;
             this.dataGridViewMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.SetStatus});
+            this.playerDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn,
+            this.populationDataGridViewTextBoxColumn,
+            this.allianceDataGridViewTextBoxColumn,
+            this.xDataGridViewTextBoxColumn,
+            this.yDataGridViewTextBoxColumn,
+            this.valleyTypeDataGridViewTextBoxColumn,
+            this.notes,
+            this.changedValleyType,
+            this.save});
+            this.dataGridViewMap.DataSource = this.valleyBindingSource;
             this.dataGridViewMap.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMap.Name = "dataGridViewMap";
-            this.dataGridViewMap.ReadOnly = true;
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
+            this.dataGridViewMap.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMap_CellClick);
+            // 
+            // playerDataGridViewTextBoxColumn
+            // 
+            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
+            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
+            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // populationDataGridViewTextBoxColumn
+            // 
+            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
+            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
+            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
+            // 
+            // allianceDataGridViewTextBoxColumn
+            // 
+            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
+            // 
+            // xDataGridViewTextBoxColumn
+            // 
+            this.xDataGridViewTextBoxColumn.DataPropertyName = "X";
+            this.xDataGridViewTextBoxColumn.HeaderText = "X";
+            this.xDataGridViewTextBoxColumn.Name = "xDataGridViewTextBoxColumn";
+            // 
+            // yDataGridViewTextBoxColumn
+            // 
+            this.yDataGridViewTextBoxColumn.DataPropertyName = "Y";
+            this.yDataGridViewTextBoxColumn.HeaderText = "Y";
+            this.yDataGridViewTextBoxColumn.Name = "yDataGridViewTextBoxColumn";
+            // 
+            // valleyTypeDataGridViewTextBoxColumn
+            // 
+            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
+            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Notes
+            // 
+            this.notes.HeaderText = "Notes";
+            this.notes.Name = "Notes";
+            // 
+            // ChangedValleyType
+            // 
+            this.changedValleyType.HeaderText = "ChangedValleyType";
+            this.changedValleyType.Items.AddRange(new object[] {
+            "AbandonedValley",
+            "OccupiedOasis",
+            "UnoccupiedOasis",
+            "UnknownType",
+            "FarmNoProfit",
+            "FarmLowRisk",
+            "FarmMiddleRisk",
+            "FarmHighRisk",
+            "AllianceAlly",
+            "AllianceNap",
+            "AllianceWar",
+            "ExcludedPlayer",
+            "ExcludedAlliance"});
+            this.changedValleyType.Name = "ChangedValleyType";
+            // 
+            // Save
+            // 
+            this.save.HeaderText = "Save";
+            this.save.Name = "Save";
+            this.save.Text = "Save";
+            this.save.UseColumnTextForButtonValue = true;
+            // 
+            // valleyBindingSource
+            // 
+            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
             // 
             // tabPageBuildQueue
             // 
+            this.tabPageBuildQueue.Controls.Add(this.panelBuildQueueSelect);
+            this.tabPageBuildQueue.Controls.Add(this.panelBuildQueueList);
+            this.tabPageBuildQueue.Controls.Add(this.panelBuildQueueHead);
             this.tabPageBuildQueue.Location = new System.Drawing.Point(4, 22);
             this.tabPageBuildQueue.Name = "tabPageBuildQueue";
             this.tabPageBuildQueue.Size = new System.Drawing.Size(1185, 696);
             this.tabPageBuildQueue.TabIndex = 3;
             this.tabPageBuildQueue.Text = "Build Queue";
             this.tabPageBuildQueue.UseVisualStyleBackColor = true;
+            // 
+            // panelBuildQueueSelect
+            // 
+            this.panelBuildQueueSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBuildQueueSelect.Controls.Add(this.labelBuildQueueLevel);
+            this.panelBuildQueueSelect.Controls.Add(this.labelBuildQueueBuilding);
+            this.panelBuildQueueSelect.Controls.Add(this.buttonBuildQueueAdd);
+            this.panelBuildQueueSelect.Controls.Add(this.comboBoxBuildQueueLevel);
+            this.panelBuildQueueSelect.Controls.Add(this.comboBoxBuildQueueBuilding);
+            this.panelBuildQueueSelect.Location = new System.Drawing.Point(297, 44);
+            this.panelBuildQueueSelect.Name = "panelBuildQueueSelect";
+            this.panelBuildQueueSelect.Size = new System.Drawing.Size(880, 649);
+            this.panelBuildQueueSelect.TabIndex = 2;
+            // 
+            // labelBuildQueueLevel
+            // 
+            this.labelBuildQueueLevel.AutoSize = true;
+            this.labelBuildQueueLevel.Location = new System.Drawing.Point(330, 11);
+            this.labelBuildQueueLevel.Name = "labelBuildQueueLevel";
+            this.labelBuildQueueLevel.Size = new System.Drawing.Size(33, 13);
+            this.labelBuildQueueLevel.TabIndex = 4;
+            this.labelBuildQueueLevel.Text = "Level";
+            // 
+            // labelBuildQueueBuilding
+            // 
+            this.labelBuildQueueBuilding.AutoSize = true;
+            this.labelBuildQueueBuilding.Location = new System.Drawing.Point(4, 11);
+            this.labelBuildQueueBuilding.Name = "labelBuildQueueBuilding";
+            this.labelBuildQueueBuilding.Size = new System.Drawing.Size(56, 13);
+            this.labelBuildQueueBuilding.TabIndex = 3;
+            this.labelBuildQueueBuilding.Text = "Building Id";
+            // 
+            // buttonBuildQueueAdd
+            // 
+            this.buttonBuildQueueAdd.Location = new System.Drawing.Point(383, 30);
+            this.buttonBuildQueueAdd.Name = "buttonBuildQueueAdd";
+            this.buttonBuildQueueAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonBuildQueueAdd.TabIndex = 2;
+            this.buttonBuildQueueAdd.Text = "Add";
+            this.buttonBuildQueueAdd.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxBuildQueueLevel
+            // 
+            this.comboBoxBuildQueueLevel.FormattingEnabled = true;
+            this.comboBoxBuildQueueLevel.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+            this.comboBoxBuildQueueLevel.Location = new System.Drawing.Point(333, 30);
+            this.comboBoxBuildQueueLevel.Name = "comboBoxBuildQueueLevel";
+            this.comboBoxBuildQueueLevel.Size = new System.Drawing.Size(43, 21);
+            this.comboBoxBuildQueueLevel.TabIndex = 1;
+            this.comboBoxBuildQueueLevel.Text = "10";
+            // 
+            // comboBoxBuildQueueBuilding
+            // 
+            this.comboBoxBuildQueueBuilding.FormattingEnabled = true;
+            this.comboBoxBuildQueueBuilding.Location = new System.Drawing.Point(4, 30);
+            this.comboBoxBuildQueueBuilding.Name = "comboBoxBuildQueueBuilding";
+            this.comboBoxBuildQueueBuilding.Size = new System.Drawing.Size(323, 21);
+            this.comboBoxBuildQueueBuilding.TabIndex = 0;
+            // 
+            // panelBuildQueueList
+            // 
+            this.panelBuildQueueList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelBuildQueueList.Controls.Add(this.listBoxBuildQueues);
+            this.panelBuildQueueList.Location = new System.Drawing.Point(9, 44);
+            this.panelBuildQueueList.Name = "panelBuildQueueList";
+            this.panelBuildQueueList.Size = new System.Drawing.Size(282, 649);
+            this.panelBuildQueueList.TabIndex = 1;
+            // 
+            // listBoxBuildQueues
+            // 
+            this.listBoxBuildQueues.FormattingEnabled = true;
+            this.listBoxBuildQueues.Location = new System.Drawing.Point(4, 11);
+            this.listBoxBuildQueues.Name = "listBoxBuildQueues";
+            this.listBoxBuildQueues.Size = new System.Drawing.Size(275, 628);
+            this.listBoxBuildQueues.TabIndex = 0;
+            // 
+            // panelBuildQueueHead
+            // 
+            this.panelBuildQueueHead.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBuildQueueHead.Controls.Add(this.buttonBuildQueueSelect);
+            this.panelBuildQueueHead.Controls.Add(this.comboBoxBuildQueueVillages);
+            this.panelBuildQueueHead.Location = new System.Drawing.Point(9, 4);
+            this.panelBuildQueueHead.Name = "panelBuildQueueHead";
+            this.panelBuildQueueHead.Size = new System.Drawing.Size(1168, 34);
+            this.panelBuildQueueHead.TabIndex = 0;
+            // 
+            // buttonBuildQueueSelect
+            // 
+            this.buttonBuildQueueSelect.Location = new System.Drawing.Point(207, 3);
+            this.buttonBuildQueueSelect.Name = "buttonBuildQueueSelect";
+            this.buttonBuildQueueSelect.Size = new System.Drawing.Size(75, 23);
+            this.buttonBuildQueueSelect.TabIndex = 3;
+            this.buttonBuildQueueSelect.Text = "Select";
+            this.buttonBuildQueueSelect.UseVisualStyleBackColor = true;
+            this.buttonBuildQueueSelect.Click += new System.EventHandler(this.buttonBuildQueueSelect_Click);
+            // 
+            // comboBoxBuildQueueVillages
+            // 
+            this.comboBoxBuildQueueVillages.FormattingEnabled = true;
+            this.comboBoxBuildQueueVillages.Location = new System.Drawing.Point(3, 3);
+            this.comboBoxBuildQueueVillages.Name = "comboBoxBuildQueueVillages";
+            this.comboBoxBuildQueueVillages.Size = new System.Drawing.Size(198, 21);
+            this.comboBoxBuildQueueVillages.TabIndex = 2;
             // 
             // tabPageReports
             // 
@@ -842,16 +1252,6 @@ namespace jeza.Travian.GameCenter
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
-            // mapBindingSource
-            // 
-            this.mapBindingSource.DataSource = typeof(jeza.Travian.Framework.Map);
-            // 
-            // SetStatus
-            // 
-            this.SetStatus.HeaderText = "SetStatus";
-            this.SetStatus.Name = "SetStatus";
-            this.SetStatus.ReadOnly = true;
-            // 
             // ProcessCenter
             // 
             this.ClientSize = new System.Drawing.Size(1193, 865);
@@ -865,6 +1265,9 @@ namespace jeza.Travian.GameCenter
             this.panelTabs.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.groupBoxAlly.ResumeLayout(false);
+            this.groupBoxAlly.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBoxLanguage.ResumeLayout(false);
             this.groupBoxLanguage.PerformLayout();
@@ -891,6 +1294,12 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMapUpdate.PerformLayout();
             this.panelMapList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).EndInit();
+            this.tabPageBuildQueue.ResumeLayout(false);
+            this.panelBuildQueueSelect.ResumeLayout(false);
+            this.panelBuildQueueSelect.PerformLayout();
+            this.panelBuildQueueList.ResumeLayout(false);
+            this.panelBuildQueueHead.ResumeLayout(false);
             this.tabPageBrowser.ResumeLayout(false);
             this.panelBrowserUrl.ResumeLayout(false);
             this.panelBrowserUrl.PerformLayout();
@@ -899,7 +1308,6 @@ namespace jeza.Travian.GameCenter
             this.panelHead.PerformLayout();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mapBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -960,7 +1368,6 @@ namespace jeza.Travian.GameCenter
         private TextBox textBoxUsername;
         private Label labelUsername;
         private Button buttonOwerviewSave;
-        private BindingSource mapBindingSource;
         private CheckBox checkBoxMapOccupiedOasis;
         private Panel panelMapUpdate;
         private Panel panelMapPopulate;
@@ -975,6 +1382,46 @@ namespace jeza.Travian.GameCenter
         private GroupBox groupBoxMapFarms;
         private GroupBox groupBoxOverview;
         private ComboBox comboBoxSettingsLanguages;
+        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn xDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn yDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
+        //private DataGridViewTextBoxColumn notes;
+        //private DataGridViewComboBoxColumn changedValleyType;
+        //private DataGridViewButtonColumn submit;
+        private Panel panel2;
+        private GroupBox groupBoxAlly;
+        private Label labelSettingsAlly;
+        private DataGridViewTextBoxColumn notes;
+        private DataGridViewComboBoxColumn changedValleyType;
+        private DataGridViewButtonColumn save;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private Label labelSettingsAllyId;
+        private Label labelSettingsAllyName;
+        private Button buttonSettingsNapAdd;
+        private Button buttonSettingsWarAdd;
+        private Button buttonSettingsAllyAdd;
+        private TextBox textBox5;
+        private TextBox textBox6;
+        private Label labelSettingsWar;
+        private TextBox textBox3;
+        private TextBox textBox4;
+        private Label labelSettingsNap;
+        private Panel panelBuildQueueList;
+        private Panel panelBuildQueueHead;
+        private Button buttonBuildQueueSelect;
+        private ComboBox comboBoxBuildQueueVillages;
+        private Panel panelBuildQueueSelect;
+        private Label labelBuildQueueLevel;
+        private Label labelBuildQueueBuilding;
+        private Button buttonBuildQueueAdd;
+        private ComboBox comboBoxBuildQueueLevel;
+        private ComboBox comboBoxBuildQueueBuilding;
+        private ListBox listBoxBuildQueues;
         
         //readonly object stateLock = new object();
         private bool botActive;
@@ -984,15 +1431,20 @@ namespace jeza.Travian.GameCenter
         private readonly Account account;
         private readonly Map map;
         private Languages languages;
+        private ValleyTypeList valleyTypeList;
 
         delegate void StringParameterDelegate(string value);
         delegate void SetDataGridViewDataBind(DataGridView field, ArrayList list);
         delegate void SetButtonStatus(Button button, bool enabled);
         delegate void SetComboBoxStatus(ComboBox comboBox);
+        delegate void SetComboBoxStatusQueues(ComboBox comboBox, ArrayList list);
 
         const string SettingsXml = "Settings.xml";
         const string LanguagesXml = "Language.xml";
-        private DataGridViewComboBoxColumn SetStatus;
+        const string ValleyTypeListXml = "ValleyTypeList.xml";
+        
+        private BindingSource valleyBindingSource;
+        
     }
 }
 

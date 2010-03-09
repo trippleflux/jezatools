@@ -12,6 +12,17 @@ namespace jeza.Travian.Framework
     public class Misc
     {
         /// <summary>
+        /// Converts the coordinates to mapNumber attribute (?d=).
+        /// </summary>
+        /// <param name="x">The x coordinate.</param>
+        /// <param name="y">The y coordinate.</param>
+        /// <returns></returns>
+        public static Int32 ConvertCoordinates(Int32 x, Int32 y)
+        {
+            return ((x + 401) + ((400 - y) * 801));
+        }
+
+        /// <summary>
         /// Converts the specified string representation of a logical value to its System.Boolean equivalent.
         /// </summary>
         /// <param name="input">The input string.</param>
