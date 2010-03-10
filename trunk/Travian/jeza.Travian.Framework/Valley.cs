@@ -1,3 +1,6 @@
+using System;
+using System.Globalization;
+
 namespace jeza.Travian.Framework
 {
     public class Valley
@@ -12,6 +15,32 @@ namespace jeza.Travian.Framework
         public ValleyType ValleyType { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
+
+        public string Coordinates
+        {
+            get { return String.Format(CultureInfo.InvariantCulture, "({0}|{1})", X, Y); }
+            set { Coordinates = value; }
+        }
+
+        public int AllianceId
+        {
+            //allianz.php?aid=0
+            get { return Misc.String2Number(AllianceUrl.Substring(16)); }
+            set { AllianceId = value; }
+        }
+
+        public int UserId
+        {
+            //spieler.php?uid=11436
+            get { return Misc.String2Number(PlayerUrl.Substring(16)); }
+            set { UserId = value; }
+        }
+
+        public int VillageId
+        {
+            get { return Misc.ConvertCoordinates(X, Y); }
+            set { VillageId = value; }
+        }
 
         /// <summary>
         /// Adds the alliance data.

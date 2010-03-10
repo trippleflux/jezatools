@@ -100,49 +100,6 @@ namespace jeza.Travian.GameCenter
             }
         }
 
-        private void dataGridViewMap_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Ignore clicks that are not on button cells. 
-            // ReSharper disable PossibleNullReferenceException
-            if (e.RowIndex < 0 || e.ColumnIndex != dataGridViewMap.Columns["Save"].Index) return;
-            // ReSharper restore PossibleNullReferenceException
-
-            // Retrieve the task ID.
-            object objuserNotes = dataGridViewMap[7, e.RowIndex].Value;
-            object objnewValleyType = dataGridViewMap[8, e.RowIndex].Value;
-            String userNotes = "";
-            String newValleyType = "";
-            if (objuserNotes != null)
-            {
-                userNotes = objuserNotes.ToString();
-            }
-            if (objnewValleyType != null)
-            {
-                newValleyType = objnewValleyType.ToString();
-            }
-            valleyTypeList.Items.Add(new ValleyItem
-                {
-                    ValleyNotes = userNotes, 
-                    ValleyType = GetValleyType(newValleyType), 
-                    VillageId = "asd",
-                });
-            //MessageBox.Show(String.Format("Notes '{0}', newValleyType '{1}'", userNotes, newValleyType), "Update");
-            SerializeValeyTypeList();
-            // Retrieve the Employee object from the "Assigned To" cell.
-            //Employee assignedTo = dataGridView1.Rows[e.RowIndex]
-            //    .Cells["Assigned To"].Value as Employee;
-
-            // Request status through the Employee object if present. 
-            //if (assignedTo != null)
-            //{
-            //    assignedTo.RequestStatus(taskId);
-            //}
-            //else
-            //{
-            //    MessageBox.Show(String.Format("Task {0} is unassigned.", taskId), "Status Request");
-            //}
-        }
-
         private static ValleyType GetValleyType(string valleyType)
         {
             foreach (ValleyType value in Enum.GetValues(typeof (ValleyType)))
