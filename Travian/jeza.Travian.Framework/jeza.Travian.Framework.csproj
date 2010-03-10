@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Buildings.cs" />
-    <Compile Include="DataSourceMap.cs" />
     <Compile Include="Languages.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Misc.cs" />

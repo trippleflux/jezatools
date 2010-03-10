@@ -42,12 +42,15 @@ namespace jeza.Travian.Tests
             Valley valley = htmlParser.GetVillageDetails();
             Assert.IsNotNull(valley, "valley is null!");
             Assert.AreEqual("gajo123", valley.Name, "Name!");
+            Assert.AreEqual(267054, valley.VillageId, "Vilalge id!");
             Assert.AreEqual(-80, valley.X, "X coordinate!");
             Assert.AreEqual(67, valley.Y, "Y coordinate!");
             Assert.AreEqual("allianz.php?aid=0", valley.AllianceUrl, "Alliance url!");
+            Assert.AreEqual(0, valley.AllianceId, "Alliance Id!");
             Assert.AreEqual("", valley.Alliance, "Alliance name!");
             Assert.AreEqual("novakm", valley.Player, "Player name!");
             Assert.AreEqual("spieler.php?uid=11436", valley.PlayerUrl, "Player url!");
+            Assert.AreEqual(11436, valley.UserId, "User id!");
             Assert.AreEqual(36, valley.Population, "Village Population!");
         }
 
