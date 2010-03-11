@@ -33,6 +33,17 @@ namespace jeza.Travian.GameCenter
             DeserializeSettings();
             languages = new Languages();
             DeserializeLanguage();
+            actions = new Actions();
+            BuildQueue buildQueue = new BuildQueue
+                {
+                    Level = 10,
+                    BuildingId = 123,
+                    Name = "gozdar",
+                    VillageId = 222,
+                    VillageName = "asd",
+                };
+            actions.BuildQueue.Add(buildQueue);
+            SerializeActions();
             htmlWeb.UseCookies = true;
             Timer timer = new Timer {Interval = 1000, Enabled = true};
             timer.Tick += TimerTick;
@@ -45,6 +56,11 @@ namespace jeza.Travian.GameCenter
             webBrowser.Navigate(settings.LoginData.Servername);
         }
 
+        private void buttonBuildQueueAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void buttonBuildQueueSelect_Click(object sender, EventArgs e)
         {
             Village selectedVillage = comboBoxBuildQueueVillages.SelectedItem as Village;
@@ -53,6 +69,16 @@ namespace jeza.Travian.GameCenter
                 Thread t = new Thread(mapInfo => PopulateBuildQueueForVillage(selectedVillage)) { IsBackground = true };
                 t.Start();
             }
+        }
+
+        private void buttonSettingsExcludedAllyAdd_Click(object sender, EventArgs e)
+        {
+            //TODO: todo
+        }
+
+        private void buttonSettingsExcludedUsersAdd_Click(object sender, EventArgs e)
+        {
+            //TODO: todo
         }
 
         private void buttonMapPopulate_Click(object sender, EventArgs e)
@@ -98,19 +124,6 @@ namespace jeza.Travian.GameCenter
                 Thread t = new Thread(rallyPoint => PopulateRallyPoint(selectedVillage)) {IsBackground = true};
                 t.Start();
             }
-        }
-
-        private static ValleyType GetValleyType(string valleyType)
-        {
-            foreach (ValleyType value in Enum.GetValues(typeof (ValleyType)))
-            {
-                string name = Enum.GetName(typeof (ValleyType), value);
-                if (name.Equals(valleyType))
-                {
-                    return value;
-                }
-            }
-            return ValleyType.FarmLowRisk;
         }
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -469,6 +482,18 @@ namespace jeza.Travian.GameCenter
         }
 
         /// <summary>
+        /// Saves actions to XML.
+        /// </summary>
+        private void SerializeActions()
+        {
+            using (TextWriter textWriter = new StreamWriter(BuildingQueueXml))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Actions));
+                xmlSerializer.Serialize(textWriter, actions);
+            }
+        }
+
+        /// <summary>
         /// Saves settnigs to XML.
         /// </summary>
         private void SerializeSettings()
@@ -675,6 +700,7 @@ namespace jeza.Travian.GameCenter
             textBoxStatus.Select(textBoxStatus.Text.Length, 0);
             textBoxStatus.ScrollToCaret();
         }
+
         //private void UpdateCount()
         //{
         //    int tmpCount;

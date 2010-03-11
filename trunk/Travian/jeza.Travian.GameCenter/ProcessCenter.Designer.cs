@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
@@ -40,23 +41,35 @@ namespace jeza.Travian.GameCenter
             this.panelTabs = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelSettingsExcludedUsers = new System.Windows.Forms.Panel();
+            this.groupBoxSettingsExcludedUsers = new System.Windows.Forms.GroupBox();
+            this.labelSettingsExcludedId = new System.Windows.Forms.Label();
+            this.labelSettingsExcludedName = new System.Windows.Forms.Label();
+            this.buttonSettingsExcludedUsersAdd = new System.Windows.Forms.Button();
+            this.buttonSettingsExcludedAllyAdd = new System.Windows.Forms.Button();
+            this.textBoxSettingsExcludedUserId = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsExcludedUserName = new System.Windows.Forms.TextBox();
+            this.labelSettingsExcludedUsers = new System.Windows.Forms.Label();
+            this.textBoxSettingsExcludedAllyId = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsExcludedAllyName = new System.Windows.Forms.TextBox();
+            this.labelSettingsExcludededAlly = new System.Windows.Forms.Label();
+            this.panelSettingsAlly = new System.Windows.Forms.Panel();
             this.groupBoxAlly = new System.Windows.Forms.GroupBox();
             this.labelSettingsAllyId = new System.Windows.Forms.Label();
             this.labelSettingsAllyName = new System.Windows.Forms.Label();
             this.buttonSettingsNapAdd = new System.Windows.Forms.Button();
             this.buttonSettingsWarAdd = new System.Windows.Forms.Button();
             this.buttonSettingsAllyAdd = new System.Windows.Forms.Button();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsAllyIdWar = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsAllyNameWar = new System.Windows.Forms.TextBox();
             this.labelSettingsWar = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsAllyIdNap = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsAllyNameNap = new System.Windows.Forms.TextBox();
             this.labelSettingsNap = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsAllyIdAlly = new System.Windows.Forms.TextBox();
+            this.textBoxSettingsAllyNameAlly = new System.Windows.Forms.TextBox();
             this.labelSettingsAlly = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelSettingsLanguage = new System.Windows.Forms.Panel();
             this.groupBoxLanguage = new System.Windows.Forms.GroupBox();
             this.comboBoxSettingsLanguages = new System.Windows.Forms.ComboBox();
             this.labelLanguageId = new System.Windows.Forms.Label();
@@ -103,6 +116,13 @@ namespace jeza.Travian.GameCenter
             this.textBoxMapDistance = new System.Windows.Forms.TextBox();
             this.panelMapList = new System.Windows.Forms.Panel();
             this.dataGridViewMap = new System.Windows.Forms.DataGridView();
+            this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
             this.panelBuildQueueSelect = new System.Windows.Forms.Panel();
@@ -131,20 +151,15 @@ namespace jeza.Travian.GameCenter
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.VillageId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Coordinates = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelSettingsExcludedUsers.SuspendLayout();
+            this.groupBoxSettingsExcludedUsers.SuspendLayout();
+            this.panelSettingsAlly.SuspendLayout();
             this.groupBoxAlly.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelSettingsLanguage.SuspendLayout();
             this.groupBoxLanguage.SuspendLayout();
             this.panelOverviewLogins.SuspendLayout();
             this.groupBoxOverview.SuspendLayout();
@@ -215,8 +230,9 @@ namespace jeza.Travian.GameCenter
             // 
             // tabPageSettings
             // 
-            this.tabPageSettings.Controls.Add(this.panel2);
-            this.tabPageSettings.Controls.Add(this.panel1);
+            this.tabPageSettings.Controls.Add(this.panelSettingsExcludedUsers);
+            this.tabPageSettings.Controls.Add(this.panelSettingsAlly);
+            this.tabPageSettings.Controls.Add(this.panelSettingsLanguage);
             this.tabPageSettings.Controls.Add(this.panelOverviewLogins);
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettings.Name = "tabPageSettings";
@@ -226,13 +242,124 @@ namespace jeza.Travian.GameCenter
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
             // 
-            // panel2
+            // panelSettingsExcludedUsers
             // 
-            this.panel2.Controls.Add(this.groupBoxAlly);
-            this.panel2.Location = new System.Drawing.Point(289, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(379, 123);
-            this.panel2.TabIndex = 3;
+            this.panelSettingsExcludedUsers.Controls.Add(this.groupBoxSettingsExcludedUsers);
+            this.panelSettingsExcludedUsers.Location = new System.Drawing.Point(289, 135);
+            this.panelSettingsExcludedUsers.Name = "panelSettingsExcludedUsers";
+            this.panelSettingsExcludedUsers.Size = new System.Drawing.Size(379, 98);
+            this.panelSettingsExcludedUsers.TabIndex = 4;
+            // 
+            // groupBoxSettingsExcludedUsers
+            // 
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.labelSettingsExcludedId);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.labelSettingsExcludedName);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.buttonSettingsExcludedUsersAdd);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.buttonSettingsExcludedAllyAdd);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.textBoxSettingsExcludedUserId);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.textBoxSettingsExcludedUserName);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.labelSettingsExcludedUsers);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.textBoxSettingsExcludedAllyId);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.textBoxSettingsExcludedAllyName);
+            this.groupBoxSettingsExcludedUsers.Controls.Add(this.labelSettingsExcludededAlly);
+            this.groupBoxSettingsExcludedUsers.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxSettingsExcludedUsers.Name = "groupBoxSettingsExcludedUsers";
+            this.groupBoxSettingsExcludedUsers.Size = new System.Drawing.Size(373, 85);
+            this.groupBoxSettingsExcludedUsers.TabIndex = 0;
+            this.groupBoxSettingsExcludedUsers.TabStop = false;
+            this.groupBoxSettingsExcludedUsers.Text = "Excluded";
+            // 
+            // labelSettingsExcludedId
+            // 
+            this.labelSettingsExcludedId.AutoSize = true;
+            this.labelSettingsExcludedId.Location = new System.Drawing.Point(181, 16);
+            this.labelSettingsExcludedId.Name = "labelSettingsExcludedId";
+            this.labelSettingsExcludedId.Size = new System.Drawing.Size(16, 13);
+            this.labelSettingsExcludedId.TabIndex = 13;
+            this.labelSettingsExcludedId.Text = "Id";
+            // 
+            // labelSettingsExcludedName
+            // 
+            this.labelSettingsExcludedName.AutoSize = true;
+            this.labelSettingsExcludedName.Location = new System.Drawing.Point(65, 16);
+            this.labelSettingsExcludedName.Name = "labelSettingsExcludedName";
+            this.labelSettingsExcludedName.Size = new System.Drawing.Size(35, 13);
+            this.labelSettingsExcludedName.TabIndex = 12;
+            this.labelSettingsExcludedName.Text = "Name";
+            // 
+            // buttonSettingsExcludedUsersAdd
+            // 
+            this.buttonSettingsExcludedUsersAdd.Location = new System.Drawing.Point(291, 54);
+            this.buttonSettingsExcludedUsersAdd.Name = "buttonSettingsExcludedUsersAdd";
+            this.buttonSettingsExcludedUsersAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsExcludedUsersAdd.TabIndex = 11;
+            this.buttonSettingsExcludedUsersAdd.Text = "Add";
+            this.buttonSettingsExcludedUsersAdd.UseVisualStyleBackColor = true;
+            this.buttonSettingsExcludedUsersAdd.Click += new System.EventHandler(this.buttonSettingsExcludedUsersAdd_Click);
+            // 
+            // buttonSettingsExcludedAllyAdd
+            // 
+            this.buttonSettingsExcludedAllyAdd.Location = new System.Drawing.Point(291, 27);
+            this.buttonSettingsExcludedAllyAdd.Name = "buttonSettingsExcludedAllyAdd";
+            this.buttonSettingsExcludedAllyAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsExcludedAllyAdd.TabIndex = 9;
+            this.buttonSettingsExcludedAllyAdd.Text = "Add";
+            this.buttonSettingsExcludedAllyAdd.UseVisualStyleBackColor = true;
+            this.buttonSettingsExcludedAllyAdd.Click += new System.EventHandler(this.buttonSettingsExcludedAllyAdd_Click);
+            // 
+            // textBoxSettingsExcludedUserId
+            // 
+            this.textBoxSettingsExcludedUserId.Location = new System.Drawing.Point(184, 58);
+            this.textBoxSettingsExcludedUserId.Name = "textBoxSettingsExcludedUserId";
+            this.textBoxSettingsExcludedUserId.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsExcludedUserId.TabIndex = 5;
+            // 
+            // textBoxSettingsExcludedUserName
+            // 
+            this.textBoxSettingsExcludedUserName.Location = new System.Drawing.Point(68, 57);
+            this.textBoxSettingsExcludedUserName.Name = "textBoxSettingsExcludedUserName";
+            this.textBoxSettingsExcludedUserName.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsExcludedUserName.TabIndex = 4;
+            // 
+            // labelSettingsExcludedUsers
+            // 
+            this.labelSettingsExcludedUsers.AutoSize = true;
+            this.labelSettingsExcludedUsers.Location = new System.Drawing.Point(8, 64);
+            this.labelSettingsExcludedUsers.Name = "labelSettingsExcludedUsers";
+            this.labelSettingsExcludedUsers.Size = new System.Drawing.Size(29, 13);
+            this.labelSettingsExcludedUsers.TabIndex = 3;
+            this.labelSettingsExcludedUsers.Text = "User";
+            // 
+            // textBoxSettingsExcludedAllyId
+            // 
+            this.textBoxSettingsExcludedAllyId.Location = new System.Drawing.Point(184, 32);
+            this.textBoxSettingsExcludedAllyId.Name = "textBoxSettingsExcludedAllyId";
+            this.textBoxSettingsExcludedAllyId.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsExcludedAllyId.TabIndex = 2;
+            // 
+            // textBoxSettingsExcludedAllyName
+            // 
+            this.textBoxSettingsExcludedAllyName.Location = new System.Drawing.Point(68, 32);
+            this.textBoxSettingsExcludedAllyName.Name = "textBoxSettingsExcludedAllyName";
+            this.textBoxSettingsExcludedAllyName.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsExcludedAllyName.TabIndex = 1;
+            // 
+            // labelSettingsExcludededAlly
+            // 
+            this.labelSettingsExcludededAlly.AutoSize = true;
+            this.labelSettingsExcludededAlly.Location = new System.Drawing.Point(8, 38);
+            this.labelSettingsExcludededAlly.Name = "labelSettingsExcludededAlly";
+            this.labelSettingsExcludededAlly.Size = new System.Drawing.Size(23, 13);
+            this.labelSettingsExcludededAlly.TabIndex = 0;
+            this.labelSettingsExcludededAlly.Text = "Ally";
+            // 
+            // panelSettingsAlly
+            // 
+            this.panelSettingsAlly.Controls.Add(this.groupBoxAlly);
+            this.panelSettingsAlly.Location = new System.Drawing.Point(289, 6);
+            this.panelSettingsAlly.Name = "panelSettingsAlly";
+            this.panelSettingsAlly.Size = new System.Drawing.Size(379, 123);
+            this.panelSettingsAlly.TabIndex = 3;
             // 
             // groupBoxAlly
             // 
@@ -241,14 +368,14 @@ namespace jeza.Travian.GameCenter
             this.groupBoxAlly.Controls.Add(this.buttonSettingsNapAdd);
             this.groupBoxAlly.Controls.Add(this.buttonSettingsWarAdd);
             this.groupBoxAlly.Controls.Add(this.buttonSettingsAllyAdd);
-            this.groupBoxAlly.Controls.Add(this.textBox5);
-            this.groupBoxAlly.Controls.Add(this.textBox6);
+            this.groupBoxAlly.Controls.Add(this.textBoxSettingsAllyIdWar);
+            this.groupBoxAlly.Controls.Add(this.textBoxSettingsAllyNameWar);
             this.groupBoxAlly.Controls.Add(this.labelSettingsWar);
-            this.groupBoxAlly.Controls.Add(this.textBox3);
-            this.groupBoxAlly.Controls.Add(this.textBox4);
+            this.groupBoxAlly.Controls.Add(this.textBoxSettingsAllyIdNap);
+            this.groupBoxAlly.Controls.Add(this.textBoxSettingsAllyNameNap);
             this.groupBoxAlly.Controls.Add(this.labelSettingsNap);
-            this.groupBoxAlly.Controls.Add(this.textBox2);
-            this.groupBoxAlly.Controls.Add(this.textBox1);
+            this.groupBoxAlly.Controls.Add(this.textBoxSettingsAllyIdAlly);
+            this.groupBoxAlly.Controls.Add(this.textBoxSettingsAllyNameAlly);
             this.groupBoxAlly.Controls.Add(this.labelSettingsAlly);
             this.groupBoxAlly.Location = new System.Drawing.Point(3, 3);
             this.groupBoxAlly.Name = "groupBoxAlly";
@@ -305,19 +432,19 @@ namespace jeza.Travian.GameCenter
             this.buttonSettingsAllyAdd.UseVisualStyleBackColor = true;
             this.buttonSettingsAllyAdd.Click += new System.EventHandler(this.buttonSettingsAllyAdd_Click);
             // 
-            // textBox5
+            // textBoxSettingsAllyIdWar
             // 
-            this.textBox5.Location = new System.Drawing.Point(184, 83);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 8;
+            this.textBoxSettingsAllyIdWar.Location = new System.Drawing.Point(184, 83);
+            this.textBoxSettingsAllyIdWar.Name = "textBoxSettingsAllyIdWar";
+            this.textBoxSettingsAllyIdWar.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsAllyIdWar.TabIndex = 8;
             // 
-            // textBox6
+            // textBoxSettingsAllyNameWar
             // 
-            this.textBox6.Location = new System.Drawing.Point(68, 82);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 7;
+            this.textBoxSettingsAllyNameWar.Location = new System.Drawing.Point(68, 82);
+            this.textBoxSettingsAllyNameWar.Name = "textBoxSettingsAllyNameWar";
+            this.textBoxSettingsAllyNameWar.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsAllyNameWar.TabIndex = 7;
             // 
             // labelSettingsWar
             // 
@@ -328,19 +455,19 @@ namespace jeza.Travian.GameCenter
             this.labelSettingsWar.TabIndex = 6;
             this.labelSettingsWar.Text = "War";
             // 
-            // textBox3
+            // textBoxSettingsAllyIdNap
             // 
-            this.textBox3.Location = new System.Drawing.Point(184, 58);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 5;
+            this.textBoxSettingsAllyIdNap.Location = new System.Drawing.Point(184, 58);
+            this.textBoxSettingsAllyIdNap.Name = "textBoxSettingsAllyIdNap";
+            this.textBoxSettingsAllyIdNap.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsAllyIdNap.TabIndex = 5;
             // 
-            // textBox4
+            // textBoxSettingsAllyNameNap
             // 
-            this.textBox4.Location = new System.Drawing.Point(68, 57);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 4;
+            this.textBoxSettingsAllyNameNap.Location = new System.Drawing.Point(68, 57);
+            this.textBoxSettingsAllyNameNap.Name = "textBoxSettingsAllyNameNap";
+            this.textBoxSettingsAllyNameNap.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsAllyNameNap.TabIndex = 4;
             // 
             // labelSettingsNap
             // 
@@ -351,19 +478,19 @@ namespace jeza.Travian.GameCenter
             this.labelSettingsNap.TabIndex = 3;
             this.labelSettingsNap.Text = "Nap";
             // 
-            // textBox2
+            // textBoxSettingsAllyIdAlly
             // 
-            this.textBox2.Location = new System.Drawing.Point(184, 32);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 2;
+            this.textBoxSettingsAllyIdAlly.Location = new System.Drawing.Point(184, 32);
+            this.textBoxSettingsAllyIdAlly.Name = "textBoxSettingsAllyIdAlly";
+            this.textBoxSettingsAllyIdAlly.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsAllyIdAlly.TabIndex = 2;
             // 
-            // textBox1
+            // textBoxSettingsAllyNameAlly
             // 
-            this.textBox1.Location = new System.Drawing.Point(68, 32);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBoxSettingsAllyNameAlly.Location = new System.Drawing.Point(68, 32);
+            this.textBoxSettingsAllyNameAlly.Name = "textBoxSettingsAllyNameAlly";
+            this.textBoxSettingsAllyNameAlly.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSettingsAllyNameAlly.TabIndex = 1;
             // 
             // labelSettingsAlly
             // 
@@ -374,13 +501,13 @@ namespace jeza.Travian.GameCenter
             this.labelSettingsAlly.TabIndex = 0;
             this.labelSettingsAlly.Text = "Ally";
             // 
-            // panel1
+            // panelSettingsLanguage
             // 
-            this.panel1.Controls.Add(this.groupBoxLanguage);
-            this.panel1.Location = new System.Drawing.Point(8, 6);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(275, 66);
-            this.panel1.TabIndex = 2;
+            this.panelSettingsLanguage.Controls.Add(this.groupBoxLanguage);
+            this.panelSettingsLanguage.Location = new System.Drawing.Point(8, 6);
+            this.panelSettingsLanguage.Name = "panelSettingsLanguage";
+            this.panelSettingsLanguage.Size = new System.Drawing.Size(275, 66);
+            this.panelSettingsLanguage.TabIndex = 2;
             // 
             // groupBoxLanguage
             // 
@@ -865,11 +992,11 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.AutoGenerateColumns = false;
             this.dataGridViewMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.VillageId,
+            this.villageIdDataGridViewTextBoxColumn,
             this.playerDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
             this.allianceDataGridViewTextBoxColumn,
-            this.Coordinates,
+            this.coordinatesDataGridViewTextBoxColumn,
             this.populationDataGridViewTextBoxColumn,
             this.valleyTypeDataGridViewTextBoxColumn});
             this.dataGridViewMap.DataSource = this.valleyBindingSource;
@@ -877,6 +1004,49 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Name = "dataGridViewMap";
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
+            // 
+            // VillageId
+            // 
+            this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
+            this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
+            this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
+            // 
+            // playerDataGridViewTextBoxColumn
+            // 
+            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
+            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
+            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Village";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // allianceDataGridViewTextBoxColumn
+            // 
+            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
+            // 
+            // Coordinates
+            // 
+            this.coordinatesDataGridViewTextBoxColumn.DataPropertyName = "Coordinates";
+            this.coordinatesDataGridViewTextBoxColumn.HeaderText = "Coordinates";
+            this.coordinatesDataGridViewTextBoxColumn.Name = "coordinatesDataGridViewTextBoxColumn";
+            // 
+            // populationDataGridViewTextBoxColumn
+            // 
+            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
+            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
+            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
+            // 
+            // valleyTypeDataGridViewTextBoxColumn
+            // 
+            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
+            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // valleyBindingSource
             // 
@@ -935,6 +1105,7 @@ namespace jeza.Travian.GameCenter
             this.buttonBuildQueueAdd.TabIndex = 2;
             this.buttonBuildQueueAdd.Text = "Add";
             this.buttonBuildQueueAdd.UseVisualStyleBackColor = true;
+            this.buttonBuildQueueAdd.Click += new System.EventHandler(this.buttonBuildQueueAdd_Click);
             // 
             // comboBoxBuildQueueLevel
             // 
@@ -1171,49 +1342,6 @@ namespace jeza.Travian.GameCenter
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
-            // VillageId
-            // 
-            this.VillageId.DataPropertyName = "VillageId";
-            this.VillageId.HeaderText = "VillageId";
-            this.VillageId.Name = "VillageId";
-            // 
-            // playerDataGridViewTextBoxColumn
-            // 
-            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
-            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
-            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Village";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // allianceDataGridViewTextBoxColumn
-            // 
-            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
-            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
-            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
-            // 
-            // Coordinates
-            // 
-            this.Coordinates.DataPropertyName = "Coordinates";
-            this.Coordinates.HeaderText = "Coordinates";
-            this.Coordinates.Name = "Coordinates";
-            // 
-            // populationDataGridViewTextBoxColumn
-            // 
-            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
-            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
-            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
-            // 
-            // valleyTypeDataGridViewTextBoxColumn
-            // 
-            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
-            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
-            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
-            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
             // ProcessCenter
             // 
             this.ClientSize = new System.Drawing.Size(1193, 865);
@@ -1227,10 +1355,13 @@ namespace jeza.Travian.GameCenter
             this.panelTabs.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.panelSettingsExcludedUsers.ResumeLayout(false);
+            this.groupBoxSettingsExcludedUsers.ResumeLayout(false);
+            this.groupBoxSettingsExcludedUsers.PerformLayout();
+            this.panelSettingsAlly.ResumeLayout(false);
             this.groupBoxAlly.ResumeLayout(false);
             this.groupBoxAlly.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.panelSettingsLanguage.ResumeLayout(false);
             this.groupBoxLanguage.ResumeLayout(false);
             this.groupBoxLanguage.PerformLayout();
             this.panelOverviewLogins.ResumeLayout(false);
@@ -1337,28 +1468,28 @@ namespace jeza.Travian.GameCenter
         private GroupBox groupBoxMapOases;
         private GroupBox groupBoxMapAlliace;
         private Label labelDateTime;
-        private Panel panel1;
+        private Panel panelSettingsLanguage;
         private GroupBox groupBoxLanguage;
         private Label labelLanguageId;
         private GroupBox groupBoxMapUpdate;
         private GroupBox groupBoxMapFarms;
         private GroupBox groupBoxOverview;
         private ComboBox comboBoxSettingsLanguages;
-        private Panel panel2;
+        private Panel panelSettingsAlly;
         private GroupBox groupBoxAlly;
         private Label labelSettingsAlly;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox textBoxSettingsAllyIdAlly;
+        private TextBox textBoxSettingsAllyNameAlly;
         private Label labelSettingsAllyId;
         private Label labelSettingsAllyName;
         private Button buttonSettingsNapAdd;
         private Button buttonSettingsWarAdd;
         private Button buttonSettingsAllyAdd;
-        private TextBox textBox5;
-        private TextBox textBox6;
+        private TextBox textBoxSettingsAllyIdWar;
+        private TextBox textBoxSettingsAllyNameWar;
         private Label labelSettingsWar;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox textBoxSettingsAllyIdNap;
+        private TextBox textBoxSettingsAllyNameNap;
         private Label labelSettingsNap;
         private Panel panelBuildQueueList;
         private Panel panelBuildQueueHead;
@@ -1371,6 +1502,25 @@ namespace jeza.Travian.GameCenter
         private ComboBox comboBoxBuildQueueLevel;
         private ComboBox comboBoxBuildQueueBuilding;
         private ListBox listBoxBuildQueues;
+        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn coordinatesDataGridViewTextBoxColumn;
+        private Panel panelSettingsExcludedUsers;
+        private GroupBox groupBoxSettingsExcludedUsers;
+        private Label labelSettingsExcludedId;
+        private Label labelSettingsExcludedName;
+        private Button buttonSettingsExcludedUsersAdd;
+        private Button buttonSettingsExcludedAllyAdd;
+        private TextBox textBoxSettingsExcludedUserId;
+        private TextBox textBoxSettingsExcludedUserName;
+        private Label labelSettingsExcludedUsers;
+        private TextBox textBoxSettingsExcludedAllyId;
+        private TextBox textBoxSettingsExcludedAllyName;
+        private Label labelSettingsExcludededAlly;
         
         //readonly object stateLock = new object();
         private bool botActive;
@@ -1381,6 +1531,7 @@ namespace jeza.Travian.GameCenter
         private readonly Map map;
         private Languages languages;
         private ValleyTypeList valleyTypeList;
+        private Actions actions;
 
         delegate void StringParameterDelegate(string value);
         delegate void SetDataGridViewDataBind(DataGridView field, ArrayList list);
@@ -1391,16 +1542,9 @@ namespace jeza.Travian.GameCenter
         const string SettingsXml = "Settings.xml";
         const string LanguagesXml = "Language.xml";
         const string ValleyTypeListXml = "ValleyTypeList.xml";
+        const string BuildingQueueXml = "Actions.xml";
 
         private BindingSource valleyBindingSource;
-        private DataGridViewTextBoxColumn VillageId;
-        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn Coordinates;
-        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
-        
     }
 }
 

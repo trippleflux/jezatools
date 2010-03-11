@@ -50,7 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
+    <Compile Include="Actions.cs" />
     <Compile Include="Buildings.cs" />
+    <Compile Include="BuildQueue.cs" />
     <Compile Include="Languages.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Misc.cs" />
