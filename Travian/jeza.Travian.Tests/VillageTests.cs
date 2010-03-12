@@ -15,6 +15,35 @@ namespace jeza.Travian.Tests
     public class VillageTests
     {
         [Test]
+        public void NotEnoughResourcesForUpgrade()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\build.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            ResourcesForUpgrade resourcesForUpgrade = htmlParser.GetResourcesForNextLevel();
+            Assert.AreEqual(2190, resourcesForUpgrade.Wood, "Wood");
+            Assert.AreEqual(2095, resourcesForUpgrade.Clay, "Clay");
+            Assert.AreEqual(2190, resourcesForUpgrade.Iron, "Iron");
+            Assert.AreEqual(750, resourcesForUpgrade.Crop, "Crop");
+            Assert.AreEqual(4, resourcesForUpgrade.CurrentLevel, "current level");
+        }
+
+        [Test]
+        public void EnoughResourcesForUpgrade()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\build.possible.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            ResourcesForUpgrade resourcesForUpgrade = htmlParser.GetResourcesForNextLevel();
+            Assert.AreEqual(945, resourcesForUpgrade.Wood, "Wood");
+            Assert.AreEqual(1180, resourcesForUpgrade.Clay, "Clay");
+            Assert.AreEqual(825, resourcesForUpgrade.Iron, "Iron");
+            Assert.AreEqual(235, resourcesForUpgrade.Crop, "Crop");
+            Assert.AreEqual("dorf2.php?a=19&amp;c=238d2f", resourcesForUpgrade.UpgradeUrl, "url");
+            Assert.AreEqual(10, resourcesForUpgrade.CurrentLevel, "current level");
+        }
+
+        [Test]
         public void ParseProduction()
         {
             HtmlDocument htmlDocument = new HtmlDocument();
@@ -46,7 +75,7 @@ namespace jeza.Travian.Tests
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
             Village village = new Village();
             village.AddId(123).AddName("01");
-            List<Buildings> buildings = htmlParser.GetResourceBuildings(village);
+            List<Buildings> buildings = htmlParser.GetResourceBuildings();
             Assert.IsNotNull(buildings, "NULL");
             Assert.AreEqual(18, buildings.Count, "COUNT");
         }

@@ -10,7 +10,7 @@ namespace jeza.Travian.Framework
             BuildQueue = new List<BuildQueue>();
         }
 
-        [XmlElement(ElementName = "buildQueues")]
+        //[XmlElement(ElementName = "buildQueue")]
         public List<BuildQueue> BuildQueue { get; set; }
     }
 }

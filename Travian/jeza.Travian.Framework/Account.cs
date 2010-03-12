@@ -83,16 +83,6 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
-        /// Adds the villages.
-        /// </summary>
-        /// <param name="villageList">The village list.</param>
-        public void AddVillages(List<Village> villageList)
-        {
-            villages.Clear();
-            villages.AddRange(villageList);
-        }
-
-        /// <summary>
         /// Gets the village with specified id.
         /// </summary>
         /// <param name="villageId">The village id.</param>
@@ -107,6 +97,16 @@ namespace jeza.Travian.Framework
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Adds the villages.
+        /// </summary>
+        /// <param name="villageList">The village list.</param>
+        public void UpdateVillages(List<Village> villageList)
+        {
+            villages.Clear();
+            villages.AddRange(villageList);
         }
 
         private readonly List<Village> villages = new List<Village>();

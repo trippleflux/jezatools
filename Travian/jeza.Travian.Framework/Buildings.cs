@@ -6,5 +6,10 @@ namespace jeza.Travian.Framework
         public string Name { get; set; }
         public string Url { get; set; }
         public int Level { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format(Name);
+        }
     }
 }
