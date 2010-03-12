@@ -56,6 +56,7 @@
     <Compile Include="Languages.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Misc.cs" />
+    <Compile Include="ResourcesForUpgrade.cs" />
     <Compile Include="Valley.cs" />
     <Compile Include="TroopMovementComparer.cs" />
     <Compile Include="Gauls.cs" />
@@ -75,6 +76,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Actions.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Language.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

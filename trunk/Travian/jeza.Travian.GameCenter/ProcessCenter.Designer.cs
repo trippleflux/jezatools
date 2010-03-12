@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
@@ -133,6 +132,7 @@ namespace jeza.Travian.GameCenter
             this.comboBoxBuildQueueBuilding = new System.Windows.Forms.ComboBox();
             this.panelBuildQueueList = new System.Windows.Forms.Panel();
             this.listBoxBuildQueues = new System.Windows.Forms.ListBox();
+            this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelBuildQueueHead = new System.Windows.Forms.Panel();
             this.buttonBuildQueueSelect = new System.Windows.Forms.Button();
             this.comboBoxBuildQueueVillages = new System.Windows.Forms.ComboBox();
@@ -182,6 +182,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageBuildQueue.SuspendLayout();
             this.panelBuildQueueSelect.SuspendLayout();
             this.panelBuildQueueList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).BeginInit();
             this.panelBuildQueueHead.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
             this.panelBrowserUrl.SuspendLayout();
@@ -1005,7 +1006,7 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
             // 
-            // VillageId
+            // villageIdDataGridViewTextBoxColumn
             // 
             this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
             this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
@@ -1029,7 +1030,7 @@ namespace jeza.Travian.GameCenter
             this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
             this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
             // 
-            // Coordinates
+            // coordinatesDataGridViewTextBoxColumn
             // 
             this.coordinatesDataGridViewTextBoxColumn.DataPropertyName = "Coordinates";
             this.coordinatesDataGridViewTextBoxColumn.HeaderText = "Coordinates";
@@ -1162,6 +1163,10 @@ namespace jeza.Travian.GameCenter
             this.listBoxBuildQueues.Name = "listBoxBuildQueues";
             this.listBoxBuildQueues.Size = new System.Drawing.Size(275, 628);
             this.listBoxBuildQueues.TabIndex = 0;
+            // 
+            // actionsBindingSource
+            // 
+            this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
             // 
             // panelBuildQueueHead
             // 
@@ -1392,6 +1397,7 @@ namespace jeza.Travian.GameCenter
             this.panelBuildQueueSelect.ResumeLayout(false);
             this.panelBuildQueueSelect.PerformLayout();
             this.panelBuildQueueList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).EndInit();
             this.panelBuildQueueHead.ResumeLayout(false);
             this.tabPageBrowser.ResumeLayout(false);
             this.panelBrowserUrl.ResumeLayout(false);
@@ -1538,13 +1544,15 @@ namespace jeza.Travian.GameCenter
         delegate void SetButtonStatus(Button button, bool enabled);
         delegate void SetComboBoxStatus(ComboBox comboBox);
         delegate void SetComboBoxStatusQueues(ComboBox comboBox, ArrayList list);
+        delegate void SetListBoxStatus(ListBox listBox);
 
         const string SettingsXml = "Settings.xml";
         const string LanguagesXml = "Language.xml";
         const string ValleyTypeListXml = "ValleyTypeList.xml";
-        const string BuildingQueueXml = "Actions.xml";
+        const string ActionsXml = "Actions.xml";
 
         private BindingSource valleyBindingSource;
+        private BindingSource actionsBindingSource;
     }
 }
 

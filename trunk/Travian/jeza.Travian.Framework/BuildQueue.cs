@@ -40,5 +40,16 @@ namespace jeza.Travian.Framework
         /// </summary>
         /// <value>The priority.</value>
         public int Priority { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resources needed for upgrade.
+        /// </summary>
+        /// <value>The resources.</value>
+        public ResourcesForUpgrade Resources { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {2}, Level: {1}", VillageName, Level, Name);
+        }
     }
 }

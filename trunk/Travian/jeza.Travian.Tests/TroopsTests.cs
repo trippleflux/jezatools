@@ -22,7 +22,7 @@ namespace jeza.Travian.Tests
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.Load("..\\..\\Test Files\\dorf1.php.html");
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
-            Troops troops = htmlParser.GetAvailableTroops(new Village().AddId(1).AddName("01"));
+            Troops troops = htmlParser.GetAvailableTroops();
             Assert.IsNotNull(troops, "troops is null!");
             Assert.AreEqual(1, troops.GetTroopCount("unit u21"), "Falanga!");
             Assert.AreEqual(1, troops.GetTroopCount("unit uhero"), "Heroj!");
@@ -31,6 +31,16 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(0, troops.GetTroopCount("unit xxx"), "Crap!");
         }
 
+        [Test]
+        public void NoTroops()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\dorf1.php.1.village.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Troops troops = htmlParser.GetAvailableTroops();
+            Assert.IsNotNull(troops, "troops is null!");
+            Assert.AreEqual(0, troops.GetTroopCount("unit u21"), "Falanga!");
+        }
         [Test]
         public void HtmlParserTroopMovements()
         {

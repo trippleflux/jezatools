@@ -27,9 +27,8 @@ namespace jeza.Travian.Parser
         /// <summary>
         /// Gets the available troops in village.
         /// </summary>
-        /// <param name="village">The village.</param>
         /// <returns></returns>
-        public Troops GetAvailableTroops(Village village)
+        public Troops GetAvailableTroops()
         {
             Troops troops = new Troops();
             HtmlNode tableTroops = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='troops']");
@@ -42,11 +41,15 @@ namespace jeza.Travian.Parser
                     {
                         if (htmlNode != null)
                         {
-                            string classAttribute =
-                                htmlNode.Element("td").Element("a").Element("img").Attributes["class"].Value;
-                            int unitCount = Misc.String2Number(htmlNode.SelectSingleNode("./td[2]").InnerText);
-                            string titleAttribute = htmlNode.SelectSingleNode("./td[3]").InnerText;
-                            troops.AddTroopUnit(new TroopUnit(titleAttribute, unitCount).AddHtmlClassName(classAttribute));
+                            HtmlNode element = htmlNode.Element("td").Element("a");
+                            if (element != null)
+                            {
+                                string classAttribute = element.Element("img").Attributes["class"].Value;
+                                int unitCount = Misc.String2Number(htmlNode.SelectSingleNode("./td[2]").InnerText);
+                                string titleAttribute = htmlNode.SelectSingleNode("./td[3]").InnerText;
+                                troops.AddTroopUnit(
+                                    new TroopUnit(titleAttribute, unitCount).AddHtmlClassName(classAttribute));
+                            }
                         }
                     }
                 }
@@ -260,9 +263,8 @@ namespace jeza.Travian.Parser
         /// <summary>
         /// Gets the resource buildings levels.
         /// </summary>
-        /// <param name="village">The village.</param>
         /// <returns></returns>
-        public List<Buildings> GetResourceBuildings(Village village)
+        public List<Buildings> GetResourceBuildings()
         {
             List<Buildings> resources = new List<Buildings>();
             HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes("//map[@id='rx']//area");
@@ -293,6 +295,45 @@ namespace jeza.Travian.Parser
                 }
             }
             return resources;
+        }
+
+        public ResourcesForUpgrade GetResourcesForNextLevel()
+        {
+            ResourcesForUpgrade resourcesForUpgrade = new ResourcesForUpgrade();
+            //<h1>Herojeva rezidenca <span class="level">Stopnja 4</span></h1>
+            HtmlNode head = htmlDocument.DocumentNode.SelectSingleNode("//h1");
+            if (head!=null)
+            {
+                string title = head.InnerText.Trim();
+                int index = title.LastIndexOf(' ');
+                if (index>-1)
+                {
+                    resourcesForUpgrade.CurrentLevel = Misc.String2Number(title.Substring(index+1));
+                }
+            }
+            HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//p[@id='contract']");
+            if (htmlNode!=null)
+            {
+                string[] values = htmlNode.InnerText.Split('|', ':');
+                resourcesForUpgrade.Wood = Misc.String2Number(values[1].Trim());
+                resourcesForUpgrade.Clay = Misc.String2Number(values[2].Trim());
+                resourcesForUpgrade.Iron = Misc.String2Number(values[3].Trim());
+                resourcesForUpgrade.Crop = Misc.String2Number(values[4].Trim());
+                HtmlNode node = htmlNode.SelectSingleNode("./a");
+                //dorf2.php?a=30&c=093667
+                if (node != null)
+                {
+                    string upgradeUrl = node.Attributes["href"].Value.Trim();
+                    resourcesForUpgrade.UpgradeUrl = upgradeUrl.Replace("&amp;", "&");
+                    string[] spliter = upgradeUrl.Split(new[] { "?", "&amp;" }, StringSplitOptions.RemoveEmptyEntries);
+                    resourcesForUpgrade.UrlParameters = spliter;
+                }
+                else
+                {
+                    resourcesForUpgrade.UpgradeUrl = null;
+                }
+            }
+            return resourcesForUpgrade;
         }
 
         private List<Valley> GetValleys(char prefix, ValleyType valleyType)
