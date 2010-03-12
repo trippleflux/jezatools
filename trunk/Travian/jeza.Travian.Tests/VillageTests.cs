@@ -15,6 +15,30 @@ namespace jeza.Travian.Tests
     public class VillageTests
     {
         [Test]
+        public void ParseProduction()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\dorf1.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            Village village = new Village();
+            village.AddId(123).AddName("01");
+            Production production = htmlParser.GetProduction();
+            Assert.IsNotNull(production, "NULL");
+            village.UpdateProduction(production);
+            Assert.AreEqual(production, village.Production, "production");
+            Assert.AreEqual(575, village.Production.WoodPerHour, "wood per hour");
+            Assert.AreEqual(590, village.Production.ClayPerHour, "clay per hour");
+            Assert.AreEqual(525, village.Production.IronPerHour, "iron per hour");
+            Assert.AreEqual(359, village.Production.CropPerHour, "crop per hour");
+            Assert.AreEqual(4675, village.Production.WoodTotal, "wood total");
+            Assert.AreEqual(3343, village.Production.ClayTotal, "clay total");
+            Assert.AreEqual(4463, village.Production.IronTotal, "iron total");
+            Assert.AreEqual(5236, village.Production.CropTotal, "crop total");
+            Assert.AreEqual(14400, village.Production.Warehouse, "warehouse");
+            Assert.AreEqual(11800, village.Production.Granary, "granary");
+        }
+
+        [Test]
         public void ParseResources()
         {
             HtmlDocument htmlDocument = new HtmlDocument();

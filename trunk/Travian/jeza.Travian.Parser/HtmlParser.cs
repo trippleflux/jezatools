@@ -182,7 +182,7 @@ namespace jeza.Travian.Parser
                             int level = Misc.String2Number(name.Substring(index + 1));
                             if (!wallAdded)
                             {
-                                if (id==40)
+                                if (id == 40)
                                 {
                                     wallAdded = true;
                                 }
@@ -200,6 +200,61 @@ namespace jeza.Travian.Parser
                 }
             }
             return resources;
+        }
+
+        /// <summary>
+        /// Gets the village production.
+        /// </summary>
+        /// <returns></returns>
+        public Production GetProduction()
+        {
+            Production production = new Production();
+            //<td id="l4" title="575">4675/14400</td>
+            //<td id="l3" title="590">3343/14400</td>
+            //<td id="l2" title="525">4463/14400</td>
+            //<td id="l1" title="359">5236/11800</td>
+            int perHourWood = 0, perHourClay = 0, perHourIron = 0, perHourCrop = 0;
+            int totalWood = 0, totalClay = 0, totalIron = 0, totalCrop = 0;
+            int wareHouse = 0;
+            int granary = 0;
+            HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//td[@id='l4']");
+            if (htmlNode != null)
+            {
+                perHourWood = Misc.String2Number(htmlNode.Attributes["title"].Value);
+                string[] values = htmlNode.InnerText.Trim().Split('/');
+                totalWood = Misc.String2Number(values[0]);
+                wareHouse = Misc.String2Number(values[1]);
+            }
+            htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//td[@id='l3']");
+            if (htmlNode != null)
+            {
+                perHourClay = Misc.String2Number(htmlNode.Attributes["title"].Value);
+                string[] values = htmlNode.InnerText.Trim().Split('/');
+                totalClay = Misc.String2Number(values[0]);
+                wareHouse = Misc.String2Number(values[1]);
+            }
+            htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//td[@id='l2']");
+            if (htmlNode != null)
+            {
+                perHourIron = Misc.String2Number(htmlNode.Attributes["title"].Value);
+                string[] values = htmlNode.InnerText.Trim().Split('/');
+                totalIron = Misc.String2Number(values[0]);
+                wareHouse = Misc.String2Number(values[1]);
+            }
+            htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//td[@id='l1']");
+            if (htmlNode != null)
+            {
+                perHourCrop = Misc.String2Number(htmlNode.Attributes["title"].Value);
+                string[] values = htmlNode.InnerText.Trim().Split('/');
+                totalCrop = Misc.String2Number(values[0]);
+                granary= Misc.String2Number(values[1]);
+            }
+            production
+                .UpdatePerHour(perHourWood, perHourClay, perHourIron, perHourCrop)
+                .UpdateTotals(totalWood, totalClay, totalIron, totalCrop)
+                .UpdateWarehouse(wareHouse)
+                .UpdateGranary(granary);
+            return production;
         }
 
         /// <summary>
