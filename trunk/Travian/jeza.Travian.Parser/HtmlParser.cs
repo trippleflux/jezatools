@@ -405,14 +405,13 @@ namespace jeza.Travian.Parser
                 string playerName = player.InnerText.Trim();
                 HtmlNode population = nodes[0].SelectSingleNode("./tbody/tr[4]/td");
                 int villagePopulation = Misc.String2Number(population.InnerText.Trim());
-                ValleyType valleyType = GetValleyType();
                 valley
                     .AddName(villageName)
                     .AddCoordinates(coordinateX, coordinateY)
                     .AddAlliance(allianceName, allianceUrl)
                     .AddPlayer(playerName, playerUrl)
                     .AddPopulation(villagePopulation)
-                    .AddType(valleyType);
+                    .AddType(ValleyType.FarmLowRisk);
             }
             return valley;
         }
@@ -540,11 +539,6 @@ namespace jeza.Travian.Parser
                     }
                 }
             }
-        }
-
-        private static ValleyType GetValleyType()
-        {
-            return ValleyType.FarmLowRisk;
         }
 
         private readonly HtmlDocument htmlDocument;
