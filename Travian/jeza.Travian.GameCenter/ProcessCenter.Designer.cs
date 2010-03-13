@@ -40,6 +40,16 @@ namespace jeza.Travian.GameCenter
             this.panelTabs = new System.Windows.Forms.Panel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.panelSettingsAllyList = new System.Windows.Forms.Panel();
+            this.groupBoxSettingsWarListView = new System.Windows.Forms.GroupBox();
+            this.buttonSettingsWarDelete = new System.Windows.Forms.Button();
+            this.listBoxSettingsWar = new System.Windows.Forms.ListBox();
+            this.groupBoxSettingsNapListView = new System.Windows.Forms.GroupBox();
+            this.buttonSettingsNapDelete = new System.Windows.Forms.Button();
+            this.listBoxSettingsNap = new System.Windows.Forms.ListBox();
+            this.groupBoxSettingsAllListView = new System.Windows.Forms.GroupBox();
+            this.buttonSettingsAllyDelete = new System.Windows.Forms.Button();
+            this.listBoxSettingsAlly = new System.Windows.Forms.ListBox();
             this.panelSettingsExcludedUsers = new System.Windows.Forms.Panel();
             this.groupBoxSettingsExcludedUsers = new System.Windows.Forms.GroupBox();
             this.labelSettingsExcludedId = new System.Windows.Forms.Label();
@@ -115,8 +125,20 @@ namespace jeza.Travian.GameCenter
             this.textBoxMapDistance = new System.Windows.Forms.TextBox();
             this.panelMapList = new System.Windows.Forms.Panel();
             this.dataGridViewMap = new System.Windows.Forms.DataGridView();
+            this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
             this.panelBuildQueueSelect = new System.Windows.Forms.Panel();
+            this.buttonBuildQueueAutoBuildResources = new System.Windows.Forms.Button();
+            this.comboBoxBuildQueueAutoBuildResources = new System.Windows.Forms.ComboBox();
+            this.textBoxBuildQueueDelete = new System.Windows.Forms.TextBox();
+            this.buttonBuildQueueDelete = new System.Windows.Forms.Button();
             this.labelBuildQueueLevel = new System.Windows.Forms.Label();
             this.labelBuildQueueBuilding = new System.Windows.Forms.Label();
             this.buttonBuildQueueAdd = new System.Windows.Forms.Button();
@@ -142,23 +164,15 @@ namespace jeza.Travian.GameCenter
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.buttonBuildQueueDelete = new System.Windows.Forms.Button();
-            this.textBoxBuildQueueDelete = new System.Windows.Forms.TextBox();
-            this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.buttonBuildQueueAutoBuildResources = new System.Windows.Forms.Button();
-            this.comboBoxBuildQueueAutoBuildResources = new System.Windows.Forms.ComboBox();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageSettings.SuspendLayout();
+            this.panelSettingsAllyList.SuspendLayout();
+            this.groupBoxSettingsWarListView.SuspendLayout();
+            this.groupBoxSettingsNapListView.SuspendLayout();
+            this.groupBoxSettingsAllListView.SuspendLayout();
             this.panelSettingsExcludedUsers.SuspendLayout();
             this.groupBoxSettingsExcludedUsers.SuspendLayout();
             this.panelSettingsAlly.SuspendLayout();
@@ -182,6 +196,7 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMapUpdate.SuspendLayout();
             this.panelMapList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).BeginInit();
             this.tabPageBuildQueue.SuspendLayout();
             this.panelBuildQueueSelect.SuspendLayout();
             this.panelBuildQueueList.SuspendLayout();
@@ -191,7 +206,6 @@ namespace jeza.Travian.GameCenter
             this.panelBrowser.SuspendLayout();
             this.panelHead.SuspendLayout();
             this.panelStatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -235,6 +249,7 @@ namespace jeza.Travian.GameCenter
             // 
             // tabPageSettings
             // 
+            this.tabPageSettings.Controls.Add(this.panelSettingsAllyList);
             this.tabPageSettings.Controls.Add(this.panelSettingsExcludedUsers);
             this.tabPageSettings.Controls.Add(this.panelSettingsAlly);
             this.tabPageSettings.Controls.Add(this.panelSettingsLanguage);
@@ -246,6 +261,103 @@ namespace jeza.Travian.GameCenter
             this.tabPageSettings.TabIndex = 0;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
+            // 
+            // panelSettingsAllyList
+            // 
+            this.panelSettingsAllyList.Controls.Add(this.groupBoxSettingsWarListView);
+            this.panelSettingsAllyList.Controls.Add(this.groupBoxSettingsNapListView);
+            this.panelSettingsAllyList.Controls.Add(this.groupBoxSettingsAllListView);
+            this.panelSettingsAllyList.Location = new System.Drawing.Point(9, 240);
+            this.panelSettingsAllyList.Name = "panelSettingsAllyList";
+            this.panelSettingsAllyList.Size = new System.Drawing.Size(659, 212);
+            this.panelSettingsAllyList.TabIndex = 5;
+            // 
+            // groupBoxSettingsWarListView
+            // 
+            this.groupBoxSettingsWarListView.Controls.Add(this.buttonSettingsWarDelete);
+            this.groupBoxSettingsWarListView.Controls.Add(this.listBoxSettingsWar);
+            this.groupBoxSettingsWarListView.Location = new System.Drawing.Point(395, 3);
+            this.groupBoxSettingsWarListView.Name = "groupBoxSettingsWarListView";
+            this.groupBoxSettingsWarListView.Size = new System.Drawing.Size(190, 196);
+            this.groupBoxSettingsWarListView.TabIndex = 3;
+            this.groupBoxSettingsWarListView.TabStop = false;
+            this.groupBoxSettingsWarListView.Text = "War";
+            // 
+            // buttonSettingsWarDelete
+            // 
+            this.buttonSettingsWarDelete.Location = new System.Drawing.Point(9, 160);
+            this.buttonSettingsWarDelete.Name = "buttonSettingsWarDelete";
+            this.buttonSettingsWarDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsWarDelete.TabIndex = 3;
+            this.buttonSettingsWarDelete.Text = "Remove";
+            this.buttonSettingsWarDelete.UseVisualStyleBackColor = true;
+            this.buttonSettingsWarDelete.Click += new System.EventHandler(this.buttonSettingsWarDelete_Click);
+            // 
+            // listBoxSettingsWar
+            // 
+            this.listBoxSettingsWar.FormattingEnabled = true;
+            this.listBoxSettingsWar.Location = new System.Drawing.Point(9, 19);
+            this.listBoxSettingsWar.Name = "listBoxSettingsWar";
+            this.listBoxSettingsWar.Size = new System.Drawing.Size(167, 134);
+            this.listBoxSettingsWar.TabIndex = 1;
+            // 
+            // groupBoxSettingsNapListView
+            // 
+            this.groupBoxSettingsNapListView.Controls.Add(this.buttonSettingsNapDelete);
+            this.groupBoxSettingsNapListView.Controls.Add(this.listBoxSettingsNap);
+            this.groupBoxSettingsNapListView.Location = new System.Drawing.Point(199, 3);
+            this.groupBoxSettingsNapListView.Name = "groupBoxSettingsNapListView";
+            this.groupBoxSettingsNapListView.Size = new System.Drawing.Size(190, 196);
+            this.groupBoxSettingsNapListView.TabIndex = 3;
+            this.groupBoxSettingsNapListView.TabStop = false;
+            this.groupBoxSettingsNapListView.Text = "Nap";
+            // 
+            // buttonSettingsNapDelete
+            // 
+            this.buttonSettingsNapDelete.Location = new System.Drawing.Point(9, 160);
+            this.buttonSettingsNapDelete.Name = "buttonSettingsNapDelete";
+            this.buttonSettingsNapDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsNapDelete.TabIndex = 3;
+            this.buttonSettingsNapDelete.Text = "Remove";
+            this.buttonSettingsNapDelete.UseVisualStyleBackColor = true;
+            this.buttonSettingsNapDelete.Click += new System.EventHandler(this.buttonSettingsNapDelete_Click);
+            // 
+            // listBoxSettingsNap
+            // 
+            this.listBoxSettingsNap.FormattingEnabled = true;
+            this.listBoxSettingsNap.Location = new System.Drawing.Point(9, 19);
+            this.listBoxSettingsNap.Name = "listBoxSettingsNap";
+            this.listBoxSettingsNap.Size = new System.Drawing.Size(167, 134);
+            this.listBoxSettingsNap.TabIndex = 1;
+            // 
+            // groupBoxSettingsAllListView
+            // 
+            this.groupBoxSettingsAllListView.Controls.Add(this.buttonSettingsAllyDelete);
+            this.groupBoxSettingsAllListView.Controls.Add(this.listBoxSettingsAlly);
+            this.groupBoxSettingsAllListView.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxSettingsAllListView.Name = "groupBoxSettingsAllListView";
+            this.groupBoxSettingsAllListView.Size = new System.Drawing.Size(190, 196);
+            this.groupBoxSettingsAllListView.TabIndex = 2;
+            this.groupBoxSettingsAllListView.TabStop = false;
+            this.groupBoxSettingsAllListView.Text = "Ally";
+            // 
+            // buttonSettingsAllyDelete
+            // 
+            this.buttonSettingsAllyDelete.Location = new System.Drawing.Point(9, 160);
+            this.buttonSettingsAllyDelete.Name = "buttonSettingsAllyDelete";
+            this.buttonSettingsAllyDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonSettingsAllyDelete.TabIndex = 2;
+            this.buttonSettingsAllyDelete.Text = "Remove";
+            this.buttonSettingsAllyDelete.UseVisualStyleBackColor = true;
+            this.buttonSettingsAllyDelete.Click += new System.EventHandler(this.buttonSettingsAllyDelete_Click);
+            // 
+            // listBoxSettingsAlly
+            // 
+            this.listBoxSettingsAlly.FormattingEnabled = true;
+            this.listBoxSettingsAlly.Location = new System.Drawing.Point(9, 19);
+            this.listBoxSettingsAlly.Name = "listBoxSettingsAlly";
+            this.listBoxSettingsAlly.Size = new System.Drawing.Size(167, 134);
+            this.listBoxSettingsAlly.TabIndex = 1;
             // 
             // panelSettingsExcludedUsers
             // 
@@ -550,7 +662,7 @@ namespace jeza.Travian.GameCenter
             this.panelOverviewLogins.Controls.Add(this.groupBoxOverview);
             this.panelOverviewLogins.Location = new System.Drawing.Point(8, 78);
             this.panelOverviewLogins.Name = "panelOverviewLogins";
-            this.panelOverviewLogins.Size = new System.Drawing.Size(275, 145);
+            this.panelOverviewLogins.Size = new System.Drawing.Size(275, 155);
             this.panelOverviewLogins.TabIndex = 0;
             // 
             // groupBoxOverview
@@ -567,7 +679,7 @@ namespace jeza.Travian.GameCenter
             this.groupBoxOverview.Controls.Add(this.labelPassword);
             this.groupBoxOverview.Location = new System.Drawing.Point(3, 3);
             this.groupBoxOverview.Name = "groupBoxOverview";
-            this.groupBoxOverview.Size = new System.Drawing.Size(264, 133);
+            this.groupBoxOverview.Size = new System.Drawing.Size(264, 143);
             this.groupBoxOverview.TabIndex = 1;
             this.groupBoxOverview.TabStop = false;
             this.groupBoxOverview.Text = "Login Data";
@@ -1010,6 +1122,53 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
             // 
+            // villageIdDataGridViewTextBoxColumn
+            // 
+            this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
+            this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
+            this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
+            // 
+            // playerDataGridViewTextBoxColumn
+            // 
+            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
+            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
+            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Village";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // allianceDataGridViewTextBoxColumn
+            // 
+            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
+            // 
+            // coordinatesDataGridViewTextBoxColumn
+            // 
+            this.coordinatesDataGridViewTextBoxColumn.DataPropertyName = "Coordinates";
+            this.coordinatesDataGridViewTextBoxColumn.HeaderText = "Coordinates";
+            this.coordinatesDataGridViewTextBoxColumn.Name = "coordinatesDataGridViewTextBoxColumn";
+            // 
+            // populationDataGridViewTextBoxColumn
+            // 
+            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
+            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
+            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
+            // 
+            // valleyTypeDataGridViewTextBoxColumn
+            // 
+            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
+            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // valleyBindingSource
+            // 
+            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
+            // 
             // tabPageBuildQueue
             // 
             this.tabPageBuildQueue.Controls.Add(this.panelBuildQueueSelect);
@@ -1040,6 +1199,64 @@ namespace jeza.Travian.GameCenter
             this.panelBuildQueueSelect.Name = "panelBuildQueueSelect";
             this.panelBuildQueueSelect.Size = new System.Drawing.Size(880, 649);
             this.panelBuildQueueSelect.TabIndex = 2;
+            // 
+            // buttonBuildQueueAutoBuildResources
+            // 
+            this.buttonBuildQueueAutoBuildResources.Location = new System.Drawing.Point(383, 89);
+            this.buttonBuildQueueAutoBuildResources.Name = "buttonBuildQueueAutoBuildResources";
+            this.buttonBuildQueueAutoBuildResources.Size = new System.Drawing.Size(75, 23);
+            this.buttonBuildQueueAutoBuildResources.TabIndex = 8;
+            this.buttonBuildQueueAutoBuildResources.Text = "Auto Build";
+            this.buttonBuildQueueAutoBuildResources.UseVisualStyleBackColor = true;
+            this.buttonBuildQueueAutoBuildResources.Click += new System.EventHandler(this.buttonBuildQueueAutoBuildResources_Click);
+            // 
+            // comboBoxBuildQueueAutoBuildResources
+            // 
+            this.comboBoxBuildQueueAutoBuildResources.FormattingEnabled = true;
+            this.comboBoxBuildQueueAutoBuildResources.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20"});
+            this.comboBoxBuildQueueAutoBuildResources.Location = new System.Drawing.Point(333, 89);
+            this.comboBoxBuildQueueAutoBuildResources.Name = "comboBoxBuildQueueAutoBuildResources";
+            this.comboBoxBuildQueueAutoBuildResources.Size = new System.Drawing.Size(43, 21);
+            this.comboBoxBuildQueueAutoBuildResources.TabIndex = 7;
+            this.comboBoxBuildQueueAutoBuildResources.Text = "10";
+            // 
+            // textBoxBuildQueueDelete
+            // 
+            this.textBoxBuildQueueDelete.Location = new System.Drawing.Point(3, 60);
+            this.textBoxBuildQueueDelete.Name = "textBoxBuildQueueDelete";
+            this.textBoxBuildQueueDelete.Size = new System.Drawing.Size(324, 20);
+            this.textBoxBuildQueueDelete.TabIndex = 6;
+            this.textBoxBuildQueueDelete.Visible = false;
+            // 
+            // buttonBuildQueueDelete
+            // 
+            this.buttonBuildQueueDelete.Location = new System.Drawing.Point(383, 60);
+            this.buttonBuildQueueDelete.Name = "buttonBuildQueueDelete";
+            this.buttonBuildQueueDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonBuildQueueDelete.TabIndex = 5;
+            this.buttonBuildQueueDelete.Text = "Delete";
+            this.buttonBuildQueueDelete.UseVisualStyleBackColor = true;
+            this.buttonBuildQueueDelete.Click += new System.EventHandler(this.buttonBuildQueueDelete_Click);
             // 
             // labelBuildQueueLevel
             // 
@@ -1304,114 +1521,9 @@ namespace jeza.Travian.GameCenter
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
-            // buttonBuildQueueDelete
-            // 
-            this.buttonBuildQueueDelete.Location = new System.Drawing.Point(383, 60);
-            this.buttonBuildQueueDelete.Name = "buttonBuildQueueDelete";
-            this.buttonBuildQueueDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonBuildQueueDelete.TabIndex = 5;
-            this.buttonBuildQueueDelete.Text = "Delete";
-            this.buttonBuildQueueDelete.UseVisualStyleBackColor = true;
-            this.buttonBuildQueueDelete.Click += new System.EventHandler(this.buttonBuildQueueDelete_Click);
-            // 
-            // textBoxBuildQueueDelete
-            // 
-            this.textBoxBuildQueueDelete.Location = new System.Drawing.Point(3, 60);
-            this.textBoxBuildQueueDelete.Name = "textBoxBuildQueueDelete";
-            this.textBoxBuildQueueDelete.Size = new System.Drawing.Size(324, 20);
-            this.textBoxBuildQueueDelete.TabIndex = 6;
-            this.textBoxBuildQueueDelete.Visible = false;
-            // 
-            // villageIdDataGridViewTextBoxColumn
-            // 
-            this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
-            this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
-            this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
-            // 
-            // playerDataGridViewTextBoxColumn
-            // 
-            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
-            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
-            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Village";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // allianceDataGridViewTextBoxColumn
-            // 
-            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
-            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
-            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
-            // 
-            // coordinatesDataGridViewTextBoxColumn
-            // 
-            this.coordinatesDataGridViewTextBoxColumn.DataPropertyName = "Coordinates";
-            this.coordinatesDataGridViewTextBoxColumn.HeaderText = "Coordinates";
-            this.coordinatesDataGridViewTextBoxColumn.Name = "coordinatesDataGridViewTextBoxColumn";
-            // 
-            // populationDataGridViewTextBoxColumn
-            // 
-            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
-            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
-            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
-            // 
-            // valleyTypeDataGridViewTextBoxColumn
-            // 
-            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
-            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
-            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
-            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // valleyBindingSource
-            // 
-            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
-            // 
             // actionsBindingSource
             // 
             this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
-            // 
-            // buttonBuildQueueAutoBuildResources
-            // 
-            this.buttonBuildQueueAutoBuildResources.Location = new System.Drawing.Point(383, 89);
-            this.buttonBuildQueueAutoBuildResources.Name = "buttonBuildQueueAutoBuildResources";
-            this.buttonBuildQueueAutoBuildResources.Size = new System.Drawing.Size(75, 23);
-            this.buttonBuildQueueAutoBuildResources.TabIndex = 8;
-            this.buttonBuildQueueAutoBuildResources.Text = "Auto Build";
-            this.buttonBuildQueueAutoBuildResources.UseVisualStyleBackColor = true;
-            this.buttonBuildQueueAutoBuildResources.Click += new System.EventHandler(this.buttonBuildQueueAutoBuildResources_Click);
-            // 
-            // comboBoxBuildQueueAutoBuildResources
-            // 
-            this.comboBoxBuildQueueAutoBuildResources.FormattingEnabled = true;
-            this.comboBoxBuildQueueAutoBuildResources.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20"});
-            this.comboBoxBuildQueueAutoBuildResources.Location = new System.Drawing.Point(333, 89);
-            this.comboBoxBuildQueueAutoBuildResources.Name = "comboBoxBuildQueueAutoBuildResources";
-            this.comboBoxBuildQueueAutoBuildResources.Size = new System.Drawing.Size(43, 21);
-            this.comboBoxBuildQueueAutoBuildResources.TabIndex = 7;
-            this.comboBoxBuildQueueAutoBuildResources.Text = "10";
             // 
             // ProcessCenter
             // 
@@ -1426,6 +1538,10 @@ namespace jeza.Travian.GameCenter
             this.panelTabs.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageSettings.ResumeLayout(false);
+            this.panelSettingsAllyList.ResumeLayout(false);
+            this.groupBoxSettingsWarListView.ResumeLayout(false);
+            this.groupBoxSettingsNapListView.ResumeLayout(false);
+            this.groupBoxSettingsAllListView.ResumeLayout(false);
             this.panelSettingsExcludedUsers.ResumeLayout(false);
             this.groupBoxSettingsExcludedUsers.ResumeLayout(false);
             this.groupBoxSettingsExcludedUsers.PerformLayout();
@@ -1458,6 +1574,7 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMapUpdate.PerformLayout();
             this.panelMapList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).EndInit();
             this.tabPageBuildQueue.ResumeLayout(false);
             this.panelBuildQueueSelect.ResumeLayout(false);
             this.panelBuildQueueSelect.PerformLayout();
@@ -1471,7 +1588,6 @@ namespace jeza.Travian.GameCenter
             this.panelHead.PerformLayout();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1593,6 +1709,20 @@ namespace jeza.Travian.GameCenter
         private TextBox textBoxSettingsExcludedAllyId;
         private TextBox textBoxSettingsExcludedAllyName;
         private Label labelSettingsExcludededAlly;
+        private TextBox textBoxBuildQueueDelete;
+        private Button buttonBuildQueueDelete;
+        private Button buttonBuildQueueAutoBuildResources;
+        private ComboBox comboBoxBuildQueueAutoBuildResources;
+        private Panel panelSettingsAllyList;
+        private GroupBox groupBoxSettingsWarListView;
+        private ListBox listBoxSettingsWar;
+        private GroupBox groupBoxSettingsNapListView;
+        private ListBox listBoxSettingsNap;
+        private GroupBox groupBoxSettingsAllListView;
+        private ListBox listBoxSettingsAlly;
+        private Button buttonSettingsWarDelete;
+        private Button buttonSettingsNapDelete;
+        private Button buttonSettingsAllyDelete;
         
         //readonly object stateLock = new object();
         private bool botActive;
@@ -1619,10 +1749,6 @@ namespace jeza.Travian.GameCenter
 
         private BindingSource valleyBindingSource;
         private BindingSource actionsBindingSource;
-        private TextBox textBoxBuildQueueDelete;
-        private Button buttonBuildQueueDelete;
-        private Button buttonBuildQueueAutoBuildResources;
-        private ComboBox comboBoxBuildQueueAutoBuildResources;
     }
 }
 

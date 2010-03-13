@@ -71,7 +71,7 @@ namespace jeza.Travian.GameCenter
                 for (int i = 0; i < 19; i++)
                 {
                     Buildings buildings = comboBoxBuildQueueBuilding.Items[i] as Buildings;
-                    if (buildings!=null)
+                    if (buildings != null)
                     {
                         UpdateQueue(buildings, selectedVillage, comboBoxBuildQueueAutoBuildResources);
                     }
@@ -83,13 +83,13 @@ namespace jeza.Travian.GameCenter
 
         private void buttonBuildQueueDelete_Click(object sender, EventArgs e)
         {
-            if(listBoxBuildQueues.SelectedItems.Count > 0)
+            if (listBoxBuildQueues.SelectedItems.Count > 0)
             {
                 BuildQueue queue = listBoxBuildQueues.SelectedItem as BuildQueue;
                 List<BuildQueue> list = new List<BuildQueue>();
                 foreach (BuildQueue buildQueue in actions.BuildQueue)
                 {
-                    if(buildQueue != queue)
+                    if (buildQueue != queue)
                     {
                         list.Add(buildQueue);
                     }
@@ -111,14 +111,29 @@ namespace jeza.Travian.GameCenter
             }
         }
 
+        private void buttonSettingsAllyDelete_Click(object sender, EventArgs e)
+        {
+            UpdateStatus("TODO...");
+        }
+
+        private void buttonSettingsNapDelete_Click(object sender, EventArgs e)
+        {
+            UpdateStatus("TODO...");
+        }
+
+        private void buttonSettingsWarDelete_Click(object sender, EventArgs e)
+        {
+            UpdateStatus("TODO...");
+        }
+
         private void buttonSettingsExcludedAllyAdd_Click(object sender, EventArgs e)
         {
-            //TODO: todo
+            InsertExcludedData(textBoxSettingsExcludedAllyId, textBoxSettingsExcludedAllyName, ExcludedType.Ally);
         }
 
         private void buttonSettingsExcludedUsersAdd_Click(object sender, EventArgs e)
         {
-            //TODO: todo
+            InsertExcludedData(textBoxSettingsExcludedUserId, textBoxSettingsExcludedUserName, ExcludedType.User);
         }
 
         private void buttonMapPopulate_Click(object sender, EventArgs e)
@@ -143,17 +158,17 @@ namespace jeza.Travian.GameCenter
 
         private void buttonSettingsAllyAdd_Click(object sender, EventArgs e)
         {
-            //TODO: todo
+            InsertAllyData(textBoxSettingsAllyIdAlly, textBoxSettingsAllyNameAlly, AllyType.Ally);
         }
 
         private void buttonSettingsNapAdd_Click(object sender, EventArgs e)
         {
-            //TODO: todo
+            InsertAllyData(textBoxSettingsAllyIdNap, textBoxSettingsAllyNameNap, AllyType.Nap);
         }
 
         private void buttonSettingsWarAdd_Click(object sender, EventArgs e)
         {
-            //TODO: todo
+            InsertAllyData(textBoxSettingsAllyIdWar, textBoxSettingsAllyNameWar, AllyType.War);
         }
 
         private void buttonUpdateRallyPoint_Click(object sender, EventArgs e)
@@ -371,8 +386,9 @@ namespace jeza.Travian.GameCenter
                 htmlDocument = htmlWeb.Load(url);
                 htmlParser = new HtmlParser(htmlDocument);
                 Valley villageDetails = htmlParser.GetVillageDetails();
-                villageDetails
-                    .AddUrl(valley.VillageUrl);
+                ValleyType valleyType = GetValleyType(villageDetails);
+                //UpdateStatus(valleyType.ToString());
+                villageDetails.AddUrl(valley.VillageUrl).AddType(valleyType);
                 updatedValleys.Add(villageDetails);
             }
             foreach (Valley valley in oasesFromMap)
@@ -387,6 +403,87 @@ namespace jeza.Travian.GameCenter
             //map.AddVillages(oasesFromMap);
             UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {2} villages and {3} oases around ({0}|{1})",
                                        x, y, updatedValleys.Count, oasesFromMap.Count));
+        }
+
+        /// <summary>
+        /// Gets the type of the valley.
+        /// </summary>
+        /// <param name="valley">The valley.</param>
+        /// <returns><see cref="ValleyType"/></returns>
+        private ValleyType GetValleyType(Valley valley)
+        {
+            foreach (Ally ally in settings.Ally)
+            {
+                if (ally.Id == valley.AllianceId)
+                {
+                    if (ally.Type == AllyType.Ally)
+                    {
+                        return ValleyType.AllianceAlly;
+                    }
+                    if (ally.Type == AllyType.Nap)
+                    {
+                        return ValleyType.AllianceNap;
+                    }
+                    return ValleyType.AllianceWar;
+                }
+            }
+            return ValleyType.FarmLowRisk;
+        }
+
+        /// <summary>
+        /// Save the ally data to settings.
+        /// </summary>
+        /// <param name="fieldId">The field id.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="allyType">Type of the ally.</param>
+        private void InsertAllyData(Control fieldId, Control fieldName, AllyType allyType)
+        {
+            if ((fieldName.Text.Length > 0) && (fieldId.Text.Length > 0))
+            {
+                Ally ally = new Ally
+                    {
+                        Id = Misc.String2Number(fieldId.Text.Trim()),
+                        Name = fieldName.Text.Trim(),
+                        Type = allyType,
+                    };
+                if (!settings.Ally.Contains(ally))
+                {
+                    settings.Ally.Add(ally);
+                    SerializeSettings();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Id and Name are required!");
+            }
+        }
+
+        /// <summary>
+        /// Save the excluded data to settings.
+        /// </summary>
+        /// <param name="fieldId">The field id.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="excludedType">Type of the ally.</param>
+        private void InsertExcludedData(Control fieldId, Control fieldName, ExcludedType excludedType)
+        {
+            if ((fieldName.Text.Length > 0) && (fieldId.Text.Length > 0))
+            {
+                Excluded excluded = new Excluded
+                    {
+                        Id = Misc.String2Number(fieldId.Text.Trim()),
+                        Name = fieldName.Text.Trim(),
+                        Type = excludedType,
+                    };
+                if (!settings.Excluded.Contains(excluded))
+                {
+                    settings.Excluded.Add(excluded);
+                    SerializeSettings();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Id and Name are required!");
+            }
         }
 
         /// <summary>
@@ -826,13 +923,13 @@ namespace jeza.Travian.GameCenter
                 sb.AppendFormat("{0} ", strings[i]);
             }
             BuildQueue buildQueue = new BuildQueue
-            {
-                Level = Misc.String2Number(level.SelectedItem.ToString()),
-                Name = sb.ToString().Trim(),
-                BuildingId = buildings.Id,
-                VillageId = selectedVillage.Id,
-                VillageName = selectedVillage.Name,
-            };
+                {
+                    Level = Misc.String2Number(level.SelectedItem.ToString()),
+                    Name = sb.ToString().Trim(),
+                    BuildingId = buildings.Id,
+                    VillageId = selectedVillage.Id,
+                    VillageName = selectedVillage.Name,
+                };
             if (!actions.BuildQueue.Contains(buildQueue))
             {
                 UpdateStatus("New build queue: " + buildQueue);
