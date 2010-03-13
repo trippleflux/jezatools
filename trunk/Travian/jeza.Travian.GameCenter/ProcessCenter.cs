@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
@@ -55,23 +56,49 @@ namespace jeza.Travian.GameCenter
                 Village selectedVillage = comboBoxBuildQueueVillages.SelectedItem as Village;
                 if (selectedVillage != null)
                 {
-                    BuildQueue buildQueue = new BuildQueue
-                        {
-                            Level = Misc.String2Number(comboBoxBuildQueueLevel.SelectedItem.ToString()),
-                            Name = buildings.Name,
-                            BuildingId = buildings.Id,
-                            VillageId = selectedVillage.Id,
-                            VillageName = selectedVillage.Name,
-                        };
-                    if (!actions.BuildQueue.Contains(buildQueue))
+                    UpdateQueue(buildings, selectedVillage, comboBoxBuildQueueLevel);
+                }
+                SerializeActions();
+                UpdateListBoxBuildQueues(listBoxBuildQueues);
+            }
+        }
+
+        private void buttonBuildQueueAutoBuildResources_Click(object sender, EventArgs e)
+        {
+            Village selectedVillage = comboBoxBuildQueueVillages.SelectedItem as Village;
+            if (selectedVillage != null)
+            {
+                for (int i = 0; i < 19; i++)
+                {
+                    Buildings buildings = comboBoxBuildQueueBuilding.Items[i] as Buildings;
+                    if (buildings!=null)
                     {
-                        UpdateStatus("New build queue: " + buildQueue);
-                        actions.BuildQueue.Add(buildQueue);
+                        UpdateQueue(buildings, selectedVillage, comboBoxBuildQueueAutoBuildResources);
                     }
                 }
+                SerializeActions();
+                UpdateListBoxBuildQueues(listBoxBuildQueues);
             }
-            SerializeActions();
-            UpdateListBoxBuildQueues(listBoxBuildQueues);
+        }
+
+        private void buttonBuildQueueDelete_Click(object sender, EventArgs e)
+        {
+            if(listBoxBuildQueues.SelectedItems.Count > 0)
+            {
+                BuildQueue queue = listBoxBuildQueues.SelectedItem as BuildQueue;
+                List<BuildQueue> list = new List<BuildQueue>();
+                foreach (BuildQueue buildQueue in actions.BuildQueue)
+                {
+                    if(buildQueue != queue)
+                    {
+                        list.Add(buildQueue);
+                    }
+                }
+                actions.BuildQueue.Clear();
+                actions.BuildQueue.AddRange(list);
+                SerializeActions();
+                UpdateListBoxBuildQueues(listBoxBuildQueues);
+            }
         }
 
         private void buttonBuildQueueSelect_Click(object sender, EventArgs e)
@@ -172,6 +199,35 @@ namespace jeza.Travian.GameCenter
         #endregion
 
         #region helper methods
+
+        /// <summary>
+        /// Checks if there is something to build.
+        /// </summary>
+        private void Build()
+        {
+            string servername = settings.LoginData.Servername;
+            string url = "";
+            int level = 100;
+            string status = "";
+            foreach (BuildQueue buildQueue in actions.BuildQueue)
+            {
+                if (buildQueue.Resources.UrlParameters != null)
+                {
+                    if (buildQueue.Resources.CurrentLevel < level)
+                    {
+                        level = buildQueue.Resources.CurrentLevel;
+                        url = String.Format(CultureInfo.InvariantCulture, "{0}{1}&newdid={2}", servername,
+                                            buildQueue.Resources.UpgradeUrl, buildQueue.VillageId);
+                        status = buildQueue.ToString();
+                    }
+                }
+            }
+            if (level < 100)
+            {
+                htmlDocument = htmlWeb.Load(url);
+                UpdateStatus("Upgrading " + status);
+            }
+        }
 
         /// <summary>
         /// Deserializes the actions.
@@ -599,7 +655,7 @@ namespace jeza.Travian.GameCenter
                 }
                 UpdateAccountInfo();
                 EnableButtons();
-
+                Build();
                 Thread.Sleep(300000);
             }
             botActive = false;
@@ -669,21 +725,13 @@ namespace jeza.Travian.GameCenter
                 htmlDocument = htmlWeb.Load(url);
                 htmlParser = new HtmlParser(htmlDocument);
                 buildQueue.Resources = htmlParser.GetResourcesForNextLevel();
-                if (buildQueue.Resources.UpgradeUrl != null)
-                {
-                    url = String.Format(CultureInfo.InvariantCulture, "{0}{1}&newdid={2}",
-                                        servername, buildQueue.Resources.UpgradeUrl, buildQueue.VillageId);
-                    htmlDocument = htmlWeb.Load(url);
-                    UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Upgrading : {0} ({1})", buildQueue.Name, url));
-                    url = String.Format(CultureInfo.InvariantCulture, "{0}build.php?newdid={1}&id={2}",
-                                        servername, buildQueue.VillageId, buildQueue.BuildingId);
-                    htmlDocument = htmlWeb.Load(url);
-                    htmlParser = new HtmlParser(htmlDocument);
-                    buildQueue.Resources = htmlParser.GetResourcesForNextLevel();
-                }
-                if (buildQueue.Level >= buildQueue.Resources.CurrentLevel)
+                if (buildQueue.Level > buildQueue.Resources.CurrentLevel)
                 {
                     list.Add(buildQueue);
+                }
+                else
+                {
+                    UpdateStatus("Removing " + buildQueue);
                 }
             }
             actions.BuildQueue = list;
@@ -760,6 +808,35 @@ namespace jeza.Travian.GameCenter
             foreach (BuildQueue buildQueue in actions.BuildQueue)
             {
                 field.Items.Add(buildQueue);
+            }
+        }
+
+        /// <summary>
+        /// Adds item to listview of build queue.
+        /// </summary>
+        /// <param name="buildings">The buildings.</param>
+        /// <param name="selectedVillage">The selected village.</param>
+        /// <param name="level">The level.</param>
+        private void UpdateQueue(Buildings buildings, Village selectedVillage, ComboBox level)
+        {
+            StringBuilder sb = new StringBuilder();
+            string[] strings = buildings.Name.Split(' ');
+            for (int i = 0; i < strings.Length - 2; i++)
+            {
+                sb.AppendFormat("{0} ", strings[i]);
+            }
+            BuildQueue buildQueue = new BuildQueue
+            {
+                Level = Misc.String2Number(level.SelectedItem.ToString()),
+                Name = sb.ToString().Trim(),
+                BuildingId = buildings.Id,
+                VillageId = selectedVillage.Id,
+                VillageName = selectedVillage.Name,
+            };
+            if (!actions.BuildQueue.Contains(buildQueue))
+            {
+                UpdateStatus("New build queue: " + buildQueue);
+                actions.BuildQueue.Add(buildQueue);
             }
         }
 

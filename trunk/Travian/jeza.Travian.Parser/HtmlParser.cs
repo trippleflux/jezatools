@@ -324,9 +324,17 @@ namespace jeza.Travian.Parser
                 if (node != null)
                 {
                     string upgradeUrl = node.Attributes["href"].Value.Trim();
-                    resourcesForUpgrade.UpgradeUrl = upgradeUrl.Replace("&amp;", "&");
-                    string[] spliter = upgradeUrl.Split(new[] { "?", "&amp;" }, StringSplitOptions.RemoveEmptyEntries);
-                    resourcesForUpgrade.UrlParameters = spliter;
+                    //build.php?gid=17&t=3&bid=35&r1=2190&r2=2095&r3=2190&r4=750
+                    if (upgradeUrl.IndexOf("gid=17") < 0)
+                    {
+                        resourcesForUpgrade.UpgradeUrl = upgradeUrl.Replace("&amp;", "&");
+                        string[] spliter = upgradeUrl.Split(new[] {"?", "&amp;"}, StringSplitOptions.RemoveEmptyEntries);
+                        resourcesForUpgrade.UrlParameters = spliter;
+                    }
+                    else
+                    {
+                        resourcesForUpgrade.UpgradeUrl = null;
+                    }
                 }
                 else
                 {
