@@ -15,32 +15,10 @@ namespace jeza.Travian.Framework
         public ValleyType ValleyType { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
-
-        public string Coordinates
-        {
-            get { return String.Format(CultureInfo.InvariantCulture, "({0}|{1})", X, Y); }
-            set { Coordinates = value; }
-        }
-
-        public int AllianceId
-        {
-            //allianz.php?aid=0
-            get { return Misc.String2Number(AllianceUrl.Substring(16)); }
-            set { AllianceId = value; }
-        }
-
-        public int UserId
-        {
-            //spieler.php?uid=11436
-            get { return Misc.String2Number(PlayerUrl.Substring(16)); }
-            set { UserId = value; }
-        }
-
-        public int VillageId
-        {
-            get { return Misc.ConvertCoordinates(X, Y); }
-            set { VillageId = value; }
-        }
+        public string Coordinates { get; set; }
+        public int AllianceId { get; set; }
+        public int PlayerId { get; set; }
+        public int VillageId { get; set; }
 
         /// <summary>
         /// Adds the alliance data.
@@ -52,6 +30,7 @@ namespace jeza.Travian.Framework
         {
             Alliance = name;
             AllianceUrl = url;
+            AllianceId = AllianceUrl.Length > 16 ? Misc.String2Number(AllianceUrl.Substring(16)) : 0;
             return this;
         }
 
@@ -65,6 +44,8 @@ namespace jeza.Travian.Framework
         {
             X = xCoords;
             Y = yCoords;
+            Coordinates = String.Format(CultureInfo.InvariantCulture, "({0}|{1})", xCoords, yCoords);
+            VillageId = Misc.ConvertCoordinates(xCoords, yCoords);
             return this;
         }
 
@@ -89,6 +70,7 @@ namespace jeza.Travian.Framework
         {
             Player = name;
             PlayerUrl = url;
+            PlayerId = PlayerUrl.Length > 16 ? Misc.String2Number(PlayerUrl.Substring(16)) : 0;
             return this;
         }
 
