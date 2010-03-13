@@ -50,7 +50,7 @@ namespace jeza.Travian.Tests
             Assert.AreEqual("", valley.Alliance, "Alliance name!");
             Assert.AreEqual("novakm", valley.Player, "Player name!");
             Assert.AreEqual("spieler.php?uid=11436", valley.PlayerUrl, "Player url!");
-            Assert.AreEqual(11436, valley.UserId, "User id!");
+            Assert.AreEqual(11436, valley.PlayerId, "User id!");
             Assert.AreEqual(36, valley.Population, "Village Population!");
         }
 
@@ -66,7 +66,9 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(61, valley.Y, "Y coordinate!");
             Assert.AreEqual("+25% zeleza na uro", valley.Name, "Name");
             Assert.AreEqual("Nezasedena pokrajina", valley.Alliance, "Alliance");
+            Assert.AreEqual(0, valley.AllianceId, "Alliance Id");
             Assert.AreEqual("Nezasedena pokrajina", valley.Player, "Player");
+            Assert.AreEqual(0, valley.PlayerId, "Player Id");
             Assert.AreEqual(ValleyType.UnoccupiedOasis, valley.ValleyType, "ValleyType.UnoccupiedOasis");
         }
 
