@@ -113,17 +113,17 @@ namespace jeza.Travian.GameCenter
 
         private void buttonSettingsAllyDelete_Click(object sender, EventArgs e)
         {
-            UpdateStatus("TODO...");
+            RemoveSettingsAlly(listBoxSettingsAlly, AllyType.Ally);
         }
 
         private void buttonSettingsNapDelete_Click(object sender, EventArgs e)
         {
-            UpdateStatus("TODO...");
+            RemoveSettingsAlly(listBoxSettingsNap, AllyType.Nap);
         }
 
         private void buttonSettingsWarDelete_Click(object sender, EventArgs e)
         {
-            UpdateStatus("TODO...");
+            RemoveSettingsAlly(listBoxSettingsWar, AllyType.War);
         }
 
         private void buttonSettingsExcludedAllyAdd_Click(object sender, EventArgs e)
@@ -159,16 +159,19 @@ namespace jeza.Travian.GameCenter
         private void buttonSettingsAllyAdd_Click(object sender, EventArgs e)
         {
             InsertAllyData(textBoxSettingsAllyIdAlly, textBoxSettingsAllyNameAlly, AllyType.Ally);
+            UpdateListBoxAlly(listBoxSettingsAlly, AllyType.Ally);
         }
 
         private void buttonSettingsNapAdd_Click(object sender, EventArgs e)
         {
             InsertAllyData(textBoxSettingsAllyIdNap, textBoxSettingsAllyNameNap, AllyType.Nap);
+            UpdateListBoxAlly(listBoxSettingsNap, AllyType.Nap);
         }
 
         private void buttonSettingsWarAdd_Click(object sender, EventArgs e)
         {
             InsertAllyData(textBoxSettingsAllyIdWar, textBoxSettingsAllyNameWar, AllyType.War);
+            UpdateListBoxAlly(listBoxSettingsWar, AllyType.War);
         }
 
         private void buttonUpdateRallyPoint_Click(object sender, EventArgs e)
@@ -293,6 +296,12 @@ namespace jeza.Travian.GameCenter
                 {
                     comboBoxSettingsLanguages.SelectedText = settings.LanguageId;
                 }
+                if (settings.Ally != null)
+                {
+                    UpdateListBoxAlly(listBoxSettingsAlly, AllyType.Ally);
+                    UpdateListBoxAlly(listBoxSettingsNap, AllyType.Nap);
+                    UpdateListBoxAlly(listBoxSettingsWar, AllyType.War);
+                }
             }
             else
             {
@@ -402,7 +411,7 @@ namespace jeza.Travian.GameCenter
             map.AddVillages(updatedValleys);
             //map.AddVillages(oasesFromMap);
             UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Found {2} villages and {3} oases around ({0}|{1})",
-                                       x, y, updatedValleys.Count, oasesFromMap.Count));
+                                       x, y, villagesFromMap.Count, oasesFromMap.Count));
         }
 
         /// <summary>
@@ -446,11 +455,15 @@ namespace jeza.Travian.GameCenter
                         Name = fieldName.Text.Trim(),
                         Type = allyType,
                     };
-                if (!settings.Ally.Contains(ally))
+                foreach (Ally list in settings.Ally)
                 {
-                    settings.Ally.Add(ally);
-                    SerializeSettings();
+                    if (list.Id == ally.Id)
+                    {
+                        return;
+                    }
                 }
+                settings.Ally.Add(ally);
+                SerializeSettings();
             }
             else
             {
@@ -646,6 +659,33 @@ namespace jeza.Travian.GameCenter
                 dataGridViewRallyPoint.DataSource = list;
             }
             UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Populate Rally Point in {0}", village.Name));
+        }
+
+        /// <summary>
+        /// Removes the selected ally from listbox.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        private void RemoveSettingsAlly(ListBox field, AllyType type)
+        {
+            if (field.SelectedItems.Count > 0)
+            {
+                Ally ally = field.SelectedItem as Ally;
+                if (ally != null)
+                {
+                    List<Ally> newList = new List<Ally>();
+                    foreach (Ally oldAlly in settings.Ally)
+                    {
+                        if (oldAlly.Id != ally.Id)
+                        {
+                            newList.Add(oldAlly);
+                        }
+                    }
+                    settings.Ally.Clear();
+                    settings.Ally.AddRange(newList);
+                    SerializeSettings();
+                    UpdateListBoxAlly(field, type);
+                }
+            }
         }
 
         private void SaveSettings()
@@ -892,6 +932,23 @@ namespace jeza.Travian.GameCenter
                 field.Items.Add(village);
             }
             field.SelectedItem = field.Items[0];
+        }
+
+        private void UpdateListBoxAlly(ListBox field, AllyType type)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetListBoxStatusAlly(UpdateListBoxAlly), field, type);
+                return;
+            }
+            field.Items.Clear();
+            foreach (Ally ally in settings.Ally)
+            {
+                if (ally.Type == type)
+                {
+                    field.Items.Add(ally);
+                }
+            }
         }
 
         private void UpdateListBoxBuildQueues(ListBox field)

@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -8,7 +7,6 @@ using System.Xml.Serialization;
 
 namespace jeza.Travian.GameCenter
 {
-    [Serializable]
     [XmlRoot(ElementName = "settings", IsNullable = false)]
     public class Settings
     {
@@ -31,7 +29,6 @@ namespace jeza.Travian.GameCenter
         public List<Excluded> Excluded { get; set; }
     }
 
-    [Serializable]
     public class Excluded
     {
         public int Id { get; set; }
@@ -39,7 +36,6 @@ namespace jeza.Travian.GameCenter
         public ExcludedType Type { get; set; }
     }
 
-    [Serializable]
     public class Login
     {
         [XmlElement(ElementName = "server")]
@@ -52,12 +48,16 @@ namespace jeza.Travian.GameCenter
         public string Password { get; set; }
     }
 
-    [Serializable]
     public class Ally
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public AllyType Type { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0,5}, {1}", Id, Name);
+        }
     }
 
     public enum AllyType

@@ -1741,6 +1741,7 @@ namespace jeza.Travian.GameCenter
         delegate void SetComboBoxStatus(ComboBox comboBox);
         delegate void SetComboBoxStatusQueues(ComboBox comboBox, ArrayList list);
         delegate void SetListBoxStatus(ListBox listBox);
+        delegate void SetListBoxStatusAlly(ListBox listBox, AllyType type);
 
         const string SettingsXml = "Settings.xml";
         const string LanguagesXml = "Language.xml";
