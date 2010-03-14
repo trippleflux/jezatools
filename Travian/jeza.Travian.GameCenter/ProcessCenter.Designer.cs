@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
@@ -125,14 +126,6 @@ namespace jeza.Travian.GameCenter
             this.textBoxMapDistance = new System.Windows.Forms.TextBox();
             this.panelMapList = new System.Windows.Forms.Panel();
             this.dataGridViewMap = new System.Windows.Forms.DataGridView();
-            this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
             this.panelBuildQueueSelect = new System.Windows.Forms.Panel();
             this.buttonBuildQueueAutoBuildResources = new System.Windows.Forms.Button();
@@ -164,7 +157,16 @@ namespace jeza.Travian.GameCenter
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.distanceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -196,7 +198,6 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMapUpdate.SuspendLayout();
             this.panelMapList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).BeginInit();
             this.tabPageBuildQueue.SuspendLayout();
             this.panelBuildQueueSelect.SuspendLayout();
             this.panelBuildQueueList.SuspendLayout();
@@ -206,6 +207,7 @@ namespace jeza.Travian.GameCenter
             this.panelBrowser.SuspendLayout();
             this.panelHead.SuspendLayout();
             this.panelStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1110,6 +1112,7 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.villageIdDataGridViewTextBoxColumn,
+            this.distanceDataGridViewTextBoxColumn,
             this.playerDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
             this.allianceDataGridViewTextBoxColumn,
@@ -1121,53 +1124,6 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Name = "dataGridViewMap";
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
-            // 
-            // villageIdDataGridViewTextBoxColumn
-            // 
-            this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
-            this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
-            this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
-            // 
-            // playerDataGridViewTextBoxColumn
-            // 
-            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
-            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
-            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Village";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // allianceDataGridViewTextBoxColumn
-            // 
-            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
-            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
-            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
-            // 
-            // coordinatesDataGridViewTextBoxColumn
-            // 
-            this.coordinatesDataGridViewTextBoxColumn.DataPropertyName = "Coordinates";
-            this.coordinatesDataGridViewTextBoxColumn.HeaderText = "Coordinates";
-            this.coordinatesDataGridViewTextBoxColumn.Name = "coordinatesDataGridViewTextBoxColumn";
-            // 
-            // populationDataGridViewTextBoxColumn
-            // 
-            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
-            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
-            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
-            // 
-            // valleyTypeDataGridViewTextBoxColumn
-            // 
-            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
-            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
-            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
-            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // valleyBindingSource
-            // 
-            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
             // 
             // tabPageBuildQueue
             // 
@@ -1521,9 +1477,62 @@ namespace jeza.Travian.GameCenter
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
+            // valleyBindingSource
+            // 
+            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
+            // 
             // actionsBindingSource
             // 
             this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
+            // 
+            // villageIdDataGridViewTextBoxColumn
+            // 
+            this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
+            this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
+            this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
+            // 
+            // distanceDataGridViewTextBoxColumn
+            // 
+            this.distanceDataGridViewTextBoxColumn.DataPropertyName = "Distance";
+            this.distanceDataGridViewTextBoxColumn.HeaderText = "Distance";
+            this.distanceDataGridViewTextBoxColumn.Name = "distanceDataGridViewTextBoxColumn";
+            // 
+            // playerDataGridViewTextBoxColumn
+            // 
+            this.playerDataGridViewTextBoxColumn.DataPropertyName = "Player";
+            this.playerDataGridViewTextBoxColumn.HeaderText = "Player";
+            this.playerDataGridViewTextBoxColumn.Name = "playerDataGridViewTextBoxColumn";
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Village";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // allianceDataGridViewTextBoxColumn
+            // 
+            this.allianceDataGridViewTextBoxColumn.DataPropertyName = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.HeaderText = "Alliance";
+            this.allianceDataGridViewTextBoxColumn.Name = "allianceDataGridViewTextBoxColumn";
+            // 
+            // coordinatesDataGridViewTextBoxColumn
+            // 
+            this.coordinatesDataGridViewTextBoxColumn.DataPropertyName = "Coordinates";
+            this.coordinatesDataGridViewTextBoxColumn.HeaderText = "Coordinates";
+            this.coordinatesDataGridViewTextBoxColumn.Name = "coordinatesDataGridViewTextBoxColumn";
+            // 
+            // populationDataGridViewTextBoxColumn
+            // 
+            this.populationDataGridViewTextBoxColumn.DataPropertyName = "Population";
+            this.populationDataGridViewTextBoxColumn.HeaderText = "Population";
+            this.populationDataGridViewTextBoxColumn.Name = "populationDataGridViewTextBoxColumn";
+            // 
+            // valleyTypeDataGridViewTextBoxColumn
+            // 
+            this.valleyTypeDataGridViewTextBoxColumn.DataPropertyName = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
+            this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
+            this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // ProcessCenter
             // 
@@ -1574,7 +1583,6 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMapUpdate.PerformLayout();
             this.panelMapList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMap)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).EndInit();
             this.tabPageBuildQueue.ResumeLayout(false);
             this.panelBuildQueueSelect.ResumeLayout(false);
             this.panelBuildQueueSelect.PerformLayout();
@@ -1588,6 +1596,7 @@ namespace jeza.Travian.GameCenter
             this.panelHead.PerformLayout();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1690,13 +1699,6 @@ namespace jeza.Travian.GameCenter
         private ComboBox comboBoxBuildQueueLevel;
         private ComboBox comboBoxBuildQueueBuilding;
         private ListBox listBoxBuildQueues;
-        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn coordinatesDataGridViewTextBoxColumn;
         private Panel panelSettingsExcludedUsers;
         private GroupBox groupBoxSettingsExcludedUsers;
         private Label labelSettingsExcludedId;
@@ -1732,11 +1734,12 @@ namespace jeza.Travian.GameCenter
         private readonly Account account;
         private readonly Map map;
         private Languages languages;
-        private ValleyTypeList valleyTypeList;
+        //private ValleyTypeList valleyTypeList;
         private Actions actions;
 
         delegate void StringParameterDelegate(string value);
-        delegate void SetDataGridViewDataBind(DataGridView field, ArrayList list);
+        delegate void SetDataGridViewRallyPoint(DataGridView field, List<TroopMovement> list);
+        delegate void SetDataGridViewMap(DataGridView field, List<Valley> list);
         delegate void SetButtonStatus(Button button, bool enabled);
         delegate void SetComboBoxStatus(ComboBox comboBox);
         delegate void SetComboBoxStatusQueues(ComboBox comboBox, ArrayList list);
@@ -1750,6 +1753,15 @@ namespace jeza.Travian.GameCenter
 
         private BindingSource valleyBindingSource;
         private BindingSource actionsBindingSource;
+
+        private DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn distanceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn coordinatesDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
     }
 }
 

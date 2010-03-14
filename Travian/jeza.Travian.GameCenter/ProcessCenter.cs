@@ -29,8 +29,8 @@ namespace jeza.Travian.GameCenter
             account = new Account();
             map = new Map();
             map.DeserializeValleys();
-            valleyTypeList = new ValleyTypeList();
-            DeserializeValleyTypeList();
+            //valleyTypeList = new ValleyTypeList();
+            //DeserializeValleyTypeList();
             DeserializeSettings();
             languages = new Languages();
             DeserializeLanguage();
@@ -138,7 +138,11 @@ namespace jeza.Travian.GameCenter
 
         private void buttonMapPopulate_Click(object sender, EventArgs e)
         {
-            PopulateMap();
+            Village selectedVillage = comboBoxMapVillages.SelectedItem as Village;
+            if (selectedVillage != null)
+            {
+                PopulateMap(selectedVillage);
+            }
         }
 
         private void buttonMapUpdate_Click(object sender, EventArgs e)
@@ -309,14 +313,14 @@ namespace jeza.Travian.GameCenter
             }
         }
 
-        private void DeserializeValleyTypeList()
-        {
-            using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.Open))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
-                valleyTypeList = (ValleyTypeList) xmlSerializer.Deserialize(fileStream);
-            }
-        }
+        //private void DeserializeValleyTypeList()
+        //{
+        //    using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.Open))
+        //    {
+        //        XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
+        //        valleyTypeList = (ValleyTypeList) xmlSerializer.Deserialize(fileStream);
+        //    }
+        //}
 
         private void DisableButtons()
         {
@@ -569,11 +573,17 @@ namespace jeza.Travian.GameCenter
             UpdateComboBoxQueues(comboBoxBuildQueueBuilding, list);
         }
 
-        private void PopulateMap()
+        private void PopulateMap(Village village)
         {
-            ArrayList list = new ArrayList();
+            int centerX = village.CoordinateX;
+            int centerY = village.CoordinateY;
+            //ArrayList list = new ArrayList();
+            List<Valley> list = new List<Valley>();
             foreach (Valley valley in map.Valleys)
             {
+                double distance =
+                    Math.Round(Math.Sqrt(Math.Pow((valley.X - centerX), 2) + Math.Pow((valley.Y - centerY), 2)), 1);
+                valley.AddDistance(distance);
                 if (checkBoxUnoccupiedOasis.Checked && valley.ValleyType == ValleyType.UnoccupiedOasis)
                 {
                     list.Add(valley);
@@ -626,38 +636,32 @@ namespace jeza.Travian.GameCenter
                     }
                 }
             }
-            if (dataGridViewMap.InvokeRequired)
-            {
-                SetDataGridViewDataBind m = SetDataSource;
-                Invoke(m, new object[] {dataGridViewMap, list});
-            }
-            else
-            {
-                dataGridViewMap.DataSource = list;
-            }
+            list.Sort((v1, v2) => Comparer<double>.Default.Compare(v1.Distance, v2.Distance));
+            UpdateDataGridViewMap(dataGridViewMap, list);
+            //if (dataGridViewMap.InvokeRequired)
+            //{
+            //    SetDataGridViewRallyPoint m = SetDataSource;
+            //    Invoke(m, new object[] {dataGridViewMap, list});
+            //}
+            //else
+            //{
+            //    dataGridViewMap.DataSource = list;
+            //}
         }
 
         private void PopulateRallyPoint(Village village)
         {
+            Language language = languages.GetLanguage(settings.LanguageId);
             string servername = settings.LoginData.Servername;
             //http://s1.travian.com/build.php?newdid=75579&gid=16&id=39
             string url = String.Format(CultureInfo.InvariantCulture, "{0}build.php?newdid={1}&gid=16&id=39",
                                        servername, village.Id);
             htmlDocument = htmlWeb.Load(url);
-            Language language = languages.GetLanguage(settings.LanguageId);
             HtmlParser htmlParser = new HtmlParser(htmlDocument, language);
             List<TroopMovement> troopMovements = htmlParser.TroopMovements(village);
-            ArrayList list = new ArrayList();
-            list.AddRange(troopMovements);
-            if (dataGridViewRallyPoint.InvokeRequired)
-            {
-                SetDataGridViewDataBind r = SetDataSource;
-                Invoke(r, new object[] {dataGridViewRallyPoint, list});
-            }
-            else
-            {
-                dataGridViewRallyPoint.DataSource = list;
-            }
+            //ArrayList list = new ArrayList();
+            //list.AddRange(troopMovements);
+            UpdateDataGridViewRallyPoint(dataGridViewRallyPoint, troopMovements);
             UpdateStatus(String.Format(CultureInfo.InvariantCulture, "Populate Rally Point in {0}", village.Name));
         }
 
@@ -665,6 +669,7 @@ namespace jeza.Travian.GameCenter
         /// Removes the selected ally from listbox.
         /// </summary>
         /// <param name="field">The field.</param>
+        /// <param name="type"><see cref="AllyType"/></param>
         private void RemoveSettingsAlly(ListBox field, AllyType type)
         {
             if (field.SelectedItems.Count > 0)
@@ -728,14 +733,14 @@ namespace jeza.Travian.GameCenter
         /// <summary>
         /// Saves notes to XML.
         /// </summary>
-        private void SerializeValeyTypeList()
-        {
-            using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
-                xmlSerializer.Serialize(textWriter, valleyTypeList);
-            }
-        }
+        //private void SerializeValeyTypeList()
+        //{
+        //    using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
+        //    {
+        //        XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
+        //        xmlSerializer.Serialize(textWriter, valleyTypeList);
+        //    }
+        //}
 
         /// <summary>
         /// Starts the bot.
@@ -763,11 +768,6 @@ namespace jeza.Travian.GameCenter
             //{
             //    target = rng.Next(100);
             //}
-        }
-
-        private static void SetDataSource(DataGridView field, ArrayList list)
-        {
-            field.DataSource = list;
         }
 
         /// <summary>
@@ -932,6 +932,26 @@ namespace jeza.Travian.GameCenter
                 field.Items.Add(village);
             }
             field.SelectedItem = field.Items[0];
+        }
+
+        private void UpdateDataGridViewMap(DataGridView field, List<Valley> list)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetDataGridViewMap(UpdateDataGridViewMap), field, list);
+                return;
+            }
+            field.DataSource = list;
+        }
+
+        private void UpdateDataGridViewRallyPoint(DataGridView field, List<TroopMovement> list)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetDataGridViewRallyPoint(UpdateDataGridViewRallyPoint), field, list);
+                return;
+            }
+            field.DataSource = list;
         }
 
         private void UpdateListBoxAlly(ListBox field, AllyType type)
