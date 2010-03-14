@@ -19,6 +19,7 @@ namespace jeza.Travian.Framework
         public int AllianceId { get; set; }
         public int PlayerId { get; set; }
         public int VillageId { get; set; }
+        public double Distance { get; set; }
 
         /// <summary>
         /// Adds the alliance data.
@@ -46,6 +47,17 @@ namespace jeza.Travian.Framework
             Y = yCoords;
             Coordinates = String.Format(CultureInfo.InvariantCulture, "({0}|{1})", xCoords, yCoords);
             VillageId = Misc.ConvertCoordinates(xCoords, yCoords);
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the distance.
+        /// </summary>
+        /// <param name="distance">The distance.</param>
+        /// <returns></returns>
+        public Valley AddDistance(double distance)
+        {
+            Distance = distance;
             return this;
         }
 
