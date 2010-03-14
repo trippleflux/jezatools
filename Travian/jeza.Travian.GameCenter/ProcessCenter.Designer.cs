@@ -126,6 +126,7 @@ namespace jeza.Travian.GameCenter
             this.textBoxMapDistance = new System.Windows.Forms.TextBox();
             this.panelMapList = new System.Windows.Forms.Panel();
             this.dataGridViewMap = new System.Windows.Forms.DataGridView();
+            this.distanceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
             this.panelBuildQueueSelect = new System.Windows.Forms.Panel();
             this.buttonBuildQueueAutoBuildResources = new System.Windows.Forms.Button();
@@ -157,16 +158,36 @@ namespace jeza.Travian.GameCenter
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panelMarketPlaceList = new System.Windows.Forms.Panel();
+            this.panelMarketPlaceSettings = new System.Windows.Forms.Panel();
+            this.listBoxMarketPlaceTasks = new System.Windows.Forms.ListBox();
+            this.comboBoxMarketPlaceSourceVillage = new System.Windows.Forms.ComboBox();
+            this.groupBoxMarketPlaceTasks = new System.Windows.Forms.GroupBox();
+            this.labelMarketPlaceSourceVillage = new System.Windows.Forms.Label();
+            this.labelMarketPlaceDestinationVillage = new System.Windows.Forms.Label();
+            this.comboBoxMarketPlaceDestinationVillage = new System.Windows.Forms.ComboBox();
             this.villageIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.distanceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.allianceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.labelMarketPlaceResources = new System.Windows.Forms.Label();
+            this.checkBoxMarketPlaceWood = new System.Windows.Forms.CheckBox();
+            this.checkBoxMarketPlaceCrop = new System.Windows.Forms.CheckBox();
+            this.checkBoxMarketPlaceIron = new System.Windows.Forms.CheckBox();
+            this.checkBoxMarketPlaceClay = new System.Windows.Forms.CheckBox();
+            this.labelMarketPlacePlan = new System.Windows.Forms.Label();
+            this.radioButtonMarketPlaceSourceOver = new System.Windows.Forms.RadioButton();
+            this.textBoxMarketPlaceSourceOver = new System.Windows.Forms.TextBox();
+            this.textBoxMarketPlaceDestinationBellow = new System.Windows.Forms.TextBox();
+            this.radioButtonMarketPlaceDestinationBellow = new System.Windows.Forms.RadioButton();
+            this.comboBoxMarketPlaceSourceOver = new System.Windows.Forms.ComboBox();
+            this.comboBoxMarketPlaceDestinationBellow = new System.Windows.Forms.ComboBox();
+            this.buttonMarketPlaceAddTask = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -202,11 +223,15 @@ namespace jeza.Travian.GameCenter
             this.panelBuildQueueSelect.SuspendLayout();
             this.panelBuildQueueList.SuspendLayout();
             this.panelBuildQueueHead.SuspendLayout();
+            this.tabPageMarketPlace.SuspendLayout();
             this.tabPageBrowser.SuspendLayout();
             this.panelBrowserUrl.SuspendLayout();
             this.panelBrowser.SuspendLayout();
             this.panelHead.SuspendLayout();
             this.panelStatus.SuspendLayout();
+            this.panelMarketPlaceList.SuspendLayout();
+            this.panelMarketPlaceSettings.SuspendLayout();
+            this.groupBoxMarketPlaceTasks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -1125,6 +1150,12 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
             this.dataGridViewMap.TabIndex = 0;
             // 
+            // distanceDataGridViewTextBoxColumn
+            // 
+            this.distanceDataGridViewTextBoxColumn.DataPropertyName = "Distance";
+            this.distanceDataGridViewTextBoxColumn.HeaderText = "Distance";
+            this.distanceDataGridViewTextBoxColumn.Name = "distanceDataGridViewTextBoxColumn";
+            // 
             // tabPageBuildQueue
             // 
             this.tabPageBuildQueue.Controls.Add(this.panelBuildQueueSelect);
@@ -1347,6 +1378,8 @@ namespace jeza.Travian.GameCenter
             // 
             // tabPageMarketPlace
             // 
+            this.tabPageMarketPlace.Controls.Add(this.panelMarketPlaceSettings);
+            this.tabPageMarketPlace.Controls.Add(this.panelMarketPlaceList);
             this.tabPageMarketPlace.Location = new System.Drawing.Point(4, 22);
             this.tabPageMarketPlace.Name = "tabPageMarketPlace";
             this.tabPageMarketPlace.Size = new System.Drawing.Size(1185, 696);
@@ -1477,25 +1510,105 @@ namespace jeza.Travian.GameCenter
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
-            // valleyBindingSource
+            // panelMarketPlaceList
             // 
-            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
+            this.panelMarketPlaceList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelMarketPlaceList.Controls.Add(this.listBoxMarketPlaceTasks);
+            this.panelMarketPlaceList.Location = new System.Drawing.Point(9, 4);
+            this.panelMarketPlaceList.Name = "panelMarketPlaceList";
+            this.panelMarketPlaceList.Size = new System.Drawing.Size(556, 689);
+            this.panelMarketPlaceList.TabIndex = 0;
             // 
-            // actionsBindingSource
+            // panelMarketPlaceSettings
             // 
-            this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
+            this.panelMarketPlaceSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelMarketPlaceSettings.Controls.Add(this.groupBoxMarketPlaceTasks);
+            this.panelMarketPlaceSettings.Location = new System.Drawing.Point(571, 4);
+            this.panelMarketPlaceSettings.Name = "panelMarketPlaceSettings";
+            this.panelMarketPlaceSettings.Size = new System.Drawing.Size(606, 689);
+            this.panelMarketPlaceSettings.TabIndex = 1;
+            // 
+            // listBoxMarketPlaceTasks
+            // 
+            this.listBoxMarketPlaceTasks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxMarketPlaceTasks.FormattingEnabled = true;
+            this.listBoxMarketPlaceTasks.Location = new System.Drawing.Point(4, 4);
+            this.listBoxMarketPlaceTasks.Name = "listBoxMarketPlaceTasks";
+            this.listBoxMarketPlaceTasks.Size = new System.Drawing.Size(540, 680);
+            this.listBoxMarketPlaceTasks.TabIndex = 0;
+            // 
+            // comboBoxMarketPlaceSourceVillage
+            // 
+            this.comboBoxMarketPlaceSourceVillage.FormattingEnabled = true;
+            this.comboBoxMarketPlaceSourceVillage.Location = new System.Drawing.Point(9, 32);
+            this.comboBoxMarketPlaceSourceVillage.Name = "comboBoxMarketPlaceSourceVillage";
+            this.comboBoxMarketPlaceSourceVillage.Size = new System.Drawing.Size(160, 21);
+            this.comboBoxMarketPlaceSourceVillage.TabIndex = 0;
+            // 
+            // groupBoxMarketPlaceTasks
+            // 
+            this.groupBoxMarketPlaceTasks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.buttonMarketPlaceAddTask);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.comboBoxMarketPlaceDestinationBellow);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.comboBoxMarketPlaceSourceOver);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.textBoxMarketPlaceDestinationBellow);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.radioButtonMarketPlaceDestinationBellow);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.textBoxMarketPlaceSourceOver);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.radioButtonMarketPlaceSourceOver);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.labelMarketPlacePlan);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.checkBoxMarketPlaceClay);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.checkBoxMarketPlaceIron);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.checkBoxMarketPlaceCrop);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.checkBoxMarketPlaceWood);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.labelMarketPlaceResources);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.labelMarketPlaceDestinationVillage);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.comboBoxMarketPlaceDestinationVillage);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.labelMarketPlaceSourceVillage);
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.comboBoxMarketPlaceSourceVillage);
+            this.groupBoxMarketPlaceTasks.Location = new System.Drawing.Point(4, 4);
+            this.groupBoxMarketPlaceTasks.Name = "groupBoxMarketPlaceTasks";
+            this.groupBoxMarketPlaceTasks.Size = new System.Drawing.Size(599, 179);
+            this.groupBoxMarketPlaceTasks.TabIndex = 1;
+            this.groupBoxMarketPlaceTasks.TabStop = false;
+            this.groupBoxMarketPlaceTasks.Text = "Tasks";
+            // 
+            // labelMarketPlaceSourceVillage
+            // 
+            this.labelMarketPlaceSourceVillage.AutoSize = true;
+            this.labelMarketPlaceSourceVillage.Location = new System.Drawing.Point(6, 16);
+            this.labelMarketPlaceSourceVillage.Name = "labelMarketPlaceSourceVillage";
+            this.labelMarketPlaceSourceVillage.Size = new System.Drawing.Size(75, 13);
+            this.labelMarketPlaceSourceVillage.TabIndex = 1;
+            this.labelMarketPlaceSourceVillage.Text = "Source Village";
+            // 
+            // labelMarketPlaceDestinationVillage
+            // 
+            this.labelMarketPlaceDestinationVillage.AutoSize = true;
+            this.labelMarketPlaceDestinationVillage.Location = new System.Drawing.Point(175, 16);
+            this.labelMarketPlaceDestinationVillage.Name = "labelMarketPlaceDestinationVillage";
+            this.labelMarketPlaceDestinationVillage.Size = new System.Drawing.Size(94, 13);
+            this.labelMarketPlaceDestinationVillage.TabIndex = 3;
+            this.labelMarketPlaceDestinationVillage.Text = "Destination Village";
+            // 
+            // comboBoxMarketPlaceDestinationVillage
+            // 
+            this.comboBoxMarketPlaceDestinationVillage.FormattingEnabled = true;
+            this.comboBoxMarketPlaceDestinationVillage.Location = new System.Drawing.Point(178, 32);
+            this.comboBoxMarketPlaceDestinationVillage.Name = "comboBoxMarketPlaceDestinationVillage";
+            this.comboBoxMarketPlaceDestinationVillage.Size = new System.Drawing.Size(160, 21);
+            this.comboBoxMarketPlaceDestinationVillage.TabIndex = 2;
             // 
             // villageIdDataGridViewTextBoxColumn
             // 
             this.villageIdDataGridViewTextBoxColumn.DataPropertyName = "VillageId";
             this.villageIdDataGridViewTextBoxColumn.HeaderText = "VillageId";
             this.villageIdDataGridViewTextBoxColumn.Name = "villageIdDataGridViewTextBoxColumn";
-            // 
-            // distanceDataGridViewTextBoxColumn
-            // 
-            this.distanceDataGridViewTextBoxColumn.DataPropertyName = "Distance";
-            this.distanceDataGridViewTextBoxColumn.HeaderText = "Distance";
-            this.distanceDataGridViewTextBoxColumn.Name = "distanceDataGridViewTextBoxColumn";
             // 
             // playerDataGridViewTextBoxColumn
             // 
@@ -1533,6 +1646,136 @@ namespace jeza.Travian.GameCenter
             this.valleyTypeDataGridViewTextBoxColumn.HeaderText = "ValleyType";
             this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
             this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // valleyBindingSource
+            // 
+            this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
+            // 
+            // actionsBindingSource
+            // 
+            this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
+            // 
+            // labelMarketPlaceResources
+            // 
+            this.labelMarketPlaceResources.AutoSize = true;
+            this.labelMarketPlaceResources.Location = new System.Drawing.Point(9, 60);
+            this.labelMarketPlaceResources.Name = "labelMarketPlaceResources";
+            this.labelMarketPlaceResources.Size = new System.Drawing.Size(58, 13);
+            this.labelMarketPlaceResources.TabIndex = 4;
+            this.labelMarketPlaceResources.Text = "Resources";
+            // 
+            // checkBoxMarketPlaceWood
+            // 
+            this.checkBoxMarketPlaceWood.AutoSize = true;
+            this.checkBoxMarketPlaceWood.Location = new System.Drawing.Point(12, 77);
+            this.checkBoxMarketPlaceWood.Name = "checkBoxMarketPlaceWood";
+            this.checkBoxMarketPlaceWood.Size = new System.Drawing.Size(55, 17);
+            this.checkBoxMarketPlaceWood.TabIndex = 5;
+            this.checkBoxMarketPlaceWood.Text = "Wood";
+            this.checkBoxMarketPlaceWood.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMarketPlaceCrop
+            // 
+            this.checkBoxMarketPlaceCrop.AutoSize = true;
+            this.checkBoxMarketPlaceCrop.Location = new System.Drawing.Point(12, 146);
+            this.checkBoxMarketPlaceCrop.Name = "checkBoxMarketPlaceCrop";
+            this.checkBoxMarketPlaceCrop.Size = new System.Drawing.Size(48, 17);
+            this.checkBoxMarketPlaceCrop.TabIndex = 6;
+            this.checkBoxMarketPlaceCrop.Text = "Crop";
+            this.checkBoxMarketPlaceCrop.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMarketPlaceIron
+            // 
+            this.checkBoxMarketPlaceIron.AutoSize = true;
+            this.checkBoxMarketPlaceIron.Location = new System.Drawing.Point(12, 123);
+            this.checkBoxMarketPlaceIron.Name = "checkBoxMarketPlaceIron";
+            this.checkBoxMarketPlaceIron.Size = new System.Drawing.Size(44, 17);
+            this.checkBoxMarketPlaceIron.TabIndex = 7;
+            this.checkBoxMarketPlaceIron.Text = "Iron";
+            this.checkBoxMarketPlaceIron.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMarketPlaceClay
+            // 
+            this.checkBoxMarketPlaceClay.AutoSize = true;
+            this.checkBoxMarketPlaceClay.Location = new System.Drawing.Point(12, 100);
+            this.checkBoxMarketPlaceClay.Name = "checkBoxMarketPlaceClay";
+            this.checkBoxMarketPlaceClay.Size = new System.Drawing.Size(46, 17);
+            this.checkBoxMarketPlaceClay.TabIndex = 8;
+            this.checkBoxMarketPlaceClay.Text = "Clay";
+            this.checkBoxMarketPlaceClay.UseVisualStyleBackColor = true;
+            // 
+            // labelMarketPlacePlan
+            // 
+            this.labelMarketPlacePlan.AutoSize = true;
+            this.labelMarketPlacePlan.Location = new System.Drawing.Point(99, 60);
+            this.labelMarketPlacePlan.Name = "labelMarketPlacePlan";
+            this.labelMarketPlacePlan.Size = new System.Drawing.Size(28, 13);
+            this.labelMarketPlacePlan.TabIndex = 9;
+            this.labelMarketPlacePlan.Text = "Plan";
+            // 
+            // radioButtonMarketPlaceSourceOver
+            // 
+            this.radioButtonMarketPlaceSourceOver.AutoSize = true;
+            this.radioButtonMarketPlaceSourceOver.Location = new System.Drawing.Point(102, 77);
+            this.radioButtonMarketPlaceSourceOver.Name = "radioButtonMarketPlaceSourceOver";
+            this.radioButtonMarketPlaceSourceOver.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonMarketPlaceSourceOver.TabIndex = 10;
+            this.radioButtonMarketPlaceSourceOver.TabStop = true;
+            this.radioButtonMarketPlaceSourceOver.Text = "Source Over";
+            this.radioButtonMarketPlaceSourceOver.UseVisualStyleBackColor = true;
+            // 
+            // textBoxMarketPlaceSourceOver
+            // 
+            this.textBoxMarketPlaceSourceOver.Location = new System.Drawing.Point(236, 74);
+            this.textBoxMarketPlaceSourceOver.Name = "textBoxMarketPlaceSourceOver";
+            this.textBoxMarketPlaceSourceOver.Size = new System.Drawing.Size(33, 20);
+            this.textBoxMarketPlaceSourceOver.TabIndex = 11;
+            this.textBoxMarketPlaceSourceOver.Text = "50";
+            // 
+            // textBoxMarketPlaceDestinationBellow
+            // 
+            this.textBoxMarketPlaceDestinationBellow.Location = new System.Drawing.Point(236, 100);
+            this.textBoxMarketPlaceDestinationBellow.Name = "textBoxMarketPlaceDestinationBellow";
+            this.textBoxMarketPlaceDestinationBellow.Size = new System.Drawing.Size(33, 20);
+            this.textBoxMarketPlaceDestinationBellow.TabIndex = 14;
+            this.textBoxMarketPlaceDestinationBellow.Text = "50";
+            // 
+            // radioButtonMarketPlaceDestinationBellow
+            // 
+            this.radioButtonMarketPlaceDestinationBellow.AutoSize = true;
+            this.radioButtonMarketPlaceDestinationBellow.Location = new System.Drawing.Point(102, 100);
+            this.radioButtonMarketPlaceDestinationBellow.Name = "radioButtonMarketPlaceDestinationBellow";
+            this.radioButtonMarketPlaceDestinationBellow.Size = new System.Drawing.Size(112, 17);
+            this.radioButtonMarketPlaceDestinationBellow.TabIndex = 13;
+            this.radioButtonMarketPlaceDestinationBellow.TabStop = true;
+            this.radioButtonMarketPlaceDestinationBellow.Text = "Destination Bellow";
+            this.radioButtonMarketPlaceDestinationBellow.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxMarketPlaceSourceOver
+            // 
+            this.comboBoxMarketPlaceSourceOver.FormattingEnabled = true;
+            this.comboBoxMarketPlaceSourceOver.Location = new System.Drawing.Point(275, 75);
+            this.comboBoxMarketPlaceSourceOver.Name = "comboBoxMarketPlaceSourceOver";
+            this.comboBoxMarketPlaceSourceOver.Size = new System.Drawing.Size(63, 21);
+            this.comboBoxMarketPlaceSourceOver.TabIndex = 15;
+            // 
+            // comboBoxMarketPlaceDestinationBellow
+            // 
+            this.comboBoxMarketPlaceDestinationBellow.FormattingEnabled = true;
+            this.comboBoxMarketPlaceDestinationBellow.Location = new System.Drawing.Point(275, 98);
+            this.comboBoxMarketPlaceDestinationBellow.Name = "comboBoxMarketPlaceDestinationBellow";
+            this.comboBoxMarketPlaceDestinationBellow.Size = new System.Drawing.Size(63, 21);
+            this.comboBoxMarketPlaceDestinationBellow.TabIndex = 16;
+            // 
+            // buttonMarketPlaceAddTask
+            // 
+            this.buttonMarketPlaceAddTask.Location = new System.Drawing.Point(345, 29);
+            this.buttonMarketPlaceAddTask.Name = "buttonMarketPlaceAddTask";
+            this.buttonMarketPlaceAddTask.Size = new System.Drawing.Size(75, 23);
+            this.buttonMarketPlaceAddTask.TabIndex = 17;
+            this.buttonMarketPlaceAddTask.Text = "Add Task";
+            this.buttonMarketPlaceAddTask.UseVisualStyleBackColor = true;
+            this.buttonMarketPlaceAddTask.Click += new System.EventHandler(this.buttonMarketPlaceAddTask_Click);
             // 
             // ProcessCenter
             // 
@@ -1588,6 +1831,7 @@ namespace jeza.Travian.GameCenter
             this.panelBuildQueueSelect.PerformLayout();
             this.panelBuildQueueList.ResumeLayout(false);
             this.panelBuildQueueHead.ResumeLayout(false);
+            this.tabPageMarketPlace.ResumeLayout(false);
             this.tabPageBrowser.ResumeLayout(false);
             this.panelBrowserUrl.ResumeLayout(false);
             this.panelBrowserUrl.PerformLayout();
@@ -1596,6 +1840,10 @@ namespace jeza.Travian.GameCenter
             this.panelHead.PerformLayout();
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
+            this.panelMarketPlaceList.ResumeLayout(false);
+            this.panelMarketPlaceSettings.ResumeLayout(false);
+            this.groupBoxMarketPlaceTasks.ResumeLayout(false);
+            this.groupBoxMarketPlaceTasks.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.valleyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -1762,6 +2010,27 @@ namespace jeza.Travian.GameCenter
         private DataGridViewTextBoxColumn coordinatesDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
+        private Panel panelMarketPlaceSettings;
+        private Panel panelMarketPlaceList;
+        private ListBox listBoxMarketPlaceTasks;
+        private GroupBox groupBoxMarketPlaceTasks;
+        private Label labelMarketPlaceDestinationVillage;
+        private ComboBox comboBoxMarketPlaceDestinationVillage;
+        private Label labelMarketPlaceSourceVillage;
+        private ComboBox comboBoxMarketPlaceSourceVillage;
+        private CheckBox checkBoxMarketPlaceClay;
+        private CheckBox checkBoxMarketPlaceIron;
+        private CheckBox checkBoxMarketPlaceCrop;
+        private CheckBox checkBoxMarketPlaceWood;
+        private Label labelMarketPlaceResources;
+        private TextBox textBoxMarketPlaceDestinationBellow;
+        private RadioButton radioButtonMarketPlaceDestinationBellow;
+        private TextBox textBoxMarketPlaceSourceOver;
+        private RadioButton radioButtonMarketPlaceSourceOver;
+        private Label labelMarketPlacePlan;
+        private ComboBox comboBoxMarketPlaceSourceOver;
+        private ComboBox comboBoxMarketPlaceDestinationBellow;
+        private Button buttonMarketPlaceAddTask;
     }
 }
 

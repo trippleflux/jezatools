@@ -29,6 +29,15 @@ namespace jeza.Travian.Framework
 
         [XmlElement(ElementName = "rallyPoint")]
         public RallyPoint RallyPoint { get; set; }
+
+        [XmlElement(ElementName = "marketPlace")]
+        public MarketPlaceSet MarketPlace { get; set; }
+    }
+
+    public class MarketPlaceSet
+    {
+        [XmlElement(ElementName = "TotalCarry")]
+        public string TotalCarry { get; set; }
     }
 
     public class RallyPoint

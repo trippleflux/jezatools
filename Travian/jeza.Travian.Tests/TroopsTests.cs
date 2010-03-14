@@ -2,8 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml.Serialization;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
 using jeza.Travian.Parser;
@@ -14,7 +12,7 @@ using MbUnit.Framework;
 namespace jeza.Travian.Tests
 {
     [TestFixture]
-    public class TroopsTests
+    public class TroopsTests : TestsBase
     {
         [Test]
         public void HtmlParserAvailableTroops()
@@ -45,7 +43,7 @@ namespace jeza.Travian.Tests
         public void HtmlParserTroopMovements()
         {
             DeserializeLanguage();
-            Language language = languages.GetLanguage("sl-SI");
+            Language language = Languages.GetLanguage("sl-SI");
             Assert.IsNotNull(language, "Language is null!");
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.Load("..\\..\\Test Files\\RallyPoint.php.html");
@@ -166,16 +164,5 @@ namespace jeza.Travian.Tests
             gauls.Swordsman.AddTroopCount(123);
             Assert.AreEqual(123, gauls.Swordsman.Count, "Count");
         }
-
-        private void DeserializeLanguage()
-        {
-            using (FileStream fileStream = new FileStream("Language.xml", FileMode.Open))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Languages));
-                languages = (Languages)xmlSerializer.Deserialize(fileStream);
-            }
-        }
-
-        private Languages languages = new Languages();
     }
 }
