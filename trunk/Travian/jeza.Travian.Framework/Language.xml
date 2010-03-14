@@ -11,5 +11,8 @@
       <ReinforcementOut>Okrepitve za</ReinforcementOut>
       <Scout>Izvidnica</Scout>
     </rallyPoint>
+    <marketPlace>
+      <TotalCarry>Vsak tvoj trgovec lahko prepelje</TotalCarry>
+    </marketPlace>
   </language>
 </languages>

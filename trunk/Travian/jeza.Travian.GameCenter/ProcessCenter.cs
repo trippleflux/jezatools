@@ -111,6 +111,16 @@ namespace jeza.Travian.GameCenter
             }
         }
 
+        private void buttonMarketPlaceAddTask_Click(object sender, EventArgs e)
+        {
+            Village sourceVillage = comboBoxMarketPlaceSourceVillage.SelectedItem as Village;
+            Village destinationVillage = comboBoxMarketPlaceDestinationVillage.SelectedItem as Village;
+            if (sourceVillage != null && destinationVillage != null)
+            {
+                UpdateStatus("TODO Market place!!!");
+            }
+        }
+
         private void buttonSettingsAllyDelete_Click(object sender, EventArgs e)
         {
             RemoveSettingsAlly(listBoxSettingsAlly, AllyType.Ally);
@@ -741,7 +751,6 @@ namespace jeza.Travian.GameCenter
         //        xmlSerializer.Serialize(textWriter, valleyTypeList);
         //    }
         //}
-
         /// <summary>
         /// Starts the bot.
         /// </summary>
@@ -877,6 +886,8 @@ namespace jeza.Travian.GameCenter
             UpdateComboBoxVillages(comboBoxMapVillages);
             UpdateComboBoxVillages(comboBoxRallyPointVillages);
             UpdateComboBoxVillages(comboBoxBuildQueueVillages);
+            UpdateComboBoxVillages(comboBoxMarketPlaceSourceVillage);
+            UpdateComboBoxVillages(comboBoxMarketPlaceDestinationVillage);
         }
 
         private void UpdateButtonStatus(Button button, bool enabled)

@@ -250,7 +250,7 @@ namespace jeza.Travian.Parser
                 perHourCrop = Misc.String2Number(htmlNode.Attributes["title"].Value);
                 string[] values = htmlNode.InnerText.Trim().Split('/');
                 totalCrop = Misc.String2Number(values[0]);
-                granary= Misc.String2Number(values[1]);
+                granary = Misc.String2Number(values[1]);
             }
             production
                 .UpdatePerHour(perHourWood, perHourClay, perHourIron, perHourCrop)
@@ -302,17 +302,17 @@ namespace jeza.Travian.Parser
             ResourcesForUpgrade resourcesForUpgrade = new ResourcesForUpgrade();
             //<h1>Herojeva rezidenca <span class="level">Stopnja 4</span></h1>
             HtmlNode head = htmlDocument.DocumentNode.SelectSingleNode("//h1");
-            if (head!=null)
+            if (head != null)
             {
                 string title = head.InnerText.Trim();
                 int index = title.LastIndexOf(' ');
-                if (index>-1)
+                if (index > -1)
                 {
-                    resourcesForUpgrade.CurrentLevel = Misc.String2Number(title.Substring(index+1));
+                    resourcesForUpgrade.CurrentLevel = Misc.String2Number(title.Substring(index + 1));
                 }
             }
             HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//p[@id='contract']");
-            if (htmlNode!=null)
+            if (htmlNode != null)
             {
                 string[] values = htmlNode.InnerText.Split('|', ':');
                 resourcesForUpgrade.Wood = Misc.String2Number(values[1].Trim());
@@ -422,6 +422,42 @@ namespace jeza.Travian.Parser
         public List<Valley> GetVillagesFromMap()
         {
             return GetValleys('b', ValleyType.FarmLowRisk);
+        }
+
+        /// <summary>
+        /// Parse market place.
+        /// </summary>
+        /// <returns><see cref="MarketPlace"/></returns>
+        public MarketPlace MarketPlace()
+        {
+            MarketPlace marketPlace = new MarketPlace();
+            HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='target_select']");
+            if (htmlNode != null)
+            {
+                HtmlNode node = htmlNode.SelectSingleNode("./tr/td");
+                if (node != null)
+                {
+                    string innerText = node.InnerText;
+                    int indexOf = innerText.LastIndexOf(' ');
+                    if (indexOf > -1)
+                    {
+                        string[] merchanst = innerText.Substring(indexOf).Trim().Split('/');
+                        marketPlace.AvailableMerchants = Misc.String2Number(merchanst[0]);
+                        marketPlace.TotalMerchants = Misc.String2Number(merchanst[1]);
+                    }
+                }
+            }
+            htmlNode =
+                htmlDocument.DocumentNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture,
+                                                                         "//p[starts-with(text(), '{0}')]",
+                                                                         language.MarketPlace.TotalCarry));
+            if (htmlNode != null)
+            {
+                string text = htmlNode.InnerHtml;
+                string[] spliter = text.Split(new string[]{"<b>", "</b>"}, StringSplitOptions.RemoveEmptyEntries);
+                marketPlace.TotalCarry = Misc.String2Number(spliter[1].Trim());
+            }
+            return marketPlace;
         }
 
         /// <summary>
