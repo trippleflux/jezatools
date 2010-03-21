@@ -1,3 +1,9 @@
+#region
+
+using System;
+
+#endregion
+
 namespace jeza.Travian.Framework
 {
     /// <summary>
@@ -93,6 +99,42 @@ namespace jeza.Travian.Framework
         public int Granary
         {
             get { return granary; }
+        }
+
+        /// <summary>
+        /// Gets the wood percentage in warehouse.
+        /// </summary>
+        /// <value>The wood percent to full.</value>
+        public double WoodPercentToFull
+        {
+            get { return Math.Round((double) WoodTotal*100/Warehouse); }
+        }
+
+        /// <summary>
+        /// Gets the clay percentage in warehouse.
+        /// </summary>
+        /// <value>The wood percent to full.</value>
+        public double ClayPercentToFull
+        {
+            get { return Math.Round((double) ClayTotal*100/Warehouse); }
+        }
+
+        /// <summary>
+        /// Gets the iron percentage in warehouse.
+        /// </summary>
+        /// <value>The wood percent to full.</value>
+        public double IronPercentToFull
+        {
+            get { return Math.Round((double) IronTotal*100/Warehouse); }
+        }
+
+        /// <summary>
+        /// Gets the crop percentage in granary.
+        /// </summary>
+        /// <value>The wood percent to full.</value>
+        public double CropPercentToFull
+        {
+            get { return Math.Round((double) CropTotal*100/Granary); }
         }
 
         /// <summary>

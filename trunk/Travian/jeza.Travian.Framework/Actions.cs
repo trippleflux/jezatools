@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace jeza.Travian.Framework
 {
@@ -8,9 +7,10 @@ namespace jeza.Travian.Framework
         public Actions()
         {
             BuildQueue = new List<BuildQueue>();
+            MarketPlaceQueue = new List<MarketPlaceQueue>();
         }
 
-        //[XmlElement(ElementName = "buildQueue")]
         public List<BuildQueue> BuildQueue { get; set; }
+        public List<MarketPlaceQueue> MarketPlaceQueue { get; set; }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Xml.Serialization;
 
 namespace jeza.Travian.Framework
@@ -38,6 +37,9 @@ namespace jeza.Travian.Framework
     {
         [XmlElement(ElementName = "TotalCarry")]
         public string TotalCarry { get; set; }
+
+        [XmlElement(ElementName = "IncommingTransport")]
+        public string IncommingTransport { get; set; }
     }
 
     public class RallyPoint

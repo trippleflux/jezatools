@@ -13,6 +13,7 @@
     </rallyPoint>
     <marketPlace>
       <TotalCarry>Vsak tvoj trgovec lahko prepelje</TotalCarry>
+      <IncommingTransport>Transport iz</IncommingTransport>
     </marketPlace>
   </language>
 </languages>

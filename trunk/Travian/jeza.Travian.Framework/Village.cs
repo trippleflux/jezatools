@@ -11,6 +11,11 @@ namespace jeza.Travian.Framework
     [Serializable]
     public class Village
     {
+        public Village()
+        {
+            Id = -1;
+        }
+
         /// <summary>
         /// Gets the coordinates in format (x|y).
         /// </summary>
@@ -199,7 +204,7 @@ namespace jeza.Travian.Framework
 
         public override string ToString()
         {
-            return string.Format(Name);
+            return string.Format(Name + " " + Coordinates);
         }
 
         private Production production;
