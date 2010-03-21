@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Text;
 
 #endregion
 
@@ -19,7 +20,7 @@ namespace jeza.Travian.Framework
         /// <returns></returns>
         public static Int32 ConvertCoordinates(Int32 x, Int32 y)
         {
-            return ((x + 401) + ((400 - y) * 801));
+            return ((x + 401) + ((400 - y)*801));
         }
 
         /// <summary>
@@ -47,9 +48,22 @@ namespace jeza.Travian.Framework
         /// <returns><c>0</c> if input string was not a number.</returns>
         public static int String2Number(string input)
         {
-            if (IsNumber(input))
+            int length = input.Length;
+            if (length < 1)
             {
-                return Int32.Parse(input);
+                return 0;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int c = 0; c < length; c++)
+            {
+                if (IsNumber(input[c]))
+                {
+                    sb.Append(input[c]);
+                }
+            }
+            if (IsNumber(sb.ToString()))
+            {
+                return Int32.Parse(sb.ToString());
             }
             return 0;
         }

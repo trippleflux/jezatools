@@ -39,7 +39,7 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(1180, resourcesForUpgrade.Clay, "Clay");
             Assert.AreEqual(825, resourcesForUpgrade.Iron, "Iron");
             Assert.AreEqual(235, resourcesForUpgrade.Crop, "Crop");
-            Assert.AreEqual("dorf2.php?a=19&amp;c=238d2f", resourcesForUpgrade.UpgradeUrl, "url");
+            Assert.AreEqual("dorf2.php?a=19&c=238d2f", resourcesForUpgrade.UpgradeUrl, "url");
             Assert.AreEqual(10, resourcesForUpgrade.CurrentLevel, "current level");
         }
 

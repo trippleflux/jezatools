@@ -117,7 +117,34 @@ namespace jeza.Travian.GameCenter
             Village destinationVillage = comboBoxMarketPlaceDestinationVillage.SelectedItem as Village;
             if (sourceVillage != null && destinationVillage != null)
             {
-                UpdateStatus("TODO Market place!!!");
+                if (sourceVillage.Id > -1 && destinationVillage.Id > -1)
+                {
+                    int destinationPercent = Misc.String2Number(textBoxMarketPlaceDestinationBellow.Text.Trim());
+                    bool sendWood = checkBoxMarketPlaceWood.Checked;
+                    bool sendClay = checkBoxMarketPlaceClay.Checked;
+                    bool sendIron = checkBoxMarketPlaceIron.Checked;
+                    bool sendCrop = checkBoxMarketPlaceCrop.Checked;
+                    MarketPlaceQueue queue = new MarketPlaceQueue
+                        {
+                            DestinationVillage = destinationVillage,
+                            SourceVillage = sourceVillage,
+                            SendWood = sendWood,
+                            SendClay = sendClay,
+                            SendIron = sendIron,
+                            SendCrop = sendCrop,
+                            SendGoodsType = SendGoodsType.DestinationBellowPercent,
+                            Goods = destinationPercent,
+                        };
+                    actions.MarketPlaceQueue.Add(queue);
+                    SerializeActions();
+                    DeserializeActions();
+                    UpdateStatus("New Market place task.");
+                }
+                else
+                {
+                    UpdateComboBoxVillages(comboBoxMarketPlaceSourceVillage);
+                    UpdateComboBoxVillages(comboBoxMarketPlaceDestinationVillage);
+                }
             }
         }
 
@@ -273,6 +300,8 @@ namespace jeza.Travian.GameCenter
             }
             listBoxBuildQueues.Items.Clear();
             UpdateListBoxBuildQueues(listBoxBuildQueues);
+            listBoxMarketPlaceTasks.Items.Clear();
+            UpdateListBoxTransportQueues(listBoxMarketPlaceTasks);
         }
 
         /// <summary>
@@ -717,6 +746,24 @@ namespace jeza.Travian.GameCenter
         }
 
         /// <summary>
+        /// Sends the resources ifmarketplace queue is active.
+        /// </summary>
+        private void SendResources()
+        {
+            foreach (MarketPlaceQueue queue in actions.MarketPlaceQueue)
+            {
+                MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue, settings, languages);
+                calculator.Parse();
+                calculator.Calculate();
+                string process = calculator.Process();
+                if (process.Length > 5)
+                {
+                    UpdateStatus(process);
+                }
+            }
+        }
+
+        /// <summary>
         /// Saves actions to XML.
         /// </summary>
         private void SerializeActions()
@@ -802,6 +849,7 @@ namespace jeza.Travian.GameCenter
                 UpdateAccountInfo();
                 EnableButtons();
                 Build();
+                SendResources();
                 Thread.Sleep(300000);
             }
             botActive = false;
@@ -942,7 +990,7 @@ namespace jeza.Travian.GameCenter
             {
                 field.Items.Add(village);
             }
-            field.SelectedItem = field.Items[0];
+            //field.SelectedItem = field.Items[0];
         }
 
         private void UpdateDataGridViewMap(DataGridView field, List<Valley> list)
@@ -993,6 +1041,20 @@ namespace jeza.Travian.GameCenter
             foreach (BuildQueue buildQueue in actions.BuildQueue)
             {
                 field.Items.Add(buildQueue);
+            }
+        }
+
+        private void UpdateListBoxTransportQueues(ListBox field)
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new SetListBoxStatus(UpdateListBoxTransportQueues), field);
+                return;
+            }
+            field.Items.Clear();
+            foreach (MarketPlaceQueue queue in actions.MarketPlaceQueue)
+            {
+                field.Items.Add(queue);
             }
         }
 

@@ -52,8 +52,10 @@
     <Compile Include="Languages.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MarketPlace.cs" />
+    <Compile Include="MarketPlaceQueue.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="ResourcesForUpgrade.cs" />
+    <Compile Include="SendGoodsType.cs" />
     <Compile Include="Valley.cs" />
     <Compile Include="TroopMovementComparer.cs" />
     <Compile Include="Gauls.cs" />

@@ -447,15 +447,42 @@ namespace jeza.Travian.Parser
                     }
                 }
             }
-            htmlNode =
-                htmlDocument.DocumentNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture,
-                                                                         "//p[starts-with(text(), '{0}')]",
-                                                                         language.MarketPlace.TotalCarry));
-            if (htmlNode != null)
+            if (language.MarketPlace != null)
             {
-                string text = htmlNode.InnerHtml;
-                string[] spliter = text.Split(new string[]{"<b>", "</b>"}, StringSplitOptions.RemoveEmptyEntries);
-                marketPlace.TotalCarry = Misc.String2Number(spliter[1].Trim());
+                htmlNode =
+                    htmlDocument.DocumentNode.SelectSingleNode(String.Format(CultureInfo.InvariantCulture,
+                                                                             "//p[starts-with(text(), '{0}')]",
+                                                                             language.MarketPlace.TotalCarry));
+                if (htmlNode != null)
+                {
+                    string text = htmlNode.InnerHtml;
+                    string[] spliter = text.Split(new[] { "<b>", "</b>" }, StringSplitOptions.RemoveEmptyEntries);
+                    marketPlace.TotalCarry = Misc.String2Number(spliter[1].Trim());
+                }
+                HtmlNodeCollection htmlNodeCollection = htmlDocument.DocumentNode.SelectNodes("//table[@class='traders']");
+                if (htmlNodeCollection != null)
+                {
+                    foreach (HtmlNode nodeCollection in htmlNodeCollection)
+                    {
+                        if (nodeCollection != null)
+                        {
+                            HtmlNode node = nodeCollection.SelectSingleNode("./thead/tr/td[2]/a");
+                            string from = node.InnerText.Trim();
+                            if (from.StartsWith(language.MarketPlace.IncommingTransport))
+                            {
+                                marketPlace.TotalIncommingTransports++;
+                            }
+                            HtmlNodeCollection nodes = nodeCollection.SelectNodes("./tr[@class='res']/td//img");
+                            if (nodes != null)
+                            {
+                                marketPlace.TotalIncommingWood += Misc.String2Number(nodes[0].NextSibling.InnerText);
+                                marketPlace.TotalIncommingClay += Misc.String2Number(nodes[1].NextSibling.InnerText);
+                                marketPlace.TotalIncommingIron += Misc.String2Number(nodes[2].NextSibling.InnerText);
+                                marketPlace.TotalIncommingCrop += Misc.String2Number(nodes[3].NextSibling.InnerText);
+                            }
+                        }
+                    }
+                }
             }
             return marketPlace;
         }
