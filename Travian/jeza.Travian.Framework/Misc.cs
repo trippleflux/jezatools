@@ -60,6 +60,10 @@ namespace jeza.Travian.Framework
                 {
                     sb.Append(input[c]);
                 }
+                else
+                {
+                    break;
+                }
             }
             if (IsNumber(sb.ToString()))
             {

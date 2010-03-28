@@ -1,3 +1,9 @@
+#region
+
+using System.Globalization;
+
+#endregion
+
 namespace jeza.Travian.Framework
 {
     public class MarketPlaceQueue
@@ -24,9 +30,16 @@ namespace jeza.Travian.Framework
         public override string ToString()
         {
             return
-                string.Format(
-                    "{1} -> {0} : {2} < {7}% send [Wood({3}), Clay({4}), Iron({5}), Crop({6})]",
-                    DestinationVillage, SourceVillage, SendGoodsType, SendWood, SendClay, SendIron, SendCrop, Goods);
+                string.Format(CultureInfo.InvariantCulture,
+                              "{1} -> {0} : If {2} {7} send [{3} {4} {5} {6}]",
+                              DestinationVillage,
+                              SourceVillage,
+                              SendGoodsType,
+                              SendWood ? "WOOD" : "",
+                              SendClay ? "CLAY" : "",
+                              SendIron ? "IRON" : "",
+                              SendCrop ? "CROP" : "",
+                              Goods);
         }
     }
 }
