@@ -4,11 +4,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
@@ -29,8 +31,8 @@ namespace jeza.Travian.GameCenter
             account = new Account();
             map = new Map();
             map.DeserializeValleys();
-            //valleyTypeList = new ValleyTypeList();
-            //DeserializeValleyTypeList();
+            valleyTypeList = new ValleyTypeList();
+            DeserializeValleyTypeList();
             DeserializeSettings();
             languages = new Languages();
             DeserializeLanguage();
@@ -111,6 +113,38 @@ namespace jeza.Travian.GameCenter
             }
         }
 
+        private void buttonMapExport_Click(object sender, EventArgs e)
+        {
+            if(dataGridViewMap.RowCount > 0)
+            {
+                SerializeMap(dataGridViewMap.DataSource as List<Valley>);
+            }
+        }
+
+        private void buttonMapPopulate_Click(object sender, EventArgs e)
+        {
+            Village selectedVillage = comboBoxMapVillages.SelectedItem as Village;
+            if (selectedVillage != null)
+            {
+                PopulateMap(selectedVillage);
+            }
+        }
+
+        private void buttonMapUpdate_Click(object sender, EventArgs e)
+        {
+            Village selectedVillage = comboBoxMapVillages.SelectedItem as Village;
+            if (selectedVillage != null)
+            {
+                Thread t = new Thread(mapInfo => GetMapInfo(selectedVillage)) { IsBackground = true };
+                t.Start();
+            }
+        }
+
+        private void buttonOwerviewSave_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+        }
+
         private void buttonMarketPlaceAddTask_Click(object sender, EventArgs e)
         {
             Village sourceVillage = comboBoxMarketPlaceSourceVillage.SelectedItem as Village;
@@ -148,6 +182,26 @@ namespace jeza.Travian.GameCenter
             }
         }
 
+        private void buttonMarketPlaceDelete_Click(object sender, EventArgs e)
+        {
+            if (listBoxMarketPlaceTasks.SelectedItems.Count > 0)
+            {
+                MarketPlaceQueue queue = listBoxMarketPlaceTasks.SelectedItem as MarketPlaceQueue;
+                List<MarketPlaceQueue> list = new List<MarketPlaceQueue>();
+                foreach (MarketPlaceQueue marketPlaceQueue in actions.MarketPlaceQueue)
+                {
+                    if (marketPlaceQueue != queue)
+                    {
+                        list.Add(marketPlaceQueue);
+                    }
+                }
+                actions.MarketPlaceQueue.Clear();
+                actions.MarketPlaceQueue.AddRange(list);
+                SerializeActions();
+                UpdateListBoxTransportQueues(listBoxMarketPlaceTasks);
+            }
+        }
+
         private void buttonSettingsAllyDelete_Click(object sender, EventArgs e)
         {
             RemoveSettingsAlly(listBoxSettingsAlly, AllyType.Ally);
@@ -171,30 +225,6 @@ namespace jeza.Travian.GameCenter
         private void buttonSettingsExcludedUsersAdd_Click(object sender, EventArgs e)
         {
             InsertExcludedData(textBoxSettingsExcludedUserId, textBoxSettingsExcludedUserName, ExcludedType.User);
-        }
-
-        private void buttonMapPopulate_Click(object sender, EventArgs e)
-        {
-            Village selectedVillage = comboBoxMapVillages.SelectedItem as Village;
-            if (selectedVillage != null)
-            {
-                PopulateMap(selectedVillage);
-            }
-        }
-
-        private void buttonMapUpdate_Click(object sender, EventArgs e)
-        {
-            Village selectedVillage = comboBoxMapVillages.SelectedItem as Village;
-            if (selectedVillage != null)
-            {
-                Thread t = new Thread(mapInfo => GetMapInfo(selectedVillage)) {IsBackground = true};
-                t.Start();
-            }
-        }
-
-        private void buttonOwerviewSave_Click(object sender, EventArgs e)
-        {
-            SaveSettings();
         }
 
         private void buttonSettingsAllyAdd_Click(object sender, EventArgs e)
@@ -222,6 +252,50 @@ namespace jeza.Travian.GameCenter
             {
                 Thread t = new Thread(rallyPoint => PopulateRallyPoint(selectedVillage)) {IsBackground = true};
                 t.Start();
+            }
+        }
+
+        private void dataGridViewMap_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(noProfitDataGridViewButtonColumn.Name))
+            {
+                UpdateStatus("no profit");
+            }
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(lowRiskDataGridViewButtonColumn.Name))
+            {
+                UpdateStatus("Low Risk");
+            }
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(middleRiskDataGridViewButtonColumn.Name))
+            {
+                UpdateStatus("Middle Risk");
+            }
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(highRiskDataGridViewButtonColumn.Name))
+            {
+                UpdateStatus("High Risk");
+            }
+        }
+
+        private void dataGridViewMap_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(noProfitDataGridViewButtonColumn.Name))
+            {
+                e.CellStyle.BackColor = Color.Gray;
+                e.CellStyle.SelectionBackColor = Color.DarkGray;
+            }
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(lowRiskDataGridViewButtonColumn.Name))
+            {
+                e.CellStyle.BackColor = Color.Green;
+                e.CellStyle.SelectionBackColor = Color.DarkGreen;
+            }
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(middleRiskDataGridViewButtonColumn.Name))
+            {
+                e.CellStyle.BackColor = Color.Blue;
+                e.CellStyle.SelectionBackColor = Color.DarkBlue;
+            }
+            if (dataGridViewMap.Columns[e.ColumnIndex].Name.Equals(highRiskDataGridViewButtonColumn.Name))
+            {
+                e.CellStyle.BackColor = Color.Red;
+                e.CellStyle.SelectionBackColor = Color.DarkRed;
             }
         }
 
@@ -272,19 +346,24 @@ namespace jeza.Travian.GameCenter
             {
                 if (buildQueue.Resources.UrlParameters != null)
                 {
-                    if (buildQueue.Resources.CurrentLevel < level)
+                    int currentLevel = buildQueue.Resources.CurrentLevel;
+                    if (currentLevel < level)
                     {
-                        level = buildQueue.Resources.CurrentLevel;
+                        level = currentLevel;
                         url = String.Format(CultureInfo.InvariantCulture, "{0}{1}&newdid={2}", servername,
                                             buildQueue.Resources.UpgradeUrl, buildQueue.VillageId);
-                        status = buildQueue.ToString();
+                        //status = buildQueue.ToString();
+                        status = String.Format(CultureInfo.InvariantCulture,
+                                               "Upgrading [{0}]-{1} to level {2} in Village {3}",
+                                               buildQueue.BuildingId, buildQueue.Name, currentLevel + 1,
+                                               buildQueue.VillageName);
                     }
                 }
             }
             if (level < 100)
             {
                 htmlDocument = htmlWeb.Load(url);
-                UpdateStatus("Upgrading " + status);
+                UpdateStatus(status);
             }
         }
 
@@ -352,14 +431,14 @@ namespace jeza.Travian.GameCenter
             }
         }
 
-        //private void DeserializeValleyTypeList()
-        //{
-        //    using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.Open))
-        //    {
-        //        XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
-        //        valleyTypeList = (ValleyTypeList) xmlSerializer.Deserialize(fileStream);
-        //    }
-        //}
+        private void DeserializeValleyTypeList()
+        {
+            using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.Open))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ValleyTypeList));
+                valleyTypeList = (ValleyTypeList)xmlSerializer.Deserialize(fileStream);
+            }
+        }
 
         private void DisableButtons()
         {
@@ -480,6 +559,29 @@ namespace jeza.Travian.GameCenter
                 }
             }
             return ValleyType.FarmLowRisk;
+        }
+
+        /// <summary>
+        /// Gets the type of the valley.
+        /// </summary>
+        /// <param name="valley">The valley.</param>
+        /// <returns><see cref="ValleyType"/></returns>
+        private ValleyType GetValleyTypeNotes(Valley valley)
+        {
+            if (valley.ValleyType == ValleyType.FarmNoProfit ||
+                valley.ValleyType == ValleyType.FarmLowRisk ||
+                valley.ValleyType == ValleyType.FarmMiddleRisk ||
+                valley.ValleyType == ValleyType.FarmHighRisk)
+            {
+                foreach (ValleyItem valleyItem in valleyTypeList.Items)
+                {
+                    if (valleyItem.VillageId == valley.VillageId)
+                    {
+                        return valleyItem.ValleyType;
+                    }
+                }
+            }
+            return valley.ValleyType;
         }
 
         /// <summary>
@@ -616,54 +718,55 @@ namespace jeza.Travian.GameCenter
         {
             int centerX = village.CoordinateX;
             int centerY = village.CoordinateY;
-            //ArrayList list = new ArrayList();
             List<Valley> list = new List<Valley>();
             foreach (Valley valley in map.Valleys)
             {
                 double distance =
                     Math.Round(Math.Sqrt(Math.Pow((valley.X - centerX), 2) + Math.Pow((valley.Y - centerY), 2)), 1);
                 valley.AddDistance(distance);
-                if (checkBoxUnoccupiedOasis.Checked && valley.ValleyType == ValleyType.UnoccupiedOasis)
+                ValleyType valleyType = GetValleyTypeNotes(valley);
+                valley.ValleyType = valleyType;
+                if (checkBoxUnoccupiedOasis.Checked && valleyType == ValleyType.UnoccupiedOasis)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxMapOccupiedOasis.Checked && valley.ValleyType == ValleyType.OccupiedOasis)
+                else if (checkBoxMapOccupiedOasis.Checked && valleyType == ValleyType.OccupiedOasis)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxFarmsNoProfit.Checked && valley.ValleyType == ValleyType.FarmNoProfit)
+                else if (checkBoxFarmsNoProfit.Checked && valleyType == ValleyType.FarmNoProfit)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxFarmsLowRisk.Checked && valley.ValleyType == ValleyType.FarmLowRisk)
+                else if (checkBoxFarmsLowRisk.Checked && valleyType == ValleyType.FarmLowRisk)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxFarmsMiddleRisk.Checked && valley.ValleyType == ValleyType.FarmMiddleRisk)
+                else if (checkBoxFarmsMiddleRisk.Checked && valleyType == ValleyType.FarmMiddleRisk)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxFarmsHighRish.Checked && valley.ValleyType == ValleyType.FarmHighRisk)
+                else if (checkBoxFarmsHighRish.Checked && valleyType == ValleyType.FarmHighRisk)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxAlly.Checked && valley.ValleyType == ValleyType.AllianceAlly)
+                else if (checkBoxAlly.Checked && valleyType == ValleyType.AllianceAlly)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxNap.Checked && valley.ValleyType == ValleyType.AllianceNap)
+                else if (checkBoxNap.Checked && valleyType == ValleyType.AllianceNap)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxWar.Checked && valley.ValleyType == ValleyType.AllianceWar)
+                else if (checkBoxWar.Checked && valleyType == ValleyType.AllianceWar)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxExcludedPlayers.Checked && valley.ValleyType == ValleyType.ExcludedPlayer)
+                else if (checkBoxExcludedPlayers.Checked && valleyType == ValleyType.ExcludedPlayer)
                 {
                     list.Add(valley);
                 }
-                else if (checkBoxExcludedAlliances.Checked && valley.ValleyType == ValleyType.ExcludedAlliance)
+                else if (checkBoxExcludedAlliances.Checked && valleyType == ValleyType.ExcludedAlliance)
                 {
                     list.Add(valley);
                 }
@@ -752,7 +855,8 @@ namespace jeza.Travian.GameCenter
         {
             foreach (MarketPlaceQueue queue in actions.MarketPlaceQueue)
             {
-                MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue, settings, languages);
+                MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
+                                                                             settings, languages);
                 calculator.Parse();
                 calculator.Calculate();
                 string process = calculator.Process();
@@ -776,6 +880,25 @@ namespace jeza.Travian.GameCenter
         }
 
         /// <summary>
+        /// Serializes the valleys that are available in datagridview.
+        /// </summary>
+        /// <param name="valleys">The valleys.</param>
+        private static void SerializeMap(List<Valley> valleys)
+        {
+            using (TextWriter textWriter = new StreamWriter(ValleysXml))
+            {
+                using (XmlTextWriter xmlWriter = new XmlTextWriter(textWriter))
+                {
+                    xmlWriter.WriteProcessingInstruction(
+                    "xml-stylesheet",
+                    "type=\"text/xsl\" href=\"Farms.xslt\"");
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Valley>));
+                    xmlSerializer.Serialize(xmlWriter, valleys);
+                }
+            }
+        }
+
+        /// <summary>
         /// Saves settnigs to XML.
         /// </summary>
         private void SerializeSettings()
@@ -790,14 +913,15 @@ namespace jeza.Travian.GameCenter
         /// <summary>
         /// Saves notes to XML.
         /// </summary>
-        //private void SerializeValeyTypeList()
-        //{
-        //    using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
-        //    {
-        //        XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
-        //        xmlSerializer.Serialize(textWriter, valleyTypeList);
-        //    }
-        //}
+        private void SerializeValeyTypeList()
+        {
+            using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
+            {
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ValleyTypeList));
+                xmlSerializer.Serialize(textWriter, valleyTypeList);
+            }
+        }
+
         /// <summary>
         /// Starts the bot.
         /// </summary>
@@ -1105,6 +1229,7 @@ namespace jeza.Travian.GameCenter
                                                 Environment.NewLine);
             textBoxStatus.Select(textBoxStatus.Text.Length, 0);
             textBoxStatus.ScrollToCaret();
+            labelStatus.Text = value;
         }
 
         //private void UpdateCount()

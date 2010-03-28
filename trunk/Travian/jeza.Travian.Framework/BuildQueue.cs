@@ -49,7 +49,7 @@ namespace jeza.Travian.Framework
 
         public override string ToString()
         {
-            return string.Format("{0}, {2}, Level: {1}", VillageName, Level, Name);
+            return string.Format("[{3}]-{2}->{1}, {0}", VillageName, Level, Name, BuildingId);
         }
     }
 }

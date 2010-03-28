@@ -134,6 +134,10 @@ namespace jeza.Travian.GameCenter
             this.coordinatesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.populationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.valleyTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.noProfitDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.lowRiskDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.middleRiskDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.highRiskDataGridViewButtonColumn = new System.Windows.Forms.DataGridViewButtonColumn();
             this.valleyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageBuildQueue = new System.Windows.Forms.TabPage();
             this.panelBuildQueueSelect = new System.Windows.Forms.Panel();
@@ -156,6 +160,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageMarketPlace = new System.Windows.Forms.TabPage();
             this.panelMarketPlaceSettings = new System.Windows.Forms.Panel();
             this.groupBoxMarketPlaceTasks = new System.Windows.Forms.GroupBox();
+            this.buttonMarketPlaceDelete = new System.Windows.Forms.Button();
             this.buttonMarketPlaceAddTask = new System.Windows.Forms.Button();
             this.comboBoxMarketPlaceDestinationBellow = new System.Windows.Forms.ComboBox();
             this.comboBoxMarketPlaceSourceOver = new System.Windows.Forms.ComboBox();
@@ -181,13 +186,16 @@ namespace jeza.Travian.GameCenter
             this.buttonBrowserGo = new System.Windows.Forms.Button();
             this.panelBrowser = new System.Windows.Forms.Panel();
             this.webBrowser = new System.Windows.Forms.WebBrowser();
-            this.panelHead = new System.Windows.Forms.Panel();
-            this.labelDateTime = new System.Windows.Forms.Label();
-            this.buttonRun = new System.Windows.Forms.Button();
+            this.tabPageStatus = new System.Windows.Forms.TabPage();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.panelHead = new System.Windows.Forms.Panel();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.labelDateTime = new System.Windows.Forms.Label();
+            this.buttonRun = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonMapExport = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -231,8 +239,9 @@ namespace jeza.Travian.GameCenter
             this.tabPageBrowser.SuspendLayout();
             this.panelBrowserUrl.SuspendLayout();
             this.panelBrowser.SuspendLayout();
-            this.panelHead.SuspendLayout();
+            this.tabPageStatus.SuspendLayout();
             this.panelStatus.SuspendLayout();
+            this.panelHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -241,7 +250,6 @@ namespace jeza.Travian.GameCenter
             this.panelMain.AutoSize = true;
             this.panelMain.Controls.Add(this.panelTabs);
             this.panelMain.Controls.Add(this.panelHead);
-            this.panelMain.Controls.Add(this.panelStatus);
             this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
@@ -254,7 +262,7 @@ namespace jeza.Travian.GameCenter
             this.panelTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTabs.Location = new System.Drawing.Point(0, 28);
             this.panelTabs.Name = "panelTabs";
-            this.panelTabs.Size = new System.Drawing.Size(1193, 722);
+            this.panelTabs.Size = new System.Drawing.Size(1193, 837);
             this.panelTabs.TabIndex = 1;
             // 
             // tabControl
@@ -267,11 +275,12 @@ namespace jeza.Travian.GameCenter
             this.tabControl.Controls.Add(this.tabPageStatistics);
             this.tabControl.Controls.Add(this.tabPageMarketPlace);
             this.tabControl.Controls.Add(this.tabPageBrowser);
+            this.tabControl.Controls.Add(this.tabPageStatus);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1193, 722);
+            this.tabControl.Size = new System.Drawing.Size(1193, 837);
             this.tabControl.TabIndex = 0;
             // 
             // tabPageSettings
@@ -284,7 +293,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettings.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageSettings.Size = new System.Drawing.Size(1185, 811);
             this.tabPageSettings.TabIndex = 0;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
@@ -776,7 +785,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageRallyPoint.Location = new System.Drawing.Point(4, 22);
             this.tabPageRallyPoint.Name = "tabPageRallyPoint";
             this.tabPageRallyPoint.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRallyPoint.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageRallyPoint.Size = new System.Drawing.Size(1185, 811);
             this.tabPageRallyPoint.TabIndex = 1;
             this.tabPageRallyPoint.Text = "Rally Point";
             this.tabPageRallyPoint.UseVisualStyleBackColor = true;
@@ -819,7 +828,7 @@ namespace jeza.Travian.GameCenter
             this.panelRallyPoint.Controls.Add(this.dataGridViewRallyPoint);
             this.panelRallyPoint.Location = new System.Drawing.Point(3, 44);
             this.panelRallyPoint.Name = "panelRallyPoint";
-            this.panelRallyPoint.Size = new System.Drawing.Size(1179, 649);
+            this.panelRallyPoint.Size = new System.Drawing.Size(1179, 764);
             this.panelRallyPoint.TabIndex = 2;
             // 
             // dataGridViewRallyPoint
@@ -833,7 +842,7 @@ namespace jeza.Travian.GameCenter
             this.dataGridViewRallyPoint.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewRallyPoint.Name = "dataGridViewRallyPoint";
             this.dataGridViewRallyPoint.ReadOnly = true;
-            this.dataGridViewRallyPoint.Size = new System.Drawing.Size(1179, 649);
+            this.dataGridViewRallyPoint.Size = new System.Drawing.Size(1179, 764);
             this.dataGridViewRallyPoint.TabIndex = 0;
             // 
             // tabPageMap
@@ -842,7 +851,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageMap.Controls.Add(this.panelMapList);
             this.tabPageMap.Location = new System.Drawing.Point(4, 22);
             this.tabPageMap.Name = "tabPageMap";
-            this.tabPageMap.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageMap.Size = new System.Drawing.Size(1185, 811);
             this.tabPageMap.TabIndex = 2;
             this.tabPageMap.Text = "Map";
             this.tabPageMap.UseVisualStyleBackColor = true;
@@ -855,7 +864,7 @@ namespace jeza.Travian.GameCenter
             this.panelMapSelection.Controls.Add(this.panelMapUpdate);
             this.panelMapSelection.Location = new System.Drawing.Point(0, 0);
             this.panelMapSelection.Name = "panelMapSelection";
-            this.panelMapSelection.Size = new System.Drawing.Size(173, 696);
+            this.panelMapSelection.Size = new System.Drawing.Size(173, 811);
             this.panelMapSelection.TabIndex = 1;
             // 
             // panelMapPopulate
@@ -863,6 +872,7 @@ namespace jeza.Travian.GameCenter
             this.panelMapPopulate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelMapPopulate.Controls.Add(this.buttonMapExport);
             this.panelMapPopulate.Controls.Add(this.buttonMapPopulate);
             this.panelMapPopulate.Controls.Add(this.groupBoxMapExcluded);
             this.panelMapPopulate.Controls.Add(this.groupBoxMapOases);
@@ -870,7 +880,7 @@ namespace jeza.Travian.GameCenter
             this.panelMapPopulate.Controls.Add(this.groupBoxMapFarms);
             this.panelMapPopulate.Location = new System.Drawing.Point(6, 150);
             this.panelMapPopulate.Name = "panelMapPopulate";
-            this.panelMapPopulate.Size = new System.Drawing.Size(164, 543);
+            this.panelMapPopulate.Size = new System.Drawing.Size(164, 658);
             this.panelMapPopulate.TabIndex = 20;
             // 
             // buttonMapPopulate
@@ -1124,7 +1134,7 @@ namespace jeza.Travian.GameCenter
             this.panelMapList.Controls.Add(this.dataGridViewMap);
             this.panelMapList.Location = new System.Drawing.Point(179, 4);
             this.panelMapList.Name = "panelMapList";
-            this.panelMapList.Size = new System.Drawing.Size(1006, 692);
+            this.panelMapList.Size = new System.Drawing.Size(1006, 807);
             this.panelMapList.TabIndex = 0;
             // 
             // dataGridViewMap
@@ -1143,12 +1153,18 @@ namespace jeza.Travian.GameCenter
             this.allianceDataGridViewTextBoxColumn,
             this.coordinatesDataGridViewTextBoxColumn,
             this.populationDataGridViewTextBoxColumn,
-            this.valleyTypeDataGridViewTextBoxColumn});
+            this.valleyTypeDataGridViewTextBoxColumn,
+            this.noProfitDataGridViewButtonColumn,
+            this.lowRiskDataGridViewButtonColumn,
+            this.middleRiskDataGridViewButtonColumn,
+            this.highRiskDataGridViewButtonColumn});
             this.dataGridViewMap.DataSource = this.valleyBindingSource;
             this.dataGridViewMap.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewMap.Name = "dataGridViewMap";
-            this.dataGridViewMap.Size = new System.Drawing.Size(1006, 692);
+            this.dataGridViewMap.Size = new System.Drawing.Size(1006, 807);
             this.dataGridViewMap.TabIndex = 0;
+            this.dataGridViewMap.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewMap_CellFormatting);
+            this.dataGridViewMap.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMap_CellClick);
             // 
             // villageIdDataGridViewTextBoxColumn
             // 
@@ -1199,6 +1215,34 @@ namespace jeza.Travian.GameCenter
             this.valleyTypeDataGridViewTextBoxColumn.Name = "valleyTypeDataGridViewTextBoxColumn";
             this.valleyTypeDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // noProfitDataGridViewButtonColumn
+            // 
+            this.noProfitDataGridViewButtonColumn.FillWeight = 40F;
+            this.noProfitDataGridViewButtonColumn.HeaderText = "NP";
+            this.noProfitDataGridViewButtonColumn.Name = "noProfitDataGridViewButtonColumn";
+            this.noProfitDataGridViewButtonColumn.Width = 40;
+            // 
+            // lowRiskDataGridViewButtonColumn
+            // 
+            this.lowRiskDataGridViewButtonColumn.FillWeight = 40F;
+            this.lowRiskDataGridViewButtonColumn.HeaderText = "LR";
+            this.lowRiskDataGridViewButtonColumn.Name = "lowRiskDataGridViewButtonColumn";
+            this.lowRiskDataGridViewButtonColumn.Width = 40;
+            // 
+            // middleRiskDataGridViewButtonColumn
+            // 
+            this.middleRiskDataGridViewButtonColumn.FillWeight = 40F;
+            this.middleRiskDataGridViewButtonColumn.HeaderText = "MR";
+            this.middleRiskDataGridViewButtonColumn.Name = "middleRiskDataGridViewButtonColumn";
+            this.middleRiskDataGridViewButtonColumn.Width = 40;
+            // 
+            // highRiskDataGridViewButtonColumn
+            // 
+            this.highRiskDataGridViewButtonColumn.FillWeight = 40F;
+            this.highRiskDataGridViewButtonColumn.HeaderText = "HR";
+            this.highRiskDataGridViewButtonColumn.Name = "highRiskDataGridViewButtonColumn";
+            this.highRiskDataGridViewButtonColumn.Width = 40;
+            // 
             // valleyBindingSource
             // 
             this.valleyBindingSource.DataSource = typeof(jeza.Travian.Framework.Valley);
@@ -1210,7 +1254,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageBuildQueue.Controls.Add(this.panelBuildQueueHead);
             this.tabPageBuildQueue.Location = new System.Drawing.Point(4, 22);
             this.tabPageBuildQueue.Name = "tabPageBuildQueue";
-            this.tabPageBuildQueue.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageBuildQueue.Size = new System.Drawing.Size(1185, 811);
             this.tabPageBuildQueue.TabIndex = 3;
             this.tabPageBuildQueue.Text = "Build Queue";
             this.tabPageBuildQueue.UseVisualStyleBackColor = true;
@@ -1231,7 +1275,7 @@ namespace jeza.Travian.GameCenter
             this.panelBuildQueueSelect.Controls.Add(this.comboBoxBuildQueueBuilding);
             this.panelBuildQueueSelect.Location = new System.Drawing.Point(297, 44);
             this.panelBuildQueueSelect.Name = "panelBuildQueueSelect";
-            this.panelBuildQueueSelect.Size = new System.Drawing.Size(880, 649);
+            this.panelBuildQueueSelect.Size = new System.Drawing.Size(880, 764);
             this.panelBuildQueueSelect.TabIndex = 2;
             // 
             // buttonBuildQueueAutoBuildResources
@@ -1365,7 +1409,7 @@ namespace jeza.Travian.GameCenter
             this.panelBuildQueueList.Controls.Add(this.listBoxBuildQueues);
             this.panelBuildQueueList.Location = new System.Drawing.Point(9, 44);
             this.panelBuildQueueList.Name = "panelBuildQueueList";
-            this.panelBuildQueueList.Size = new System.Drawing.Size(282, 649);
+            this.panelBuildQueueList.Size = new System.Drawing.Size(282, 764);
             this.panelBuildQueueList.TabIndex = 1;
             // 
             // listBoxBuildQueues
@@ -1409,7 +1453,7 @@ namespace jeza.Travian.GameCenter
             // 
             this.tabPageReports.Location = new System.Drawing.Point(4, 22);
             this.tabPageReports.Name = "tabPageReports";
-            this.tabPageReports.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageReports.Size = new System.Drawing.Size(1185, 811);
             this.tabPageReports.TabIndex = 4;
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
@@ -1418,7 +1462,7 @@ namespace jeza.Travian.GameCenter
             // 
             this.tabPageStatistics.Location = new System.Drawing.Point(4, 22);
             this.tabPageStatistics.Name = "tabPageStatistics";
-            this.tabPageStatistics.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageStatistics.Size = new System.Drawing.Size(1185, 811);
             this.tabPageStatistics.TabIndex = 5;
             this.tabPageStatistics.Text = "Statistics";
             this.tabPageStatistics.UseVisualStyleBackColor = true;
@@ -1429,7 +1473,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageMarketPlace.Controls.Add(this.panelMarketPlaceList);
             this.tabPageMarketPlace.Location = new System.Drawing.Point(4, 22);
             this.tabPageMarketPlace.Name = "tabPageMarketPlace";
-            this.tabPageMarketPlace.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageMarketPlace.Size = new System.Drawing.Size(1185, 811);
             this.tabPageMarketPlace.TabIndex = 6;
             this.tabPageMarketPlace.Text = "MarketPlace";
             this.tabPageMarketPlace.UseVisualStyleBackColor = true;
@@ -1442,13 +1486,14 @@ namespace jeza.Travian.GameCenter
             this.panelMarketPlaceSettings.Controls.Add(this.groupBoxMarketPlaceTasks);
             this.panelMarketPlaceSettings.Location = new System.Drawing.Point(571, 4);
             this.panelMarketPlaceSettings.Name = "panelMarketPlaceSettings";
-            this.panelMarketPlaceSettings.Size = new System.Drawing.Size(606, 689);
+            this.panelMarketPlaceSettings.Size = new System.Drawing.Size(606, 804);
             this.panelMarketPlaceSettings.TabIndex = 1;
             // 
             // groupBoxMarketPlaceTasks
             // 
             this.groupBoxMarketPlaceTasks.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxMarketPlaceTasks.Controls.Add(this.buttonMarketPlaceDelete);
             this.groupBoxMarketPlaceTasks.Controls.Add(this.buttonMarketPlaceAddTask);
             this.groupBoxMarketPlaceTasks.Controls.Add(this.comboBoxMarketPlaceDestinationBellow);
             this.groupBoxMarketPlaceTasks.Controls.Add(this.comboBoxMarketPlaceSourceOver);
@@ -1472,6 +1517,16 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMarketPlaceTasks.TabIndex = 1;
             this.groupBoxMarketPlaceTasks.TabStop = false;
             this.groupBoxMarketPlaceTasks.Text = "Tasks";
+            // 
+            // buttonMarketPlaceDelete
+            // 
+            this.buttonMarketPlaceDelete.Location = new System.Drawing.Point(427, 29);
+            this.buttonMarketPlaceDelete.Name = "buttonMarketPlaceDelete";
+            this.buttonMarketPlaceDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonMarketPlaceDelete.TabIndex = 18;
+            this.buttonMarketPlaceDelete.Text = "Delete";
+            this.buttonMarketPlaceDelete.UseVisualStyleBackColor = true;
+            this.buttonMarketPlaceDelete.Click += new System.EventHandler(this.buttonMarketPlaceDelete_Click);
             // 
             // buttonMarketPlaceAddTask
             // 
@@ -1641,7 +1696,7 @@ namespace jeza.Travian.GameCenter
             this.panelMarketPlaceList.Controls.Add(this.listBoxMarketPlaceTasks);
             this.panelMarketPlaceList.Location = new System.Drawing.Point(9, 4);
             this.panelMarketPlaceList.Name = "panelMarketPlaceList";
-            this.panelMarketPlaceList.Size = new System.Drawing.Size(556, 689);
+            this.panelMarketPlaceList.Size = new System.Drawing.Size(556, 804);
             this.panelMarketPlaceList.TabIndex = 0;
             // 
             // listBoxMarketPlaceTasks
@@ -1652,7 +1707,7 @@ namespace jeza.Travian.GameCenter
             this.listBoxMarketPlaceTasks.FormattingEnabled = true;
             this.listBoxMarketPlaceTasks.Location = new System.Drawing.Point(4, 4);
             this.listBoxMarketPlaceTasks.Name = "listBoxMarketPlaceTasks";
-            this.listBoxMarketPlaceTasks.Size = new System.Drawing.Size(540, 680);
+            this.listBoxMarketPlaceTasks.Size = new System.Drawing.Size(540, 784);
             this.listBoxMarketPlaceTasks.TabIndex = 0;
             // 
             // tabPageBrowser
@@ -1661,7 +1716,7 @@ namespace jeza.Travian.GameCenter
             this.tabPageBrowser.Controls.Add(this.panelBrowser);
             this.tabPageBrowser.Location = new System.Drawing.Point(4, 22);
             this.tabPageBrowser.Name = "tabPageBrowser";
-            this.tabPageBrowser.Size = new System.Drawing.Size(1185, 696);
+            this.tabPageBrowser.Size = new System.Drawing.Size(1185, 811);
             this.tabPageBrowser.TabIndex = 7;
             this.tabPageBrowser.Text = "Browser";
             this.tabPageBrowser.UseVisualStyleBackColor = true;
@@ -1701,7 +1756,7 @@ namespace jeza.Travian.GameCenter
             this.panelBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBrowser.Location = new System.Drawing.Point(0, 0);
             this.panelBrowser.Name = "panelBrowser";
-            this.panelBrowser.Size = new System.Drawing.Size(1185, 696);
+            this.panelBrowser.Size = new System.Drawing.Size(1185, 811);
             this.panelBrowser.TabIndex = 0;
             // 
             // webBrowser
@@ -1712,14 +1767,49 @@ namespace jeza.Travian.GameCenter
             this.webBrowser.Location = new System.Drawing.Point(7, 49);
             this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(1167, 644);
+            this.webBrowser.Size = new System.Drawing.Size(1167, 759);
             this.webBrowser.TabIndex = 0;
             this.webBrowser.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
             // 
+            // tabPageStatus
+            // 
+            this.tabPageStatus.Controls.Add(this.panelStatus);
+            this.tabPageStatus.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStatus.Name = "tabPageStatus";
+            this.tabPageStatus.Size = new System.Drawing.Size(1185, 811);
+            this.tabPageStatus.TabIndex = 8;
+            this.tabPageStatus.Text = "Status";
+            this.tabPageStatus.UseVisualStyleBackColor = true;
+            // 
+            // panelStatus
+            // 
+            this.panelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelStatus.Controls.Add(this.textBoxStatus);
+            this.panelStatus.Location = new System.Drawing.Point(8, 3);
+            this.panelStatus.Name = "panelStatus";
+            this.panelStatus.Size = new System.Drawing.Size(1169, 800);
+            this.panelStatus.TabIndex = 1;
+            // 
+            // textBoxStatus
+            // 
+            this.textBoxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 3);
+            this.textBoxStatus.Multiline = true;
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.ReadOnly = true;
+            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxStatus.Size = new System.Drawing.Size(1163, 794);
+            this.textBoxStatus.TabIndex = 0;
+            // 
             // panelHead
             // 
             this.panelHead.AutoSize = true;
+            this.panelHead.Controls.Add(this.labelStatus);
             this.panelHead.Controls.Add(this.labelDateTime);
             this.panelHead.Controls.Add(this.buttonRun);
             this.panelHead.Dock = System.Windows.Forms.DockStyle.Top;
@@ -1727,6 +1817,15 @@ namespace jeza.Travian.GameCenter
             this.panelHead.Name = "panelHead";
             this.panelHead.Size = new System.Drawing.Size(1193, 28);
             this.panelHead.TabIndex = 2;
+            // 
+            // labelStatus
+            // 
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Location = new System.Drawing.Point(94, 9);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(24, 13);
+            this.labelStatus.TabIndex = 6;
+            this.labelStatus.Text = "Idle";
             // 
             // labelDateTime
             // 
@@ -1748,29 +1847,6 @@ namespace jeza.Travian.GameCenter
             this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.SetBotStatus);
             // 
-            // panelStatus
-            // 
-            this.panelStatus.AutoSize = true;
-            this.panelStatus.Controls.Add(this.textBoxStatus);
-            this.panelStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelStatus.Location = new System.Drawing.Point(0, 750);
-            this.panelStatus.Name = "panelStatus";
-            this.panelStatus.Size = new System.Drawing.Size(1193, 115);
-            this.panelStatus.TabIndex = 0;
-            // 
-            // textBoxStatus
-            // 
-            this.textBoxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxStatus.Location = new System.Drawing.Point(4, 4);
-            this.textBoxStatus.Multiline = true;
-            this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.ReadOnly = true;
-            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxStatus.Size = new System.Drawing.Size(1185, 108);
-            this.textBoxStatus.TabIndex = 0;
-            // 
             // notifyIcon
             // 
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
@@ -1781,6 +1857,16 @@ namespace jeza.Travian.GameCenter
             // actionsBindingSource
             // 
             this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
+            // 
+            // buttonMapExport
+            // 
+            this.buttonMapExport.Location = new System.Drawing.Point(7, 408);
+            this.buttonMapExport.Name = "buttonMapExport";
+            this.buttonMapExport.Size = new System.Drawing.Size(75, 23);
+            this.buttonMapExport.TabIndex = 23;
+            this.buttonMapExport.Text = "Export";
+            this.buttonMapExport.UseVisualStyleBackColor = true;
+            this.buttonMapExport.Click += new System.EventHandler(this.buttonMapExport_Click);
             // 
             // ProcessCenter
             // 
@@ -1846,10 +1932,11 @@ namespace jeza.Travian.GameCenter
             this.panelBrowserUrl.ResumeLayout(false);
             this.panelBrowserUrl.PerformLayout();
             this.panelBrowser.ResumeLayout(false);
-            this.panelHead.ResumeLayout(false);
-            this.panelHead.PerformLayout();
+            this.tabPageStatus.ResumeLayout(false);
             this.panelStatus.ResumeLayout(false);
             this.panelStatus.PerformLayout();
+            this.panelHead.ResumeLayout(false);
+            this.panelHead.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.actionsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1863,7 +1950,6 @@ namespace jeza.Travian.GameCenter
         private TabControl tabControl;
         private TabPage tabPageSettings;
         private TabPage tabPageRallyPoint;
-        private Panel panelStatus;
         private Panel panelHead;
         private Button buttonRun;
         private TextBox textBoxStatus;
@@ -1987,7 +2073,7 @@ namespace jeza.Travian.GameCenter
         private readonly Account account;
         private readonly Map map;
         private Languages languages;
-        //private ValleyTypeList valleyTypeList;
+        private ValleyTypeList valleyTypeList;
         private Actions actions;
 
         delegate void StringParameterDelegate(string value);
@@ -2003,18 +2089,10 @@ namespace jeza.Travian.GameCenter
         const string LanguagesXml = "Language.xml";
         const string ValleyTypeListXml = "ValleyTypeList.xml";
         const string ActionsXml = "Actions.xml";
+        const string ValleysXml = "Farms.xml";
 
         private BindingSource valleyBindingSource;
         private BindingSource actionsBindingSource;
-
-        private DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn distanceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn coordinatesDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
         private Panel panelMarketPlaceSettings;
         private Panel panelMarketPlaceList;
         private ListBox listBoxMarketPlaceTasks;
@@ -2036,6 +2114,23 @@ namespace jeza.Travian.GameCenter
         private ComboBox comboBoxMarketPlaceSourceOver;
         private ComboBox comboBoxMarketPlaceDestinationBellow;
         private Button buttonMarketPlaceAddTask;
+        private Button buttonMarketPlaceDelete;
+        private TabPage tabPageStatus;
+        private Panel panelStatus;
+        private DataGridViewTextBoxColumn villageIdDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn distanceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn playerDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn allianceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn coordinatesDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn populationDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn valleyTypeDataGridViewTextBoxColumn;
+        private DataGridViewButtonColumn noProfitDataGridViewButtonColumn;
+        private DataGridViewButtonColumn lowRiskDataGridViewButtonColumn;
+        private DataGridViewButtonColumn middleRiskDataGridViewButtonColumn;
+        private DataGridViewButtonColumn highRiskDataGridViewButtonColumn;
+        private Label labelStatus;
+        private Button buttonMapExport;
     }
 }
 

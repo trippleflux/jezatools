@@ -12,7 +12,7 @@ namespace jeza.Travian.Framework
     public class ValleyItem
     {
         [XmlAttribute(AttributeName = "villageId")]
-        public string VillageId { get; set; }
+        public int VillageId { get; set; }
 
         [XmlAttribute(AttributeName = "valleyType")]
         public ValleyType ValleyType { get; set; }
