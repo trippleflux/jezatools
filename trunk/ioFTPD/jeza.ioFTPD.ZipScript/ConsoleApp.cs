@@ -21,6 +21,15 @@ namespace jeza.ioFTPD.ZipScript
             int numberOfArguments = args.Length;
             switch (numberOfArguments)
             {
+                case 1:
+                {
+                    if (args[0].ToLower().Equals("rescan"))
+                    {
+                        target = Target.Rescan;
+                    }
+                    break;
+                }
+
                 case 4:
                 {
                     if (args [0].ToLower().Equals("upload"))
@@ -43,6 +52,15 @@ namespace jeza.ioFTPD.ZipScript
             bool returnValue;
             switch (target)
             {
+                case Target.Rescan:
+                    {
+                        Rescan rescan = new Rescan(args);
+                        rescan.Parse();
+                        rescan.Process();
+                        returnValue = true;
+                        break;
+                    }
+
                 case Target.Upload:
                 {
                     Race race = new Race(args);

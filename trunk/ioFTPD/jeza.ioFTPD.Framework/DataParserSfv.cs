@@ -16,11 +16,16 @@ namespace jeza.ioFTPD.Framework
         {
             this.race = race;
             currentUploadData = race.CurrentUploadData;
+            fileName = currentUploadData.UploadFile;
+        }
+
+        public DataParserSfv(string fileName)
+        {
+            this.fileName = fileName;
         }
 
         public void Parse()
         {
-            string fileName = currentUploadData.UploadFile;
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
             using (StreamReader streamReader = new StreamReader(fileInfo.FullName))
             {
@@ -137,5 +142,6 @@ namespace jeza.ioFTPD.Framework
         private readonly Dictionary<string, string> sfvData = new Dictionary<string, string>();
         private readonly CurrentUploadData currentUploadData;
         private readonly Race race;
+        private readonly string fileName;
     }
 }
