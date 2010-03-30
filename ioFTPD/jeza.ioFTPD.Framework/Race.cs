@@ -9,7 +9,7 @@ using System.Text;
 
 namespace jeza.ioFTPD.Framework
 {
-    public class Race
+    public class Race : IoEnvironment
     {
         public Race(string[] args)
         {
@@ -88,37 +88,6 @@ namespace jeza.ioFTPD.Framework
             dataParser = new DataParser(this);
             dataParser.Parse();
             dataParser.Process();
-        }
-
-        private static string GetUid()
-        {
-            return Environment.GetEnvironmentVariable("UID") ?? "0";
-        }
-
-        private static string GetGid()
-        {
-            return Environment.GetEnvironmentVariable("GID") ?? "0";
-        }
-
-        private static string GetVirtualPath()
-        {
-            return Environment.GetEnvironmentVariable("VIRTUALPATH") ?? "/NoPath";
-        }
-
-        private static string GetGroupName()
-        {
-            return Environment.GetEnvironmentVariable("GROUP") ?? "NoGroup";
-        }
-
-        private static string GetUserName()
-        {
-            return Environment.GetEnvironmentVariable("USER") ?? "NoUser";
-        }
-
-        private static int GetSpeed()
-        {
-            string speed = Environment.GetEnvironmentVariable("SPEED");
-            return speed == null ? 1 : Int32.Parse(speed);
         }
 
         public bool SkipPath
