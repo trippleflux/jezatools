@@ -178,6 +178,50 @@ namespace jeza.Travian.GameCenter
                 {
                     UpdateComboBoxVillages(comboBoxMarketPlaceSourceVillage);
                     UpdateComboBoxVillages(comboBoxMarketPlaceDestinationVillage);
+                    UpdateComboBoxVillages(comboBoxMarketPlaceRepeatSourceVillage);
+                }
+            }
+        }
+
+        private void buttonMarketPlaceRepeatAddTask_Click(object sender, EventArgs e)
+        {
+            Village sourceVillage = comboBoxMarketPlaceRepeatSourceVillage.SelectedItem as Village;
+            if (sourceVillage != null)
+            {
+                if (sourceVillage.Id > -1)
+                {
+                    bool sendWood = checkBoxMarketPlaceRepeatWood.Checked;
+                    bool sendClay = checkBoxMarketPlaceRepeatClay.Checked;
+                    bool sendIron = checkBoxMarketPlaceRepeatIron.Checked;
+                    bool sendCrop = checkBoxMarketPlaceRepeatCrop.Checked;
+                    MarketPlaceQueue queue = new MarketPlaceQueue
+                    {
+                        DestinationVillage = new Village()
+                            {
+                                CoordinateX = Misc.String2Number(textBoxMarketPlaceRepeatX.Text),
+                                CoordinateY = Misc.String2Number(textBoxMarketPlaceRepeatY.Text),
+                                Name = textBoxMarketPlaceRepeatX.Text + "|" + textBoxMarketPlaceRepeatY.Text,
+                            },
+                        SourceVillage = sourceVillage,
+                        SendWood = sendWood,
+                        SendClay = sendClay,
+                        SendIron = sendIron,
+                        SendCrop = sendCrop,
+                        SendGoodsType = SendGoodsType.Repeat,
+                        Goods = Misc.String2Number(textBoxMarketPlaceRepeatGoods.Text),
+                        RepeatHour = Misc.String2Number(comboBoxMarketPlaceRepeatHour.SelectedText),
+                        LastSend = DateTime.Now.AddHours(-1),
+                    };
+                    actions.MarketPlaceQueue.Add(queue);
+                    SerializeActions();
+                    DeserializeActions();
+                    UpdateStatus("New Market place task.");
+                }
+                else
+                {
+                    UpdateComboBoxVillages(comboBoxMarketPlaceSourceVillage);
+                    UpdateComboBoxVillages(comboBoxMarketPlaceDestinationVillage);
+                    UpdateComboBoxVillages(comboBoxMarketPlaceRepeatSourceVillage);
                 }
             }
         }
@@ -848,23 +892,46 @@ namespace jeza.Travian.GameCenter
             SerializeSettings();
         }
 
+        private void SendGoods(MarketPlaceQueue queue)
+        {
+            MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
+                                                                         settings, languages);
+            calculator.Parse();
+            calculator.Calculate();
+            string process = calculator.Process();
+            if (process.Length > 5)
+            {
+                UpdateStatus(process);
+            }
+        }
+
         /// <summary>
         /// Sends the resources ifmarketplace queue is active.
         /// </summary>
         private void SendResources()
         {
+            List<MarketPlaceQueue> newQueue = new List<MarketPlaceQueue>();
             foreach (MarketPlaceQueue queue in actions.MarketPlaceQueue)
             {
-                MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
-                                                                             settings, languages);
-                calculator.Parse();
-                calculator.Calculate();
-                string process = calculator.Process();
-                if (process.Length > 5)
+                if (queue.SendGoodsType == SendGoodsType.Repeat)
                 {
-                    UpdateStatus(process);
+                    DateTime dt = new DateTime(DateTime.Now.Ticks);
+                    if(queue.LastSend.AddHours(queue.RepeatHour) > dt)
+                    {
+                        SendGoods(queue);
+                        MarketPlaceQueue updated = queue;
+                        updated.LastSend = dt;
+                        newQueue.Add(updated);
+                    }
+                }
+                else
+                {
+                    SendGoods(queue);
+                    newQueue.Add(queue);
                 }
             }
+            actions.MarketPlaceQueue.Clear();
+            actions.MarketPlaceQueue.AddRange(newQueue);
         }
 
         /// <summary>
@@ -1060,6 +1127,7 @@ namespace jeza.Travian.GameCenter
             UpdateComboBoxVillages(comboBoxBuildQueueVillages);
             UpdateComboBoxVillages(comboBoxMarketPlaceSourceVillage);
             UpdateComboBoxVillages(comboBoxMarketPlaceDestinationVillage);
+            UpdateComboBoxVillages(comboBoxMarketPlaceRepeatSourceVillage);
         }
 
         private void UpdateButtonStatus(Button button, bool enabled)
