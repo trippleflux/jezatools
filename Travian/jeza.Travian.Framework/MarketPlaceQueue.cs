@@ -1,5 +1,6 @@
 #region
 
+using System;
 using System.Globalization;
 
 #endregion
@@ -26,12 +27,14 @@ namespace jeza.Travian.Framework
         public bool SendIron { get; set; }
         public bool SendCrop { get; set; }
         public int Goods { get; set; }
+        public int RepeatHour { get; set; }
+        public DateTime LastSend { get; set; } 
 
         public override string ToString()
         {
             return
                 string.Format(CultureInfo.InvariantCulture,
-                              "{1} -> {0} : If {2} {7} send [{3} {4} {5} {6}]",
+                              "{1} -> {0} : {2} {7} send [{3} {4} {5} {6}]",
                               DestinationVillage,
                               SourceVillage,
                               SendGoodsType,

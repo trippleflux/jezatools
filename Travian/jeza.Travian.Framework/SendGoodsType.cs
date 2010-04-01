@@ -6,5 +6,6 @@ namespace jeza.Travian.Framework
         DestinationBellowSize,
         SourceOverPercent,
         SourceOverSize,
+        Repeat,
     }
 }
