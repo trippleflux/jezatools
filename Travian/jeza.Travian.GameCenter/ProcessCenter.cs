@@ -115,7 +115,7 @@ namespace jeza.Travian.GameCenter
 
         private void buttonMapExport_Click(object sender, EventArgs e)
         {
-            if(dataGridViewMap.RowCount > 0)
+            if (dataGridViewMap.RowCount > 0)
             {
                 SerializeMap(dataGridViewMap.DataSource as List<Valley>);
             }
@@ -135,7 +135,7 @@ namespace jeza.Travian.GameCenter
             Village selectedVillage = comboBoxMapVillages.SelectedItem as Village;
             if (selectedVillage != null)
             {
-                Thread t = new Thread(mapInfo => GetMapInfo(selectedVillage)) { IsBackground = true };
+                Thread t = new Thread(mapInfo => GetMapInfo(selectedVillage)) {IsBackground = true};
                 t.Start();
             }
         }
@@ -195,23 +195,23 @@ namespace jeza.Travian.GameCenter
                     bool sendIron = checkBoxMarketPlaceRepeatIron.Checked;
                     bool sendCrop = checkBoxMarketPlaceRepeatCrop.Checked;
                     MarketPlaceQueue queue = new MarketPlaceQueue
-                    {
-                        DestinationVillage = new Village()
-                            {
-                                CoordinateX = Misc.String2Number(textBoxMarketPlaceRepeatX.Text),
-                                CoordinateY = Misc.String2Number(textBoxMarketPlaceRepeatY.Text),
-                                Name = textBoxMarketPlaceRepeatX.Text + "|" + textBoxMarketPlaceRepeatY.Text,
-                            },
-                        SourceVillage = sourceVillage,
-                        SendWood = sendWood,
-                        SendClay = sendClay,
-                        SendIron = sendIron,
-                        SendCrop = sendCrop,
-                        SendGoodsType = SendGoodsType.Repeat,
-                        Goods = Misc.String2Number(textBoxMarketPlaceRepeatGoods.Text),
-                        RepeatHour = Misc.String2Number(comboBoxMarketPlaceRepeatHour.SelectedText),
-                        LastSend = DateTime.Now.AddHours(-1),
-                    };
+                        {
+                            DestinationVillage = new Village
+                                {
+                                    CoordinateX = Misc.String2Number(textBoxMarketPlaceRepeatX.Text),
+                                    CoordinateY = Misc.String2Number(textBoxMarketPlaceRepeatY.Text),
+                                    Name = textBoxMarketPlaceRepeatX.Text + "|" + textBoxMarketPlaceRepeatY.Text,
+                                },
+                            SourceVillage = sourceVillage,
+                            SendWood = sendWood,
+                            SendClay = sendClay,
+                            SendIron = sendIron,
+                            SendCrop = sendCrop,
+                            SendGoodsType = SendGoodsType.Repeat,
+                            Goods = Misc.String2Number(textBoxMarketPlaceRepeatGoods.Text),
+                            RepeatHour = Misc.String2Number(comboBoxMarketPlaceRepeatHour.Text),
+                            LastSend = DateTime.Now,
+                        };
                     actions.MarketPlaceQueue.Add(queue);
                     SerializeActions();
                     DeserializeActions();
@@ -479,8 +479,8 @@ namespace jeza.Travian.GameCenter
         {
             using (FileStream fileStream = new FileStream(ValleyTypeListXml, FileMode.Open))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ValleyTypeList));
-                valleyTypeList = (ValleyTypeList)xmlSerializer.Deserialize(fileStream);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
+                valleyTypeList = (ValleyTypeList) xmlSerializer.Deserialize(fileStream);
             }
         }
 
@@ -892,19 +892,6 @@ namespace jeza.Travian.GameCenter
             SerializeSettings();
         }
 
-        private void SendGoods(MarketPlaceQueue queue)
-        {
-            MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
-                                                                         settings, languages);
-            calculator.Parse();
-            calculator.Calculate();
-            string process = calculator.Process();
-            if (process.Length > 5)
-            {
-                UpdateStatus(process);
-            }
-        }
-
         /// <summary>
         /// Sends the resources ifmarketplace queue is active.
         /// </summary>
@@ -916,22 +903,43 @@ namespace jeza.Travian.GameCenter
                 if (queue.SendGoodsType == SendGoodsType.Repeat)
                 {
                     DateTime dt = new DateTime(DateTime.Now.Ticks);
-                    if(queue.LastSend.AddHours(queue.RepeatHour) > dt)
+                    if ((dt.AddHours(queue.RepeatHour) - queue.LastSend).Hours > queue.RepeatHour)
                     {
-                        SendGoods(queue);
+                        MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
+                                                                                     settings, languages, queue);
+                        calculator.ParseUnknownDestination();
+                        calculator.CalculateUnknownDestination();
+                        string process = calculator.Process();
+                        if (process.Length > 5)
+                        {
+                            UpdateStatus(process);
+                        }
                         MarketPlaceQueue updated = queue;
                         updated.LastSend = dt;
                         newQueue.Add(updated);
                     }
+                    else
+                    {
+                        newQueue.Add(queue);
+                    }
                 }
                 else
                 {
-                    SendGoods(queue);
+                    MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
+                                                                                 settings, languages);
+                    calculator.Parse();
+                    calculator.Calculate();
+                    string process = calculator.Process();
+                    if (process.Length > 5)
+                    {
+                        UpdateStatus(process);
+                    }
                     newQueue.Add(queue);
                 }
             }
             actions.MarketPlaceQueue.Clear();
             actions.MarketPlaceQueue.AddRange(newQueue);
+            SerializeActions();
         }
 
         /// <summary>
@@ -957,9 +965,9 @@ namespace jeza.Travian.GameCenter
                 using (XmlTextWriter xmlWriter = new XmlTextWriter(textWriter))
                 {
                     xmlWriter.WriteProcessingInstruction(
-                    "xml-stylesheet",
-                    "type=\"text/xsl\" href=\"Farms.xslt\"");
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Valley>));
+                        "xml-stylesheet",
+                        "type=\"text/xsl\" href=\"Farms.xslt\"");
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof (List<Valley>));
                     xmlSerializer.Serialize(xmlWriter, valleys);
                 }
             }
@@ -984,7 +992,7 @@ namespace jeza.Travian.GameCenter
         {
             using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(ValleyTypeList));
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
                 xmlSerializer.Serialize(textWriter, valleyTypeList);
             }
         }
@@ -1292,8 +1300,8 @@ namespace jeza.Travian.GameCenter
                 return;
             }
             // Must be on the UI thread if we've got this far
-            DateTime dt = new DateTime(DateTime.Now.Ticks);
-            textBoxStatus.Text += String.Format(CultureInfo.InvariantCulture, "{0} : {1}{2}", dt.ToLocalTime(), value,
+            DateTime dt = DateTime.Now;
+            textBoxStatus.Text += String.Format(CultureInfo.InvariantCulture, "{0} : {1}{2}", dt.ToString("yyyy-MM-dd HH:mm:ss"), value,
                                                 Environment.NewLine);
             textBoxStatus.Select(textBoxStatus.Text.Length, 0);
             textBoxStatus.ScrollToCaret();

@@ -29,6 +29,18 @@ namespace jeza.Travian.GameCenter
             this.languages = languages;
         }
 
+        public MarketPlaceCalculator(Account account, HtmlDocument htmlDocument, HtmlWeb htmlWeb, MarketPlaceQueue queue,
+                                             Settings settings, Languages languages, MarketPlaceQueue marketPlaceQueue)
+        {
+            this.account = account;
+            this.htmlDocument = htmlDocument;
+            this.htmlWeb = htmlWeb;
+            this.queue = queue;
+            this.settings = settings;
+            this.languages = languages;
+            this.marketPlaceQueue = marketPlaceQueue;
+        }
+
         public MarketPlaceQueue Queue
         {
             get { return queue; }
@@ -92,6 +104,26 @@ namespace jeza.Travian.GameCenter
             parseSucceeded = true;
         }
 
+
+        public void ParseUnknownDestination()
+        {
+            parseSucceeded = false;
+            Language language = languages.GetLanguage(settings.LanguageId);
+            if (language == null) return;
+            source = account.GetVillage(queue.SourceVillage.Id);
+            if (source == null) return;
+            string url = String.Format(CultureInfo.InvariantCulture,
+                                "{0}build.php?newdid={1}&gid=17",
+                                settings.LoginData.Servername, source.Id);
+            htmlDocument = htmlWeb.Load(url);
+            if (htmlDocument == null) return;
+            HtmlParser htmlParser = new HtmlParser(htmlDocument, language);
+            marketPlaceSource = htmlParser.MarketPlace();
+            if (marketPlaceSource == null) return;
+            destination = queue.DestinationVillage;
+            parseSucceeded = true;
+        }
+
         public void Calculate()
         {
             if (!parseSucceeded)
@@ -102,122 +134,239 @@ namespace jeza.Travian.GameCenter
             if (marketPlaceSource.AvailableMerchants < 1)
             {
                 postParameters = null;
+                return;
             }
-            else
+            bool send = false;
+            int totalGoodsCarry = marketPlaceSource.AvailableMerchants*marketPlaceSource.TotalCarry;
+            StringBuilder sb = new StringBuilder();
+            if (queue.SendWood)
             {
-                bool send = false;
-                int totalGoodsCarry = marketPlaceSource.AvailableMerchants*marketPlaceSource.TotalCarry;
-                StringBuilder sb = new StringBuilder();
-                if (queue.SendWood)
-                {
-                    if (totalGoodsCarry < 1)
-                    {
-                        sb.Append(ZeroAmount(1));
-                    }
-                    else
-                    {
-                        int wanted = destination.Production.Warehouse*queue.Goods/100;
-                        int incomming = destination.Production.WoodTotal + marketPlaceDestination.TotalIncommingWood;
-                        int toSend = (wanted - incomming);
-                        if (toSend > 0)
-                        {
-                            int available = source.Production.WoodTotal;
-                            totalGoodsCarry = GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 1);
-                            send = true;
-                        }
-                        else
-                        {
-                            sb.Append(ZeroAmount(1));
-                        }
-                    }
-                }
-                else
+                if (totalGoodsCarry < 1)
                 {
                     sb.Append(ZeroAmount(1));
                 }
-                if (queue.SendClay)
+                else
                 {
-                    if (totalGoodsCarry < 1)
+                    int wanted = destination.Production.Warehouse*queue.Goods/100;
+                    int incomming = destination.Production.WoodTotal + marketPlaceDestination.TotalIncommingWood;
+                    int toSend = (wanted - incomming);
+                    if (toSend > 0)
                     {
-                        sb.Append(ZeroAmount(2));
+                        int available = source.Production.WoodTotal;
+                        totalGoodsCarry = GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 1);
+                        send = true;
                     }
                     else
                     {
-                        int wanted = destination.Production.Warehouse*queue.Goods/100;
-                        int incomming = destination.Production.ClayTotal + marketPlaceDestination.TotalIncommingClay;
-                        int toSend = (wanted - incomming);
-                        if (toSend > 0)
-                        {
-                            int available = source.Production.ClayTotal;
-                            totalGoodsCarry = GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 2);
-                            send = true;
-                        }
-                        else
-                        {
-                            sb.Append(ZeroAmount(2));
-                        }
+                        sb.Append(ZeroAmount(1));
                     }
                 }
-                else
+            }
+            else
+            {
+                sb.Append(ZeroAmount(1));
+            }
+            if (queue.SendClay)
+            {
+                if (totalGoodsCarry < 1)
                 {
                     sb.Append(ZeroAmount(2));
                 }
-                if (queue.SendIron)
+                else
                 {
-                    if (totalGoodsCarry < 1)
+                    int wanted = destination.Production.Warehouse*queue.Goods/100;
+                    int incomming = destination.Production.ClayTotal + marketPlaceDestination.TotalIncommingClay;
+                    int toSend = (wanted - incomming);
+                    if (toSend > 0)
                     {
-                        sb.Append(ZeroAmount(3));
+                        int available = source.Production.ClayTotal;
+                        totalGoodsCarry = GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 2);
+                        send = true;
                     }
                     else
                     {
-                        int wanted = destination.Production.Warehouse*queue.Goods/100;
-                        int incomming = destination.Production.IronTotal + marketPlaceDestination.TotalIncommingIron;
-                        int toSend = (wanted - incomming);
-                        if (toSend > 0)
-                        {
-                            int available = source.Production.IronTotal;
-                            totalGoodsCarry = GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 3);
-                            send = true;
-                        }
-                        else
-                        {
-                            sb.Append(ZeroAmount(3));
-                        }
+                        sb.Append(ZeroAmount(2));
                     }
                 }
-                else
+            }
+            else
+            {
+                sb.Append(ZeroAmount(2));
+            }
+            if (queue.SendIron)
+            {
+                if (totalGoodsCarry < 1)
                 {
                     sb.Append(ZeroAmount(3));
                 }
-                if (queue.SendCrop)
+                else
                 {
-                    if (totalGoodsCarry < 1)
+                    int wanted = destination.Production.Warehouse*queue.Goods/100;
+                    int incomming = destination.Production.IronTotal + marketPlaceDestination.TotalIncommingIron;
+                    int toSend = (wanted - incomming);
+                    if (toSend > 0)
                     {
-                        sb.Append(ZeroAmount(4));
+                        int available = source.Production.IronTotal;
+                        totalGoodsCarry = GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 3);
+                        send = true;
                     }
                     else
                     {
-                        int wanted = destination.Production.Granary*queue.Goods/100;
-                        int incomming = destination.Production.CropTotal + marketPlaceDestination.TotalIncommingCrop;
-                        int toSend = (wanted - incomming);
-                        if (toSend > 0)
-                        {
-                            int available = source.Production.CropTotal;
-                            GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 4);
-                            send = true;
-                        }
-                        else
-                        {
-                            sb.Append(ZeroAmount(4));
-                        }
+                        sb.Append(ZeroAmount(3));
                     }
                 }
-                else
+            }
+            else
+            {
+                sb.Append(ZeroAmount(3));
+            }
+            if (queue.SendCrop)
+            {
+                if (totalGoodsCarry < 1)
                 {
                     sb.Append(ZeroAmount(4));
                 }
-                postParameters = send ? sb.ToString() : null;
+                else
+                {
+                    int wanted = destination.Production.Granary*queue.Goods/100;
+                    int incomming = destination.Production.CropTotal + marketPlaceDestination.TotalIncommingCrop;
+                    int toSend = (wanted - incomming);
+                    if (toSend > 0)
+                    {
+                        int available = source.Production.CropTotal;
+                        GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 4);
+                        send = true;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(4));
+                    }
+                }
             }
+            else
+            {
+                sb.Append(ZeroAmount(4));
+            }
+            postParameters = send ? sb.ToString() : null;
+        }
+
+        public void CalculateUnknownDestination()
+        {
+            if (!parseSucceeded)
+            {
+                postParameters = null;
+                return;
+            }
+            if (marketPlaceSource.AvailableMerchants < 1)
+            {
+                postParameters = null;
+                return;
+            }
+            int totalGoodsCarry = marketPlaceSource.AvailableMerchants * marketPlaceSource.TotalCarry;
+            if (totalGoodsCarry < 1)
+            {
+                postParameters = null;
+                return;
+            }
+            bool send = false;
+            StringBuilder sb = new StringBuilder();
+            if (queue.SendWood)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(1));
+                }
+                else
+                {
+                    if(source.Production.WoodTotal > queue.Goods)
+                    {
+                        send = true;
+                        sb.Append(SetAmount(1, queue.Goods));
+                        parameterValues[0] = queue.Goods;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(1));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(1));
+            }
+            if (queue.SendClay)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(2));
+                }
+                else
+                {
+                    if (source.Production.ClayTotal > queue.Goods)
+                    {
+                        send = true;
+                        sb.Append(SetAmount(2, queue.Goods));
+                        parameterValues[1] = queue.Goods;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(2));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(2));
+            }
+            if (queue.SendIron)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(3));
+                }
+                else
+                {
+                    if (source.Production.IronTotal > queue.Goods)
+                    {
+                        send = true;
+                        sb.Append(SetAmount(3, queue.Goods));
+                        parameterValues[2] = queue.Goods;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(3));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(3));
+            }
+            if (queue.SendCrop)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(4));
+                }
+                else
+                {
+                    if (source.Production.CropTotal > queue.Goods)
+                    {
+                        send = true;
+                        sb.Append(SetAmount(4, queue.Goods));
+                        parameterValues[3] = queue.Goods;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(4));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(4));
+            }
+            postParameters = send ? sb.ToString() : null;
         }
 
         public string Process()
@@ -310,6 +459,11 @@ namespace jeza.Travian.GameCenter
             return totalGoodsCarry;
         }
 
+        private static string SetAmount(int i, int amount)
+        {
+            return String.Format(CultureInfo.InvariantCulture, "&r{0}={1}", i, amount);
+        }
+        
         private static string ZeroAmount(int i)
         {
             return String.Format(CultureInfo.InvariantCulture, "&r{0}=0", i);
@@ -328,5 +482,6 @@ namespace jeza.Travian.GameCenter
         private string postParameters;
         private readonly int[] parameterValues = new[] {0, 0, 0, 0};
         private bool parseSucceeded;
+        private MarketPlaceQueue marketPlaceQueue;
     }
 }
