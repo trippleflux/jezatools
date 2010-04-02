@@ -154,6 +154,7 @@ namespace jeza.Travian.GameCenter
                 if (sourceVillage.Id > -1 && destinationVillage.Id > -1)
                 {
                     int destinationPercent = Misc.String2Number(textBoxMarketPlaceDestinationBellow.Text.Trim());
+                    int sourcePercent = Misc.String2Number(textBoxMarketPlaceSourceOver.Text.Trim());
                     bool sendWood = checkBoxMarketPlaceWood.Checked;
                     bool sendClay = checkBoxMarketPlaceClay.Checked;
                     bool sendIron = checkBoxMarketPlaceIron.Checked;
@@ -166,8 +167,17 @@ namespace jeza.Travian.GameCenter
                             SendClay = sendClay,
                             SendIron = sendIron,
                             SendCrop = sendCrop,
-                            SendGoodsType = SendGoodsType.DestinationBellowPercent,
-                            Goods = destinationPercent,
+                            SendGoodsType =
+                                radioButtonMarketPlaceDestinationBellow.Checked
+                                    ? SendGoodsType.DestinationBellowPercent
+                                    : SendGoodsType.SourceOverPercent,
+                            Goods =
+                                radioButtonMarketPlaceDestinationBellow.Checked
+                                    ? destinationPercent
+                                    : sourcePercent,
+                            GoodsToSend = Misc.String2Number(textBoxMarketPlaceSourceOverSendGods.Text),
+                            LastSend = new DateTime(DateTime.Now.Ticks),
+                            RepeatMinutes = Misc.String2Number(comboBoxMarketPlaceCheck.Text),
                         };
                     actions.MarketPlaceQueue.Add(queue);
                     SerializeActions();
@@ -209,7 +219,7 @@ namespace jeza.Travian.GameCenter
                             SendCrop = sendCrop,
                             SendGoodsType = SendGoodsType.Repeat,
                             Goods = Misc.String2Number(textBoxMarketPlaceRepeatGoods.Text),
-                            RepeatHour = Misc.String2Number(comboBoxMarketPlaceRepeatHour.Text),
+                            RepeatMinutes = Misc.String2Number(comboBoxMarketPlaceRepeatHour.Text),
                             LastSend = DateTime.Now,
                         };
                     actions.MarketPlaceQueue.Add(queue);
@@ -898,15 +908,16 @@ namespace jeza.Travian.GameCenter
         private void SendResources()
         {
             List<MarketPlaceQueue> newQueue = new List<MarketPlaceQueue>();
+            DateTime dt = new DateTime(DateTime.Now.Ticks);
             foreach (MarketPlaceQueue queue in actions.MarketPlaceQueue)
             {
+                MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
+                                                                             settings, languages);
                 if (queue.SendGoodsType == SendGoodsType.Repeat)
                 {
-                    DateTime dt = new DateTime(DateTime.Now.Ticks);
-                    if ((dt.AddHours(queue.RepeatHour) - queue.LastSend).Hours > queue.RepeatHour)
+                    int repeatHours = queue.RepeatMinutes;
+                    if ((dt.AddHours(repeatHours) - queue.LastSend).Hours > repeatHours)
                     {
-                        MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
-                                                                                     settings, languages, queue);
                         calculator.ParseUnknownDestination();
                         calculator.CalculateUnknownDestination();
                         string process = calculator.Process();
@@ -925,14 +936,23 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    MarketPlaceCalculator calculator = new MarketPlaceCalculator(account, htmlDocument, htmlWeb, queue,
-                                                                                 settings, languages);
-                    calculator.Parse();
-                    calculator.Calculate();
-                    string process = calculator.Process();
-                    if (process.Length > 5)
+                    int repeatMinutes = queue.RepeatMinutes;
+                    if ((dt.AddMinutes(repeatMinutes) - queue.LastSend).Minutes > repeatMinutes)
                     {
-                        UpdateStatus(process);
+                        calculator.Parse();
+                        if (queue.SendGoodsType == SendGoodsType.DestinationBellowPercent)
+                        {
+                            calculator.Calculate();
+                        }
+                        if (queue.SendGoodsType == SendGoodsType.SourceOverPercent)
+                        {
+                            calculator.CalculateSourceOver();
+                        }
+                        string process = calculator.Process();
+                        if (process.Length > 5)
+                        {
+                            UpdateStatus(process);
+                        }
                     }
                     newQueue.Add(queue);
                 }
@@ -1301,7 +1321,8 @@ namespace jeza.Travian.GameCenter
             }
             // Must be on the UI thread if we've got this far
             DateTime dt = DateTime.Now;
-            textBoxStatus.Text += String.Format(CultureInfo.InvariantCulture, "{0} : {1}{2}", dt.ToString("yyyy-MM-dd HH:mm:ss"), value,
+            textBoxStatus.Text += String.Format(CultureInfo.InvariantCulture, "{0} : {1}{2}",
+                                                dt.ToString("yyyy-MM-dd HH:mm:ss"), value,
                                                 Environment.NewLine);
             textBoxStatus.Select(textBoxStatus.Text.Length, 0);
             textBoxStatus.ScrollToCaret();

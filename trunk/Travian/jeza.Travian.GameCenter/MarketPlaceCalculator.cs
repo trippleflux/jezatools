@@ -29,18 +29,6 @@ namespace jeza.Travian.GameCenter
             this.languages = languages;
         }
 
-        public MarketPlaceCalculator(Account account, HtmlDocument htmlDocument, HtmlWeb htmlWeb, MarketPlaceQueue queue,
-                                             Settings settings, Languages languages, MarketPlaceQueue marketPlaceQueue)
-        {
-            this.account = account;
-            this.htmlDocument = htmlDocument;
-            this.htmlWeb = htmlWeb;
-            this.queue = queue;
-            this.settings = settings;
-            this.languages = languages;
-            this.marketPlaceQueue = marketPlaceQueue;
-        }
-
         public MarketPlaceQueue Queue
         {
             get { return queue; }
@@ -235,6 +223,129 @@ namespace jeza.Travian.GameCenter
                     {
                         int available = source.Production.CropTotal;
                         GetTotalGoodsCarry(totalGoodsCarry, sb, toSend, available, 4);
+                        send = true;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(4));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(4));
+            }
+            postParameters = send ? sb.ToString() : null;
+        }
+
+        public void CalculateSourceOver()
+        {
+            if (!parseSucceeded)
+            {
+                postParameters = null;
+                return;
+            }
+            if (marketPlaceSource.AvailableMerchants < 1)
+            {
+                postParameters = null;
+                return;
+            }
+            int totalGoodsCarry = marketPlaceSource.AvailableMerchants * marketPlaceSource.TotalCarry;
+            if (totalGoodsCarry < 1)
+            {
+                postParameters = null;
+                return;
+            }
+            bool send = false;
+            StringBuilder sb = new StringBuilder();
+            if (queue.SendWood)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(1));
+                }
+                else
+                {
+                    int wanted = source.Production.Warehouse * queue.Goods / 100;
+                    if (wanted > source.Production.WoodTotal)
+                    {
+                        sb.Append(SetAmount(1, queue.GoodsToSend));
+                        parameterValues[0] = queue.GoodsToSend;
+                        send = true;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(1));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(1));
+            }
+            if (queue.SendClay)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(2));
+                }
+                else
+                {
+                    int wanted = source.Production.Warehouse * queue.Goods / 100;
+                    if (wanted > source.Production.ClayTotal)
+                    {
+                        sb.Append(SetAmount(2, queue.GoodsToSend));
+                        parameterValues[1] = queue.GoodsToSend;
+                        send = true;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(2));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(2));
+            }
+            if (queue.SendIron)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(3));
+                }
+                else
+                {
+                    int wanted = source.Production.Warehouse * queue.Goods / 100;
+                    if (wanted > source.Production.IronTotal)
+                    {
+                        sb.Append(SetAmount(3, queue.GoodsToSend));
+                        parameterValues[2] = queue.GoodsToSend;
+                        send = true;
+                    }
+                    else
+                    {
+                        sb.Append(ZeroAmount(3));
+                    }
+                }
+            }
+            else
+            {
+                sb.Append(ZeroAmount(3));
+            }
+            if (queue.SendCrop)
+            {
+                if (totalGoodsCarry < 1)
+                {
+                    sb.Append(ZeroAmount(4));
+                }
+                else
+                {
+                    int wanted = source.Production.Granary * queue.Goods / 100;
+                    if (wanted > source.Production.CropTotal)
+                    {
+                        sb.Append(SetAmount(4, queue.GoodsToSend));
+                        parameterValues[3] = queue.GoodsToSend;
                         send = true;
                     }
                     else
@@ -482,6 +593,5 @@ namespace jeza.Travian.GameCenter
         private string postParameters;
         private readonly int[] parameterValues = new[] {0, 0, 0, 0};
         private bool parseSucceeded;
-        private MarketPlaceQueue marketPlaceQueue;
     }
 }
