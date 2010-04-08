@@ -18,7 +18,7 @@ namespace jeza.ioFTPD.Tests.Rescan
             rescan.Parse();
             Assert.IsNotNull(rescan.DataParserSfv, "DataParserSfv");
             rescan.Process();
-            Console.WriteLine(rescan.RescanStats.ToString());
+            //Console.WriteLine(rescan.RescanStats.ToString());
             Assert.AreEqual(4, rescan.RescanStats.TotalFiles, "TotalFiles");
             Assert.AreEqual(4, rescan.RescanStats.OkFiles, "OkFiles");
             Assert.AreEqual(0, rescan.RescanStats.MissingFiles, "MissingFiles");

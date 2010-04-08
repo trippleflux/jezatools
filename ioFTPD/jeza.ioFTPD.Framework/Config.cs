@@ -6,8 +6,13 @@ namespace jeza.ioFTPD.Framework
         public const string FileNameRace = ".ioFTPD.race";
         public const string FileExtensionMissing = ".missing";
 
-        public const string SkipPath = "/private/"; 
-        
+        public const string SkipPath = "/private/";
+
+        public const bool DeleteCrc32FailedFiles = true;
+        public const string Crc32FailedFilesExtension = ".bad";
+        public const string ClientCrc32Head = " Expected Actual   Status   FileName ";
+        public const string ClientCrc32Body = " {1,-8} {2,-8} {3,-8} {0,-60:B60}¤FileName ExpectedCrc32 ActualCrc32 Status";
+
         public const string ClientHead = ",----------=[ ZipScript by Jeza ]=-----------------------------------------------------------,";
         public const string ClientFileName = "| File.....: {0,-80:B79}|¤FileName";
         public const string ClientFileNameOk = "| File OK..: {0,-80:B79}|¤FileName";
