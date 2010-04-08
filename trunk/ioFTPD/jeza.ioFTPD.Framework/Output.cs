@@ -10,12 +10,24 @@ namespace jeza.ioFTPD.Framework
 {
     public class Output
     {
+        public Output(RescanStatsData rescanStatsData)
+        {
+            Console.WriteLine("!buffer off\n");
+            this.rescanStatsData = rescanStatsData;
+        }
+
         public Output (Race race)
         {
             this.race = race;
         }
 
-        public Output Client (string line)
+        public Output ClientRescan(string line)
+        {
+            Console.WriteLine(FormatCrc32(line));
+            return this;
+        }
+
+        public Output Client(string line)
         {
             Console.WriteLine (Format (line));
             return this;
@@ -53,16 +65,15 @@ namespace jeza.ioFTPD.Framework
 
         private string FormatMp3 (string line)
         {
-            if (line.Length < 2)
+            if (MinimumLength(line))
             {
                 return "";
             }
-            const char splitChar = '¤';
-            if (line.IndexOf (splitChar) == -1)
+            if (NotFormated(line))
             {
                 return line;
             }
-            string[] sections = line.Split (splitChar);
+            string[] sections = line.Split (SplitChar);
             string text = sections [0];
             string[] args = sections [1].Split (' ');
             int count = args.Length;
@@ -117,21 +128,38 @@ namespace jeza.ioFTPD.Framework
             return text;
         }
 
+        private static bool MinimumLength(string line)
+        {
+            if (line.Length < 2)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool NotFormated(string line)
+        {
+            if (line.IndexOf(SplitChar) == -1)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public string FormatUserStats
             (int possition,
              RaceStatsUsers stats,
              string line)
         {
-            if (line.Length < 2)
+            if (MinimumLength(line))
             {
                 return "";
             }
-            const char splitChar = '¤';
-            if (line.IndexOf (splitChar) == -1)
+            if (NotFormated(line))
             {
                 return line;
             }
-            string[] sections = line.Split (splitChar);
+            string[] sections = line.Split (SplitChar);
             string text = sections [0];
             string[] args = sections [1].Split (' ');
             int count = args.Length;
@@ -199,16 +227,15 @@ namespace jeza.ioFTPD.Framework
              RaceStatsGroups stats,
              string line)
         {
-            if (line.Length < 2)
+            if (MinimumLength(line))
             {
                 return "";
             }
-            const char splitChar = '¤';
-            if (line.IndexOf (splitChar) == -1)
+            if (NotFormated(line))
             {
                 return line;
             }
-            string[] sections = line.Split (splitChar);
+            string[] sections = line.Split (SplitChar);
             string text = sections [0];
             string[] args = sections [1].Split (' ');
             int count = args.Length;
@@ -268,16 +295,15 @@ namespace jeza.ioFTPD.Framework
 
         public string Format (string line)
         {
-            if (line.Length < 2)
+            if (MinimumLength(line))
             {
                 return "";
             }
-            const char splitChar = '¤';
-            if (line.IndexOf (splitChar) == -1)
+            if (NotFormated(line))
             {
                 return line;
             }
-            string[] sections = line.Split (splitChar);
+            string[] sections = line.Split (SplitChar);
             string text = sections [0];
             string[] args = sections [1].Split (' ');
             int count = args.Length;
@@ -340,6 +366,54 @@ namespace jeza.ioFTPD.Framework
             return text;
         }
 
+        public string FormatCrc32(string line)
+        {
+            if (MinimumLength(line))
+            {
+                return "";
+            }
+            if (NotFormated(line))
+            {
+                return line;
+            }
+            string[] sections = line.Split(SplitChar);
+            string text = sections[0];
+            string[] args = sections[1].Split(' ');
+            int count = args.Length;
+            for (int i = 0; i < count; i++)
+            {
+                switch (args[i].ToLower())
+                {
+                    case "filename":
+                        {
+                            args[i] = rescanStatsData.FileName;
+                            break;
+                        }
+                    case "expectedcrc32":
+                        {
+                            args[i] = rescanStatsData.ExpectedCrc32Value;
+                            break;
+                        }
+                    case "actualcrc32":
+                        {
+                            args[i] = rescanStatsData.ActualCrc32Value;
+                            break;
+                        }
+                    case "status":
+                        {
+                            args[i] = rescanStatsData.Status;
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+            text = String.Format(new MyFormat(), text, args);
+            return text;
+        }
+
         public string FormatSize (UInt64 bytes)
         {
             UInt64 formatedSize = bytes;
@@ -354,5 +428,7 @@ namespace jeza.ioFTPD.Framework
         }
 
         private readonly Race race;
+        private const char SplitChar = '¤';
+        private readonly RescanStatsData rescanStatsData;
     }
 }

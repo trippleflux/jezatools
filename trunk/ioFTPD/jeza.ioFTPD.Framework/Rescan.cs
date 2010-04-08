@@ -1,7 +1,10 @@
+#region
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+
+#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -29,6 +32,8 @@ namespace jeza.ioFTPD.Framework
         {
             if (dataParserSfv.SfvData.Count > 0)
             {
+                Output outputHead = new Output(new Race(null));
+                outputHead.Client(Config.ClientCrc32Head);
                 rescanStats.TotalFiles = dataParserSfv.SfvData.Count;
                 foreach (KeyValuePair<string, string> keyValuePair in dataParserSfv.SfvData)
                 {
@@ -36,6 +41,7 @@ namespace jeza.ioFTPD.Framework
                     rescanStatsData.FileName = keyValuePair.Key;
                     rescanStatsData.ExpectedCrc32Value = keyValuePair.Value;
                     string fileName = Path.Combine(SourceFolder, keyValuePair.Key);
+                    FileInfo fileInfo = new FileInfo();
                     if (File.Exists(fileName))
                     {
                         uint crc32 = Crc32.GetFileCrc32(fileName);
@@ -45,11 +51,21 @@ namespace jeza.ioFTPD.Framework
                         {
                             rescanStats.OkFiles++;
                             rescanStatsData.Status = "OK";
+                            fileInfo.DeleteFile(SourceFolder, fileName + Config.FileExtensionMissing);
                         }
                         else
                         {
                             rescanStats.FailedFiles++;
                             rescanStatsData.Status = "FAILED";
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+                            if (Config.DeleteCrc32FailedFiles) // ReSharper restore ConditionIsAlwaysTrueOrFalse
+                            {
+                                fileInfo.DeleteFile(SourceFolder, keyValuePair.Key);
+                            }
+                            else
+                            {
+                                FileInfo.Create0ByteFile(fileName + Config.Crc32FailedFilesExtension);
+                            }
                         }
                     }
                     else
@@ -57,8 +73,11 @@ namespace jeza.ioFTPD.Framework
                         rescanStats.MissingFiles++;
                         rescanStatsData.ActualCrc32Value = "00000000";
                         rescanStatsData.Status = "MISSING";
+                        FileInfo.Create0ByteFile(fileName + Config.FileExtensionMissing);
                     }
                     rescanStats.RescanStatsData.Add(rescanStatsData);
+                    Output output = new Output(rescanStatsData);
+                    output.ClientRescan(Config.ClientCrc32Body);
                 }
             }
         }
