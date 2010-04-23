@@ -77,7 +77,7 @@ namespace jeza.Travian.Parser
                 foreach (HtmlNode htmlNodeVillage in tableVillages.SelectNodes("./tbody//tr"))
                 {
                     //<td class="link"><a href="?newdid=75579" >01</a></td>
-                    HtmlNode htmlNode = htmlNodeVillage.SelectSingleNode("./td[@class='link']/a");
+                    HtmlNode htmlNode = htmlNodeVillage.SelectSingleNode("./td[@class='link']/div/a");
                     string villageName = htmlNode.InnerText.Trim();
                     string villageId = htmlNode.Attributes["href"].Value.Trim();
                     //<div class="cox">(-82</div>

@@ -16,6 +16,7 @@ namespace jeza.Travian.GameCenter
     {
         public MarketPlaceCalculator()
         {
+            parseSucceeded = true;
         }
 
         public MarketPlaceCalculator(Account account, HtmlDocument htmlDocument, HtmlWeb htmlWeb, MarketPlaceQueue queue,
@@ -26,7 +27,7 @@ namespace jeza.Travian.GameCenter
             this.htmlWeb = htmlWeb;
             this.queue = queue;
             this.settings = settings;
-            this.languages = languages;
+            language = languages.GetLanguage(settings.LanguageId);
         }
 
         public MarketPlaceQueue Queue
@@ -67,7 +68,6 @@ namespace jeza.Travian.GameCenter
         public void Parse()
         {
             parseSucceeded = false;
-            Language language = languages.GetLanguage(settings.LanguageId);
             if (language == null) return;
             destination = account.GetVillage(queue.DestinationVillage.Id);
             if (destination == null) return;
@@ -96,7 +96,6 @@ namespace jeza.Travian.GameCenter
         public void ParseUnknownDestination()
         {
             parseSucceeded = false;
-            Language language = languages.GetLanguage(settings.LanguageId);
             if (language == null) return;
             source = account.GetVillage(queue.SourceVillage.Id);
             if (source == null) return;
@@ -266,8 +265,8 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    int wanted = source.Production.Warehouse * queue.Goods / 100;
-                    if (wanted > source.Production.WoodTotal)
+                    int goodsToKeep = source.Production.Warehouse * queue.Goods / 100;
+                    if (goodsToKeep < source.Production.WoodTotal)
                     {
                         sb.Append(SetAmount(1, queue.GoodsToSend));
                         parameterValues[0] = queue.GoodsToSend;
@@ -291,8 +290,8 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    int wanted = source.Production.Warehouse * queue.Goods / 100;
-                    if (wanted > source.Production.ClayTotal)
+                    int goodsToKeep = source.Production.Warehouse * queue.Goods / 100;
+                    if (goodsToKeep < source.Production.ClayTotal)
                     {
                         sb.Append(SetAmount(2, queue.GoodsToSend));
                         parameterValues[1] = queue.GoodsToSend;
@@ -316,8 +315,8 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    int wanted = source.Production.Warehouse * queue.Goods / 100;
-                    if (wanted > source.Production.IronTotal)
+                    int goodsToKeep = source.Production.Warehouse * queue.Goods / 100;
+                    if (goodsToKeep < source.Production.IronTotal)
                     {
                         sb.Append(SetAmount(3, queue.GoodsToSend));
                         parameterValues[2] = queue.GoodsToSend;
@@ -341,8 +340,8 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    int wanted = source.Production.Granary * queue.Goods / 100;
-                    if (wanted > source.Production.CropTotal)
+                    int goodsToKeep = source.Production.Granary * queue.Goods / 100;
+                    if (goodsToKeep < source.Production.CropTotal)
                     {
                         sb.Append(SetAmount(4, queue.GoodsToSend));
                         parameterValues[3] = queue.GoodsToSend;
@@ -493,7 +492,8 @@ namespace jeza.Travian.GameCenter
             //<input type="hidden" name="id" value="33">
             HtmlNode node = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='id']");
             string id = node.Attributes["value"].Value;
-            //id=33&r1=750&r2=750&r3=750&r4=750&dname=&x=-82&y=62&s1.x=29&s1.y=8&s1=ok
+            //id=33&r1=750&r2=750&r3=750&r4=750&dname= &x=-82&y=62&s1.x=29&s1.y=8&s1=ok
+            //id=33&r1=750&r2750=&r3=750&r4=750&dname=.&x=   &y=  &s1.x=25&s1.y=14
             NameValueCollection postData = new NameValueCollection(1)
                 {
                     {"id", id},
@@ -525,7 +525,8 @@ namespace jeza.Travian.GameCenter
                 string a = nodeA.Attributes["value"].Value;
                 HtmlNode nodeKid = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='kid']");
                 string kid = nodeKid.Attributes["value"].Value;
-                //id=33&a=75579&sz=5259&kid=271057&r1=750&r2=750&r3=750&r4=750&s1.x=35&s1.y=4&s1=ok
+                //id=33&a=75579&sz=5259&kid=271057         &r1=750&r2=750&r3=750&r4=750&s1.x=35&s1.y=4&s1=ok
+                //id=33&a=75579&sz=7394&kid=271057&c=a5260a&r1=750&r2=750&r3=750&r4=750&s1.x=30&s1.y=8
                 postData = new NameValueCollection(1)
                     {
                         {"id", id},
@@ -585,7 +586,6 @@ namespace jeza.Travian.GameCenter
         private readonly HtmlWeb htmlWeb;
         private MarketPlaceQueue queue;
         private readonly Settings settings;
-        private readonly Languages languages;
         private Village destination;
         private Village source;
         private MarketPlace marketPlaceDestination;
@@ -593,5 +593,6 @@ namespace jeza.Travian.GameCenter
         private string postParameters;
         private readonly int[] parameterValues = new[] {0, 0, 0, 0};
         private bool parseSucceeded;
+        private readonly Language language;
     }
 }
