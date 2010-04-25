@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 #endregion
 
-namespace jeza.Travian.GameCenter
+namespace jeza.Travian.Framework
 {
     [XmlRoot(ElementName = "settings", IsNullable = false)]
     public class Settings

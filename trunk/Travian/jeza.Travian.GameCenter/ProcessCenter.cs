@@ -14,7 +14,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
-using jeza.Travian.Parser;
 using HtmlDocument=HtmlAgilityPack.HtmlDocument;
 using Timer=System.Windows.Forms.Timer;
 
@@ -1005,17 +1004,17 @@ namespace jeza.Travian.GameCenter
             }
         }
 
-        /// <summary>
-        /// Saves notes to XML.
-        /// </summary>
-        private void SerializeValeyTypeList()
-        {
-            using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
-            {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
-                xmlSerializer.Serialize(textWriter, valleyTypeList);
-            }
-        }
+        ///// <summary>
+        ///// Saves notes to XML.
+        ///// </summary>
+        //private void SerializeValeyTypeList()
+        //{
+        //    using (TextWriter textWriter = new StreamWriter(ValleyTypeListXml))
+        //    {
+        //        XmlSerializer xmlSerializer = new XmlSerializer(typeof (ValleyTypeList));
+        //        xmlSerializer.Serialize(textWriter, valleyTypeList);
+        //    }
+        //}
 
         /// <summary>
         /// Starts the bot.
