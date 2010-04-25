@@ -76,10 +76,6 @@
       <Project>{3F1FB677-E675-43B8-9DEA-14A2E303E73C}</Project>
       <Name>jeza.Travian.GameCenter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\jeza.Travian.Parser\jeza.Travian.Parser.csproj">
-      <Project>{B79A5167-D001-4EB2-8333-3E3B6934FCE7}</Project>
-      <Name>jeza.Travian.Parser</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Test Files\a2b.cofirm.php.html" />

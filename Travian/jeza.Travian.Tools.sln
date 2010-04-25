@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		jeza.Travian.Tools.build = jeza.Travian.Tools.build
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.Travian.Parser", "jeza.Travian.Parser\jeza.Travian.Parser.csproj", "{B79A5167-D001-4EB2-8333-3E3B6934FCE7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.Travian.GameCenter", "jeza.Travian.GameCenter\jeza.Travian.GameCenter.csproj", "{3F1FB677-E675-43B8-9DEA-14A2E303E73C}"
 EndProject
 Global
@@ -34,10 +32,6 @@ Global
 		{9E7FAE6A-644F-456A-877D-388C89E04000}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E7FAE6A-644F-456A-877D-388C89E04000}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E7FAE6A-644F-456A-877D-388C89E04000}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B79A5167-D001-4EB2-8333-3E3B6934FCE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B79A5167-D001-4EB2-8333-3E3B6934FCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B79A5167-D001-4EB2-8333-3E3B6934FCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B79A5167-D001-4EB2-8333-3E3B6934FCE7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F1FB677-E675-43B8-9DEA-14A2E303E73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3F1FB677-E675-43B8-9DEA-14A2E303E73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F1FB677-E675-43B8-9DEA-14A2E303E73C}.Release|Any CPU.ActiveCfg = Release|Any CPU

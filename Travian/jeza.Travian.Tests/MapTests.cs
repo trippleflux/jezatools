@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
-using jeza.Travian.Parser;
 using MbUnit.Framework;
 
 #endregion

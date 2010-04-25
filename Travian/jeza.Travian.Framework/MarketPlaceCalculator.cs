@@ -5,12 +5,10 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Text;
 using HtmlAgilityPack;
-using jeza.Travian.Framework;
-using jeza.Travian.Parser;
 
 #endregion
 
-namespace jeza.Travian.GameCenter
+namespace jeza.Travian.Framework
 {
     public class MarketPlaceCalculator
     {
@@ -100,8 +98,8 @@ namespace jeza.Travian.GameCenter
             source = account.GetVillage(queue.SourceVillage.Id);
             if (source == null) return;
             string url = String.Format(CultureInfo.InvariantCulture,
-                                "{0}build.php?newdid={1}&gid=17",
-                                settings.LoginData.Servername, source.Id);
+                                       "{0}build.php?newdid={1}&gid=17",
+                                       settings.LoginData.Servername, source.Id);
             htmlDocument = htmlWeb.Load(url);
             if (htmlDocument == null) return;
             HtmlParser htmlParser = new HtmlParser(htmlDocument, language);
@@ -525,6 +523,8 @@ namespace jeza.Travian.GameCenter
                 string a = nodeA.Attributes["value"].Value;
                 HtmlNode nodeKid = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='kid']");
                 string kid = nodeKid.Attributes["value"].Value;
+                HtmlNode nodeC = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='c']");
+                string c = nodeC.Attributes["value"].Value;
                 //id=33&a=75579&sz=5259&kid=271057         &r1=750&r2=750&r3=750&r4=750&s1.x=35&s1.y=4&s1=ok
                 //id=33&a=75579&sz=7394&kid=271057&c=a5260a&r1=750&r2=750&r3=750&r4=750&s1.x=30&s1.y=8
                 postData = new NameValueCollection(1)
@@ -533,12 +533,13 @@ namespace jeza.Travian.GameCenter
                         {"a", a},
                         {"sz", sz},
                         {"kid", kid},
+                        {"c", c},
                         {"r1", parameterValues[0].ToString()},
                         {"r2", parameterValues[1].ToString()},
                         {"r3", parameterValues[2].ToString()},
                         {"r4", parameterValues[3].ToString()},
-                        {"s1.x", "35"},
-                        {"s1.y", "9"},
+                        {"s1.x", RandomNumber(0,35)},
+                        {"s1.y", RandomNumber(0,10)},
                         {"s1", "ok"}
                     };
                 htmlDocument = htmlWeb.SubmitFormValues(postData, url);
@@ -571,6 +572,11 @@ namespace jeza.Travian.GameCenter
             return totalGoodsCarry;
         }
 
+        private string RandomNumber(int min, int max)
+        {
+            return random.Next(min, max).ToString(CultureInfo.InvariantCulture);
+        }
+
         private static string SetAmount(int i, int amount)
         {
             return String.Format(CultureInfo.InvariantCulture, "&r{0}={1}", i, amount);
@@ -594,5 +600,6 @@ namespace jeza.Travian.GameCenter
         private readonly int[] parameterValues = new[] {0, 0, 0, 0};
         private bool parseSucceeded;
         private readonly Language language;
+        Random random = new Random(999999999);
     }
 }
