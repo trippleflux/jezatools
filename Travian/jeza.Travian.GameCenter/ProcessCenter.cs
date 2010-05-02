@@ -218,7 +218,7 @@ namespace jeza.Travian.GameCenter
                             SendCrop = sendCrop,
                             SendGoodsType = SendGoodsType.Repeat,
                             Goods = Misc.String2Number(textBoxMarketPlaceRepeatGoods.Text),
-                            RepeatMinutes = Misc.String2Number(comboBoxMarketPlaceRepeatHour.Text),
+                            RepeatMinutes = Misc.String2Number(comboBoxMarketPlaceRepeatHour.Text)*60,
                             LastSend = DateTime.Now,
                         };
                     actions.MarketPlaceQueue.Add(queue);
@@ -914,8 +914,7 @@ namespace jeza.Travian.GameCenter
                                                                              settings, languages);
                 if (queue.SendGoodsType == SendGoodsType.Repeat)
                 {
-                    int repeatHours = queue.RepeatMinutes;
-                    if ((dt.AddHours(repeatHours) - queue.LastSend).Hours > repeatHours)
+                    if (calculator.TimeToSendRepeat(dt))
                     {
                         calculator.ParseUnknownDestination();
                         calculator.CalculateUnknownDestination();
@@ -935,8 +934,7 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    int repeatMinutes = queue.RepeatMinutes;
-                    if ((dt.AddMinutes(repeatMinutes) - queue.LastSend).Minutes > repeatMinutes)
+                    if(calculator.TimeToSend(dt))
                     {
                         calculator.Parse();
                         if (queue.SendGoodsType == SendGoodsType.DestinationBellowPercent)

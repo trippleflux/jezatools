@@ -1,8 +1,9 @@
 ﻿#region
 
+using System;
+using System.Collections.Generic;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
-using jeza.Travian.GameCenter;
 using MbUnit.Framework;
 
 #endregion
@@ -78,6 +79,7 @@ namespace jeza.Travian.Tests
             Assert.IsNotNull(productionSource, "NULL");
             sourceVillage.UpdateProduction(productionSource);
 
+            DateTime dt = new DateTime(DateTime.Now.Ticks);
             MarketPlaceQueue queue = new MarketPlaceQueue
                 {
                     DestinationVillage = destinationVillage,
@@ -88,6 +90,8 @@ namespace jeza.Travian.Tests
                     SendIron = true,
                     SendCrop = true,
                     SendGoodsType = SendGoodsType.DestinationBellowPercent,
+                    LastSend = dt.AddDays(-1),
+                    RepeatMinutes = 10,
                 };
 
             MarketPlaceCalculator calculator = new MarketPlaceCalculator
@@ -100,6 +104,7 @@ namespace jeza.Travian.Tests
                 };
             calculator.Calculate();
             Assert.AreEqual("&r1=0&r2=1246&r3=1004&r4=0", calculator.PostParameters, "PostParameters");
+            Assert.IsTrue(calculator.TimeToSend(dt), "Last send time");
         }
 
         [Test]
@@ -131,6 +136,7 @@ namespace jeza.Travian.Tests
             Assert.IsNotNull(productionSource, "NULL");
             sourceVillage.UpdateProduction(productionSource);
 
+            DateTime dt = new DateTime(DateTime.Now.Ticks);
             MarketPlaceQueue queue = new MarketPlaceQueue
             {
                 DestinationVillage = destinationVillage,
@@ -142,6 +148,8 @@ namespace jeza.Travian.Tests
                 SendIron = true,
                 SendCrop = true,
                 SendGoodsType = SendGoodsType.SourceOverPercent,
+                LastSend = dt.AddHours(-2),
+                RepeatMinutes = 10,
             };
 
             MarketPlaceCalculator calculator = new MarketPlaceCalculator
@@ -154,6 +162,28 @@ namespace jeza.Travian.Tests
             };
             calculator.CalculateSourceOver();
             Assert.AreEqual("&r1=750&r2=750&r3=0&r4=750", calculator.PostParameters, "PostParameters");
+            Assert.IsTrue(calculator.TimeToSend(dt), "Last send time");
+        }
+
+        [Test]
+        public void HiddenFields()
+        {
+            MarketPlaceCalculator calculator = new MarketPlaceCalculator
+            {
+                Destination = new Village(),
+                Source = new Village(),
+                MarketPlaceDestination = new MarketPlace(),
+                MarketPlaceSource = new MarketPlace(),
+                Queue = new MarketPlaceQueue(),
+            };
+            DeserializeLanguage();
+            Language language = Languages.GetLanguage("sl-SI");
+            Assert.IsNotNull(language, "Language is null!");
+
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\Marketplace.php.html");
+            calculator.GetHiddenValues(htmlDocument);
+            Assert.AreEqual(new Dictionary<string, string> {{"id", "33"}}, calculator.HiddenValues);
         }
     }
 }
