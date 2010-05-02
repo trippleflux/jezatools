@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Text;
@@ -61,6 +62,11 @@ namespace jeza.Travian.Framework
         public string PostParameters
         {
             get { return postParameters; }
+        }
+
+        public Dictionary<string, string> HiddenValues
+        {
+            get { return hiddenValues; }
         }
 
         public void Parse()
@@ -489,55 +495,21 @@ namespace jeza.Travian.Framework
             htmlDocument = htmlWeb.Load(url);
             //<input type="hidden" name="id" value="33">
             HtmlNode node = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='id']");
-            string id = node.Attributes["value"].Value;
-            //id=33&r1=750&r2=750&r3=750&r4=750&dname= &x=-82&y=62&s1.x=29&s1.y=8&s1=ok
-            //id=33&r1=750&r2750=&r3=750&r4=750&dname=.&x=   &y=  &s1.x=25&s1.y=14
-            NameValueCollection postData = new NameValueCollection(1)
-                {
-                    {"id", id},
-                    {"r1", parameterValues[0].ToString()},
-                    {"r2", parameterValues[1].ToString()},
-                    {"r3", parameterValues[2].ToString()},
-                    {"r4", parameterValues[3].ToString()},
-                    {"dname", ""},
-                    {"x", destination.CoordinateX.ToString()},
-                    {"y", destination.CoordinateY.ToString()},
-                    {"s1.x", "35"},
-                    {"s1.y", "9"},
-                    {"s1", "ok"}
-                };
-            htmlDocument = htmlWeb.SubmitFormValues(postData, url);
-            if (htmlDocument != null)
+            if (node != null)
             {
-                /*
-                <input type="hidden" name="id" value="33">
-                <input type="hidden" name="a" value="89449">
-                <input type="hidden" name="sz" value="5287">
-                <input type="hidden" name="kid" value="269455">
-                 */
-                HtmlNode nodeId = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='id']");
-                id = nodeId.Attributes["value"].Value;
-                HtmlNode nodeSz = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='sz']");
-                string sz = nodeSz.Attributes["value"].Value;
-                HtmlNode nodeA = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='a']");
-                string a = nodeA.Attributes["value"].Value;
-                HtmlNode nodeKid = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='kid']");
-                string kid = nodeKid.Attributes["value"].Value;
-                HtmlNode nodeC = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='c']");
-                string c = nodeC.Attributes["value"].Value;
-                //id=33&a=75579&sz=5259&kid=271057         &r1=750&r2=750&r3=750&r4=750&s1.x=35&s1.y=4&s1=ok
-                //id=33&a=75579&sz=7394&kid=271057&c=a5260a&r1=750&r2=750&r3=750&r4=750&s1.x=30&s1.y=8
-                postData = new NameValueCollection(1)
+                string id = node.Attributes["value"].Value;
+                //id=33&r1=750&r2=750&r3=750&r4=750&dname= &x=-82&y=62&s1.x=29&s1.y=8&s1=ok
+                //id=33&r1=750&r2750=&r3=750&r4=750&dname=.&x=   &y=  &s1.x=25&s1.y=14
+                NameValueCollection postData = new NameValueCollection(1)
                     {
                         {"id", id},
-                        {"a", a},
-                        {"sz", sz},
-                        {"kid", kid},
-                        {"c", c},
                         {"r1", parameterValues[0].ToString()},
                         {"r2", parameterValues[1].ToString()},
                         {"r3", parameterValues[2].ToString()},
                         {"r4", parameterValues[3].ToString()},
+                        {"dname", ""},
+                        {"x", destination.CoordinateX.ToString()},
+                        {"y", destination.CoordinateY.ToString()},
                         {"s1.x", RandomNumber(0,35)},
                         {"s1.y", RandomNumber(0,10)},
                         {"s1", "ok"}
@@ -545,12 +517,78 @@ namespace jeza.Travian.Framework
                 htmlDocument = htmlWeb.SubmitFormValues(postData, url);
                 if (htmlDocument != null)
                 {
-                    return String.Format(CultureInfo.InvariantCulture, "Sending [{2}, {3}, {4}, {5}] from {0} to {1}",
-                                         source.Name, destination.Name, parameterValues[0], parameterValues[1],
-                                         parameterValues[2], parameterValues[3]);
+                    /*
+                <input type="hidden" name="id" value="33">
+                <input type="hidden" name="a" value="89449">
+                <input type="hidden" name="sz" value="5287">
+                <input type="hidden" name="kid" value="269455">
+                 */
+                    //HtmlNode nodeId = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='id']");
+                    //id = nodeId.Attributes["value"].Value;
+                    //HtmlNode nodeSz = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='sz']");
+                    //string sz = nodeSz.Attributes["value"].Value;
+                    //HtmlNode nodeA = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='a']");
+                    //string a = nodeA.Attributes["value"].Value;
+                    //HtmlNode nodeKid = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='kid']");
+                    //string kid = nodeKid.Attributes["value"].Value;
+                    //HtmlNode nodeC = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='c']");
+                    //string c = nodeC.Attributes["value"].Value;
+                    GetHiddenValues(htmlDocument);
+                    //id=33&a=75579&sz=5259&kid=271057         &r1=750&r2=750&r3=750&r4=750&s1.x=35&s1.y=4&s1=ok
+                    //id=33&a=75579&sz=7394&kid=271057&c=a5260a&r1=750&r2=750&r3=750&r4=750&s1.x=30&s1.y=8
+                    postData = new NameValueCollection(1);
+                    //postData.Add("id", id);
+                    //postData.Add("a", a);
+                    //postData.Add("sz", sz);
+                    //postData.Add("kid", kid);
+                    //postData.Add("c", c);
+                    foreach (KeyValuePair<string, string> keyValuePair in hiddenValues)
+                    {
+                        postData.Add(keyValuePair.Key, keyValuePair.Value);
+                    }
+                    postData.Add("r1", parameterValues[0].ToString());
+                    postData.Add("r2", parameterValues[1].ToString());
+                    postData.Add("r3", parameterValues[2].ToString());
+                    postData.Add("r4", parameterValues[3].ToString());
+                    postData.Add("s1.x", RandomNumber(0, 35));
+                    postData.Add("s1.y", RandomNumber(0, 10));
+                    postData.Add("s1", "ok");
+                    htmlDocument = htmlWeb.SubmitFormValues(postData, url);
+                    if (htmlDocument != null)
+                    {
+                        return String.Format(CultureInfo.InvariantCulture, "Sending [{2}, {3}, {4}, {5}] from {0} to {1}",
+                                             source.Name, destination.Name, parameterValues[0], parameterValues[1],
+                                             parameterValues[2], parameterValues[3]);
+                    }
                 }
             }
             return "";
+        }
+
+        public void GetHiddenValues(HtmlDocument htmlDoc)
+        {
+            HtmlNodeCollection htmlNodeCollection = htmlDoc.DocumentNode.SelectNodes("//input[@type='hidden']");
+            if (htmlNodeCollection!=null)
+            {
+                foreach (HtmlNode htmlNode in htmlNodeCollection)
+                {
+                    if (htmlNode!=null)
+                    {
+                        hiddenValues.Add(htmlNode.Attributes["name"].Value, htmlNode.Attributes["value"].Value);
+                    }
+                }
+                
+            }
+        }
+
+        public bool TimeToSend(DateTime dateTime)
+        {
+            return (dateTime.AddMinutes(queue.RepeatMinutes) - queue.LastSend).TotalMinutes > queue.RepeatMinutes;
+        }
+
+        public bool TimeToSendRepeat(DateTime dateTime)
+        {
+            return TimeToSend(dateTime);
         }
 
         private int GetTotalGoodsCarry(int totalGoodsCarry, StringBuilder sb, int toSend, int available, int i)
@@ -598,8 +636,9 @@ namespace jeza.Travian.Framework
         private MarketPlace marketPlaceSource;
         private string postParameters;
         private readonly int[] parameterValues = new[] {0, 0, 0, 0};
+        private readonly Dictionary<string, string> hiddenValues = new Dictionary<string, string>();
         private bool parseSucceeded;
         private readonly Language language;
-        Random random = new Random(999999999);
+        readonly Random random = new Random(999999999);
     }
 }
