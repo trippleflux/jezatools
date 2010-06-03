@@ -934,7 +934,7 @@ namespace jeza.Travian.GameCenter
                 }
                 else
                 {
-                    if(calculator.TimeToSend(dt))
+                    if (calculator.TimeToSend(dt))
                     {
                         calculator.Parse();
                         if (queue.SendGoodsType == SendGoodsType.DestinationBellowPercent)
@@ -949,9 +949,19 @@ namespace jeza.Travian.GameCenter
                         if (process.Length > 5)
                         {
                             UpdateStatus(process);
+                            MarketPlaceQueue updated = queue;
+                            updated.LastSend = dt;
+                            newQueue.Add(updated);
+                        }
+                        else
+                        {
+                            newQueue.Add(queue);
                         }
                     }
-                    newQueue.Add(queue);
+                    else
+                    {
+                        newQueue.Add(queue);
+                    }
                 }
             }
             actions.MarketPlaceQueue.Clear();
@@ -1114,8 +1124,28 @@ namespace jeza.Travian.GameCenter
             UpdateStatus("UpdateAccountInfo");
             HtmlParser htmlParser = new HtmlParser(htmlDocument);
             List<Village> villages = htmlParser.GetAvailableVillages();
-            account.UpdateVillages(villages);
             string servername = settings.LoginData.Servername;
+            if (villages.Count == 1)
+            {
+                string url = String.Format(CultureInfo.InvariantCulture, "{0}karte.php", servername);
+                htmlDocument = htmlWeb.Load(url);
+                //<h1>Zemljevid(<span id="x">-31</span>|<span id="y">-25</span>)</h1>
+                HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("//h1");
+                if (htmlNode != null)
+                {
+                    HtmlNode nodeX = htmlDocument.DocumentNode.SelectSingleNode("//span[@id='x']");
+                    if (nodeX != null)
+                    {
+                        villages[0].CoordinateX = Misc.String2Number(nodeX.InnerText.Trim());
+                    }
+                    HtmlNode nodeY = htmlDocument.DocumentNode.SelectSingleNode("//span[@id='y']");
+                    if (nodeY != null)
+                    {
+                        villages[0].CoordinateY = Misc.String2Number(nodeY.InnerText.Trim());
+                    }
+                }
+            }
+            account.UpdateVillages(villages);
             foreach (Village village in villages)
             {
                 string url = String.Format(CultureInfo.InvariantCulture, "{0}dorf1.php?newdid={1}",
