@@ -985,7 +985,7 @@ namespace jeza.Travian.GameCenter
         /// Serializes the valleys that are available in datagridview.
         /// </summary>
         /// <param name="valleys">The valleys.</param>
-        private static void SerializeMap(List<Valley> valleys)
+        private void SerializeMap(IEnumerable<Valley> valleys)
         {
             using (TextWriter textWriter = new StreamWriter(ValleysXml))
             {
@@ -995,7 +995,17 @@ namespace jeza.Travian.GameCenter
                         "xml-stylesheet",
                         "type=\"text/xsl\" href=\"Farms.xslt\"");
                     XmlSerializer xmlSerializer = new XmlSerializer(typeof (List<Valley>));
-                    xmlSerializer.Serialize(xmlWriter, valleys);
+                    List<Valley> completeList = map.Valleys;
+                    List<Valley> newList = new List<Valley>();
+                    foreach (Valley valley in valleys)
+                    {
+                        int indexOf = completeList.IndexOf(valley);
+                        if (indexOf > -1)
+                        {
+                            newList.Add(completeList[indexOf]);
+                        }
+                    }
+                    xmlSerializer.Serialize(xmlWriter, newList);
                 }
             }
         }
