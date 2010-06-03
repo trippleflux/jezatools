@@ -44,8 +44,8 @@
                 <xsl:value-of select="Population"/>
               </td>
               <td>
-                <a href="http://s5.travian.si/a2b.php?z={VillageId}">
-                  <xsl:text>Send Troops</xsl:text>
+                <a href="http://s5.travian.si/{SendTroopsUrl}">
+                  <xsl:value-of select="SendTroopsText"/>
                 </a>
               </td>
             </tr>

@@ -408,6 +408,42 @@ namespace jeza.Travian.Framework
                 string playerName = player.InnerText.Trim();
                 HtmlNode population = nodes[0].SelectSingleNode("./tbody/tr[4]/td");
                 int villagePopulation = Misc.String2Number(population.InnerText.Trim());
+                /*
+<table cellspacing="1" cellpadding="1" class="tableNone" id="options">
+	<thead><tr>
+		<th>Možnosti:</th>
+	</tr></thead>
+	<tbody><tr>
+		<td><a href="karte.php?z=264646">» Centriraj zemljevid</a></td>
+	</tr>
+					        	<tr>
+							<td><a href="a2b.php?z=264646">» Pošlji enote</a></td>
+						</tr>
+			    					    	<tr>
+							<td><a href="build.php?z=264646&amp;gid=17" class="">» Pošlji trgovce</a></td>
+						</tr>
+			    		</tbody>
+</table>
+                 * */
+                //<td title="Začetniška zaščita do 05.06.10 18:33." class="none">» Pošlji enote (Igralec je pod začetniško zaščito.)</td>
+                //<a href="a2b.php?z=264646">» Pošlji enote</a>
+                HtmlNodeCollection nodesInfo = htmlDocument.DocumentNode.SelectNodes("//table[@id='options']");
+                if (nodesInfo!=null)
+                {
+                    HtmlNode node = nodesInfo[0].SelectSingleNode("./tbody/tr[2]/td/a");
+                    if (node!=null)
+                    {
+                        valley.AddSendTroopsInfo(node.Attributes["href"].Value, node.InnerText);
+                    }
+                    else
+                    {
+                        node = nodesInfo[0].SelectSingleNode("./tbody/tr[2]/td");
+                        if (node != null)
+                        {
+                            valley.AddSendTroopsInfo("", node.Attributes["title"].Value);
+                        }
+                    }
+                }
                 valley
                     .AddName(villageName)
                     .AddCoordinates(coordinateX, coordinateY)

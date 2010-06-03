@@ -89,6 +89,7 @@
     <Content Include="Test Files\empty.php.html" />
     <Content Include="Test Files\karte.ocupied.oases.php.html" />
     <Content Include="Test Files\karte.php.html" />
+    <Content Include="Test Files\karte.php.protection.html" />
     <Content Include="Test Files\karte.unoccupied.oases.php.html" />
     <Content Include="Test Files\Marketplace.idle.php.html" />
     <Content Include="Test Files\Marketplace.php.html" />

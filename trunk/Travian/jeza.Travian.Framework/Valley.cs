@@ -20,6 +20,8 @@ namespace jeza.Travian.Framework
         public int PlayerId { get; set; }
         public int VillageId { get; set; }
         public double Distance { get; set; }
+        public string SendTroopsUrl { get; set; }
+        public string SendTroopsText { get; set; }
 
         /// <summary>
         /// Adds the alliance data.
@@ -94,6 +96,19 @@ namespace jeza.Travian.Framework
         public Valley AddPopulation(int count)
         {
             Population = count;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds the send troops info.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="text">The text.</param>
+        /// <returns></returns>
+        public Valley AddSendTroopsInfo(string url, string text)
+        {
+            SendTroopsUrl = url;
+            SendTroopsText = text;
             return this;
         }
 
