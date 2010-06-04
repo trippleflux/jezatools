@@ -347,6 +347,7 @@
                                 </asp:Panel>
                             </td>
                         </tr>
+                    </table>
                 </div>
                 <div>
                     <asp:Panel ID="PanelStats" runat="server">
