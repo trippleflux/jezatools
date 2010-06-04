@@ -264,6 +264,49 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Gets the report info.
+        /// </summary>
+        public Report GetReportDetails()
+        {
+            Report report = new Report();
+            HtmlNode nodeTableReportSurround = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='report_surround']");
+            if (nodeTableReportSurround!=null)
+            {
+                
+            }
+            HtmlNode nodeTableAttacker = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='attacker']");
+            if (nodeTableAttacker!=null)
+            {
+                HtmlNode nodeAttackerInfo = nodeTableAttacker.SelectSingleNode("./thead/tr/td[2]");
+                if (nodeAttackerInfo!=null)
+                {
+                    HtmlNode attackerName = nodeAttackerInfo.SelectSingleNode("./a[1]");
+                    if (attackerName!=null)
+                    {
+                        report.AttackerName = attackerName.InnerText;
+                    }
+                    HtmlNode attackerVillage = nodeAttackerInfo.SelectSingleNode("./a[2]");
+                    if (attackerVillage != null)
+                    {
+                        report.AttackerVillage = attackerVillage.InnerText;
+                        report.AttackerUrl = attackerVillage.Attributes["href"].Value;
+                    }
+                }
+            }
+            HtmlNode nodeDivResources = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='res']");
+            if (nodeDivResources != null)
+            {
+                report.ResourcesText = nodeDivResources.InnerText;
+            }
+            HtmlNode nodeDivCarry = htmlDocument.DocumentNode.SelectSingleNode("//div[@class='carry']");
+            if (nodeDivCarry!=null)
+            {
+                report.CarryText = nodeDivCarry.InnerText;
+            }
+            return report;
+        }
+
+        /// <summary>
         /// Gets the resource buildings levels.
         /// </summary>
         /// <returns></returns>
