@@ -176,6 +176,12 @@ namespace jeza.Travian.GameCenter
             this.labelMarketPlaceRepeatSourceVillage = new System.Windows.Forms.Label();
             this.comboBoxMarketPlaceRepeatSourceVillage = new System.Windows.Forms.ComboBox();
             this.groupBoxMarketPlaceTasks = new System.Windows.Forms.GroupBox();
+            this.textBoxMarketPlaceSourceOverSendGods = new System.Windows.Forms.TextBox();
+            this.labelMarketPlaceTasksInterval = new System.Windows.Forms.Label();
+            this.labelMarketPlaceCheck = new System.Windows.Forms.Label();
+            this.comboBoxMarketPlaceCheck = new System.Windows.Forms.ComboBox();
+            this.labelMarketPlaceDestinationBellow = new System.Windows.Forms.Label();
+            this.labelMarketPlaceSourceOver = new System.Windows.Forms.Label();
             this.buttonMarketPlaceDelete = new System.Windows.Forms.Button();
             this.buttonMarketPlaceAddTask = new System.Windows.Forms.Button();
             this.textBoxMarketPlaceDestinationBellow = new System.Windows.Forms.TextBox();
@@ -209,12 +215,8 @@ namespace jeza.Travian.GameCenter
             this.buttonRun = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.labelMarketPlaceSourceOver = new System.Windows.Forms.Label();
-            this.labelMarketPlaceDestinationBellow = new System.Windows.Forms.Label();
-            this.comboBoxMarketPlaceCheck = new System.Windows.Forms.ComboBox();
-            this.labelMarketPlaceCheck = new System.Windows.Forms.Label();
-            this.labelMarketPlaceTasksInterval = new System.Windows.Forms.Label();
-            this.textBoxMarketPlaceSourceOverSendGods = new System.Windows.Forms.TextBox();
+            this.tabPageOverview = new System.Windows.Forms.TabPage();
+            this.tabPageSendTroops = new System.Windows.Forms.TabPage();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -296,6 +298,9 @@ namespace jeza.Travian.GameCenter
             this.tabControl.Controls.Add(this.tabPageMarketPlace);
             this.tabControl.Controls.Add(this.tabPageBrowser);
             this.tabControl.Controls.Add(this.tabPageStatus);
+            this.tabControl.Controls.Add(this.tabPageOverview);
+            this.tabControl.Controls.Add(this.tabPageSendTroops);
+            this.tabControl.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
@@ -1713,6 +1718,72 @@ namespace jeza.Travian.GameCenter
             this.groupBoxMarketPlaceTasks.TabStop = false;
             this.groupBoxMarketPlaceTasks.Text = "Tasks";
             // 
+            // textBoxMarketPlaceSourceOverSendGods
+            // 
+            this.textBoxMarketPlaceSourceOverSendGods.Location = new System.Drawing.Point(296, 75);
+            this.textBoxMarketPlaceSourceOverSendGods.Name = "textBoxMarketPlaceSourceOverSendGods";
+            this.textBoxMarketPlaceSourceOverSendGods.Size = new System.Drawing.Size(63, 20);
+            this.textBoxMarketPlaceSourceOverSendGods.TabIndex = 24;
+            this.textBoxMarketPlaceSourceOverSendGods.Text = "750";
+            // 
+            // labelMarketPlaceTasksInterval
+            // 
+            this.labelMarketPlaceTasksInterval.AutoSize = true;
+            this.labelMarketPlaceTasksInterval.Location = new System.Drawing.Point(378, 60);
+            this.labelMarketPlaceTasksInterval.Name = "labelMarketPlaceTasksInterval";
+            this.labelMarketPlaceTasksInterval.Size = new System.Drawing.Size(42, 13);
+            this.labelMarketPlaceTasksInterval.TabIndex = 23;
+            this.labelMarketPlaceTasksInterval.Text = "Interval";
+            // 
+            // labelMarketPlaceCheck
+            // 
+            this.labelMarketPlaceCheck.AutoSize = true;
+            this.labelMarketPlaceCheck.Location = new System.Drawing.Point(378, 78);
+            this.labelMarketPlaceCheck.Name = "labelMarketPlaceCheck";
+            this.labelMarketPlaceCheck.Size = new System.Drawing.Size(78, 13);
+            this.labelMarketPlaceCheck.TabIndex = 22;
+            this.labelMarketPlaceCheck.Text = "Check Minutes";
+            // 
+            // comboBoxMarketPlaceCheck
+            // 
+            this.comboBoxMarketPlaceCheck.FormattingEnabled = true;
+            this.comboBoxMarketPlaceCheck.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "90",
+            "120",
+            "180",
+            "240",
+            "300",
+            "360"});
+            this.comboBoxMarketPlaceCheck.Location = new System.Drawing.Point(474, 75);
+            this.comboBoxMarketPlaceCheck.Name = "comboBoxMarketPlaceCheck";
+            this.comboBoxMarketPlaceCheck.Size = new System.Drawing.Size(41, 21);
+            this.comboBoxMarketPlaceCheck.TabIndex = 21;
+            this.comboBoxMarketPlaceCheck.Text = "60";
+            // 
+            // labelMarketPlaceDestinationBellow
+            // 
+            this.labelMarketPlaceDestinationBellow.AutoSize = true;
+            this.labelMarketPlaceDestinationBellow.Location = new System.Drawing.Point(275, 102);
+            this.labelMarketPlaceDestinationBellow.Name = "labelMarketPlaceDestinationBellow";
+            this.labelMarketPlaceDestinationBellow.Size = new System.Drawing.Size(15, 13);
+            this.labelMarketPlaceDestinationBellow.TabIndex = 20;
+            this.labelMarketPlaceDestinationBellow.Text = "%";
+            // 
+            // labelMarketPlaceSourceOver
+            // 
+            this.labelMarketPlaceSourceOver.AutoSize = true;
+            this.labelMarketPlaceSourceOver.Location = new System.Drawing.Point(275, 78);
+            this.labelMarketPlaceSourceOver.Name = "labelMarketPlaceSourceOver";
+            this.labelMarketPlaceSourceOver.Size = new System.Drawing.Size(15, 13);
+            this.labelMarketPlaceSourceOver.TabIndex = 19;
+            this.labelMarketPlaceSourceOver.Text = "%";
+            // 
             // buttonMarketPlaceDelete
             // 
             this.buttonMarketPlaceDelete.Location = new System.Drawing.Point(427, 29);
@@ -2033,71 +2104,25 @@ namespace jeza.Travian.GameCenter
             // 
             this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
             // 
-            // labelMarketPlaceSourceOver
+            // tabPageOverview
             // 
-            this.labelMarketPlaceSourceOver.AutoSize = true;
-            this.labelMarketPlaceSourceOver.Location = new System.Drawing.Point(275, 78);
-            this.labelMarketPlaceSourceOver.Name = "labelMarketPlaceSourceOver";
-            this.labelMarketPlaceSourceOver.Size = new System.Drawing.Size(15, 13);
-            this.labelMarketPlaceSourceOver.TabIndex = 19;
-            this.labelMarketPlaceSourceOver.Text = "%";
+            this.tabPageOverview.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOverview.Name = "tabPageOverview";
+            this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOverview.Size = new System.Drawing.Size(1185, 811);
+            this.tabPageOverview.TabIndex = 9;
+            this.tabPageOverview.Text = "Overview";
+            this.tabPageOverview.UseVisualStyleBackColor = true;
             // 
-            // labelMarketPlaceDestinationBellow
+            // tabPageSendTroops
             // 
-            this.labelMarketPlaceDestinationBellow.AutoSize = true;
-            this.labelMarketPlaceDestinationBellow.Location = new System.Drawing.Point(275, 102);
-            this.labelMarketPlaceDestinationBellow.Name = "labelMarketPlaceDestinationBellow";
-            this.labelMarketPlaceDestinationBellow.Size = new System.Drawing.Size(15, 13);
-            this.labelMarketPlaceDestinationBellow.TabIndex = 20;
-            this.labelMarketPlaceDestinationBellow.Text = "%";
-            // 
-            // comboBoxMarketPlaceCheck
-            // 
-            this.comboBoxMarketPlaceCheck.FormattingEnabled = true;
-            this.comboBoxMarketPlaceCheck.Items.AddRange(new object[] {
-            "10",
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "90",
-            "120",
-            "180",
-            "240",
-            "300",
-            "360"});
-            this.comboBoxMarketPlaceCheck.Location = new System.Drawing.Point(474, 75);
-            this.comboBoxMarketPlaceCheck.Name = "comboBoxMarketPlaceCheck";
-            this.comboBoxMarketPlaceCheck.Size = new System.Drawing.Size(41, 21);
-            this.comboBoxMarketPlaceCheck.TabIndex = 21;
-            this.comboBoxMarketPlaceCheck.Text = "60";
-            // 
-            // labelMarketPlaceCheck
-            // 
-            this.labelMarketPlaceCheck.AutoSize = true;
-            this.labelMarketPlaceCheck.Location = new System.Drawing.Point(378, 78);
-            this.labelMarketPlaceCheck.Name = "labelMarketPlaceCheck";
-            this.labelMarketPlaceCheck.Size = new System.Drawing.Size(78, 13);
-            this.labelMarketPlaceCheck.TabIndex = 22;
-            this.labelMarketPlaceCheck.Text = "Check Minutes";
-            // 
-            // labelMarketPlaceTasksInterval
-            // 
-            this.labelMarketPlaceTasksInterval.AutoSize = true;
-            this.labelMarketPlaceTasksInterval.Location = new System.Drawing.Point(378, 60);
-            this.labelMarketPlaceTasksInterval.Name = "labelMarketPlaceTasksInterval";
-            this.labelMarketPlaceTasksInterval.Size = new System.Drawing.Size(42, 13);
-            this.labelMarketPlaceTasksInterval.TabIndex = 23;
-            this.labelMarketPlaceTasksInterval.Text = "Interval";
-            // 
-            // textBoxMarketPlaceSourceOverSendGods
-            // 
-            this.textBoxMarketPlaceSourceOverSendGods.Location = new System.Drawing.Point(296, 75);
-            this.textBoxMarketPlaceSourceOverSendGods.Name = "textBoxMarketPlaceSourceOverSendGods";
-            this.textBoxMarketPlaceSourceOverSendGods.Size = new System.Drawing.Size(63, 20);
-            this.textBoxMarketPlaceSourceOverSendGods.TabIndex = 24;
-            this.textBoxMarketPlaceSourceOverSendGods.Text = "750";
+            this.tabPageSendTroops.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSendTroops.Name = "tabPageSendTroops";
+            this.tabPageSendTroops.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSendTroops.Size = new System.Drawing.Size(1185, 811);
+            this.tabPageSendTroops.TabIndex = 10;
+            this.tabPageSendTroops.Text = "SendTroops";
+            this.tabPageSendTroops.UseVisualStyleBackColor = true;
             // 
             // ProcessCenter
             // 
@@ -2383,6 +2408,8 @@ namespace jeza.Travian.GameCenter
         private Label labelMarketPlaceCheck;
         private Label labelMarketPlaceTasksInterval;
         private TextBox textBoxMarketPlaceSourceOverSendGods;
+        private TabPage tabPageOverview;
+        private TabPage tabPageSendTroops;
     }
 }
 
