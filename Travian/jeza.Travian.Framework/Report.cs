@@ -4,6 +4,22 @@ namespace jeza.Travian.Framework
 {
     public class Report
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Report"/> class.
+        /// </summary>
+        public Report()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Report"/> class.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public Report(int id)
+        {
+            Id = id;
+        }
+
         public string SubjectText { get; set; }
         public string Url { get; set; }
         public string DateText { get; set; }
