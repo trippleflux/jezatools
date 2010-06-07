@@ -307,6 +307,36 @@ namespace jeza.Travian.Framework
         }
 
         /// <summary>
+        /// Gets the list of available reports.
+        /// </summary>
+        /// <returns></returns>
+        public List<Report> GetReports()
+        {
+            List<Report> reportList = new List<Report>();
+            HtmlNode nodeTableReports = htmlDocument.DocumentNode.SelectSingleNode("//table[@id='overview']");
+            if (nodeTableReports!=null)
+            {
+                foreach (HtmlNode htmlNode in nodeTableReports.SelectNodes("./tbody//tr"))
+                {
+                    if(htmlNode!=null)
+                    {
+                        //<td class="sel"><input class="check" type="checkbox" name="n1" value="8599699" /></td>
+                        HtmlNode nodeCheckBox = htmlNode.SelectSingleNode("./td[1]/input[@type='checkbox']");
+                        if (nodeCheckBox!=null)
+                        {
+                            int reportId = Misc.String2Number(nodeCheckBox.Attributes["value"].Value);
+                            if (reportId>0)
+                            {
+                                reportList.Add(new Report(reportId));
+                            }
+                        }
+                    }
+                }
+            }
+            return reportList;
+        }
+
+        /// <summary>
         /// Gets the resource buildings levels.
         /// </summary>
         /// <returns></returns>

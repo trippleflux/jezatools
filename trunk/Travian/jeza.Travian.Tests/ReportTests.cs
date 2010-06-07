@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HtmlAgilityPack;
 using jeza.Travian.Framework;
 using MbUnit.Framework;
@@ -25,6 +26,19 @@ namespace jeza.Travian.Tests
             Assert.AreEqual(62, reportDetails.ResourcesClay, "ResourcesClay");
             Assert.AreEqual(23, reportDetails.ResourcesIron, "ResourcesIron");
             Assert.AreEqual(64, reportDetails.ResourcesCrop, "ResourcesCrop");
+        }
+
+        /// <summary>
+        /// Reads reports.
+        /// </summary>
+        [Test]
+        public void Read()
+        {
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.Load("..\\..\\Test Files\\berichte.php.html");
+            HtmlParser htmlParser = new HtmlParser(htmlDocument);
+            List<Report> list = htmlParser.GetReports();
+            Assert.AreEqual(10, list.Count, "Count");
         }
     }
 }
