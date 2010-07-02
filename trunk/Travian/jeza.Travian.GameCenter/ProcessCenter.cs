@@ -748,6 +748,11 @@ namespace jeza.Travian.GameCenter
             return isLogedIn;
         }
 
+        private void Logout()
+        {
+            htmlDocument = htmlWeb.Load(settings.LoginData.Servername + "logout.php");
+        }
+
         private void PopulateBuildQueueForVillage(Village village)
         {
             string servername = settings.LoginData.Servername;
@@ -1068,25 +1073,41 @@ namespace jeza.Travian.GameCenter
         private void StartBot()
         {
             UpdateStatus("Login...");
-            bool isLogedIn = Login();
-            while (botActive && isLogedIn)
+            if (checkBoxSettingsLoginEveryHour.Checked)
             {
-                isLogedIn = IsLogedIn(htmlDocument);
-                int loginRetryCount = 0;
-                if (!isLogedIn)
+                while (botActive)
                 {
-                    Thread.Sleep(30000);
-                    isLogedIn = Login();
-                    if (++loginRetryCount > 3)
-                    {
-                        break;
-                    }
+                    Login();
+                    UpdateAccountInfo();
+                    EnableButtons();
+                    Build();
+                    SendResources();
+                    Logout();
+                    Thread.Sleep(86400000);
                 }
-                UpdateAccountInfo();
-                EnableButtons();
-                Build();
-                SendResources();
-                Thread.Sleep(300000);
+            }
+            else
+            {
+                bool isLogedIn = Login();
+                while (botActive && isLogedIn)
+                {
+                    isLogedIn = IsLogedIn(htmlDocument);
+                    int loginRetryCount = 0;
+                    if (!isLogedIn)
+                    {
+                        Thread.Sleep(30000);
+                        isLogedIn = Login();
+                        if (++loginRetryCount > 3)
+                        {
+                            break;
+                        }
+                    }
+                    UpdateAccountInfo();
+                    EnableButtons();
+                    Build();
+                    SendResources();
+                    Thread.Sleep(300000);
+                }
             }
             botActive = false;
             UpdateStatus("Idlin...");

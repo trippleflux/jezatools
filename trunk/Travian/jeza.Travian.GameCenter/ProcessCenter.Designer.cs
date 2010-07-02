@@ -209,14 +209,15 @@ namespace jeza.Travian.GameCenter
             this.tabPageStatus = new System.Windows.Forms.TabPage();
             this.panelStatus = new System.Windows.Forms.Panel();
             this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.tabPageOverview = new System.Windows.Forms.TabPage();
+            this.tabPageSendTroops = new System.Windows.Forms.TabPage();
             this.panelHead = new System.Windows.Forms.Panel();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelDateTime = new System.Windows.Forms.Label();
             this.buttonRun = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tabPageOverview = new System.Windows.Forms.TabPage();
-            this.tabPageSendTroops = new System.Windows.Forms.TabPage();
+            this.checkBoxSettingsLoginEveryHour = new System.Windows.Forms.CheckBox();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -731,6 +732,7 @@ namespace jeza.Travian.GameCenter
             this.groupBoxOverview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxOverview.Controls.Add(this.checkBoxSettingsLoginEveryHour);
             this.groupBoxOverview.Controls.Add(this.buttonOwerviewSave);
             this.groupBoxOverview.Controls.Add(this.textBoxPassword);
             this.groupBoxOverview.Controls.Add(this.textBoxServer);
@@ -2052,6 +2054,26 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus.Size = new System.Drawing.Size(1163, 794);
             this.textBoxStatus.TabIndex = 0;
             // 
+            // tabPageOverview
+            // 
+            this.tabPageOverview.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOverview.Name = "tabPageOverview";
+            this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOverview.Size = new System.Drawing.Size(1185, 811);
+            this.tabPageOverview.TabIndex = 9;
+            this.tabPageOverview.Text = "Overview";
+            this.tabPageOverview.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSendTroops
+            // 
+            this.tabPageSendTroops.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSendTroops.Name = "tabPageSendTroops";
+            this.tabPageSendTroops.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSendTroops.Size = new System.Drawing.Size(1185, 811);
+            this.tabPageSendTroops.TabIndex = 10;
+            this.tabPageSendTroops.Text = "SendTroops";
+            this.tabPageSendTroops.UseVisualStyleBackColor = true;
+            // 
             // panelHead
             // 
             this.panelHead.AutoSize = true;
@@ -2104,25 +2126,17 @@ namespace jeza.Travian.GameCenter
             // 
             this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
             // 
-            // tabPageOverview
+            // checkBoxSettingsLoginEveryHour
             // 
-            this.tabPageOverview.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOverview.Name = "tabPageOverview";
-            this.tabPageOverview.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOverview.Size = new System.Drawing.Size(1185, 811);
-            this.tabPageOverview.TabIndex = 9;
-            this.tabPageOverview.Text = "Overview";
-            this.tabPageOverview.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSendTroops
-            // 
-            this.tabPageSendTroops.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSendTroops.Name = "tabPageSendTroops";
-            this.tabPageSendTroops.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSendTroops.Size = new System.Drawing.Size(1185, 811);
-            this.tabPageSendTroops.TabIndex = 10;
-            this.tabPageSendTroops.Text = "SendTroops";
-            this.tabPageSendTroops.UseVisualStyleBackColor = true;
+            this.checkBoxSettingsLoginEveryHour.AutoSize = true;
+            this.checkBoxSettingsLoginEveryHour.Checked = true;
+            this.checkBoxSettingsLoginEveryHour.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsLoginEveryHour.Location = new System.Drawing.Point(94, 121);
+            this.checkBoxSettingsLoginEveryHour.Name = "checkBoxSettingsLoginEveryHour";
+            this.checkBoxSettingsLoginEveryHour.Size = new System.Drawing.Size(105, 17);
+            this.checkBoxSettingsLoginEveryHour.TabIndex = 15;
+            this.checkBoxSettingsLoginEveryHour.Text = "Login every hour";
+            this.checkBoxSettingsLoginEveryHour.UseVisualStyleBackColor = true;
             // 
             // ProcessCenter
             // 
@@ -2410,6 +2424,7 @@ namespace jeza.Travian.GameCenter
         private TextBox textBoxMarketPlaceSourceOverSendGods;
         private TabPage tabPageOverview;
         private TabPage tabPageSendTroops;
+        private CheckBox checkBoxSettingsLoginEveryHour;
     }
 }
 
