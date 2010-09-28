@@ -34,6 +34,10 @@ namespace jeza.ioFTPD.Framework
         public const char ProgressBarCharFilled = '#';
         public const char ProgressBarCharMissing = '-';
 
+        public const string Mp3SortPathArtist = "c:\\sorted\\by.artist";
+        public const string Mp3SortPathGenre = "c:\\sorted\\by.genre";
+        public const string Mp3SortPathYear = "c:\\sorted\\by.year";
+
         /*
          * Th tag cannot contain the following characters : \ / : * ? " < > |
          */

@@ -31,13 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Gallio, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+    <Reference Include="Gallio, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\GallioBundle-3.1.397.0\bin\Gallio.dll</HintPath>
+      <HintPath>..\..\lib\GallioBundle-3.2.603.0\bin\Gallio.dll</HintPath>
     </Reference>
-    <Reference Include="MbUnit, Version=3.1.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
+    <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\GallioBundle-3.1.397.0\bin\MbUnit.dll</HintPath>
+      <HintPath>..\..\lib\GallioBundle-3.2.603.0\bin\MbUnit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileFolderTests.cs" />
+    <Compile Include="Media\Mp3Sort.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
     <Compile Include="ZipScript\Mp3Tests.cs" />
