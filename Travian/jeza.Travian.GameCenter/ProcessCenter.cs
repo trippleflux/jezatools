@@ -298,6 +298,11 @@ namespace jeza.Travian.GameCenter
             UpdateListBoxAlly(listBoxSettingsWar, AllyType.War);
         }
 
+        private void buttonStatusClear_Click(object sender, EventArgs e)
+        {
+            textBoxStatus.Text = "";
+        }
+
         private void buttonUpdateRallyPoint_Click(object sender, EventArgs e)
         {
             Village selectedVillage = comboBoxRallyPointVillages.SelectedItem as Village;
@@ -968,6 +973,8 @@ namespace jeza.Travian.GameCenter
                         newQueue.Add(queue);
                     }
                 }
+                //wait 2-5 seconds before processing with the next action
+                Thread.Sleep(new Random().Next(2000, 5000));
             }
             actions.MarketPlaceQueue.Clear();
             actions.MarketPlaceQueue.AddRange(newQueue);

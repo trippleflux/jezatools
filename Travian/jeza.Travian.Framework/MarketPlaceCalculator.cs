@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Text;
+using System.Threading;
 using HtmlAgilityPack;
 
 #endregion
@@ -497,6 +498,8 @@ namespace jeza.Travian.Framework
             HtmlNode node = htmlDocument.DocumentNode.SelectSingleNode("//input[@type='hidden' and @name='id']");
             if (node != null)
             {
+                //wait 2-5 seconds before processing with the next action
+                Thread.Sleep(new Random().Next(2000, 5000));
                 string id = node.Attributes["value"].Value;
                 //id=33&r1=750&r2=750&r3=750&r4=750&dname= &x=-82&y=62&s1.x=29&s1.y=8&s1=ok
                 //id=33&r1=750&r2750=&r3=750&r4=750&dname=.&x=   &y=  &s1.x=25&s1.y=14
@@ -515,6 +518,8 @@ namespace jeza.Travian.Framework
                         {"s1", "ok"}
                     };
                 htmlDocument = htmlWeb.SubmitFormValues(postData, url);
+                //wait 2-5 seconds before processing with the next action
+                Thread.Sleep(new Random().Next(2000, 5000));
                 if (htmlDocument != null)
                 {
                     /*

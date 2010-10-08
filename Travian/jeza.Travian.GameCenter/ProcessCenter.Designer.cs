@@ -85,6 +85,7 @@ namespace jeza.Travian.GameCenter
             this.labelLanguageId = new System.Windows.Forms.Label();
             this.panelOverviewLogins = new System.Windows.Forms.Panel();
             this.groupBoxOverview = new System.Windows.Forms.GroupBox();
+            this.checkBoxSettingsLoginEveryHour = new System.Windows.Forms.CheckBox();
             this.buttonOwerviewSave = new System.Windows.Forms.Button();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.textBoxServer = new System.Windows.Forms.TextBox();
@@ -217,7 +218,7 @@ namespace jeza.Travian.GameCenter
             this.buttonRun = new System.Windows.Forms.Button();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.actionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.checkBoxSettingsLoginEveryHour = new System.Windows.Forms.CheckBox();
+            this.buttonStatusClear = new System.Windows.Forms.Button();
             this.panelMain.SuspendLayout();
             this.panelTabs.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -746,6 +747,18 @@ namespace jeza.Travian.GameCenter
             this.groupBoxOverview.TabIndex = 1;
             this.groupBoxOverview.TabStop = false;
             this.groupBoxOverview.Text = "Login Data";
+            // 
+            // checkBoxSettingsLoginEveryHour
+            // 
+            this.checkBoxSettingsLoginEveryHour.AutoSize = true;
+            this.checkBoxSettingsLoginEveryHour.Checked = true;
+            this.checkBoxSettingsLoginEveryHour.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSettingsLoginEveryHour.Location = new System.Drawing.Point(94, 121);
+            this.checkBoxSettingsLoginEveryHour.Name = "checkBoxSettingsLoginEveryHour";
+            this.checkBoxSettingsLoginEveryHour.Size = new System.Drawing.Size(105, 17);
+            this.checkBoxSettingsLoginEveryHour.TabIndex = 15;
+            this.checkBoxSettingsLoginEveryHour.Text = "Login every hour";
+            this.checkBoxSettingsLoginEveryHour.UseVisualStyleBackColor = true;
             // 
             // buttonOwerviewSave
             // 
@@ -2035,6 +2048,7 @@ namespace jeza.Travian.GameCenter
             this.panelStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelStatus.Controls.Add(this.buttonStatusClear);
             this.panelStatus.Controls.Add(this.textBoxStatus);
             this.panelStatus.Location = new System.Drawing.Point(8, 3);
             this.panelStatus.Name = "panelStatus";
@@ -2046,12 +2060,12 @@ namespace jeza.Travian.GameCenter
             this.textBoxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxStatus.Location = new System.Drawing.Point(3, 3);
+            this.textBoxStatus.Location = new System.Drawing.Point(3, 33);
             this.textBoxStatus.Multiline = true;
             this.textBoxStatus.Name = "textBoxStatus";
             this.textBoxStatus.ReadOnly = true;
             this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxStatus.Size = new System.Drawing.Size(1163, 794);
+            this.textBoxStatus.Size = new System.Drawing.Size(1163, 764);
             this.textBoxStatus.TabIndex = 0;
             // 
             // tabPageOverview
@@ -2126,17 +2140,15 @@ namespace jeza.Travian.GameCenter
             // 
             this.actionsBindingSource.DataSource = typeof(jeza.Travian.Framework.Actions);
             // 
-            // checkBoxSettingsLoginEveryHour
+            // buttonStatusClear
             // 
-            this.checkBoxSettingsLoginEveryHour.AutoSize = true;
-            this.checkBoxSettingsLoginEveryHour.Checked = true;
-            this.checkBoxSettingsLoginEveryHour.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSettingsLoginEveryHour.Location = new System.Drawing.Point(94, 121);
-            this.checkBoxSettingsLoginEveryHour.Name = "checkBoxSettingsLoginEveryHour";
-            this.checkBoxSettingsLoginEveryHour.Size = new System.Drawing.Size(105, 17);
-            this.checkBoxSettingsLoginEveryHour.TabIndex = 15;
-            this.checkBoxSettingsLoginEveryHour.Text = "Login every hour";
-            this.checkBoxSettingsLoginEveryHour.UseVisualStyleBackColor = true;
+            this.buttonStatusClear.Location = new System.Drawing.Point(4, 4);
+            this.buttonStatusClear.Name = "buttonStatusClear";
+            this.buttonStatusClear.Size = new System.Drawing.Size(75, 23);
+            this.buttonStatusClear.TabIndex = 1;
+            this.buttonStatusClear.Text = "Clear";
+            this.buttonStatusClear.UseVisualStyleBackColor = true;
+            this.buttonStatusClear.Click += new System.EventHandler(this.buttonStatusClear_Click);
             // 
             // ProcessCenter
             // 
@@ -2425,6 +2437,7 @@ namespace jeza.Travian.GameCenter
         private TabPage tabPageOverview;
         private TabPage tabPageSendTroops;
         private CheckBox checkBoxSettingsLoginEveryHour;
+        private Button buttonStatusClear;
     }
 }
 
