@@ -4,6 +4,10 @@ namespace ProductTracker
 {
     public class Shop
     {
+        public Shop()
+        {
+        }
+
         public Shop(string name)
         {
             Name = name;
