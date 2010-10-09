@@ -1,11 +1,19 @@
+using System;
+
 namespace ProductTracker
 {
     public class Price
     {
+        public Price()
+        {
+            Id = Guid.NewGuid();
+        }
+
         public Price(double gross, double net)
         {
             Gross = gross;
             Net = net;
+            Id = Guid.NewGuid();
         }
 
         /// <summary>
@@ -19,5 +27,11 @@ namespace ProductTracker
         /// </summary>
         /// <value>The net price.</value>
         public double Net { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>The id.</value>
+        public Guid Id { get; set; }
     }
 }
