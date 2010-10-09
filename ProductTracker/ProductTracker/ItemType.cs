@@ -2,6 +2,6 @@ namespace ProductTracker
 {
     public enum ItemType
     {
-        Card,
+        Card = 0,
     }
 }
