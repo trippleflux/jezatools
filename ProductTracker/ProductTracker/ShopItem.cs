@@ -4,6 +4,10 @@ namespace ProductTracker
 {
     public class ShopItem
     {
+        public ShopItem()
+        {
+        }
+
         public ShopItem(Item item, Shop shop, Price price)
         {
             Item = item;
@@ -11,6 +15,7 @@ namespace ProductTracker
             Price = price;
             NumberOfItems = 1;
             DateTime = new DateTime(DateTime.Now.Ticks);
+            Id = Guid.NewGuid();
         }
 
         /// <summary>
@@ -31,10 +36,22 @@ namespace ProductTracker
         public Item Item { get; set; }
 
         /// <summary>
+        /// Gets or sets the item id.
+        /// </summary>
+        /// <value>The item id.</value>
+        public Guid ItemId { get; set; }
+
+        /// <summary>
         /// Gets or sets the price.
         /// </summary>
         /// <value>The price.</value>
         public Price Price { get; set; }
+
+        /// <summary>
+        /// Gets or sets the price id.
+        /// </summary>
+        /// <value>The price id.</value>
+        public Guid PriceId { get; set; }
 
         /// <summary>
         /// Gets or sets the shop.
@@ -43,15 +60,27 @@ namespace ProductTracker
         public Shop Shop { get; set; }
 
         /// <summary>
+        /// Gets or sets the shop id.
+        /// </summary>
+        /// <value>The shop id.</value>
+        public Guid ShopId { get; set; }
+
+        /// <summary>
         /// Gets or sets the number of items being added.
         /// </summary>
         /// <value>The item count.</value>
-        public int NumberOfItems { get; private set; }
+        public int NumberOfItems { get; set; }
 
         /// <summary>
         /// Gets or sets the date time when item was send to shop.
         /// </summary>
         /// <value>The date time.</value>
         public DateTime DateTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
+        /// <value>The id.</value>
+        public Guid Id { get; set; }
     }
 }

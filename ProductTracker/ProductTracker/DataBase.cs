@@ -68,14 +68,14 @@ namespace ProductTracker
                     {
                         while (reader.Read())
                         {
-                            Item item = new Item()
-                            {
-                                Id = reader[0].ToString(),
-                                UniqueId= new Guid(reader[1].ToString()),
-                                Name = reader[2].ToString(),
-                                Notes = reader[3].ToString(),
-                                ItemTypeNumber = Int32.Parse(reader[4].ToString()),
-                            };
+                            Item item = new Item
+                                {
+                                    Id = reader[0].ToString(),
+                                    UniqueId = new Guid(reader[1].ToString()),
+                                    Name = reader[2].ToString(),
+                                    Notes = reader[3].ToString(),
+                                    ItemTypeNumber = Int32.Parse(reader[4].ToString()),
+                                };
                             item.ItemType = item.ConvertIntToItemType(item.ItemTypeNumber);
                             items.Add(item);
                         }
@@ -83,6 +83,81 @@ namespace ProductTracker
                 }
             }
             return items;
+        }
+
+        /// <summary>
+        /// Gets the price for specified item in specified shop.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="shop">The shop.</param>
+        /// <returns></returns>
+        public Price GetPrice(Item item, Shop shop)
+        {
+            Price price = null;
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Price WHERE Item='{0}' AND Shop='{1}'",
+                                                          item.UniqueId, shop.Id);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            price = new Price
+                                {
+                                    Gross = Double.Parse(reader[1].ToString()),
+                                    Net = Double.Parse(reader[2].ToString()),
+                                    Id = new Guid(reader[4].ToString()),
+                                };
+                            break;
+                        }
+                    }
+                }
+            }
+            return price;
+        }
+
+        /// <summary>
+        /// Gets the shop item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="shop">The shop.</param>
+        /// <returns></returns>
+        public ShopItem GetShopItem(Item item, Shop shop)
+        {
+            ShopItem shopItem = null;
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM ShopItems WHERE Item='{0}' AND Shop='{1}'",
+                                                          item.UniqueId, shop.Id);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            shopItem = new ShopItem
+                            {
+                                Item = item,
+                                ItemId = new Guid(reader[0].ToString()),
+                                Shop = shop,
+                                ShopId = new Guid(reader[1].ToString()),
+                                DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
+                                PriceId = new Guid(reader[3].ToString()),
+                                NumberOfItems = Int32.Parse(reader[4].ToString()),
+                                Id = new Guid(reader[5].ToString()),
+                            };
+                            break;
+                        }
+                    }
+                }
+            }
+            return shopItem;
         }
 
         /// <summary>
@@ -178,11 +253,33 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
-                    // Create a parameterized insert command
-                    string guid = item.UniqueId.ToString();
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "INSERT INTO Items (Id, UniqueId, Name, Notes, ItemType) VALUES('{0}', '{1}', '{2}', '{3}', {4})",
-                                                       item.Id, guid, item.Name, item.Notes, (int)item.ItemType);
+                                                       item.Id, item.UniqueId, item.Name, item.Notes,
+                                                       (int) item.ItemType);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the price for specified item in shop.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <param name="shop">The shop.</param>
+        /// <param name="price">The price.</param>
+        /// <returns><c>true</c> on success.</returns>
+        public bool InsertPrice(Item item, Shop shop, Price price)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "INSERT INTO Price (Item, Gross, Net, Shop, Id) VALUES('{0}', {1}, {2}, '{3}', '{4}')",
+                                                       item.UniqueId, price.Gross, price.Net, shop.Id, price.Id);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }
@@ -201,12 +298,33 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
-                    // Create a parameterized insert command
                     string guid = shop.Id.ToString();
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "INSERT INTO Shops (Id, Name, Address, Owner, PostalCode, City, IsCompany) VALUES('{0}', '{1}', '{2}', '{3}', {4}, '{5}', {6})",
                                                        guid, shop.Name, shop.Address, shop.Owner, shop.PostalCode,
                                                        shop.City, shop.IsCompany ? 1 : 0);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the shop item.
+        /// </summary>
+        /// <param name="shopItem">The shop item.</param>
+        /// <returns><c>true</c> on success.</returns>
+        public bool InsertShopItem(ShopItem shopItem)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "INSERT INTO ShopItems (Item, Shop, DateTime, Price, NumberOfItems, Id) VALUES('{0}', '{1}', '{2}', '{3}', {4}, '{5}')",
+                                                       shopItem.Item.UniqueId, shopItem.Shop.Id, shopItem.DateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                                                       shopItem.Price.Id, shopItem.NumberOfItems, shopItem.Id);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }
