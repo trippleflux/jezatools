@@ -12,26 +12,23 @@
             <div id="divMain">
                 <div id="divHead">
                     <asp:Panel ID="PanelHead" runat="server">
-                        
+                        <table id="tableHead">
+                            <tr>
+                                <td>
+                                    <asp:LinkButton ID="LinkButtonShops" runat="server" 
+                                        onclick="LinkButtonShops_Click">Shops</asp:LinkButton>
+                                </td>
+                                <td>
+                                    <asp:LinkButton ID="LinkButtonItems" runat="server" 
+                                        onclick="LinkButtonItems_Click">Items</asp:LinkButton>
+                                </td>
+                            </tr>
+                        </table>
                     </asp:Panel>
                 </div>
                 <div id="divMiddle">
                     <asp:Panel ID="PanelMiddle" runat="server">
                         <div id="divMiddleHead">
-                            <asp:Panel ID="PanelMiddleHead" runat="server">
-                                <table id="tableMiddleHead">
-                                    <tr>
-                                        <td>
-                                            <asp:LinkButton ID="LinkButtonShops" runat="server" 
-                                                onclick="LinkButtonShops_Click">Shops</asp:LinkButton>
-                                        </td>
-                                        <td>
-                                            <asp:LinkButton ID="LinkButtonItems" runat="server" 
-                                                onclick="LinkButtonItems_Click">Items</asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </asp:Panel>
                         </div>
                         <div id="divMiddleGridView">
                             <asp:Panel ID="PanelMiddleGridView" runat="server">
@@ -48,6 +45,10 @@
                                             </asp:SqlDataSource>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                        </td>
+                                    </tr>
                                 </table>
                             </asp:Panel>
                         </div>
@@ -55,7 +56,16 @@
                 </div>
                 <div id="divFoot">
                     <asp:Panel ID="PanelFoot" runat="server">
-                        
+                        <table id="tableFoot">
+                            <tr>
+                                <td>
+                                    <asp:HyperLink ID="HyperLinkManageItems" runat="server" 
+                                        NavigateUrl="~/ManageItems.aspx">Manage Items</asp:HyperLink>    
+                                    <asp:HyperLink ID="HyperLinkManageShops" runat="server" 
+                                        NavigateUrl="~/ManageShops.aspx">Manage Shops</asp:HyperLink>    
+                                </td>
+                            </tr>
+                        </table>
                     </asp:Panel>
                 </div>
             </div>

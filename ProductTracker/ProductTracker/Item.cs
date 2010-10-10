@@ -17,7 +17,6 @@ namespace ProductTracker
             Id = id;
             Name = name;
             UniqueId = Guid.NewGuid();
-            ItemType = ItemType.Card;
         }
 
         /// <summary>
@@ -48,27 +47,6 @@ namespace ProductTracker
         /// Gets or sets the type of the item.
         /// </summary>
         /// <value>The type of the item.</value>
-        public ItemType ItemType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the item type number.
-        /// </summary>
-        /// <value>The item type number.</value>
-        public int ItemTypeNumber { get; set; }
-
-        public ItemType ConvertIntToItemType(int itemNumber)
-        {
-            switch (itemNumber)
-            {
-                case (int) ItemType.Card:
-                    {
-                        return ItemType.Card;
-                    }
-                default:
-                    {
-                        return ItemType.Card;
-                    }
-            }
-        }
+        public int ItemType { get; set; }
     }
 }
