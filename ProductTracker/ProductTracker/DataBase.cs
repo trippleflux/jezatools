@@ -142,16 +142,16 @@ namespace ProductTracker
                         while (reader.Read())
                         {
                             shopItem = new ShopItem
-                            {
-                                Item = item,
-                                ItemId = new Guid(reader[0].ToString()),
-                                Shop = shop,
-                                ShopId = new Guid(reader[1].ToString()),
-                                DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
-                                PriceId = new Guid(reader[3].ToString()),
-                                NumberOfItems = Int32.Parse(reader[4].ToString()),
-                                Id = new Guid(reader[5].ToString()),
-                            };
+                                {
+                                    Item = item,
+                                    ItemId = new Guid(reader[0].ToString()),
+                                    Shop = shop,
+                                    ShopId = new Guid(reader[1].ToString()),
+                                    DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
+                                    PriceId = new Guid(reader[3].ToString()),
+                                    NumberOfItems = Int32.Parse(reader[4].ToString()),
+                                    Id = new Guid(reader[5].ToString()),
+                                };
                             break;
                         }
                     }
@@ -194,6 +194,40 @@ namespace ProductTracker
                 }
             }
             return shops;
+        }
+
+        /// <summary>
+        /// Gets the tracker for specified shop item.
+        /// </summary>
+        /// <param name="shopItem">The shop item.</param>
+        /// <returns></returns>
+        public IList<Tracker> GetTrackers(ShopItem shopItem)
+        {
+            IList<Tracker> trackers = new List<Tracker>();
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Tracker WHERE ShopItem='{0}'", shopItem.Id);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Tracker tracker = new Tracker()
+                                {
+                                    Id = new Guid(reader[0].ToString()),
+                                    ShopItemId = new Guid(reader[1].ToString()),
+                                    DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
+                                    SoldCount = Int32.Parse(reader[3].ToString()),
+                                };
+                            trackers.Add(tracker);
+                        }
+                    }
+                }
+            }
+            return trackers;
         }
 
         /// <summary>
@@ -323,8 +357,32 @@ namespace ProductTracker
                     dbConnection.Open();
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "INSERT INTO ShopItems (Item, Shop, DateTime, Price, NumberOfItems, Id) VALUES('{0}', '{1}', '{2}', '{3}', {4}, '{5}')",
-                                                       shopItem.Item.UniqueId, shopItem.Shop.Id, shopItem.DateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                                                       shopItem.Item.UniqueId, shopItem.Shop.Id,
+                                                       shopItem.DateTime.ToString(DateTimeFormatProvider),
                                                        shopItem.Price.Id, shopItem.NumberOfItems, shopItem.Id);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts the tracker.
+        /// </summary>
+        /// <param name="tracker">The tracker.</param>
+        /// <returns><c>true</c> on success.</returns>
+        public bool InsertTracker(Tracker tracker)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "INSERT INTO Tracker (Id, ShopItem, DateTime, SoldCount) VALUES('{0}', '{1}', '{2}', {3})",
+                                                       tracker.Id, tracker.ShopItemId,
+                                                       tracker.DateTime.ToString(DateTimeFormatProvider),
+                                                       tracker.SoldCount);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }
@@ -333,5 +391,6 @@ namespace ProductTracker
 
         private readonly string dbConnectionString;
         private readonly DbConnection dbConnection;
+        private const string DateTimeFormatProvider = "yyyy-MM-dd HH:mm:ss";
     }
 }
