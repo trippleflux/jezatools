@@ -14,7 +14,7 @@
                         <table id="tableHead">
                             <tr>
                                 <td>
-                                    <asp:HyperLink ID="HyperLinkManageItems" runat="server" 
+                                    <asp:HyperLink ID="HyperLinkMain" runat="server" 
                                         NavigateUrl="~/Default.aspx">Main</asp:HyperLink>
 
                                 </td>

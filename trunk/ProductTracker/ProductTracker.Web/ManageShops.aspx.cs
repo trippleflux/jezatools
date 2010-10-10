@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Xml.Linq;
+﻿#region
+
+using System;
+using System.Collections.Generic;
+
+#endregion
 
 namespace ProductTracker.Web
 {
@@ -17,7 +11,21 @@ namespace ProductTracker.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            SetElementValues();
+        }
 
+        private void SetElementValues()
+        {
+            SettingsManager settingsManager = new SettingsManager();
+            Settings settings = settingsManager.DeserializeFromXml();
+            foreach (Page page in settings.Page)
+            {
+                if (page.Id == "ManageShops")
+                {
+                    List<Setting> setting = page.Setting;
+                    HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
+                }
+            }
         }
     }
 }

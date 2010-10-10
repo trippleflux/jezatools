@@ -14,7 +14,7 @@
                         <table id="tableHead">
                             <tr>
                                 <td>
-                                    <asp:HyperLink ID="HyperLinkManageItems" runat="server" 
+                                    <asp:HyperLink ID="HyperLinkMain" runat="server" 
                                         NavigateUrl="~/Default.aspx">Main</asp:HyperLink>
                                 </td>
                             </tr>
@@ -50,25 +50,25 @@
                         <table id="tableMiddleBody">
                             <tr>
                                 <td>
-                                    <p>Id</p>
+                                    <asp:Label ID="LabelItemId" runat="server" Text="Id"></asp:Label>
                                 </td>
                                 <td>
-                                    <p>Name</p>
+                                    <asp:Label ID="LabelItemName" runat="server" Text="Name"></asp:Label>
                                 </td>
                                 <td>
-                                    <p>Notes</p>
+                                    <asp:Label ID="LabelItemNote" runat="server" Text="Notes"></asp:Label>
                                 </td>
                                 <td>
-                                    <p>Type</p>
+                                    <asp:Label ID="LabelItemItemType" runat="server" Text="Type"></asp:Label>
                                 </td>
                                 <td>
-                                    <p></p>
+                                    
                                 </td>
                                 <td>
-                                    <p></p>
+                                    
                                 </td>
                                 <td>
-                                    <p></p>
+                                    
                                 </td>
                             </tr>
                             <tr>

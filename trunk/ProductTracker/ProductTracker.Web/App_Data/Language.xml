@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+  <page id="DefaultPage">
+    <setting id="LinkButtonShops" value="Seznam Trgovin" />
+    <setting id="LinkButtonItems" value="Seznam Izdelkov" />
+    <setting id="HyperLinkManageItems" value="Uredi Izdelke" />
+    <setting id="HyperLinkManageShops" value="Uredi Trgovine" />
+  </page>
+  <page id="ManageItems">
+    <setting id="HyperLinkMain" value="Osnovna Stran" />
+    <setting id="LabelItemTypes" value="Tip Izdelka" />
+    <setting id="LinkButtonItemTypesSubmit" value="Dodaj Nov Tip Izdelka" />
+    <setting id="LabelItemsSelect" value="Izdelki" />
+    <setting id="LinkButtonItemsSelect" value="Izberi" />
+    <setting id="LabelItemId" value="Id Izdelka" />
+    <setting id="LabelItemName" value="Ime Izdelka" />
+    <setting id="LabelItemNote" value="Opis" />
+    <setting id="LabelItemItemType" value="Tip Izdelka" />
+    <setting id="LinkButtonMiddleBodySubmit" value="Predloži" />
+    <setting id="LinkButtonMiddleItemTypesDelete" value="Izbriši" />
+  </page>
+  <page id="ManageShops">
+    <setting id="HyperLinkMain" value="Osnovna Stran"/>
+  </page>
+</settings>

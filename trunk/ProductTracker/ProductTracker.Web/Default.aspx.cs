@@ -1,5 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using System.Xml.Serialization;
+
+#endregion
 
 namespace ProductTracker.Web
 {
@@ -7,10 +14,28 @@ namespace ProductTracker.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            SetElementValues();
             ShowItems();
             if (!IsPostBack)
             {
                 PopulateItems();
+            }
+        }
+
+        private void SetElementValues()
+        {
+            SettingsManager settingsManager = new SettingsManager();
+            Settings settings = settingsManager.DeserializeFromXml();
+            foreach (Page page in settings.Page)
+            {
+                if (page.Id == "DefaultPage")
+                {
+                    List<Setting> setting = page.Setting;
+                    LinkButtonShops.Text = settingsManager.GetSettingValue("LinkButtonShops", setting);
+                    LinkButtonItems.Text = settingsManager.GetSettingValue("LinkButtonItems", setting);
+                    HyperLinkManageItems.Text = settingsManager.GetSettingValue("HyperLinkManageItems", setting);
+                    HyperLinkManageShops.Text = settingsManager.GetSettingValue("HyperLinkManageShops", setting);
+                }
             }
         }
 
