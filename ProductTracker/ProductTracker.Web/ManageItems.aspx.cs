@@ -7,10 +7,35 @@ namespace ProductTracker.Web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            SetElementValues();
             if (!IsPostBack)
             {
                 PopulateItems();
                 PopulateItemTypes();
+            }
+        }
+
+        private void SetElementValues()
+        {
+            SettingsManager settingsManager = new SettingsManager();
+            Settings settings = settingsManager.DeserializeFromXml();
+            foreach (Page page in settings.Page)
+            {
+                if (page.Id == "ManageItems")
+                {
+                    List<Setting> setting = page.Setting;
+                    HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
+                    LabelItemTypes.Text = settingsManager.GetSettingValue("LabelItemTypes", setting);
+                    LinkButtonItemTypesSubmit.Text = settingsManager.GetSettingValue("LinkButtonItemTypesSubmit", setting);
+                    LabelItemsSelect.Text = settingsManager.GetSettingValue("LabelItemsSelect", setting);
+                    LinkButtonItemsSelect.Text = settingsManager.GetSettingValue("LinkButtonItemsSelect", setting);
+                    LabelItemId.Text = settingsManager.GetSettingValue("LabelItemId", setting);
+                    LabelItemName.Text = settingsManager.GetSettingValue("LabelItemName", setting);
+                    LabelItemNote.Text = settingsManager.GetSettingValue("LabelItemNote", setting);
+                    LabelItemItemType.Text = settingsManager.GetSettingValue("LabelItemItemType", setting);
+                    LinkButtonMiddleBodySubmit.Text = settingsManager.GetSettingValue("LinkButtonMiddleBodySubmit", setting);
+                    LinkButtonMiddleItemTypesDelete.Text = settingsManager.GetSettingValue("LinkButtonMiddleItemTypesDelete", setting);
+                }
             }
         }
 

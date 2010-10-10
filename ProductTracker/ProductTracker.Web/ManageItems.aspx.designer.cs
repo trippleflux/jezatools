@@ -32,13 +32,13 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.Panel PanelHead;
         
         /// <summary>
-        /// HyperLinkManageItems control.
+        /// HyperLinkMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageItems;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLinkMain;
         
         /// <summary>
         /// LabelItemTypes control.
@@ -93,6 +93,42 @@ namespace ProductTracker.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonItemsSelect;
+        
+        /// <summary>
+        /// LabelItemId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelItemId;
+        
+        /// <summary>
+        /// LabelItemName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelItemName;
+        
+        /// <summary>
+        /// LabelItemNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelItemNote;
+        
+        /// <summary>
+        /// LabelItemItemType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelItemItemType;
         
         /// <summary>
         /// TextBoxMiddleBodyId control.
