@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductTracker.Tests", "Pro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Slution Items", "Slution Items", "{F373F871-D9ED-43E8-9167-51EC2A2CC1FE}"
 	ProjectSection(SolutionItems) = preProject
+		nant.bat = nant.bat
+		ProductTracker.build = ProductTracker.build
 		ProductTracker.Db\ProductTracker.db3 = ProductTracker.Db\ProductTracker.db3
 	EndProjectSection
 EndProject

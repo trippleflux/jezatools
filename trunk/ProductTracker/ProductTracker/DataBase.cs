@@ -36,6 +36,22 @@ namespace ProductTracker
         }
 
         /// <summary>
+        /// Deletes all item types.
+        /// </summary>
+        public void DeleteAllItemTypes()
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = "DELETE FROM ItemType";
+                    dbCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
         /// Deletes all shops.
         /// </summary>
         public void DeleteAllShops()
@@ -52,7 +68,87 @@ namespace ProductTracker
         }
 
         /// <summary>
-        /// Gets the available shops.
+        /// Deletes the item.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public void DeleteItem(string id)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM Items WHERE UniqueId='{0}'", id);
+                    dbCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the item types.
+        /// </summary>
+        /// <returns></returns>
+        public IList<ItemType> GetItemTypes()
+        {
+            IList<ItemType> itemTypes = new List<ItemType>();
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = "SELECT * FROM ItemType";
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ItemType itemType = new ItemType()
+                            {
+                                Id = Int32.Parse(reader[0].ToString()),
+                                Name = reader[1].ToString(),
+                            };
+                            itemTypes.Add(itemType);
+                        }
+                    }
+                }
+            }
+            return itemTypes;
+        }
+
+        /// <summary>
+        /// Gets the item.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><see cref="Item"/> if found; else <c>null</c></returns>
+        public Item GetItem(Guid value)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "SELECT * FROM Items WHERE UniqueId='{0}'", value);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Item item = new Item
+                            {
+                                Id = reader[0].ToString(),
+                                UniqueId = new Guid(reader[1].ToString()),
+                                Name = reader[2].ToString(),
+                                Notes = reader[3].ToString(),
+                                ItemType = Int32.Parse(reader[4].ToString()),
+                            };
+                            return item;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the available items.
         /// </summary>
         /// <returns><see cref="IList{T}"/></returns>
         public IList<Item> GetItems()
@@ -74,9 +170,8 @@ namespace ProductTracker
                                     UniqueId = new Guid(reader[1].ToString()),
                                     Name = reader[2].ToString(),
                                     Notes = reader[3].ToString(),
-                                    ItemTypeNumber = Int32.Parse(reader[4].ToString()),
+                                    ItemType = Int32.Parse(reader[4].ToString()),
                                 };
-                            item.ItemType = item.ConvertIntToItemType(item.ItemTypeNumber);
                             items.Add(item);
                         }
                     }
@@ -291,6 +386,27 @@ namespace ProductTracker
                                                        "INSERT INTO Items (Id, UniqueId, Name, Notes, ItemType) VALUES('{0}', '{1}', '{2}', '{3}', {4})",
                                                        item.Id, item.UniqueId, item.Name, item.Notes,
                                                        (int) item.ItemType);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Inserts new item type.
+        /// </summary>
+        /// <param name="itemType">The item type.</param>
+        /// <returns><c>true</c> on success.</returns>
+        public bool InsertItemType(ItemType itemType)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "INSERT INTO ItemType (Name) VALUES('{0}')",
+                                                       itemType.Name);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }

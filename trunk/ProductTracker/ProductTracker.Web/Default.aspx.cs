@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ProductTracker.Web
 {
@@ -16,11 +17,19 @@ namespace ProductTracker.Web
         private void PopulateItems()
         {
             ShowItems();
+            DataBase dataBase = new DataBase();
+            IList<Item> items = dataBase.GetItems();
+            GridViewItems.DataSource = items;
+            GridViewItems.DataBind();
         }
 
         private void PopulateShops()
         {
             ShowShops();
+            DataBase dataBase = new DataBase();
+            IList<Shop> shops = dataBase.GetShops();
+            GridViewShops.DataSource = shops;
+            GridViewShops.DataBind();
         }
 
         private void ShowItems()

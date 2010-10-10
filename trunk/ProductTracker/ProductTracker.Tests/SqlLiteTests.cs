@@ -33,6 +33,17 @@ namespace ProductTracker.Tests
         }
 
         /// <summary>
+        /// Gets the item.
+        /// </summary>
+        [Test]
+        public void GetItem()
+        {
+            Item actualItem = dataBase.GetItem(item.UniqueId);
+            Assert.IsNotNull(actualItem, "dataBase.GetItem() is NULL!");
+            Assert.AreEqual(item.UniqueId, actualItem.UniqueId, "Item missmatch!");
+        }
+
+        /// <summary>
         /// Gets the available items.
         /// </summary>
         [Test]
@@ -77,11 +88,16 @@ namespace ProductTracker.Tests
         public void Setup()
         {
             dataBase.DeleteAllItems();
+            dataBase.DeleteAllItemTypes();
             dataBase.DeleteAllShops();
+            const string itemTypeName = "cestitka";
+            itemType = new ItemType() {Name = itemTypeName};
+            Assert.IsTrue(dataBase.InsertItemType(itemType));
+            IList<ItemType> itemTypes = dataBase.GetItemTypes();
             const string shopName = "trgovina 1";
             shop = new Shop(shopName);
             Assert.IsTrue(dataBase.InsertShop(shop));
-            item = new Item("ID00001", "item 1");
+            item = new Item("ID00001", "item 1"){ItemType = itemTypes[0].Id};
             Assert.IsTrue(dataBase.InsertItem(item));
             price = new Price(1.2, 1.1);
             Assert.IsTrue(dataBase.InsertPrice(item, shop, price));
@@ -98,5 +114,6 @@ namespace ProductTracker.Tests
         private Price price = new Price();
         private ShopItem shopItem = new ShopItem();
         private Tracker tracker = new Tracker();
+        private ItemType itemType = new ItemType();
     }
 }
