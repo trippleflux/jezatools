@@ -58,14 +58,19 @@ namespace ProductTracker.Tests
         [Test]
         public void GetShopItem()
         {
-            ShopItem shopItem = new ShopItem(item, shop, price);
-            shopItem.SetNumberOfItems(5);
-            Assert.IsTrue(dataBase.InsertShopItem(shopItem));
             ShopItem actualShopItem = dataBase.GetShopItem(item, shop);
             Assert.AreEqual(item.UniqueId, actualShopItem.ItemId, "ItemId missmatch!");
             Assert.AreEqual(shop.Id, actualShopItem.ShopId, "ShopId missmatch!");
             Assert.AreEqual(price.Id, actualShopItem.PriceId, "PriceId missmatch!");
             Assert.AreEqual(5, actualShopItem.NumberOfItems, "NumberOfItems missmatch!");
+        }
+
+        [Test]
+        public void GetTracker()
+        {
+            IList<Tracker> actualTrackers = dataBase.GetTrackers(shopItem);
+            Assert.AreEqual(shopItem.Id, actualTrackers[0].ShopItemId, "ShopItemId missmatch!");
+            Assert.AreEqual(2, actualTrackers[0].SoldCount, "SoldCount missmatch!");
         }
 
         [SetUp]
@@ -80,11 +85,18 @@ namespace ProductTracker.Tests
             Assert.IsTrue(dataBase.InsertItem(item));
             price = new Price(1.2, 1.1);
             Assert.IsTrue(dataBase.InsertPrice(item, shop, price));
+            shopItem = new ShopItem(item, shop, price);
+            shopItem.SetNumberOfItems(5);
+            Assert.IsTrue(dataBase.InsertShopItem(shopItem));
+            tracker = new Tracker(shopItem) {SoldCount = 2};
+            Assert.IsTrue(dataBase.InsertTracker(tracker));
         }
 
         private readonly DataBase dataBase = new DataBase();
         private Shop shop = new Shop();
         private Item item = new Item();
         private Price price = new Price();
+        private ShopItem shopItem = new ShopItem();
+        private Tracker tracker = new Tracker();
     }
 }
