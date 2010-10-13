@@ -16,11 +16,11 @@
                             <tr>
                                 <td>
                                     <asp:LinkButton ID="LinkButtonShops" runat="server" 
-                                        onclick="LinkButtonShops_Click">Shops</asp:LinkButton>
+                                        onclick="LinkButtonShops_Click" CssClass="linkButton">Shops</asp:LinkButton>
                                 </td>
                                 <td>
                                     <asp:LinkButton ID="LinkButtonItems" runat="server" 
-                                        onclick="LinkButtonItems_Click">Items</asp:LinkButton>
+                                        onclick="LinkButtonItems_Click" CssClass="linkButton">Items</asp:LinkButton>
                                 </td>
                             </tr>
                         </table>
@@ -60,9 +60,9 @@
                             <tr>
                                 <td>
                                     <asp:HyperLink ID="HyperLinkManageItems" runat="server" 
-                                        NavigateUrl="~/ManageItems.aspx">Manage Items</asp:HyperLink>    
+                                        NavigateUrl="~/ManageItems.aspx" CssClass="hyperLink">Manage Items</asp:HyperLink>    
                                     <asp:HyperLink ID="HyperLinkManageShops" runat="server" 
-                                        NavigateUrl="~/ManageShops.aspx">Manage Shops</asp:HyperLink>    
+                                        NavigateUrl="~/ManageShops.aspx" CssClass="hyperLink">Manage Shops</asp:HyperLink>    
                                 </td>
                             </tr>
                         </table>

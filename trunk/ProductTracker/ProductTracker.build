@@ -48,5 +48,18 @@
     </zip>
   </target>
 
+  <target name="deploy.copy" depends="compile" descripton="Copy files to deploy folder.">
+    <copy todir="release/ProductTracker">
+      <fileset basedir="${path::combine(Folder.Source, 'ProductTracker.Web')}">
+        <include name="**/*.aspx"/>
+        <include name="**/*.config"/>
+        <include name="**/*.css"/>
+        <include name="App_Data/**"/>
+        <include name="bin/**"/>
+      </fileset>
+    </copy>
+
+  </target>
+
 </project>
 

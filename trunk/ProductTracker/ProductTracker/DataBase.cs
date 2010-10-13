@@ -78,6 +78,10 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM Price WHERE Item='{0}'", id);
+                    dbCommand.ExecuteNonQuery();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM ShopItems WHERE Item='{0}'", id);
+                    dbCommand.ExecuteNonQuery();
                     dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM Items WHERE UniqueId='{0}'", id);
                     dbCommand.ExecuteNonQuery();
                 }
@@ -159,7 +163,7 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
-                    dbCommand.CommandText = "SELECT * FROM Items";
+                    dbCommand.CommandText = "SELECT Id, UniqueId, Name, Notes, ItemType, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName FROM Items";
                     using (DbDataReader reader = dbCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -171,6 +175,7 @@ namespace ProductTracker
                                     Name = reader[2].ToString(),
                                     Notes = reader[3].ToString(),
                                     ItemType = Int32.Parse(reader[4].ToString()),
+                                    ItemTypeName = reader[5].ToString(),
                                 };
                             items.Add(item);
                         }
@@ -499,6 +504,28 @@ namespace ProductTracker
                                                        tracker.Id, tracker.ShopItemId,
                                                        tracker.DateTime.ToString(DateTimeFormatProvider),
                                                        tracker.SoldCount);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates existing item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns><c>true</c> on success.</returns>
+        public bool UpdateItem(Item item)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "UPDATE Items SET Id='{0}', Name='{1}', Notes='{2}', ItemType={3} WHERE UniqueId='{4}'",
+                                                       item.Id, item.Name, item.Notes,
+                                                       (int)item.ItemType, item.UniqueId);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }

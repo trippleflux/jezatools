@@ -12,6 +12,7 @@
     <setting id="LinkButtonItemTypesSubmit" value="Dodaj Nov Tip Izdelka" />
     <setting id="LabelItemsSelect" value="Izdelki" />
     <setting id="LinkButtonItemsSelect" value="Izberi" />
+    <setting id="LinkButtonItemsAddNew" value="Dodaj" />
     <setting id="LabelItemId" value="Id Izdelka" />
     <setting id="LabelItemName" value="Ime Izdelka" />
     <setting id="LabelItemNote" value="Opis" />
