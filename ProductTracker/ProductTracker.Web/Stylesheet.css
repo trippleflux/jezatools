@@ -1,3 +1,60 @@
 ﻿body
 {
 }
+
+.linkButton
+{
+}
+
+.hyperLink
+{
+}
+
+
+.labelManageItems
+{
+	width:120px;
+	float:right;
+	text-align:left;
+}
+
+.labelDefault
+{
+	width:120px;
+	float:right;
+	text-align:left;
+}
+
+.labelManageShops
+{
+	width:120px;
+	float:right;
+	text-align:left;
+}
+
+.textBoxManageItems
+{
+}
+
+.textBoxDefault
+{
+}
+
+.textBoxManageShops
+{
+}
+
+.dropDownManageItems
+{
+	width:120px;
+}
+
+.dropDownDefault
+{
+	width:120px;
+}
+
+.dropDownManageShops
+{
+	width:120px;
+}

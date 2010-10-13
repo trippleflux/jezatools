@@ -29,6 +29,7 @@ namespace ProductTracker.Web
                     LinkButtonItemTypesSubmit.Text = settingsManager.GetSettingValue("LinkButtonItemTypesSubmit", setting);
                     LabelItemsSelect.Text = settingsManager.GetSettingValue("LabelItemsSelect", setting);
                     LinkButtonItemsSelect.Text = settingsManager.GetSettingValue("LinkButtonItemsSelect", setting);
+                    LinkButtonItemsAddNew.Text = settingsManager.GetSettingValue("LinkButtonItemsAddNew", setting);
                     LabelItemId.Text = settingsManager.GetSettingValue("LabelItemId", setting);
                     LabelItemName.Text = settingsManager.GetSettingValue("LabelItemName", setting);
                     LabelItemNote.Text = settingsManager.GetSettingValue("LabelItemNote", setting);
@@ -64,8 +65,8 @@ namespace ProductTracker.Web
             TextBoxMiddleBodyId.Text = item.Id;
             TextBoxMiddleBodyName.Text = item.Name;
             TextBoxMiddleBodyNotes.Text = item.Notes;
-            TextBoxMiddleBodyUniqueId.Text = item.UniqueId.ToString();
             DropDownListMiddleBodyItemType.SelectedValue = item.ItemType.ToString();
+            TextBoxMiddleBodyUniqueId.Text = item.UniqueId.ToString();
         }
 
         protected void LinkButtonMiddleBodySubmit_Click(object sender, EventArgs e)
@@ -76,14 +77,26 @@ namespace ProductTracker.Web
             string notes = TextBoxMiddleBodyNotes.Text;
             string itemType = DropDownListMiddleBodyItemType.SelectedValue;
             Item item = new Item(id, name) {Notes = notes, ItemType = Int32.Parse(itemType)};
-            dataBase.InsertItem(item);
+            if (TextBoxMiddleBodyUniqueId.Text.Length > 8)
+            {
+                item.UniqueId = new Guid(TextBoxMiddleBodyUniqueId.Text.Trim());
+                dataBase.UpdateItem(item);
+            }
+            else
+            {
+                dataBase.InsertItem(item);
+            }
             PopulateItems();
         }
 
         protected void LinkButtonItemTypesSubmit_Click(object sender, EventArgs e)
         {
-            DataBase dataBase = new DataBase();
-            dataBase.InsertItemType(new ItemType(){Name = TextBoxItemTypes.Text.Trim()});
+            string itemTypeName = TextBoxItemTypes.Text.Trim();
+            if (itemTypeName.Length > 0)
+            {
+                DataBase dataBase = new DataBase();
+                dataBase.InsertItemType(new ItemType() {Name = itemTypeName});
+            }
             PopulateItemTypes();
         }
 
@@ -93,6 +106,14 @@ namespace ProductTracker.Web
             string id = TextBoxMiddleBodyUniqueId.Text;
             dataBase.DeleteItem(id);
             PopulateItems();
+        }
+
+        protected void LinkButtonItemsAddNew_Click(object sender, EventArgs e)
+        {
+            TextBoxMiddleBodyId.Text = "";
+            TextBoxMiddleBodyName.Text = "";
+            TextBoxMiddleBodyNotes.Text = "";
+            TextBoxMiddleBodyUniqueId.Text = "";
         }
     }
 }

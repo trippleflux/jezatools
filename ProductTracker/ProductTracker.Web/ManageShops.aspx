@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head runat="server">
         <title>Shops</title>
+        <link href="Stylesheet.css" type="text/css" rel="Stylesheet" />
     </head>
     <body>
         <form id="formManageShops" runat="server">
@@ -15,7 +16,7 @@
                             <tr>
                                 <td>
                                     <asp:HyperLink ID="HyperLinkMain" runat="server" 
-                                        NavigateUrl="~/Default.aspx">Main</asp:HyperLink>
+                                        NavigateUrl="~/Default.aspx" CssClass="hyperLink">Main</asp:HyperLink>
 
                                 </td>
                             </tr>
