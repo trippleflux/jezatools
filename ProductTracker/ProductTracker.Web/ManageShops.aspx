@@ -23,6 +23,96 @@
                         </table>
                     </asp:Panel>
                 </div>
+                <div id="divShopList">
+                    <div id="divShopListText">
+                        
+                    </div>
+                    <div id="divShopListBodz">
+                        <asp:Panel ID="PanelShopList" runat="server">
+                            <table id="tableShopList">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="LabelShopList" runat="server" Text="Shops"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="DropDownListShopList" runat="server">
+                                        </asp:DropDownList>
+                                    </td>
+                                    <td>
+                                        <asp:LinkButton ID="LinkButtonShopList" runat="server" 
+                                            onclick="LinkButtonShopList_Click">Select</asp:LinkButton>
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
+                    </div>
+                </div>
+                <div id="divBody">
+                    <div id="divBodyText">
+                        
+                    </div>
+                    <div id="divBodyShops">
+                        <asp:Panel ID="PanelBody" runat="server">
+                            <table id="tableBody">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsId" runat="server" Text="Id"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsName" runat="server" Text="Name"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsAddress" runat="server" Text="Address"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsOwner" runat="server" Text="Owner"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsPostalCode" runat="server" Text="PostalCode"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsCity" runat="server" Text="City"></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:Label ID="LabelBodyShopsIsCompany" runat="server" Text="IsCompany"></asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="TextBoxBodyShopsId" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TextBoxBodyShopsName" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TextBoxBodyShopsAddress" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TextBoxBodyShopsOwner" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TextBoxBodyShopsPostalCode" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TextBoxBodyShopsCity" runat="server"></asp:TextBox>
+                                    </td>
+                                    <td>
+                                        <asp:CheckBox ID="CheckBoxBodyShopsIsCompany" runat="server" />
+                                    </td>
+                                    <td>
+                                        <asp:LinkButton ID="LinkButtonBodyShopsSubmit" runat="server">Submit</asp:LinkButton>
+                                    </td>
+                                    <td>
+                                        <asp:LinkButton ID="LinkButtonBodyShopsDelete" runat="server">Delete</asp:LinkButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </asp:Panel>
+                    </div>
+                </div>
             </div>
         </form>
     </body>
