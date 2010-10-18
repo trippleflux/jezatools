@@ -22,5 +22,16 @@
   </page>
   <page id="ManageShops">
     <setting id="HyperLinkMain" value="Osnovna Stran"/>
+    <setting id="LabelBodyShopsId" value="Id"/>
+    <setting id="LabelBodyShopsName" value="Ime"/>
+    <setting id="LabelBodyShopsAddress" value="Naslov"/>
+    <setting id="LabelBodyShopsOwner" value="Lastnik"/>
+    <setting id="LabelBodyShopsPostalCode" value="Poštna Številka"/>
+    <setting id="LabelBodyShopsCity" value="Kraj/Mesto"/>
+    <setting id="LabelBodyShopsIsCompany" value="Pravna Oseba"/>
+    <setting id="LabelShopList" value="Trgovine"/>
+    <setting id="LinkButtonShopList" value="Izberi"/>
+    <setting id="LinkButtonBodyShopsSubmit" value="Uvozi??"/>
+    <setting id="LinkButtonBodyShopsDelete" value="Zbriši"/>
   </page>
 </settings>

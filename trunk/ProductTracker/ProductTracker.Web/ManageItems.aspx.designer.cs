@@ -41,6 +41,15 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.HyperLink HyperLinkMain;
         
         /// <summary>
+        /// PanelItemTypes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelItemTypes;
+        
+        /// <summary>
         /// LabelItemTypes control.
         /// </summary>
         /// <remarks>
@@ -66,6 +75,15 @@ namespace ProductTracker.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonItemTypesSubmit;
+        
+        /// <summary>
+        /// PanelItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelItems;
         
         /// <summary>
         /// LabelItemsSelect control.
