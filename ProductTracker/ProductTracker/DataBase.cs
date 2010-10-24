@@ -78,11 +78,14 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
-                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM Price WHERE Item='{0}'", id);
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM Price WHERE Item='{0}'", id);
                     dbCommand.ExecuteNonQuery();
-                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM ShopItems WHERE Item='{0}'", id);
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM ShopItems WHERE Item='{0}'", id);
                     dbCommand.ExecuteNonQuery();
-                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "DELETE FROM Items WHERE UniqueId='{0}'", id);
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM Items WHERE UniqueId='{0}'", id);
                     dbCommand.ExecuteNonQuery();
                 }
             }
@@ -105,11 +108,11 @@ namespace ProductTracker
                     {
                         while (reader.Read())
                         {
-                            ItemType itemType = new ItemType()
-                            {
-                                Id = Int32.Parse(reader[0].ToString()),
-                                Name = reader[1].ToString(),
-                            };
+                            ItemType itemType = new ItemType
+                                {
+                                    Id = Int32.Parse(reader[0].ToString()),
+                                    Name = reader[1].ToString(),
+                                };
                             itemTypes.Add(itemType);
                         }
                     }
@@ -130,19 +133,20 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
-                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture, "SELECT * FROM Items WHERE UniqueId='{0}'", value);
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Items WHERE UniqueId='{0}'", value);
                     using (DbDataReader reader = dbCommand.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             Item item = new Item
-                            {
-                                Id = reader[0].ToString(),
-                                UniqueId = new Guid(reader[1].ToString()),
-                                Name = reader[2].ToString(),
-                                Notes = reader[3].ToString(),
-                                ItemType = Int32.Parse(reader[4].ToString()),
-                            };
+                                {
+                                    Id = reader[0].ToString(),
+                                    UniqueId = new Guid(reader[1].ToString()),
+                                    Name = reader[2].ToString(),
+                                    Notes = reader[3].ToString(),
+                                    ItemType = Int32.Parse(reader[4].ToString()),
+                                };
                             return item;
                         }
                     }
@@ -163,7 +167,8 @@ namespace ProductTracker
                 using (DbCommand dbCommand = dbConnection.CreateCommand())
                 {
                     dbConnection.Open();
-                    dbCommand.CommandText = "SELECT Id, UniqueId, Name, Notes, ItemType, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName FROM Items";
+                    dbCommand.CommandText =
+                        "SELECT Id, UniqueId, Name, Notes, ItemType, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName FROM Items";
                     using (DbDataReader reader = dbCommand.ExecuteReader())
                     {
                         while (reader.Read())
@@ -315,7 +320,7 @@ namespace ProductTracker
                     {
                         while (reader.Read())
                         {
-                            Tracker tracker = new Tracker()
+                            Tracker tracker = new Tracker
                                 {
                                     Id = new Guid(reader[0].ToString()),
                                     ShopItemId = new Guid(reader[1].ToString()),
@@ -328,6 +333,38 @@ namespace ProductTracker
                 }
             }
             return trackers;
+        }
+
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public User GetUser(string username)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Users WHERE Name='{0}'", username);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return new User
+                                {
+                                    Id = Int32.Parse(reader[0].ToString()),
+                                    Name = reader[1].ToString(),
+                                    Password = reader[2].ToString(),
+                                    Level = Int32.Parse(reader[3].ToString())
+                                };
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -390,7 +427,7 @@ namespace ProductTracker
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "INSERT INTO Items (Id, UniqueId, Name, Notes, ItemType) VALUES('{0}', '{1}', '{2}', '{3}', {4})",
                                                        item.Id, item.UniqueId, item.Name, item.Notes,
-                                                       (int) item.ItemType);
+                                                       item.ItemType);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }
@@ -511,6 +548,27 @@ namespace ProductTracker
         }
 
         /// <summary>
+        /// Inserts the user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns><c>true</c> on success.</returns>
+        public bool InsertUser(User user)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "INSERT INTO Users (Name, Password, Level) VALUES('{0}', '{1}', {2})",
+                                                       user.Name, user.Password, user.Level);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
         /// Updates existing item.
         /// </summary>
         /// <param name="item">The item.</param>
@@ -525,7 +583,7 @@ namespace ProductTracker
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "UPDATE Items SET Id='{0}', Name='{1}', Notes='{2}', ItemType={3} WHERE UniqueId='{4}'",
                                                        item.Id, item.Name, item.Notes,
-                                                       (int)item.ItemType, item.UniqueId);
+                                                       item.ItemType, item.UniqueId);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }

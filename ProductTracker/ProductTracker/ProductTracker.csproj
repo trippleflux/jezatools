@@ -50,6 +50,7 @@
     <Compile Include="DataBase.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemType.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Price.cs" />
     <Compile Include="ShopItem.cs" />
     <Compile Include="Overview.cs" />
