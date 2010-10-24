@@ -34,4 +34,14 @@
     <setting id="LinkButtonBodyShopsSubmit" value="Uvozi??"/>
     <setting id="LinkButtonBodyShopsDelete" value="Zbriši"/>
   </page>
+  <page id="ManageUsers">
+    <setting id="HyperLinkMain" value="Osnovna Stran"/>
+    <setting id="LabelUsername" value="Uporabnisko Ime"/>
+    <setting id="LabelPassword" value="Geslo"/>
+    <setting id="LabelLevel" value="Stopnja"/>
+    <setting id="LinkButtonAdd" value="Dodaj"/>
+    <setting id="StatusWrongUsername" value="Uporabnisko ime je napacno!"/>
+    <setting id="StatusWrongPassword" value="Geslo je napacno!"/>
+    <setting id="StatusFailedToAddUser" value="Uporabnik ni bil dodan!"/>
+  </page>
 </settings>
