@@ -10,7 +10,7 @@
 
   <property name="MSBuild" value="${path::combine(DotNetFrameworkDir, 'msbuild.exe')}" />
 
-  <target name="clean" descripton="Removes output files and directories.">
+  <target name="clean" depends="init" descripton="Removes output files and directories.">
     <delete includeemptydirs="true" failonerror="true">
       <fileset basedir="${Folder.Source}">
         <include name="_ReSharper.*/**"/>
@@ -22,6 +22,10 @@
     </delete>
   </target>
 
+  <target name="init">
+    <mkdir dir="release" />
+  </target>
+  
   <target name="compile" depends="clean" descripton="Compile solution">
     <exec program="${MSBuild}" workingdir="${Folder.Source}" verbose="true">
       <arg value="/property:Configuration=${Configuration}" />
@@ -48,7 +52,7 @@
     </zip>
   </target>
 
-  <target name="deploy.copy" depends="compile" descripton="Copy files to deploy folder.">
+  <target name="deploy.copy" depends="compile" descripton="Copy files to release folder.">
     <copy todir="release/ProductTracker">
       <fileset basedir="${path::combine(Folder.Source, 'ProductTracker.Web')}">
         <include name="**/*.aspx"/>
@@ -58,7 +62,6 @@
         <include name="bin/**"/>
       </fileset>
     </copy>
-
   </target>
 
 </project>

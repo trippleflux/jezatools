@@ -92,6 +92,30 @@ namespace ProductTracker
         }
 
         /// <summary>
+        /// Deletes the specified shop.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public void DeleteShop(string id)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM Price WHERE Shop='{0}'", id);
+                    dbCommand.ExecuteNonQuery();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM ShopItems WHERE Shop='{0}'", id);
+                    dbCommand.ExecuteNonQuery();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM Shops WHERE Id='{0}'", id);
+                    dbCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the item types.
         /// </summary>
         /// <returns></returns>
@@ -263,6 +287,42 @@ namespace ProductTracker
                 }
             }
             return shopItem;
+        }
+
+        /// <summary>
+        /// Gets the shop.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns><c>null</c> if not found.</returns>
+        public Shop GetShop(string id)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Shops WHERE Id='{0}'", id);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Shop shop = new Shop
+                                {
+                                    Id = new Guid(reader[0].ToString()),
+                                    Name = reader[1].ToString(),
+                                    Address = reader[2].ToString(),
+                                    Owner = reader[3].ToString(),
+                                    PostalCode = Int32.Parse(reader[4].ToString()),
+                                    City = reader[5].ToString(),
+                                    IsCompany = Boolean.Parse(reader[6].ToString()),
+                                };
+                            return shop;
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -584,6 +644,27 @@ namespace ProductTracker
                                                        "UPDATE Items SET Id='{0}', Name='{1}', Notes='{2}', ItemType={3} WHERE UniqueId='{4}'",
                                                        item.Id, item.Name, item.Notes,
                                                        item.ItemType, item.UniqueId);
+                    dbCommand.CommandText = commandText;
+                    return dbCommand.ExecuteNonQuery() == 1 ? true : false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the existing shop.
+        /// </summary>
+        /// <param name="shop">The shop.</param>
+        public bool UpdateShop(Shop shop)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                       "UPDATE Shops SET Name='{1}', Address='{2}', Owner='{3}', PostalCode='{4}', City='{5}', IsCompany={6} WHERE Id='{0}'",
+                                                       shop.Id, shop.Name, shop.Address, shop.Owner, shop.PostalCode,
+                                                       shop.City, shop.IsCompany ? 1 : 0);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }

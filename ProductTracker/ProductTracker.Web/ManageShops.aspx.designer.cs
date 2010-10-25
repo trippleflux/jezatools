@@ -77,6 +77,15 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonShopList;
         
         /// <summary>
+        /// LinkButtonAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonAdd;
+        
+        /// <summary>
         /// PanelBody control.
         /// </summary>
         /// <remarks>
