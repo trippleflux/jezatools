@@ -33,6 +33,7 @@
     <setting id="LinkButtonShopList" value="Izberi"/>
     <setting id="LinkButtonBodyShopsSubmit" value="Uvozi??"/>
     <setting id="LinkButtonBodyShopsDelete" value="Zbriši"/>
+    <setting id="LinkButtonAdd" value="Dodaj" />
   </page>
   <page id="ManageUsers">
     <setting id="HyperLinkMain" value="Osnovna Stran"/>

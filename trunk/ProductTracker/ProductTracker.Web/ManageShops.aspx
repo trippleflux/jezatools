@@ -35,7 +35,8 @@
                                         <asp:Label ID="LabelShopList" runat="server" Text="Shops"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="DropDownListShopList" runat="server">
+                                        <asp:DropDownList ID="DropDownListShopList" runat="server" DataTextField="Name" 
+                                            DataValueField="Id">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
@@ -43,7 +44,7 @@
                                             onclick="LinkButtonShopList_Click">Select</asp:LinkButton>
                                     </td>
                                     <td>
-                                        
+                                        <asp:LinkButton ID="LinkButtonAdd" runat="server" onclick="LinkButtonAdd_Click">Add</asp:LinkButton>
                                     </td>
                                 </tr>
                             </table>
@@ -82,7 +83,7 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox ID="TextBoxBodyShopsId" runat="server"></asp:TextBox>
+                                        <asp:TextBox ID="TextBoxBodyShopsId" runat="server" ReadOnly="True"></asp:TextBox>
                                     </td>
                                     <td>
                                         <asp:TextBox ID="TextBoxBodyShopsName" runat="server"></asp:TextBox>
@@ -103,10 +104,12 @@
                                         <asp:CheckBox ID="CheckBoxBodyShopsIsCompany" runat="server" />
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonBodyShopsSubmit" runat="server">Submit</asp:LinkButton>
+                                        <asp:LinkButton ID="LinkButtonBodyShopsSubmit" runat="server" 
+                                            onclick="LinkButtonBodyShopsSubmit_Click">Submit</asp:LinkButton>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonBodyShopsDelete" runat="server">Delete</asp:LinkButton>
+                                        <asp:LinkButton ID="LinkButtonBodyShopsDelete" runat="server" 
+                                            onclick="LinkButtonBodyShopsDelete_Click">Delete</asp:LinkButton>
                                     </td>
                                 </tr>
                             </table>
