@@ -5,6 +5,7 @@
     <setting id="LinkButtonItems" value="Seznam Izdelkov" />
     <setting id="HyperLinkManageItems" value="Uredi Izdelke" />
     <setting id="HyperLinkManageShops" value="Uredi Trgovine" />
+    <setting id="HyperLinkManageShopItems" value="Uredi Izdelke v Trgovini" />
   </page>
   <page id="ManageItems">
     <setting id="HyperLinkMain" value="Osnovna Stran" />
@@ -44,5 +45,14 @@
     <setting id="StatusWrongUsername" value="Uporabnisko ime je napacno!"/>
     <setting id="StatusWrongPassword" value="Geslo je napacno!"/>
     <setting id="StatusFailedToAddUser" value="Uporabnik ni bil dodan!"/>
+  </page>
+  <page id="ManageShopItems">
+    <setting id="HyperLinkMain" value="Osnovna Stran"/>
+    <setting id="LabelItems" value="Izdelki"/>
+    <setting id="LabelShops" value="Trgovine"/>
+    <setting id="LabelPriceGross" value="Bruto Cena"/>
+    <setting id="LabelPriceNet" value="Neto Cena"/>
+    <setting id="LabelNumberOfItems" value="Stevilo Izdelkov"/>
+    <setting id="LinkButtonAddItemToShop" value="Dodaj"/>
   </page>
 </settings>

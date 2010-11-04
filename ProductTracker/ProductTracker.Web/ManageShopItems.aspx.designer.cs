@@ -11,16 +11,16 @@
 namespace ProductTracker.Web {
     
     
-    public partial class Default {
+    public partial class ManageShopItems {
         
         /// <summary>
-        /// FormDefault control.
+        /// formManageShopItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FormDefault;
+        protected global::System.Web.UI.HtmlControls.HtmlForm formManageShopItems;
         
         /// <summary>
         /// PanelHead control.
@@ -32,102 +32,129 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.Panel PanelHead;
         
         /// <summary>
-        /// LinkButtonShops control.
+        /// HyperLinkMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonShops;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLinkMain;
         
         /// <summary>
-        /// LinkButtonItems control.
+        /// PanelShopItem control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonItems;
+        protected global::System.Web.UI.WebControls.Panel PanelShopItem;
         
         /// <summary>
-        /// PanelMiddle control.
+        /// LabelItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelMiddle;
+        protected global::System.Web.UI.WebControls.Label LabelItems;
         
         /// <summary>
-        /// PanelMiddleGridView control.
+        /// DropDownListItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelMiddleGridView;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListItems;
         
         /// <summary>
-        /// GridViewItems control.
+        /// LabelShops control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewItems;
+        protected global::System.Web.UI.WebControls.Label LabelShops;
         
         /// <summary>
-        /// GridViewShops control.
+        /// DropDownListShops control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewShops;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownListShops;
         
         /// <summary>
-        /// SqlDataSource control.
+        /// LabelPriceGross control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource;
+        protected global::System.Web.UI.WebControls.Label LabelPriceGross;
         
         /// <summary>
-        /// PanelFoot control.
+        /// TextBoxPriceGross control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelFoot;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxPriceGross;
         
         /// <summary>
-        /// HyperLinkManageItems control.
+        /// LabelPriceNet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageItems;
+        protected global::System.Web.UI.WebControls.Label LabelPriceNet;
         
         /// <summary>
-        /// HyperLinkManageShops control.
+        /// TextBoxPriceNet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageShops;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxPriceNet;
         
         /// <summary>
-        /// HyperLinkManageShopItems control.
+        /// LabelNumberOfItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageShopItems;
+        protected global::System.Web.UI.WebControls.Label LabelNumberOfItems;
+        
+        /// <summary>
+        /// TextBoxNumberOfItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxNumberOfItems;
+        
+        /// <summary>
+        /// LinkButtonAddItemToShop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonAddItemToShop;
+        
+        /// <summary>
+        /// GridViewShopItems control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewShopItems;
     }
 }
