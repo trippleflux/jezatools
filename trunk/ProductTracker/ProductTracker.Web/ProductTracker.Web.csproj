@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7BCA1334-10A4-4859-97B2-90A34D99E704}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -61,6 +61,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="ManageItems.aspx" />
+    <Content Include="ManageShopItems.aspx" />
     <Content Include="ManageShops.aspx" />
     <Content Include="ManageUsers.aspx" />
     <Content Include="Stylesheet.css" />
@@ -87,6 +88,13 @@
     </Compile>
     <Compile Include="ManageItems.aspx.designer.cs">
       <DependentUpon>ManageItems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageShopItems.aspx.cs">
+      <DependentUpon>ManageShopItems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageShopItems.aspx.designer.cs">
+      <DependentUpon>ManageShopItems.aspx</DependentUpon>
     </Compile>
     <Compile Include="ManageShops.aspx.cs">
       <DependentUpon>ManageShops.aspx</DependentUpon>
@@ -135,6 +143,9 @@
           <IISUrl>
           </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

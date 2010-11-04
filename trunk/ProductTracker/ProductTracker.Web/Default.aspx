@@ -63,6 +63,8 @@
                                         NavigateUrl="~/ManageItems.aspx" CssClass="hyperLink">Manage Items</asp:HyperLink>    
                                     <asp:HyperLink ID="HyperLinkManageShops" runat="server" 
                                         NavigateUrl="~/ManageShops.aspx" CssClass="hyperLink">Manage Shops</asp:HyperLink>    
+                                    <asp:HyperLink ID="HyperLinkManageShopItems" runat="server" 
+                                        NavigateUrl="~/ManageShopItems.aspx" CssClass="hyperLink">Manage Shop Items</asp:HyperLink>    
                                 </td>
                             </tr>
                         </table>

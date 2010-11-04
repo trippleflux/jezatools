@@ -290,6 +290,40 @@ namespace ProductTracker
         }
 
         /// <summary>
+        /// Gets all shop items.
+        /// </summary>
+        /// <returns></returns>
+        public List<ShopItem> GetShopItems()
+        {
+            List<ShopItem> shopItems = new List<ShopItem>();
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = "SELECT * FROM ShopItems";
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            ShopItem shopItem = new ShopItem
+                            {
+                                ItemId = new Guid(reader[0].ToString()),
+                                ShopId = new Guid(reader[1].ToString()),
+                                DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
+                                PriceId = new Guid(reader[3].ToString()),
+                                NumberOfItems = Int32.Parse(reader[4].ToString()),
+                                Id = new Guid(reader[5].ToString()),
+                            };
+                            shopItems.Add(shopItem);
+                        }
+                    }
+                }
+            }
+            return shopItems;
+        }
+
+        /// <summary>
         /// Gets the shop.
         /// </summary>
         /// <param name="id">The id.</param>

@@ -35,6 +35,7 @@ namespace ProductTracker.Web
                     LinkButtonItems.Text = settingsManager.GetSettingValue("LinkButtonItems", setting);
                     HyperLinkManageItems.Text = settingsManager.GetSettingValue("HyperLinkManageItems", setting);
                     HyperLinkManageShops.Text = settingsManager.GetSettingValue("HyperLinkManageShops", setting);
+                    HyperLinkManageShopItems.Text = settingsManager.GetSettingValue("HyperLinkManageShopItems", setting);
                 }
             }
         }
