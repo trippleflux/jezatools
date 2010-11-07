@@ -2,9 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using System.Xml.Serialization;
+using System.Data;
 
 #endregion
 
@@ -44,7 +42,7 @@ namespace ProductTracker.Web
         {
             ShowItems();
             DataBase dataBase = new DataBase();
-            IList<Item> items = dataBase.GetItems();
+            DataSet items = dataBase.GetItems();
             GridViewItems.DataSource = items;
             GridViewItems.DataBind();
         }
@@ -53,7 +51,7 @@ namespace ProductTracker.Web
         {
             ShowShops();
             DataBase dataBase = new DataBase();
-            IList<Shop> shops = dataBase.GetShops();
+            DataSet shops = dataBase.GetShops();
             GridViewShops.DataSource = shops;
             GridViewShops.DataBind();
         }

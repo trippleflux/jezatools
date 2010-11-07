@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace ProductTracker.Web
 {
@@ -40,10 +41,10 @@ namespace ProductTracker.Web
             List<ShopItem> shopItems = dataBase.GetShopItems();
             GridViewShopItems.DataSource = shopItems;
             GridViewShopItems.DataBind();
-            IList<Shop> shops = dataBase.GetShops();
+            DataSet shops = dataBase.GetShops();
             DropDownListShops.DataSource = shops;
             DropDownListShops.DataBind();
-            IList<Item> items = dataBase.GetItems();
+            DataSet items = dataBase.GetItems();
             DropDownListItems.DataSource = items;
             DropDownListItems.DataBind();
         }

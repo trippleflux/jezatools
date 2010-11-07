@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 #endregion
 
@@ -31,7 +32,7 @@ namespace ProductTracker.Web
         private void PopulateShops()
         {
             DataBase dataBase = new DataBase();
-            IList<Shop> shops = dataBase.GetShops();
+            DataSet shops = dataBase.GetShops();
             DropDownListShopList.DataSource = shops;
             DropDownListShopList.DataBind();
             ClearFields();

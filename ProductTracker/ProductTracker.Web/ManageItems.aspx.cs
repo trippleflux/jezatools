@@ -1,5 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
+using System.Data;
+
+#endregion
 
 namespace ProductTracker.Web
 {
@@ -26,7 +31,8 @@ namespace ProductTracker.Web
                     List<Setting> setting = page.Setting;
                     HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
                     LabelItemTypes.Text = settingsManager.GetSettingValue("LabelItemTypes", setting);
-                    LinkButtonItemTypesSubmit.Text = settingsManager.GetSettingValue("LinkButtonItemTypesSubmit", setting);
+                    LinkButtonItemTypesSubmit.Text = settingsManager.GetSettingValue("LinkButtonItemTypesSubmit",
+                                                                                     setting);
                     LabelItemsSelect.Text = settingsManager.GetSettingValue("LabelItemsSelect", setting);
                     LinkButtonItemsSelect.Text = settingsManager.GetSettingValue("LinkButtonItemsSelect", setting);
                     LinkButtonItemsAddNew.Text = settingsManager.GetSettingValue("LinkButtonItemsAddNew", setting);
@@ -34,8 +40,10 @@ namespace ProductTracker.Web
                     LabelItemName.Text = settingsManager.GetSettingValue("LabelItemName", setting);
                     LabelItemNote.Text = settingsManager.GetSettingValue("LabelItemNote", setting);
                     LabelItemItemType.Text = settingsManager.GetSettingValue("LabelItemItemType", setting);
-                    LinkButtonMiddleBodySubmit.Text = settingsManager.GetSettingValue("LinkButtonMiddleBodySubmit", setting);
-                    LinkButtonMiddleItemTypesDelete.Text = settingsManager.GetSettingValue("LinkButtonMiddleItemTypesDelete", setting);
+                    LinkButtonMiddleBodySubmit.Text = settingsManager.GetSettingValue("LinkButtonMiddleBodySubmit",
+                                                                                      setting);
+                    LinkButtonMiddleItemTypesDelete.Text =
+                        settingsManager.GetSettingValue("LinkButtonMiddleItemTypesDelete", setting);
                 }
             }
         }
@@ -43,7 +51,7 @@ namespace ProductTracker.Web
         private void PopulateItems()
         {
             DataBase dataBase = new DataBase();
-            IList<Item> items = dataBase.GetItems();
+            DataSet items = dataBase.GetItems();
             DropDownListItemsSelect.DataSource = items;
             DropDownListItemsSelect.DataBind();
         }
@@ -95,7 +103,7 @@ namespace ProductTracker.Web
             if (itemTypeName.Length > 0)
             {
                 DataBase dataBase = new DataBase();
-                dataBase.InsertItemType(new ItemType() {Name = itemTypeName});
+                dataBase.InsertItemType(new ItemType {Name = itemTypeName});
             }
             PopulateItemTypes();
         }

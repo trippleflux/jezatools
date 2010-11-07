@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.Globalization;
@@ -182,34 +183,17 @@ namespace ProductTracker
         /// <summary>
         /// Gets the available items.
         /// </summary>
-        /// <returns><see cref="IList{T}"/></returns>
-        public IList<Item> GetItems()
+        /// <returns><see cref="DataSet"/></returns>
+        public DataSet GetItems()
         {
-            List<Item> items = new List<Item>();
+            DataSet items = new DataSet();
             using (dbConnection)
             {
-                using (DbCommand dbCommand = dbConnection.CreateCommand())
-                {
-                    dbConnection.Open();
-                    dbCommand.CommandText =
-                        "SELECT Id, UniqueId, Name, Notes, ItemType, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName FROM Items";
-                    using (DbDataReader reader = dbCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Item item = new Item
-                                {
-                                    Id = reader[0].ToString(),
-                                    UniqueId = new Guid(reader[1].ToString()),
-                                    Name = reader[2].ToString(),
-                                    Notes = reader[3].ToString(),
-                                    ItemType = Int32.Parse(reader[4].ToString()),
-                                    ItemTypeName = reader[5].ToString(),
-                                };
-                            items.Add(item);
-                        }
-                    }
-                }
+                dbConnection.Open();
+                const string commandText = "SELECT Id, Name, Notes, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName FROM Items";
+                DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
+                dataAdapter.Fill(items, Misc.DataTableNameOfItems);
+                dbConnection.Close();
             }
             return items;
         }
@@ -362,35 +346,17 @@ namespace ProductTracker
         /// <summary>
         /// Gets the available shops.
         /// </summary>
-        /// <returns><see cref="IList{T}"/></returns>
-        public IList<Shop> GetShops()
+        /// <returns><see cref="DataSet"/></returns>
+        public DataSet GetShops()
         {
-            List<Shop> shops = new List<Shop>();
+            DataSet shops = new DataSet();
             using (dbConnection)
             {
-                using (DbCommand dbCommand = dbConnection.CreateCommand())
-                {
-                    dbConnection.Open();
-                    dbCommand.CommandText = "SELECT * FROM Shops";
-                    using (DbDataReader reader = dbCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            //var asd = reader[0];
-                            Shop shop = new Shop
-                                {
-                                    Id = new Guid(reader[0].ToString()),
-                                    Name = reader[1].ToString(),
-                                    Address = reader[2].ToString(),
-                                    Owner = reader[3].ToString(),
-                                    PostalCode = Int32.Parse(reader[4].ToString()),
-                                    City = reader[5].ToString(),
-                                    IsCompany = Boolean.Parse(reader[6].ToString()),
-                                };
-                            shops.Add(shop);
-                        }
-                    }
-                }
+                dbConnection.Open();
+                const string commandText = "SELECT Name, Address, Owner, PostalCode, City, IsCompany FROM Shops";
+                DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
+                dataAdapter.Fill(shops, Misc.DataTableNameOfShops);
+                dbConnection.Close();
             }
             return shops;
         }
