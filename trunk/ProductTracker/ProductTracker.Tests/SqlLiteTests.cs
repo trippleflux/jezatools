@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data;
 using NUnit.Framework;
 
 #endregion
@@ -28,9 +29,15 @@ namespace ProductTracker.Tests
         [Test]
         public void GetAvailableShops()
         {
-            IList<Shop> shops = dataBase.GetShops();
+            DataSet shops = dataBase.GetShops();
             Assert.IsNotNull(shops, "dataBase.GetShops() is NULL!");
-            Assert.AreEqual(shop.Id, shops[0].Id, "{0} was not found!", shop.Name);
+            object[] itemArray = shops.Tables[Misc.DataTableNameOfShops].Rows[0].ItemArray;
+            Assert.AreEqual(shop.Name, itemArray.GetValue(0), "{0} was not found!", shop.Name);
+            Assert.AreEqual(shop.Address, itemArray.GetValue(1), "{0} was not found!", shop.Address);
+            Assert.AreEqual(shop.Owner, itemArray.GetValue(2), "{0} was not found!", shop.Owner);
+            Assert.AreEqual(shop.PostalCode, itemArray.GetValue(3), "{0} was not found!", shop.PostalCode);
+            Assert.AreEqual(shop.City, itemArray.GetValue(4), "{0} was not found!", shop.City);
+            Assert.AreEqual(shop.IsCompany, itemArray.GetValue(5), "{0} was not found!", shop.IsCompany);
         }
 
         /// <summary>
@@ -50,10 +57,13 @@ namespace ProductTracker.Tests
         [Test]
         public void GetAvailableItems()
         {
-            IList<Item> items = dataBase.GetItems();
+            DataSet items = dataBase.GetItems();
             Assert.IsNotNull(items, "dataBase.GetItems() is NULL!");
-            Assert.AreEqual(item.Id, items[0].Id, "{0} was not found!", item.Name);
-            Assert.AreEqual(item.UniqueId, items[0].UniqueId, "{0} was not found!", item.Name);
+            object[] itemArray = items.Tables[Misc.DataTableNameOfItems].Rows[0].ItemArray;
+            Assert.AreEqual(item.Id, itemArray.GetValue(0), "{0} was not found!", item.Id);
+            Assert.AreEqual(item.Name, itemArray.GetValue(1), "{0} was not found!", item.Name);
+            Assert.AreEqual(item.Notes, itemArray.GetValue(2), "{0} was not found!", item.Notes);
+            Assert.AreEqual(ItemTypeName, itemArray.GetValue(3), "{0} was not found!", item.ItemTypeName);
         }
 
         /// <summary>
@@ -138,15 +148,18 @@ namespace ProductTracker.Tests
             dataBase.DeleteAllItems();
             dataBase.DeleteAllItemTypes();
             dataBase.DeleteAllShops();
-            const string itemTypeName = "cestitka";
-            itemType = new ItemType() {Name = itemTypeName};
+            itemType = new ItemType() {Name = ItemTypeName};
             Assert.IsTrue(dataBase.InsertItemType(itemType));
             IList<ItemType> itemTypes = dataBase.GetItemTypes();
             const string shopName = "trgovina 1";
             shop = new Shop(shopName)
                 {Address = "asdasd", City = "assdf fs", IsCompany = true, Owner = "asdfaf safwefase", PostalCode = 1234};
             Assert.IsTrue(dataBase.InsertShop(shop));
-            item = new Item("ID00001", "item 1") {ItemType = itemTypes[0].Id};
+            item = new Item("ID00001", "item 1")
+                {
+                    ItemType = itemTypes[0].Id,
+                    Notes = "bla bla bal...",
+                };
             Assert.IsTrue(dataBase.InsertItem(item));
             price = new Price(1.2, 1.1);
             Assert.IsTrue(dataBase.InsertPrice(item, shop, price));
@@ -164,5 +177,6 @@ namespace ProductTracker.Tests
         private ShopItem shopItem = new ShopItem();
         private Tracker tracker = new Tracker();
         private ItemType itemType = new ItemType();
+        const string ItemTypeName = "cestitka";
     }
 }

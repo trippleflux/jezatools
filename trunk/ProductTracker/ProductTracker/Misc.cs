@@ -31,5 +31,8 @@ namespace ProductTracker
             return
                 Convert.ToBase64String(new SHA1CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
+
+        public const string DataTableNameOfItems = "Items";
+        public const string DataTableNameOfShops = "Shops";
     }
 }
