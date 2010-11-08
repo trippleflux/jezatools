@@ -149,7 +149,7 @@ namespace ProductTracker
         /// <summary>
         /// Gets the item.
         /// </summary>
-        /// <param name="value">The value.</param>
+        /// <param name="value">The unique id of the item.</param>
         /// <returns><see cref="Item"/> if found; else <c>null</c></returns>
         public Item GetItem(Guid value)
         {
@@ -172,6 +172,40 @@ namespace ProductTracker
                                     Notes = reader[3].ToString(),
                                     ItemType = Int32.Parse(reader[4].ToString()),
                                 };
+                            return item;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the item.
+        /// </summary>
+        /// <param name="id">The id if the item.</param>
+        /// <returns><see cref="Item"/> if found; else <c>null</c></returns>
+        public Item GetItem(string id)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Items WHERE Id='{0}'", id);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Item item = new Item
+                            {
+                                Id = reader[0].ToString(),
+                                UniqueId = new Guid(reader[1].ToString()),
+                                Name = reader[2].ToString(),
+                                Notes = reader[3].ToString(),
+                                ItemType = Int32.Parse(reader[4].ToString()),
+                            };
                             return item;
                         }
                     }
@@ -335,6 +369,42 @@ namespace ProductTracker
                                     City = reader[5].ToString(),
                                     IsCompany = Boolean.Parse(reader[6].ToString()),
                                 };
+                            return shop;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the shop.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>null</c> if not found.</returns>
+        public Shop GetShopByName(string name)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT * FROM Shops WHERE Name='{0}'", name);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Shop shop = new Shop
+                            {
+                                Id = new Guid(reader[0].ToString()),
+                                Name = reader[1].ToString(),
+                                Address = reader[2].ToString(),
+                                Owner = reader[3].ToString(),
+                                PostalCode = Int32.Parse(reader[4].ToString()),
+                                City = reader[5].ToString(),
+                                IsCompany = Boolean.Parse(reader[6].ToString()),
+                            };
                             return shop;
                         }
                     }

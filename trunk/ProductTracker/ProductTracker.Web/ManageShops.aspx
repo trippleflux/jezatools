@@ -17,26 +17,24 @@
                                 <td>
                                     <asp:HyperLink ID="HyperLinkMain" runat="server" 
                                         NavigateUrl="~/Default.aspx" CssClass="hyperLink">Main</asp:HyperLink>
-
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
                 <div id="divShopList">
-                    <div id="divShopListText">
-                        
-                    </div>
-                    <div id="divShopListBodz">
-                        <asp:Panel ID="PanelShopList" runat="server">
+                    <asp:Panel ID="PanelShopList" runat="server">
+                        <div id="divShopListText">
+                            
+                        </div>
+                        <div id="divShopListBodz">
                             <table id="tableShopList">
                                 <tr>
                                     <td>
                                         <asp:Label ID="LabelShopList" runat="server" Text="Shops"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="DropDownListShopList" runat="server" DataTextField="Name" 
-                                            DataValueField="Id">
+                                        <asp:DropDownList ID="DropDownListShopList" runat="server" DataTextField="Name">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
@@ -48,20 +46,17 @@
                                     </td>
                                 </tr>
                             </table>
-                        </asp:Panel>
-                    </div>
+                        </div>
+                    </asp:Panel>
                 </div>
                 <div id="divBody">
-                    <div id="divBodyText">
-                        
-                    </div>
-                    <div id="divBodyShops">
-                        <asp:Panel ID="PanelBody" runat="server">
+                    <asp:Panel ID="PanelBody" runat="server">
+                        <div id="divBodyText">
+                            
+                        </div>
+                        <div id="divBodyShops">
                             <table id="tableBody">
                                 <tr>
-                                    <td>
-                                        <asp:Label ID="LabelBodyShopsId" runat="server" Text="Id"></asp:Label>
-                                    </td>
                                     <td>
                                         <asp:Label ID="LabelBodyShopsName" runat="server" Text="Name"></asp:Label>
                                     </td>
@@ -82,9 +77,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <asp:TextBox ID="TextBoxBodyShopsId" runat="server" ReadOnly="True"></asp:TextBox>
-                                    </td>
                                     <td>
                                         <asp:TextBox ID="TextBoxBodyShopsName" runat="server"></asp:TextBox>
                                     </td>
@@ -108,13 +100,20 @@
                                             onclick="LinkButtonBodyShopsSubmit_Click">Submit</asp:LinkButton>
                                     </td>
                                     <td>
+                                        <asp:LinkButton ID="LinkButtonBodyShopsUpdate" runat="server" onclick="LinkButtonBodyShopsUpdate_Click" 
+                                            >Update</asp:LinkButton>
+                                    </td>
+                                    <td>
                                         <asp:LinkButton ID="LinkButtonBodyShopsDelete" runat="server" 
                                             onclick="LinkButtonBodyShopsDelete_Click">Delete</asp:LinkButton>
                                     </td>
                                 </tr>
                             </table>
-                        </asp:Panel>
-                    </div>
+                        </div>
+                    </asp:Panel>
+                </div>
+                <div id="divStatus">
+                    <asp:Label ID="LabelStatus" runat="server" Text=""></asp:Label>
                 </div>
             </div>
         </form>

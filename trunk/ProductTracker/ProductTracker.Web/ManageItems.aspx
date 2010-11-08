@@ -23,10 +23,10 @@
                     </asp:Panel>
                 </div>
                 <div id="divItemTypes">
-                    <div id="divItemTypesText">
-                        
-                    </div>
                     <asp:Panel ID="PanelItemTypes" runat="server">
+                        <div id="divItemTypesText">
+                            
+                        </div>
                         <table id="tableItemTypes">
                             <tr>
                                 <td>
@@ -44,10 +44,10 @@
                     </asp:Panel>
                 </div>
                 <div id="divItems">
-                    <div id="divItemsText">
-                        
-                    </div>
                     <asp:Panel ID="PanelItems" runat="server">
+                        <div id="divItemsText">
+                            
+                        </div>
                         <div id="divItemsHead">
                             <table id="tableItemsHead">
                                 <tr>
@@ -56,7 +56,8 @@
                                     </td>
                                     <td>
                                         <asp:DropDownList ID="DropDownListItemsSelect" runat="server" 
-                                            DataTextField="Name" DataValueField="UniqueId" CssClass="dropDownManageItems">
+                                            DataTextField="Name" DataValueField="Id" 
+                                            CssClass="dropDownManageItems">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
@@ -86,9 +87,6 @@
                                         <asp:Label ID="LabelItemItemType" runat="server" Text="Type" CssClass="labelManageItems"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:Label ID="LabelItemUniqueId" runat="server" Text="UniqueId" CssClass="labelManageItems"></asp:Label>
-                                    </td>
-                                    <td>
                                         
                                     </td>
                                     <td>
@@ -111,12 +109,12 @@
                                         </asp:DropDownList>
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="TextBoxMiddleBodyUniqueId" runat="server" ReadOnly="True" 
-                                            CssClass="textBoxManageItems"></asp:TextBox>
-                                    </td>
-                                    <td>
                                         <asp:LinkButton ID="LinkButtonMiddleBodySubmit" runat="server" 
                                             onclick="LinkButtonMiddleBodySubmit_Click" CssClass="linkButton">Submit</asp:LinkButton>
+                                    </td>
+                                    <td>
+                                        <asp:LinkButton ID="LinkButtonMiddleBodyUpdate" runat="server" 
+                                            CssClass="linkButton" onclick="LinkButtonMiddleBodyUpdate_Click">Update</asp:LinkButton>
                                     </td>
                                     <td>
                                         <asp:LinkButton ID="LinkButtonMiddleItemTypesDelete" runat="server" 

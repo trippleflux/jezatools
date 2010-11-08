@@ -158,15 +158,6 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.Label LabelItemItemType;
         
         /// <summary>
-        /// LabelItemUniqueId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelItemUniqueId;
-        
-        /// <summary>
         /// TextBoxMiddleBodyId control.
         /// </summary>
         /// <remarks>
@@ -203,15 +194,6 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.DropDownList DropDownListMiddleBodyItemType;
         
         /// <summary>
-        /// TextBoxMiddleBodyUniqueId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxMiddleBodyUniqueId;
-        
-        /// <summary>
         /// LinkButtonMiddleBodySubmit control.
         /// </summary>
         /// <remarks>
@@ -219,6 +201,15 @@ namespace ProductTracker.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonMiddleBodySubmit;
+        
+        /// <summary>
+        /// LinkButtonMiddleBodyUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonMiddleBodyUpdate;
         
         /// <summary>
         /// LinkButtonMiddleItemTypesDelete control.
