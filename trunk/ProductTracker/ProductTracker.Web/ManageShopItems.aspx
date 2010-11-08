@@ -30,14 +30,14 @@
                                     <asp:Label ID="LabelItems" runat="server" Text="Items"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownListItems" runat="server" DataTextField="Name" DataValueField="UniqueId">
+                                    <asp:DropDownList ID="DropDownListItems" runat="server" DataTextField="Name" DataValueField="Id">
                                     </asp:DropDownList>
                                 </td>
                                 <td>
                                     <asp:Label ID="LabelShops" runat="server" Text="Shops"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownListShops" runat="server" DataTextField="Name" DataValueField="Id">
+                                    <asp:DropDownList ID="DropDownListShops" runat="server" DataTextField="Name">
                                     </asp:DropDownList>
                                 </td>
                                 <td>
@@ -69,6 +69,9 @@
                 <div id="divShopItems">
                     <asp:GridView ID="GridViewShopItems" runat="server">
                     </asp:GridView>
+                </div>
+                <div id="divStatus">
+                    <asp:Label ID="LabelStatus" runat="server" Text=""></asp:Label>
                 </div>
             </div>
         </form>
