@@ -6,6 +6,7 @@ namespace ProductTracker
     {
         public ShopItem()
         {
+            Id = Guid.NewGuid();
         }
 
         public ShopItem(Item item, Shop shop, Price price)

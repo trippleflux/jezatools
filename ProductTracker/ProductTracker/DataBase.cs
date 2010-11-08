@@ -311,32 +311,16 @@ namespace ProductTracker
         /// Gets all shop items.
         /// </summary>
         /// <returns></returns>
-        public List<ShopItem> GetShopItems()
+        public DataSet GetShopItems()
         {
-            List<ShopItem> shopItems = new List<ShopItem>();
+            DataSet shopItems = new DataSet();
             using (dbConnection)
             {
-                using (DbCommand dbCommand = dbConnection.CreateCommand())
-                {
-                    dbConnection.Open();
-                    dbCommand.CommandText = "SELECT * FROM ShopItems";
-                    using (DbDataReader reader = dbCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            ShopItem shopItem = new ShopItem
-                            {
-                                ItemId = new Guid(reader[0].ToString()),
-                                ShopId = new Guid(reader[1].ToString()),
-                                DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
-                                PriceId = new Guid(reader[3].ToString()),
-                                NumberOfItems = Int32.Parse(reader[4].ToString()),
-                                Id = new Guid(reader[5].ToString()),
-                            };
-                            shopItems.Add(shopItem);
-                        }
-                    }
-                }
+                dbConnection.Open();
+                const string commandText = "SELECT Id, DateTime, NumberOfItems, (SELECT Name FROM Items WHERE Items.UniqueId = ShopItems.Item) AS Item, (SELECT Name FROM Shops WHERE Shops.Id = ShopItems.Shop) AS Shop FROM ShopItems";
+                DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
+                dataAdapter.Fill(shopItems, Misc.DataTableNameOfShopItems);
+                dbConnection.Close();
             }
             return shopItems;
         }
@@ -645,7 +629,7 @@ namespace ProductTracker
                     dbConnection.Open();
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "INSERT INTO ShopItems (Item, Shop, DateTime, Price, NumberOfItems, Id) VALUES('{0}', '{1}', '{2}', '{3}', {4}, '{5}')",
-                                                       shopItem.Item.UniqueId, shopItem.Shop.Id,
+                                                       shopItem.ItemId, shopItem.ShopId,
                                                        shopItem.DateTime.ToString(DateTimeFormatProvider),
                                                        shopItem.Price.Id, shopItem.NumberOfItems, shopItem.Id);
                     dbCommand.CommandText = commandText;
