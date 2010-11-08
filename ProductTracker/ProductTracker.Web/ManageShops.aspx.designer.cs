@@ -95,15 +95,6 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.Panel PanelBody;
         
         /// <summary>
-        /// LabelBodyShopsId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelBodyShopsId;
-        
-        /// <summary>
         /// LabelBodyShopsName control.
         /// </summary>
         /// <remarks>
@@ -156,15 +147,6 @@ namespace ProductTracker.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LabelBodyShopsIsCompany;
-        
-        /// <summary>
-        /// TextBoxBodyShopsId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxBodyShopsId;
         
         /// <summary>
         /// TextBoxBodyShopsName control.
@@ -230,6 +212,15 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonBodyShopsSubmit;
         
         /// <summary>
+        /// LinkButtonBodyShopsUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonBodyShopsUpdate;
+        
+        /// <summary>
         /// LinkButtonBodyShopsDelete control.
         /// </summary>
         /// <remarks>
@@ -237,5 +228,14 @@ namespace ProductTracker.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButtonBodyShopsDelete;
+        
+        /// <summary>
+        /// LabelStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelStatus;
     }
 }

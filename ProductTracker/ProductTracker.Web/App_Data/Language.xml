@@ -19,11 +19,11 @@
     <setting id="LabelItemNote" value="Opis" />
     <setting id="LabelItemItemType" value="Tip Izdelka" />
     <setting id="LinkButtonMiddleBodySubmit" value="Predloži" />
+    <setting id="LinkButtonMiddleBodyUpdate" value="Posodobi" />
     <setting id="LinkButtonMiddleItemTypesDelete" value="Izbriši" />
   </page>
   <page id="ManageShops">
     <setting id="HyperLinkMain" value="Osnovna Stran"/>
-    <setting id="LabelBodyShopsId" value="Id"/>
     <setting id="LabelBodyShopsName" value="Ime"/>
     <setting id="LabelBodyShopsAddress" value="Naslov"/>
     <setting id="LabelBodyShopsOwner" value="Lastnik"/>
@@ -32,7 +32,8 @@
     <setting id="LabelBodyShopsIsCompany" value="Pravna Oseba"/>
     <setting id="LabelShopList" value="Trgovine"/>
     <setting id="LinkButtonShopList" value="Izberi"/>
-    <setting id="LinkButtonBodyShopsSubmit" value="Uvozi??"/>
+    <setting id="LinkButtonBodyShopsSubmit" value="Vnesi"/>
+    <setting id="LinkButtonBodyShopsUpdate" value="Posodobi" />
     <setting id="LinkButtonBodyShopsDelete" value="Zbriši"/>
     <setting id="LinkButtonAdd" value="Dodaj" />
   </page>
