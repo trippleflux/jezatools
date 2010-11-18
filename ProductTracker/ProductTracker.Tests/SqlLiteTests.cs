@@ -63,7 +63,7 @@ namespace ProductTracker.Tests
             Assert.AreEqual(item.Id, itemArray.GetValue(0), "{0} was not found!", item.Id);
             Assert.AreEqual(item.Name, itemArray.GetValue(1), "{0} was not found!", item.Name);
             Assert.AreEqual(item.Notes, itemArray.GetValue(2), "{0} was not found!", item.Notes);
-            Assert.AreEqual(ItemTypeName, itemArray.GetValue(3), "{0} was not found!", item.ItemTypeName);
+            Assert.AreEqual(ItemTypeName, itemArray.GetValue(3), "{0} was not found!", ItemTypeName);
         }
 
         /// <summary>
@@ -161,9 +161,9 @@ namespace ProductTracker.Tests
                     Notes = "bla bla bal...",
                 };
             Assert.IsTrue(dataBase.InsertItem(item));
-            price = new Price(1.2, 1.1);
-            Assert.IsTrue(dataBase.InsertPrice(item, shop, price));
-            shopItem = new ShopItem(item, shop, price);
+            price = new Price(1.2, 1.1) {ItemId = item.UniqueId, ShopId = shop.Id};
+            Assert.IsTrue(dataBase.InsertPrice(price));
+            shopItem = new ShopItem {ItemId = item.UniqueId, ShopId = shop.Id, PriceId = price.Id};
             shopItem.SetNumberOfItems(5);
             Assert.IsTrue(dataBase.InsertShopItem(shopItem));
             tracker = new Tracker(shopItem) {SoldCount = 2};

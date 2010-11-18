@@ -13,7 +13,6 @@ namespace ProductTracker
         public Tracker(ShopItem shopItem)
         {
             Id = Guid.NewGuid();
-            ShopItem = shopItem;
             ShopItemId = shopItem.Id;
             DateTime = new DateTime(DateTime.Now.Ticks);
         }
@@ -24,12 +23,6 @@ namespace ProductTracker
         /// <value>The id.</value>
         public Guid Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the shop item.
-        /// </summary>
-        /// <value>The shop item.</value>
-
-        public ShopItem ShopItem { get; set; }
         /// <summary>
         /// Gets or sets the shop item id.
         /// </summary>

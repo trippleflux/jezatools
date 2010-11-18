@@ -12,7 +12,7 @@ namespace ProductTracker
         /// <returns></returns>
         public Overview AddShopItem(ShopItem shopItem)
         {
-            if (ItemExistsInShop(shopItem.Item.UniqueId, shopItem.Shop))
+            if (ItemExistsInShop(shopItem.ItemId, shopItem.ShopId))
             {
                 UpdateShopItem();
             }
@@ -50,7 +50,7 @@ namespace ProductTracker
             int totalItemsCount = 0;
             foreach (ShopItem shopItem in shopItems)
             {
-                if (shopItem.Shop == shop)
+                if (shopItem.ShopId == shop.Id)
                 {
                     totalItemsCount += shopItem.NumberOfItems;
                 }
@@ -66,16 +66,16 @@ namespace ProductTracker
         /// <summary>
         /// Checks if specified item allready exists in shop.
         /// </summary>
-        /// <param name="id">The id.</param>
-        /// <param name="shop">The shop.</param>
+        /// <param name="itemId">The itemId.</param>
+        /// <param name="shopId">The shopId.</param>
         /// <returns></returns>
-        private bool ItemExistsInShop(Guid id, Shop shop)
+        private bool ItemExistsInShop(Guid itemId, Guid shopId)
         {
             foreach (ShopItem shopItem in shopItems)
             {
-                if (shopItem.Shop.Id == shop.Id)
+                if (shopItem.ShopId == shopId)
                 {
-                    if (shopItem.Item.UniqueId == id)
+                    if (shopItem.ItemId == itemId)
                     {
                         return true;
                     }

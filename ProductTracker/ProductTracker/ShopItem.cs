@@ -9,16 +9,6 @@ namespace ProductTracker
             Id = Guid.NewGuid();
         }
 
-        public ShopItem(Item item, Shop shop, Price price)
-        {
-            Item = item;
-            Shop = shop;
-            Price = price;
-            NumberOfItems = 1;
-            DateTime = new DateTime(DateTime.Now.Ticks);
-            Id = Guid.NewGuid();
-        }
-
         /// <summary>
         /// Sets the number of items being added.
         /// </summary>
@@ -31,34 +21,16 @@ namespace ProductTracker
         }
 
         /// <summary>
-        /// Gets or sets the item.
-        /// </summary>
-        /// <value>The item.</value>
-        public Item Item { get; set; }
-
-        /// <summary>
         /// Gets or sets the item id.
         /// </summary>
         /// <value>The item id.</value>
         public Guid ItemId { get; set; }
 
         /// <summary>
-        /// Gets or sets the price.
-        /// </summary>
-        /// <value>The price.</value>
-        public Price Price { get; set; }
-
-        /// <summary>
         /// Gets or sets the price id.
         /// </summary>
         /// <value>The price id.</value>
         public Guid PriceId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the shop.
-        /// </summary>
-        /// <value>The shop.</value>
-        public Shop Shop { get; set; }
 
         /// <summary>
         /// Gets or sets the shop id.

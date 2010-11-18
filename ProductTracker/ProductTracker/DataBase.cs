@@ -290,9 +290,7 @@ namespace ProductTracker
                         {
                             shopItem = new ShopItem
                                 {
-                                    Item = item,
                                     ItemId = new Guid(reader[0].ToString()),
-                                    Shop = shop,
                                     ShopId = new Guid(reader[1].ToString()),
                                     DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
                                     PriceId = new Guid(reader[3].ToString()),
@@ -572,11 +570,9 @@ namespace ProductTracker
         /// <summary>
         /// Inserts the price for specified item in shop.
         /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="shop">The shop.</param>
         /// <param name="price">The price.</param>
         /// <returns><c>true</c> on success.</returns>
-        public bool InsertPrice(Item item, Shop shop, Price price)
+        public bool InsertPrice(Price price)
         {
             using (dbConnection)
             {
@@ -585,7 +581,7 @@ namespace ProductTracker
                     dbConnection.Open();
                     string commandText = String.Format(CultureInfo.InvariantCulture,
                                                        "INSERT INTO Price (Item, Gross, Net, Shop, Id) VALUES('{0}', {1}, {2}, '{3}', '{4}')",
-                                                       item.UniqueId, price.Gross, price.Net, shop.Id, price.Id);
+                                                       price.ItemId, price.Gross, price.Net, price.ShopId, price.Id);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }
@@ -631,7 +627,7 @@ namespace ProductTracker
                                                        "INSERT INTO ShopItems (Item, Shop, DateTime, Price, NumberOfItems, Id) VALUES('{0}', '{1}', '{2}', '{3}', {4}, '{5}')",
                                                        shopItem.ItemId, shopItem.ShopId,
                                                        shopItem.DateTime.ToString(DateTimeFormatProvider),
-                                                       shopItem.Price.Id, shopItem.NumberOfItems, shopItem.Id);
+                                                       shopItem.PriceId, shopItem.NumberOfItems, shopItem.Id);
                     dbCommand.CommandText = commandText;
                     return dbCommand.ExecuteNonQuery() == 1 ? true : false;
                 }

@@ -48,11 +48,5 @@ namespace ProductTracker
         /// </summary>
         /// <value>The type of the item.</value>
         public int ItemType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the item type.
-        /// </summary>
-        /// <value>The name of the item type.</value>
-        public string ItemTypeName { get; set; }
     }
 }

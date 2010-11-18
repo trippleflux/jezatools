@@ -6,9 +6,10 @@ namespace ProductTracker.Tests
     {
         public static Overview PrepareTestData()
         {
-            ShopItem shopItem = new ShopItem(new Item("ID0001", "Cestitka 1"),
-                                               new Shop("trgovina 1"),
-                                               new Price(4, 3.2));
+            Item item = new Item("ID0001", "Cestitka 1");
+            Shop shop = new Shop("trgovina 1");
+            Price price = new Price(4, 3.2) {ItemId = item.UniqueId, ShopId = shop.Id};
+            ShopItem shopItem = new ShopItem() {ItemId = item.UniqueId, ShopId = shop.Id, PriceId = price.Id};
             Assert.IsNotNull(shopItem, "Items not added to shop!");
             shopItem.SetNumberOfItems(3);
             Assert.AreEqual(3, shopItem.NumberOfItems, "ShopItem missmatch!");
