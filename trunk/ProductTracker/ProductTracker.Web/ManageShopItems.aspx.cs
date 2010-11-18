@@ -95,7 +95,6 @@ namespace ProductTracker.Web
             Price price = new Price(priceGross, priceNet);
             ShopItem shopItem = new ShopItem
                 {
-                    Price = price,
                     ItemId = item.UniqueId,
                     ShopId = shop.Id,
                     PriceId = price.Id,

@@ -33,5 +33,17 @@ namespace ProductTracker
         /// </summary>
         /// <value>The id.</value>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item id.
+        /// </summary>
+        /// <value>The item id.</value>
+        public Guid ItemId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the shop id.
+        /// </summary>
+        /// <value>The shop id.</value>
+        public Guid ShopId { get; set; }
     }
 }
