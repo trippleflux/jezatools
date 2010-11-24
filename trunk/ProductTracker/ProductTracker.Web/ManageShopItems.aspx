@@ -30,14 +30,14 @@
                                     <asp:Label ID="LabelItems" runat="server" Text="Items"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownListItems" runat="server" DataTextField="Name" DataValueField="Id">
+                                    <asp:DropDownList ID="DropDownListItems" runat="server" DataTextField="Name" DataValueField="UniqueId">
                                     </asp:DropDownList>
                                 </td>
                                 <td>
                                     <asp:Label ID="LabelShops" runat="server" Text="Shops"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownListShops" runat="server" DataTextField="Name">
+                                    <asp:DropDownList ID="DropDownListShops" runat="server" DataTextField="Name" DataValueField="Id">
                                     </asp:DropDownList>
                                 </td>
                                 <td>
@@ -67,7 +67,18 @@
                     </asp:Panel>
                 </div>
                 <div id="divShopItems">
-                    <asp:GridView ID="GridViewShopItems" runat="server">
+                    <asp:GridView ID="GridViewShopItems" runat="server" 
+                        onrowdeleted="GridViewShopItems_RowDeleted" 
+                        onrowdeleting="GridViewShopItems_RowDeleting" AutoGenerateColumns="False">
+                        <Columns>
+                            <asp:BoundField DataField="DateTime" HeaderText="Date" />
+                            <asp:BoundField DataField="NumberOfItems" HeaderText="Count" />
+                            <asp:BoundField DataField="PriceGross" HeaderText="Price Gross" />
+                            <asp:BoundField DataField="PriceNet" HeaderText="Price Net" />
+                            <asp:BoundField DataField="Item" HeaderText="Item" />
+                            <asp:BoundField DataField="Shop" HeaderText="Shop" />
+                            <asp:CommandField ShowDeleteButton="True" />
+                        </Columns>
                     </asp:GridView>
                 </div>
                 <div id="divStatus">

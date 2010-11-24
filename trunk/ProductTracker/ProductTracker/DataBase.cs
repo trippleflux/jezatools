@@ -117,6 +117,28 @@ namespace ProductTracker
         }
 
         /// <summary>
+        /// Deletes the shop item.
+        /// </summary>
+        /// <param name="itemId">The item id.</param>
+        /// <param name="shopId">The shop id.</param>
+        /// <param name="priceId">The price id.</param>
+        /// <param name="numberOfItems">number of items.</param>
+        public void DeleteShopItem(Guid itemId, Guid shopId, Guid priceId, int numberOfItems)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "DELETE FROM ShopItems WHERE Shop='{0}' AND Item='{1}' AND Price='{2}' AND NumberOfItems={3}",
+                                                          shopId, itemId, priceId, numberOfItems);
+                    dbCommand.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets the item types.
         /// </summary>
         /// <returns></returns>
@@ -199,13 +221,13 @@ namespace ProductTracker
                         while (reader.Read())
                         {
                             Item item = new Item
-                            {
-                                Id = reader[0].ToString(),
-                                UniqueId = new Guid(reader[1].ToString()),
-                                Name = reader[2].ToString(),
-                                Notes = reader[3].ToString(),
-                                ItemType = Int32.Parse(reader[4].ToString()),
-                            };
+                                {
+                                    Id = reader[0].ToString(),
+                                    UniqueId = new Guid(reader[1].ToString()),
+                                    Name = reader[2].ToString(),
+                                    Notes = reader[3].ToString(),
+                                    ItemType = Int32.Parse(reader[4].ToString()),
+                                };
                             return item;
                         }
                     }
@@ -224,7 +246,8 @@ namespace ProductTracker
             using (dbConnection)
             {
                 dbConnection.Open();
-                const string commandText = "SELECT Id, Name, Notes, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName FROM Items";
+                const string commandText =
+                    "SELECT Id, Name, Notes, (Select Name from ItemType where ItemType.Id=Items.ItemType) AS ItemTypeName, UniqueId FROM Items";
                 DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
                 dataAdapter.Fill(items, Misc.DataTableNameOfItems);
                 dbConnection.Close();
@@ -265,6 +288,32 @@ namespace ProductTracker
                 }
             }
             return price;
+        }
+
+        /// <summary>
+        /// Gets the specified price id.
+        /// </summary>
+        /// <param name="itemId">The item.</param>
+        /// <param name="shopId">The shop.</param>
+        /// <param name="gross">Gross price.</param>
+        /// <param name="net">Net price.</param>
+        /// <returns></returns>
+        public Guid GetPriceId(Guid itemId, Guid shopId, double gross, double net)
+        {
+            using (dbConnection)
+            {
+                using (DbCommand dbCommand = dbConnection.CreateCommand())
+                {
+                    dbConnection.Open();
+                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
+                                                          "SELECT Id FROM Price WHERE Item='{0}' AND Shop='{1}' AND Gross={2} AND Net={3}",
+                                                          itemId, shopId, gross, net);
+                    using (DbDataReader reader = dbCommand.ExecuteReader())
+                    {
+                        return new Guid(reader[0].ToString());
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -315,7 +364,8 @@ namespace ProductTracker
             using (dbConnection)
             {
                 dbConnection.Open();
-                const string commandText = "SELECT Id, DateTime, NumberOfItems, (SELECT Name FROM Items WHERE Items.UniqueId = ShopItems.Item) AS Item, (SELECT Name FROM Shops WHERE Shops.Id = ShopItems.Shop) AS Shop FROM ShopItems";
+                const string commandText =
+                    "SELECT DateTime, NumberOfItems, (SELECT Gross FROM Price WHERE Price.Id = ShopItems.Price) AS PriceGross, (SELECT Net FROM Price WHERE Price.Id = ShopItems.Price) AS PriceNet, (SELECT Name FROM Items WHERE Items.UniqueId = ShopItems.Item) AS Item, (SELECT Name FROM Shops WHERE Shops.Id = ShopItems.Shop) AS Shop, Price FROM ShopItems";
                 DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
                 dataAdapter.Fill(shopItems, Misc.DataTableNameOfShopItems);
                 dbConnection.Close();
@@ -378,15 +428,15 @@ namespace ProductTracker
                         while (reader.Read())
                         {
                             Shop shop = new Shop
-                            {
-                                Id = new Guid(reader[0].ToString()),
-                                Name = reader[1].ToString(),
-                                Address = reader[2].ToString(),
-                                Owner = reader[3].ToString(),
-                                PostalCode = Int32.Parse(reader[4].ToString()),
-                                City = reader[5].ToString(),
-                                IsCompany = Boolean.Parse(reader[6].ToString()),
-                            };
+                                {
+                                    Id = new Guid(reader[0].ToString()),
+                                    Name = reader[1].ToString(),
+                                    Address = reader[2].ToString(),
+                                    Owner = reader[3].ToString(),
+                                    PostalCode = Int32.Parse(reader[4].ToString()),
+                                    City = reader[5].ToString(),
+                                    IsCompany = Boolean.Parse(reader[6].ToString()),
+                                };
                             return shop;
                         }
                     }
@@ -405,7 +455,7 @@ namespace ProductTracker
             using (dbConnection)
             {
                 dbConnection.Open();
-                const string commandText = "SELECT Name, Address, Owner, PostalCode, City, IsCompany FROM Shops";
+                const string commandText = "SELECT Name, Address, Owner, PostalCode, City, IsCompany, Id FROM Shops";
                 DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
                 dataAdapter.Fill(shops, Misc.DataTableNameOfShops);
                 dbConnection.Close();

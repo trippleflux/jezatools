@@ -35,9 +35,25 @@
                                 <table id="tableMiddleGridView">
                                     <tr>
                                         <td>
-                                            <asp:GridView ID="GridViewItems" runat="server">
+                                            <asp:GridView ID="GridViewItems" runat="server" AutoGenerateColumns="False" 
+                                                AllowPaging="True" onpageindexchanging="GridViewItems_PageIndexChanging">
+                                                <Columns>
+                                                    <asp:BoundField DataField="Id" HeaderText="Id" />
+                                                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                                                    <asp:BoundField DataField="ItemTypeName" HeaderText="Type" />
+                                                    <asp:BoundField DataField="Notes" HeaderText="Notes" />
+                                                </Columns>
                                             </asp:GridView>
-                                            <asp:GridView ID="GridViewShops" runat="server">
+                                            <asp:GridView ID="GridViewShops" runat="server" AutoGenerateColumns="False" 
+                                                AllowPaging="True" onpageindexchanging="GridViewShops_PageIndexChanging">
+                                                <Columns>
+                                                    <asp:BoundField DataField="Name" HeaderText="Name" />
+                                                    <asp:BoundField DataField="Address" HeaderText="Address" />
+                                                    <asp:BoundField DataField="Owner" HeaderText="Owner" />
+                                                    <asp:BoundField DataField="PostalCode" HeaderText="PostalCode" />
+                                                    <asp:BoundField DataField="City" HeaderText="City" />
+                                                    <asp:CheckBoxField DataField="IsCompany" HeaderText="IsCompany" />
+                                                </Columns>
                                             </asp:GridView>
                                             <asp:SqlDataSource ID="SqlDataSource" runat="server" 
                                                 ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
