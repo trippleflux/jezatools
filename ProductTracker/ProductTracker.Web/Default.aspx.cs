@@ -77,5 +77,17 @@ namespace ProductTracker.Web
         {
             PopulateItems();
         }
+
+        protected void GridViewItems_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            GridViewItems.PageIndex = e.NewPageIndex;
+            PopulateItems();
+        }
+
+        protected void GridViewShops_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
+        {
+            GridViewShops.PageIndex = e.NewPageIndex;
+            PopulateShops();
+        }
     }
 }

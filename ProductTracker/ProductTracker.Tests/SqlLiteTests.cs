@@ -12,6 +12,29 @@ namespace ProductTracker.Tests
     [TestFixture]
     public class SqlLiteTests
     {
+        [Test]
+        public void DeleteShopItem()
+        {
+            Guid itemId = Guid.NewGuid();
+            Guid shopId = Guid.NewGuid();
+            Guid priceId = Guid.NewGuid();
+            const int numberOfItems = 666;
+            ShopItem newShopItem = new ShopItem
+                {
+                    DateTime = new DateTime(DateTime.Now.Ticks),
+                    ItemId = itemId,
+                    ShopId = shopId,
+                    PriceId = priceId,
+                    NumberOfItems = numberOfItems,
+                };
+            Assert.IsTrue(dataBase.InsertShopItem(newShopItem));
+            DataSet shopItems = dataBase.GetShopItems();
+            Assert.AreEqual(2, shopItems.Tables[Misc.DataTableNameOfShopItems].Rows.Count);
+            dataBase.DeleteShopItem(itemId, shopId, priceId, numberOfItems);
+            shopItems = dataBase.GetShopItems();
+            Assert.AreEqual(1, shopItems.Tables[Misc.DataTableNameOfShopItems].Rows.Count);
+        }
+
         /// <summary>
         /// Gets the user admin.
         /// </summary>
@@ -38,6 +61,7 @@ namespace ProductTracker.Tests
             Assert.AreEqual(shop.PostalCode, itemArray.GetValue(3), "{0} was not found!", shop.PostalCode);
             Assert.AreEqual(shop.City, itemArray.GetValue(4), "{0} was not found!", shop.City);
             Assert.AreEqual(shop.IsCompany, itemArray.GetValue(5), "{0} was not found!", shop.IsCompany);
+            Assert.AreEqual(shop.Id, itemArray.GetValue(6), "{0} was not found!", shop.Id);
         }
 
         /// <summary>
@@ -64,6 +88,7 @@ namespace ProductTracker.Tests
             Assert.AreEqual(item.Name, itemArray.GetValue(1), "{0} was not found!", item.Name);
             Assert.AreEqual(item.Notes, itemArray.GetValue(2), "{0} was not found!", item.Notes);
             Assert.AreEqual(ItemTypeName, itemArray.GetValue(3), "{0} was not found!", ItemTypeName);
+            Assert.AreEqual(item.UniqueId, itemArray.GetValue(4), "{0} was not found!", item.UniqueId);
         }
 
         /// <summary>
@@ -135,6 +160,15 @@ namespace ProductTracker.Tests
         }
 
         [Test]
+        public void GetShopItems()
+        {
+            DataSet shopItems = dataBase.GetShopItems();
+            Assert.IsNotNull(shopItems);
+            DataTable dataTable = shopItems.Tables[Misc.DataTableNameOfShopItems];
+            Assert.AreEqual(1, dataTable.Rows.Count);
+        }
+
+        [Test]
         public void GetTracker()
         {
             IList<Tracker> actualTrackers = dataBase.GetTrackers(shopItem);
@@ -163,7 +197,7 @@ namespace ProductTracker.Tests
             Assert.IsTrue(dataBase.InsertItem(item));
             price = new Price(1.2, 1.1) {ItemId = item.UniqueId, ShopId = shop.Id};
             Assert.IsTrue(dataBase.InsertPrice(price));
-            shopItem = new ShopItem {ItemId = item.UniqueId, ShopId = shop.Id, PriceId = price.Id};
+            shopItem = new ShopItem { ItemId = item.UniqueId, ShopId = shop.Id, PriceId = price.Id, DateTime = new DateTime(DateTime.Now.Ticks) };
             shopItem.SetNumberOfItems(5);
             Assert.IsTrue(dataBase.InsertShopItem(shopItem));
             tracker = new Tracker(shopItem) {SoldCount = 2};

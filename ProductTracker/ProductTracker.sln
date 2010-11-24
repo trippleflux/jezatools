@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Slution Items", "Slution It
 		ProductTracker.Db\ProductTracker.db3 = ProductTracker.Db\ProductTracker.db3
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ProductTracker.Setup", "ProductTracker.Setup\ProductTracker.Setup.vdproj", "{7E5D5E8F-0ADC-4E1C-B990-185B88EAD857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,9 @@ Global
 		{BF3E85E1-313D-4724-A29D-446034CB96F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF3E85E1-313D-4724-A29D-446034CB96F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF3E85E1-313D-4724-A29D-446034CB96F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E5D5E8F-0ADC-4E1C-B990-185B88EAD857}.Debug|Any CPU.ActiveCfg = Debug
+		{7E5D5E8F-0ADC-4E1C-B990-185B88EAD857}.Debug|Any CPU.Build.0 = Debug
+		{7E5D5E8F-0ADC-4E1C-B990-185B88EAD857}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

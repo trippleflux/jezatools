@@ -64,5 +64,10 @@
     </copy>
   </target>
 
+  <target name="deploy" descripton="Deploy the application.">
+    <call target="deploy.copy" />
+    <mkiisdir iisserver="localhost:54321" appfriendlyname="ProductTracker" dirpath="${path::combine(Folder.Source, 'release/ProductTracker')}" vdirname="ProductTracker" defaultdoc="Default.aspx" enabledefaultdoc="true"/>
+  </target>
+
 </project>
 
