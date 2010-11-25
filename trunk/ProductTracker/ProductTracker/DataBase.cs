@@ -119,11 +119,8 @@ namespace ProductTracker
         /// <summary>
         /// Deletes the shop item.
         /// </summary>
-        /// <param name="itemId">The item id.</param>
-        /// <param name="shopId">The shop id.</param>
-        /// <param name="priceId">The price id.</param>
-        /// <param name="numberOfItems">number of items.</param>
-        public void DeleteShopItem(Guid itemId, Guid shopId, Guid priceId, int numberOfItems)
+        /// <param name="id">The <see cref="ShopItem"/> id.</param>
+        public void DeleteShopItem(Guid id)
         {
             using (dbConnection)
             {
@@ -131,8 +128,7 @@ namespace ProductTracker
                 {
                     dbConnection.Open();
                     dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
-                                                          "DELETE FROM ShopItems WHERE Shop='{0}' AND Item='{1}' AND Price='{2}' AND NumberOfItems={3}",
-                                                          shopId, itemId, priceId, numberOfItems);
+                                                          "DELETE FROM ShopItems WHERE Id='{0}'", id);
                     dbCommand.ExecuteNonQuery();
                 }
             }
@@ -347,7 +343,7 @@ namespace ProductTracker
             {
                 dbConnection.Open();
                 const string commandText =
-                    "SELECT DateTime, NumberOfItems, (SELECT Gross FROM Price WHERE Price.Id = ShopItems.Price) AS PriceGross, (SELECT Net FROM Price WHERE Price.Id = ShopItems.Price) AS PriceNet, (SELECT Name FROM Items WHERE Items.UniqueId = ShopItems.Item) AS Item, (SELECT Name FROM Shops WHERE Shops.Id = ShopItems.Shop) AS Shop, Price FROM ShopItems";
+                    "SELECT DateTime, NumberOfItems, (SELECT Gross FROM Price WHERE Price.Id = ShopItems.Price) AS PriceGross, (SELECT Net FROM Price WHERE Price.Id = ShopItems.Price) AS PriceNet, (SELECT Name FROM Items WHERE Items.UniqueId = ShopItems.Item) AS Item, (SELECT Name FROM Shops WHERE Shops.Id = ShopItems.Shop) AS Shop, Price, Shop AS ShopId, Item AS ItemId, Id FROM ShopItems";
                 DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
                 dataAdapter.Fill(shopItems, Misc.DataTableNameOfShopItems);
                 dbConnection.Close();

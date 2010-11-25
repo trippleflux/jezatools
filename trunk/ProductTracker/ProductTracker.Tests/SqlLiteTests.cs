@@ -29,10 +29,10 @@ namespace ProductTracker.Tests
                 };
             Assert.IsTrue(dataBase.InsertShopItem(newShopItem));
             DataSet shopItems = dataBase.GetShopItems();
-            int count = shopItems.Tables[ProductTracker.Misc.DataTableNameOfShopItems].Rows.Count;
-            dataBase.DeleteShopItem(itemId, shopId, priceId, numberOfItems);
+            int count = shopItems.Tables[Misc.DataTableNameOfShopItems].Rows.Count;
+            dataBase.DeleteShopItem(newShopItem.Id);
             shopItems = dataBase.GetShopItems();
-            Assert.AreEqual(count - 1, shopItems.Tables[ProductTracker.Misc.DataTableNameOfShopItems].Rows.Count);
+            Assert.AreEqual(count - 1, shopItems.Tables[Misc.DataTableNameOfShopItems].Rows.Count);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace ProductTracker.Tests
         {
             DataSet shops = dataBase.GetShops();
             Assert.IsNotNull(shops, "dataBase.GetShops() is NULL!");
-            object[] itemArray = shops.Tables[ProductTracker.Misc.DataTableNameOfShops].Rows[0].ItemArray;
+            object[] itemArray = shops.Tables[Misc.DataTableNameOfShops].Rows[0].ItemArray;
             Assert.AreEqual(shop.Name, itemArray.GetValue(0), "{0} was not found!", shop.Name);
             Assert.AreEqual(shop.Address, itemArray.GetValue(1), "{0} was not found!", shop.Address);
             Assert.AreEqual(shop.Owner, itemArray.GetValue(2), "{0} was not found!", shop.Owner);
@@ -83,7 +83,7 @@ namespace ProductTracker.Tests
         {
             DataSet items = dataBase.GetItems();
             Assert.IsNotNull(items, "dataBase.GetItems() is NULL!");
-            object[] itemArray = items.Tables[ProductTracker.Misc.DataTableNameOfItems].Rows[0].ItemArray;
+            object[] itemArray = items.Tables[Misc.DataTableNameOfItems].Rows[0].ItemArray;
             Assert.AreEqual(item.Id, itemArray.GetValue(0), "{0} was not found!", item.Id);
             Assert.AreEqual(item.Name, itemArray.GetValue(1), "{0} was not found!", item.Name);
             Assert.AreEqual(item.Notes, itemArray.GetValue(2), "{0} was not found!", item.Notes);
@@ -153,7 +153,7 @@ namespace ProductTracker.Tests
         public void GetShopItem()
         {
             DataSet actualShopItems = dataBase.GetItemsInShop(shop.Id);
-            Assert.That(actualShopItems.Tables[ProductTracker.Misc.DataTableNameOfShopItems].Rows.Count > 0);
+            Assert.That(actualShopItems.Tables[Misc.DataTableNameOfShopItems].Rows.Count > 0);
         }
 
         [Test]
@@ -161,8 +161,14 @@ namespace ProductTracker.Tests
         {
             DataSet shopItems = dataBase.GetShopItems();
             Assert.IsNotNull(shopItems);
-            DataTable dataTable = shopItems.Tables[ProductTracker.Misc.DataTableNameOfShopItems];
+            DataTable dataTable = shopItems.Tables[Misc.DataTableNameOfShopItems];
             Assert.That(dataTable.Rows.Count > 0);
+            DataRowCollection collection = dataTable.Rows;
+            List<ShopItem> listOfShopItems = new List<ShopItem>();
+            listOfShopItems.ParseShopItems(collection);
+            Assert.IsNotNull(listOfShopItems);
+            Guid id = listOfShopItems.GetShopItemId(shopItem.DateTime, shopItem.ItemId, shopItem.ShopId, shopItem.NumberOfItems);
+            Assert.AreEqual(shopItem.Id, id);
         }
 
         [Test]
@@ -170,8 +176,8 @@ namespace ProductTracker.Tests
         {
             DataSet actualTrackers = dataBase.GetTrackers(shopItem);
             Assert.IsNotNull(actualTrackers);
-            DataRowCollection collection = actualTrackers.Tables[ProductTracker.Misc.DataTableNameOfTrackers].Rows;
-            Assert.That(collection.Count> 0);
+            DataRowCollection collection = actualTrackers.Tables[Misc.DataTableNameOfTrackers].Rows;
+            Assert.That(collection.Count > 0);
         }
 
         [SetUp]
@@ -180,7 +186,7 @@ namespace ProductTracker.Tests
             dataBase.DeleteAllItems();
             dataBase.DeleteAllItemTypes();
             dataBase.DeleteAllShops();
-            itemType = new ItemType() {Name = ItemTypeName};
+            itemType = new ItemType {Name = ItemTypeName};
             Assert.IsTrue(dataBase.InsertItemType(itemType));
             IList<ItemType> itemTypes = dataBase.GetItemTypes();
             const string shopName = "trgovina 1";
@@ -196,10 +202,10 @@ namespace ProductTracker.Tests
             price = new Price(1.2, 1.1) {ItemId = item.UniqueId, ShopId = shop.Id};
             Assert.IsTrue(dataBase.InsertPrice(price));
             DateTime dateTime = new DateTime(DateTime.Now.Ticks);
-            shopItem = new ShopItem { ItemId = item.UniqueId, ShopId = shop.Id, PriceId = price.Id, DateTime = dateTime };
+            shopItem = new ShopItem {ItemId = item.UniqueId, ShopId = shop.Id, PriceId = price.Id, DateTime = dateTime};
             shopItem.SetNumberOfItems(5);
             Assert.IsTrue(dataBase.InsertShopItem(shopItem));
-            tracker = new Tracker(shopItem) { SoldCount = 2, DateTime = dateTime };
+            tracker = new Tracker(shopItem) {SoldCount = 2, DateTime = dateTime};
             Assert.IsTrue(dataBase.InsertTracker(tracker));
         }
 
@@ -210,6 +216,6 @@ namespace ProductTracker.Tests
         private ShopItem shopItem = new ShopItem();
         private Tracker tracker = new Tracker();
         private ItemType itemType = new ItemType();
-        const string ItemTypeName = "cestitka";
+        private const string ItemTypeName = "cestitka";
     }
 }
