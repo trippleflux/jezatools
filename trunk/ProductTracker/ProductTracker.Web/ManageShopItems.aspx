@@ -4,70 +4,73 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head runat="server">
-        <title>Shop Items</title>
+        <title>Product Tracker</title>
         <link href="Stylesheet.css" type="text/css" rel="Stylesheet"/>
     </head>
     <body>
         <form id="formManageShopItems" runat="server">
-            <div id="divMain">
-                <div id="divHead">
-                    <asp:Panel ID="PanelHead" runat="server">
+            <div id="divManageShopItems" class="divManageShopItems">
+                <div id="divManageShopItemsHead" class="divManageShopItemsHead">
+                    <asp:Panel id="PanelHead" runat="server">
                         <table id="tableHead">
                             <tr>
                                 <td>
-                                    <asp:HyperLink ID="HyperLinkMain" runat="server" 
-                                        NavigateUrl="~/Default.aspx" CssClass="hyperLink">Main</asp:HyperLink>
+                                    <asp:HyperLink id="hyperLinkManageShopItemsMain" runat="server" 
+                                        NavigateUrl="~/Default.aspx" CssClass="hyperLinkManageShopItemsMain">Main</asp:HyperLink>
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
-                <div id="divAddShopItem">
-                    <asp:Panel ID="PanelShopItem" runat="server">
-                        <table id="tableShopItem">
+                <div id="divManageShopItemsBodyInput" class="divManageShopItemsBodyInput">
+                    <asp:Panel id="panelManageShopItemsBodyInput" CssClass="panelManageShopItemsBodyInput" runat="server">
+                        <table id="tableManageShopItemsBodyInput" class="tableManageShopItemsBodyInput">
                             <tr>
                                 <td>
-                                    <asp:Label ID="LabelItems" runat="server" Text="Items"></asp:Label>
+                                    <asp:Label id="labelManageShopItemsBodyInputItems" CssClass="labelManageShopItemsBodyInputItems" runat="server" Text="Items"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:DropDownList ID="DropDownListItems" runat="server" DataTextField="Name" DataValueField="UniqueId">
+                                    <asp:Label id="labelManageShopItemsBodyInputShops" CssClass="labelManageShopItemsBodyInputShops" runat="server" Text="Shops"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label id="labelManageShopItemsBodyInputPriceGross" CssClass="labelManageShopItemsBodyInputPriceGross" runat="server" Text="Price Gross"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label id="labelManageShopItemsBodyInputPriceNet" CssClass="labelManageShopItemsBodyInputPriceNet" runat="server" Text="Price Net"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label id="labelManageShopItemsBodyInputNumberOfItems" CssClass="labelManageShopItemsBodyInputNumberOfItems" runat="server" Text="Number Of Items"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:DropDownList id="dropDownListManageShopItemsBodyInputItems" CssClass="dropDownListManageShopItemsBodyInputItems" runat="server" DataTextField="Name" DataValueField="UniqueId">
                                     </asp:DropDownList>
                                 </td>
                                 <td>
-                                    <asp:Label ID="LabelShops" runat="server" Text="Shops"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:DropDownList ID="DropDownListShops" runat="server" DataTextField="Name" DataValueField="Id">
+                                    <asp:DropDownList id="dropDownListManageShopItemsBodyInputShops" CssClass="dropDownListManageShopItemsBodyInputShops" runat="server" DataTextField="Name" DataValueField="Id">
                                     </asp:DropDownList>
                                 </td>
                                 <td>
-                                    <asp:Label ID="LabelPriceGross" runat="server" Text="Price Gross"></asp:Label>
+                                    <asp:TextBox id="textBoxManageShopItemsBodyInputPriceGross" CssClass="textBoxManageShopItemsBodyInputPriceGross" runat="server"></asp:TextBox>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="TextBoxPriceGross" runat="server"></asp:TextBox>
+                                    <asp:TextBox id="textBoxManageShopItemsBodyInputPriceNet" CssClass="textBoxManageShopItemsBodyInputPriceNet" runat="server"></asp:TextBox>
                                 </td>
                                 <td>
-                                    <asp:Label ID="LabelPriceNet" runat="server" Text="Price Net"></asp:Label>
+                                    <asp:TextBox id="textBoxManageShopItemsBodyInputNumberOfItems" CssClass="textBoxManageShopItemsBodyInputNumberOfItems" runat="server"></asp:TextBox>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="TextBoxPriceNet" runat="server"></asp:TextBox>
-                                </td>
-                                <td>
-                                    <asp:Label ID="LabelNumberOfItems" runat="server" Text="Number Of Items"></asp:Label>
-                                </td>
-                                <td>
-                                    <asp:TextBox ID="TextBoxNumberOfItems" runat="server"></asp:TextBox>
-                                </td>
-                                <td>
-                                    <asp:LinkButton ID="LinkButtonAddItemToShop" runat="server" 
+                                    <asp:LinkButton id="linkButtonManageShopItemsBodyInputAdd" CssClass="linkButtonManageShopItemsBodyInputAdd" runat="server" 
                                         onclick="LinkButtonAddItemToShopClick">Add Item To Shop</asp:LinkButton>
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
-                <div id="divShopItems">
-                    <asp:GridView ID="GridViewShopItems" runat="server" 
+                <div id="divManageShopItemsBodyList" class="divManageShopItemsBodyList">
+                    <asp:GridView id="gridViewManageShopItemsBodyList" 
+                        CssClass="gridViewManageShopItemsBodyList" runat="server" 
                         onrowdeleted="GridViewShopItems_RowDeleted" 
                         onrowdeleting="GridViewShopItems_RowDeleting" AutoGenerateColumns="False">
                         <Columns>
@@ -81,8 +84,8 @@
                         </Columns>
                     </asp:GridView>
                 </div>
-                <div id="divStatus">
-                    <asp:Label ID="LabelStatus" runat="server" Text=""></asp:Label>
+                <div id="divManageShopItemsBodyFoot" class="divManageShopItemsBodyFoot">
+                    <asp:Label id="labelManageShopItemsStatus" CssClass="labelManageShopItemsStatus" runat="server" Text=""></asp:Label>
                 </div>
             </div>
         </form>

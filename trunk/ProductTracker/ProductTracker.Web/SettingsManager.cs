@@ -1,7 +1,12 @@
+#region
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Xml.Serialization;
+
+#endregion
 
 namespace ProductTracker.Web
 {
@@ -11,13 +16,14 @@ namespace ProductTracker.Web
         {
             foreach (Setting setting in settings)
             {
-                if (setting.Id == value)
+                if (setting.Id.Equals(value, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return setting.Value;
                 }
             }
             return "NOT SET";
         }
+
         /*
         private static void SerializeToXml()
         {
@@ -51,13 +57,12 @@ namespace ProductTracker.Web
 
         public Settings DeserializeFromXml()
         {
-            XmlSerializer deserializer = new XmlSerializer(typeof(Settings));
+            XmlSerializer deserializer = new XmlSerializer(typeof (Settings));
             string path = HttpContext.Current.Server.MapPath("~/App_Data/Language.xml");
             TextReader textReader = new StreamReader(path);
-            Settings settings = (Settings)deserializer.Deserialize(textReader);
+            Settings settings = (Settings) deserializer.Deserialize(textReader);
             textReader.Close();
             return settings;
         }
-
     }
 }

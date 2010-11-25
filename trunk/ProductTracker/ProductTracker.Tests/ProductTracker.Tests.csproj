@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BF3E85E1-313D-4724-A29D-446034CB96F6}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -50,11 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItemTests.cs" />
-    <Compile Include="OverviewTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShopTests.cs" />
     <Compile Include="SqlLiteTests.cs" />
-    <Compile Include="TestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ProductTracker\ProductTracker.csproj">
@@ -74,6 +71,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy /E /Y $(SolutionDir)ProductTracker.Db\ProductTracker.db3 $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>xcopy /E /Y $(SolutionDir)ProductTracker.Web\App_Data\ProductTracker.db3 $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -30,9 +30,9 @@ namespace ProductTracker.Web
 
         private void ClearFields()
         {
-            TextBoxPriceGross.Text = "";
-            TextBoxPriceNet.Text = "";
-            TextBoxNumberOfItems.Text = "";
+            textBoxManageShopItemsBodyInputPriceGross.Text = "";
+            textBoxManageShopItemsBodyInputPriceNet.Text = "";
+            textBoxManageShopItemsBodyInputNumberOfItems.Text = "";
         }
 
         private void SetElementValues()
@@ -44,13 +44,13 @@ namespace ProductTracker.Web
                 if (page.Id == "ManageShopItems")
                 {
                     List<Setting> setting = page.Setting;
-                    HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
-                    LabelItems.Text = settingsManager.GetSettingValue("LabelItems", setting);
-                    LabelShops.Text = settingsManager.GetSettingValue("LabelShops", setting);
-                    LabelPriceGross.Text = settingsManager.GetSettingValue("LabelPriceGross", setting);
-                    LabelPriceNet.Text = settingsManager.GetSettingValue("LabelPriceNet", setting);
-                    LabelNumberOfItems.Text = settingsManager.GetSettingValue("LabelNumberOfItems", setting);
-                    LinkButtonAddItemToShop.Text = settingsManager.GetSettingValue("LinkButtonAddItemToShop", setting);
+                    hyperLinkManageShopItemsMain.Text = settingsManager.GetSettingValue("hyperLinkManageShopItemsMain", setting);
+                    labelManageShopItemsBodyInputItems.Text = settingsManager.GetSettingValue("labelManageShopItemsBodyInputItems", setting);
+                    labelManageShopItemsBodyInputShops.Text = settingsManager.GetSettingValue("labelManageShopItemsBodyInputShops", setting);
+                    labelManageShopItemsBodyInputPriceGross.Text = settingsManager.GetSettingValue("labelManageShopItemsBodyInputPriceGross", setting);
+                    labelManageShopItemsBodyInputPriceNet.Text = settingsManager.GetSettingValue("labelManageShopItemsBodyInputPriceNet", setting);
+                    labelManageShopItemsBodyInputNumberOfItems.Text = settingsManager.GetSettingValue("labelManageShopItemsBodyInputNumberOfItems", setting);
+                    linkButtonManageShopItemsBodyInputAdd.Text = settingsManager.GetSettingValue("linkButtonManageShopItemsBodyInputAdd", setting);
                 }
             }
         }
@@ -59,44 +59,44 @@ namespace ProductTracker.Web
         {
             DataBase dataBase = new DataBase();
             DataSet items = dataBase.GetItems();
-            DropDownListItems.DataSource = items;
-            DropDownListItems.DataBind();
+            dropDownListManageShopItemsBodyInputItems.DataSource = items;
+            dropDownListManageShopItemsBodyInputItems.DataBind();
         }
 
         private void PopulateShops()
         {
             DataBase dataBase = new DataBase();
             DataSet shops = dataBase.GetShops();
-            DropDownListShops.DataSource = shops;
-            DropDownListShops.DataBind();
+            dropDownListManageShopItemsBodyInputShops.DataSource = shops;
+            dropDownListManageShopItemsBodyInputShops.DataBind();
         }
 
         private void PopulateShopItems()
         {
             DataBase dataBase = new DataBase();
             DataSet shopItems = dataBase.GetShopItems();
-            GridViewShopItems.DataSource = shopItems;
-            GridViewShopItems.DataBind();
+            gridViewManageShopItemsBodyList.DataSource = shopItems;
+            gridViewManageShopItemsBodyList.DataBind();
         }
 
         protected void LinkButtonAddItemToShopClick(object sender, EventArgs e)
         {
             DataBase dataBase = new DataBase();
-            string selectedItem = DropDownListItems.SelectedValue;
+            string selectedItem = dropDownListManageShopItemsBodyInputItems.SelectedValue;
             Item item = dataBase.GetItem(new Guid(selectedItem));
             if (item == null)
             {
                 return;
             }
-            string selectedShop = DropDownListShops.SelectedValue;
+            string selectedShop = dropDownListManageShopItemsBodyInputShops.SelectedValue;
             Shop shop = dataBase.GetShop(selectedShop);
             if (shop == null)
             {
                 return;
             }
-            Double priceGross = Double.Parse(TextBoxPriceGross.Text.Trim());
-            Double priceNet = Double.Parse(TextBoxPriceNet.Text.Trim());
-            int numberOfItems = Int32.Parse(TextBoxNumberOfItems.Text.Trim());
+            Double priceGross = Double.Parse(textBoxManageShopItemsBodyInputPriceGross.Text.Trim());
+            Double priceNet = Double.Parse(textBoxManageShopItemsBodyInputPriceNet.Text.Trim());
+            int numberOfItems = Int32.Parse(textBoxManageShopItemsBodyInputNumberOfItems.Text.Trim());
             Price price = new Price(priceGross, priceNet) {ItemId = item.UniqueId, ShopId = shop.Id};
             if (!dataBase.InsertPrice(price))
             {
@@ -115,13 +115,13 @@ namespace ProductTracker.Web
 
         protected void GridViewShopItems_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            ListItemCollection items = DropDownListItems.Items;
-            ListItemCollection shops = DropDownListShops.Items;
-            TableCell tableCellItemCount = GridViewShopItems.Rows[e.RowIndex].Cells[1];
-            TableCell tableCellPriceGross = GridViewShopItems.Rows[e.RowIndex].Cells[2];
-            TableCell tableCellPriceNet = GridViewShopItems.Rows[e.RowIndex].Cells[3];
-            TableCell tableCellItem = GridViewShopItems.Rows[e.RowIndex].Cells[4];
-            TableCell tableCellShop = GridViewShopItems.Rows[e.RowIndex].Cells[5];
+            ListItemCollection items = dropDownListManageShopItemsBodyInputItems.Items;
+            ListItemCollection shops = dropDownListManageShopItemsBodyInputShops.Items;
+            TableCell tableCellItemCount = gridViewManageShopItemsBodyList.Rows[e.RowIndex].Cells[1];
+            TableCell tableCellPriceGross = gridViewManageShopItemsBodyList.Rows[e.RowIndex].Cells[2];
+            TableCell tableCellPriceNet = gridViewManageShopItemsBodyList.Rows[e.RowIndex].Cells[3];
+            TableCell tableCellItem = gridViewManageShopItemsBodyList.Rows[e.RowIndex].Cells[4];
+            TableCell tableCellShop = gridViewManageShopItemsBodyList.Rows[e.RowIndex].Cells[5];
             Guid itemId = Guid.Empty;
             Guid shopId = Guid.Empty;
             foreach (var item in items)
@@ -159,7 +159,7 @@ namespace ProductTracker.Web
             }
             else
             {
-                LabelStatus.Text = "Failed to delete row!";
+                labelManageShopItemsStatus.Text = "Failed to delete row!";
             }
         }
     }

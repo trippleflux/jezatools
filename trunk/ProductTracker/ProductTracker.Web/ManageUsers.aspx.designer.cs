@@ -23,102 +23,102 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.HtmlControls.HtmlForm formManageUsers;
         
         /// <summary>
-        /// PanelHead control.
+        /// panelManageUsersHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelHead;
+        protected global::System.Web.UI.WebControls.Panel panelManageUsersHead;
         
         /// <summary>
-        /// HyperLinkMain control.
+        /// hyperManageUsersHeadMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkMain;
+        protected global::System.Web.UI.WebControls.HyperLink hyperManageUsersHeadMain;
         
         /// <summary>
-        /// LabelUserName control.
+        /// labelManageUsersBodyInputUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelUserName;
+        protected global::System.Web.UI.WebControls.Label labelManageUsersBodyInputUserName;
         
         /// <summary>
-        /// TextBoxUserName control.
+        /// textBoxManageUsersBodyInputUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxUserName;
+        protected global::System.Web.UI.WebControls.TextBox textBoxManageUsersBodyInputUserName;
         
         /// <summary>
-        /// LabelPassword control.
+        /// labelManageUsersBodyInputPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelPassword;
+        protected global::System.Web.UI.WebControls.Label labelManageUsersBodyInputPassword;
         
         /// <summary>
-        /// TextBoxPassword control.
+        /// textBoxManageUsersBodyInputPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxPassword;
+        protected global::System.Web.UI.WebControls.TextBox textBoxManageUsersBodyInputPassword;
         
         /// <summary>
-        /// LabelLevel control.
+        /// labelManageUsersBodyInputLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelLevel;
+        protected global::System.Web.UI.WebControls.Label labelManageUsersBodyInputLevel;
         
         /// <summary>
-        /// DropDownListLevel control.
+        /// dropDownListManageUsersBodyInputLevel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownListLevel;
+        protected global::System.Web.UI.WebControls.DropDownList dropDownListManageUsersBodyInputLevel;
         
         /// <summary>
-        /// LinkButtonAddUser control.
+        /// linkButtonManageUsersBodyInputAddUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonAddUser;
+        protected global::System.Web.UI.WebControls.LinkButton linkButtonManageUsersBodyInputAddUser;
         
         /// <summary>
-        /// LabelStatus control.
+        /// labelManageUsersBodyInputStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelStatus;
+        protected global::System.Web.UI.WebControls.Label labelManageUsersBodyInputStatus;
         
         /// <summary>
-        /// GridViewUsers control.
+        /// gridViewManageUsersBodyList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewUsers;
+        protected global::System.Web.UI.WebControls.GridView gridViewManageUsersBodyList;
     }
 }

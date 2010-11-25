@@ -22,11 +22,11 @@ namespace ProductTracker.Web
 
         private void ClearFields()
         {
-            TextBoxBodyShopsName.Text = "";
-            TextBoxBodyShopsOwner.Text = "";
-            TextBoxBodyShopsAddress.Text = "";
-            TextBoxBodyShopsCity.Text = "";
-            TextBoxBodyShopsPostalCode.Text = "";
+            textBoxManageShopsInputBodyName.Text = "";
+            textBoxManageShopsInputBodyOwner.Text = "";
+            textBoxManageShopsInputBodyAddress.Text = "";
+            textBoxManageShopsInputBodyCity.Text = "";
+            textBoxManageShopsInputBodyPostalCode.Text = "";
             EnableAdd();
         }
 
@@ -34,23 +34,23 @@ namespace ProductTracker.Web
         {
             DataBase dataBase = new DataBase();
             DataSet shops = dataBase.GetShops();
-            DropDownListShopList.DataSource = shops;
-            DropDownListShopList.DataBind();
+            dropDownListManageShopsListBody.DataSource = shops;
+            dropDownListManageShopsListBody.DataBind();
             ClearFields();
         }
 
         private void EnableAdd()
         {
-            LinkButtonBodyShopsSubmit.Visible = true;
-            LinkButtonBodyShopsDelete.Visible = false;
-            LinkButtonBodyShopsUpdate.Visible = false;
+            linkButtonManageShopsInputBodySubmit.Visible = true;
+            linkButtonManageShopsInputBodyDelete.Visible = false;
+            linkButtonManageShopsInputBodyUpdate.Visible = false;
         }
 
         private void EnableUpdate()
         {
-            LinkButtonBodyShopsSubmit.Visible = false;
-            LinkButtonBodyShopsDelete.Visible = true;
-            LinkButtonBodyShopsUpdate.Visible = true;
+            linkButtonManageShopsInputBodySubmit.Visible = false;
+            linkButtonManageShopsInputBodyDelete.Visible = true;
+            linkButtonManageShopsInputBodyUpdate.Visible = true;
         }
 
         private void SetElementValues()
@@ -62,38 +62,38 @@ namespace ProductTracker.Web
                 if (page.Id == "ManageShops")
                 {
                     List<Setting> setting = page.Setting;
-                    HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
-                    LabelBodyShopsName.Text = settingsManager.GetSettingValue("LabelBodyShopsName", setting);
-                    LabelBodyShopsAddress.Text = settingsManager.GetSettingValue("LabelBodyShopsAddress", setting);
-                    LabelBodyShopsOwner.Text = settingsManager.GetSettingValue("LabelBodyShopsOwner", setting);
-                    LabelBodyShopsPostalCode.Text = settingsManager.GetSettingValue("LabelBodyShopsPostalCode", setting);
-                    LabelBodyShopsCity.Text = settingsManager.GetSettingValue("LabelBodyShopsCity", setting);
-                    LabelBodyShopsIsCompany.Text = settingsManager.GetSettingValue("LabelBodyShopsIsCompany", setting);
-                    LabelShopList.Text = settingsManager.GetSettingValue("LabelShopList", setting);
-                    LinkButtonShopList.Text = settingsManager.GetSettingValue("LinkButtonShopList", setting);
-                    LinkButtonBodyShopsSubmit.Text = settingsManager.GetSettingValue("LinkButtonBodyShopsSubmit",
+                    hyperLinkMangeShopsHeadMain.Text = settingsManager.GetSettingValue("hyperLinkMangeShopsHeadMain", setting);
+                    labelManageShopsInputBodyName.Text = settingsManager.GetSettingValue("labelManageShopsInputBodyName", setting);
+                    labelManageShopsInputBodyAddress.Text = settingsManager.GetSettingValue("labelManageShopsInputBodyAddress", setting);
+                    labelManageShopsInputBodyOwner.Text = settingsManager.GetSettingValue("labelManageShopsInputBodyOwner", setting);
+                    labelManageShopsInputBodyPostalCode.Text = settingsManager.GetSettingValue("labelManageShopsInputBodyPostalCode", setting);
+                    labelManageShopsInputBodyCity.Text = settingsManager.GetSettingValue("labelManageShopsInputBodyCity", setting);
+                    labelManageShopsInputBodyIsCompany.Text = settingsManager.GetSettingValue("labelManageShopsInputBodyIsCompany", setting);
+                    labelManageShopsListBody.Text = settingsManager.GetSettingValue("labelManageShopsListBody", setting);
+                    linkButtonManageShopsListBodySelect.Text = settingsManager.GetSettingValue("linkButtonManageShopsListBodySelect", setting);
+                    linkButtonManageShopsInputBodySubmit.Text = settingsManager.GetSettingValue("linkButtonManageShopsInputBodySubmit",
                                                                                      setting);
-                    LinkButtonBodyShopsDelete.Text = settingsManager.GetSettingValue("LinkButtonBodyShopsDelete",
+                    linkButtonManageShopsInputBodyDelete.Text = settingsManager.GetSettingValue("linkButtonManageShopsInputBodyDelete",
                                                                                      setting);
-                    LinkButtonBodyShopsUpdate.Text = settingsManager.GetSettingValue("LinkButtonBodyShopsUpdate",
+                    linkButtonManageShopsInputBodyUpdate.Text = settingsManager.GetSettingValue("linkButtonManageShopsInputBodyUpdate",
                                                                                      setting);
-                    LinkButtonAdd.Text = settingsManager.GetSettingValue("LinkButtonAdd", setting);
+                    linkButtonManageShopsListBodyAdd.Text = settingsManager.GetSettingValue("linkButtonManageShopsListBodyAdd", setting);
                 }
             }
         }
 
         protected void LinkButtonShopList_Click(object sender, EventArgs e)
         {
-            string selectedValue = DropDownListShopList.SelectedValue;
+            string selectedValue = dropDownListManageShopsListBody.SelectedValue;
             DataBase dataBase = new DataBase();
             Shop shop = dataBase.GetShopByName(selectedValue);
             if (shop != null)
             {
-                TextBoxBodyShopsName.Text = shop.Name;
-                TextBoxBodyShopsOwner.Text = shop.Owner;
-                TextBoxBodyShopsAddress.Text = shop.Address;
-                TextBoxBodyShopsCity.Text = shop.City;
-                TextBoxBodyShopsPostalCode.Text = shop.PostalCode.ToString();
+                textBoxManageShopsInputBodyName.Text = shop.Name;
+                textBoxManageShopsInputBodyOwner.Text = shop.Owner;
+                textBoxManageShopsInputBodyAddress.Text = shop.Address;
+                textBoxManageShopsInputBodyCity.Text = shop.City;
+                textBoxManageShopsInputBodyPostalCode.Text = shop.PostalCode.ToString();
                 HttpCookie cookie = Request.Cookies[CookieName];
                 if (cookie == null)
                 {
@@ -116,12 +116,12 @@ namespace ProductTracker.Web
             Shop shop = new Shop
                 {
                     Id = Guid.NewGuid(),
-                    Name = TextBoxBodyShopsName.Text.Trim(),
-                    Address = TextBoxBodyShopsAddress.Text.Trim(),
-                    City = TextBoxBodyShopsCity.Text.Trim(),
-                    Owner = TextBoxBodyShopsOwner.Text.Trim(),
-                    PostalCode = Int32.Parse(TextBoxBodyShopsPostalCode.Text.Trim()),
-                    IsCompany = CheckBoxBodyShopsIsCompany.Checked,
+                    Name = textBoxManageShopsInputBodyName.Text.Trim(),
+                    Address = textBoxManageShopsInputBodyAddress.Text.Trim(),
+                    City = textBoxManageShopsInputBodyCity.Text.Trim(),
+                    Owner = textBoxManageShopsInputBodyOwner.Text.Trim(),
+                    PostalCode = Int32.Parse(textBoxManageShopsInputBodyPostalCode.Text.Trim()),
+                    IsCompany = checkBoxManageShopsInputBodyIsCompany.Checked,
                 };
             dataBase.InsertShop(shop);
             PopulateShops();
@@ -151,12 +151,12 @@ namespace ProductTracker.Web
             DataBase dataBase = new DataBase();
             Shop shop = new Shop
                 {
-                    Name = TextBoxBodyShopsName.Text.Trim(),
-                    Address = TextBoxBodyShopsAddress.Text.Trim(),
-                    City = TextBoxBodyShopsCity.Text.Trim(),
-                    Owner = TextBoxBodyShopsOwner.Text.Trim(),
-                    PostalCode = Int32.Parse(TextBoxBodyShopsPostalCode.Text.Trim()),
-                    IsCompany = CheckBoxBodyShopsIsCompany.Checked,
+                    Name = textBoxManageShopsInputBodyName.Text.Trim(),
+                    Address = textBoxManageShopsInputBodyAddress.Text.Trim(),
+                    City = textBoxManageShopsInputBodyCity.Text.Trim(),
+                    Owner = textBoxManageShopsInputBodyOwner.Text.Trim(),
+                    PostalCode = Int32.Parse(textBoxManageShopsInputBodyPostalCode.Text.Trim()),
+                    IsCompany = checkBoxManageShopsInputBodyIsCompany.Checked,
                     Id = new Guid(cookie["Name"]),
                 };
             dataBase.UpdateShop(shop);

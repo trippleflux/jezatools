@@ -29,11 +29,11 @@ namespace ProductTracker.Web
                 if (page.Id == "DefaultPage")
                 {
                     List<Setting> setting = page.Setting;
-                    LinkButtonShops.Text = settingsManager.GetSettingValue("LinkButtonShops", setting);
-                    LinkButtonItems.Text = settingsManager.GetSettingValue("LinkButtonItems", setting);
-                    HyperLinkManageItems.Text = settingsManager.GetSettingValue("HyperLinkManageItems", setting);
-                    HyperLinkManageShops.Text = settingsManager.GetSettingValue("HyperLinkManageShops", setting);
-                    HyperLinkManageShopItems.Text = settingsManager.GetSettingValue("HyperLinkManageShopItems", setting);
+                    linkButtonShops.Text = settingsManager.GetSettingValue("linkButtonShops", setting);
+                    linkButtonItems.Text = settingsManager.GetSettingValue("linkButtonItems", setting);
+                    hyperLinkDefaultManageItems.Text = settingsManager.GetSettingValue("hyperLinkDefaultManageItems", setting);
+                    hyperLinkDefaultManageShops.Text = settingsManager.GetSettingValue("hyperLinkDefaultManageShops", setting);
+                    hyperLinkDefaultManageShopItems.Text = settingsManager.GetSettingValue("hyperLinkDefaultManageShopItems", setting);
                 }
             }
         }
@@ -43,8 +43,8 @@ namespace ProductTracker.Web
             ShowItems();
             DataBase dataBase = new DataBase();
             DataSet items = dataBase.GetItems();
-            GridViewItems.DataSource = items;
-            GridViewItems.DataBind();
+            gridViewDefaultBodyItems.DataSource = items;
+            gridViewDefaultBodyItems.DataBind();
         }
 
         private void PopulateShops()
@@ -52,20 +52,20 @@ namespace ProductTracker.Web
             ShowShops();
             DataBase dataBase = new DataBase();
             DataSet shops = dataBase.GetShops();
-            GridViewShops.DataSource = shops;
-            GridViewShops.DataBind();
+            gridViewDefaultBodyShops.DataSource = shops;
+            gridViewDefaultBodyShops.DataBind();
         }
 
         private void ShowItems()
         {
-            GridViewItems.Visible = true;
-            GridViewShops.Visible = false;
+            gridViewDefaultBodyItems.Visible = true;
+            gridViewDefaultBodyShops.Visible = false;
         }
 
         private void ShowShops()
         {
-            GridViewItems.Visible = false;
-            GridViewShops.Visible = true;
+            gridViewDefaultBodyItems.Visible = false;
+            gridViewDefaultBodyShops.Visible = true;
         }
 
         protected void LinkButtonShops_Click(object sender, EventArgs e)
@@ -80,13 +80,13 @@ namespace ProductTracker.Web
 
         protected void GridViewItems_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
-            GridViewItems.PageIndex = e.NewPageIndex;
+            gridViewDefaultBodyItems.PageIndex = e.NewPageIndex;
             PopulateItems();
         }
 
         protected void GridViewShops_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
-            GridViewShops.PageIndex = e.NewPageIndex;
+            gridViewDefaultBodyShops.PageIndex = e.NewPageIndex;
             PopulateShops();
         }
     }

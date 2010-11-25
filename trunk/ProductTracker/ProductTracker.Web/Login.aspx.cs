@@ -16,14 +16,14 @@ namespace ProductTracker.Web
 
         protected void Login_Authenticate(object sender, AuthenticateEventArgs e)
         {
-            string typedPassword = Misc.ConvertToSha1(LoginControl.Password.Trim());
-            if (CheckPassword(LoginControl.UserName, typedPassword))
+            string typedPassword = Misc.ConvertToSha1(loginControlLoginHead.Password.Trim());
+            if (CheckPassword(loginControlLoginHead.UserName, typedPassword))
             {
-                FormsAuthentication.RedirectFromLoginPage(LoginControl.UserName, LoginControl.RememberMeSet);
+                FormsAuthentication.RedirectFromLoginPage(loginControlLoginHead.UserName, loginControlLoginHead.RememberMeSet);
             }
-                //if (FormsAuthentication.Authenticate(LoginControl.UserName, LoginControl.Password))
+                //if (FormsAuthentication.Authenticate(loginControlLoginHead.UserName, loginControlLoginHead.Password))
                 //{
-                //    FormsAuthentication.RedirectFromLoginPage(LoginControl.UserName, LoginControl.RememberMeSet);
+                //    FormsAuthentication.RedirectFromLoginPage(loginControlLoginHead.UserName, loginControlLoginHead.RememberMeSet);
                 //}
             else
             {

@@ -14,21 +14,21 @@ namespace ProductTracker.Web {
     public partial class Login {
         
         /// <summary>
-        /// FormLogin control.
+        /// formLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FormLogin;
+        protected global::System.Web.UI.HtmlControls.HtmlForm formLogin;
         
         /// <summary>
-        /// LoginControl control.
+        /// loginControlLoginHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Login LoginControl;
+        protected global::System.Web.UI.WebControls.Login loginControlLoginHead;
     }
 }
