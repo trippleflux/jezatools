@@ -4,54 +4,54 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head runat="server">
-        <title>Users</title>
+        <title>Product Tracker</title>
         <link href="Stylesheet.css" type="text/css" rel="Stylesheet" />
     </head>
     <body>
         <form id="formManageUsers" runat="server">
-            <div>
-                <div id="divHead">
-                    <asp:Panel ID="PanelHead" runat="server">
-                        <table id="tableHead">
+            <div id="divManageUsers" class="divManageUsers">
+                <div id="divManageUsersHead" class="divManageUsersHead">
+                    <asp:Panel id="panelManageUsersHead" CssClass="panelManageUsersHead" runat="server">
+                        <table id="tableManageUsersHead" class="tableManageUsersHead">
                             <tr>
                                 <td>
-                                    <asp:HyperLink ID="HyperLinkMain" runat="server" 
-                                        NavigateUrl="~/Default.aspx" CssClass="hyperLink">Main</asp:HyperLink>
+                                    <asp:HyperLink id="hyperManageUsersHeadMain" CssClass="hyperManageUsersHeadMain" runat="server" 
+                                        NavigateUrl="~/Default.aspx">Main</asp:HyperLink>
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
-                <div id="divManage">
-                    <table id="tableUsersHead">
+                <div id="divManageUsersBodyInput" class="divManageUsersBodyInput">
+                    <table id="tableManageUsersBodyInput" class="tableManageUsersBodyInput">
                         <tr>
                             <td>
-                                <asp:Label ID="LabelUserName" runat="server" Text="Username"></asp:Label>
+                                <asp:Label id="labelManageUsersBodyInputUserName" CssClass="labelManageUsersBodyInputUserName" runat="server" Text="Username"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBoxUserName" runat="server"></asp:TextBox>
+                                <asp:TextBox id="textBoxManageUsersBodyInputUserName" CssClass="textBoxManageUsersBodyInputUserName" runat="server"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="LabelPassword" runat="server" Text="Password"></asp:Label>
+                                <asp:Label id="labelManageUsersBodyInputPassword" CssClass="labelManageUsersBodyInputPassword" runat="server" Text="Password"></asp:Label>
                             </td>
                             <td>
-                                <asp:TextBox ID="TextBoxPassword" runat="server"></asp:TextBox>
+                                <asp:TextBox id="textBoxManageUsersBodyInputPassword" CssClass="textBoxManageUsersBodyInputPassword" runat="server"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="LabelLevel" runat="server" Text="Level"></asp:Label>
+                                <asp:Label id="labelManageUsersBodyInputLevel" CssClass="labelManageUsersBodyInputLevel" runat="server" Text="Level"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="DropDownListLevel" runat="server">
+                                <asp:DropDownList id="dropDownListManageUsersBodyInputLevel" CssClass="dropDownListManageUsersBodyInputLevel" runat="server">
                                 </asp:DropDownList>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <asp:LinkButton ID="LinkButtonAddUser" runat="server" 
+                                <asp:LinkButton id="linkButtonManageUsersBodyInputAddUser" CssClass="linkButtonManageUsersBodyInputAddUser" runat="server" 
                                     onclick="LinkButtonAddUser_Click">Add</asp:LinkButton>
                             </td>
                             <td>
@@ -59,15 +59,16 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="LabelStatus" runat="server" Text=""></asp:Label>
+                                <asp:Label id="labelManageUsersBodyInputStatus" CssClass="labelManageUsersBodyInputStatus" runat="server" Text=""></asp:Label>
                             </td>
                             <td>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <div id="List">
-                    <asp:GridView ID="GridViewUsers" runat="server">
+                <div id="divManageUsersBodyList" class="divManageUsersBodyList">
+                    <asp:GridView id="gridViewManageUsersBodyList" 
+                        CssClass="gridViewManageUsersBodyList" runat="server">
                         
                     </asp:GridView>
                 </div>

@@ -4,87 +4,87 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head runat="server">
-        <title>Items</title>
+        <title>Product Tracker</title>
         <link href="Stylesheet.css" type="text/css" rel="Stylesheet"/>
     </head>
     <body>
         <form id="formManageItems" runat="server">
-            <div id="divMain">
-                <div id="divHead">
-                    <asp:Panel ID="PanelHead" runat="server">
-                        <table id="tableHead">
+            <div id="divManageItems" class="divManageItems">
+                <div id="divManageItemsHead" class="divManageItemsHead">
+                    <asp:Panel id="panelManageItemsHead" CssClass="panelManageItemsHead" runat="server">
+                        <table id="tableManageItemsHead" class="tableManageItemsHead">
                             <tr>
                                 <td>
-                                    <asp:HyperLink ID="HyperLinkMain" runat="server" 
-                                        NavigateUrl="~/Default.aspx" CssClass="hyperLink">Main</asp:HyperLink>
+                                    <asp:HyperLink id="hyperLinkManageItemsHeadMain" runat="server" 
+                                        NavigateUrl="~/Default.aspx" CssClass="hyperLinkManageItemsHeadMain">Main</asp:HyperLink>
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
-                <div id="divItemTypes">
-                    <asp:Panel ID="PanelItemTypes" runat="server">
-                        <div id="divItemTypesText">
+                <div id="divManageItemsBodyItemTypes" class="divManageItemsBodyItemTypes">
+                    <asp:Panel id="panelManageItemsBodyItemTypes" CssClass="panelManageItemsBodyItemTypes" runat="server">
+                        <div id="divManageItemsBodyItemTypesHead" class="divManageItemsBodyItemTypesHead">
                             
                         </div>
-                        <table id="tableItemTypes">
+                        <table id="tableManageItemsBodyItemTypes" class="tableManageItemsBodyItemTypes">
                             <tr>
                                 <td>
-                                    <asp:Label ID="LabelItemTypes" runat="server" Text="Item Types" CssClass="labelManageItems"></asp:Label>
+                                    <asp:Label id="labelManageItemsBodyItemTypes" runat="server" Text="Item Types" CssClass="labelManageItemsBodyItemTypes"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="TextBoxItemTypes" runat="server" CssClass="textBoxManageItems"></asp:TextBox>
+                                    <asp:TextBox id="textBoxManageItemsBodyItemTypes" runat="server" CssClass="textBoxManageItemsBodyItemTypes"></asp:TextBox>
                                 </td>
                                 <td>
-                                    <asp:LinkButton ID="LinkButtonItemTypesSubmit" runat="server" 
-                                        onclick="LinkButtonItemTypesSubmit_Click" CssClass="linkButton">Submit New Item Type</asp:LinkButton>
+                                    <asp:LinkButton id="linkButtonManageItemsBodyItemTypesSubmit" runat="server" 
+                                        onclick="LinkButtonItemTypesSubmit_Click" CssClass="linkButtonManageItemsBodyItemTypesSubmit">Submit New Item Type</asp:LinkButton>
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
-                <div id="divItems">
-                    <asp:Panel ID="PanelItems" runat="server">
-                        <div id="divItemsText">
+                <div id="divManageItemsBodyItems" class="divManageItemsBodyItems">
+                    <asp:Panel id="panelManageItemsBodyItems" CssClass="panelManageItemsBodyItems" runat="server">
+                        <div id="divManageItemsBodyItemsHead" class="divManageItemsBodyItemsHead">
                             
                         </div>
-                        <div id="divItemsHead">
-                            <table id="tableItemsHead">
+                        <div id="divManageItemsBodyItemsSelect" class="divManageItemsBodyItemsSelect">
+                            <table id="tableManageItemsBodyItemsSelect" class="tableManageItemsBodyItemsSelect">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="LabelItemsSelect" runat="server" Text="Items" CssClass="labelManageItems"></asp:Label>
+                                        <asp:Label id="labelManageItemsBodyItemsSelect" runat="server" Text="Items" CssClass="labelManageItemsBodyItemsSelect"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="DropDownListItemsSelect" runat="server" 
+                                        <asp:DropDownList id="dropDownListManageItemsBodyItemsSelect" runat="server" 
                                             DataTextField="Name" DataValueField="Id" 
-                                            CssClass="dropDownManageItems">
+                                            CssClass="dropDownListManageItemsBodyItemsSelect">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonItemsSelect" runat="server" 
-                                            onclick="LinkButtonItemsSelect_Click" CssClass="linkButton">Select</asp:LinkButton>
+                                        <asp:LinkButton id="linkButtonManageItemsBodyItemsSelect" runat="server" 
+                                            onclick="LinkButtonItemsSelect_Click" CssClass="linkButtonManageItemsBodyItemsSelect">Select</asp:LinkButton>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonItemsAddNew" runat="server" 
-                                            CssClass="linkButton" onclick="LinkButtonItemsAddNew_Click">Add</asp:LinkButton>
+                                        <asp:LinkButton id="linkButtonManageItemsBodyItemsAddNew" runat="server" 
+                                            CssClass="linkButtonManageItemsBodyItemsAddNew" onclick="LinkButtonItemsAddNew_Click">Add</asp:LinkButton>
                                     </td>
                                 </tr>
                             </table>
                         </div>
-                        <div id="divItemsBody">
-                            <table id="tableItemsBody">
+                        <div id="divManageItemsBodyItemsSubmit" class="divManageItemsBodyItemsSubmit">
+                            <table id="tableManageItemsBodyItemsSubmit" class="tableManageItemsBodyItemsSubmit">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="LabelItemId" runat="server" Text="Id" CssClass="labelManageItems"></asp:Label>
+                                        <asp:Label id="labelManageItemsBodyItemsSubmitItemId" runat="server" Text="Id" CssClass="labelManageItemsBodyItemsSubmitItemId"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:Label ID="LabelItemName" runat="server" Text="Name" CssClass="labelManageItems"></asp:Label>
+                                        <asp:Label id="labelManageItemsBodyItemsSubmitItemName" runat="server" Text="Name" CssClass="labelManageItemsBodyItemsSubmitItemName"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:Label ID="LabelItemNote" runat="server" Text="Notes" CssClass="labelManageItems"></asp:Label>
+                                        <asp:Label id="labelManageItemsBodyItemsSubmitItemNote" runat="server" Text="Notes" CssClass="labelManageItemsBodyItemsSubmitItemNote"></asp:Label>
                                     </td>
                                     <td>
-                                        <asp:Label ID="LabelItemItemType" runat="server" Text="Type" CssClass="labelManageItems"></asp:Label>
+                                        <asp:Label id="labelManageItemsBodyItemsSubmitItemType" runat="server" Text="Type" CssClass="labelManageItemsBodyItemsSubmitItemType"></asp:Label>
                                     </td>
                                     <td>
                                         
@@ -95,30 +95,30 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox ID="TextBoxMiddleBodyId" runat="server" CssClass="textBoxManageItems"></asp:TextBox>
+                                        <asp:TextBox id="textBoxManageItemsBodyItemsSubmitItemId" runat="server" CssClass="textBoxManageItemsBodyItemsSubmitItemId"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="TextBoxMiddleBodyName" runat="server" CssClass="textBoxManageItems"></asp:TextBox>
+                                        <asp:TextBox id="textBoxManageItemsBodyItemsSubmitItemName" runat="server" CssClass="textBoxManageItemsBodyItemsSubmitItemName"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:TextBox ID="TextBoxMiddleBodyNotes" runat="server" CssClass="textBoxManageItems"></asp:TextBox>
+                                        <asp:TextBox id="textBoxManageItemsBodyItemsSubmitNote" runat="server" CssClass="textBoxManageItemsBodyItemsSubmitNote"></asp:TextBox>
                                     </td>
                                     <td>
-                                        <asp:DropDownList ID="DropDownListMiddleBodyItemType" runat="server" 
-                                            DataTextField="Name" DataValueField="Id" CssClass="dropDownManageItems">
+                                        <asp:DropDownList id="dropDownListManageItemsBodyItemsSubmitItemType" runat="server" 
+                                            DataTextField="Name" DataValueField="Id" CssClass="dropDownListManageItemsBodyItemsSubmitItemType">
                                         </asp:DropDownList>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonMiddleBodySubmit" runat="server" 
-                                            onclick="LinkButtonMiddleBodySubmit_Click" CssClass="linkButton">Submit</asp:LinkButton>
+                                        <asp:LinkButton id="linkButtonManageItemsBodyItemsSubmit" runat="server" 
+                                            onclick="LinkButtonMiddleBodySubmit_Click" CssClass="linkButtonManageItemsBodyItemsSubmit">Submit</asp:LinkButton>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonMiddleBodyUpdate" runat="server" 
-                                            CssClass="linkButton" onclick="LinkButtonMiddleBodyUpdate_Click">Update</asp:LinkButton>
+                                        <asp:LinkButton id="linkButtonManageItemsBodyItemsUpdate" runat="server" 
+                                            CssClass="linkButtonManageItemsBodyItemsUpdate" onclick="LinkButtonMiddleBodyUpdate_Click">Update</asp:LinkButton>
                                     </td>
                                     <td>
-                                        <asp:LinkButton ID="LinkButtonMiddleItemTypesDelete" runat="server" 
-                                            onclick="LinkButtonMiddleItemTypesDelete_Click" CssClass="linkButton">Delete</asp:LinkButton>
+                                        <asp:LinkButton id="linkButtonManageItemsBodyItemsDelete" runat="server" 
+                                            onclick="LinkButtonMiddleItemTypesDelete_Click" CssClass="linkButtonManageItemsBodyItemsDelete">Delete</asp:LinkButton>
                                     </td>
                                 </tr>
                             </table>

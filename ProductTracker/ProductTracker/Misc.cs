@@ -35,5 +35,6 @@ namespace ProductTracker
         public const string DataTableNameOfItems = "Items";
         public const string DataTableNameOfShops = "Shops";
         public const string DataTableNameOfShopItems = "ShopItems";
+        public const string DataTableNameOfTrackers = "Trackers";
     }
 }

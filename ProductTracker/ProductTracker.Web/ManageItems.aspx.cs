@@ -30,22 +30,22 @@ namespace ProductTracker.Web
                 if (page.Id == "ManageItems")
                 {
                     List<Setting> setting = page.Setting;
-                    HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
-                    LabelItemTypes.Text = settingsManager.GetSettingValue("LabelItemTypes", setting);
-                    LinkButtonItemTypesSubmit.Text = settingsManager.GetSettingValue("LinkButtonItemTypesSubmit",
+                    hyperLinkManageItemsHeadMain.Text = settingsManager.GetSettingValue("hyperLinkManageItemsHeadMain", setting);
+                    labelManageItemsBodyItemTypes.Text = settingsManager.GetSettingValue("labelManageItemsBodyItemTypes", setting);
+                    linkButtonManageItemsBodyItemTypesSubmit.Text = settingsManager.GetSettingValue("linkButtonManageItemsBodyItemTypesSubmit",
                                                                                      setting);
-                    LabelItemsSelect.Text = settingsManager.GetSettingValue("LabelItemsSelect", setting);
-                    LinkButtonItemsSelect.Text = settingsManager.GetSettingValue("LinkButtonItemsSelect", setting);
-                    LinkButtonItemsAddNew.Text = settingsManager.GetSettingValue("LinkButtonItemsAddNew", setting);
-                    LabelItemName.Text = settingsManager.GetSettingValue("LabelItemName", setting);
-                    LabelItemNote.Text = settingsManager.GetSettingValue("LabelItemNote", setting);
-                    LabelItemItemType.Text = settingsManager.GetSettingValue("LabelItemItemType", setting);
-                    LinkButtonMiddleBodySubmit.Text = settingsManager.GetSettingValue("LinkButtonMiddleBodySubmit",
+                    labelManageItemsBodyItemsSelect.Text = settingsManager.GetSettingValue("labelManageItemsBodyItemsSelect", setting);
+                    linkButtonManageItemsBodyItemsSelect.Text = settingsManager.GetSettingValue("linkButtonManageItemsBodyItemsSelect", setting);
+                    linkButtonManageItemsBodyItemsAddNew.Text = settingsManager.GetSettingValue("linkButtonManageItemsBodyItemsAddNew", setting);
+                    labelManageItemsBodyItemsSubmitItemName.Text = settingsManager.GetSettingValue("labelManageItemsBodyItemsSubmitItemName", setting);
+                    labelManageItemsBodyItemsSubmitItemNote.Text = settingsManager.GetSettingValue("labelManageItemsBodyItemsSubmitItemNote", setting);
+                    labelManageItemsBodyItemsSubmitItemType.Text = settingsManager.GetSettingValue("labelManageItemsBodyItemsSubmitItemType", setting);
+                    linkButtonManageItemsBodyItemsSubmit.Text = settingsManager.GetSettingValue("linkButtonManageItemsBodyItemsSubmit",
                                                                                       setting);
-                    LinkButtonMiddleBodyUpdate.Text = settingsManager.GetSettingValue("LinkButtonMiddleBodyUpdate",
+                    linkButtonManageItemsBodyItemsUpdate.Text = settingsManager.GetSettingValue("linkButtonManageItemsBodyItemsUpdate",
                                                                                       setting);
-                    LinkButtonMiddleItemTypesDelete.Text =
-                        settingsManager.GetSettingValue("LinkButtonMiddleItemTypesDelete", setting);
+                    linkButtonManageItemsBodyItemsDelete.Text =
+                        settingsManager.GetSettingValue("linkButtonManageItemsBodyItemsDelete", setting);
                 }
             }
             EnableNew();
@@ -53,39 +53,39 @@ namespace ProductTracker.Web
 
         private void EnableNew()
         {
-            LinkButtonMiddleBodySubmit.Visible = true;
-            LinkButtonMiddleBodyUpdate.Visible = false;
-            LinkButtonMiddleItemTypesDelete.Visible = false;
-            //DropDownListItemsSelect.Enabled = true;
+            linkButtonManageItemsBodyItemsSubmit.Visible = true;
+            linkButtonManageItemsBodyItemsUpdate.Visible = false;
+            linkButtonManageItemsBodyItemsDelete.Visible = false;
+            //dropDownListManageItemsBodyItemsSelect.Enabled = true;
         }
 
         private void EnableUpdate()
         {
-            LinkButtonMiddleBodySubmit.Visible = false;
-            LinkButtonMiddleBodyUpdate.Visible = true;
-            LinkButtonMiddleItemTypesDelete.Visible = true;
-            //DropDownListItemsSelect.Enabled = false;
+            linkButtonManageItemsBodyItemsSubmit.Visible = false;
+            linkButtonManageItemsBodyItemsUpdate.Visible = true;
+            linkButtonManageItemsBodyItemsDelete.Visible = true;
+            //dropDownListManageItemsBodyItemsSelect.Enabled = false;
         }
 
         private void PopulateItems()
         {
             DataBase dataBase = new DataBase();
             DataSet items = dataBase.GetItems();
-            DropDownListItemsSelect.DataSource = items;
-            DropDownListItemsSelect.DataBind();
+            dropDownListManageItemsBodyItemsSelect.DataSource = items;
+            dropDownListManageItemsBodyItemsSelect.DataBind();
         }
 
         private void PopulateItemTypes()
         {
             DataBase dataBase = new DataBase();
             IList<ItemType> itemTypes = dataBase.GetItemTypes();
-            DropDownListMiddleBodyItemType.DataSource = itemTypes;
-            DropDownListMiddleBodyItemType.DataBind();
+            dropDownListManageItemsBodyItemsSubmitItemType.DataSource = itemTypes;
+            dropDownListManageItemsBodyItemsSubmitItemType.DataBind();
         }
 
         protected void LinkButtonItemsSelect_Click(object sender, EventArgs e)
         {
-            string selectedValue = DropDownListItemsSelect.SelectedValue;
+            string selectedValue = dropDownListManageItemsBodyItemsSelect.SelectedValue;
             DataBase dataBase = new DataBase();
             Item item = dataBase.GetItem(selectedValue);
             if (item == null)
@@ -93,10 +93,10 @@ namespace ProductTracker.Web
                 return;
             }
             PopulateItemTypes();
-            TextBoxMiddleBodyId.Text = item.Id;
-            TextBoxMiddleBodyName.Text = item.Name;
-            TextBoxMiddleBodyNotes.Text = item.Notes;
-            DropDownListMiddleBodyItemType.SelectedValue = item.ItemType.ToString();
+            textBoxManageItemsBodyItemsSubmitItemId.Text = item.Id;
+            textBoxManageItemsBodyItemsSubmitItemName.Text = item.Name;
+            textBoxManageItemsBodyItemsSubmitNote.Text = item.Notes;
+            dropDownListManageItemsBodyItemsSubmitItemType.SelectedValue = item.ItemType.ToString();
             EnableUpdate();
             HttpCookie cookie = Request.Cookies[CookieItemuniqueid];
             if (cookie == null)
@@ -111,10 +111,10 @@ namespace ProductTracker.Web
         protected void LinkButtonMiddleBodySubmit_Click(object sender, EventArgs e)
         {
             DataBase dataBase = new DataBase();
-            string id = TextBoxMiddleBodyId.Text;
-            string name = TextBoxMiddleBodyName.Text;
-            string notes = TextBoxMiddleBodyNotes.Text;
-            string itemType = DropDownListMiddleBodyItemType.SelectedValue;
+            string id = textBoxManageItemsBodyItemsSubmitItemId.Text;
+            string name = textBoxManageItemsBodyItemsSubmitItemName.Text;
+            string notes = textBoxManageItemsBodyItemsSubmitNote.Text;
+            string itemType = dropDownListManageItemsBodyItemsSubmitItemType.SelectedValue;
             Item item = new Item(id, name) {Notes = notes, ItemType = Int32.Parse(itemType)};
             dataBase.InsertItem(item);
             PopulateItems();
@@ -122,7 +122,7 @@ namespace ProductTracker.Web
 
         protected void LinkButtonItemTypesSubmit_Click(object sender, EventArgs e)
         {
-            string itemTypeName = TextBoxItemTypes.Text.Trim();
+            string itemTypeName = textBoxManageItemsBodyItemTypes.Text.Trim();
             if (itemTypeName.Length > 0)
             {
                 DataBase dataBase = new DataBase();
@@ -151,9 +151,9 @@ namespace ProductTracker.Web
 
         private void ClearFields()
         {
-            TextBoxMiddleBodyId.Text = "";
-            TextBoxMiddleBodyName.Text = "";
-            TextBoxMiddleBodyNotes.Text = "";
+            textBoxManageItemsBodyItemsSubmitItemId.Text = "";
+            textBoxManageItemsBodyItemsSubmitItemName.Text = "";
+            textBoxManageItemsBodyItemsSubmitNote.Text = "";
             EnableNew();
         }
 
@@ -165,10 +165,10 @@ namespace ProductTracker.Web
                 return;
             }
             DataBase dataBase = new DataBase();
-            string id = TextBoxMiddleBodyId.Text;
-            string name = TextBoxMiddleBodyName.Text;
-            string notes = TextBoxMiddleBodyNotes.Text;
-            string itemType = DropDownListMiddleBodyItemType.SelectedValue;
+            string id = textBoxManageItemsBodyItemsSubmitItemId.Text;
+            string name = textBoxManageItemsBodyItemsSubmitItemName.Text;
+            string notes = textBoxManageItemsBodyItemsSubmitNote.Text;
+            string itemType = dropDownListManageItemsBodyItemsSubmitItemType.SelectedValue;
             Item item = new Item(id, name)
                 {
                     Notes = notes, 

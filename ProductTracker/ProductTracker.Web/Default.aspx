@@ -8,34 +8,35 @@
         <link href="Stylesheet.css" type="text/css" rel="Stylesheet"/>
     </head>
     <body>
-        <form id="FormDefault" runat="server">
-            <div id="divMain">
-                <div id="divHead">
-                    <asp:Panel ID="PanelHead" runat="server">
-                        <table id="tableHead">
+        <form id="formDefault" runat="server">
+            <div id="divDefault" class="divDefault">
+                <div id="divDefaultHead" class="divDefaultHead">
+                    <asp:Panel id="panelDefaultHead" CssClass="panelDefaultHead" runat="server">
+                        <table id="tableDefaultHead" class="tableDefaultHead">
                             <tr>
                                 <td>
-                                    <asp:LinkButton ID="LinkButtonShops" runat="server" 
-                                        onclick="LinkButtonShops_Click" CssClass="linkButton">Shops</asp:LinkButton>
+                                    <asp:LinkButton id="linkButtonShops" runat="server" 
+                                        onclick="LinkButtonShops_Click" CssClass="linkButtonHead">Shops</asp:LinkButton>
                                 </td>
                                 <td>
-                                    <asp:LinkButton ID="LinkButtonItems" runat="server" 
-                                        onclick="LinkButtonItems_Click" CssClass="linkButton">Items</asp:LinkButton>
+                                    <asp:LinkButton id="linkButtonItems" runat="server" 
+                                        onclick="LinkButtonItems_Click" CssClass="linkButtonHead">Items</asp:LinkButton>
                                 </td>
                             </tr>
                         </table>
                     </asp:Panel>
                 </div>
-                <div id="divMiddle">
-                    <asp:Panel ID="PanelMiddle" runat="server">
-                        <div id="divMiddleHead">
+                <div id="divDefaultBody" class="divDefaultBody">
+                    <asp:Panel id="panelDefaultBody" CssClass="panelDefaultBody" runat="server">
+                        <div id="divDefaultBodyHead" class="divDefaultBodyHead">
                         </div>
-                        <div id="divMiddleGridView">
-                            <asp:Panel ID="PanelMiddleGridView" runat="server">
-                                <table id="tableMiddleGridView">
+                        <div id="divDefaultBodyGridView" class="divDefaultBodyGridView">
+                            <asp:Panel id="panelDefaultBodyGridView" CssClass="panelDefaultBodyGridView" runat="server">
+                                <table id="tableDefaultBodyGridView" class="tableDefaultBodyGridView">
                                     <tr>
                                         <td>
-                                            <asp:GridView ID="GridViewItems" runat="server" AutoGenerateColumns="False" 
+                                            <asp:GridView id="gridViewDefaultBodyItems" CssClass="gridViewDefaultBodyItems" 
+                                                runat="server" AutoGenerateColumns="False" 
                                                 AllowPaging="True" onpageindexchanging="GridViewItems_PageIndexChanging">
                                                 <Columns>
                                                     <asp:BoundField DataField="Id" HeaderText="Id" />
@@ -44,7 +45,8 @@
                                                     <asp:BoundField DataField="Notes" HeaderText="Notes" />
                                                 </Columns>
                                             </asp:GridView>
-                                            <asp:GridView ID="GridViewShops" runat="server" AutoGenerateColumns="False" 
+                                            <asp:GridView id="gridViewDefaultBodyShops" CssClass="gridViewDefaultBodyShops" 
+                                                runat="server" AutoGenerateColumns="False" 
                                                 AllowPaging="True" onpageindexchanging="GridViewShops_PageIndexChanging">
                                                 <Columns>
                                                     <asp:BoundField DataField="Name" HeaderText="Name" />
@@ -70,17 +72,17 @@
                         </div>
                     </asp:Panel>
                 </div>
-                <div id="divFoot">
-                    <asp:Panel ID="PanelFoot" runat="server">
-                        <table id="tableFoot">
+                <div id="divDefaultFoot" class="divDefaultFoot">
+                    <asp:Panel id="panelDefaultFoot" CssClass="panelDefaultFoot" runat="server">
+                        <table id="tableDefaultFoot" class="tableDefaultFoot">
                             <tr>
                                 <td>
-                                    <asp:HyperLink ID="HyperLinkManageItems" runat="server" 
-                                        NavigateUrl="~/ManageItems.aspx" CssClass="hyperLink">Manage Items</asp:HyperLink>    
-                                    <asp:HyperLink ID="HyperLinkManageShops" runat="server" 
-                                        NavigateUrl="~/ManageShops.aspx" CssClass="hyperLink">Manage Shops</asp:HyperLink>    
-                                    <asp:HyperLink ID="HyperLinkManageShopItems" runat="server" 
-                                        NavigateUrl="~/ManageShopItems.aspx" CssClass="hyperLink">Manage Shop Items</asp:HyperLink>    
+                                    <asp:HyperLink id="hyperLinkDefaultManageItems" runat="server" 
+                                        NavigateUrl="~/ManageItems.aspx" CssClass="hyperLinkDefaultManageItems">Manage Items</asp:HyperLink>    
+                                    <asp:HyperLink id="hyperLinkDefaultManageShops" runat="server" 
+                                        NavigateUrl="~/ManageShops.aspx" CssClass="hyperLinkDefaultManageShops">Manage Shops</asp:HyperLink>    
+                                    <asp:HyperLink id="hyperLinkDefaultManageShopItems" runat="server" 
+                                        NavigateUrl="~/ManageShopItems.aspx" CssClass="hyperLinkDefaultManageShopItems">Manage Shop Items</asp:HyperLink>    
                                 </td>
                             </tr>
                         </table>

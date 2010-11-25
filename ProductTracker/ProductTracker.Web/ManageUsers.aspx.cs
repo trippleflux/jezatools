@@ -12,7 +12,7 @@ namespace ProductTracker.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             SetElementValues();
-            LabelStatus.Text = "";
+            labelManageUsersBodyInputStatus.Text = "";
             if (!IsPostBack)
             {
                 PopulateUsers();
@@ -23,8 +23,8 @@ namespace ProductTracker.Web
         {
             DataBase dataBase = new DataBase();
             IList<User> users = dataBase.GetUsers();
-            GridViewUsers.DataSource = users;
-            GridViewUsers.DataBind();
+            gridViewManageUsersBodyList.DataSource = users;
+            gridViewManageUsersBodyList.DataBind();
         }
 
         private void SetElementValues()
@@ -36,31 +36,31 @@ namespace ProductTracker.Web
                 if (page.Id == "ManageUsers")
                 {
                     List<Setting> setting = page.Setting;
-                    HyperLinkMain.Text = settingsManager.GetSettingValue("HyperLinkMain", setting);
-                    LabelUserName.Text = settingsManager.GetSettingValue("LabelUsername", setting);
-                    LabelPassword.Text = settingsManager.GetSettingValue("LabelPassword", setting);
-                    LabelLevel.Text = settingsManager.GetSettingValue("LabelLevel", setting);
-                    LinkButtonAddUser.Text = settingsManager.GetSettingValue("LabelLevel", setting);
-                    statusWrongUsername = settingsManager.GetSettingValue("StatusWrongUsername", setting);
-                    statusWrongPassword = settingsManager.GetSettingValue("StatusWrongPassword", setting);
-                    statusFailedToAddUser = settingsManager.GetSettingValue("StatusFailedToAddUser", setting);
+                    hyperManageUsersHeadMain.Text = settingsManager.GetSettingValue("hyperManageUsersHeadMain", setting);
+                    labelManageUsersBodyInputUserName.Text = settingsManager.GetSettingValue("labelManageUsersBodyInputUserName", setting);
+                    labelManageUsersBodyInputPassword.Text = settingsManager.GetSettingValue("labelManageUsersBodyInputPassword", setting);
+                    labelManageUsersBodyInputLevel.Text = settingsManager.GetSettingValue("labelManageUsersBodyInputLevel", setting);
+                    linkButtonManageUsersBodyInputAddUser.Text = settingsManager.GetSettingValue("linkButtonManageUsersBodyInputAddUser", setting);
+                    statusWrongUsername = settingsManager.GetSettingValue("statusWrongUsername", setting);
+                    statusWrongPassword = settingsManager.GetSettingValue("statusWrongPassword", setting);
+                    statusFailedToAddUser = settingsManager.GetSettingValue("statusFailedToAddUser", setting);
                 }
             }
         }
 
         protected void LinkButtonAddUser_Click(object sender, EventArgs e)
         {
-            LabelStatus.Text = "";
-            string username = TextBoxUserName.Text.Trim();
+            labelManageUsersBodyInputStatus.Text = "";
+            string username = textBoxManageUsersBodyInputUserName.Text.Trim();
             if (username.Length < 3)
             {
-                LabelStatus.Text = statusWrongUsername;
+                labelManageUsersBodyInputStatus.Text = statusWrongUsername;
                 return;
             }
-            string password = TextBoxPassword.Text.Trim();
+            string password = textBoxManageUsersBodyInputPassword.Text.Trim();
             if (password.Length < 3)
             {
-                LabelStatus.Text = statusWrongPassword;
+                labelManageUsersBodyInputStatus.Text = statusWrongPassword;
                 return;
             }
             User user = new User {Name = username, Password = Misc.ConvertToSha1(password), Level = 2};
@@ -68,11 +68,11 @@ namespace ProductTracker.Web
             if (dataBase.InsertUser(user))
             {
                 PopulateUsers();
-                LabelStatus.Text = "";
+                labelManageUsersBodyInputStatus.Text = "";
             }
             else
             {
-                LabelStatus.Text = statusFailedToAddUser;
+                labelManageUsersBodyInputStatus.Text = statusFailedToAddUser;
             }
         }
 

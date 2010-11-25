@@ -256,6 +256,26 @@ namespace ProductTracker
         }
 
         /// <summary>
+        /// Gets all items in specified shop.
+        /// </summary>
+        /// <param name="shopId">The shop id.</param>
+        /// <returns></returns>
+        public DataSet GetItemsInShop(Guid shopId)
+        {
+            DataSet shopItems = new DataSet();
+            using (dbConnection)
+            {
+                dbConnection.Open();
+                string commandText = String.Format(CultureInfo.InvariantCulture, 
+                                                   "SELECT DateTime, NumberOfItems, (SELECT Gross FROM Price WHERE Price.Id = ShopItems.Price) AS PriceGross, (SELECT Net FROM Price WHERE Price.Id = ShopItems.Price) AS PriceNet, (SELECT Name FROM Items WHERE Items.UniqueId = ShopItems.Item) AS Item, (SELECT Name FROM Shops WHERE Shops.Id = ShopItems.Shop) AS Shop, Price FROM ShopItems WHERE Shop='{0}'", shopId);
+                DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
+                dataAdapter.Fill(shopItems, Misc.DataTableNameOfShopItems);
+                dbConnection.Close();
+            }
+            return shopItems;
+        }
+
+        /// <summary>
         /// Gets the price for specified item in specified shop.
         /// </summary>
         /// <param name="item">The item.</param>
@@ -314,44 +334,6 @@ namespace ProductTracker
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Gets the shop item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="shop">The shop.</param>
-        /// <returns></returns>
-        public ShopItem GetShopItem(Item item, Shop shop)
-        {
-            ShopItem shopItem = null;
-            using (dbConnection)
-            {
-                using (DbCommand dbCommand = dbConnection.CreateCommand())
-                {
-                    dbConnection.Open();
-                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
-                                                          "SELECT * FROM ShopItems WHERE Item='{0}' AND Shop='{1}'",
-                                                          item.UniqueId, shop.Id);
-                    using (DbDataReader reader = dbCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            shopItem = new ShopItem
-                                {
-                                    ItemId = new Guid(reader[0].ToString()),
-                                    ShopId = new Guid(reader[1].ToString()),
-                                    DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
-                                    PriceId = new Guid(reader[3].ToString()),
-                                    NumberOfItems = Int32.Parse(reader[4].ToString()),
-                                    Id = new Guid(reader[5].ToString()),
-                                };
-                            break;
-                        }
-                    }
-                }
-            }
-            return shopItem;
         }
 
         /// <summary>
@@ -468,31 +450,17 @@ namespace ProductTracker
         /// </summary>
         /// <param name="shopItem">The shop item.</param>
         /// <returns></returns>
-        public IList<Tracker> GetTrackers(ShopItem shopItem)
+        public DataSet GetTrackers(ShopItem shopItem)
         {
-            IList<Tracker> trackers = new List<Tracker>();
+            DataSet trackers = new DataSet();
             using (dbConnection)
             {
-                using (DbCommand dbCommand = dbConnection.CreateCommand())
-                {
-                    dbConnection.Open();
-                    dbCommand.CommandText = String.Format(CultureInfo.InvariantCulture,
-                                                          "SELECT * FROM Tracker WHERE ShopItem='{0}'", shopItem.Id);
-                    using (DbDataReader reader = dbCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Tracker tracker = new Tracker
-                                {
-                                    Id = new Guid(reader[0].ToString()),
-                                    ShopItemId = new Guid(reader[1].ToString()),
-                                    DateTime = DateTime.Parse(reader[2].ToString(), CultureInfo.InvariantCulture),
-                                    SoldCount = Int32.Parse(reader[3].ToString()),
-                                };
-                            trackers.Add(tracker);
-                        }
-                    }
-                }
+                dbConnection.Open();
+                string commandText = String.Format(CultureInfo.InvariantCulture,
+                                                   "SELECT DateTime, SoldCount FROM Tracker WHERE ShopItem='{0}'", shopItem.Id);
+                DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
+                dataAdapter.Fill(trackers, Misc.DataTableNameOfTrackers);
+                dbConnection.Close();
             }
             return trackers;
         }

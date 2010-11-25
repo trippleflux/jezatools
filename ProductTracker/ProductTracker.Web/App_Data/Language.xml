@@ -1,59 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <settings>
   <page id="DefaultPage">
-    <setting id="LinkButtonShops" value="Seznam Trgovin" />
-    <setting id="LinkButtonItems" value="Seznam Izdelkov" />
-    <setting id="HyperLinkManageItems" value="Uredi Izdelke" />
-    <setting id="HyperLinkManageShops" value="Uredi Trgovine" />
-    <setting id="HyperLinkManageShopItems" value="Uredi Izdelke v Trgovini" />
+    <setting id="linkButtonShops" value="Seznam Trgovin" />
+    <setting id="linkButtonItems" value="Seznam Izdelkov" />
+    <setting id="hyperLinkDefaultManageItems" value="Uredi Izdelke" />
+    <setting id="hyperLinkDefaultManageShops" value="Uredi Trgovine" />
+    <setting id="hyperLinkDefaultManageShopItems" value="Uredi Izdelke v Trgovini" />
   </page>
   <page id="ManageItems">
-    <setting id="HyperLinkMain" value="Osnovna Stran" />
-    <setting id="LabelItemTypes" value="Tip Izdelka" />
-    <setting id="LinkButtonItemTypesSubmit" value="Dodaj Nov Tip Izdelka" />
-    <setting id="LabelItemsSelect" value="Izdelki" />
-    <setting id="LinkButtonItemsSelect" value="Izberi" />
-    <setting id="LinkButtonItemsAddNew" value="Dodaj" />
-    <setting id="LabelItemId" value="Id Izdelka" />
-    <setting id="LabelItemName" value="Ime Izdelka" />
-    <setting id="LabelItemNote" value="Opis" />
-    <setting id="LabelItemItemType" value="Tip Izdelka" />
-    <setting id="LinkButtonMiddleBodySubmit" value="Predloži" />
-    <setting id="LinkButtonMiddleBodyUpdate" value="Posodobi" />
-    <setting id="LinkButtonMiddleItemTypesDelete" value="Izbriši" />
+    <setting id="hyperLinkManageItemsHeadMain" value="Osnovna Stran" />
+    <setting id="labelManageItemsBodyItemTypes" value="Tip Izdelka" />
+    <setting id="linkButtonManageItemsBodyItemTypesSubmit" value="Dodaj Nov Tip Izdelka" />
+    <setting id="labelManageItemsBodyItemsSelect" value="Izdelki" />
+    <setting id="linkButtonManageItemsBodyItemsSelect" value="Izberi" />
+    <setting id="linkButtonManageItemsBodyItemsAddNew" value="Dodaj" />
+    <setting id="labelManageItemsBodyItemsSubmitItemId" value="Id Izdelka" />
+    <setting id="labelManageItemsBodyItemsSubmitItemName" value="Ime Izdelka" />
+    <setting id="labelManageItemsBodyItemsSubmitItemNote" value="Opis" />
+    <setting id="labelManageItemsBodyItemsSubmitItemType" value="Tip Izdelka" />
+    <setting id="linkButtonManageItemsBodyItemsSubmit" value="Predloži" />
+    <setting id="linkButtonManageItemsBodyItemsUpdate" value="Posodobi" />
+    <setting id="linkButtonManageItemsBodyItemsDelete" value="Izbriši" />
   </page>
   <page id="ManageShops">
-    <setting id="HyperLinkMain" value="Osnovna Stran"/>
-    <setting id="LabelBodyShopsName" value="Ime"/>
-    <setting id="LabelBodyShopsAddress" value="Naslov"/>
-    <setting id="LabelBodyShopsOwner" value="Lastnik"/>
-    <setting id="LabelBodyShopsPostalCode" value="Poštna Številka"/>
-    <setting id="LabelBodyShopsCity" value="Kraj/Mesto"/>
-    <setting id="LabelBodyShopsIsCompany" value="Pravna Oseba"/>
-    <setting id="LabelShopList" value="Trgovine"/>
-    <setting id="LinkButtonShopList" value="Izberi"/>
-    <setting id="LinkButtonBodyShopsSubmit" value="Vnesi"/>
-    <setting id="LinkButtonBodyShopsUpdate" value="Posodobi" />
-    <setting id="LinkButtonBodyShopsDelete" value="Zbriši"/>
-    <setting id="LinkButtonAdd" value="Dodaj" />
+    <setting id="hyperLinkMangeShopsHeadMain" value="Osnovna Stran"/>
+    <setting id="labelManageShopsInputBodyName" value="Ime"/>
+    <setting id="labelManageShopsInputBodyAddress" value="Naslov"/>
+    <setting id="labelManageShopsInputBodyOwner" value="Lastnik"/>
+    <setting id="labelManageShopsInputBodyPostalCode" value="Poštna Številka"/>
+    <setting id="labelManageShopsInputBodyCity" value="Kraj/Mesto"/>
+    <setting id="labelManageShopsInputBodyIsCompany" value="Pravna Oseba"/>
+    <setting id="labelManageShopsListBody" value="Trgovine"/>
+    <setting id="linkButtonManageShopsListBodySelect" value="Izberi"/>
+    <setting id="linkButtonManageShopsInputBodySubmit" value="Vnesi"/>
+    <setting id="linkButtonManageShopsInputBodyUpdate" value="Posodobi" />
+    <setting id="linkButtonManageShopsInputBodyDelete" value="Zbriši"/>
+    <setting id="linkButtonManageShopsListBodyAdd" value="Dodaj" />
   </page>
   <page id="ManageUsers">
-    <setting id="HyperLinkMain" value="Osnovna Stran"/>
-    <setting id="LabelUsername" value="Uporabnisko Ime"/>
-    <setting id="LabelPassword" value="Geslo"/>
-    <setting id="LabelLevel" value="Stopnja"/>
-    <setting id="LinkButtonAdd" value="Dodaj"/>
-    <setting id="StatusWrongUsername" value="Uporabnisko ime je napacno!"/>
-    <setting id="StatusWrongPassword" value="Geslo je napacno!"/>
-    <setting id="StatusFailedToAddUser" value="Uporabnik ni bil dodan!"/>
+    <setting id="hyperManageUsersHeadMain" value="Osnovna Stran"/>
+    <setting id="labelManageUsersBodyInputUserName" value="Uporabnisko Ime"/>
+    <setting id="labelManageUsersBodyInputPassword" value="Geslo"/>
+    <setting id="labelManageUsersBodyInputLevel" value="Stopnja"/>
+    <setting id="linkButtonManageUsersBodyInputAddUser" value="Dodaj"/>
+    <setting id="statusWrongUsername" value="Uporabnisko ime je napacno!"/>
+    <setting id="statusWrongPassword" value="Geslo je napacno!"/>
+    <setting id="statusFailedToAddUser" value="Uporabnik ni bil dodan!"/>
   </page>
   <page id="ManageShopItems">
-    <setting id="HyperLinkMain" value="Osnovna Stran"/>
-    <setting id="LabelItems" value="Izdelki"/>
-    <setting id="LabelShops" value="Trgovine"/>
-    <setting id="LabelPriceGross" value="Bruto Cena"/>
-    <setting id="LabelPriceNet" value="Neto Cena"/>
-    <setting id="LabelNumberOfItems" value="Stevilo Izdelkov"/>
-    <setting id="LinkButtonAddItemToShop" value="Dodaj"/>
+    <setting id="hyperLinkManageShopItemsMain" value="Osnovna Stran"/>
+    <setting id="labelManageShopItemsBodyInputItems" value="Izdelki"/>
+    <setting id="labelManageShopItemsBodyInputShops" value="Trgovine"/>
+    <setting id="labelManageShopItemsBodyInputPriceGross" value="Bruto Cena"/>
+    <setting id="labelManageShopItemsBodyInputPriceNet" value="Neto Cena"/>
+    <setting id="labelManageShopItemsBodyInputNumberOfItems" value="Stevilo Izdelkov"/>
+    <setting id="linkButtonManageShopItemsBodyInputAdd" value="Dodaj"/>
   </page>
 </settings>

@@ -14,76 +14,76 @@ namespace ProductTracker.Web {
     public partial class Default {
         
         /// <summary>
-        /// FormDefault control.
+        /// formDefault control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm FormDefault;
+        protected global::System.Web.UI.HtmlControls.HtmlForm formDefault;
         
         /// <summary>
-        /// PanelHead control.
+        /// panelDefaultHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelHead;
+        protected global::System.Web.UI.WebControls.Panel panelDefaultHead;
         
         /// <summary>
-        /// LinkButtonShops control.
+        /// linkButtonShops control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonShops;
+        protected global::System.Web.UI.WebControls.LinkButton linkButtonShops;
         
         /// <summary>
-        /// LinkButtonItems control.
+        /// linkButtonItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButtonItems;
+        protected global::System.Web.UI.WebControls.LinkButton linkButtonItems;
         
         /// <summary>
-        /// PanelMiddle control.
+        /// panelDefaultBody control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelMiddle;
+        protected global::System.Web.UI.WebControls.Panel panelDefaultBody;
         
         /// <summary>
-        /// PanelMiddleGridView control.
+        /// panelDefaultBodyGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelMiddleGridView;
+        protected global::System.Web.UI.WebControls.Panel panelDefaultBodyGridView;
         
         /// <summary>
-        /// GridViewItems control.
+        /// gridViewDefaultBodyItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewItems;
+        protected global::System.Web.UI.WebControls.GridView gridViewDefaultBodyItems;
         
         /// <summary>
-        /// GridViewShops control.
+        /// gridViewDefaultBodyShops control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewShops;
+        protected global::System.Web.UI.WebControls.GridView gridViewDefaultBodyShops;
         
         /// <summary>
         /// SqlDataSource control.
@@ -95,39 +95,39 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource;
         
         /// <summary>
-        /// PanelFoot control.
+        /// panelDefaultFoot control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel PanelFoot;
+        protected global::System.Web.UI.WebControls.Panel panelDefaultFoot;
         
         /// <summary>
-        /// HyperLinkManageItems control.
+        /// hyperLinkDefaultManageItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageItems;
+        protected global::System.Web.UI.WebControls.HyperLink hyperLinkDefaultManageItems;
         
         /// <summary>
-        /// HyperLinkManageShops control.
+        /// hyperLinkDefaultManageShops control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageShops;
+        protected global::System.Web.UI.WebControls.HyperLink hyperLinkDefaultManageShops;
         
         /// <summary>
-        /// HyperLinkManageShopItems control.
+        /// hyperLinkDefaultManageShopItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLinkManageShopItems;
+        protected global::System.Web.UI.WebControls.HyperLink hyperLinkDefaultManageShopItems;
     }
 }
