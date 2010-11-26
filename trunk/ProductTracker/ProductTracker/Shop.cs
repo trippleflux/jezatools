@@ -1,4 +1,8 @@
+#region
+
 using System;
+
+#endregion
 
 namespace ProductTracker
 {
@@ -111,5 +115,13 @@ namespace ProductTracker
         /// 	<c>true</c> if this instance is company; otherwise, <c>false</c>.
         /// </value>
         public bool IsCompany { get; set; }
+
+        public override string ToString()
+        {
+            return
+                string.Format(
+                    "Id: {0}, Name: {1}, Address: {2}, Owner: {3}, PostalCode: {4}, City: {5}, IsCompany: {6}", Id, Name,
+                    Address, Owner, PostalCode, City, IsCompany);
+        }
     }
 }

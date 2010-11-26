@@ -1,4 +1,8 @@
+#region
+
 using System;
+
+#endregion
 
 namespace ProductTracker
 {
@@ -40,5 +44,11 @@ namespace ProductTracker
         /// </summary>
         /// <value>The sold count.</value>
         public int SoldCount { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Id: {0}, ShopItemId: {1}, DateTime: {2}, SoldCount: {3}", Id, ShopItemId, DateTime,
+                                 SoldCount);
+        }
     }
 }

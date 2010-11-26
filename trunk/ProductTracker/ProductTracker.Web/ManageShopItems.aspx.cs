@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.UI.WebControls;
+using log4net;
 
 #endregion
 
@@ -11,6 +12,8 @@ namespace ProductTracker.Web
 {
     public partial class ManageShopItems : System.Web.UI.Page
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ManageShopItems));
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SetElementValues();
@@ -30,6 +33,7 @@ namespace ProductTracker.Web
 
         private void ClearFields()
         {
+            Log.Debug("ClearFields");
             textBoxManageShopItemsBodyInputPriceGross.Text = "";
             textBoxManageShopItemsBodyInputPriceNet.Text = "";
             textBoxManageShopItemsBodyInputNumberOfItems.Text = "";
@@ -37,6 +41,7 @@ namespace ProductTracker.Web
 
         private void SetElementValues()
         {
+            Log.Debug("SetElementValues");
             SettingsManager settingsManager = new SettingsManager();
             Settings settings = settingsManager.DeserializeFromXml();
             foreach (Page page in settings.Page)
@@ -64,6 +69,7 @@ namespace ProductTracker.Web
 
         private void PopulateItems()
         {
+            Log.Debug("PopulateItems");
             DataBase dataBase = new DataBase();
             DataSet items = dataBase.GetItems();
             dropDownListManageShopItemsBodyInputItems.DataSource = items;
@@ -72,6 +78,7 @@ namespace ProductTracker.Web
 
         private void PopulateShops()
         {
+            Log.Debug("PopulateShops");
             DataBase dataBase = new DataBase();
             DataSet shops = dataBase.GetShops();
             dropDownListManageShopItemsBodyInputShops.DataSource = shops;
@@ -80,6 +87,7 @@ namespace ProductTracker.Web
 
         private void PopulateShopItems()
         {
+            Log.Debug("PopulateShopItems");
             DataBase dataBase = new DataBase();
             DataSet dataSet = dataBase.GetShopItems();
             gridViewManageShopItemsBodyList.DataSource = dataSet;
@@ -91,6 +99,7 @@ namespace ProductTracker.Web
 
         protected void LinkButtonAddItemToShopClick(object sender, EventArgs e)
         {
+            Log.Debug("Add Item To Shop");
             DataBase dataBase = new DataBase();
             string selectedItem = dropDownListManageShopItemsBodyInputItems.SelectedValue;
             Item item = dataBase.GetItem(new Guid(selectedItem));
@@ -104,9 +113,16 @@ namespace ProductTracker.Web
             {
                 return;
             }
-            Double priceGross = Double.Parse(textBoxManageShopItemsBodyInputPriceGross.Text.Trim());
-            Double priceNet = Double.Parse(textBoxManageShopItemsBodyInputPriceNet.Text.Trim());
-            int numberOfItems = Int32.Parse(textBoxManageShopItemsBodyInputNumberOfItems.Text.Trim());
+            string gross = textBoxManageShopItemsBodyInputPriceGross.Text.Trim();
+            string net = textBoxManageShopItemsBodyInputPriceNet.Text.Trim();
+            if(gross.Length < 1 || net.Length < 1)
+            {
+                Log.WarnFormat("{irce not in correct format! Gross='{0}', Net='{1}'", gross, net);
+                return;
+            }
+            Double priceGross = Double.Parse(gross);
+            Double priceNet = Double.Parse(net);
+            int numberOfItems = Misc.String2Number(textBoxManageShopItemsBodyInputNumberOfItems.Text.Trim());
             Price price = new Price(priceGross, priceNet) {ItemId = item.UniqueId, ShopId = shop.Id};
             if (!dataBase.InsertPrice(price))
             {
@@ -125,6 +141,7 @@ namespace ProductTracker.Web
 
         protected void GridViewShopItems_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
+            Log.Debug("Delete shop item");
             ListItemCollection items = dropDownListManageShopItemsBodyInputItems.Items;
             ListItemCollection shops = dropDownListManageShopItemsBodyInputShops.Items;
             TableCell tableCellDateTime = gridViewManageShopItemsBodyList.Rows[e.RowIndex].Cells[0];
@@ -144,6 +161,11 @@ namespace ProductTracker.Web
                     break;
                 }
             }
+            if (itemId == Guid.Empty)
+            {
+                Log.Warn("Failed to get item id!");
+                return;
+            }
             foreach (var shop in shops)
             {
                 string text = ((ListItem) (shop)).Text;
@@ -153,9 +175,14 @@ namespace ProductTracker.Web
                     break;
                 }
             }
+            if (shopId == Guid.Empty)
+            {
+                Log.Warn("Failed to get shop id!");
+                return;
+            }
             //Double priceGross = Double.Parse(tableCellPriceGross.Text.Trim());
             //Double priceNet = Double.Parse(tableCellPriceNet.Text.Trim());
-            int numberOfItems = Int32.Parse(tableCellItemCount.Text.Trim());
+            int numberOfItems = Misc.String2Number(tableCellItemCount.Text.Trim());
             DateTime dateTime = DateTime.Parse(tableCellDateTime.Text.Trim());
             DataBase dataBase = new DataBase();
             //Guid priceId = dataBase.GetPriceId(itemId, shopId, priceGross, priceNet);

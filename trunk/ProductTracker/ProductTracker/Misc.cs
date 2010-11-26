@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using log4net;
 
 #endregion
 
@@ -12,40 +13,50 @@ namespace ProductTracker
 {
     public static class Misc
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof (Misc));
+
         public static List<ShopItem> ParseShopItems(this List<ShopItem> shopItems, DataRowCollection collection)
         {
+            Log.DebugFormat("ParseShopItems with DataRowCollection.Count={0}", collection.Count);
             foreach (DataRow row in collection)
             {
                 string itemId = row.ItemArray.GetValue(8).ToString();
                 string shopId = row.ItemArray.GetValue(7).ToString();
                 if (itemId.Length < 32 || shopId.Length < 32)
                 {
+                    Log.Debug("itemId or shopId not set...");
                     continue;
                 }
-                ShopItem currentShopItem = new ShopItem()
-                {
-                    DateTime = DateTime.Parse(row.ItemArray.GetValue(0).ToString()),
-                    NumberOfItems = Misc.String2Number(row.ItemArray.GetValue(1).ToString()),
-                    Id = new Guid(row.ItemArray.GetValue(9).ToString()),
-                    ItemId = new Guid(itemId),
-                    ShopId = new Guid(shopId),
-                    PriceId = new Guid(row.ItemArray.GetValue(6).ToString()),
-                };
+                ShopItem currentShopItem = new ShopItem
+                    {
+                        DateTime = DateTime.Parse(row.ItemArray.GetValue(0).ToString()),
+                        NumberOfItems = String2Number(row.ItemArray.GetValue(1).ToString()),
+                        Id = new Guid(row.ItemArray.GetValue(9).ToString()),
+                        ItemId = new Guid(itemId),
+                        ShopId = new Guid(shopId),
+                        PriceId = new Guid(row.ItemArray.GetValue(6).ToString()),
+                    };
+                Log.DebugFormat("Adding shop item [{0}]", currentShopItem);
                 shopItems.Add(currentShopItem);
             }
             return shopItems;
         }
 
-        public static Guid GetShopItemId(this List<ShopItem> shopItems, DateTime dateTime, Guid itemId, Guid shopId, int numberOfItems)
+        public static Guid GetShopItemId(this List<ShopItem> shopItems, DateTime dateTime, Guid itemId, Guid shopId,
+                                         int numberOfItems)
         {
+            Log.DebugFormat("GetShopItemId: dateTime='{0}', itemId='{1}'m shopId='{2}', numberOfItems='{3}'", dateTime,
+                            itemId, shopId, numberOfItems);
             foreach (ShopItem shopItem in shopItems)
             {
                 if (shopItem.ItemId == itemId && shopItem.ShopId == shopId && shopItem.NumberOfItems == numberOfItems &&
                     shopItem.DateTime.Date == dateTime.Date)
                 {
+                    Log.DebugFormat("ShopItem found. [{0}]", shopItem);
                     return shopItem.Id;
                 }
             }
+            Log.Warn("ShopItem not found!");
             return Guid.Empty;
         }
 

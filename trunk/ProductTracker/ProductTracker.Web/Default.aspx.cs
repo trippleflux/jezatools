@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using log4net;
 
 #endregion
 
@@ -10,6 +11,8 @@ namespace ProductTracker.Web
 {
     public partial class Default : System.Web.UI.Page
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Default));
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SetElementValues();
@@ -22,6 +25,7 @@ namespace ProductTracker.Web
 
         private void SetElementValues()
         {
+            Log.Debug("SetElementValues");
             SettingsManager settingsManager = new SettingsManager();
             Settings settings = settingsManager.DeserializeFromXml();
             foreach (Page page in settings.Page)
@@ -40,6 +44,7 @@ namespace ProductTracker.Web
 
         private void PopulateItems()
         {
+            Log.Debug("PopulateItems");
             ShowItems();
             DataBase dataBase = new DataBase();
             DataSet items = dataBase.GetItems();
@@ -49,6 +54,7 @@ namespace ProductTracker.Web
 
         private void PopulateShops()
         {
+            Log.Debug("PopulateShops");
             ShowShops();
             DataBase dataBase = new DataBase();
             DataSet shops = dataBase.GetShops();
@@ -58,12 +64,14 @@ namespace ProductTracker.Web
 
         private void ShowItems()
         {
+            Log.Debug("ShowItems");
             gridViewDefaultBodyItems.Visible = true;
             gridViewDefaultBodyShops.Visible = false;
         }
 
         private void ShowShops()
         {
+            Log.Debug("ShowShops");
             gridViewDefaultBodyItems.Visible = false;
             gridViewDefaultBodyShops.Visible = true;
         }
