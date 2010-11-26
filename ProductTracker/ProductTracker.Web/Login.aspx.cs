@@ -3,6 +3,7 @@
 using System;
 using System.Web.Security;
 using System.Web.UI.WebControls;
+using log4net;
 
 #endregion
 
@@ -10,6 +11,8 @@ namespace ProductTracker.Web
 {
     public partial class Login : System.Web.UI.Page
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Login));
+
         protected void Page_Load(object sender, EventArgs e)
         {
         }
@@ -33,6 +36,7 @@ namespace ProductTracker.Web
 
         private static bool CheckPassword(string username, string password)
         {
+            Log.DebugFormat("Username:'{0}'m Password:'{1}'", username, password);
             DataBase dataBase = new DataBase();
             User user = dataBase.GetUser(username);
             if (user == null)

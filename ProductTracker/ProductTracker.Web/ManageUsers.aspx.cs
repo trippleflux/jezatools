@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using log4net;
 
 #endregion
 
@@ -9,6 +10,8 @@ namespace ProductTracker.Web
 {
     public partial class ManageUsers : System.Web.UI.Page
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ManageUsers));
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SetElementValues();
@@ -21,6 +24,7 @@ namespace ProductTracker.Web
 
         private void PopulateUsers()
         {
+            Log.Debug("PopulateUsers");
             DataBase dataBase = new DataBase();
             IList<User> users = dataBase.GetUsers();
             gridViewManageUsersBodyList.DataSource = users;
@@ -29,6 +33,7 @@ namespace ProductTracker.Web
 
         private void SetElementValues()
         {
+            Log.Debug("SetElementValues");
             SettingsManager settingsManager = new SettingsManager();
             Settings settings = settingsManager.DeserializeFromXml();
             foreach (Page page in settings.Page)
@@ -50,17 +55,20 @@ namespace ProductTracker.Web
 
         protected void LinkButtonAddUser_Click(object sender, EventArgs e)
         {
+            Log.Debug("Add user");
             labelManageUsersBodyInputStatus.Text = "";
             string username = textBoxManageUsersBodyInputUserName.Text.Trim();
             if (username.Length < 3)
             {
                 labelManageUsersBodyInputStatus.Text = statusWrongUsername;
+                Log.Warn(statusWrongUsername);
                 return;
             }
             string password = textBoxManageUsersBodyInputPassword.Text.Trim();
             if (password.Length < 3)
             {
                 labelManageUsersBodyInputStatus.Text = statusWrongPassword;
+                Log.Warn(statusWrongPassword);
                 return;
             }
             User user = new User {Name = username, Password = Misc.ConvertToSha1(password), Level = 2};
@@ -73,6 +81,7 @@ namespace ProductTracker.Web
             else
             {
                 labelManageUsersBodyInputStatus.Text = statusFailedToAddUser;
+                Log.Warn(statusFailedToAddUser);
             }
         }
 

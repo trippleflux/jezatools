@@ -48,5 +48,11 @@ namespace ProductTracker
         /// </summary>
         /// <value>The type of the item.</value>
         public int ItemType { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("UniqueId: {0}, Id: {1}, Name: {2}, Notes: {3}, ItemType: {4}", UniqueId, Id, Name,
+                                 Notes, ItemType);
+        }
     }
 }
