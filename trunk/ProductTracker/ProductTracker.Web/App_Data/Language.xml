@@ -6,6 +6,16 @@
     <setting id="hyperLinkDefaultManageItems" value="Uredi Izdelke" />
     <setting id="hyperLinkDefaultManageShops" value="Uredi Trgovine" />
     <setting id="hyperLinkDefaultManageShopItems" value="Uredi Izdelke v Trgovini" />
+    <setting id="tableDefaultBodyItemsId" value="Id" />
+    <setting id="tableDefaultBodyItemsName" value="Ime" />
+    <setting id="tableDefaultBodyItemsType" value="Tip" />
+    <setting id="tableDefaultBodyItemsNotes" value="Opombe" />
+    <setting id="tableDefaultBodyShopsName" value="Ime" />
+    <setting id="tableDefaultBodyShopsAddress" value="Naslov" />
+    <setting id="tableDefaultBodyShopsOwner" value="Lastnik" />
+    <setting id="tableDefaultBodyShopsPostalCode" value="Postna stevilka" />
+    <setting id="tableDefaultBodyShopsCity" value="Mesto" />
+    <setting id="tableDefaultBodyShopsIsCompany" value="Pravna oseba" />
   </page>
   <page id="ManageItems">
     <setting id="hyperLinkManageItemsHeadMain" value="Osnovna Stran" />
@@ -55,5 +65,12 @@
     <setting id="labelManageShopItemsBodyInputPriceNet" value="Neto Cena"/>
     <setting id="labelManageShopItemsBodyInputNumberOfItems" value="Stevilo Izdelkov"/>
     <setting id="linkButtonManageShopItemsBodyInputAdd" value="Dodaj"/>
+    <setting id="tableManageShopItemsBodyListDateTimeText" value="Datum"/>
+    <setting id="tableManageShopItemsBodyListNumberOfItemsText" value="Kolicina"/>
+    <setting id="tableManageShopItemsBodyListPriceGrossText" value="Bruto cena"/>
+    <setting id="tableManageShopItemsBodyListPriceNetText" value="Neto cena"/>
+    <setting id="tableManageShopItemsBodyListItemText" value="Izdelek"/>
+    <setting id="tableManageShopItemsBodyListShopText" value="Trgovina"/>
+    <setting id="tableManageShopItemsBodyListDeleteText" value="Izbrisi"/>
   </page>
 </settings>
