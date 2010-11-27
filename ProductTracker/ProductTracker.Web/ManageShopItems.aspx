@@ -80,7 +80,6 @@
                             <asp:BoundField DataField="PriceNet" HeaderText="Price Net" />
                             <asp:BoundField DataField="Item" HeaderText="Item" />
                             <asp:BoundField DataField="Shop" HeaderText="Shop" />
-                            <asp:CommandField ShowDeleteButton="True" />
                         </Columns>
                     </asp:GridView>
                 </div>

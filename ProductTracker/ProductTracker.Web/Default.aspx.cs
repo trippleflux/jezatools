@@ -38,6 +38,16 @@ namespace ProductTracker.Web
                     hyperLinkDefaultManageItems.Text = settingsManager.GetSettingValue("hyperLinkDefaultManageItems", setting);
                     hyperLinkDefaultManageShops.Text = settingsManager.GetSettingValue("hyperLinkDefaultManageShops", setting);
                     hyperLinkDefaultManageShopItems.Text = settingsManager.GetSettingValue("hyperLinkDefaultManageShopItems", setting);
+                    gridViewDefaultBodyItems.Columns[0].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyItemsId", setting);
+                    gridViewDefaultBodyItems.Columns[1].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyItemsName", setting);
+                    gridViewDefaultBodyItems.Columns[2].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyItemsType", setting);
+                    gridViewDefaultBodyItems.Columns[3].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyItemsNotes", setting);
+                    gridViewDefaultBodyShops.Columns[0].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyShopsName", setting);
+                    gridViewDefaultBodyShops.Columns[1].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyShopsAddress", setting);
+                    gridViewDefaultBodyShops.Columns[2].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyShopsOwner", setting);
+                    gridViewDefaultBodyShops.Columns[3].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyShopsPostalCode", setting);
+                    gridViewDefaultBodyShops.Columns[4].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyShopsCity", setting);
+                    gridViewDefaultBodyShops.Columns[5].HeaderText = settingsManager.GetSettingValue("tableDefaultBodyShopsIsCompany", setting);
                 }
             }
         }

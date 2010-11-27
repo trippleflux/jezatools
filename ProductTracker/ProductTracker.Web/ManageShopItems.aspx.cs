@@ -12,15 +12,16 @@ namespace ProductTracker.Web
 {
     public partial class ManageShopItems : System.Web.UI.Page
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(ManageShopItems));
+        private static readonly ILog Log = LogManager.GetLogger(typeof (ManageShopItems));
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SetElementValues();
-            Populate();
-            //if (!IsPostBack)
-            //{
-            //}
+            LoadShopItems();
+            if (!IsPostBack)
+            {
+                Populate();
+            }
         }
 
         private void Populate()
@@ -63,6 +64,27 @@ namespace ProductTracker.Web
                         settingsManager.GetSettingValue("labelManageShopItemsBodyInputNumberOfItems", setting);
                     linkButtonManageShopItemsBodyInputAdd.Text =
                         settingsManager.GetSettingValue("linkButtonManageShopItemsBodyInputAdd", setting);
+                    gridViewManageShopItemsBodyList.Columns[0].HeaderText =
+                        settingsManager.GetSettingValue("tableManageShopItemsBodyListDateTimeText", setting);
+                    gridViewManageShopItemsBodyList.Columns[1].HeaderText =
+                        settingsManager.GetSettingValue("tableManageShopItemsBodyListNumberOfItemsText", setting);
+                    gridViewManageShopItemsBodyList.Columns[2].HeaderText =
+                        settingsManager.GetSettingValue("tableManageShopItemsBodyListPriceGrossText", setting);
+                    gridViewManageShopItemsBodyList.Columns[3].HeaderText =
+                        settingsManager.GetSettingValue("tableManageShopItemsBodyListPriceNetText", setting);
+                    gridViewManageShopItemsBodyList.Columns[4].HeaderText =
+                        settingsManager.GetSettingValue("tableManageShopItemsBodyListItemText", setting);
+                    gridViewManageShopItemsBodyList.Columns[5].HeaderText =
+                        settingsManager.GetSettingValue("tableManageShopItemsBodyListShopText", setting);
+                    CommandField commandFieldDelete = new CommandField
+                        {
+                            ShowDeleteButton = true,
+                            DeleteText = settingsManager.GetSettingValue("tableManageShopItemsBodyListDeleteText", setting)
+                        };
+                    if (gridViewManageShopItemsBodyList.Columns.Count < 7)
+                    {
+                        gridViewManageShopItemsBodyList.Columns.Add(commandFieldDelete);
+                    }
                 }
             }
         }
@@ -92,6 +114,13 @@ namespace ProductTracker.Web
             DataSet dataSet = dataBase.GetShopItems();
             gridViewManageShopItemsBodyList.DataSource = dataSet;
             gridViewManageShopItemsBodyList.DataBind();
+        }
+
+        private void LoadShopItems()
+        {
+            Log.Debug("LoadShopItems");
+            DataBase dataBase = new DataBase();
+            DataSet dataSet = dataBase.GetShopItems();
             DataRowCollection dataRowCollection = dataSet.Tables[Misc.DataTableNameOfShopItems].Rows;
             shopItems.Clear();
             shopItems.ParseShopItems(dataRowCollection);
@@ -115,9 +144,9 @@ namespace ProductTracker.Web
             }
             string gross = textBoxManageShopItemsBodyInputPriceGross.Text.Trim();
             string net = textBoxManageShopItemsBodyInputPriceNet.Text.Trim();
-            if(gross.Length < 1 || net.Length < 1)
+            if (gross.Length < 1 || net.Length < 1)
             {
-                Log.WarnFormat("{irce not in correct format! Gross='{0}', Net='{1}'", gross, net);
+                Log.WarnFormat("Price not in correct format! Gross='{0}', Net='{1}'", gross, net);
                 return;
             }
             Double priceGross = Double.Parse(gross);

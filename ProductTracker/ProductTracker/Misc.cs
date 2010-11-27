@@ -17,7 +17,8 @@ namespace ProductTracker
 
         public static List<ShopItem> ParseShopItems(this List<ShopItem> shopItems, DataRowCollection collection)
         {
-            Log.DebugFormat("ParseShopItems with DataRowCollection.Count={0}", collection.Count);
+            Log.DebugFormat("ParseShopItems with DataRowCollection.Count={0}. shopItems.Count={1}", collection.Count,
+                            shopItems.Count);
             foreach (DataRow row in collection)
             {
                 string itemId = row.ItemArray.GetValue(8).ToString();
@@ -45,14 +46,16 @@ namespace ProductTracker
         public static Guid GetShopItemId(this List<ShopItem> shopItems, DateTime dateTime, Guid itemId, Guid shopId,
                                          int numberOfItems)
         {
+            Log.DebugFormat("shopItems.Count={0}", shopItems.Count);
             Log.DebugFormat("GetShopItemId: dateTime='{0}', itemId='{1}'m shopId='{2}', numberOfItems='{3}'", dateTime,
                             itemId, shopId, numberOfItems);
             foreach (ShopItem shopItem in shopItems)
             {
+                Log.DebugFormat("Checking ShopItem [{0}]", shopItem);
                 if (shopItem.ItemId == itemId && shopItem.ShopId == shopId && shopItem.NumberOfItems == numberOfItems &&
                     shopItem.DateTime.Date == dateTime.Date)
                 {
-                    Log.DebugFormat("ShopItem found. [{0}]", shopItem);
+                    Log.DebugFormat("ShopItem match. [{0}]", shopItem);
                     return shopItem.Id;
                 }
             }
