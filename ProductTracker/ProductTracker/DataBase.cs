@@ -491,18 +491,18 @@ namespace ProductTracker
         /// <summary>
         /// Gets the tracker for specified shop item.
         /// </summary>
-        /// <param name="shopItem">The shop item.</param>
+        /// <param name="shopItemId">The shop item id.</param>
         /// <returns></returns>
-        public DataSet GetTrackers(ShopItem shopItem)
+        public DataSet GetTrackers(Guid shopItemId)
         {
-            Log.DebugFormat("GetTrackers for shopItem='{0}'", shopItem);
+            Log.DebugFormat("GetTrackers for shopItemId='{0}'", shopItemId);
             DataSet trackers = new DataSet();
             using (dbConnection)
             {
                 dbConnection.Open();
                 string commandText = String.Format(CultureInfo.InvariantCulture,
                                                    "SELECT DateTime, SoldCount FROM Tracker WHERE ShopItem='{0}'",
-                                                   shopItem.Id);
+                                                   shopItemId);
                 Log.Debug(commandText);
                 DbDataAdapter dataAdapter = new SQLiteDataAdapter(commandText, dbConnection.ConnectionString);
                 dataAdapter.Fill(trackers, Misc.DataTableNameOfTrackers);

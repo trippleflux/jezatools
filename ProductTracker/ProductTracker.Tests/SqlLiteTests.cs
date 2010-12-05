@@ -174,7 +174,7 @@ namespace ProductTracker.Tests
         [Test]
         public void GetTracker()
         {
-            DataSet actualTrackers = dataBase.GetTrackers(shopItem);
+            DataSet actualTrackers = dataBase.GetTrackers(shopItem.Id);
             Assert.IsNotNull(actualTrackers);
             DataRowCollection collection = actualTrackers.Tables[Misc.DataTableNameOfTrackers].Rows;
             Assert.That(collection.Count > 0);

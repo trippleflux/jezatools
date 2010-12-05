@@ -64,7 +64,15 @@
     <setting id="labelManageShopItemsBodyInputPriceGross" value="Bruto Cena"/>
     <setting id="labelManageShopItemsBodyInputPriceNet" value="Neto Cena"/>
     <setting id="labelManageShopItemsBodyInputNumberOfItems" value="Stevilo Izdelkov"/>
+    <setting id="labelManageShopItemsBodyTrackersInputShopItem" value="Shop item"/>
+    <setting id="labelManageShopItemsBodyTrackersInputDateTime" value="Datum"/>
+    <setting id="labelManageShopItemsBodyTrackersInputSoldCount" value="Stevilo prodanih"/>
+    <setting id="labelManageShopItemsBodyTrackersStatsTotal" value="Skupaj"/>
+    <setting id="labelManageShopItemsBodyTrackersStatsSold" value="Prodano"/>
+    <setting id="labelManageShopItemsBodyTrackersStatsGrossReceived" value="Bruto"/>
+    <setting id="labelManageShopItemsBodyTrackersStatsNetReceived" value="Neto"/>
     <setting id="linkButtonManageShopItemsBodyInputAdd" value="Dodaj"/>
+    <setting id="linkButtonManageShopItemsBodyTrackersInputAdd" value="Dodaj"/>
     <setting id="tableManageShopItemsBodyListDateTimeText" value="Datum"/>
     <setting id="tableManageShopItemsBodyListNumberOfItemsText" value="Kolicina"/>
     <setting id="tableManageShopItemsBodyListPriceGrossText" value="Bruto cena"/>
@@ -72,5 +80,8 @@
     <setting id="tableManageShopItemsBodyListItemText" value="Izdelek"/>
     <setting id="tableManageShopItemsBodyListShopText" value="Trgovina"/>
     <setting id="tableManageShopItemsBodyListDeleteText" value="Izbrisi"/>
+    <setting id="tableManageShopItemsBodyListSelectText" value="Izberi"/>
+    <setting id="ManageShopItemsBodyTrackersListDateTime" value="Datum"/>
+    <setting id="ManageShopItemsBodyTrackersListCount" value="Stevilo"/>
   </page>
 </settings>
