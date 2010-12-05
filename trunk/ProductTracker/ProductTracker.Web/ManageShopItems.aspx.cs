@@ -62,8 +62,24 @@ namespace ProductTracker.Web
                         settingsManager.GetSettingValue("labelManageShopItemsBodyInputPriceNet", setting);
                     labelManageShopItemsBodyInputNumberOfItems.Text =
                         settingsManager.GetSettingValue("labelManageShopItemsBodyInputNumberOfItems", setting);
+                    labelManageShopItemsBodyTrackersInputShopItem.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersInputShopItem", setting);
+                    labelManageShopItemsBodyTrackersInputDateTime.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersInputDateTime", setting);
+                    labelManageShopItemsBodyTrackersInputSoldCount.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersInputSoldCount", setting);
+                    labelManageShopItemsBodyTrackersStatsTotal.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersStatsTotal", setting);
+                    labelManageShopItemsBodyTrackersStatsSold.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersStatsSold", setting);
+                    labelManageShopItemsBodyTrackersStatsGrossReceived.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersStatsGrossReceived", setting);
+                    labelManageShopItemsBodyTrackersStatsNetReceived.Text =
+                        settingsManager.GetSettingValue("labelManageShopItemsBodyTrackersStatsNetReceived", setting);
                     linkButtonManageShopItemsBodyInputAdd.Text =
                         settingsManager.GetSettingValue("linkButtonManageShopItemsBodyInputAdd", setting);
+                    linkButtonManageShopItemsBodyTrackersInputAdd.Text =
+                        settingsManager.GetSettingValue("linkButtonManageShopItemsBodyTrackersInputAdd", setting);
                     gridViewManageShopItemsBodyList.Columns[0].HeaderText =
                         settingsManager.GetSettingValue("tableManageShopItemsBodyListDateTimeText", setting);
                     gridViewManageShopItemsBodyList.Columns[1].HeaderText =
@@ -76,14 +92,25 @@ namespace ProductTracker.Web
                         settingsManager.GetSettingValue("tableManageShopItemsBodyListItemText", setting);
                     gridViewManageShopItemsBodyList.Columns[5].HeaderText =
                         settingsManager.GetSettingValue("tableManageShopItemsBodyListShopText", setting);
+                    gridViewManageShopItemsBodyTrackersList.Columns[0].HeaderText =
+                        settingsManager.GetSettingValue("ManageShopItemsBodyTrackersListDateTime", setting);
+                    gridViewManageShopItemsBodyTrackersList.Columns[1].HeaderText =
+                        settingsManager.GetSettingValue("ManageShopItemsBodyTrackersListCount", setting);
                     CommandField commandFieldDelete = new CommandField
                         {
                             ShowDeleteButton = true,
                             DeleteText = settingsManager.GetSettingValue("tableManageShopItemsBodyListDeleteText", setting)
                         };
+                    CommandField commandFieldSelect = new CommandField
+                    {
+                        ShowDeleteButton = false,
+                        ShowSelectButton = true,
+                        SelectText = settingsManager.GetSettingValue("tableManageShopItemsBodyListSelectText", setting)
+                    };
                     if (gridViewManageShopItemsBodyList.Columns.Count < 7)
                     {
                         gridViewManageShopItemsBodyList.Columns.Add(commandFieldDelete);
+                        gridViewManageShopItemsBodyList.Columns.Add(commandFieldSelect);
                     }
                 }
             }
@@ -116,6 +143,14 @@ namespace ProductTracker.Web
             gridViewManageShopItemsBodyList.DataBind();
         }
 
+        private void PopulateTrackers(DataSet dataSet)
+        {
+            Log.Debug("PopulateTrackers");
+            gridViewManageShopItemsBodyTrackersList.Visible = true;
+            gridViewManageShopItemsBodyTrackersList.DataSource = dataSet;
+            gridViewManageShopItemsBodyTrackersList.DataBind();
+        }
+
         private void LoadShopItems()
         {
             Log.Debug("LoadShopItems");
@@ -124,6 +159,7 @@ namespace ProductTracker.Web
             DataRowCollection dataRowCollection = dataSet.Tables[Misc.DataTableNameOfShopItems].Rows;
             shopItems.Clear();
             shopItems.ParseShopItems(dataRowCollection);
+            gridViewManageShopItemsBodyTrackersList.Visible = false;
         }
 
         protected void LinkButtonAddItemToShopClick(object sender, EventArgs e)
@@ -230,6 +266,89 @@ namespace ProductTracker.Web
             {
                 labelManageShopItemsStatus.Text = "Failed to delete row!";
             }
+        }
+
+        protected void gridViewManageShopItemsBodyList_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            Log.Debug("Select shop item");
+            ListItemCollection items = dropDownListManageShopItemsBodyInputItems.Items;
+            ListItemCollection shops = dropDownListManageShopItemsBodyInputShops.Items;
+            TableCell tableCellDateTime = gridViewManageShopItemsBodyList.Rows[e.NewSelectedIndex].Cells[0];
+            TableCell tableCellItemCount = gridViewManageShopItemsBodyList.Rows[e.NewSelectedIndex].Cells[1];
+            TableCell tableCellItem = gridViewManageShopItemsBodyList.Rows[e.NewSelectedIndex].Cells[4];
+            TableCell tableCellShop = gridViewManageShopItemsBodyList.Rows[e.NewSelectedIndex].Cells[5];
+            Guid itemId = Guid.Empty;
+            Guid shopId = Guid.Empty;
+            foreach (var item in items)
+            {
+                string text = ((ListItem)(item)).Text;
+                if (text.Equals(tableCellItem.Text.Trim()))
+                {
+                    itemId = new Guid(((ListItem)(item)).Value);
+                    break;
+                }
+            }
+            if (itemId == Guid.Empty)
+            {
+                Log.Warn("Failed to get item id!");
+                return;
+            }
+            foreach (var shop in shops)
+            {
+                string text = ((ListItem)(shop)).Text;
+                if (text.Equals(tableCellShop.Text.Trim()))
+                {
+                    shopId = new Guid(((ListItem)(shop)).Value);
+                    break;
+                }
+            }
+            if (shopId == Guid.Empty)
+            {
+                Log.Warn("Failed to get shop id!");
+                return;
+            }
+            int numberOfItems = Misc.String2Number(tableCellItemCount.Text.Trim());
+            string dateTimeOfShopItem = tableCellDateTime.Text.Trim();
+            DateTime dateTime = DateTime.Parse(dateTimeOfShopItem);
+            Guid shopItemId = shopItems.GetShopItemId(dateTime, itemId, shopId, numberOfItems);
+            textBoxManageShopItemsBodyTrackersInputShopItem.Text = shopItemId.ToString();
+            textBoxManageShopItemsBodyTrackersInputDateTime.Text = dateTimeOfShopItem;
+            textBoxManageShopItemsBodyTrackersInputSoldCount.Text = "0";
+            DataBase dataBase = new DataBase();
+            DataSet dataSet = dataBase.GetTrackers(shopItemId);
+            PopulateTrackers(dataSet);
+            int soldCount = 0;
+            foreach (DataRow row in dataSet.Tables[Misc.DataTableNameOfTrackers].Rows)
+            {
+                soldCount+=Misc.String2Number(row.ItemArray.GetValue(1).ToString());
+            }
+            labelManageShopItemsBodyTrackersStatsTotalNumber.Text = numberOfItems.ToString();
+            labelManageShopItemsBodyTrackersStatsSoldNumber.Text = soldCount.ToString();
+            TableCell tableCellGross = gridViewManageShopItemsBodyList.Rows[e.NewSelectedIndex].Cells[2];
+            TableCell tableCellNet = gridViewManageShopItemsBodyList.Rows[e.NewSelectedIndex].Cells[3];
+            labelManageShopItemsBodyTrackersStatsGrossReceivedNumber.Text =
+                (soldCount*Double.Parse(tableCellGross.Text.Trim())).ToString();
+            labelManageShopItemsBodyTrackersStatsNetReceivedNumber.Text =
+                (soldCount*Double.Parse(tableCellNet.Text.Trim())).ToString();
+        }
+
+        protected void linkButtonManageShopItemsBodyTrackersInputAdd_Click(object sender, EventArgs e)
+        {
+            string shopItem = textBoxManageShopItemsBodyTrackersInputShopItem.Text;
+            string soldCount = textBoxManageShopItemsBodyTrackersInputSoldCount.Text;
+            if (String.IsNullOrEmpty(shopItem) ||
+                String.IsNullOrEmpty(textBoxManageShopItemsBodyTrackersInputDateTime.Text) ||
+                String.IsNullOrEmpty(soldCount))
+            {
+                labelManageShopItemsStatus.Text = "Select shop item first!";
+                return;
+            }
+            Guid shopItemId = new Guid(shopItem);
+            Tracker tracker = new Tracker() {ShopItemId = shopItemId, SoldCount = Misc.String2Number(soldCount)};
+            DataBase dataBase = new DataBase();
+            dataBase.InsertTracker(tracker);
+            DataSet dataSet = dataBase.GetTrackers(shopItemId);
+            PopulateTrackers(dataSet);
         }
 
         private readonly List<ShopItem> shopItems = new List<ShopItem>();

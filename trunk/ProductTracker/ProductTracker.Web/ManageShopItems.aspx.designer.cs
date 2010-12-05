@@ -158,6 +158,150 @@ namespace ProductTracker.Web {
         protected global::System.Web.UI.WebControls.GridView gridViewManageShopItemsBodyList;
         
         /// <summary>
+        /// labelManageShopItemsBodyTrackersInputShopItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersInputShopItem;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersInputDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersInputDateTime;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersInputSoldCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersInputSoldCount;
+        
+        /// <summary>
+        /// textBoxManageShopItemsBodyTrackersInputShopItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textBoxManageShopItemsBodyTrackersInputShopItem;
+        
+        /// <summary>
+        /// textBoxManageShopItemsBodyTrackersInputDateTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textBoxManageShopItemsBodyTrackersInputDateTime;
+        
+        /// <summary>
+        /// textBoxManageShopItemsBodyTrackersInputSoldCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textBoxManageShopItemsBodyTrackersInputSoldCount;
+        
+        /// <summary>
+        /// linkButtonManageShopItemsBodyTrackersInputAdd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton linkButtonManageShopItemsBodyTrackersInputAdd;
+        
+        /// <summary>
+        /// gridViewManageShopItemsBodyTrackersList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridViewManageShopItemsBodyTrackersList;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsTotal;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsTotalNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsTotalNumber;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsSold control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsSold;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsSoldNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsSoldNumber;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsGrossReceived control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsGrossReceived;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsGrossReceivedNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsGrossReceivedNumber;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsNetReceived control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsNetReceived;
+        
+        /// <summary>
+        /// labelManageShopItemsBodyTrackersStatsNetReceivedNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelManageShopItemsBodyTrackersStatsNetReceivedNumber;
+        
+        /// <summary>
         /// labelManageShopItemsStatus control.
         /// </summary>
         /// <remarks>
