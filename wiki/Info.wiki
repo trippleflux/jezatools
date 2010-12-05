@@ -1,4 +1,0 @@
-#labels Featured
-= Introduction =
-
- * `TravianBot` will auto attack your neighbors in [http://www.travian.com Travian] web game.
