@@ -9,18 +9,15 @@
     </head>
     <body>
         <form id="formLogin" runat="server">
-            <div id="divLogin" class="divLogin">
-                <div id="divLoginHead" class="divLoginHead">
-                    <asp:Login 
-                        id="loginControlLoginHead" 
-                        CssClass="loginControlLoginHead" 
-                        runat="server" 
-                        Height="86px" 
-                        Width="292px" 
-                        onauthenticate="Login_Authenticate" 
-                        VisibleWhenLoggedIn="False" DestinationPageUrl="Default.aspx">
-                    </asp:Login>
-                </div>
+            <div id="divLogin">
+                <asp:Login 
+                    id="loginControlLoginHead" 
+                    runat="server" 
+                    Height="86px" 
+                    Width="292px" 
+                    onauthenticate="Login_Authenticate" 
+                    VisibleWhenLoggedIn="False" DestinationPageUrl="Default.aspx">
+                </asp:Login>
             </div>
         </form>
     </body>

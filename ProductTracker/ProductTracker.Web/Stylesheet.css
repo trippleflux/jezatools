@@ -4,23 +4,25 @@
 
 body
 {
+	left: 1em;
 }
 
 input
 {
-	width:120px;
+	width:20em;
 }
 
 select
 {
-	width:125px;
+	width:20em;
 }
 
 span
 {
-	width:130px;
-	float:right;
-	text-align:left;
+	width:10em;
+	float:left;
+	text-align:right;
+	padding-right:1em;
 }
 
 table
@@ -28,193 +30,133 @@ table
 	text-align: left;
 }
 
-table.tbody
-{	
-}
-
-table.td
-{
-}
-
-td.th
-{
-}
-
-table.tr
-{	
-}
-
 /* Default.aspx */
 
-.divDefault{}
-.divDefaultBody{}
-.divDefaultBodyGridView{}
-.divDefaultBodyHead{}
-.divDefaultFoot{}
-.divDefaultHead{}
-.gridViewDefaultBodyItems{}
-.gridViewDefaultBodyShops{}
-.hyperLinkDefaultManageItems{}
-.hyperLinkDefaultManageShops{}
-.hyperLinkDefaultManageShopItems{}
-.linkButtonHead{}
-.panelDefaultBody{}
-.panelDefaultBodyGridView{}
-.panelDefaultFoot{}
-.panelDefaultHead{}
-.tableDefaultBodyGridView{}
-.tableDefaultFoot{}
-.tableDefaultHead{}
+#divDefaultHead
+{
+	position: absolute;
+	left: 11em;
+}
+
+#divDefaultHead a
+{
+	padding-left:1em;
+}
+
+#divDefaultNavigation
+{
+	position: absolute;
+	top: 2em;
+	left: 1em;
+	width: 10em;
+}
+
+#divDefaultNavigation a 
+{
+	display: block;
+}
+
+#divDefaultBody 
+{
+	position: absolute;
+	top: 2em;
+	margin-left: 10.5em;
+}
 
 /* Login.aspx */
 
-.divLogin{}
-.divLoginHead{}
-.loginControlLoginHead{}
-
 /* ManageItems.aspx */
 
-.divManageItems{}
-.divManageItemsBodyItems{}
-.divManageItemsBodyItemsHead{}
-.divManageItemsBodyItemsSelect{}
-.divManageItemsBodyItemsSubmit{}
-.divManageItemsBodyItemTypes{}
-.divManageItemsBodyItemTypesHead{}
-.divManageItemsHead{}
-.dropDownListManageItemsBodyItemsSelect{}
-.dropDownListManageItemsBodyItemsSubmitItemType{}
-.hyperLinkManageItemsHeadMain{}
-.labelManageItemsBodyItemTypes{}
-.labelManageItemsBodyItemsSelect{}
-.labelManageItemsBodyItemsSubmitItemId{}
-.labelManageItemsBodyItemsSubmitItemName{}
-.labelManageItemsBodyItemsSubmitItemNote{}
-.labelManageItemsBodyItemsSubmitItemType{}
-.linkButtonManageItemsBodyItemsAddNew{}
-.linkButtonManageItemsBodyItemsSelect{}
-.linkButtonManageItemsBodyItemTypesSubmit{}
-.linkButtonManageItemsBodyItemsDelete
+#divManageItemsBodyItemTypes
 {
-	color: #FF0000;
+	padding-bottom:1em;
 }
-.linkButtonManageItemsBodyItemsSubmit{}
-.linkButtonManageItemsBodyItemsUpdate{}
-.panelManageItemsBodyItems{}
-.panelManageItemsBodyItemTypes{}
-.panelManageItemsHead{}
-.tableManageItemsBodyItemsSelect{}
-.tableManageItemsBodyItemsSubmit{}
-.tableManageItemsBodyItemTypes{}
-.tableManageItemsHead{}
-.textBoxManageItemsBodyItemTypes{}
-.textBoxManageItemsBodyItemsSubmitItemId{}
-.textBoxManageItemsBodyItemsSubmitItemName{}
-.textBoxManageItemsBodyItemsSubmitNote{}
+
+#divManageItemsBodyItemTypes a
+{
+	margin-left: 11em;
+}
+
+#divManageItemsBodyItemsSelect
+{
+	padding-bottom:1em;
+}
+
+#divManageItemsBodyItemsSelect a
+{
+	margin-left: 11em;
+	display: block;
+}
+
+#divManageItemsBodyItemsSubmit
+{
+	padding-bottom:1em;
+}
+
+#divManageItemsBodyItemsSubmit a
+{
+	margin-left: 11em;
+	display: block;
+}
 
 /* ManageShopItems.aspx */
 
-.divManageShopItems{}
-.divManageShopItemsHead{}
-.divManageShopItemsBody{}
-.divManageShopItemsBodyInput{}
-.divManageShopItemsBodyList{}
-.divManageShopItemsBodyFoot{}
-.divManageShopItemsBodyStats{}
-.divManageShopItemsBodyTrackers{}
-.divManageShopItemsBodyTrackersInput{}
-.divManageShopItemsBodyTrackersList{}
-.dropDownListManageShopItemsBodyInputItems{}
-.dropDownListManageShopItemsBodyInputShops{}
-.gridViewManageShopItemsBodyList{}
-.gridViewManageShopItemsBodyTrackersList{}
-.hyperLinkManageShopItemsMain{}
-.labelManageShopItemsBodyInputItems{}
-.labelManageShopItemsBodyInputNumberOfItems{}
-.labelManageShopItemsBodyInputPriceGross{}
-.labelManageShopItemsBodyInputPriceNet{}
-.labelManageShopItemsBodyInputShops{}
-.labelManageShopItemsBodyTrackersInputDateTime{}
-.labelManageShopItemsBodyTrackersInputShopItem{}
-.labelManageShopItemsBodyTrackersInputSoldCount{}
-.labelManageShopItemsBodyTrackersStatsTotal{}
-.labelManageShopItemsBodyTrackersStatsTotalNumber{}
-.labelManageShopItemsBodyTrackersStatsSold{}
-.labelManageShopItemsBodyTrackersStatsSoldNumber{}
-.labelManageShopItemsBodyTrackersStatsGrossReceived{}
-.labelManageShopItemsBodyTrackersStatsGrossReceivedNumber{}
-.labelManageShopItemsBodyTrackersStatsNetReceived{}
-.labelManageShopItemsBodyTrackersStatsNetReceivedNumber{}
-.linkButtonManageShopItemsBodyInputAdd{}
-.linkButtonManageShopItemsBodyTrackersInputAdd{}
-.panelManageShopItemsBodyInput{}
-.tableManageShopItemsBodyInput{}
-.tableManageShopItemsBodyTrackersInput{}
-.tableManageShopItemsBodyTrackersList{}
-.tableManageShopItemsBodyTrackersStats{}
-.textBoxManageShopItemsBodyInputNumberOfItems{}
-.textBoxManageShopItemsBodyInputPriceGross{}
-.textBoxManageShopItemsBodyInputPriceNet{}
-.textBoxManageShopItemsBodyTrackersInputDateTime{}
-.textBoxManageShopItemsBodyTrackersInputShopItem{}
-.textBoxManageShopItemsBodyTrackersInputSoldCount{}
-.labelManageShopItemsStatus{}
+#divManageShopItemsBodyInput
+{
+	padding-bottom:1em;
+}
+
+#divManageShopItemsBodyInput a
+{
+	margin-left: 11em;
+	display: block;
+}
+
+#divManageShopItemsBodyTrackersList
+{
+	margin-left: 11em;
+}
+
+#divManageShopItemsBodyTrackersInput
+{
+	padding-bottom:1em;
+}
+
+#divManageShopItemsBodyTrackersInput a
+{
+	margin-left: 11em;
+	display: block;
+}
+
+#divManageShopItemsBodyList
+{
+	clear:both;
+	margin-left: 10.5em;
+}
 
 /* ManageShops.aspx */
 
-.checkBoxManageShopsInputBodyIsCompany{}
-.divManageShops{}
-.divManageShopsFoot{}
-.divManageShopsHead{}
-.divManageShopsInput{}
-.divManageShopsInputBody{}
-.divManageShopsInputHead{}
-.divManageShopsList{}
-.divManageShopsListHead{}
-.divManageShopsListBody{}
-.dropDownListManageShopsListBody{}
-.hyperLinkMangeShopsHeadMain{}
-.labelManageShopsInputBodyAddress{}
-.labelManageShopsInputBodyCity{}
-.labelManageShopsInputBodyIsCompany{}
-.labelManageShopsInputBodyName{}
-.labelManageShopsInputBodyOwner{}
-.labelManageShopsInputBodyPostalCode{}
-.labelManageShopsListBody{}
-.labelManageShopsStatus{}
-.linkButtonManageShopsInputBodyDelete{}
-.linkButtonManageShopsInputBodySubmit{}
-.linkButtonManageShopsInputBodyUpdate{}
-.linkButtonManageShopsListBodyAdd{}
-.linkButtonManageShopsListBodySelect{}
-.panelManageShopsHead{}
-.panelManageShopsInput{}
-.panelManageShopsList{}
-.tableManageShopsHead{}
-.tableManageShopsInputBody{}
-.tableManageShopsListBody{}
-.textBoxManageShopsInputBodyAddress{}
-.textBoxManageShopsInputBodyCity{}
-.textBoxManageShopsInputBodyName{}
-.textBoxManageShopsInputBodyOwner{}
-.textBoxManageShopsInputBodyPostalCode{}
+#divManageShopsList
+{
+	padding-bottom:1em;
+}
+
+#divManageShopsList a
+{
+	margin-left: 11em;
+	display: block;
+}
+
+#divManageShopsInput
+{
+	padding-bottom:1em;
+}
+
+#divManageShopsInput a
+{
+	margin-left: 11em;
+	display: block;
+}
 
 /* ManageUsers.aspx */
 
-.divManageUsers{}
-.divManageUsersBodyInput{}
-.divManageUsersBodyList{}
-.divManageUsersHead{}
-.dropDownListManageUsersBodyInputLevel{}
-.gridViewManageUsersBodyList{}
-.hyperManageUsersHeadMain{}
-.labelManageUsersBodyInputLevel{}
-.labelManageUsersBodyInputPassword{}
-.labelManageUsersBodyInputStatus{}
-.labelManageUsersBodyInputUserName{}
-.linkButtonManageUsersBodyInputAddUser{}
-.panelManageUsersHead{}
-.tableManageUsersBodyInput{}
-.tableManageUsersHead{}
-.textBoxManageUsersBodyInputPassword{}
-.textBoxManageUsersBodyInputUserName{}

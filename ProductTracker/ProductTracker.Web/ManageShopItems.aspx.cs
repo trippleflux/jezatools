@@ -332,7 +332,7 @@ namespace ProductTracker.Web
                 (soldCount*Double.Parse(tableCellNet.Text.Trim())).ToString();
         }
 
-        protected void linkButtonManageShopItemsBodyTrackersInputAdd_Click(object sender, EventArgs e)
+        protected void LinkButtonManageShopItemsBodyTrackersInputAddClick(object sender, EventArgs e)
         {
             string shopItem = textBoxManageShopItemsBodyTrackersInputShopItem.Text;
             string soldCount = textBoxManageShopItemsBodyTrackersInputSoldCount.Text;
