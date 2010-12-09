@@ -9,67 +9,36 @@
     </head>
     <body>
         <form id="formManageUsers" runat="server">
-            <div id="divManageUsers" class="divManageUsers">
-                <div id="divManageUsersHead" class="divManageUsersHead">
-                    <asp:Panel id="panelManageUsersHead" CssClass="panelManageUsersHead" runat="server">
-                        <table id="tableManageUsersHead" class="tableManageUsersHead">
-                            <tr>
-                                <td>
-                                    <asp:HyperLink id="hyperManageUsersHeadMain" CssClass="hyperManageUsersHeadMain" runat="server" 
-                                        NavigateUrl="~/Default.aspx">Main</asp:HyperLink>
-                                </td>
-                            </tr>
-                        </table>
-                    </asp:Panel>
+            <div id="divManageUsers">
+                <div id="divManageUsersHead">
+                    <asp:HyperLink id="hyperManageUsersHeadMain" runat="server" NavigateUrl="~/Default.aspx">Main</asp:HyperLink>
                 </div>
-                <div id="divManageUsersBodyInput" class="divManageUsersBodyInput">
-                    <table id="tableManageUsersBodyInput" class="tableManageUsersBodyInput">
-                        <tr>
-                            <td>
-                                <asp:Label id="labelManageUsersBodyInputUserName" CssClass="labelManageUsersBodyInputUserName" runat="server" Text="Username"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox id="textBoxManageUsersBodyInputUserName" CssClass="textBoxManageUsersBodyInputUserName" runat="server"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label id="labelManageUsersBodyInputPassword" CssClass="labelManageUsersBodyInputPassword" runat="server" Text="Password"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:TextBox id="textBoxManageUsersBodyInputPassword" CssClass="textBoxManageUsersBodyInputPassword" runat="server"></asp:TextBox>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label id="labelManageUsersBodyInputLevel" CssClass="labelManageUsersBodyInputLevel" runat="server" Text="Level"></asp:Label>
-                            </td>
-                            <td>
-                                <asp:DropDownList id="dropDownListManageUsersBodyInputLevel" CssClass="dropDownListManageUsersBodyInputLevel" runat="server">
-                                </asp:DropDownList>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:LinkButton id="linkButtonManageUsersBodyInputAddUser" CssClass="linkButtonManageUsersBodyInputAddUser" runat="server" 
-                                    onclick="LinkButtonAddUser_Click">Add</asp:LinkButton>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <asp:Label id="labelManageUsersBodyInputStatus" CssClass="labelManageUsersBodyInputStatus" runat="server" Text=""></asp:Label>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                    </table>
+                <div id="divManageUsersBody">
+                    <div id="divManageUsersBodyInput">
+                        <div>
+                            <asp:Label id="labelManageUsersBodyInputUserName" runat="server" Text="Username"></asp:Label>
+                            <asp:TextBox id="textBoxManageUsersBodyInputUserName" runat="server"></asp:TextBox>
+                        </div>
+                        <div>
+                            <asp:Label id="labelManageUsersBodyInputPassword" runat="server" Text="Password"></asp:Label>
+                            <asp:TextBox id="textBoxManageUsersBodyInputPassword" runat="server"></asp:TextBox>
+                        </div>
+                        <div>
+                            <asp:Label id="labelManageUsersBodyInputLevel" runat="server" Text="Level"></asp:Label>
+                            <asp:DropDownList id="dropDownListManageUsersBodyInputLevel" runat="server">
+                            </asp:DropDownList>
+                        </div>
+                        <div>
+                            <asp:LinkButton id="linkButtonManageUsersBodyInputAddUser" runat="server" 
+                                onclick="LinkButtonAddUser_Click">Add</asp:LinkButton>
+                        </div>
+                    </div>
                 </div>
-                <div id="divManageUsersBodyList" class="divManageUsersBodyList">
-                    <asp:GridView id="gridViewManageUsersBodyList" 
-                        CssClass="gridViewManageUsersBodyList" runat="server">
-                        
+                <div id="divManageUsersBodyInputStatus">
+                    <asp:Label id="labelManageUsersBodyInputStatus" runat="server" Text=""></asp:Label>
+                </div>
+                <div id="divManageUsersBodyList">
+                    <asp:GridView id="gridViewManageUsersBodyList" runat="server">                        
                     </asp:GridView>
                 </div>
             </div>
