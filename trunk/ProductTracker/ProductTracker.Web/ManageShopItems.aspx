@@ -67,19 +67,19 @@
                         </asp:GridView>
                     </div>
                     <div id="divManageShopItemsBodyTrackersListStats">
-                        <div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsTotal" runat="server" Text="Total Items"></asp:Label>
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsTotalNumber" runat="server" Text="0"></asp:Label>
                         </div>
-                        <div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsSold" runat="server" Text="Total Sold"></asp:Label>
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsSoldNumber" runat="server" Text="0"></asp:Label>
                         </div>
-                        <div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsGrossReceived" runat="server" Text="Gross Received"></asp:Label>
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsGrossReceivedNumber" runat="server" Text="0"></asp:Label>
                         </div>
-                        <div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsNetReceived" runat="server" Text="Net Received"></asp:Label>
                             <asp:Label ID="labelManageShopItemsBodyTrackersStatsNetReceivedNumber" runat="server" Text="0"></asp:Label>
                         </div>
