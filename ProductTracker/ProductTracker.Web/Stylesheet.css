@@ -17,14 +17,6 @@ select
 	width:20em;
 }
 
-span
-{
-	width:10em;
-	float:left;
-	text-align:right;
-	padding-right:1em;
-}
-
 table
 {
 	text-align: left;
@@ -66,6 +58,14 @@ table
 /* Login.aspx */
 
 /* ManageItems.aspx */
+
+#divManageItems span
+{
+	width:10em;
+	float:left;
+	text-align:right;
+	padding-right:1em;
+}
 
 #divManageItemsBodyItemTypes
 {
@@ -112,6 +112,14 @@ table
 	display: block;
 }
 
+#divManageShopItemsBodyInput span
+{
+	width:10em;
+	float:left;
+	text-align:right;
+	padding-right:1em;
+}
+
 #divManageShopItemsBodyTrackersList
 {
 	margin-left: 11em;
@@ -128,13 +136,42 @@ table
 	display: block;
 }
 
+#divManageShopItemsBodyTrackersInput span
+{
+	width:10em;
+	float:left;
+	text-align:right;
+	padding-right:1em;
+}
+
+#divManageShopItemsBodyTrackersListStats
+{
+	margin-left: 11em;
+}
+
+#divManageShopItemsBodyTrackersListStats div span
+{
+}
+
+.divManageShopItemsBodyTrackersListStats
+{
+}
+	
 #divManageShopItemsBodyList
 {
 	clear:both;
-	margin-left: 10.5em;
+	margin-left: 11em;
 }
 
 /* ManageShops.aspx */
+
+#divManageShops span
+{
+	width:10em;
+	float:left;
+	text-align:right;
+	padding-right:1em;
+}
 
 #divManageShopsList
 {
@@ -159,4 +196,12 @@ table
 }
 
 /* ManageUsers.aspx */
+
+#divManageUsersBodyInput span
+{
+	width:10em;
+	float:left;
+	text-align:right;
+	padding-right:1em;
+}
 
