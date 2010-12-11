@@ -58,6 +58,24 @@
                             <asp:LinkButton ID="linkButtonManageShopItemsBodyTrackersInputAdd" runat="server" onclick="LinkButtonManageShopItemsBodyTrackersInputAddClick">Add</asp:LinkButton>
                         </div>
                     </div>
+                    <div id="divManageShopItemsBodyTrackersListStats">
+                        <div class="divManageShopItemsBodyTrackersListStats">
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsTotal" CssClass="divManageShopItemsBodyTrackersListStatsSpan" Width="10em" runat="server" Text="Total Items"></asp:Label>
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsTotalNumber" CssClass="divManageShopItemsBodyTrackersListStatsSpanNumber" runat="server" Text="0"></asp:Label>
+                        </div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsSold" CssClass="divManageShopItemsBodyTrackersListStatsSpan" Width="10em" runat="server" Text="Total Sold"></asp:Label>
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsSoldNumber" CssClass="divManageShopItemsBodyTrackersListStatsSpanNumber" runat="server" Text="0"></asp:Label>
+                        </div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsGrossReceived" CssClass="divManageShopItemsBodyTrackersListStatsSpan" Width="10em" runat="server" Text="Gross Received"></asp:Label>
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsGrossReceivedNumber" CssClass="divManageShopItemsBodyTrackersListStatsSpanNumber" runat="server" Text="0"></asp:Label>
+                        </div>
+                        <div class="divManageShopItemsBodyTrackersListStats">
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsNetReceived" CssClass="divManageShopItemsBodyTrackersListStatsSpan" Width="10em" runat="server" Text="Net Received"></asp:Label>
+                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsNetReceivedNumber" CssClass="divManageShopItemsBodyTrackersListStatsSpanNumber" runat="server" Text="0"></asp:Label>
+                        </div>
+                    </div>
                     <div id="divManageShopItemsBodyTrackersList">
                         <asp:GridView ID="gridViewManageShopItemsBodyTrackersList" runat="server" AutoGenerateColumns="false">
                             <Columns>
@@ -65,24 +83,6 @@
                                 <asp:BoundField DataField="SoldCount" HeaderText="Count" />
                             </Columns>
                         </asp:GridView>
-                    </div>
-                    <div id="divManageShopItemsBodyTrackersListStats">
-                        <div class="divManageShopItemsBodyTrackersListStats">
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsTotal" runat="server" Text="Total Items"></asp:Label>
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsTotalNumber" runat="server" Text="0"></asp:Label>
-                        </div>
-                        <div class="divManageShopItemsBodyTrackersListStats">
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsSold" runat="server" Text="Total Sold"></asp:Label>
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsSoldNumber" runat="server" Text="0"></asp:Label>
-                        </div>
-                        <div class="divManageShopItemsBodyTrackersListStats">
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsGrossReceived" runat="server" Text="Gross Received"></asp:Label>
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsGrossReceivedNumber" runat="server" Text="0"></asp:Label>
-                        </div>
-                        <div class="divManageShopItemsBodyTrackersListStats">
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsNetReceived" runat="server" Text="Net Received"></asp:Label>
-                            <asp:Label ID="labelManageShopItemsBodyTrackersStatsNetReceivedNumber" runat="server" Text="0"></asp:Label>
-                        </div>
                     </div>
                 </div>
                 <div id="divManageShopItemsBodyList">

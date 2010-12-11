@@ -144,23 +144,24 @@ table
 	padding-right:1em;
 }
 
-#divManageShopItemsBodyTrackersListStats
-{
-	margin-left: 11em;
-}
-
-#divManageShopItemsBodyTrackersListStats div span
-{
-}
-
 .divManageShopItemsBodyTrackersListStats
 {
+	margin-left: 11em;
 }
 	
+.divManageShopItemsBodyTrackersListStatsSpan
+{
+}
+
+.divManageShopItemsBodyTrackersListStatsSpanNumber
+{
+}
+
 #divManageShopItemsBodyList
 {
-	clear:both;
-	margin-left: 11em;
+	position: absolute;
+	top: 2em;
+	margin-left: 31em;
 }
 
 /* ManageShops.aspx */
