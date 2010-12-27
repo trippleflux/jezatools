@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <project name="BuildRunner" default="compile" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
-  <loadtasks assembly="..\lib\GallioBundle-3.1.397.0\bin\Gallio.NAntTasks.dll" />
+  <loadtasks assembly="..\lib\GallioBundle-3.2.603.0\bin\Gallio.NAntTasks.dll" />
   <property name="DotNetFrameworkDir" value="${path::combine(environment::get-variable('SystemRoot'), 'Microsoft.NET\Framework\v3.5')}" />
   <property name="Configuration" value="Release" />
 
@@ -83,12 +83,12 @@
   </target>
 
   <target name="version.increment" description="Updates version number using UpdateVersion.exe">
-    <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.Framework} -o ${File.AssemblyInfo.Framework}" verbose="true" failonerror="true" />
-    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.Framework} -o ${File.AssemblyInfo.Framework}" verbose="true" failonerror="true" />
-    <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
-    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
-    <exec program="${File.UpdateVersion}" commandline="-r Increment -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
-    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-r Increment -b BuildDay -i ${File.AssemblyInfo.Framework} -o ${File.AssemblyInfo.Framework}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -b BuildDay -i ${File.AssemblyInfo.Framework} -o ${File.AssemblyInfo.Framework}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-r Increment -b BuildDay -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -b BuildDay -i ${File.AssemblyInfo.ZipScript} -o ${File.AssemblyInfo.ZipScript}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-r Increment -b BuildDay -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
+    <exec program="${File.UpdateVersion}" commandline="-v File -r Increment -b BuildDay -i ${File.AssemblyInfo.Tests} -o ${File.AssemblyInfo.Tests}" verbose="true" failonerror="true" />
   </target>
 
   <target name="release" description="Prepares new versioned release">

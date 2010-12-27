@@ -23,15 +23,20 @@ namespace jeza.ioFTPD.Framework
         public Race Parse()
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(args [1]);
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+            bool directoryIsNull = fileInfo.Directory == null;
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
             CurrentUploadData = new CurrentUploadData
                                 {
                                     FileExtension = Path.GetExtension(fileInfo.FullName),
                                     FileName = fileInfo.Name,
-                                    DirectoryName = fileInfo.Directory == null ? "" : fileInfo.Directory.Name,
-                                    DirectoryPath = fileInfo.Directory == null ? "" : fileInfo.Directory.FullName,
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+                                    DirectoryName = directoryIsNull ? "" : fileInfo.Directory.Name,
+                                    DirectoryPath = directoryIsNull ? "" : fileInfo.Directory.FullName,
 // ReSharper disable PossibleNullReferenceException
-                                    DirectoryParent = fileInfo.Directory == null ? "" : fileInfo.Directory.Parent.FullName,
+                                    DirectoryParent = directoryIsNull ? "" : fileInfo.Directory.Parent.FullName,
 // ReSharper restore PossibleNullReferenceException
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
                                     FileSize = fileInfo.Length,
                                     UploadFile = args [1],
                                     UploadCrc = args [2],
@@ -146,14 +151,7 @@ namespace jeza.ioFTPD.Framework
             {
                 return true;
             }
-            if (fileInfo.Length == 1)
-            {
-                OutputSfvFirst(Config.ClientFileName, Config.ClientFileNameSfvFirst);
-            }
-            else
-            {
-                OutputSfvFirst(Config.ClientFileName, Config.ClientFileNameSfvExists);
-            }
+            OutputSfvFirst(Config.ClientFileName, fileInfo.Length == 1 ? Config.ClientFileNameSfvFirst : Config.ClientFileNameSfvExists);
             IsValid = false;
             return false;
         }
@@ -304,15 +302,8 @@ namespace jeza.ioFTPD.Framework
 
         private UInt64 GetTotalBytesUploaded()
         {
-            UInt64 total = 0;
-            foreach (RaceStats stats in raceStats)
-            {
-                if (stats.FileUploaded)
-                {
-                    total += stats.FileSize;
-                }
-            }
-            return total;
+            return raceStats.Where(stats => stats.FileUploaded).Aggregate<RaceStats, ulong>(0, (current,
+                                                                                                stats) => current + stats.FileSize);
         }
 
         private int GetTotalGroupsRacing()
@@ -353,15 +344,7 @@ namespace jeza.ioFTPD.Framework
 
         private int GetTotalFilesUploaded()
         {
-            int total = 0;
-            foreach (RaceStats stats in raceStats)
-            {
-                if (stats.FileUploaded)
-                {
-                    total++;
-                }
-            }
-            return total;
+            return raceStats.Count(stats => stats.FileUploaded);
         }
 
         private string CreateProgressBar()
@@ -369,14 +352,7 @@ namespace jeza.ioFTPD.Framework
             StringBuilder bar = new StringBuilder();
             for (int i = 0; i < Config.ProgressBarLength; i++)
             {
-                if (i < (TotalFilesUploaded * Config.ProgressBarLength / TotalFilesExpected))
-                {
-                    bar.Append(Config.ProgressBarCharFilled);
-                }
-                else
-                {
-                    bar.Append(Config.ProgressBarCharMissing);
-                }
+                bar.Append(i < (TotalFilesUploaded * Config.ProgressBarLength / TotalFilesExpected) ? Config.ProgressBarCharFilled : Config.ProgressBarCharMissing);
             }
             return bar.ToString();
         }
