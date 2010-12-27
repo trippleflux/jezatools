@@ -13,7 +13,7 @@ namespace jeza.ioFTPD.ZipScript
         {
             this.args = args;
             startTime = new DateTime(DateTime.Now.Ticks);
-            Log.Debug("args: {0}", ArgsToString);
+            Log.Debug("args: '{0}'", ArgsToString);
         }
 
         public void Parse()
@@ -23,7 +23,7 @@ namespace jeza.ioFTPD.ZipScript
             {
                 case 1:
                 {
-                    if (args[0].ToLower().Equals("rescan"))
+                    if (args[0].ToLowerInvariant().Equals("rescan"))
                     {
                         target = Target.Rescan;
                     }
@@ -32,7 +32,7 @@ namespace jeza.ioFTPD.ZipScript
 
                 case 4:
                 {
-                    if (args [0].ToLower().Equals("upload"))
+                    if (args [0].ToLowerInvariant().Equals("upload"))
                     {
                         target = Target.Upload;
                     }

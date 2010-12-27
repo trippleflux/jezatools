@@ -35,6 +35,8 @@ namespace jeza.ioFTPD.Framework
             {
                 using (StreamWriter streamWriter = new StreamWriter(stream))
                 {
+                    DateTime dt = new DateTime(DateTime.Now.Ticks);
+                    line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + line;
                     if (args != null)
                     {
                         streamWriter.WriteLine(line, args);

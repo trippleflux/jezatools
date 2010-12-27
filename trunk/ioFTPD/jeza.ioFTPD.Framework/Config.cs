@@ -41,7 +41,7 @@ namespace jeza.ioFTPD.Framework
         /*
          * Th tag cannot contain the following characters : \ / : * ? " < > |
          */
-        public const string TagCleanUpString = "]-["; //deete all files that start with this string in race folder
+        public const string TagCleanUpString = "]-["; //delete all files that start with this string in race folder
         public const string TagIncomplete = "]-[iNCOMPLETE]-[ {0}% ]-[{1}FiLE(s) of {2}FiLE(s)]-[iNCOMPLETE]-[¤PercentComplete TotalFilesUploaded TotalFilesExpected";
         public const string TagComplete = "]-[Complete]-[{2}%]-[ {0} - {1}F]-[¤FormatBytesUploaded TotalFilesUploaded PercentComplete";
         public const string TagIncompleteLink = "[iNCOMPLETE]-{0}¤ReleaseName";

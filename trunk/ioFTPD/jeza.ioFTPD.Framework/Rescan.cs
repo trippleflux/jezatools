@@ -8,16 +8,20 @@ using System.IO;
 
 namespace jeza.ioFTPD.Framework
 {
-    public class Rescan : IoEnvironment
+    public class Rescan : IoEnvironment, IData
     {
         public Rescan(string[] args)
         {
             this.args = args;
             SourceFolder = GetRealPath();
+            rescanFolder = args.Length < 2;
         }
 
         public void Parse()
         {
+            Log.Debug("SourceFolder: '{0}'", SourceFolder);
+            Log.Debug("args: '{0}'", this.FormatArgs(args));
+            Log.Debug("rescanFolder: '{0}'", rescanFolder);
             directoryInfo = new DirectoryInfo(SourceFolder);
             System.IO.FileInfo[] sfvFiles = directoryInfo.GetFiles("*.sfv");
             if (sfvFiles.Length >= 1)
@@ -37,9 +41,15 @@ namespace jeza.ioFTPD.Framework
                 rescanStats.TotalFiles = dataParserSfv.SfvData.Count;
                 foreach (KeyValuePair<string, string> keyValuePair in dataParserSfv.SfvData)
                 {
-                    RescanStatsData rescanStatsData = new RescanStatsData();
-                    rescanStatsData.FileName = keyValuePair.Key;
-                    rescanStatsData.ExpectedCrc32Value = keyValuePair.Value;
+                    if (!rescanFolder && !(keyValuePair.Key.ToLowerInvariant().Equals(args[1].ToLowerInvariant())))
+                    {
+                        continue;
+                    }
+                    RescanStatsData rescanStatsData = new RescanStatsData
+                                                      {
+                                                          FileName = keyValuePair.Key, 
+                                                          ExpectedCrc32Value = keyValuePair.Value,
+                                                      };
                     string fileName = Path.Combine(SourceFolder, keyValuePair.Key);
                     FileInfo fileInfo = new FileInfo();
                     if (File.Exists(fileName))
@@ -58,14 +68,17 @@ namespace jeza.ioFTPD.Framework
                             rescanStats.FailedFiles++;
                             rescanStatsData.Status = "FAILED";
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-                            if (Config.DeleteCrc32FailedFiles) // ReSharper restore ConditionIsAlwaysTrueOrFalse
+                            if (Config.DeleteCrc32FailedFiles)
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
                             {
                                 fileInfo.DeleteFile(SourceFolder, keyValuePair.Key);
                             }
                             else
+// ReSharper disable HeuristicUnreachableCode
                             {
                                 FileInfo.Create0ByteFile(fileName + Config.Crc32FailedFilesExtension);
                             }
+// ReSharper restore HeuristicUnreachableCode
                         }
                     }
                     else
@@ -95,6 +108,7 @@ namespace jeza.ioFTPD.Framework
         }
 
         private string[] args;
+        private bool rescanFolder;
         private DirectoryInfo directoryInfo;
         private readonly RescanStats rescanStats = new RescanStats();
         private DataParserSfv dataParserSfv;
