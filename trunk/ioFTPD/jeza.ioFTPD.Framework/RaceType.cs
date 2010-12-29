@@ -6,6 +6,7 @@ namespace jeza.ioFTPD.Framework
         Zip,
         Mp3,
         Nfo,
+        Diz,
         Default,
     }
 }

@@ -20,7 +20,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void Race()
         {
-            PrepareCleanMp3Race();
+            CleanTestFilesOutput();
             UploadSfvFileMp3();
             Race race = new Race(ArgsMp3File1);
             race.Parse();

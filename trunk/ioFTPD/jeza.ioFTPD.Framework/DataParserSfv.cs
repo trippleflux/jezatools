@@ -32,6 +32,10 @@ namespace jeza.ioFTPD.Framework
                 while (!streamReader.EndOfStream)
                 {
                     string line = streamReader.ReadLine();
+                    if (line == null)
+                    {
+                        continue;
+                    }
                     if ((line [0].Equals(';')) || (line.Length < 10))
                     {
                         continue;

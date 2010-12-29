@@ -76,7 +76,16 @@ namespace jeza.ioFTPD.Framework
             }
             if (CurrentUploadData.RaceType == RaceType.Zip)
             {
-                OutputFileName(false);
+                dataParser = new DataParserZip(this);
+                dataParser.Parse();
+                dataParser.Process();
+                return;
+            }
+            if (CurrentUploadData.RaceType == RaceType.Diz)
+            {
+                dataParser = new DataParserDiz(this);
+                dataParser.Parse();
+                dataParser.Process();
                 return;
             }
             if (CurrentUploadData.RaceType == RaceType.Sfv)
@@ -117,6 +126,10 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
+        /// <summary>
+        /// Prints output to the client.
+        /// </summary>
+        /// <param name="skip">if set to <c>true</c> use skip file template.</param>
         private void OutputFileName(bool skip)
         {
             Output output = new Output(this);
@@ -175,7 +188,9 @@ namespace jeza.ioFTPD.Framework
                                                          ? RaceType.Zip
                                                          : EqualsRaceType(".nfo")
                                                                ? RaceType.Nfo
-                                                               : RaceType.Default;
+                                                               : EqualsRaceType(".diz")
+                                                                     ? RaceType.Diz
+                                                                     : RaceType.Default;
         }
 
         /// <summary>

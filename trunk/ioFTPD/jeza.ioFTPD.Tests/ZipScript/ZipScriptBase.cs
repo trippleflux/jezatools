@@ -12,6 +12,46 @@ namespace jeza.ioFTPD.Tests.ZipScript
 {
     public class ZipScriptBase
     {
+        protected readonly string[] ArgsZipFile1 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Zip\file-000.zip"
+                , "00000000"
+                , "/TestFiles/Zip/file-000.zip"
+            };
+
+        protected readonly string[] ArgsZipFile2 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Zip\file-001.zip"
+                , "00000000"
+                , "/TestFiles/Zip/file-001.zip"
+            };
+
+        protected readonly string[] ArgsZipFile3 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Zip\file-002.zip"
+                , "00000000"
+                , "/TestFiles/Zip/file-002.zip"
+            };
+
+        protected readonly string[] ArgsZipFile4 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Zip\file-003.zip"
+                , "00000000"
+                , "/TestFiles/Zip/file-003.zip"
+            };
+
+        protected readonly string[] ArgsZipFile5 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Zip\file-004.zip"
+                , "00000000"
+                , "/TestFiles/Zip/file-004.zip"
+            };
+
         protected readonly string[] ArgsMp3File1 = new[]
             {
                 "upload"
@@ -92,28 +132,43 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 , "/TestFiles/Mp3/jozek.Pepek-2009-asd-Ind.sfv"
             };
 
-        protected void PrepareCleanRarRace()
+        protected readonly string[] ArgsDiz = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\Zip\file_id.diz"
+                , "aabbccdd"
+                , "/TestFiles/Zip/file_id.diz"
+            };
+
+        protected void CleanTestFilesOutput()
         {
-            FileInfo fileInfo = new FileInfo ();
-            fileInfo.DeleteFiles (@"..\..\TestFiles\Rar", Config.FileExtensionMissing);
-            fileInfo.DeleteFile (@"..\..\TestFiles\Rar", Config.FileNameRace);
+            FileInfo fileInfoRar = new FileInfo ();
+            fileInfoRar.DeleteFiles (@"..\..\TestFiles\Rar", Config.FileExtensionMissing);
+            fileInfoRar.DeleteFile (@"..\..\TestFiles\Rar", Config.FileNameRace);
             //Thread.Sleep (5000);
             Assert.IsFalse (File.Exists (@"..\..\TestFiles\Rar\infected.part1.rar" + Config.FileExtensionMissing),
                             String.Format (CultureInfo.InvariantCulture,
-                                           "Unexpected '{0}' files!",
+                                           "Unexpected '{0}' files in RAR folder!",
                                            Config.FileExtensionMissing));
-        }
 
-        protected void PrepareCleanMp3Race ()
-        {
-            FileInfo fileInfo = new FileInfo ();
-            fileInfo.DeleteFiles (@"..\..\TestFiles\Mp3", Config.FileExtensionMissing);
-            fileInfo.DeleteFile (@"..\..\TestFiles\Mp3", Config.FileNameRace);
+            FileInfo fileInfoMp3 = new FileInfo ();
+            fileInfoMp3.DeleteFiles (@"..\..\TestFiles\Mp3", Config.FileExtensionMissing);
+            fileInfoMp3.DeleteFile (@"..\..\TestFiles\Mp3", Config.FileNameRace);
             //Thread.Sleep (5000);
             Assert.IsFalse (
                 File.Exists (@"..\..\TestFiles\Mp3\01-jozek.Pepek-2009-asd-Ind.mp3" + Config.FileExtensionMissing),
                 String.Format (CultureInfo.InvariantCulture,
-                               "Unexpected '{0}' files!",
+                               "Unexpected '{0}' files in MP3 folder!",
+                               Config.FileExtensionMissing));
+
+            FileInfo fileInfoZip = new FileInfo();
+            fileInfoZip.DeleteFiles(@"..\..\TestFiles\Zip", Config.FileExtensionMissing);
+            fileInfoZip.DeleteFile(@"..\..\TestFiles\Zip", Config.FileNameRace);
+            //Thread.Sleep (5000);
+            Assert.IsFalse(
+                File.Exists(@"..\..\TestFiles\Zip\file-004.zip" + Config.FileExtensionMissing),
+                String.Format(CultureInfo.InvariantCulture,
+                               "Unexpected '{0}' files in ZIP folder!",
                                Config.FileExtensionMissing));
         }
 
@@ -140,5 +195,18 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race.Process();
             return race;
         }
+
+        protected Race UploadDizFile()
+        {
+            Race race = new Race(ArgsDiz);
+            race.Parse();
+            Assert.AreEqual(".diz", race.CurrentUploadData.FileExtension, "FileExtension");
+            Assert.AreEqual("file_id.diz", race.CurrentUploadData.FileName, "FileName");
+            Assert.AreEqual(350, race.CurrentUploadData.FileSize, "FileSize");
+            Assert.AreEqual("Zip", race.CurrentUploadData.DirectoryName, "DirectoryName");
+            race.Process();
+            return race;
+        }
+
     }
 }

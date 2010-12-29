@@ -78,6 +78,8 @@ namespace jeza.ioFTPD.Framework
                 TagManager tagManager = new TagManager(race);
                 if (race.IsRaceComplete)
                 {
+                    //Thread.Sleep(1000);
+                    fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
                     tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagComplete));
                     tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
                 }
