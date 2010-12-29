@@ -18,7 +18,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void RaceRar ()
         {
-            PrepareCleanRarRace ();
+            CleanTestFilesOutput ();
             UploadSfvFile ();
 
             Race race = new Race (ArgsRarPart1);

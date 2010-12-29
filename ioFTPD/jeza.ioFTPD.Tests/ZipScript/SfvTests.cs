@@ -20,7 +20,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void UploadSfv ()
         {
-            PrepareCleanRarRace ();
+            CleanTestFilesOutput ();
             UploadSfvFile ();
 
             string expectedFile = String.Format (CultureInfo.InvariantCulture,
@@ -47,7 +47,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void RaceSfv ()
         {
-            PrepareCleanRarRace();
+            CleanTestFilesOutput();
             Race race = UploadSfvFile ();
             FileInfo fileInfo = new FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,

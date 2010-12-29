@@ -20,6 +20,8 @@
   <property name="File.AssemblyInfo.Framework" value="jeza.ioFTPD.Framework\Properties\AssemblyInfo.cs" />
   <property name="File.AssemblyInfo.ZipScript" value="jeza.ioFTPD.ZipScript\Properties\AssemblyInfo.cs" />
   <property name="File.AssemblyInfo.Tests" value="jeza.ioFTPD.Tests\Properties\AssemblyInfo.cs" />
+  
+  <property name="Version" value="2.0.0.0" />
 
   <target name="clean" descripton="Removes output files and directories.">
     <delete includeemptydirs="true" failonerror="true">
@@ -93,7 +95,7 @@
 
   <target name="release" description="Prepares new versioned release">
     <call target="version.increment" />
-    <call target="compile" />
+    <call target="test" />
   </target>
 
 </project>

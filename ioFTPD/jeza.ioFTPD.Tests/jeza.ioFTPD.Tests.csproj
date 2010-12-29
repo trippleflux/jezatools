@@ -67,6 +67,7 @@
     <Compile Include="ZipScript\SfvTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZipScript\ZipScriptBase.cs" />
+    <Compile Include="ZipScript\ZipTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
@@ -95,9 +96,13 @@
     <None Include="TestFiles\Rar\infected.part3.rar" />
     <None Include="TestFiles\Rar\infected.part4.rar" />
     <None Include="TestFiles\Rar\infected.sfv" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestFiles\Zip\" />
+    <None Include="TestFiles\Zip\file-000.zip" />
+    <None Include="TestFiles\Zip\file-001.zip" />
+    <None Include="TestFiles\Zip\file-002.zip" />
+    <None Include="TestFiles\Zip\file-003.zip" />
+    <None Include="TestFiles\Zip\file-004.zip" />
+    <None Include="TestFiles\Zip\file_id.diz" />
+    <None Include="TestFiles\Zip\jeza.nfo" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
