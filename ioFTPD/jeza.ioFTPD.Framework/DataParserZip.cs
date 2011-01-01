@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+using System;
 using System.IO;
 using System.Threading;
+using ICSharpCode.SharpZipLib.Zip;
+
+#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -15,6 +19,12 @@ namespace jeza.ioFTPD.Framework
         public void Parse()
         {
             race.ClearRaceStats();
+            ExtractDiz();
+            if(!race.IsValid)
+            {
+                
+                return;
+            }
             RaceMutex.WaitOne();
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(RaceFile);
             using (FileStream stream = new FileStream(fileInfo.FullName,
@@ -46,8 +56,88 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("Current Race Stats : {0}", race.GetRaceStats);
         }
 
+        private void ExtractDiz()
+        {
+            Log.Debug("ExtractDiz");
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(RaceFile);
+            if (fileInfo.Exists)
+            {
+                Log.Debug("Race file exists...");
+                return;
+            }
+            bool dizFound = false;
+            using (ZipInputStream zipInputStream = new ZipInputStream(File.OpenRead(race.CurrentUploadData.UploadFile)))
+            {
+                ZipEntry theEntry;
+                while ((theEntry = zipInputStream.GetNextEntry()) != null)
+                {
+                    if (theEntry.IsFile)
+                    {
+                        Log.Debug("ZipEntry: '{0}'", theEntry.Name);
+                        string fileName = Path.GetFileName(theEntry.Name);
+                        if (fileName != String.Empty)
+                        {
+                            if (IsCorrectExtesion(fileName, ".diz"))
+                            {
+                                dizFound = true;
+                                ExtractFile(zipInputStream, theEntry);
+                            }
+                            if (IsCorrectExtesion(fileName, ".nfo") && Config.ExtractNfoFromZip)
+                            {
+                                ExtractFile(zipInputStream, theEntry);
+                            }
+                        }
+                    }
+                }
+            }
+            if (dizFound)
+            {
+                DataParserDiz dataParserDiz = new DataParserDiz(race);
+                dataParserDiz.Parse();
+                dataParserDiz.Process();
+                return;
+            }
+            Log.Debug("DIZ file not found in ZIP");
+            race.IsValid = false;
+            Output output = new Output(race);
+            output
+                .Client(Config.ClientHead)
+                .Client(Config.ClientFileNameNoDiz)
+                .Client(Config.ClientFoot);
+        }
+
+        private void ExtractFile(Stream zipInputStream, ZipEntry theEntry)
+        {
+            Log.Debug("Extracting File : {0}", theEntry.Name);
+            using (FileStream streamWriter = File.Create(Path.Combine(race.CurrentUploadData.DirectoryPath, theEntry.Name)))
+            {
+                byte[] data = new byte[2048];
+                while (true)
+                {
+                    int size = zipInputStream.Read(data, 0, data.Length);
+                    if (size > 0)
+                    {
+                        streamWriter.Write(data, 0, size);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static bool IsCorrectExtesion(string fileName, string extension)
+        {
+            return fileName.ToLowerInvariant().EndsWith(extension);
+        }
+
         public void Process()
         {
+            if (!race.IsValid)
+            {
+                return;
+            }
             Log.Debug("DataParserZip.Process()");
             UpdateRaceData();
             Parse();
@@ -100,10 +190,13 @@ namespace jeza.ioFTPD.Framework
                         {
                             position = i;
                         }
-                        if (fileName.Equals(race.CurrentUploadData.FileName))
+                        else
                         {
-                            position = i;
-                            break;
+                            if (fileName.Equals(race.CurrentUploadData.FileName))
+                            {
+                                position = i;
+                                break;
+                            }
                         }
                     }
                 }

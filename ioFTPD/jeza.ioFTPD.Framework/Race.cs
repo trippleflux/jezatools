@@ -30,6 +30,7 @@ namespace jeza.ioFTPD.Framework
                                 {
                                     FileExtension = Path.GetExtension(fileInfo.FullName),
                                     FileName = fileInfo.Name,
+                                    FileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileInfo.FullName),
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
                                     DirectoryName = directoryIsNull ? "" : fileInfo.Directory.Name,
                                     DirectoryPath = directoryIsNull ? "" : fileInfo.Directory.FullName,
@@ -63,6 +64,11 @@ namespace jeza.ioFTPD.Framework
                 OutputFileName(true);
                 return;
             }
+            if (SkipFileExtension)
+            {
+                OutputFileName(true);
+                return;
+            }
             if (!IsValid)
             {
                 Log.Debug("Not Valid!");
@@ -83,9 +89,11 @@ namespace jeza.ioFTPD.Framework
             }
             if (CurrentUploadData.RaceType == RaceType.Diz)
             {
-                dataParser = new DataParserDiz(this);
-                dataParser.Parse();
-                dataParser.Process();
+                //dataParser = new DataParserDiz(this);
+                //dataParser.Parse();
+                //dataParser.Process();
+                IsValid = false;
+                Log.Debug("DIZ not allowed!");
                 return;
             }
             if (CurrentUploadData.RaceType == RaceType.Sfv)
@@ -115,9 +123,31 @@ namespace jeza.ioFTPD.Framework
                     string[] skipPaths = Config.SkipPath.Split(' ');
                     foreach (string skipPath in skipPaths)
                     {
-                        if (virtualPath.StartsWith(skipPath))
+                        if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
                         {
                             Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, Config.SkipPath);
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+
+        public bool SkipFileExtension
+        {
+            get
+            {
+                IsValid = true;
+                string fileExtension = CurrentUploadData.FileExtension;
+                if (Config.SkipFileExtension.IndexOf(',') > -1)
+                {
+                    string[] skipFileExtensions = Config.SkipFileExtension.Split(',');
+                    foreach (string extension in skipFileExtensions)
+                    {
+                        if (fileExtension.EndsWith(extension, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            Log.Debug("Skip file extension match. ['{0}' => '{1}']", extension, Config.SkipFileExtension);
                             return true;
                         }
                     }

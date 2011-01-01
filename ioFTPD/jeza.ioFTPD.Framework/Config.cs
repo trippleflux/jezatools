@@ -6,9 +6,11 @@ namespace jeza.ioFTPD.Framework
         public const string FileNameRace = ".ioFTPD.race";
         public const string FileExtensionMissing = ".missing";
 
-        public const string SkipPath = "/private/";
+        public const string SkipPath = "/_HDD/ /private/ /groups/ /nocheck/ /request/nocheck/ /fonts/";
+        public const string SkipFileExtension = "jpg,jpeg,cue,txt,tcl,itcl,ini,cfg,m3u,avi,mpg,mpeg,vob";
 
-        public const bool DeleteCrc32FailedFiles = true;
+        public static bool DeleteCrc32FailedFiles = true;
+        public static bool ExtractNfoFromZip = true;
         public const string Crc32FailedFilesExtension = ".bad";
         public const string ClientCrc32Head = " Expected Actual   Status   FileName ";
         public const string ClientCrc32Body = " {1,-8} {2,-8} {3,-8} {0,-60:B60}了ileName ExpectedCrc32 ActualCrc32 Status";
@@ -18,6 +20,7 @@ namespace jeza.ioFTPD.Framework
         public const string ClientFileNameOk = "| File OK..: {0,-80:B79}|了ileName";
         public const string ClientFileNameSkip = "| Skip.....: {0,-80:B79}|了ileName";
         public const string ClientFileNameBadCrc = "| Bad CRC..: {0,-80:B79}|了ileName";
+        public const string ClientFileNameNoDiz = "| No DIZ...: {0,-80:B79}|了ileName";
         public const string ClientFileNameSfv = "| SFV......: {0,-80:B79}|了ileName";
         public const string ClientFileNameSfvExists = "| Deleting.: SFV allready exists!                                                            |";
         public const string ClientFileNameSfvFirst = "| Deleting.: Upload SFV first!                                                               |";

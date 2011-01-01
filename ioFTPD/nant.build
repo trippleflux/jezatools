@@ -3,7 +3,7 @@
 
   <loadtasks assembly="..\lib\GallioBundle-3.2.603.0\bin\Gallio.NAntTasks.dll" />
   <property name="DotNetFrameworkDir" value="${path::combine(environment::get-variable('SystemRoot'), 'Microsoft.NET\Framework\v3.5')}" />
-  <property name="Configuration" value="Release" />
+  <property name="Configuration" value="DEBUG" />
 
   <property name="Folder.Source" value="." />
   <property name="Folder.Tests" value="${path::combine(path::combine(path::combine(Folder.Source, 'jeza.ioFTPD.Tests'), 'bin'), Configuration)}" />
