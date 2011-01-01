@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{62C6B033-8726-4B1D-ACA2-FD2D5521E570}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -96,6 +96,11 @@
     <None Include="TestFiles\Rar\infected.part3.rar" />
     <None Include="TestFiles\Rar\infected.part4.rar" />
     <None Include="TestFiles\Rar\infected.sfv" />
+    <None Include="TestFiles\ZipCorrect\file-000.zip" />
+    <None Include="TestFiles\ZipCorrect\file-001.zip" />
+    <None Include="TestFiles\ZipCorrect\file-002.zip" />
+    <None Include="TestFiles\ZipCorrect\file-003.zip" />
+    <None Include="TestFiles\ZipCorrect\file-004.zip" />
     <None Include="TestFiles\Zip\file-000.zip" />
     <None Include="TestFiles\Zip\file-001.zip" />
     <None Include="TestFiles\Zip\file-002.zip" />

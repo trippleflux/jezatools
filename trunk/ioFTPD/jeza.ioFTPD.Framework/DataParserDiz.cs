@@ -11,18 +11,23 @@ namespace jeza.ioFTPD.Framework
         {
             this.race = race;
             currentUploadData = race.CurrentUploadData;
-            fileName = currentUploadData.UploadFile;
+            fileName = "file_id.diz";
         }
 
         public void Parse()
         {
             RaceMutex.WaitOne();
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, fileName));
+            Log.Debug("Parsing: '{0}'", fileInfo.FullName);
             using (StreamReader streamReader = new StreamReader(fileInfo.FullName))
             {
                 while (!streamReader.EndOfStream)
                 {
                     string line = streamReader.ReadLine();
+                    Log.Debug("line: '{0}'", line);
+                    line = Regex.Replace(line, @"x|o", "0");
+                    line = Regex.Replace(line, @"\[|\]|\(|\)|\<|\>|\$|\""|\'|\!|\%|\&|\?|\:|;|_|-|\.|\,|[0-9]{1,4}/[0-9]{1,4}/[0-9]{1,4}", " ");
+                    Log.Debug("Regex.Replace '{0}'", line);
                     if (line == null)
                     {
                         continue;
@@ -32,10 +37,9 @@ namespace jeza.ioFTPD.Framework
                         continue;
                     }
                     //regsub -all {\[|\]|\(|\)|\<|\>|\$|\"|\'|\!|\%|\&|\?|\:|;|_|-|\.|\,|[0-9]{1,4}/[0-9]{1,4}/[0-9]{1,4}} $FILEin { } FILEin
-                    line = Regex.Replace(line, @"x|o", "0");
-                    line = Regex.Replace(line, @"\[|\]|\(|\)|\<|\>|\$|\""|\'|\!|\%|\&|\?|\:|;|_|-|\.|\,|[0-9]{1,4}/[0-9]{1,4}/[0-9]{1,4}", " ");
                     string[] split = line.Split('/');
                     race.TotalFilesExpected = Misc.String2Number(split[1]);
+                    break;
                 }
             }
             RaceMutex.ReleaseMutex();
@@ -47,10 +51,10 @@ namespace jeza.ioFTPD.Framework
             TagManager tagManager = new TagManager(race);
             CreateZipRaceDataFile();
             Output output = new Output(race);
-            output
-                .Client(Config.ClientHead)
-                .Client(Config.ClientFileName)
-                .Client(Config.ClientFoot);
+            //output
+            //    .Client(Config.ClientHead)
+            //    .Client(Config.ClientFileName)
+            //    .Client(Config.ClientFoot);
             tagManager.CreateTag(currentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
             tagManager.CreateSymLink(currentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
         }

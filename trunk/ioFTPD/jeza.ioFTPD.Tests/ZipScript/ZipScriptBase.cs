@@ -12,6 +12,46 @@ namespace jeza.ioFTPD.Tests.ZipScript
 {
     public class ZipScriptBase
     {
+        protected readonly string[] ArgsCorrectZipFile1 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\ZipCorrect\file-000.zip"
+                , "00000000"
+                , "/TestFiles/ZipCorrect/file-000.zip"
+            };
+
+        protected readonly string[] ArgsCorrectZipFile2 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\ZipCorrect\file-001.zip"
+                , "00000000"
+                , "/TestFiles/ZipCorrect/file-001.zip"
+            };
+
+        protected readonly string[] ArgsCorrectZipFile3 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\ZipCorrect\file-002.zip"
+                , "00000000"
+                , "/TestFiles/ZipCorrect/file-002.zip"
+            };
+
+        protected readonly string[] ArgsCorrectZipFile4 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\ZipCorrect\file-003.zip"
+                , "00000000"
+                , "/TestFiles/ZipCorrect/file-003.zip"
+            };
+
+        protected readonly string[] ArgsCorrectZipFile5 = new[]
+            {
+                "upload"
+                , @"..\..\TestFiles\ZipCorrect\file-004.zip"
+                , "00000000"
+                , "/TestFiles/ZipCorrect/file-004.zip"
+            };
+
         protected readonly string[] ArgsZipFile1 = new[]
             {
                 "upload"
@@ -167,6 +207,16 @@ namespace jeza.ioFTPD.Tests.ZipScript
             //Thread.Sleep (5000);
             Assert.IsFalse(
                 File.Exists(@"..\..\TestFiles\Zip\file-004.zip" + Config.FileExtensionMissing),
+                String.Format(CultureInfo.InvariantCulture,
+                               "Unexpected '{0}' files in ZIP folder!",
+                               Config.FileExtensionMissing));
+
+            FileInfo fileInfoZipCorrect = new FileInfo();
+            fileInfoZipCorrect.DeleteFiles(@"..\..\TestFiles\ZipCorrect", Config.FileExtensionMissing);
+            fileInfoZipCorrect.DeleteFile(@"..\..\TestFiles\ZipCorrect", Config.FileNameRace);
+            //Thread.Sleep (5000);
+            Assert.IsFalse(
+                File.Exists(@"..\..\TestFiles\ZipCorrect\file-004.zip" + Config.FileExtensionMissing),
                 String.Format(CultureInfo.InvariantCulture,
                                "Unexpected '{0}' files in ZIP folder!",
                                Config.FileExtensionMissing));

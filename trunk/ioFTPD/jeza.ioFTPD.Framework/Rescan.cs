@@ -67,18 +67,14 @@ namespace jeza.ioFTPD.Framework
                         {
                             rescanStats.FailedFiles++;
                             rescanStatsData.Status = "FAILED";
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
                             if (Config.DeleteCrc32FailedFiles)
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
                             {
                                 fileInfo.DeleteFile(SourceFolder, keyValuePair.Key);
                             }
                             else
-// ReSharper disable HeuristicUnreachableCode
                             {
                                 FileInfo.Create0ByteFile(fileName + Config.Crc32FailedFilesExtension);
                             }
-// ReSharper restore HeuristicUnreachableCode
                         }
                     }
                     else
