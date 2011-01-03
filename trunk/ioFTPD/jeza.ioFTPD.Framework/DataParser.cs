@@ -63,7 +63,8 @@ namespace jeza.ioFTPD.Framework
                 output
                     .Client(Config.ClientHead)
                     .Client(Config.ClientFileNameOk);
-                if (race.CurrentUploadData.RaceType == RaceType.Mp3)
+                bool isMp3Race = IsMp3Race();
+                if (isMp3Race)
                 {
                     output
                         .Client(Config.ClientMp3InfoHead)
@@ -80,7 +81,7 @@ namespace jeza.ioFTPD.Framework
                 {
                     //Thread.Sleep(1000);
                     fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
-                    tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagComplete));
+                    tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete));
                     tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
                 }
                 else
@@ -99,6 +100,11 @@ namespace jeza.ioFTPD.Framework
                     .Client(Config.ClientFoot);
                 race.IsValid = false;
             }
+        }
+
+        private bool IsMp3Race()
+        {
+            return race.CurrentUploadData.RaceType == RaceType.Mp3;
         }
 
         private void UpdateRaceData()

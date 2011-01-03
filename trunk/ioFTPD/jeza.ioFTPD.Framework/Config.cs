@@ -47,6 +47,7 @@ namespace jeza.ioFTPD.Framework
         public const string TagCleanUpString = "]-["; //delete all files that start with this string in race folder
         public const string TagIncomplete = "]-[iNCOMPLETE]-[ {0}% ]-[{1}FiLE(s) of {2}FiLE(s)]-[iNCOMPLETE]-[¤PercentComplete TotalFilesUploaded TotalFilesExpected";
         public const string TagComplete = "]-[Complete]-[{2}%]-[ {0} - {1}F]-[¤FormatBytesUploaded TotalFilesUploaded PercentComplete";
+        public const string TagCompleteMp3 = "]-[Complete]-[{2}%]-[ {0} - {1}F]-[{4} - {3}]-[¤FormatBytesUploaded TotalFilesUploaded PercentComplete Year Genre";
         public const string TagIncompleteLink = "[iNCOMPLETE]-{0}¤ReleaseName";
         public const string TagIncompleteLinkDiscNumber = "[iNCOMPLETE]-{0}_{1}¤ReleaseName DiscNumber";
         public const int TagIncompleteLinkChMod = 755;

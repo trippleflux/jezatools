@@ -1,5 +1,6 @@
 #region
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using TagLib;
@@ -79,44 +80,55 @@ namespace jeza.ioFTPD.Framework
             int count = args.Length;
             try
             {
-                File file = File.Create (race.CurrentUploadData.UploadFile);
-                for (int i = 0; i < count; i++)
+                if (race != null)
                 {
-                    switch (args [i].ToLower ())
+                    if (race.CurrentUploadData != null)
                     {
-                        case "artist":
+                        string uploadFile = race.CurrentUploadData.UploadFile;
+                        if (!System.IO.File.Exists(uploadFile) || String.IsNullOrEmpty(uploadFile))
                         {
-                            args [i] = file.Tag.FirstAlbumArtist;
-                            break;
+                            return line;
                         }
-                        case "album":
+                        File file = File.Create (uploadFile);
+                        for (int i = 0; i < count; i++)
                         {
-                            args [i] = file.Tag.Album;
-                            break;
-                        }
-                        case "genre":
-                        {
-                            args [i] = file.Tag.FirstGenre;
-                            break;
-                        }
-                        case "year":
-                        {
-                            args [i] = file.Tag.Year.ToString ();
-                            break;
-                        }
-                        case "title":
-                        {
-                            args [i] = file.Tag.Title;
-                            break;
-                        }
-                        case "tracknumber":
-                        {
-                            args [i] = file.Tag.Track.ToString ();
-                            break;
-                        }
-                        default:
-                        {
-                            break;
+                            switch (args [i].ToLower ())
+                            {
+                                case "artist":
+                                {
+                                    args [i] = file.Tag.FirstAlbumArtist;
+                                    break;
+                                }
+                                case "album":
+                                {
+                                    args [i] = file.Tag.Album;
+                                    break;
+                                }
+                                case "genre":
+                                {
+                                    args [i] = file.Tag.FirstGenre;
+                                    break;
+                                }
+                                case "year":
+                                {
+                                    args [i] = file.Tag.Year.ToString ();
+                                    break;
+                                }
+                                case "title":
+                                {
+                                    args [i] = file.Tag.Title;
+                                    break;
+                                }
+                                case "tracknumber":
+                                {
+                                    args [i] = file.Tag.Track.ToString ();
+                                    break;
+                                }
+                                default:
+                                {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -306,10 +318,12 @@ namespace jeza.ioFTPD.Framework
             string[] sections = line.Split (SplitChar);
             string text = sections [0];
             string[] args = sections [1].Split (' ');
+            ArrayList unknownArgs = new ArrayList();
             int count = args.Length;
             for (int i = 0; i < count; i++)
             {
-                switch (args [i].ToLower ())
+                string arg = args [i].ToLowerInvariant();
+                switch (arg)
                 {
                     case "filename":
                     {
@@ -358,11 +372,17 @@ namespace jeza.ioFTPD.Framework
                     }
                     default:
                     {
+                        unknownArgs.Add(arg);
                         break;
                     }
                 }
             }
-            text = String.Format (new MyFormat (), text, args);
+            if (unknownArgs.Count > 0)
+            {
+                //text = FormatMp3(text + SplitChar + String.Join(" ", args) +" " + String.Join(" ", unknownArgs.ToArray(typeof(string)) as string[]));
+                text = FormatMp3(text + SplitChar + String.Join(" ", args));
+            }
+            text = String.Format(new MyFormat(), text, args);
             return text;
         }
 
