@@ -4,6 +4,7 @@ namespace jeza.ioFTPD.Framework
     {
         public const string FileNameDebug = ".ioFTPD.race.Debug";
         public const string FileNameRace = ".ioFTPD.race";
+        public const string FileNameIoFtpdMessage = ".ioFTPD.Message";
         public const string FileExtensionMissing = ".missing";
 
         public const string SkipPath = "/_HDD/ /private/ /groups/ /nocheck/ /request/nocheck/ /fonts/";
@@ -11,6 +12,8 @@ namespace jeza.ioFTPD.Framework
 
         public static bool DeleteCrc32FailedFiles = true;
         public static bool ExtractNfoFromZip = true;
+        public static bool WriteStatsToMesasageFileWhenRace = true;
+        public static bool WriteStatsToMesasageFileWhenComplete = true;
         public const string Crc32FailedFilesExtension = ".bad";
         public const string ClientCrc32Head = " Expected Actual   Status   FileName ";
         public const string ClientCrc32Body = " {1,-8} {2,-8} {3,-8} {0,-60:B60}了ileName ExpectedCrc32 ActualCrc32 Status";
@@ -32,6 +35,14 @@ namespace jeza.ioFTPD.Framework
         public const string ClientStatsGroups = "| {0,10:B2}. {1,-23:B23} {2,6:B6} {3,6:B6}kBit/s {4,4:B4}F                              |匕ossition GroupName FormatBytesUploaded AverageSpeed FilesUploaded";
         public const string ClientFoot = "'---------------------------------------------------------------------=[ {0,3:B3}/{1,-3:B3} ]=----------'三otalFilesUploaded TotalFilesExpected";
         public const string ClientFootProgressBar = "'----------=[ {2,17:B17} ]=------------------------------------=[ {0,3:B3}/{1,-3:B3} ]=----------'三otalFilesUploaded TotalFilesExpected ProgressBar";
+
+        public const string MessageMp3InfoHead = "|----------=[ Mp3 Info          ]=-----------------------------------------------------------|";
+        public const string MessageMp3Info = "| Artist...: {0,-80:B79}|\r\n| Album....: {1,-80:B79}|\r\n| Year.....: {2,-80:B79}|\r\n| Genre....: {3,-80:B79}|乙rtist Album Year Genre";
+        public const string MessageStatsUsersHead = "|----------=[ User Stats        ]=-----------------------------------------------------------|";
+        public const string MessageStatsUsers = "| {0,10:B2}. {1,-23:B23} {2,6:B6} {3,6:B6}kBit/s {4,4:B4}F                              |匕ossition UserName FormatBytesUploaded AverageSpeed FilesUploaded";
+        public const string MessageStatsGroupsHead = "|----------=[ Group Stats       ]=-----------------------------------------------------------|";
+        public const string MessageStatsGroups = "| {0,10:B2}. {1,-23:B23} {2,6:B6} {3,6:B6}kBit/s {4,4:B4}F                              |匕ossition GroupName FormatBytesUploaded AverageSpeed FilesUploaded";
+        public const string MessageFoot = "'---------------------------------------------------------------------=[ {0,3:B3}/{1,-3:B3} ]=----------'三otalFilesUploaded TotalFilesExpected";
 
         public const int ProgressBarLength = 17;
         public const char ProgressBarCharFilled = '#';

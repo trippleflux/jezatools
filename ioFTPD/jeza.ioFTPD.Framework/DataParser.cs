@@ -76,6 +76,10 @@ namespace jeza.ioFTPD.Framework
                     .Client(Config.ClientStatsGroupsHead)
                     .ClientStatsGroups(Config.ClientStatsGroups)
                     .Client(Config.ClientFootProgressBar);
+                if (Config.WriteStatsToMesasageFileWhenRace)
+                {
+                    this.WriteStatsToMesasageFile(race, isMp3Race);
+                }
                 TagManager tagManager = new TagManager(race);
                 if (race.IsRaceComplete)
                 {
@@ -83,6 +87,10 @@ namespace jeza.ioFTPD.Framework
                     fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
                     tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete));
                     tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+                    if (Config.WriteStatsToMesasageFileWhenComplete)
+                    {
+                        this.WriteStatsToMesasageFile(race, isMp3Race);
+                    }
                 }
                 else
                 {
