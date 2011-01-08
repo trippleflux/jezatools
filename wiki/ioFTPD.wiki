@@ -1,12 +1,11 @@
 = Introduction =
  * Extrac all files in `jeza.ioFTPD.ZipScript_*.zip` to `/scripts/jeza.ioFTPD.ZipScript`
  * Open ioFTPD.ini
- * Under [Events] add:
+ * Under `[Events]` add:
 {{{
 OnUploadComplete	= EXEC ..\scripts\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.exe upload
 }}}
- * Under [FTP_Custom_Commands] add:
+ * Under `[FTP_Custom_Commands]` add:
 {{{
 rescan	= EXEC ..\scripts\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.exe rescan
 }}}
-
