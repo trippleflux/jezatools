@@ -1,9 +1,9 @@
 = Introduction =
  * Extract all files in `jeza.ioFTPD.ZipScript_*.zip` to `/scripts/jeza.ioFTPD.ZipScript`
-  * `_ICSharpCode.SharpZipLib.dll_`
-  * `_jeza.ioFTPD.Framework.dll_`
-  * `_jeza.ioFTPD.ZipScript.exe_`
-  * `_taglib-sharp.dll_`
+  * _ICSharpCode.SharpZipLib.dll_
+  * _jeza.ioFTPD.Framework.dll_
+  * _jeza.ioFTPD.ZipScript.exe_
+  * _taglib-sharp.dll_
  * Open `ioFTPD.ini`
  * Under `[Events]` add:
 {{{
