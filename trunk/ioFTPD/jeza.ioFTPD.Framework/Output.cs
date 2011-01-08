@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using TagLib;
 
 #endregion
@@ -42,29 +43,57 @@ namespace jeza.ioFTPD.Framework
 
         public Output ClientStatsUsers (string line)
         {
-            List<RaceStatsUsers> stats = race.GetUserStats ();
+            //List<RaceStatsUsers> stats = race.GetUserStats ();
+            //int possition = 1;
+            //foreach (RaceStatsUsers item in stats)
+            //{
+            //    Console.WriteLine (FormatUserStats (possition, item, line));
+            //    possition++;
+            //}
+            Console.Write(MessageStatsUsers(line));
+            return this;
+        }
+
+        public string MessageStatsUsers(string line)
+        {
+            List<RaceStatsUsers> stats = race.GetUserStats();
             int possition = 1;
+            StringBuilder sb = new StringBuilder();
             foreach (RaceStatsUsers item in stats)
             {
-                Console.WriteLine (FormatUserStats (possition, item, line));
+                sb.AppendLine(FormatUserStats(possition, item, line));
                 possition++;
             }
-            return this;
+            return sb.ToString();
         }
 
-        public Output ClientStatsGroups (string line)
+        public string MessageStatsGroups(string line)
         {
-            List<RaceStatsGroups> stats = race.GetGroupStats ();
+            List<RaceStatsGroups> stats = race.GetGroupStats();
             int possition = 1;
+            StringBuilder sb = new StringBuilder();
             foreach (RaceStatsGroups item in stats)
             {
-                Console.WriteLine (FormatGroupStats (possition, item, line));
+                sb.AppendLine(FormatGroupStats(possition, item, line));
                 possition++;
             }
+            return sb.ToString();
+        }
+
+        public Output ClientStatsGroups(string line)
+        {
+            //List<RaceStatsGroups> stats = race.GetGroupStats ();
+            //int possition = 1;
+            //foreach (RaceStatsGroups item in stats)
+            //{
+            //    Console.WriteLine (FormatGroupStats (possition, item, line));
+            //    possition++;
+            //}
+            Console.Write(MessageStatsGroups(line));
             return this;
         }
 
-        private string FormatMp3 (string line)
+        public string FormatMp3 (string line)
         {
             if (MinimumLength(line))
             {

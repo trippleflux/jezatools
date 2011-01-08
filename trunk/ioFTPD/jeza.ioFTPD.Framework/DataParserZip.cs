@@ -155,11 +155,19 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientStatsGroupsHead)
                 .ClientStatsGroups(Config.ClientStatsGroups)
                 .Client(Config.ClientFootProgressBar);
+            if (Config.WriteStatsToMesasageFileWhenRace)
+            {
+                this.WriteStatsToMesasageFile(race, false);
+            }
             TagManager tagManager = new TagManager(race);
             if (race.IsRaceComplete)
             {
                 tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagComplete));
                 tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+                if (Config.WriteStatsToMesasageFileWhenComplete)
+                {
+                    this.WriteStatsToMesasageFile(race, false);
+                }
             }
             else
             {
