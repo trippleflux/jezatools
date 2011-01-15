@@ -194,7 +194,7 @@ namespace jeza.ioFTPD.Framework
             {
                 return true;
             }
-            OutputSfvFirst(Config.ClientFileName, fileInfo.Length == 1 ? Config.ClientFileNameSfvFirst : Config.ClientFileNameSfvExists);
+            OutputSfvFirst(Config.ClientFileName, fileInfo.Length == 1 ? Config.ClientFileNameSfvExists : Config.ClientFileNameSfvFirst);
             IsValid = false;
             return false;
         }
@@ -345,6 +345,16 @@ namespace jeza.ioFTPD.Framework
             return stats;
         }
 
+        private Int32 GetTotalAvarageSpeed()
+        {
+            Int32 totalSpeed = 0;
+            foreach (RaceStats stats in raceStats)
+            {
+                totalSpeed += stats.FileSpeed;
+            }
+            return totalSpeed / TotalFilesUploaded;
+        }
+
         private UInt64 GetTotalBytesUploaded()
         {
             return raceStats.Where(stats => stats.FileUploaded).Aggregate<RaceStats, ulong>(0, (current,
@@ -412,6 +422,11 @@ namespace jeza.ioFTPD.Framework
         public int TotalFilesUploaded
         {
             get { return GetTotalFilesUploaded(); }
+        }
+
+        public Int32 TotalAvarageSpeed
+        {
+            get { return GetTotalAvarageSpeed(); }
         }
 
         public UInt64 TotalBytesUploaded
