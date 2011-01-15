@@ -36,9 +36,9 @@ namespace jeza.ioFTPD.Framework
                         textWriter.WriteLine(output.FormatMp3(Config.MessageMp3Info));
                     }
                     textWriter.WriteLine(output.Format(Config.MessageStatsUsersHead));
-                    textWriter.Write(output.MessageStatsUsers(Config.MessageStatsUsers));
+                    textWriter.Write(output.MessageStatsUsers(Config.MessageStatsUsers, Config.MaxNumberOfUserStats));
                     textWriter.WriteLine(output.Format(Config.MessageStatsGroupsHead));
-                    textWriter.Write(output.MessageStatsGroups(Config.MessageStatsGroups));
+                    textWriter.Write(output.MessageStatsGroups(Config.MessageStatsGroups, Config.MaxNumberOfGroupStats));
                     textWriter.WriteLine(output.Format(Config.MessageFoot));
                 }
             }

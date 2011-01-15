@@ -72,9 +72,9 @@ namespace jeza.ioFTPD.Framework
                 }
                 output
                     .Client(Config.ClientStatsUsersHead)
-                    .ClientStatsUsers(Config.ClientStatsUsers)
+                    .ClientStatsUsers(Config.ClientStatsUsers, Config.MaxNumberOfUserStats)
                     .Client(Config.ClientStatsGroupsHead)
-                    .ClientStatsGroups(Config.ClientStatsGroups)
+                    .ClientStatsGroups(Config.ClientStatsGroups, Config.MaxNumberOfGroupStats)
                     .Client(Config.ClientFootProgressBar);
                 if (Config.WriteStatsToMesasageFileWhenRace)
                 {
@@ -87,14 +87,18 @@ namespace jeza.ioFTPD.Framework
                     fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
                     tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete));
                     tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+
                     if (Config.WriteStatsToMesasageFileWhenComplete)
                     {
                         this.WriteStatsToMesasageFile(race, isMp3Race);
                     }
+
+                    output.LogCompleteStats();
                 }
                 else
                 {
                     tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
+                    output.LogFirstFileWasUploaded(isMp3Race);
                 }
                 race.IsValid = true;
             }

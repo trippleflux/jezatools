@@ -61,6 +61,7 @@
     <Compile Include="IData.cs" />
     <Compile Include="IoEnvironment.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="LogDestination.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="RaceStatsEnumerator.cs" />
     <Compile Include="RaceStatsGroups.cs" />

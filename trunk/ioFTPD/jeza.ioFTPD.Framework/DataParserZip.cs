@@ -151,9 +151,9 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientFileNameOk);
             output
                 .Client(Config.ClientStatsUsersHead)
-                .ClientStatsUsers(Config.ClientStatsUsers)
+                .ClientStatsUsers(Config.ClientStatsUsers, Config.MaxNumberOfUserStats)
                 .Client(Config.ClientStatsGroupsHead)
-                .ClientStatsGroups(Config.ClientStatsGroups)
+                .ClientStatsGroups(Config.ClientStatsGroups, Config.MaxNumberOfGroupStats)
                 .Client(Config.ClientFootProgressBar);
             if (Config.WriteStatsToMesasageFileWhenRace)
             {
@@ -168,10 +168,12 @@ namespace jeza.ioFTPD.Framework
                 {
                     this.WriteStatsToMesasageFile(race, false);
                 }
+                output.LogCompleteStats();
             }
             else
             {
                 tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
+                output.LogFirstFileWasUploaded(false);
             }
             race.IsValid = true;
         }

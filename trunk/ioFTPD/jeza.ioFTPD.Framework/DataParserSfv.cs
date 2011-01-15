@@ -81,6 +81,14 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientFoot);
             tagManager.CreateTag(currentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
             tagManager.CreateSymLink(currentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+            if(Config.LogToIoFtpdSfv)
+            {
+                Log.IoFtpd(output.Format(Config.LogLineIoFtpdSfv));
+            }
+            if (Config.LogToInternalSfv)
+            {
+                Log.Internal(output.Format(Config.LogLineIoFtpdSfv));
+            }
         }
 
         protected string SfvDataToString

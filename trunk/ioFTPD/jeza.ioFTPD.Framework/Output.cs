@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using TagLib;
+using File=System.IO.File;
 
 #endregion
 
@@ -12,13 +13,20 @@ namespace jeza.ioFTPD.Framework
 {
     public class Output
     {
-        public Output(RescanStatsData rescanStatsData)
+        public Output(RescanStatsData rescanStatsData,
+                      RescanStats rescanStats)
         {
-            Console.WriteLine("!buffer off\n");
+            Console.Write("!buffer off\n");
             this.rescanStatsData = rescanStatsData;
+            this.rescanStats = rescanStats;
         }
 
-        public Output (Race race)
+        public Output(RescanStats rescanStats)
+        {
+            this.rescanStats = rescanStats;
+        }
+
+        public Output(Race race)
         {
             this.race = race;
         }
@@ -31,69 +39,194 @@ namespace jeza.ioFTPD.Framework
 
         public Output Client(string line)
         {
-            Console.WriteLine (Format (line));
+            Console.WriteLine(Format(line));
             return this;
         }
 
-        public Output ClientMp3 (string line)
+        public Output ClientMp3(string line)
         {
-            Console.WriteLine (FormatMp3 (line));
+            Console.WriteLine(FormatMp3(line));
             return this;
         }
 
-        public Output ClientStatsUsers (string line)
+        public Output ClientStatsUsers(string line,
+                                       int maxNumberOfStatsToShow)
         {
-            //List<RaceStatsUsers> stats = race.GetUserStats ();
-            //int possition = 1;
-            //foreach (RaceStatsUsers item in stats)
-            //{
-            //    Console.WriteLine (FormatUserStats (possition, item, line));
-            //    possition++;
-            //}
-            Console.Write(MessageStatsUsers(line));
+            Console.Write(MessageStatsUsers(line, maxNumberOfStatsToShow));
             return this;
         }
 
-        public string MessageStatsUsers(string line)
+        public Output ClientStatsGroups(string line,
+                                        int maxNumberOfStatsToShow)
+        {
+            Console.Write(MessageStatsGroups(line, maxNumberOfStatsToShow));
+            return this;
+        }
+
+        public string MessageStatsUsers(string line,
+                                        int maxNumberOfStatsToShow)
         {
             List<RaceStatsUsers> stats = race.GetUserStats();
             int possition = 1;
             StringBuilder sb = new StringBuilder();
-            foreach (RaceStatsUsers item in stats)
+            for (int i = 0; i < stats.Count; i++)
             {
+                if (i >= maxNumberOfStatsToShow)
+                {
+                    break;
+                }
+                RaceStatsUsers item = stats [i];
                 sb.AppendLine(FormatUserStats(possition, item, line));
                 possition++;
             }
             return sb.ToString();
         }
 
-        public string MessageStatsGroups(string line)
+        public string MessageStatsGroups(string line,
+                                         int maxNumberOfStatsToShow)
         {
             List<RaceStatsGroups> stats = race.GetGroupStats();
             int possition = 1;
             StringBuilder sb = new StringBuilder();
-            foreach (RaceStatsGroups item in stats)
+            for (int i = 0; i < stats.Count; i++)
             {
+                if (i >= maxNumberOfStatsToShow)
+                {
+                    break;
+                }
+                RaceStatsGroups item = stats [i];
                 sb.AppendLine(FormatGroupStats(possition, item, line));
                 possition++;
             }
             return sb.ToString();
         }
 
-        public Output ClientStatsGroups(string line)
+        public void LogUserStatsBody(int maxNumber,
+                                     LogDestination destination)
         {
-            //List<RaceStatsGroups> stats = race.GetGroupStats ();
-            //int possition = 1;
-            //foreach (RaceStatsGroups item in stats)
-            //{
-            //    Console.WriteLine (FormatGroupStats (possition, item, line));
-            //    possition++;
-            //}
-            Console.Write(MessageStatsGroups(line));
-            return this;
+            List<RaceStatsUsers> stats = race.GetUserStats();
+            int possition = 1;
+            for (int i = 0; i < stats.Count; i++)
+            {
+                if (i >= maxNumber)
+                {
+                    break;
+                }
+                RaceStatsUsers item = stats [i];
+                switch (destination)
+                {
+                    case LogDestination.IoFtpdLog:
+                        Log.IoFtpd(FormatUserStats(possition, item, Config.LogLineIoFtpdUserStatsBody));
+                        break;
+                    default:
+                        Log.Internal(FormatUserStats(possition, item, Config.LogLineInternalUserStatsBody));
+                        break;
+                }
+                possition++;
+            }
         }
 
-        public string FormatMp3 (string line)
+        public void LogGroupStatsBody(int maxNumber,
+                                      LogDestination destination)
+        {
+            List<RaceStatsGroups> stats = race.GetGroupStats();
+            int possition = 1;
+            for (int i = 0; i < stats.Count; i++)
+            {
+                if (i >= maxNumber)
+                {
+                    break;
+                }
+                RaceStatsGroups item = stats [i];
+                switch (destination)
+                {
+                    case LogDestination.IoFtpdLog:
+                        Log.IoFtpd(FormatGroupStats(possition, item, Config.LogLineIoFtpdGroupStatsBody));
+                        break;
+                    default:
+                        Log.Internal(FormatGroupStats(possition, item, Config.LogLineInternalGroupStatsBody));
+                        break;
+                }
+                possition++;
+            }
+        }
+
+        public void LogFirstFileWasUploaded(bool isMp3Race)
+        {
+            if (race.TotalFilesUploaded == 1)
+            {
+                if (isMp3Race)
+                {
+                    if (Config.LogToIoFtpdUpdateMp3)
+                    {
+                        Log.IoFtpd(Format(Config.LogLineIoFtpdUpdateMp3));
+                    }
+                    if (Config.LogToInternalUpdateMp3)
+                    {
+                        Log.Internal(Format(Config.LogLineInternalUpdateMp3));
+                    }
+                }
+                else
+                {
+                    if (Config.LogToIoFtpdUpdate)
+                    {
+                        Log.IoFtpd(Format(Config.LogLineIoFtpdUpdate));
+                    }
+                    if (Config.LogToInternalUpdate)
+                    {
+                        Log.Internal(Format(Config.LogLineInternalUpdate));
+                    }
+                }
+            }
+        }
+
+        public void LogCompleteStats()
+        {
+            Log.Debug("LogCompleteStats");
+            if (Config.LogToIoFtpdComplete)
+            {
+                Log.IoFtpd(Format(Config.LogLineIoFtpdComplete));
+            }
+            if (Config.LogToIoFtpdUserStatsHead)
+            {
+                Log.IoFtpd(Format(Config.LogLineIoFtpdUserStatsHead));
+            }
+            if (Config.LogToIoFtpdUserStatsBody)
+            {
+                LogUserStatsBody(Config.LogToIoFtpdUserStatsBodyMaxNumber, LogDestination.IoFtpdLog);
+            }
+            if (Config.LogToIoFtpdGroupStatsHead)
+            {
+                Log.IoFtpd(Format(Config.LogLineIoFtpdGroupStatsHead));
+            }
+            if (Config.LogToIoFtpdGroupStatsBody)
+            {
+                LogGroupStatsBody(Config.LogToIoFtpdGroupStatsBodyMaxNumber, LogDestination.IoFtpdLog);
+            }
+
+            if (Config.LogToInternalComplete)
+            {
+                Log.Internal(Format(Config.LogLineInternalComplete));
+            }
+            if (Config.LogToInternalUserStatsHead)
+            {
+                Log.Internal(Format(Config.LogLineInternalUserStatsHead));
+            }
+            if (Config.LogToInternalUserStatsBody)
+            {
+                LogUserStatsBody(Config.LogToInternalUserStatsBodyMaxNumber, LogDestination.InternalLog);
+            }
+            if (Config.LogToInternalGroupStatsHead)
+            {
+                Log.Internal(Format(Config.LogLineInternalGroupStatsHead));
+            }
+            if (Config.LogToInternalGroupStatsBody)
+            {
+                LogGroupStatsBody(Config.LogToInternalGroupStatsBodyMaxNumber, LogDestination.InternalLog);
+            }
+        }
+
+        public string FormatMp3(string line)
         {
             if (MinimumLength(line))
             {
@@ -103,9 +236,9 @@ namespace jeza.ioFTPD.Framework
             {
                 return line;
             }
-            string[] sections = line.Split (SplitChar);
+            string[] sections = line.Split(SplitChar);
             string text = sections [0];
-            string[] args = sections [1].Split (' ');
+            string[] args = sections [1].Split(' ');
             int count = args.Length;
             try
             {
@@ -114,14 +247,14 @@ namespace jeza.ioFTPD.Framework
                     if (race.CurrentUploadData != null)
                     {
                         string uploadFile = race.CurrentUploadData.UploadFile;
-                        if (!System.IO.File.Exists(uploadFile) || String.IsNullOrEmpty(uploadFile))
+                        if (!File.Exists(uploadFile) || String.IsNullOrEmpty(uploadFile))
                         {
                             return line;
                         }
-                        File file = File.Create (uploadFile);
+                        TagLib.File file = TagLib.File.Create(uploadFile);
                         for (int i = 0; i < count; i++)
                         {
-                            switch (args [i].ToLower ())
+                            switch (args [i].ToLower())
                             {
                                 case "artist":
                                 {
@@ -140,7 +273,7 @@ namespace jeza.ioFTPD.Framework
                                 }
                                 case "year":
                                 {
-                                    args [i] = file.Tag.Year.ToString ();
+                                    args [i] = file.Tag.Year.ToString();
                                     break;
                                 }
                                 case "title":
@@ -150,7 +283,7 @@ namespace jeza.ioFTPD.Framework
                                 }
                                 case "tracknumber":
                                 {
-                                    args [i] = file.Tag.Track.ToString ();
+                                    args [i] = file.Tag.Track.ToString();
                                     break;
                                 }
                                 default:
@@ -165,7 +298,7 @@ namespace jeza.ioFTPD.Framework
             catch (CorruptFileException)
             {
             }
-            text = String.Format (new MyFormat (), text, args);
+            text = String.Format(new MyFormat(), text, args);
             return text;
         }
 
@@ -200,17 +333,18 @@ namespace jeza.ioFTPD.Framework
             {
                 return line;
             }
-            string[] sections = line.Split (SplitChar);
+            string[] sections = line.Split(SplitChar);
             string text = sections [0];
-            string[] args = sections [1].Split (' ');
+            string[] args = sections [1].Split(' ');
             int count = args.Length;
             for (int i = 0; i < count; i++)
             {
-                switch (args [i].ToLower ())
+                string arg = args [i].ToLowerInvariant();
+                switch (arg)
                 {
                     case "possition":
                     {
-                        args [i] = possition.ToString ();
+                        args [i] = possition.ToString();
                         break;
                     }
                     case "username":
@@ -225,32 +359,37 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "kilobytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1024).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024).ToString();
                         break;
                     }
                     case "megabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1024*1024).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024 * 1024).ToString();
                         break;
                     }
                     case "gigabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1024*1024*1204).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024 * 1024 * 1204).ToString();
                         break;
                     }
                     case "formatbytesuploaded":
                     {
-                        args [i] = FormatSize (stats.BytesUplaoded);
+                        args [i] = FormatSize(stats.BytesUplaoded);
                         break;
                     }
                     case "averagespeed":
                     {
-                        args [i] = stats.Speed.ToString ();
+                        args [i] = stats.Speed.ToString();
                         break;
                     }
                     case "filesuploaded":
                     {
-                        args [i] = stats.FilesUplaoded.ToString ();
+                        args [i] = stats.FilesUplaoded.ToString();
+                        break;
+                    }
+                    case "uploadvirtualpath":
+                    {
+                        args [i] = race.CurrentUploadData.UploadVirtualPath;
                         break;
                     }
                     default:
@@ -259,7 +398,7 @@ namespace jeza.ioFTPD.Framework
                     }
                 }
             }
-            text = String.Format (new MyFormat (), text, args);
+            text = String.Format(new MyFormat(), text, args);
             return text;
         }
 
@@ -276,17 +415,18 @@ namespace jeza.ioFTPD.Framework
             {
                 return line;
             }
-            string[] sections = line.Split (SplitChar);
+            string[] sections = line.Split(SplitChar);
             string text = sections [0];
-            string[] args = sections [1].Split (' ');
+            string[] args = sections [1].Split(' ');
             int count = args.Length;
             for (int i = 0; i < count; i++)
             {
-                switch (args [i].ToLower ())
+                string arg = args [i].ToLowerInvariant();
+                switch (arg)
                 {
                     case "possition":
                     {
-                        args [i] = possition.ToString ();
+                        args [i] = possition.ToString();
                         break;
                     }
                     case "groupname":
@@ -296,32 +436,37 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "kilobytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1024).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024).ToString();
                         break;
                     }
                     case "megabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1024*1024).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024 * 1024).ToString();
                         break;
                     }
                     case "gigabytesuploaded":
                     {
-                        args [i] = (stats.BytesUplaoded / 1024*1024*1024).ToString ();
+                        args [i] = (stats.BytesUplaoded / 1024 * 1024 * 1024).ToString();
                         break;
                     }
                     case "formatbytesuploaded":
                     {
-                        args [i] = FormatSize (stats.BytesUplaoded);
+                        args [i] = FormatSize(stats.BytesUplaoded);
                         break;
                     }
                     case "averagespeed":
                     {
-                        args [i] = stats.Speed.ToString ();
+                        args [i] = stats.Speed.ToString();
                         break;
                     }
                     case "filesuploaded":
                     {
-                        args [i] = stats.FilesUplaoded.ToString ();
+                        args [i] = stats.FilesUplaoded.ToString();
+                        break;
+                    }
+                    case "uploadvirtualpath":
+                    {
+                        args [i] = race.CurrentUploadData.UploadVirtualPath;
                         break;
                     }
                     default:
@@ -330,11 +475,11 @@ namespace jeza.ioFTPD.Framework
                     }
                 }
             }
-            text = String.Format (new MyFormat (), text, args);
+            text = String.Format(new MyFormat(), text, args);
             return text;
         }
 
-        public string Format (string line)
+        public string Format(string line)
         {
             if (MinimumLength(line))
             {
@@ -344,9 +489,9 @@ namespace jeza.ioFTPD.Framework
             {
                 return line;
             }
-            string[] sections = line.Split (SplitChar);
+            string[] sections = line.Split(SplitChar);
             string text = sections [0];
-            string[] args = sections [1].Split (' ');
+            string[] args = sections [1].Split(' ');
             ArrayList unknownArgs = new ArrayList();
             int count = args.Length;
             for (int i = 0; i < count; i++)
@@ -361,32 +506,42 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "releasename":
                     {
-                        args[i] = race.CurrentUploadData.DirectoryName;
+                        args [i] = race.CurrentUploadData.DirectoryName;
                         break;
                     }
                     case "totalfilesexpected":
                     {
-                        args [i] = race.TotalFilesExpected.ToString ();
+                        args [i] = race.TotalFilesExpected.ToString();
                         break;
                     }
                     case "totalfilesuploaded":
                     {
-                        args [i] = race.TotalFilesUploaded.ToString ();
+                        args [i] = race.TotalFilesUploaded.ToString();
                         break;
                     }
                     case "totalbytesuploaded":
                     {
-                        args [i] = race.TotalBytesUploaded.ToString ();
+                        args [i] = race.TotalBytesUploaded.ToString();
                         break;
                     }
                     case "totalmegabytesuploaded":
                     {
-                        args [i] = race.TotalMegaBytesUploaded.ToString ();
+                        args [i] = race.TotalMegaBytesUploaded.ToString();
+                        break;
+                    }
+                    case "totalavaragespeed":
+                    {
+                        args [i] = race.TotalAvarageSpeed.ToString();
                         break;
                     }
                     case "formatbytesuploaded":
                     {
-                        args [i] = FormatSize (race.TotalBytesUploaded);
+                        args [i] = FormatSize(race.TotalBytesUploaded);
+                        break;
+                    }
+                    case "formattotalbytesexpected":
+                    {
+                        args [i] = FormatSize(race.TotalBytesUploaded * (UInt64) race.TotalFilesExpected);
                         break;
                     }
                     case "progressbar":
@@ -396,7 +551,37 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "percentcomplete":
                     {
-                        args [i] = race.PercentComplete.ToString ();
+                        args [i] = race.PercentComplete.ToString();
+                        break;
+                    }
+                    case "username":
+                    {
+                        args [i] = race.CurrentUploadData.UserName;
+                        break;
+                    }
+                    case "groupname":
+                    {
+                        args [i] = race.CurrentUploadData.GroupName;
+                        break;
+                    }
+                    case "uploadvirtualpath":
+                    {
+                        args [i] = race.CurrentUploadData.UploadVirtualPath;
+                        break;
+                    }
+                    case "irccolor":
+                    {
+                        args [i] = "\\003";
+                        break;
+                    }
+                    case "ircbold":
+                    {
+                        args [i] = "\\002";
+                        break;
+                    }
+                    case "ircunderline":
+                    {
+                        args [i] = "\\037";
                         break;
                     }
                     default:
@@ -426,58 +611,79 @@ namespace jeza.ioFTPD.Framework
                 return line;
             }
             string[] sections = line.Split(SplitChar);
-            string text = sections[0];
-            string[] args = sections[1].Split(' ');
+            string text = sections [0];
+            string[] args = sections [1].Split(' ');
             int count = args.Length;
             for (int i = 0; i < count; i++)
             {
-                switch (args[i].ToLower())
+                switch (args [i].ToLowerInvariant())
                 {
                     case "filename":
-                        {
-                            args[i] = rescanStatsData.FileName;
-                            break;
-                        }
+                    {
+                        args [i] = rescanStatsData.FileName;
+                        break;
+                    }
                     case "expectedcrc32":
-                        {
-                            args[i] = rescanStatsData.ExpectedCrc32Value;
-                            break;
-                        }
+                    {
+                        args [i] = rescanStatsData.ExpectedCrc32Value;
+                        break;
+                    }
                     case "actualcrc32":
-                        {
-                            args[i] = rescanStatsData.ActualCrc32Value;
-                            break;
-                        }
+                    {
+                        args [i] = rescanStatsData.ActualCrc32Value;
+                        break;
+                    }
                     case "status":
-                        {
-                            args[i] = rescanStatsData.Status;
-                            break;
-                        }
+                    {
+                        args [i] = rescanStatsData.Status;
+                        break;
+                    }
+                    case "totalfiles":
+                    {
+                        args [i] = rescanStats.TotalFiles.ToString();
+                        break;
+                    }
+                    case "missingfiles":
+                    {
+                        args [i] = rescanStats.MissingFiles.ToString();
+                        break;
+                    }
+                    case "okfiles":
+                    {
+                        args [i] = rescanStats.OkFiles.ToString();
+                        break;
+                    }
+                    case "failedfiles":
+                    {
+                        args [i] = rescanStats.FailedFiles.ToString();
+                        break;
+                    }
                     default:
-                        {
-                            break;
-                        }
+                    {
+                        break;
+                    }
                 }
             }
             text = String.Format(new MyFormat(), text, args);
             return text;
         }
 
-        public string FormatSize (UInt64 bytes)
+        public string FormatSize(UInt64 bytes)
         {
             UInt64 formatedSize = bytes;
-            string[] postFix = new string[] {"B", "kB", "MB", "GB", "TB"};
+            string[] postFix = new[] {"B", "kB", "MB", "GB", "TB"};
             int count = 0;
             while (formatedSize > 1024)
             {
                 formatedSize = formatedSize / 1024;
                 count++;
             }
-            return String.Format (CultureInfo.InvariantCulture, "{0}{1}", formatedSize, postFix [count]);
+            return String.Format(CultureInfo.InvariantCulture, Config.FormatedBytes, formatedSize, postFix [count]);
         }
 
         private readonly Race race;
         private const char SplitChar = '¤';
         private readonly RescanStatsData rescanStatsData;
+        private readonly RescanStats rescanStats;
     }
 }

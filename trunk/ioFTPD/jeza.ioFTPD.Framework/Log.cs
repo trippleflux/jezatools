@@ -51,6 +51,39 @@ namespace jeza.ioFTPD.Framework
 #endif
         }
 
+        /// <summary>
+        /// Writes a message to ioFTPD log file (ioFTPD\logs\ioFTPD.log).
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public static void IoFtpd(string message)
+        {
+            Console.Write("!putlog {0}\n", message);
+        }
+
+        /// <summary>
+        /// Writes a message to internal (scripts) log file <see cref="Config.FileNameInternalLog"/>.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        public static void Internal(string message)
+        {
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.FileNameInternalLog);
+            LogInternal.WaitOne();
+            using (FileStream stream = new FileStream(fileInfo.FullName,
+                                                      FileMode.Append,
+                                                      FileAccess.Write,
+                                                      FileShare.None))
+            {
+                using (StreamWriter streamWriter = new StreamWriter(stream))
+                {
+                    DateTime dt = new DateTime(DateTime.Now.Ticks);
+                    string line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + message;
+                    streamWriter.WriteLine(line);
+                }
+            }
+            LogInternal.ReleaseMutex();
+        }
+
         private static readonly Mutex LogMutex = new Mutex(false, "logMutex");
+        private static readonly Mutex LogInternal = new Mutex(false, "logInternal");
     }
 }
