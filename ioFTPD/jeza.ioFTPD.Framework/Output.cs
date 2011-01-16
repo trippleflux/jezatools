@@ -153,30 +153,51 @@ namespace jeza.ioFTPD.Framework
 
         public void LogFirstFileWasUploaded(bool isMp3Race)
         {
-            if (race.TotalFilesUploaded == 1)
+            if (isMp3Race)
             {
-                if (isMp3Race)
+                if (Config.LogToIoFtpdUpdateMp3)
                 {
-                    if (Config.LogToIoFtpdUpdateMp3)
-                    {
-                        Log.IoFtpd(Format(Config.LogLineIoFtpdUpdateMp3));
-                    }
-                    if (Config.LogToInternalUpdateMp3)
-                    {
-                        Log.Internal(Format(Config.LogLineInternalUpdateMp3));
-                    }
+                    Log.IoFtpd(Format(Config.LogLineIoFtpdUpdateMp3));
                 }
-                else
+                if (Config.LogToInternalUpdateMp3)
                 {
-                    if (Config.LogToIoFtpdUpdate)
-                    {
-                        Log.IoFtpd(Format(Config.LogLineIoFtpdUpdate));
-                    }
-                    if (Config.LogToInternalUpdate)
-                    {
-                        Log.Internal(Format(Config.LogLineInternalUpdate));
-                    }
+                    Log.Internal(Format(Config.LogLineInternalUpdateMp3));
                 }
+            }
+            else
+            {
+                if (Config.LogToIoFtpdUpdate)
+                {
+                    Log.IoFtpd(Format(Config.LogLineIoFtpdUpdate));
+                }
+                if (Config.LogToInternalUpdate)
+                {
+                    Log.Internal(Format(Config.LogLineInternalUpdate));
+                }
+            }
+        }
+
+        public void LogRace(RaceStatsUsers usersRaceStats)
+        {
+            if (Config.LogToIoFtpdRace)
+            {
+                Log.IoFtpd(FormatUserStats(1, usersRaceStats, Config.LogLineIoFtpdRace));
+            }
+            if (Config.LogToInternalRace)
+            {
+                Log.Internal(FormatUserStats(1, usersRaceStats, Config.LogLineInternalRace));
+            }
+        }
+
+        public void LogHalfway()
+        {
+            if (Config.LogToIoFtpdHalfway && race.TotalFilesExpected > Config.LogToIoFtpdHalfwayMinFiles)
+            {
+                Log.IoFtpd(Format(Config.LogLineIoFtpdHalfway));
+            }
+            if (Config.LogToInternalHalfway && race.TotalFilesExpected > Config.LogToInternalHalfwayMinFiles)
+            {
+                Log.Internal(Format(Config.LogLineInternalHalfway));
             }
         }
 
@@ -392,6 +413,26 @@ namespace jeza.ioFTPD.Framework
                         args [i] = race.CurrentUploadData.UploadVirtualPath;
                         break;
                     }
+                    case "releasename":
+                    {
+                        args[i] = race.CurrentUploadData.DirectoryName;
+                        break;
+                    }
+                    case "irccolor":
+                    {
+                        args[i] = CodeIrcColor;
+                        break;
+                    }
+                    case "ircbold":
+                    {
+                        args[i] = CodeIrcBold;
+                        break;
+                    }
+                    case "ircunderline":
+                    {
+                        args[i] = CodeIrcUnderline;
+                        break;
+                    }
                     default:
                     {
                         break;
@@ -469,6 +510,26 @@ namespace jeza.ioFTPD.Framework
                         args [i] = race.CurrentUploadData.UploadVirtualPath;
                         break;
                     }
+                    case "releasename":
+                    {
+                        args[i] = race.CurrentUploadData.DirectoryName;
+                        break;
+                    }
+                    case "irccolor":
+                    {
+                        args[i] = CodeIrcColor;
+                        break;
+                    }
+                    case "ircbold":
+                    {
+                        args[i] = CodeIrcBold;
+                        break;
+                    }
+                    case "ircunderline":
+                    {
+                        args[i] = CodeIrcUnderline;
+                        break;
+                    }
                     default:
                     {
                         break;
@@ -544,6 +605,16 @@ namespace jeza.ioFTPD.Framework
                         args [i] = FormatSize(race.TotalBytesUploaded * (UInt64) race.TotalFilesExpected);
                         break;
                     }
+                    case "totalusersracing":
+                    {
+                        args[i] = race.TotalUsersRacing.ToString();
+                        break;
+                    }
+                    case "totalgroupsracing":
+                    {
+                        args[i] = race.TotalGroupsRacing.ToString();
+                        break;
+                    }
                     case "progressbar":
                     {
                         args [i] = race.ProgressBar;
@@ -571,17 +642,17 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "irccolor":
                     {
-                        args [i] = "\\003";
+                        args [i] = CodeIrcColor;
                         break;
                     }
                     case "ircbold":
                     {
-                        args [i] = "\\002";
+                        args [i] = CodeIrcBold;
                         break;
                     }
                     case "ircunderline":
                     {
-                        args [i] = "\\037";
+                        args [i] = CodeIrcUnderline;
                         break;
                     }
                     default:
@@ -685,5 +756,8 @@ namespace jeza.ioFTPD.Framework
         private const char SplitChar = '¤';
         private readonly RescanStatsData rescanStatsData;
         private readonly RescanStats rescanStats;
+        private const string CodeIrcBold = "\\002";
+        private const string CodeIrcUnderline = "\\037";
+        private const string CodeIrcColor = "\\003";
     }
 }

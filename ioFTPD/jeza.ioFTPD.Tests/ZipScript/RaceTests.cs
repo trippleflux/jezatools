@@ -22,12 +22,13 @@ namespace jeza.ioFTPD.Tests.ZipScript
         [Test]
         public void ParseRaceData ()
         {
-            Race race = new Race (ArgsRarPart1);
+            Race race = new Race(ArgsRarPart1);
             race.Parse ();
-            DataParser dataParser = new DataParser (race) {RaceFile = @"..\..\TestFiles\Race\.ioFTPD.race"};
+            race.RaceFile = @"..\..\TestFiles\Race\.ioFTPD.race";
+            DataParser dataParser = new DataParser (race);
             dataParser.Parse ();
             Assert.AreEqual (4, race.TotalFilesExpected, "TotalFilesExpected");
-            Assert.AreEqual (0, race.TotalFilesUploaded, "TotalFilesUploaded");
+            Assert.AreEqual (4, race.TotalFilesUploaded, "TotalFilesUploaded");
         }
 
         [Test]

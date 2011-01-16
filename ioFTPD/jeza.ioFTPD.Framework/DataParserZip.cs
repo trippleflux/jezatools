@@ -13,53 +13,34 @@ namespace jeza.ioFTPD.Framework
         public DataParserZip(Race race)
         {
             this.race = race;
-            RaceFile = Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace);
         }
 
         public void Parse()
         {
-            race.ClearRaceStats();
             ExtractDiz();
             if(!race.IsValid)
             {
-                
                 return;
             }
-            RaceMutex.WaitOne();
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(RaceFile);
-            using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                      FileMode.OpenOrCreate,
-                                                      FileAccess.ReadWrite,
-                                                      FileShare.None))
+            this.ReadRaceData(race);
+        }
+
+        public void Process()
+        {
+            if (!race.IsValid)
             {
-                using (BinaryReader reader = new BinaryReader(stream))
-                {
-                    stream.Seek(0, SeekOrigin.Begin);
-                    race.TotalFilesExpected = reader.ReadInt32();
-                    for (int i = 1; i <= race.TotalFilesExpected; i++)
-                    {
-                        stream.Seek(256 * i, SeekOrigin.Begin);
-                        RaceStats raceStats = new RaceStats();
-                        raceStats
-                            .AddFileName(reader.ReadString())
-                            .AddCrc32(reader.ReadString())
-                            .AddFileUploaded(reader.ReadBoolean())
-                            .AddFileSize(reader.ReadUInt64())
-                            .AddFileSpeed(reader.ReadInt32())
-                            .AddUserName(reader.ReadString())
-                            .AddGroupName(reader.ReadString());
-                        race.AddRaceStats(raceStats);
-                    }
-                }
+                return;
             }
-            RaceMutex.ReleaseMutex();
-            Log.Debug("Current Race Stats : {0}", race.GetRaceStats);
+            Log.Debug("DataParserZip.Process()");
+            UpdateRaceData();
+            Parse();
+            this.ProcessRaceData(race);
         }
 
         private void ExtractDiz()
         {
             Log.Debug("ExtractDiz");
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(RaceFile);
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(race.RaceFile);
             if (fileInfo.Exists)
             {
                 Log.Debug("Race file exists...");
@@ -132,59 +113,12 @@ namespace jeza.ioFTPD.Framework
             return fileName.ToLowerInvariant().EndsWith(extension);
         }
 
-        public void Process()
-        {
-            if (!race.IsValid)
-            {
-                return;
-            }
-            Log.Debug("DataParserZip.Process()");
-            UpdateRaceData();
-            Parse();
-            FileInfo fileInfo = new FileInfo();
-            fileInfo.DeleteFile(race.CurrentUploadData.DirectoryPath,
-                                race.CurrentUploadData.FileName + Config.FileExtensionMissing);
-            fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
-            Output output = new Output(race);
-            output
-                .Client(Config.ClientHead)
-                .Client(Config.ClientFileNameOk);
-            output
-                .Client(Config.ClientStatsUsersHead)
-                .ClientStatsUsers(Config.ClientStatsUsers, Config.MaxNumberOfUserStats)
-                .Client(Config.ClientStatsGroupsHead)
-                .ClientStatsGroups(Config.ClientStatsGroups, Config.MaxNumberOfGroupStats)
-                .Client(Config.ClientFootProgressBar);
-            if (Config.WriteStatsToMesasageFileWhenRace)
-            {
-                this.WriteStatsToMesasageFile(race, false);
-            }
-            TagManager tagManager = new TagManager(race);
-            if (race.IsRaceComplete)
-            {
-                tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagComplete));
-                tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
-                if (Config.WriteStatsToMesasageFileWhenComplete)
-                {
-                    this.WriteStatsToMesasageFile(race, false);
-                }
-                output.LogCompleteStats();
-            }
-            else
-            {
-                tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
-                output.LogFirstFileWasUploaded(false);
-            }
-            race.IsValid = true;
-        }
-
         private void UpdateRaceData()
         {
             Log.Debug("UpdateRaceData");
             RaceMutex.WaitOne();
             int position = 1;
-            System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(race.RaceFile);
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -230,8 +164,6 @@ namespace jeza.ioFTPD.Framework
             }
             RaceMutex.ReleaseMutex();
         }
-
-        public string RaceFile { get; set; }
 
         private static readonly Mutex RaceMutex = new Mutex(false, "raceMutexZip");
         private readonly Race race;

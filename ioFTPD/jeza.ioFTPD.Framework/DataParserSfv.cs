@@ -87,7 +87,7 @@ namespace jeza.ioFTPD.Framework
             }
             if (Config.LogToInternalSfv)
             {
-                Log.Internal(output.Format(Config.LogLineIoFtpdSfv));
+                Log.Internal(output.Format(Config.LogLineInternalSfv));
             }
         }
 
@@ -124,7 +124,10 @@ namespace jeza.ioFTPD.Framework
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    writer.Write(race.TotalFilesExpected);
+                    writer.Write(race.TotalFilesExpected);              //total files expected
+                    writer.Write(DateTime.Now.Ticks);                   //start of race
+                    writer.Write(DateTime.Now.Ticks+1);                 //end of race
+                    writer.Write(race.CurrentUploadData.UserName);      //leader of the race
                     int count = 1;
                     foreach (KeyValuePair<string, string> keyValuePair in sfvData)
                     {

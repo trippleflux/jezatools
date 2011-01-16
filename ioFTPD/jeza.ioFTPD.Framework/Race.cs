@@ -50,6 +50,7 @@ namespace jeza.ioFTPD.Framework
                                     Gid = GetGid(),
                                 };
             SelectRaceType();
+            RaceFile = Path.Combine(CurrentUploadData.DirectoryPath, Config.FileNameRace);
             Log.Debug("CurrentUploadData: {0}", CurrentUploadData);
             return this;
         }
@@ -117,16 +118,19 @@ namespace jeza.ioFTPD.Framework
             get
             {
                 IsValid = true;
-                string virtualPath = CurrentUploadData.UploadVirtualPath;
-                if (Config.SkipPath.IndexOf(' ') > -1)
+                if (CurrentUploadData != null)
                 {
-                    string[] skipPaths = Config.SkipPath.Split(' ');
-                    foreach (string skipPath in skipPaths)
+                    string virtualPath = CurrentUploadData.UploadVirtualPath;
+                    if (Config.SkipPath.IndexOf(' ') > -1)
                     {
-                        if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
+                        string[] skipPaths = Config.SkipPath.Split(' ');
+                        foreach (string skipPath in skipPaths)
                         {
-                            Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, Config.SkipPath);
-                            return true;
+                            if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, Config.SkipPath);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -139,22 +143,43 @@ namespace jeza.ioFTPD.Framework
             get
             {
                 IsValid = true;
-                string fileExtension = CurrentUploadData.FileExtension;
-                if (Config.SkipFileExtension.IndexOf(',') > -1)
+                if (CurrentUploadData != null)
                 {
-                    string[] skipFileExtensions = Config.SkipFileExtension.Split(',');
-                    foreach (string extension in skipFileExtensions)
+                    string fileExtension = CurrentUploadData.FileExtension;
+                    if (Config.SkipFileExtension.IndexOf(',') > -1)
                     {
-                        if (fileExtension.EndsWith(extension, StringComparison.InvariantCultureIgnoreCase))
+                        string[] skipFileExtensions = Config.SkipFileExtension.Split(',');
+                        foreach (string extension in skipFileExtensions)
                         {
-                            Log.Debug("Skip file extension match. ['{0}' => '{1}']", extension, Config.SkipFileExtension);
-                            return true;
+                            if (fileExtension.EndsWith(extension, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                Log.Debug("Skip file extension match. ['{0}' => '{1}']", extension, Config.SkipFileExtension);
+                                return true;
+                            }
                         }
                     }
                 }
                 return false;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the start of the race.
+        /// </summary>
+        /// <value>The start.</value>
+        public UInt64 Start { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stop of the race.
+        /// </summary>
+        /// <value>The stop.</value>
+        public UInt64 Stop { get; set; }
+
+        /// <summary>
+        /// Gets or sets the leader of the race.
+        /// </summary>
+        /// <value>The leader.</value>
+        public string Leader { get; set; }
 
         /// <summary>
         /// Prints output to the client.
@@ -245,6 +270,18 @@ namespace jeza.ioFTPD.Framework
                 return;
             }
             raceStats.Add(stats);
+        }
+
+        public RaceStatsUsers UserUploadedFirstFile()
+        {
+            foreach (RaceStatsUsers raceStatsUser in GetUserStats())
+            {
+                if ((raceStatsUser.UserName == CurrentUploadData.UserName) && (raceStatsUser.FilesUplaoded == 1))
+                {
+                    return raceStatsUser;
+                }
+            }
+            return null;
         }
 
         public string GetRaceStats
@@ -352,7 +389,9 @@ namespace jeza.ioFTPD.Framework
             {
                 totalSpeed += stats.FileSpeed;
             }
-            return totalSpeed / TotalFilesUploaded;
+            return TotalFilesUploaded > 0
+                       ? totalSpeed / TotalFilesUploaded
+                       : 1;
         }
 
         private UInt64 GetTotalBytesUploaded()
@@ -407,7 +446,10 @@ namespace jeza.ioFTPD.Framework
             StringBuilder bar = new StringBuilder();
             for (int i = 0; i < Config.ProgressBarLength; i++)
             {
-                bar.Append(i < (TotalFilesUploaded * Config.ProgressBarLength / TotalFilesExpected) ? Config.ProgressBarCharFilled : Config.ProgressBarCharMissing);
+                bar.Append(
+                    (TotalFilesExpected > 0) && (i < (TotalFilesUploaded * Config.ProgressBarLength / TotalFilesExpected))
+                        ? Config.ProgressBarCharFilled
+                        : Config.ProgressBarCharMissing);
             }
             return bar.ToString();
         }
@@ -460,8 +502,15 @@ namespace jeza.ioFTPD.Framework
 
         public int PercentComplete
         {
-            get { return (TotalFilesUploaded * 100 / TotalFilesExpected); }
+            get
+            {
+                return TotalFilesExpected == 0
+                           ? 0
+                           : (TotalFilesUploaded * 100 / TotalFilesExpected);
+            }
         }
+
+        public string RaceFile { get; set; }
 
         private readonly string[] args;
         private readonly List<RaceStats> raceStats = new List<RaceStats>();
