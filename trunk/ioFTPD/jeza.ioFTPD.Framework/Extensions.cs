@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -42,8 +43,6 @@ namespace jeza.ioFTPD.Framework
                     stream.Seek(0, SeekOrigin.Begin);
                     race.TotalFilesExpected = reader.ReadInt32();
                     race.Start = reader.ReadUInt64();
-                    race.Stop = reader.ReadUInt64();
-                    race.Leader = reader.ReadString();
                     for (int i = 1; i <= race.TotalFilesExpected; i++)
                     {
                         stream.Seek(256 * i, SeekOrigin.Begin);
@@ -74,7 +73,9 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("UpdateRaceData");
             RaceMutex.WaitOne();
             int position = 0;
-            string fileName = "", fileCrc = "";
+            string fileName = String.Empty;
+            string fileCrc = String.Empty;
+            bool isZip = true;
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(race.RaceFile);
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
@@ -87,14 +88,22 @@ namespace jeza.ioFTPD.Framework
                     {
                         stream.Seek(256 * i, SeekOrigin.Begin);
                         fileName = reader.ReadString();
-                        if (fileName.Equals(race.CurrentUploadData.FileName))
+                        if (String.IsNullOrEmpty(fileName))
                         {
                             position = i;
-                            fileCrc = reader.ReadString();
-                            break;
+                        }
+                        else
+                        {
+                            if (fileName.Equals(race.CurrentUploadData.FileName))
+                            {
+                                fileCrc = reader.ReadString();
+                                position = i;
+                                isZip = false;
+                                break;
+                            }
                         }
                     }
-                }
+                } 
             }
             if (position > 0)
             {
@@ -106,8 +115,8 @@ namespace jeza.ioFTPD.Framework
                     using (BinaryWriter writer = new BinaryWriter(stream))
                     {
                         stream.Seek(position * 256, SeekOrigin.Begin);
-                        writer.Write(fileName);
-                        writer.Write(fileCrc);
+                        writer.Write(isZip ? race.CurrentUploadData.FileName : fileName);
+                        writer.Write(isZip ? race.CurrentUploadData.UploadCrc : fileCrc);
                         writer.Write(true);
                         writer.Write(race.CurrentUploadData.FileSize); //file Size
                         writer.Write(race.CurrentUploadData.Speed); //upload speed
@@ -173,10 +182,15 @@ namespace jeza.ioFTPD.Framework
                 }
                 else
                 {
-                    RaceStatsUsers usersRaceStats = race.UserUploadedFirstFile();
-                    if ((race.TotalUsersRacing > 1) && usersRaceStats != null)
+                    if(race.TotalUsersRacing > 1)
                     {
-                        output.LogRace(usersRaceStats);
+                        RaceStatsUsers usersRaceStats = race.UserUploadedFirstFile();
+                        if (usersRaceStats != null)
+                        {
+                            output.LogRace(usersRaceStats);
+                        }
+                        output.LogLeadUser();
+                        output.LogLeadGroup();
                     }
                 }
                 if (race.TotalFilesExpected / 2 == race.TotalFilesUploaded)

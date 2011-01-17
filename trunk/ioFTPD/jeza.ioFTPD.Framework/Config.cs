@@ -24,6 +24,8 @@ namespace jeza.ioFTPD.Framework
         public static bool LogToIoFtpdUpdateMp3 = true;
         public static bool LogToIoFtpdRace = true;
         public static bool LogToIoFtpdHalfway = true;
+        public static bool LogToIoFtpdLeadUser = true;
+        public static bool LogToIoFtpdLeadGroup = true;
         public static bool LogToIoFtpdComplete = true;
         public static bool LogToIoFtpdUserStatsHead = true;
         public static bool LogToIoFtpdUserStatsBody = true;
@@ -39,6 +41,8 @@ namespace jeza.ioFTPD.Framework
         public static bool LogToInternalUpdateMp3 = true;
         public static bool LogToInternalRace = true;
         public static bool LogToInternalHalfway = true;
+        public static bool LogToInternalLeadUser = true;
+        public static bool LogToInternalLeadGroup = true;
         public static bool LogToInternalComplete = true;
         public static bool LogToInternalUserStatsHead = true;
         public static bool LogToInternalUserStatsBody = true;
@@ -112,6 +116,8 @@ namespace jeza.ioFTPD.Framework
         public const string LogLineIoFtpdUpdateMp3 = "UPDATE: \"{0}\" \"{4}04{3}info{3}{4} {3}{1}{3} [{3}{5}{3} in {3}{2}F{3} @ {3}{6}{7}{6}{3} {3}{8}{3}]\"下ploadVirtualPath ReleaseName TotalFilesExpected ircBold ircColor FormatTotalBytesExpected ircUnderline Genre Year";
         public const string LogLineIoFtpdHalfway = "HALFWAY: \"{0}\" \"{4}04{3}halfway{3}{4} {3}{1}{3} [{3}{5}{3}Groups / {3}{2}{3}Users @ {3}{6}kBps{3}]\"下ploadVirtualPath ReleaseName TotalUsersRacing ircBold ircColor TotalGroupsRacing TotalAvarageSpeed";
         public const string LogLineIoFtpdRace = "RACE: \"{0}\" \"{3}04{2}race{2}{3} {2}{1}{2} [{2}{4}{2}/{5} @ {2}{6}{2}kBps]\"下ploadVirtualPath ReleaseName ircBold ircColor UserName GroupName AverageSpeed";
+        public const string LogLineIoFtpdLeadUser = "LEADER: \"{0}\" \"{3}04{2}leader{2}{3} {2}{1}{2} [{2}{4}{2}/{5} with {7} @ {2}{6}{2}kBps]\"下ploadVirtualPath ReleaseName ircBold ircColor UserName GroupName AverageSpeed FormatBytesUploaded";
+        public const string LogLineIoFtpdLeadGroup = "LEADER: \"{0}\" \"{3}04{2}leader{2}{3} {2}{1}{2} [{2}{4}{2} with {6} @ {2}{5}{2}kBps]\"下ploadVirtualPath ReleaseName ircBold ircColor GroupName AverageSpeed FormatBytesUploaded";
         public const string LogLineIoFtpdComplete = "COMPLETE: \"{0}\" \"{4}12{3}complete{3}{4} {3}{1}{3} [{3}{5}{3} in {3}{2}F{3} @ {3}{6}kBps{3}]\"下ploadVirtualPath ReleaseName TotalFilesExpected ircBold ircColor FormatBytesUploaded TotalAvarageSpeed";
         public const string LogLineIoFtpdUserStatsHead = "STATS: \"{0}\" \"User Stats:\"下ploadVirtualPath";
         public const string LogLineIoFtpdUserStatsBody = "STATS: \"{0}\" \"{1,2:B2}. {2,-14:B14} {3,6:B6} {4,6:B6}kBit/s {5,4:B4}F\"下ploadVirtualPath Possition UserName FormatBytesUploaded AverageSpeed FilesUploaded";
@@ -122,6 +128,8 @@ namespace jeza.ioFTPD.Framework
         public const string LogLineInternalUpdate = "UPDATE: \"{0}\" \"{4}04{3}info{3}{4} {3}{1}{3} [{3}{5}{3} in {3}{2}F{3}]\"下ploadVirtualPath ReleaseName TotalFilesExpected ircBold ircColor FormatTotalBytesExpected";
         public const string LogLineInternalUpdateMp3 = "UPDATE: \"{0}\" \"{4}04{3}info{3}{4} {3}{1}{3} [{3}{5}{3} in {3}{2}F{3} @ {3}{6}{7}{6}{3} {3}{8}{3}]\"下ploadVirtualPath ReleaseName TotalFilesExpected ircBold ircColor FormatTotalBytesExpected ircUnderline Genre Year";
         public const string LogLineInternalRace = "RACE: \"{0}\" \"{3}04{2}race{2}{3} {2}{1}{2} [{2}{4}{2}/{5} @ {2}{6}{2}kBps]\"下ploadVirtualPath ReleaseName ircBold ircColor UserName GroupName AverageSpeed";
+        public const string LogLineInternalLeadUser = "LEADER: \"{0}\" \"{3}04{2}leader{2}{3} {2}{1}{2} [{2}{4}{2}/{5} with {7} @ {2}{6}{2}kBps]\"下ploadVirtualPath ReleaseName ircBold ircColor UserName GroupName AverageSpeed FormatBytesUploaded";
+        public const string LogLineInternalLeadGroup = "LEADER: \"{0}\" \"{3}04{2}leader{2}{3} {2}{1}{2} [{2}{4}{2} with {6} @ {2}{5}{2}kBps]\"下ploadVirtualPath ReleaseName ircBold ircColor GroupName AverageSpeed FormatBytesUploaded";
         public const string LogLineInternalHalfway = "HALFWAY: \"{0}\" \"{4}04{3}halfway{3}{4} {3}{1}{3} [{3}{5}{3}Groups / {3}{2}{3}Users @ {3}{6}kBps{3}]\"下ploadVirtualPath ReleaseName TotalUsersRacing ircBold ircColor TotalGroupsRacing TotalAvarageSpeed";
         public const string LogLineInternalComplete = "COMPLETE: \"{0}\" \"{4}12{3}complete{3}{4} {3}{1}{3} [{3}{5}{3} in {3}{2}F{3} @ {3}{6}kBps{3}]\"下ploadVirtualPath ReleaseName TotalFilesExpected ircBold ircColor FormatBytesUploaded TotalAvarageSpeed";
         public const string LogLineInternalUserStatsHead = "STATS: \"{0}\" \"User Stats:\"下ploadVirtualPath";

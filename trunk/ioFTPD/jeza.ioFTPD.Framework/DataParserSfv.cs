@@ -126,8 +126,6 @@ namespace jeza.ioFTPD.Framework
                     stream.Seek(0, SeekOrigin.Begin);
                     writer.Write(race.TotalFilesExpected);              //total files expected
                     writer.Write(DateTime.Now.Ticks);                   //start of race
-                    writer.Write(DateTime.Now.Ticks+1);                 //end of race
-                    writer.Write(race.CurrentUploadData.UserName);      //leader of the race
                     int count = 1;
                     foreach (KeyValuePair<string, string> keyValuePair in sfvData)
                     {
