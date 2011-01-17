@@ -1,10 +1,6 @@
-﻿#region
-using System;
+﻿using System;
 using System.IO;
-using System.Threading;
 using ICSharpCode.SharpZipLib.Zip;
-
-#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -32,7 +28,9 @@ namespace jeza.ioFTPD.Framework
                 return;
             }
             Log.Debug("DataParserZip.Process()");
-            UpdateRaceData();
+            race.LeadUser = race.GetLeadUser();
+            race.LeadGroup = race.GetLeadGroup();
+            this.UpdateRaceData(race);
             Parse();
             this.ProcessRaceData(race);
         }
@@ -113,59 +111,6 @@ namespace jeza.ioFTPD.Framework
             return fileName.ToLowerInvariant().EndsWith(extension);
         }
 
-        private void UpdateRaceData()
-        {
-            Log.Debug("UpdateRaceData");
-            RaceMutex.WaitOne();
-            int position = 1;
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(race.RaceFile);
-            using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                      FileMode.Open,
-                                                      FileAccess.Read,
-                                                      FileShare.None))
-            {
-                using (BinaryReader reader = new BinaryReader(stream))
-                {
-                    for (int i = 1; i <= race.TotalFilesExpected; i++)
-                    {
-                        stream.Seek(256 * i, SeekOrigin.Begin);
-                        string fileName = reader.ReadString();
-                        if (String.IsNullOrEmpty(fileName))
-                        {
-                            position = i;
-                        }
-                        else
-                        {
-                            if (fileName.Equals(race.CurrentUploadData.FileName))
-                            {
-                                position = i;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                      FileMode.Open,
-                                                      FileAccess.Write,
-                                                      FileShare.None))
-            {
-                using (BinaryWriter writer = new BinaryWriter(stream))
-                {
-                    stream.Seek(position * 256, SeekOrigin.Begin);
-                    writer.Write(race.CurrentUploadData.FileName);
-                    writer.Write(race.CurrentUploadData.UploadCrc);
-                    writer.Write(true);
-                    writer.Write(race.CurrentUploadData.FileSize); //file Size
-                    writer.Write(race.CurrentUploadData.Speed); //upload speed
-                    writer.Write(race.CurrentUploadData.UserName); //username
-                    writer.Write(race.CurrentUploadData.GroupName); //groupname
-                }
-            }
-            RaceMutex.ReleaseMutex();
-        }
-
-        private static readonly Mutex RaceMutex = new Mutex(false, "raceMutexZip");
         private readonly Race race;
     }
 }

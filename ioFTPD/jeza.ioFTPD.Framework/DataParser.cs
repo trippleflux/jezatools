@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+
 namespace jeza.ioFTPD.Framework
 {
     public class DataParser : IDataParser
@@ -17,6 +20,8 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("DataParser.Process()");
             if (GetCrc32ForFile(race.CurrentUploadData.FileName) != null)
             {
+                race.LeadUser = race.GetLeadUser();
+                race.LeadGroup = race.GetLeadGroup();
                 this.UpdateRaceData(race);
                 Parse();
                 this.ProcessRaceData(race);
@@ -35,14 +40,9 @@ namespace jeza.ioFTPD.Framework
 
         private string GetCrc32ForFile(string fileName)
         {
-            foreach (RaceStats raceStats in race.RaceStats)
-            {
-                if (raceStats.FileName.Equals(fileName))
-                {
-                    return raceStats.Crc32;
-                }
-            }
-            return null;
+            return (from raceStats in race.RaceStats
+                    where raceStats.FileName.Equals(fileName)
+                    select raceStats.Crc32).FirstOrDefault();
         }
 
         private readonly Race race;

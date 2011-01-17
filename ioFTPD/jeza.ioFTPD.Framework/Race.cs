@@ -176,12 +176,6 @@ namespace jeza.ioFTPD.Framework
         public UInt64 Stop { get; set; }
 
         /// <summary>
-        /// Gets or sets the leader of the race.
-        /// </summary>
-        /// <value>The leader.</value>
-        public string Leader { get; set; }
-
-        /// <summary>
         /// Prints output to the client.
         /// </summary>
         /// <param name="skip">if set to <c>true</c> use skip file template.</param>
@@ -338,6 +332,26 @@ namespace jeza.ioFTPD.Framework
             stats.Sort();
             stats.Reverse();
             return stats;
+        }
+
+        /// <summary>
+        /// Gets the lead group.
+        /// </summary>
+        /// <returns></returns>
+        public RaceStatsGroups GetLeadGroup()
+        {
+            List<RaceStatsGroups> raceStatsGroupses = GetGroupStats();
+            return raceStatsGroupses.Count > 0 ? raceStatsGroupses [0] : new RaceStatsGroups();
+        }
+
+        /// <summary>
+        /// Gets the lead user.
+        /// </summary>
+        /// <returns></returns>
+        public RaceStatsUsers GetLeadUser()
+        {
+            List<RaceStatsUsers> raceStatsUserses = GetUserStats();
+            return raceStatsUserses.Count() > 0 ? raceStatsUserses [0] : new RaceStatsUsers();
         }
 
         public List<RaceStatsUsers> GetUserStats()
@@ -499,6 +513,10 @@ namespace jeza.ioFTPD.Framework
         {
             get { return CreateProgressBar(); }
         }
+
+        public RaceStatsGroups LeadGroup { get; set; }
+
+        public RaceStatsUsers LeadUser { get; set; }
 
         public int PercentComplete
         {

@@ -189,6 +189,42 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
+        public void LogLeadGroup()
+        {
+            RaceStatsGroups lastLeadGroup = race.LeadGroup;
+            RaceStatsGroups newLeadGroup = race.GetLeadGroup();
+            if (!lastLeadGroup.GroupName.Equals(newLeadGroup.GroupName))
+            {
+                race.LeadGroup = newLeadGroup;
+                if (Config.LogToIoFtpdLeadGroup)
+                {
+                    Log.IoFtpd(FormatGroupStats(1, race.LeadGroup, Config.LogLineIoFtpdLeadGroup));
+                }
+                if (Config.LogToInternalLeadGroup)
+                {
+                    Log.Internal(FormatGroupStats(1, race.LeadGroup, Config.LogLineInternalLeadGroup));
+                }
+            }
+        }
+
+        public void LogLeadUser()
+        {
+            RaceStatsUsers lastLeadUser = race.LeadUser;
+            RaceStatsUsers newLeadUser = race.GetLeadUser();
+            if (!lastLeadUser.UserName.Equals(newLeadUser.UserName))
+            {
+                race.LeadUser = newLeadUser;
+                if (Config.LogToIoFtpdLeadUser)
+                {
+                    Log.IoFtpd(FormatUserStats(1, race.LeadUser, Config.LogLineIoFtpdLeadUser));
+                }
+                if (Config.LogToInternalRace)
+                {
+                    Log.Internal(FormatUserStats(1, race.LeadUser, Config.LogLineInternalLeadUser));
+                }
+            }
+        }
+
         public void LogHalfway()
         {
             if (Config.LogToIoFtpdHalfway && race.TotalFilesExpected > Config.LogToIoFtpdHalfwayMinFiles)

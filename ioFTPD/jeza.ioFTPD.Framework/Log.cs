@@ -66,21 +66,28 @@ namespace jeza.ioFTPD.Framework
         /// <param name="message">The message.</param>
         public static void Internal(string message)
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.FileNameInternalLog);
-            LogInternal.WaitOne();
-            using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                      FileMode.Append,
-                                                      FileAccess.Write,
-                                                      FileShare.None))
+            try
             {
-                using (StreamWriter streamWriter = new StreamWriter(stream))
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.FileNameInternalLog);
+                LogInternal.WaitOne();
+                using (FileStream stream = new FileStream(fileInfo.FullName,
+                                                          FileMode.Append,
+                                                          FileAccess.Write,
+                                                          FileShare.None))
                 {
-                    DateTime dt = new DateTime(DateTime.Now.Ticks);
-                    string line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + message;
-                    streamWriter.WriteLine(line);
+                    using (StreamWriter streamWriter = new StreamWriter(stream))
+                    {
+                        DateTime dt = new DateTime(DateTime.Now.Ticks);
+                        string line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + message;
+                        streamWriter.WriteLine(line);
+                    }
                 }
+                LogInternal.ReleaseMutex();
             }
-            LogInternal.ReleaseMutex();
+            catch (Exception exception)
+            {
+                Debug("Failed to write to internal log file because of '{0}'!\r\n{1}", exception.Message, exception.StackTrace);
+            }
         }
 
         private static readonly Mutex LogMutex = new Mutex(false, "logMutex");
