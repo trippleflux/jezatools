@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <project name="BuildRunner" default="compile" xmlns="http://nant.sf.net/schemas/nant.xsd">
 
-  <loadtasks assembly="..\lib\GallioBundle\bin\Gallio.NAntTasks.dll" />
+  <loadtasks assembly="lib\GallioBundle\bin\Gallio.NAntTasks.dll" />
   <property name="DotNetFrameworkDir" value="${path::combine(environment::get-variable('SystemRoot'), 'Microsoft.NET\Framework\v3.5')}" />
   <property name="Configuration" value="DEBUG" />
 
