@@ -1,1 +1,1 @@
-..\lib\NAnt\NAnt.exe -buildfile:nant.build %*
+lib\NAnt\NAnt.exe -buildfile:nant.build %*
