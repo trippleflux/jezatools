@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -12,6 +12,11 @@
     <AssemblyName>jeza.ioFTPD.Framework</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Major>2</Major>
+    <Minor>3</Minor>
+    <!--Hudson sets BUILD_NUMBER and SVN_REVISION -->
+    <Build>$(BUILD_NUMBER)</Build>
+    <Revision>$(SVN_REVISION)</Revision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +58,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyFileInfo.cs">
+      <Link>AssemblyFileInfo.cs</Link>
+    </Compile>
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
     <Compile Include="DataParserDiz.cs" />
@@ -90,4 +98,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')" />
+  <Target Name="BeforeBuild" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
+    <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="AssemblyFileInfo.cs" AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" AssemblyConfiguration="$(Configuration)" Condition="$(Revision) != '' " />
+  </Target>
 </Project>
