@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Tests", "jeza.i
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{8CA77A16-B086-4727-AEF1-4FF68895C325}"
 	ProjectSection(SolutionItems) = preProject
+		AssemblyFileInfo.cs = AssemblyFileInfo.cs
 		nant.bat = nant.bat
 		nant.build = nant.build
 	EndProjectSection
