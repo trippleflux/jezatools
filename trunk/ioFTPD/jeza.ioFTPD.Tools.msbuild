@@ -4,8 +4,8 @@
   <PropertyGroup>
     <Major>2</Major>
     <Minor>3</Minor>
-    <Build Condition="'$(BUILD_NUMBER)'==''">0</Build>
-    <Revision Condition="'$(SVN_REVISION)'==''">0</Revision>
+    <Build>$(BUILD_NUMBER)</Build>
+    <Revision>$(SVN_REVISION)</Revision>
     <Configuration>Release</Configuration>
   </PropertyGroup>
   <ItemGroup>
@@ -63,9 +63,11 @@
           DestinationFiles="Documentation\MSBuild.Community.Tasks.chm" />
     <RemoveDir Directories="doc" />
   </Target>
-  <Target Name="Zip" DependsOnTargets="Compile"> <!-- DependsOnTargets="Documentation" -->
+  <Target Name="Zip" DependsOnTargets="Compile">
+    <Delete Files="jeza.ioFTPD.Tools\\*"></Delete>
     <Zip Files="@(ZipFiles)"
-         ZipFileName="jeza.ioFTPD.Tools\\jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" />
+         ZipFileName="jeza.ioFTPD.Tools\\jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
+         Condition="$(Revision) != '' "/>
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Zip">
     <Message Text="Build Complete"/>
