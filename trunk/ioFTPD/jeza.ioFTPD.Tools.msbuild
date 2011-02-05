@@ -34,6 +34,7 @@
     <ZipFiles Include="**\*.*" Exclude="@(DefaultExclude)" />
     -->
     <ZipFiles Include="@(DefaultInclude)" />
+    <ZipArchive Include="jeza.ioFTPD.Tools/*.*" />
   </ItemGroup>
   <Target Name="Version">
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
@@ -64,7 +65,7 @@
     <RemoveDir Directories="doc" />
   </Target>
   <Target Name="Zip" DependsOnTargets="Compile">
-    <Delete Files="jeza.ioFTPD.Tools\\*"></Delete>
+    <Delete Files="@(ZipArchive)"></Delete>
     <Zip Files="@(ZipFiles)"
          ZipFileName="jeza.ioFTPD.Tools\\jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
          Condition="$(Revision) != '' "/>
