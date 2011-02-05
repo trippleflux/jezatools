@@ -1,0 +1,52 @@
+help                  this msg or help with specific command
+bnc                   shows bnc's list
+invite                show the invite syntax
+invite <login> <pass> invite yourself in #chan through the bot
+search                search and reply to irc
+uptime                show the OS, box & bot uptimes
+version               show the version of ioftpd, dzsbot & eggdrop
+undupe <file>         remove 1 file from dupefile log (need +f flag)
+silent                show the silent syntax (need +o flag)
+silent <*/VFS*>       Active silent mode for */VFS* path (need +o flag)
+silent -off           Reset silent mode to default (need +o flag)
+killilders            kill all users idletime>120 (need +o flag)
+approve <rlsname>     approve a release (need +o flag)
+reqadd                add a request on request list (need +o flag)
+reqdel                del a request on request list (need +o flag)
+reqfilled             filled a request on request list (need +o flag)
+requests              show all requests
+rules                 show the site rules
+getrules              get the site rules
+imdb <movie>          show movies infos
+free                  show all freespace devices
+free <section>        show specific freespace device
+uploaders             show all uploaders
+leechers              show all downloaders
+idlers                show all idlers
+speed <user>          show speed of a <user>
+who                   show all activities
+bw                    show the bandwidth
+nukes <num>           show <num> last nukes
+unnukes <num>         show <num> last unnukes
+pres <num>            show <num> last pres
+affils <section>      show affils groups
+banned <section>      show banned groups
+incomplete            show all incomplete releases
+-------------------------- USERS STATS ----------------------------
+allup <num>           Show Alltime <num> Uploaders
+alldn <num>           Show Alltime <num> Downloaders
+monthup <num>         Show Monthtop <num> Uploaders
+monthdn <num>         Show Monthtop <num> Downloaders
+wkup <num>            Show Weektop <num> Uploaders
+wkdn <num>            Show Weektop <num> Downloaders
+dayup <num>           Show Day's top <num> Uploaders
+daydn <num>           Show Day's top <num> Downloaders
+-------------------------- GROUPS STATS ---------------------------
+gallup <num>          Show Alltime <num> Groups Uploaders
+galldn <num>          Show Alltime <num> Groups Downloaders
+gmonthup <num>        Show Monthtop <num> Groups Uploaders
+gmonthdn <num>        Show Monthtop <num> Groups Downloaders
+gwkup <num>           Show Weektop <num> Groups Uploaders
+gwkdn <num>           Show Weektop <num> Groups Downloaders
+gdayup <num>          Show Day's top <num> Groups Uploaders
+gdaydn <num>          Show Day's top <num> Groups Downloaders

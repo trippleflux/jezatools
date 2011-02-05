@@ -1,0 +1,134 @@
+iNFO
+
+jScripts.exe will work only if u have :
+ - ioFTPD installed in c:\ioFTPD
+ - WindowName = ioFTPD::MessageWindow
+
+---------------------------------------------------------------
+
+INSTALATiON
+
+1. Extract package 
+   Copy jTQ dir to windrop/scripts/
+   Copy jScripts.exe and sqlite3.dll to C:\ioFTPD\system\
+   
+   In ioFTPD.ini add:
+   gadduser		= EXEC jScripts.exe GADDUSER
+	adduser		= EXEC jScripts.exe ADDUSER
+	
+2. Edit jScripts.conf and set jScripts(enable_jTQ) to true
+	Edit jTQ.conf
+3. Start/Rehash your bot
+	Start/Rehash ioFTPD
+4. CMD to c:\ioFTPD\system and type :
+	jScripts.exe CHECK
+	This will create sql DB for Users that is used by jTQ
+5.	In your admin chan type !update (or whatever your cmd prefix is) 
+6.	Thats it...
+
+---------------------------------------------------------------
+
+COOKIES
+
+Example:
+			%a				"blabla"
+			%-10a			"blabla    "
+			%10a			"    blabla"
+			%-4.4a		"blab"
+
+
+%a			upped mb in section
+%b			needed mb in section
+%c			over mb in section
+%d			missing mb in section
+%e			mb per day in section
+%f			users flags
+%g			users groupname
+%h			stats if not passed yet
+%i			stats if passed
+%j			to end days
+%k			end date
+%l			percent upped for group quota
+%m			group amount upped (group quota only)
+%n			default site name
+%o			group quota text passed
+%p			possition in section MNUP
+%r			group quota text missing
+%s			section name
+%t			total users on trial
+%u			user name
+%v			script version
+%z			stats for user on group quota
+%x			list of users in group for group quota
+%y			text out stats (section:amount, ...)
+%q			action on fail quota (nothing, disable, ...)
+
+%%			%
+
+---------------------------------------------------------------
+
+COMMANDS
+
+passed <LOGiN>			Shows TRiAL/QUOTA Status of LOGiN
+trials					Shows TRiAL Users
+quotas					Shows QUOTA Stats
+
+Works Only In Admin Chan!
+update					Updates Stats
+
+---------------------------------------------------------------
+
+TODO
+
+ - week trial
+ - week quota
+ - ring 
+ - glftpd
+ 
+---------------------------------------------------------------
+
+HISTORY
+
+1.0.1.7
+
+	Added....: LOG On END OF MONTH
+	Fixed....: TRiALS
+	
+1.0.1.7
+
+	Changed..: SPLiT
+	Fixed....: REMOVE CREDITS ON FAIL QUOTA
+	
+1.0.1.6
+
+	Added....: REMOVE CREDITS ON FAIL QUOTA
+	
+1.0.1.5
+
+	Added....: GROUP QUOTA
+	
+1.0.1.4
+
+	Added....: END QUOTA CHECK
+	
+1.0.1.3
+
+	Added....: QUOTACHECK,  QUOTAS, CHANGEGROUP(TRiAL PASSED)
+	
+1.0.1.2
+
+	Added....: BNC, TRiALCHECK, TRiALS
+	
+1.0.1.1 
+
+	Added....: TRiAL
+	
+1.0.1.0 
+
+	Added....: QUOTA, REHASH, triggers for bind time
+	
+1.0.0.0 
+
+	Added....: AFFiLS, BANNED, UPDATE
+
+

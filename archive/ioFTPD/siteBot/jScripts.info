@@ -1,0 +1,75 @@
+iNFO
+
+---------------------------------------------------------------
+
+INSTALATiON
+
+1. Extract package 
+   Copy jScripts.conf and jScripts.tcl to windrop/scripts/
+2. Edit jScripts.conf
+3. Add source scripts/jScripts.tcl to your eggdrop *.conf file
+4. Start/Rehash your bot
+5.	Thats it...
+
+---------------------------------------------------------------
+
+COMMANDS
+
+affils					Shows AFFiLS List
+banned					Shows BANNED Groups
+sections					Shows SECTiONS
+bnc						Shows BNCs
+bnctest					Shows BNC Tests
+
+Works Only In Admin Chan!
+rehash					Rehash The Bot
+
+---------------------------------------------------------------
+
+TODO
+
+ - 
+ 
+---------------------------------------------------------------
+
+HISTORY
+
+1.0.0.0 
+
+	Added....: AFFiLS, BANNED, SECTiONS, BNC, REHASH
+
+
+---------------------------------------------------------------
+
+COOKIES
+
+		jScripts											jSB											jTQ
+-------------------------------------------------------------------------------------------------------------
+%a		$jScripts(AffilSection)
+%b		$jScripts(Affils)
+%c		$jScripts(BannedSection)
+%d		$jScripts(Banned)
+%e		$jScripts(default_site_name)
+%f		$jScripts(sections_locale)
+%g		$jScripts(bnc_site)
+%h		$jScripts(bnc_ip)
+%i		$jScripts(bnc_port)
+%j		$jScripts(bnc_loc)
+%k		$jScripts(bnc_sect)
+%l		$jScripts(bnc_status)
+%m		$jScripts(bnc_ssl)
+%n		$jScripts(bnc_time)
+%o	
+%p	
+%r	
+%s	
+%t	
+%u	
+%v	
+%z	
+%q	
+%w	
+%y	
+%x	
+%%		"%"
+		  
