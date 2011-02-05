@@ -1,0 +1,70 @@
+name of the script : iscripts
+
+can run 
+- as standalone (from tcl)
+- as site command (from gl)
+
+commands:
+-------------------------------------------------------------
+iscripts BCUSTATS <sectionnumber>
+
+	Description:
+	List Users Stats (ALL USERS) For Stats Section 'sectionnumber'.
+	If Only One Section Is Used Return Stats For Default Section.
+	TIMEADD -> %m/%d/%Y %H:%M:%S
+	
+	Return:
+	SUCCESS...: 
+	echo "{{$files} {$GRP} {$FLAGS} {$TIMEADD} {$DAYUP} {$DAYDN} {$WKUP} {$WKDN} {$MONTHUP} {$MONTHDN} {$ALLUP} {$ALLDN}} "
+	FAIL......: 
+
+	Example:
+	{aj_199_user_} {NoGroup} {3} {01/01/1970 00:00:00} {0} {0} {0} {0} {0} {0} {0} {0}
+	{ssl} {iND} {1} {01/01/1970 00:00:00} {0} {0} {0} {0} {0} {0} {0} {0}
+	{kekec} {iND} {3} {10/03/2005 22:31:06} {0} {0} {0} {0} {0} {0} {0} {0}
+	{pider} {iND} {3} {10/08/2005 23:38:05} {0} {0} {0} {0} {0} {0} {0} {0}
+	{pader} {iND} {3} {10/08/2005 23:39:56} {0} {0} {0} {0} {0} {0} {0} {0}
+	{bedanec} {iND} {3} {10/23/2005 12:57:15} {0} {0} {0} {0} {0} {0} {0} {0}
+	{bedaneac} {iND} {3} {10/23/2005 12:58:18} {0} {0} {0} {0} {0} {0} {0} {0}
+	
+-------------------------------------------------------------
+iscripts DELETEUSER <UserName>
+	
+	Description:
+	Deletes UserName.
+	
+	Return:
+	SUCCESS...: DELETEUSER 'UserName' SUCCESS
+	FAIL......: DELETEUSER 'UserName' FAILED
+	
+-------------------------------------------------------------
+iscripts ADDFLAG <UserName> <Flag>
+
+	Description:
+	Adds Flag To UserName.
+
+	Return:
+	SUCCESS...: ADDFLAG 'Flag' To 'UserName' SUCCESS
+	FAIL......: ADDFLAG 'Flag' To 'UserName' FAILED
+	
+-------------------------------------------------------------
+iscripts CHANGEGROUP <UserName> <GroupName>
+
+	Description:
+	Changes Users Default Group.
+
+	Return:
+	SUCCESS...: CHANGEGROUP To 'GroupName' For 'UserName' SUCCESS
+	FAIL......: CHANGEGROUP To 'GroupName' For 'UserName' FAILED
+
+-------------------------------------------------------------
+iscripts ADDTRIALTOLOG <UserName> <GroupName>
+
+	Description:
+	Writes New Date Added to SysOp.log.
+	-- 10-23-2005 13:58:19 'jScripts' created user 'bedaneac' in group 'TRiAL'.
+	Changes DateAdded In UserFile to Current Date.
+
+	Return:
+	SUCCESS...: ADDTRIALTOLOG SUCCESS
+	FAIL......: ADDTRIALTOLOG FAILED
