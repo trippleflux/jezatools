@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Rebuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="lib\MSBuild.Community.Tasks.Nightly\Build\MSBuild.Community.Tasks.Targets"/>
+  <PropertyGroup>
+    <Major>2</Major>
+    <Minor>3</Minor>
+    <Build Condition="'$(BUILD_NUMBER)'==''">0</Build>
+    <Revision Condition="'$(SVN_REVISION)'==''">0</Revision>
+    <Configuration>Release</Configuration>
+  </PropertyGroup>
+  <ItemGroup>
+<!--
+    <DefaultExclude Include="**\.svn\**" />
+    <DefaultExclude Include="**\bin\**" />
+    <DefaultExclude Include="**\obj\**" />
+    <DefaultExclude Include="**\Release\**" />
+    <DefaultExclude Include="**\Debug\**" />
+    <DefaultExclude Include="**\Test\**" />
+    <DefaultExclude Include="**\TestResults\**" />
+    <DefaultExclude Include="**\doc\**" />
+    <DefaultExclude Include="**\www\**" />
+    <DefaultExclude Include="**\*.user" />
+    <DefaultExclude Include="**\*.suo" />
+    <DefaultExclude Include="**\*.zip" />
+    <DefaultExclude Include="**\*.txt" />
+-->
+    <DefaultInclude Include="jeza.ioFTPD.Framework/bin/$(Configuration)/*.dll"/>
+    <DefaultInclude Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/jeza.ioFTPD.ZipScript.exe"/>
+    <DefaultInclude Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/*.dll"/>
+    <DefaultInclude Include="jeza.ioFTPD.Tests/bin/$(Configuration)/*.*"/>
+  </ItemGroup>
+  <ItemGroup>
+    <!--
+    <ZipFiles Include="**\*.*" Exclude="@(DefaultExclude)" />
+    -->
+    <ZipFiles Include="@(DefaultInclude)" />
+  </ItemGroup>
+  <Target Name="Version">
+    <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
+    <AssemblyInfo CodeLanguage="CS" 
+      OutputFile="AssemblyFileInfo.cs"
+      AssemblyTitle="jeza ioFTPD Tools"
+      AssemblyDescription="Tools for ioFTPD"
+      AssemblyCompany="JezaSoft"
+      AssemblyProduct="jeza.ioFTPD.Tools"
+      AssemblyCopyright="Copyright JezaSoft 2011" 
+      AssemblyConfiguration="$(Configuration)"
+      ComVisible="false"
+      CLSCompliant="false"
+      Guid="d038566a-1937-478a-b5c5-b79c4afb253d"
+      AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
+      AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
+      Condition="$(Revision) != '' "/>
+  </Target>
+  <Target Name="Compile" DependsOnTargets="Version">
+    <MSBuild Projects="jeza.ioFTPD.Tools.sln"
+             Properties="Configuration=$(Configuration)" />
+  </Target>
+  <Target Name="Documentation" DependsOnTargets="Compile">
+    <NDoc Documenter="MSDN"
+          ProjectFilePath="Documentation\MSBuild.Community.Tasks.ndoc" />
+    <Copy SourceFiles="doc\MSBuild Community Tasks.chm"
+          DestinationFiles="Documentation\MSBuild.Community.Tasks.chm" />
+    <RemoveDir Directories="doc" />
+  </Target>
+  <Target Name="Zip" DependsOnTargets="Compile"> <!-- DependsOnTargets="Documentation" -->
+    <Zip Files="@(ZipFiles)"
+         ZipFileName="jeza.ioFTPD.Tools\\jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" />
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Zip">
+    <Message Text="Build Complete"/>
+  </Target>
+</Project>
