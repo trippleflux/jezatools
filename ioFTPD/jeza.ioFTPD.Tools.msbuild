@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Rebuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="lib\MSBuild.Community.Tasks.Nightly\Build\MSBuild.Community.Tasks.Targets"/>
+  <UsingTask AssemblyFile="lib\GallioBundle\bin\Gallio.MSBuildTasks.dll" TaskName="Gallio" />
   <PropertyGroup>
     <Major>2</Major>
     <Minor>3</Minor>
     <Build>$(BUILD_NUMBER)</Build>
     <Revision>$(SVN_REVISION)</Revision>
     <Configuration>Release</Configuration>
+    <buildDir>jeza.ioFTPD.Tools</buildDir>
   </PropertyGroup>
   <ItemGroup>
-<!--
-    <DefaultExclude Include="**\.svn\**" />
-    <DefaultExclude Include="**\bin\**" />
-    <DefaultExclude Include="**\obj\**" />
-    <DefaultExclude Include="**\Release\**" />
-    <DefaultExclude Include="**\Debug\**" />
-    <DefaultExclude Include="**\Test\**" />
-    <DefaultExclude Include="**\TestResults\**" />
-    <DefaultExclude Include="**\doc\**" />
-    <DefaultExclude Include="**\www\**" />
-    <DefaultExclude Include="**\*.user" />
-    <DefaultExclude Include="**\*.suo" />
-    <DefaultExclude Include="**\*.zip" />
-    <DefaultExclude Include="**\*.txt" />
--->
-    <DefaultInclude Include="jeza.ioFTPD.Framework/bin/$(Configuration)/*.dll"/>
-    <DefaultInclude Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/jeza.ioFTPD.ZipScript.exe"/>
-    <DefaultInclude Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/*.dll"/>
-    <DefaultInclude Include="jeza.ioFTPD.Tests/bin/$(Configuration)/*.*"/>
+    <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/jeza.ioFTPD.ZipScript.exe"/>
+    <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/*.dll"/>
+    <TestsFiles Include="jeza.ioFTPD.Tests/bin/$(Configuration)/*.*"/>
   </ItemGroup>
   <ItemGroup>
-    <!--
-    <ZipFiles Include="**\*.*" Exclude="@(DefaultExclude)" />
-    -->
-    <ZipFiles Include="@(DefaultInclude)" />
-    <ZipArchive Include="jeza.ioFTPD.Tools/*.*" />
-    <PreviousBuild Include="jeza.ioFTPD.*/bin/**" />
-    <PreviousBuild Include="jeza.ioFTPD.*/obj/**" />
+    <ZipScriptReleaseFiles Include="@(ReleaseFiles)" />
+    <TestsReleaseFiles Include="@(TestsFiles)" />
+    <ZipArchive Include="$(buildDir)/jeza.ioFTPD.*/*.*" />
   </ItemGroup>
-  <Target Name="Version">
+  <ItemGroup>
+    <TestFile Include="jeza.ioFTPD.Tests/bin/$(Configuration)/jeza.ioFTPD.Tests.dll" />
+  </ItemGroup>
+  <Target Name="RunTests" DependsOnTargets="Compile">
+    <Gallio ReportDirectory="$(buildDir)" IgnoreFailures="true" Files="@(TestFile)">
+      <!-- This tells MSBuild to store the output value of the task's ExitCode property
+                 into the project's ExitCode property -->
+      <Output TaskParameter="ExitCode" PropertyName="ExitCode"/>
+    </Gallio>
+    <Error Text="Tests execution failed" Condition="'$(ExitCode)' != 0" />
+  </Target>
+  <Target Name = "Clean">
+    <RemoveDir Directories="$(buildDir)" />
+    <MakeDir Directories = "$(buildDir)"
+                Condition = "!Exists('$(buildDir)')" />
+  </Target>
+  <Target Name="Version" DependsOnTargets="Clean">
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
     <AssemblyInfo CodeLanguage="CS" 
       OutputFile="AssemblyFileInfo.cs"
@@ -56,9 +54,10 @@
       Condition="$(Revision) != '' "/>
   </Target>
   <Target Name="Compile" DependsOnTargets="Version">
-    <Delete Files="@(PreviousBuild)" />
     <MSBuild Projects="jeza.ioFTPD.Tools.sln"
              Properties="Configuration=$(Configuration)" />
+    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ReleaseFiles)"></Copy>
+    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Tests" SourceFiles="@(TestsFiles)"></Copy>
   </Target>
   <Target Name="Documentation" DependsOnTargets="Compile">
     <NDoc Documenter="MSDN"
@@ -67,10 +66,9 @@
           DestinationFiles="Documentation\MSBuild.Community.Tasks.chm" />
     <RemoveDir Directories="doc" />
   </Target>
-  <Target Name="Zip" DependsOnTargets="Compile">
-    <Delete Files="@(ZipArchive)"></Delete>
-    <Zip Files="@(ZipFiles)"
-         ZipFileName="jeza.ioFTPD.Tools\\jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
+  <Target Name="Zip" DependsOnTargets="RunTests">
+    <Zip Files="@(ZipArchive)"
+         ZipFileName="$(buildDir)/jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
          Condition="$(Revision) != '' "/>
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Zip">
