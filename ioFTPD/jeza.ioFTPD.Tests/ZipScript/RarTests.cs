@@ -22,9 +22,9 @@ namespace jeza.ioFTPD.Tests.ZipScript
             UploadSfvFile ();
 
             Race race = new Race (ArgsRarPart1);
-            race.Parse ();
+            race.ParseUpload ();
             race.Process ();
-            FileInfo fileInfo = new FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.Open,
                                                        FileAccess.Read,
@@ -46,9 +46,9 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Assert.AreEqual(1, race.TotalFilesUploaded, "TotalFilesUploaded");
 
             race = new Race(ArgsRarPart2);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -70,9 +70,9 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Assert.AreEqual(2, race.TotalFilesUploaded, "TotalFilesUploaded");
 
             race = new Race(ArgsRarPart3);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -94,9 +94,9 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Assert.AreEqual(3, race.TotalFilesUploaded, "TotalFilesUploaded");
 
             race = new Race(ArgsRarPart4);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,

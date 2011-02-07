@@ -3,8 +3,8 @@
   <Import Project="lib\MSBuild.Community.Tasks.Nightly\Build\MSBuild.Community.Tasks.Targets"/>
   <UsingTask AssemblyFile="lib\GallioBundle\bin\Gallio.MSBuildTasks.dll" TaskName="Gallio" />
   <PropertyGroup>
-    <Major>2</Major>
-    <Minor>3</Minor>
+    <Major>3</Major>
+    <Minor>0</Minor>
     <Build>$(BUILD_NUMBER)</Build>
     <Revision>$(SVN_REVISION)</Revision>
     <Configuration>Release</Configuration>
@@ -57,7 +57,9 @@
     <MSBuild Projects="jeza.ioFTPD.Tools.sln"
              Properties="Configuration=$(Configuration)" />
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ReleaseFiles)"></Copy>
+    <!--
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Tests" SourceFiles="@(TestsFiles)"></Copy>
+    -->
   </Target>
   <Target Name="Documentation" DependsOnTargets="Compile">
     <NDoc Documenter="MSDN"

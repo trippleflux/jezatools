@@ -10,14 +10,14 @@ namespace jeza.ioFTPD.Framework
         public DataParserDiz(Race race)
         {
             this.race = race;
-            currentUploadData = race.CurrentUploadData;
+            currentRaceData = race.CurrentRaceData;
             fileName = "file_id.diz";
         }
 
         public void Parse()
         {
             RaceMutex.WaitOne();
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, fileName));
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, fileName));
             Log.Debug("Parsing: '{0}'", fileInfo.FullName);
             using (StreamReader streamReader = new StreamReader(fileInfo.FullName))
             {
@@ -55,8 +55,8 @@ namespace jeza.ioFTPD.Framework
             //    .Client(Config.ClientHead)
             //    .Client(Config.ClientFileName)
             //    .Client(Config.ClientFoot);
-            tagManager.CreateTag(currentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
-            tagManager.CreateSymLink(currentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
+            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
         }
 
         private void CreateZipRaceDataFile()
@@ -64,7 +64,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("CreateZipRaceDataFile");
             RaceMutex.WaitOne();
             System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(currentUploadData.DirectoryPath, Config.FileNameRace));
+                new System.IO.FileInfo(Path.Combine(currentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -96,7 +96,7 @@ namespace jeza.ioFTPD.Framework
         }
 
         private static readonly Mutex RaceMutex = new Mutex(false, "dizMutex");
-        private readonly CurrentUploadData currentUploadData;
+        private readonly CurrentRaceData currentRaceData;
         private readonly Race race;
         private readonly string fileName;
     }

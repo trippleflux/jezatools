@@ -8,5 +8,6 @@ namespace jeza.ioFTPD.Framework
         Nfo,
         Diz,
         Default,
+        Delete,
     }
 }

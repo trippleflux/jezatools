@@ -11,7 +11,7 @@ namespace jeza.ioFTPD.Tests
         public void CreateLink()
         {
             Race race = new Race (ArgsRarPart1);
-            race.Parse ();
+            race.ParseUpload ();
             TagManager tagManager = new TagManager (race);
             const string testlink = "[iNCOMPLETE]-testLink";
             tagManager.CreateSymLink (".", testlink);

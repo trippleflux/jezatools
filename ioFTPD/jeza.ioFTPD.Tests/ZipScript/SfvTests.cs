@@ -49,7 +49,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         {
             CleanTestFilesOutput();
             Race race = UploadSfvFile ();
-            FileInfo fileInfo = new FileInfo (Path.Combine (race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo (Path.Combine (race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
                                                        FileAccess.ReadWrite,
@@ -86,7 +86,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         public void SfvData ()
         {
             Race race = new Race (ArgsSfv);
-            race.Parse ();
+            race.ParseUpload ();
             DataParserSfv sfvParser = new DataParserSfv (race);
             sfvParser.Parse ();
             sfvParser.Process ();

@@ -15,8 +15,8 @@ namespace jeza.ioFTPD.Framework
         public DataParserSfv(Race race)
         {
             this.race = race;
-            currentUploadData = race.CurrentUploadData;
-            fileName = currentUploadData.UploadFile;
+            currentRaceData = race.CurrentRaceData;
+            fileName = currentRaceData.UploadFile;
         }
 
         public DataParserSfv(string fileName)
@@ -70,7 +70,7 @@ namespace jeza.ioFTPD.Framework
             TagManager tagManager = new TagManager(race);
             foreach (KeyValuePair<string, string> keyValuePair in sfvData)
             {
-                tagManager.CreateTag(currentUploadData.DirectoryPath, keyValuePair.Key + Config.FileExtensionMissing);
+                tagManager.CreateTag(currentRaceData.DirectoryPath, keyValuePair.Key + Config.FileExtensionMissing);
             }
             race.TotalFilesExpected = sfvData.Count;
             CreateSfvRaceDataFile();
@@ -79,8 +79,8 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientHead)
                 .Client(Config.ClientFileNameSfv)
                 .Client(Config.ClientFoot);
-            tagManager.CreateTag(currentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
-            tagManager.CreateSymLink(currentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
+            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
             if(Config.LogToIoFtpdSfv)
             {
                 Log.IoFtpd(output.Format(Config.LogLineIoFtpdSfv));
@@ -115,7 +115,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("CreateSfvRaceDataFile");
             RaceMutex.WaitOne();
             System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(currentUploadData.DirectoryPath, Config.FileNameRace));
+                new System.IO.FileInfo(Path.Combine(currentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -153,7 +153,7 @@ namespace jeza.ioFTPD.Framework
 
         private static readonly Mutex RaceMutex = new Mutex(false, "sfvMutex");
         private readonly Dictionary<string, string> sfvData = new Dictionary<string, string>();
-        private readonly CurrentUploadData currentUploadData;
+        private readonly CurrentRaceData currentRaceData;
         private readonly Race race;
         private readonly string fileName;
     }

@@ -14,34 +14,64 @@ namespace jeza.ioFTPD.Framework
         public Race(string[] args)
         {
             this.args = args;
+            SourceFolder = GetRealPath();
+        }
+
+        /// <summary>
+        /// Parses input arguments based on DELETE.
+        /// </summary>
+        /// <returns></returns>
+        public Race ParseDelete()
+        {
+            GetCurrentUploadData();
+            string fileName = args[2];
+            CurrentRaceData.RaceType = RaceType.Delete;
+            CurrentRaceData.FileExtension = Path.GetExtension(fileName);
+            CurrentRaceData.FileName = fileName;
+            CurrentRaceData.FileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+            CurrentRaceData.UploadCrc = "00000000";
+            DirectoryInfo directoryInfo = new DirectoryInfo(SourceFolder);
+            bool directoryIsNull = !directoryInfo.Exists || directoryInfo.Parent == null;
+            CurrentRaceData.DirectoryName = directoryIsNull ? "" : directoryInfo.Name;
+            CurrentRaceData.DirectoryPath = directoryIsNull ? "" : directoryInfo.FullName;
+            CurrentRaceData.DirectoryParent = directoryIsNull ? "" : directoryInfo.Parent.FullName;
+            CurrentRaceData.FileSize = 0;
+            RaceFile = Path.Combine(SourceFolder, Config.FileNameRace);
+            IsValid = true;
+            Log.Debug("CurrentRaceData: {0}", CurrentRaceData);
+            return this;
         }
 
         /// <summary>
         /// Parses input arguments based on UPLOAD.
         /// </summary>
         /// <returns></returns>
-        public Race Parse()
+        public Race ParseUpload()
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(args [1]);
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-            bool directoryIsNull = fileInfo.Directory == null;
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-            CurrentUploadData = new CurrentUploadData
+            string fileName = args [1];
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+            GetCurrentUploadData();
+            CurrentRaceData.FileExtension = Path.GetExtension(fileInfo.FullName);
+            CurrentRaceData.FileName = fileInfo.Name;
+            CurrentRaceData.FileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileInfo.FullName);
+            CurrentRaceData.UploadFile = fileName;
+            CurrentRaceData.UploadCrc = args [2];
+            CurrentRaceData.UploadVirtualFile = args [3];
+            bool directoryIsNull = fileInfo.Directory == null || fileInfo.Directory.Parent == null;
+            CurrentRaceData.DirectoryName = directoryIsNull ? "" : fileInfo.Directory.Name;
+            CurrentRaceData.DirectoryPath = directoryIsNull ? "" : fileInfo.Directory.FullName;
+            CurrentRaceData.DirectoryParent = directoryIsNull ? "" : fileInfo.Directory.Parent.FullName;
+            CurrentRaceData.FileSize = fileInfo.Length;
+            SelectRaceType();
+            RaceFile = Path.Combine(CurrentRaceData.DirectoryPath, Config.FileNameRace);
+            Log.Debug("CurrentRaceData: {0}", CurrentRaceData);
+            return this;
+        }
+
+        private void GetCurrentUploadData()
+        {
+            CurrentRaceData = new CurrentRaceData
                                 {
-                                    FileExtension = Path.GetExtension(fileInfo.FullName),
-                                    FileName = fileInfo.Name,
-                                    FileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileInfo.FullName),
-// ReSharper disable ConditionIsAlwaysTrueOrFalse
-                                    DirectoryName = directoryIsNull ? "" : fileInfo.Directory.Name,
-                                    DirectoryPath = directoryIsNull ? "" : fileInfo.Directory.FullName,
-// ReSharper disable PossibleNullReferenceException
-                                    DirectoryParent = directoryIsNull ? "" : fileInfo.Directory.Parent.FullName,
-// ReSharper restore PossibleNullReferenceException
-// ReSharper restore ConditionIsAlwaysTrueOrFalse
-                                    FileSize = fileInfo.Length,
-                                    UploadFile = args [1],
-                                    UploadCrc = args [2],
-                                    UploadVirtualFile = args [3],
                                     UploadVirtualPath = GetVirtualPath(),
                                     Speed = GetSpeed(),
                                     UserName = GetUserName(),
@@ -49,10 +79,22 @@ namespace jeza.ioFTPD.Framework
                                     Uid = GetUid(),
                                     Gid = GetGid(),
                                 };
-            SelectRaceType();
-            RaceFile = Path.Combine(CurrentUploadData.DirectoryPath, Config.FileNameRace);
-            Log.Debug("CurrentUploadData: {0}", CurrentUploadData);
-            return this;
+        }
+
+        public void ProcessDelete()
+        {
+            if (SkipCheck())
+            {
+                return;
+            }
+            if (!File.Exists(RaceFile))
+            {
+                Log.Debug("Race File not found! Skiping check...");
+                return;
+            }
+            DataParserDelete dataParser = new DataParserDelete(this);
+            dataParser.Parse();
+            dataParser.Process();
         }
 
         /// <summary>
@@ -60,14 +102,8 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         public void Process()
         {
-            if (SkipPath)
+            if (SkipCheck())
             {
-                OutputFileName(true);
-                return;
-            }
-            if (SkipFileExtension)
-            {
-                OutputFileName(true);
                 return;
             }
             if (!IsValid)
@@ -76,19 +112,19 @@ namespace jeza.ioFTPD.Framework
                 return;
             }
             IDataParser dataParser;
-            if (CurrentUploadData.RaceType == RaceType.Nfo)
+            if (CurrentRaceData.RaceType == RaceType.Nfo)
             {
                 OutputFileName(false);
                 return;
             }
-            if (CurrentUploadData.RaceType == RaceType.Zip)
+            if (CurrentRaceData.RaceType == RaceType.Zip)
             {
                 dataParser = new DataParserZip(this);
                 dataParser.Parse();
                 dataParser.Process();
                 return;
             }
-            if (CurrentUploadData.RaceType == RaceType.Diz)
+            if (CurrentRaceData.RaceType == RaceType.Diz)
             {
                 //dataParser = new DataParserDiz(this);
                 //dataParser.Parse();
@@ -97,7 +133,7 @@ namespace jeza.ioFTPD.Framework
                 Log.Debug("DIZ not allowed!");
                 return;
             }
-            if (CurrentUploadData.RaceType == RaceType.Sfv)
+            if (CurrentRaceData.RaceType == RaceType.Sfv)
             {
                 dataParser = new DataParserSfv(this);
                 dataParser.Parse();
@@ -113,14 +149,34 @@ namespace jeza.ioFTPD.Framework
             dataParser.Process();
         }
 
+        private bool SkipCheck()
+        {
+            if (SkipPath || SkipFileExtension)
+            {
+                if (!IsRaceTypeDelete())
+                {
+                    OutputFileName(true);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool IsRaceTypeDelete()
+        {
+            return CurrentRaceData.RaceType == RaceType.Delete;
+        }
+
+        public string SourceFolder { get; set; }
+
         public bool SkipPath
         {
             get
             {
                 IsValid = true;
-                if (CurrentUploadData != null)
+                if (CurrentRaceData != null)
                 {
-                    string virtualPath = CurrentUploadData.UploadVirtualPath;
+                    string virtualPath = CurrentRaceData.UploadVirtualPath;
                     if (Config.SkipPath.IndexOf(' ') > -1)
                     {
                         string[] skipPaths = Config.SkipPath.Split(' ');
@@ -143,9 +199,9 @@ namespace jeza.ioFTPD.Framework
             get
             {
                 IsValid = true;
-                if (CurrentUploadData != null)
+                if (CurrentRaceData != null)
                 {
-                    string fileExtension = CurrentUploadData.FileExtension;
+                    string fileExtension = CurrentRaceData.FileExtension;
                     if (Config.SkipFileExtension.IndexOf(',') > -1)
                     {
                         string[] skipFileExtensions = Config.SkipFileExtension.Split(',');
@@ -207,7 +263,7 @@ namespace jeza.ioFTPD.Framework
         /// <returns><c>true</c> if SFV file was found.</returns>
         private bool SfvCheck()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(CurrentUploadData.DirectoryPath);
+            DirectoryInfo directoryInfo = new DirectoryInfo(CurrentRaceData.DirectoryPath);
             System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles("*.sfv");
             if (fileInfo.Length == 1)
             {
@@ -223,21 +279,21 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         private void SelectRaceType()
         {
-            if (string.IsNullOrEmpty(CurrentUploadData.FileExtension))
+            if (string.IsNullOrEmpty(CurrentRaceData.FileExtension))
             {
                 IsValid = false;
                 return;
             }
             IsValid = true;
-            CurrentUploadData.RaceType = EqualsRaceType(".sfv")
+            CurrentRaceData.RaceType = EqualsRaceType(Config.FileExtensionSfv)
                                              ? RaceType.Sfv
-                                             : EqualsRaceType(".mp3")
+                                             : EqualsRaceType(Config.FileExtensionMp3)
                                                    ? RaceType.Mp3
-                                                   : EqualsRaceType(".zip")
+                                                   : EqualsRaceType(Config.FileExtensionZip)
                                                          ? RaceType.Zip
-                                                         : EqualsRaceType(".nfo")
+                                                         : EqualsRaceType(Config.FileExtensionNfo)
                                                                ? RaceType.Nfo
-                                                               : EqualsRaceType(".diz")
+                                                               : EqualsRaceType(Config.FileExtensionDiz)
                                                                      ? RaceType.Diz
                                                                      : RaceType.Default;
         }
@@ -249,7 +305,7 @@ namespace jeza.ioFTPD.Framework
         /// <returns><c>true</c> on match.</returns>
         private bool EqualsRaceType(string fileExtension)
         {
-            return CurrentUploadData.FileExtension.Equals(fileExtension, StringComparison.InvariantCultureIgnoreCase);
+            return CurrentRaceData.FileExtension.Equals(fileExtension, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public List<RaceStats> RaceStats
@@ -270,7 +326,7 @@ namespace jeza.ioFTPD.Framework
         {
             foreach (RaceStatsUsers raceStatsUser in GetUserStats())
             {
-                if ((raceStatsUser.UserName == CurrentUploadData.UserName) && (raceStatsUser.FilesUplaoded == 1))
+                if ((raceStatsUser.UserName == CurrentRaceData.UserName) && (raceStatsUser.FilesUplaoded == 1))
                 {
                     return raceStatsUser;
                 }
@@ -500,7 +556,7 @@ namespace jeza.ioFTPD.Framework
             get { return TotalBytesUploaded / (1024 * 1024); }
         }
 
-        public CurrentUploadData CurrentUploadData { get; set; }
+        public CurrentRaceData CurrentRaceData { get; set; }
 
         public bool IsValid { get; set; }
 

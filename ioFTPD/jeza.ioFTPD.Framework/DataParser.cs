@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 
 namespace jeza.ioFTPD.Framework
@@ -8,7 +7,7 @@ namespace jeza.ioFTPD.Framework
         public DataParser(Race race)
         {
             this.race = race;
-       }
+        }
 
         public void Parse()
         {
@@ -18,7 +17,7 @@ namespace jeza.ioFTPD.Framework
         public void Process()
         {
             Log.Debug("DataParser.Process()");
-            if (GetCrc32ForFile(race.CurrentUploadData.FileName) != null)
+            if (GetCrc32ForFile(race.CurrentRaceData.FileName) != null)
             {
                 race.LeadUser = race.GetLeadUser();
                 race.LeadGroup = race.GetLeadGroup();

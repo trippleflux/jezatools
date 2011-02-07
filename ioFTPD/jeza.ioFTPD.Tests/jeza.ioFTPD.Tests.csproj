@@ -64,6 +64,7 @@
     <Compile Include="Media\Mp3Sort.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
+    <Compile Include="ZipScript\DeleteTests.cs" />
     <Compile Include="ZipScript\Mp3Tests.cs" />
     <Compile Include="ZipScript\RaceTests.cs" />
     <Compile Include="ZipScript\RarTests.cs" />

@@ -6,7 +6,14 @@ namespace jeza.ioFTPD.Framework
         public const string FileNameRace = ".ioFTPD.race";
         public const string FileNameIoFtpdMessage = ".ioFTPD.Message";
         public const string FileNameInternalLog = "e:\\server\\ioFTPD\\logs\\jeza.ioFTPD.log";
+
+        public const string Crc32FailedFilesExtension = ".bad";
         public const string FileExtensionMissing = ".missing";
+        public const string FileExtensionSfv = ".sfv";
+        public const string FileExtensionMp3 = ".mp3";
+        public const string FileExtensionZip = ".zip";
+        public const string FileExtensionNfo = ".nfo";
+        public const string FileExtensionDiz = ".diz";
 
         public const string SkipPath = "/_HDD/ /private/ /groups/ /nocheck/ /request/nocheck/ /fonts/";
         public const string SkipFileExtension = "jpg,jpeg,cue,txt,tcl,itcl,ini,cfg,m3u,avi,mpg,mpeg,vob";
@@ -65,7 +72,6 @@ namespace jeza.ioFTPD.Framework
         /// </example>
         public const string FormatedBytes = "{0}{1}";
 
-        public const string Crc32FailedFilesExtension = ".bad";
         public const string ClientCrc32Head = " Expected Actual   Status   FileName ";
         public const string ClientCrc32Body = " {1,-8} {2,-8} {3,-8} {0,-60:B60}¤FileName ExpectedCrc32 ActualCrc32 Status";
         public const string ClientCrc32Foot =   "\r\n" + 

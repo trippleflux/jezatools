@@ -23,10 +23,10 @@ namespace jeza.ioFTPD.Tests.ZipScript
             CleanTestFilesOutput();
             UploadSfvFileMp3();
             Race race = new Race(ArgsMp3File1);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
             Output output = new Output(race);
-            FileInfo fileInfo = new FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -50,30 +50,30 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 File.Exists(@"..\..\TestFiles\Mp3\01-jozek.Pepek-2009-asd-Ind.mp3" + Config.FileExtensionMissing),
                 "01-jozek.Pepek-2009-asd-Ind.mp3" + Config.FileExtensionMissing);
             Assert.IsTrue(
-                Directory.Exists(Path.Combine(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
+                Directory.Exists(Path.Combine(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
                 "Symlink does not exist!");
             race = new Race(ArgsMp3File2);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
             output = new Output(race);
             Assert.IsFalse(
                 File.Exists(@"..\..\TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind.mp3" + Config.FileExtensionMissing),
                 "02-jozek.Pepek-2009-asd-Ind.mp3" + Config.FileExtensionMissing);
             Assert.IsTrue(
-                Directory.Exists(Path.Combine(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
+                Directory.Exists(Path.Combine(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
                 "Symlink does not exist!");
             race = new Race(ArgsMp3File3);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
             output = new Output(race);
             Assert.IsFalse(
                 File.Exists(@"..\..\TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind(2).mp3" + Config.FileExtensionMissing),
                 "03-jozek.Pepek-2009-asd-Ind(2).mp3" + Config.FileExtensionMissing);
             Assert.IsTrue(
-                Directory.Exists(Path.Combine(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
+                Directory.Exists(Path.Combine(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
                 "Symlink does not exist!");
             race = new Race(ArgsMp3File4);
-            race.Parse();
+            race.ParseUpload();
             race.Process();
             output = new Output(race);
             Assert.AreEqual(4, race.TotalFilesExpected, "TotalFilesExpected");
@@ -82,7 +82,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
                 File.Exists(@"..\..\TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind(3).mp3" + Config.FileExtensionMissing),
                 "04-jozek.Pepek-2009-asd-Ind(3).mp3" + Config.FileExtensionMissing);
             Assert.IsFalse(
-                Directory.Exists(Path.Combine(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
+                Directory.Exists(Path.Combine(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink))),
                 "Symlink not deleted!");
         }
 

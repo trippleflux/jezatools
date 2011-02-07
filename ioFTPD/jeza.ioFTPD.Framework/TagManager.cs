@@ -37,7 +37,7 @@ namespace jeza.ioFTPD.Framework
             string symLink = Path.Combine(path, link);
             Log.Debug("CreateSymLink: {0}", symLink);
             FileInfo.CreateFolder(symLink);
-            CurrentUploadData data = race.CurrentUploadData;
+            CurrentRaceData data = race.CurrentRaceData;
             Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
             Console.Write("!vfs:add {3} {1}:{2} {0}\n", symLink, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
         }
