@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
+    <Compile Include="DataParserDelete.cs" />
     <Compile Include="DataParserDiz.cs" />
     <Compile Include="DataParserZip.cs" />
     <Compile Include="Extensions.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Output.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CurrentUploadData.cs" />
+    <Compile Include="CurrentRaceData.cs" />
     <Compile Include="RaceType.cs" />
     <Compile Include="DataParserSfv.cs" />
     <Compile Include="RaceStats.cs" />

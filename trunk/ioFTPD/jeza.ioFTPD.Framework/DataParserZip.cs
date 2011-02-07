@@ -45,7 +45,7 @@ namespace jeza.ioFTPD.Framework
                 return;
             }
             bool dizFound = false;
-            using (ZipInputStream zipInputStream = new ZipInputStream(File.OpenRead(race.CurrentUploadData.UploadFile)))
+            using (ZipInputStream zipInputStream = new ZipInputStream(File.OpenRead(race.CurrentRaceData.UploadFile)))
             {
                 ZipEntry theEntry;
                 while ((theEntry = zipInputStream.GetNextEntry()) != null)
@@ -88,7 +88,7 @@ namespace jeza.ioFTPD.Framework
         private void ExtractFile(Stream zipInputStream, ZipEntry theEntry)
         {
             Log.Debug("Extracting File : {0}", theEntry.Name);
-            using (FileStream streamWriter = File.Create(Path.Combine(race.CurrentUploadData.DirectoryPath, theEntry.Name)))
+            using (FileStream streamWriter = File.Create(Path.Combine(race.CurrentRaceData.DirectoryPath, theEntry.Name)))
             {
                 byte[] data = new byte[2048];
                 while (true)

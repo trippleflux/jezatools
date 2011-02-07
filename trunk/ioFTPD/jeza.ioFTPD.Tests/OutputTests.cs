@@ -57,7 +57,7 @@ namespace jeza.ioFTPD.Tests
         {
             Race race = new Race(new[] {@"..\..\TestFiles\Mp3\SwingingSafari.mp3", "00000000", @"../../TestFiles/Mp3/SwingingSafari.mp3"})
                         {
-                            CurrentUploadData = new CurrentUploadData
+                            CurrentRaceData = new CurrentRaceData
                                                 {
                                                     UploadFile = @"..\..\TestFiles\Mp3\SwingingSafari.mp3",
                                                 },

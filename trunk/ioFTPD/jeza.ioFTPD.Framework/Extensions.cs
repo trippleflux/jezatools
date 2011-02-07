@@ -13,7 +13,8 @@ namespace jeza.ioFTPD.Framework
         /// <param name="data">The data.</param>
         /// <param name="args">The args.</param>
         /// <returns></returns>
-        public static string FormatArgs(this IData data, string[] args)
+        public static string FormatArgs(this IData data,
+                                        string[] args)
         {
             StringBuilder sb = new StringBuilder();
             foreach (string s in args)
@@ -28,7 +29,8 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="dataParser">The data parser.</param>
         /// <param name="race">The race.</param>
-        public static void ReadRaceData(this IDataParser dataParser, Race race)
+        public static void ReadRaceData(this IDataParser dataParser,
+                                        Race race)
         {
             race.ClearRaceStats();
             RaceMutex.WaitOne();
@@ -68,7 +70,8 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="dataParser">The data parser.</param>
         /// <param name="race">The race.</param>
-        public static void UpdateRaceData(this IDataParser dataParser, Race race)
+        public static void UpdateRaceData(this IDataParser dataParser,
+                                          Race race)
         {
             Log.Debug("UpdateRaceData");
             RaceMutex.WaitOne();
@@ -94,7 +97,7 @@ namespace jeza.ioFTPD.Framework
                         }
                         else
                         {
-                            if (fileName.Equals(race.CurrentUploadData.FileName))
+                            if (fileName.Equals(race.CurrentRaceData.FileName))
                             {
                                 fileCrc = reader.ReadString();
                                 position = i;
@@ -103,7 +106,7 @@ namespace jeza.ioFTPD.Framework
                             }
                         }
                     }
-                } 
+                }
             }
             if (position > 0)
             {
@@ -115,13 +118,13 @@ namespace jeza.ioFTPD.Framework
                     using (BinaryWriter writer = new BinaryWriter(stream))
                     {
                         stream.Seek(position * 256, SeekOrigin.Begin);
-                        writer.Write(isZip ? race.CurrentUploadData.FileName : fileName);
-                        writer.Write(isZip ? race.CurrentUploadData.UploadCrc : fileCrc);
-                        writer.Write(true);
-                        writer.Write(race.CurrentUploadData.FileSize); //file Size
-                        writer.Write(race.CurrentUploadData.Speed); //upload speed
-                        writer.Write(race.CurrentUploadData.UserName); //username
-                        writer.Write(race.CurrentUploadData.GroupName); //groupname
+                        writer.Write(isZip ? race.CurrentRaceData.FileName : fileName);
+                        writer.Write(isZip ? race.CurrentRaceData.UploadCrc : fileCrc);
+                        writer.Write(race.CurrentRaceData.RaceType == RaceType.Delete ? false : true);
+                        writer.Write(race.CurrentRaceData.FileSize); //file Size
+                        writer.Write(race.CurrentRaceData.Speed); //upload speed
+                        writer.Write(race.CurrentRaceData.UserName); //username
+                        writer.Write(race.CurrentRaceData.GroupName); //groupname
                     }
                 }
             }
@@ -133,35 +136,45 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="dataParser">The data parser.</param>
         /// <param name="race">The race.</param>
-        public static void ProcessRaceData(this IDataParser dataParser, Race race)
+        public static void ProcessRaceData(this IDataParser dataParser,
+                                           Race race)
         {
             FileInfo fileInfo = new FileInfo();
-            fileInfo.DeleteFile(race.CurrentUploadData.DirectoryPath,
-                                race.CurrentUploadData.FileName + Config.FileExtensionMissing);
-            fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
+            bool deletingFile = race.IsRaceTypeDelete();
+            fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
-            output
-                .Client(Config.ClientHead)
-                .Client(Config.ClientFileNameOk);
             bool isMp3Race = IsMp3Race(race);
-            if (isMp3Race)
-            {
-                output
-                    .Client(Config.ClientMp3InfoHead)
-                    .ClientMp3(Config.ClientMp3Info);
-            }
-            output
-                .Client(Config.ClientStatsUsersHead)
-                .ClientStatsUsers(Config.ClientStatsUsers, Config.MaxNumberOfUserStats)
-                .Client(Config.ClientStatsGroupsHead)
-                .ClientStatsGroups(Config.ClientStatsGroups, Config.MaxNumberOfGroupStats)
-                .Client(Config.ClientFootProgressBar);
             TagManager tagManager = new TagManager(race);
+            if (!deletingFile)
+            {
+                fileInfo.DeleteFile(race.CurrentRaceData.DirectoryPath,
+                                    race.CurrentRaceData.FileName + Config.FileExtensionMissing);
+                output
+                    .Client(Config.ClientHead)
+                    .Client(Config.ClientFileNameOk);
+                if (isMp3Race)
+                {
+                    output
+                        .Client(Config.ClientMp3InfoHead)
+                        .ClientMp3(Config.ClientMp3Info);
+                }
+                output
+                    .Client(Config.ClientStatsUsersHead)
+                    .ClientStatsUsers(Config.ClientStatsUsers, Config.MaxNumberOfUserStats)
+                    .Client(Config.ClientStatsGroupsHead)
+                    .ClientStatsGroups(Config.ClientStatsGroups, Config.MaxNumberOfGroupStats)
+                    .Client(Config.ClientFootProgressBar);
+            }
+            else
+            {
+                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath,
+                                     race.CurrentRaceData.FileName + Config.FileExtensionMissing);
+            }
             if (race.IsRaceComplete)
             {
-                fileInfo.DeleteFilesThatStartsWith(race.CurrentUploadData.DirectoryPath, Config.TagCleanUpString);
-                tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete));
-                tagManager.DeleteSymlink(race.CurrentUploadData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+                fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
+                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete));
+                tagManager.DeleteSymlink(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
 
                 if (Config.WriteStatsToMesasageFileWhenComplete)
                 {
@@ -171,7 +184,7 @@ namespace jeza.ioFTPD.Framework
             }
             else
             {
-                tagManager.CreateTag(race.CurrentUploadData.DirectoryPath, output.Format(Config.TagIncomplete));
+                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
                 if (Config.WriteStatsToMesasageFileWhenRace)
                 {
                     WriteStatsToMesasageFile(race, isMp3Race);
@@ -182,7 +195,7 @@ namespace jeza.ioFTPD.Framework
                 }
                 else
                 {
-                    if(race.TotalUsersRacing > 1)
+                    if (race.TotalUsersRacing > 1)
                     {
                         RaceStatsUsers usersRaceStats = race.UserUploadedFirstFile();
                         if (usersRaceStats != null)
@@ -200,18 +213,19 @@ namespace jeza.ioFTPD.Framework
             }
             race.IsValid = true;
         }
-        
+
         /// <summary>
         /// Writes the stats to ioFTPD message file <see cref="Config.FileNameIoFtpdMessage"/>.
         /// </summary>
         /// <param name="race">The race.</param>
         /// <param name="isMp3Race">if set to <c>true</c> [is MP3 race].</param>
-        public static void WriteStatsToMesasageFile(Race race, bool isMp3Race)
+        public static void WriteStatsToMesasageFile(Race race,
+                                                    bool isMp3Race)
         {
             MessageMutex.WaitOne();
             Log.Debug("WriteStatsToMesasageFile");
             System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(race.CurrentUploadData.DirectoryPath, Config.FileNameIoFtpdMessage));
+                new System.IO.FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameIoFtpdMessage));
             using (FileStream fileStream = new FileStream(fileInfo.FullName,
                                                           FileMode.OpenOrCreate,
                                                           FileAccess.ReadWrite,
@@ -244,7 +258,7 @@ namespace jeza.ioFTPD.Framework
         /// </returns>
         private static bool IsMp3Race(Race race)
         {
-            return race.CurrentUploadData.RaceType == RaceType.Mp3;
+            return race.CurrentRaceData.RaceType == RaceType.Mp3;
         }
 
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");

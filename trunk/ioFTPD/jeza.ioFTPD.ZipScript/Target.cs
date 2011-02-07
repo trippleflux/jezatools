@@ -5,5 +5,6 @@ namespace jeza.ioFTPD.ZipScript
         Unknown,
         Upload,
         Rescan,
+        Delete,
     }
 }

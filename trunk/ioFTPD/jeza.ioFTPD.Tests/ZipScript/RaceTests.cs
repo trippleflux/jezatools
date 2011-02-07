@@ -15,7 +15,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         public void SkipPath()
         {
             Race race = new Race(ArgsRarPart1);
-            race.Parse();
+            race.ParseUpload();
             Assert.IsFalse(race.SkipPath, "race.SkipPath");
         }
 
@@ -23,7 +23,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         public void ParseRaceData ()
         {
             Race race = new Race(ArgsRarPart1);
-            race.Parse ();
+            race.ParseUpload ();
             race.RaceFile = @"..\..\TestFiles\Race\.ioFTPD.race";
             DataParser dataParser = new DataParser (race);
             dataParser.Parse ();
@@ -35,22 +35,22 @@ namespace jeza.ioFTPD.Tests.ZipScript
         public void CurrentUploadData()
         {
             Race race = new Race(ArgsRarPart1);
-            race.Parse();
-            Assert.AreEqual("Rar", race.CurrentUploadData.DirectoryName, "DirectoryName");
-            Assert.EndsWith(race.CurrentUploadData.DirectoryPath, @"\TestFiles\Rar", "DirectoryPath");
-            Assert.EndsWith(race.CurrentUploadData.DirectoryParent, @"\TestFiles", "DirectoryParent");
-            Assert.AreEqual(".rar", race.CurrentUploadData.FileExtension, "FileExtension");
-            Assert.AreEqual("infected.part1.rar", race.CurrentUploadData.FileName, "FileName");
-            Assert.AreEqual(5000, race.CurrentUploadData.FileSize, "FileSize");
-            Assert.AreEqual("NoGroup", race.CurrentUploadData.GroupName, "GroupName");
-            Assert.AreEqual(1, race.CurrentUploadData.Speed, "Speed");
-            Assert.AreEqual("2e04944c", race.CurrentUploadData.UploadCrc, "UploadCrc");
-            Assert.AreEqual(@"..\..\TestFiles\Rar\infected.part1.rar", race.CurrentUploadData.UploadFile, "UploadFile");
-            Assert.AreEqual("/TestFiles/Rar/infected.part1.rar", race.CurrentUploadData.UploadVirtualFile, "UploadVirtualFile");
-            Assert.AreEqual("NoUser", race.CurrentUploadData.UserName, "UserName");
-            Assert.AreEqual("0", race.CurrentUploadData.Uid, "UID");
-            Assert.AreEqual("0", race.CurrentUploadData.Gid, "GID");
-            Assert.AreEqual("/NoPath", race.CurrentUploadData.UploadVirtualPath, "UploadVirtualPath");
+            race.ParseUpload();
+            Assert.AreEqual("Rar", race.CurrentRaceData.DirectoryName, "DirectoryName");
+            Assert.EndsWith(race.CurrentRaceData.DirectoryPath, @"\TestFiles\Rar", "DirectoryPath");
+            Assert.EndsWith(race.CurrentRaceData.DirectoryParent, @"\TestFiles", "DirectoryParent");
+            Assert.AreEqual(".rar", race.CurrentRaceData.FileExtension, "FileExtension");
+            Assert.AreEqual("infected.part1.rar", race.CurrentRaceData.FileName, "FileName");
+            Assert.AreEqual(5000, race.CurrentRaceData.FileSize, "FileSize");
+            Assert.AreEqual("NoGroup", race.CurrentRaceData.GroupName, "GroupName");
+            Assert.AreEqual(1, race.CurrentRaceData.Speed, "Speed");
+            Assert.AreEqual("2e04944c", race.CurrentRaceData.UploadCrc, "UploadCrc");
+            Assert.AreEqual(@"..\..\TestFiles\Rar\infected.part1.rar", race.CurrentRaceData.UploadFile, "UploadFile");
+            Assert.AreEqual("/TestFiles/Rar/infected.part1.rar", race.CurrentRaceData.UploadVirtualFile, "UploadVirtualFile");
+            Assert.AreEqual("NoUser", race.CurrentRaceData.UserName, "UserName");
+            Assert.AreEqual("0", race.CurrentRaceData.Uid, "UID");
+            Assert.AreEqual("0", race.CurrentRaceData.Gid, "GID");
+            Assert.AreEqual("/NoPath", race.CurrentRaceData.UploadVirtualPath, "UploadVirtualPath");
         }
 
         [Test]

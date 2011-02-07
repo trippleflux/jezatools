@@ -19,30 +19,24 @@ namespace jeza.ioFTPD.ZipScript
         public void Parse()
         {
             int numberOfArguments = args.Length;
-            switch (numberOfArguments)
+            target = Target.Unknown;
+            if (numberOfArguments > 0)
             {
-                case 1:
+                string firstArgument = args [0].ToLowerInvariant();
+                //args: 'args[0]='rescan' '
+                if (firstArgument.Equals("rescan"))
                 {
-                    if (args[0].ToLowerInvariant().Equals("rescan"))
-                    {
-                        target = Target.Rescan;
-                    }
-                    break;
+                    target = Target.Rescan;
                 }
-
-                case 4:
+                //args: 'args[0]='delete' args[1]='DELE' args[2]='tmvc714a.zip' '
+                if (firstArgument.Equals("delete"))
                 {
-                    if (args [0].ToLowerInvariant().Equals("upload"))
-                    {
-                        target = Target.Upload;
-                    }
-                    break;
+                    target = Target.Delete;
                 }
-
-                default:
+                //args: 'args[0]='upload' args[1]='E:\temp\asd.jpg' args[2]='DEF35133' args[3]='/temp/asd.jpg' '
+                if (firstArgument.Equals("upload"))
                 {
-                    target = Target.Unknown;
-                    break;
+                    target = Target.Upload;
                 }
             }
         }
@@ -52,6 +46,15 @@ namespace jeza.ioFTPD.ZipScript
             bool returnValue;
             switch (target)
             {
+                case Target.Delete:
+                {
+                    Race race = new Race(args);
+                    race.ParseDelete();
+                    race.ProcessDelete();
+                    returnValue = race.IsValid;
+                    break;
+                }
+
                 case Target.Rescan:
                     {
                         Rescan rescan = new Rescan(args);
@@ -64,7 +67,7 @@ namespace jeza.ioFTPD.ZipScript
                 case Target.Upload:
                 {
                     Race race = new Race(args);
-                    race.Parse();
+                    race.ParseUpload();
                     race.Process();
                     returnValue = race.IsValid;
                     break;

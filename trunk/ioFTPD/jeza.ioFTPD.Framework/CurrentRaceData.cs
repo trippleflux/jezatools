@@ -2,7 +2,7 @@
 #endregion
 namespace jeza.ioFTPD.Framework
 {
-    public class CurrentUploadData
+    public class CurrentRaceData
     {
         public string FileExtension { get; set; }
         public string FileName { get; set; }

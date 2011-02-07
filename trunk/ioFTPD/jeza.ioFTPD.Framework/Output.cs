@@ -301,9 +301,9 @@ namespace jeza.ioFTPD.Framework
             {
                 if (race != null)
                 {
-                    if (race.CurrentUploadData != null)
+                    if (race.CurrentRaceData != null)
                     {
-                        string uploadFile = race.CurrentUploadData.UploadFile;
+                        string uploadFile = race.CurrentRaceData.UploadFile;
                         if (!File.Exists(uploadFile) || String.IsNullOrEmpty(uploadFile))
                         {
                             return line;
@@ -446,12 +446,12 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "uploadvirtualpath":
                     {
-                        args [i] = race.CurrentUploadData.UploadVirtualPath;
+                        args [i] = race.CurrentRaceData.UploadVirtualPath;
                         break;
                     }
                     case "releasename":
                     {
-                        args[i] = race.CurrentUploadData.DirectoryName;
+                        args[i] = race.CurrentRaceData.DirectoryName;
                         break;
                     }
                     case "irccolor":
@@ -543,12 +543,12 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "uploadvirtualpath":
                     {
-                        args [i] = race.CurrentUploadData.UploadVirtualPath;
+                        args [i] = race.CurrentRaceData.UploadVirtualPath;
                         break;
                     }
                     case "releasename":
                     {
-                        args[i] = race.CurrentUploadData.DirectoryName;
+                        args[i] = race.CurrentRaceData.DirectoryName;
                         break;
                     }
                     case "irccolor":
@@ -598,12 +598,12 @@ namespace jeza.ioFTPD.Framework
                 {
                     case "filename":
                     {
-                        args [i] = race.CurrentUploadData.FileName;
+                        args [i] = race.CurrentRaceData.FileName;
                         break;
                     }
                     case "releasename":
                     {
-                        args [i] = race.CurrentUploadData.DirectoryName;
+                        args [i] = race.CurrentRaceData.DirectoryName;
                         break;
                     }
                     case "totalfilesexpected":
@@ -663,17 +663,17 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "username":
                     {
-                        args [i] = race.CurrentUploadData.UserName;
+                        args [i] = race.CurrentRaceData.UserName;
                         break;
                     }
                     case "groupname":
                     {
-                        args [i] = race.CurrentUploadData.GroupName;
+                        args [i] = race.CurrentRaceData.GroupName;
                         break;
                     }
                     case "uploadvirtualpath":
                     {
-                        args [i] = race.CurrentUploadData.UploadVirtualPath;
+                        args [i] = race.CurrentRaceData.UploadVirtualPath;
                         break;
                     }
                     case "irccolor":
