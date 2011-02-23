@@ -1,22 +1,48 @@
+using System;
 using System.IO;
 using jeza.ioFTPD.Framework;
+using jeza.ioFTPD.Tests.ZipScript;
 using MbUnit.Framework;
 
 namespace jeza.ioFTPD.Tests
 {
     [TestFixture]
-    public class FileFolderTests : ZipScript.ZipScriptBase
+    public class FileFolderTests : ZipScriptBase
     {
         [Test]
         public void CreateLink()
         {
-            Race race = new Race (ArgsRarPart1);
-            race.ParseUpload ();
-            TagManager tagManager = new TagManager (race);
+            Race race = new Race(ArgsRarPart1);
+            race.ParseUpload();
+            TagManager tagManager = new TagManager(race);
             const string testlink = "[iNCOMPLETE]-testLink";
-            tagManager.CreateSymLink (".", testlink);
+            tagManager.CreateSymLink(".", testlink);
             Assert.IsTrue(Directory.Exists(testlink));
-            Directory.Delete (testlink);
+            Directory.Delete(testlink);
+        }
+
+        [Test]
+        public void DiskInfo()
+        {
+            DriveInfo[] driveInfos = DriveInfo.GetDrives();
+            foreach (DriveInfo driveInfo in driveInfos)
+            {
+                DriveInformation driveInformation = new DriveInformation(driveInfo);
+                Console.WriteLine(driveInformation.ToString());
+            }
+        }
+
+        [Test]
+        public void SerializeArchiveSettings()
+        {
+            ArchiveTask archiveTask = new ArchiveTask
+                        {
+                            ArchiveStatus = ArchiveStatus.Enabled,
+                            ArchiveType = ArchiveType.Move,
+                        };
+            ArchiveConfiguration archiveConfiguration = new ArchiveConfiguration();
+            archiveConfiguration.ArchiveTasks.Add(archiveTask);
+            Extensions.Serialize(archiveConfiguration.ArchiveTasks, "archiveConfiguration.xml");
         }
     }
 }

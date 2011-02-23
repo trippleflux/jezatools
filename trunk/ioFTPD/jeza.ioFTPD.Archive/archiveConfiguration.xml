@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTask xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
+  <Task>
+    <status>Enabled</status>
+    <actionType>Move</actionType>
+    <source>E:\\temp</source>
+    <destination>E:\\temp\\archive</destination>
+    <action id="TotalUsedSpace">
+      <value>12345</value>
+      <minFolderAction>5</minFolderAction>
+    </action>
+  </Task>
+</ArrayOfTask>

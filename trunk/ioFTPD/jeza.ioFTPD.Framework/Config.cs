@@ -2,8 +2,8 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Config
     {
-        public const string FileNameDebug = ".ioFTPD.race.Debug";
-        public const string FileNameRace = ".ioFTPD.race";
+        public const string FileNameDebug = ".jeza.ioFTPD.Debug";
+        public const string FileNameRace = ".jeza.ioFTPD.race";
         public const string FileNameIoFtpdMessage = ".ioFTPD.Message";
         public const string FileNameInternalLog = "e:\\server\\ioFTPD\\logs\\jeza.ioFTPD.log";
 
