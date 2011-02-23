@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		jeza.ioFTPD.Tools.msbuild = jeza.ioFTPD.Tools.msbuild
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Archive", "jeza.ioFTPD.Archive\jeza.ioFTPD.Archive.csproj", "{99D40587-4522-4B22-A424-26A7B1D56EEA}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -36,6 +38,10 @@ Global
 		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62C6B033-8726-4B1D-ACA2-FD2D5521E570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

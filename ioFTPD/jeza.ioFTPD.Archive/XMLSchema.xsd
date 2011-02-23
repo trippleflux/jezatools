@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XMLSchema"
+    targetNamespace="http://jeza.ioFTPD.Tools/XMLSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd"
+    xmlns:mstns="http://jeza.ioFTPD.Tools/XMLSchema.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="ArrayOfTask"  >
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Task">
+          <xs:complexType>
+            <xs:sequence>
+              
+              <xs:element name="status" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Enabled"/>
+                    <xs:enumeration value="Disabled"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              
+              <xs:element name="actionType" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Move"/>
+                    <xs:enumeration value="Delete"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="source" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="destination" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="action" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="value" minOccurs="1" maxOccurs="1" type="xs:long">
+                    </xs:element>
+                    <xs:element name="minFolderAction" minOccurs="1" maxOccurs="1" type="xs:integer">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="TotalUsedSpace"/>
+                        <xs:enumeration value="TotalFreeSpace"/>
+                        <xs:enumeration value="TotalFolderCount"/>
+                        <xs:enumeration value="DateOlder"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  
+                </xs:complexType>
+              </xs:element>
+              
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

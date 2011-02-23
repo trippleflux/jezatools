@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading;
+using System.Xml.Serialization;
 
 namespace jeza.ioFTPD.Framework
 {
@@ -63,6 +64,16 @@ namespace jeza.ioFTPD.Framework
             }
             RaceMutex.ReleaseMutex();
             Log.Debug("Current Race Stats : {0}", race.GetRaceStats);
+        }
+
+        public static void Serialize<T>(T xmlObject,
+                                        string fileName)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof (T));
+            using (TextWriter textWriter = new StreamWriter(fileName))
+            {
+                xmlSerializer.Serialize(textWriter, xmlObject);
+            }
         }
 
         /// <summary>

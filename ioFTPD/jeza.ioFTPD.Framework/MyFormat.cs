@@ -10,7 +10,7 @@ namespace jeza.ioFTPD.Framework
     {
         // String.Format calls this method to get an instance of an
         // ICustomFormatter to handle the formatting.
-        public object GetFormat(Type service)
+        public object GetFormat(System.Type service)
         {
             if (service == typeof (ICustomFormatter))
             {
