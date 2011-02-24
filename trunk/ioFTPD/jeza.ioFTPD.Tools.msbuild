@@ -58,11 +58,8 @@
   <Target Name="Compile" DependsOnTargets="Version">
     <MSBuild Projects="jeza.ioFTPD.Tools.sln"
              Properties="Configuration=$(Configuration)" />
-    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ReleaseFiles)"></Copy>
-    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Archive" SourceFiles="@(ArchiveFiles)"></Copy>
-    <!--
-    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Tests" SourceFiles="@(TestsFiles)"></Copy>
-    -->
+    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ZipScriptReleaseFiles)"></Copy>
+    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Archive" SourceFiles="@(ZipArchive)"></Copy>
   </Target>
   <Target Name="Documentation" DependsOnTargets="Compile">
     <NDoc Documenter="MSDN"
