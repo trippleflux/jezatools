@@ -6,10 +6,10 @@
     xmlns:mstns="http://jeza.ioFTPD.Tools/XMLSchema.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
 >
-  <xs:element name="ArrayOfTask"  >
+  <xs:element name="tasks"  >
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Task">
+        <xs:element name="task">
           <xs:complexType>
             <xs:sequence>
               

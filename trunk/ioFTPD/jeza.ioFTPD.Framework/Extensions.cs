@@ -67,9 +67,10 @@ namespace jeza.ioFTPD.Framework
         }
 
         public static void Serialize<T>(T xmlObject,
-                                        string fileName)
+                                        string fileName,
+                                        string defaultNamespace)
         {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof (T));
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof (T), defaultNamespace);
             using (TextWriter textWriter = new StreamWriter(fileName))
             {
                 xmlSerializer.Serialize(textWriter, xmlObject);
