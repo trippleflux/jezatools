@@ -1,9 +1,11 @@
-using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace jeza.ioFTPD.Framework
 {
+    [XmlRoot("tasks", IsNullable = false)]
     public class ArchiveConfiguration
     {
-        public List<ArchiveTask> ArchiveTasks = new List<ArchiveTask>();
+        [XmlElement(ElementName = "task")]
+        public ArchiveTask[] ArchiveTasks { get; set; }
     }
 }

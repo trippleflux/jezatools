@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -56,8 +56,9 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
-    <Compile Include="ArchiveConfiguration.cs" />
     <Compile Include="ArchiveAction.cs" />
+    <Compile Include="ArchiveConfiguration.cs" />
+    <Compile Include="ArchiveActionAttribute.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
     <Compile Include="DataParserDelete.cs" />
