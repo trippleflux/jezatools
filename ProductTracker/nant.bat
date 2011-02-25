@@ -1,1 +1,1 @@
-..\lib\NAnt\NAnt.exe -buildfile:ProductTracker.build %*
+lib\NAnt\NAnt.exe -buildfile:ProductTracker.build %*
