@@ -82,6 +82,14 @@
       <Item value="Notes" priority="1" />
       <Item value="XmlFileTasks" priority="1" />
       <Item value="AddTask`0" priority="0" />
+      <Item value="Home.xaml" priority="0" />
+      <Item value="google.png" priority="0" />
+      <Item value="google-new-year-logos-2007.png" priority="1" />
+      <Item value="images.jpg" priority="1" />
+      <Item value="images1.jpg" priority="1" />
+      <Item value="20070423-google.jpg" priority="1" />
+      <Item value="Bottom" priority="0" />
+      <Item value="DatePicker`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Xml.Serialization.XmlSerializer">
       <Item value="Serialize`0" priority="0" />
@@ -196,34 +204,26 @@
     <ItemStatistics item="Qualified:@System.IO.File">
       <Item value="Exists`0" priority="0" />
     </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Controls.Border">
+      <Item value="Grid`0" priority="1" />
+    </ItemStatistics>
   </CompletionStatisticsManager>
   <RecentFiles>
     <RecentFiles>
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:Misc.cs" caret="151" fromTop="7" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:Task.cs" caret="842" fromTop="27" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:XMLSchemaSettings.cs" caret="319" fromTop="5" />
-      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="99" fromTop="4" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2298" fromTop="56" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:XMLFileSettings.xml" caret="141" fromTop="3" />
+      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="0" fromTop="0" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:App.xaml" caret="0" fromTop="0" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:MainWindow.xaml.cs" caret="485" fromTop="19" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:MainWindow.xaml" caret="234" fromTop="3" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:App.xaml.cs" caret="140" fromTop="5" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml.cs" caret="400" fromTop="14" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2242" fromTop="17" />
     </RecentFiles>
     <RecentEdits>
-      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="2897" fromTop="59" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="44" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="28" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="17" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="13" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="25" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="32" />
-      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="316" fromTop="11" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:Misc.cs" caret="100" fromTop="5" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2595" fromTop="42" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:Task.cs" caret="181" fromTop="8" />
-      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="1129" fromTop="10" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="34" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="28" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2395" fromTop="36" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="795" fromTop="21" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:Task.cs" caret="776" fromTop="24" />
       <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="2895" fromTop="45" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2380" fromTop="51" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="301" fromTop="8" />
@@ -235,6 +235,25 @@
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2330" fromTop="38" />
       <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="99" fromTop="1" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:XMLFileSettings.xml" caret="141" fromTop="3" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:MainWindow.xaml" caret="11" fromTop="0" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:MainWindow.xaml.cs" caret="533" fromTop="19" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1316" fromTop="13" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml.cs" caret="669" fromTop="26" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="599" fromTop="12" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1096" fromTop="25" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:MainWindow.xaml" caret="234" fromTop="3" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1220" fromTop="17" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1282" fromTop="22" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1282" fromTop="4" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2594" fromTop="20" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="906" fromTop="9" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:App.xaml.cs" caret="140" fromTop="5" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml.cs" caret="400" fromTop="14" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="391" fromTop="5" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2437" fromTop="14" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1459" fromTop="4" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2082" fromTop="14" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2242" fromTop="17" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
