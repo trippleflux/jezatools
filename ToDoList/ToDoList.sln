@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList", "jeza.ToDoL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList.Console", "jeza.ToDoList.Console\jeza.ToDoList.Console.csproj", "{2E1B5F3A-10BF-4288-A7DE-027F81593B51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList.Gui", "jeza.ToDoList.Gui\jeza.ToDoList.Gui.csproj", "{4102952D-B083-4E64-838A-53BC364D4C59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{2E1B5F3A-10BF-4288-A7DE-027F81593B51}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2E1B5F3A-10BF-4288-A7DE-027F81593B51}.Release|x86.ActiveCfg = Release|x86
 		{2E1B5F3A-10BF-4288-A7DE-027F81593B51}.Release|x86.Build.0 = Release|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Debug|x86.ActiveCfg = Debug|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Debug|x86.Build.0 = Debug|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Release|Any CPU.ActiveCfg = Release|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Release|x86.ActiveCfg = Release|x86
+		{4102952D-B083-4E64-838A-53BC364D4C59}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
