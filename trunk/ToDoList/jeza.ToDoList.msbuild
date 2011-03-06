@@ -49,7 +49,7 @@
   </Target>
   <Target Name="Zip" DependsOnTargets="Compile">
     <Zip Files="@(ZipArchive)"
-         ZipFileName="$(buildDir)/jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
+         ZipFileName="$(buildDir)/jeza.ToDoList.v$(Major).$(Minor).$(Build).$(Revision).zip" 
          Condition="$(Revision) != '' "/>
   </Target>
   <Target Name="Rebuild" DependsOnTargets="Zip">
