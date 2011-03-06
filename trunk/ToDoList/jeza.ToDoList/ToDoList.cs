@@ -97,8 +97,8 @@ namespace jeza.ToDoList
                 catch (Exception exception)
                 {
                     Log.ErrorFormat(exception.Message);
-                    Log.ErrorFormat(exception.StackTrace);
-                    Console.WriteLine(exception.ToString());
+                    Log.ErrorFormat(exception.ToString());
+                    //Console.WriteLine(exception.ToString());
                 }
             }
             ToString();
