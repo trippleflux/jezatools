@@ -40,8 +40,7 @@
       Guid="c4b5ddea-9978-4fc1-bad1-5c69c20bf589"
       AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
       AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
-      Condition="$(Revision) != '' "
-                  log4net.Config.XmlConfigurator=""/>
+      Condition="$(Revision) != '' "/>
   </Target>
   <Target Name="Compile" DependsOnTargets="Version">
     <MSBuild Projects="ToDoList.sln"

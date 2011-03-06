@@ -7,6 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList.Console", "je
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList.Gui", "jeza.ToDoList.Gui\jeza.ToDoList.Gui.csproj", "{4102952D-B083-4E64-838A-53BC364D4C59}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{DB85707B-D6A0-4103-8705-D1CC9C3674A2}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyFileInfo.cs = AssemblyFileInfo.cs
+		build.bat = build.bat
+		jeza.ToDoList.msbuild = jeza.ToDoList.msbuild
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
