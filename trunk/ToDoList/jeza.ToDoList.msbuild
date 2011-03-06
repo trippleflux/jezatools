@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Rebuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="lib\MSBuild.Community.Tasks.Nightly\Build\MSBuild.Community.Tasks.Targets"/>
+  <PropertyGroup>
+    <Major>1</Major>
+    <Minor>0</Minor>
+    <Build>$(BUILD_NUMBER)</Build>
+    <Revision>$(SVN_REVISION)</Revision>
+    <Configuration>Release</Configuration>
+    <buildDir>jeza.ToDoList.Release</buildDir>
+  </PropertyGroup>
+  <ItemGroup>
+    <ReleaseFiles Include="jeza.ToDoList.Gui/bin/$(Configuration)/jeza.ToDoList.Gui.exe"/>
+    <ReleaseFiles Include="jeza.ToDoList.Gui/bin/$(Configuration)/jeza.ToDoList.Gui.exe.config"/>
+    <ReleaseFiles Include="jeza.ToDoList.Gui/bin/$(Configuration)/*.dll"/>
+    <ReleaseFiles Include="jeza.ToDoList.Gui/bin/$(Configuration)/XMLFileSettings.xml"/>
+    <ReleaseFiles Include="jeza.ToDoList.Gui/bin/$(Configuration)/XMLSchemaSettings.xsd"/>
+  </ItemGroup>
+  <ItemGroup>
+    <GuiReleaseFiles Include="@(ReleaseFiles)" />
+    <ZipArchive Include="$(buildDir)/jeza.ToDoList.*/*.*" />
+  </ItemGroup>
+  <Target Name = "Clean">
+    <RemoveDir Directories="$(buildDir)" />
+    <MakeDir Directories = "$(buildDir)"
+                Condition = "!Exists('$(buildDir)')" />
+  </Target>
+  <Target Name="Version" DependsOnTargets="Clean">
+    <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
+    <AssemblyInfo CodeLanguage="CS" 
+      OutputFile="AssemblyFileInfo.cs"
+      AssemblyTitle="jeza ToDo List"
+      AssemblyDescription="Shows Google Calendar Items"
+      AssemblyCompany="JezaSoft"
+      AssemblyProduct="jeza.ToDoList"
+      AssemblyCopyright="Copyright JezaSoft 2011" 
+      AssemblyConfiguration="$(Configuration)"
+      ComVisible="false"
+      CLSCompliant="false"
+      Guid="c4b5ddea-9978-4fc1-bad1-5c69c20bf589"
+      AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)"
+      AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)"
+      Condition="$(Revision) != '' "
+                  log4net.Config.XmlConfigurator=""/>
+  </Target>
+  <Target Name="Compile" DependsOnTargets="Version">
+    <MSBuild Projects="ToDoList.sln"
+             Properties="Configuration=$(Configuration)" />
+    <Copy DestinationFolder="$(buildDir)/jeza.ToDoList.Gui" SourceFiles="@(GuiReleaseFiles)"></Copy>
+  </Target>
+  <Target Name="Zip" DependsOnTargets="Compile">
+    <Zip Files="@(ZipArchive)"
+         ZipFileName="$(buildDir)/jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
+         Condition="$(Revision) != '' "/>
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Zip">
+    <Message Text="Build Complete"/>
+  </Target>
+</Project>

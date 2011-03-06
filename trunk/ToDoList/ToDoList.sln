@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList", "jeza.ToDoList\jeza.ToDoList.csproj", "{21EEBD36-D230-46FA-BCB6-B0D7597E13FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ToDoList.Console", "jeza.ToDoList.Console\jeza.ToDoList.Console.csproj", "{2E1B5F3A-10BF-4288-A7DE-027F81593B51}"

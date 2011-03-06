@@ -1,27 +1,35 @@
-﻿namespace jeza.ToDoList
+﻿using System;
+using System.Xml.Serialization;
+
+namespace jeza.ToDoList
 {
-    [System.SerializableAttribute]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = XmlSchemaNamespace)]
-    [System.Xml.Serialization.XmlRootAttribute(ElementName = "settings", Namespace = XmlSchemaNamespace, IsNullable = false)]
+    [Serializable]
+    [XmlType(AnonymousType = true, Namespace = XmlSchemaNamespace)]
+    [XmlRoot(ElementName = "settings", Namespace = XmlSchemaNamespace, IsNullable = false)]
     public class Settings
     {
         private const string XmlSchemaNamespace = "http://tempuri.org/XMLSchemaSettings.xsd";
 
-        [System.Xml.Serialization.XmlElementAttribute("googleAccount")]
+        [XmlElement("googleAccount")]
         public GoogleAccountInfo[] GoogleAccount { get; set; }
     }
 
-    [System.SerializableAttribute]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://tempuri.org/XMLSchemaSettings.xsd")]
+    [Serializable]
+    [XmlType(AnonymousType = true, Namespace = "http://tempuri.org/XMLSchemaSettings.xsd")]
     public class GoogleAccountInfo
     {
-        [System.Xml.Serialization.XmlElementAttribute("title")]
+        [XmlElement("title")]
         public string Title { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("username")]
+        [XmlElement("username")]
         public string Username { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("password")]
+        [XmlElement("password")]
         public string Password { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Title: {0}, Username: {1}, Password: {2}", Title, Username, Password);
+        }
     }
 }
