@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using log4net;
 
 namespace jeza.ToDoList.Console
 {
     internal class Program
     {
         private static readonly ToDoList ToDoList = new ToDoList();
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 
         public static void Main(string[] args)
         {
@@ -67,7 +69,7 @@ namespace jeza.ToDoList.Console
 
         private static void ShowTasks()
         {
-            ToDoList.ShowTasks();
+            ToDoList.ShowTasksToConsole();
         }
     }
 }

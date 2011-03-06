@@ -1,8 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <settings xmlns="http://tempuri.org/XMLSchemaSettings.xsd">
   <googleAccount>
-    <title>test.user</title>
-    <username>testuser@gmail.com</username>
-    <password>testpass</password>
+    <title>Janez Novak</title>
+    <username>janez.novak@gmail.com</username>
+    <password>P@ssw0rd</password>
+  </googleAccount>
+  <googleAccount>
+    <title>Jernej Zabavnik</title>
+    <username>jernej.zabavik@gmail.com</username>
+    <password>hec</password>
   </googleAccount>
 </settings>
