@@ -222,12 +222,12 @@
       <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:App.xaml.cs" caret="140" fromTop="5" />
       <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml.cs" caret="400" fromTop="14" />
       <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2242" fromTop="17" />
+      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/d:Properties/f:AssemblyInfo.cs" caret="26" fromTop="1" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/d:Properties/f:AssemblyInfo.cs" caret="33" fromTop="0" />
+      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:AssemblyFileInfo.cs/l:..?AssemblyFileInfo.cs" caret="559" fromTop="15" />
     </RecentFiles>
     <RecentEdits>
-      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="2895" fromTop="45" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="2380" fromTop="51" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="301" fromTop="8" />
-      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="1023" fromTop="30" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:ToDoList.cs" caret="103" fromTop="3" />
       <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:Task.cs" caret="842" fromTop="27" />
       <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/f:Program.cs" caret="1911" fromTop="43" />
@@ -254,6 +254,10 @@
       <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="1459" fromTop="4" />
       <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2082" fromTop="14" />
       <File id="4102952D-B083-4E64-838A-53BC364D4C59/f:Home.xaml" caret="2242" fromTop="17" />
+      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/d:Properties/f:AssemblyInfo.cs" caret="26" fromTop="1" />
+      <File id="4102952D-B083-4E64-838A-53BC364D4C59/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="2E1B5F3A-10BF-4288-A7DE-027F81593B51/d:Properties/f:AssemblyInfo.cs" caret="26" fromTop="0" />
+      <File id="21EEBD36-D230-46FA-BCB6-B0D7597E13FE/f:AssemblyFileInfo.cs/l:..?AssemblyFileInfo.cs" caret="657" fromTop="17" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
