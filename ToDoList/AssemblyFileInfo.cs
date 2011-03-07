@@ -10,14 +10,12 @@
 
 using System;
 using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("jeza ioFTPD Tools")]
-[assembly: AssemblyDescription("Tools for ioFTPD")]
+[assembly: AssemblyTitle("jeza ToDo List")]
+[assembly: AssemblyDescription("ToDo List")]
 [assembly: AssemblyCompany("JezaSoft")]
-[assembly: AssemblyProduct("jeza.ioFTPD.Tools")]
+[assembly: AssemblyProduct("jeza.ToDoList")]
 [assembly: AssemblyCopyright("Copyright JezaSoft 2011")]
 [assembly: AssemblyConfiguration("Release")]
 [assembly: ComVisible(false)]
