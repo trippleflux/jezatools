@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings xmlns="http://tempuri.org/XMLSchemaSettings.xsd">
+  <googleAccount>
+    <title>Janez Novak</title>
+    <username>janez.novak@gmail.com</username>
+    <password>P@ssw0rd</password>
+  </googleAccount>
+  <googleAccount>
+    <title>Jernej Zabavnik</title>
+    <username>jernej.zabavik@gmail.com</username>
+    <password>hec</password>
+  </googleAccount>
+</settings>
