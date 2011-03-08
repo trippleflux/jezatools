@@ -10,13 +10,13 @@ namespace jeza.ToDoList
     {
         private const string XmlSchemaNamespace = "http://tempuri.org/XMLSchemaSettings.xsd";
 
-        [XmlElement("googleAccount")]
-        public GoogleAccountInfo[] GoogleAccount { get; set; }
+        [XmlElement("account")]
+        public AccountInfo[] Account { get; set; }
     }
 
     [Serializable]
     [XmlType(AnonymousType = true, Namespace = "http://tempuri.org/XMLSchemaSettings.xsd")]
-    public class GoogleAccountInfo
+    public class AccountInfo : IAccountInfo
     {
         [XmlElement("title")]
         public string Title { get; set; }
@@ -27,9 +27,13 @@ namespace jeza.ToDoList
         [XmlElement("password")]
         public string Password { get; set; }
 
+        [XmlElement("provider")]
+        public AccountProvider Provider { get; set; }
+
         public override string ToString()
         {
-            return string.Format("Title: {0}, Username: {1}, Password: {2}", Title, Username, Password);
+            return string.Format("Title: {0}, Username: {1}, Password: {2}, Provider: {3}",
+                                 Title, Username, Password, Provider);
         }
     }
 }
