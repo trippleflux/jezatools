@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit" 
       xmlns:local="http://schemas.AvalonControls/AvalonControlsLibrary/Controls" 
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="950"
@@ -50,9 +49,13 @@
         <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1">
             <Label VerticalAlignment="Bottom">Accounts</Label>
         </Border>
-        <ListBox Name="googleAccountsListBox" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3">
+        <ListBox Name="accountsListBox" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3">
         </ListBox>
-        <Button Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="80" Margin="1,1,1,1" Click="ButtonClick" >View</Button>
+        <Button Name="Fetch" Grid.Row="4" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Margin="1,1,1,1" Click="ButtonClick" >Fetch</Button>
+        <Button Name="Add" Grid.Row="4" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Margin="1,1,1,1" Click="AddClick">Add</Button>
+        <Button Name="Insert" Grid.Row="5" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Margin="1,1,1,1" Click="InsertClick">Insert</Button>
+        <Button Name="Update" Grid.Row="4" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Margin="1,1,1,1" Click="UpdateClick">Update</Button>
+        <Button Name="Delete" Grid.Row="5" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" Margin="1,1,1,1" Click="DeleteClick">Delete</Button>
 
         <Border Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="1">
             <Label VerticalAlignment="Bottom">Start Time</Label>
@@ -82,12 +85,12 @@
         </TextBox>
 
         <ListView Name="listViewDetails" 
-                  Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="20"
+                  Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="20"
                   ItemsSource="{Binding TodoList.TaskList}"
                   MouseDoubleClick="listViewDetailsMouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Account" DisplayMemberBinding="{Binding GoogleAccount.Title}"></GridViewColumn>
+                    <GridViewColumn Header="Account" DisplayMemberBinding="{Binding AccountInfo.Title}"></GridViewColumn>
                     <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
                     <GridViewColumn Header="Start Date" DisplayMemberBinding="{Binding StartDate}"></GridViewColumn>
                     <GridViewColumn Header="Stop Date" DisplayMemberBinding="{Binding StopDate}"></GridViewColumn>

@@ -9,17 +9,24 @@
   <xs:element name="settings">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="googleAccount" type="googleAccountInfo" maxOccurs="unbounded"></xs:element>
+        <xs:element name="account" type="AccountInfo" maxOccurs="unbounded"></xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   
-  <xs:complexType name="googleAccountInfo">
+  <xs:complexType name="AccountInfo">
     <xs:sequence>
       <xs:element name="title" type="xs:string"></xs:element>
       <xs:element name="username" type="xs:string"></xs:element>
       <xs:element name="password" type="xs:string"></xs:element>
+      <xs:element name="provider" type="AccountProvider" maxOccurs="1" minOccurs="1"></xs:element>
     </xs:sequence>
   </xs:complexType>
-  
+
+  <xs:simpleType name="AccountProvider">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Google"/>
+    </xs:restriction>
+  </xs:simpleType>
+
 </xs:schema>
