@@ -2,7 +2,7 @@
 <Project DefaultTargets="Rebuild" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="lib\MSBuild.Community.Tasks.Nightly\Build\MSBuild.Community.Tasks.Targets"/>
   <PropertyGroup>
-    <Major>1</Major>
+    <Major>2</Major>
     <Minor>0</Minor>
     <Build>$(BUILD_NUMBER)</Build>
     <Revision>$(SVN_REVISION)</Revision>
