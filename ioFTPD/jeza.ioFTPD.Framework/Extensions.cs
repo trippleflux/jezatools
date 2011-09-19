@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -23,6 +24,30 @@ namespace jeza.ioFTPD.Framework
                 sb.AppendFormat("{0} ", s);
             }
             return sb.ToString().Trim();
+        }
+
+        /// <summary>
+        /// Deserializes the specified XML object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="xmlObject">The XML object.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="defaultNamespace">The default namespace.</param>
+        /// <returns></returns>
+        public static T Deserialize<T>(T xmlObject,
+                                        string fileName,
+                                        string defaultNamespace)
+        {
+            if (File.Exists(fileName))
+            {
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+                {
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(T), defaultNamespace);
+                    return (T)xmlSerializer.Deserialize(fileStream);
+                }
+            }
+            Log.Debug("File '{0}' not found!", fileName);
+            throw new Exception("Failed to deserialize configuration!");
         }
 
         /// <summary>

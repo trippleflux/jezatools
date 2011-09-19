@@ -60,8 +60,11 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
+    <Compile Include="Archive\Configuration.cs" />
+    <Compile Include="Archive\Folders.cs" />
     <Compile Include="FileFolderTests.cs" />
     <Compile Include="Media\Mp3Sort.cs" />
+    <Compile Include="Media\Video.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
     <Compile Include="ZipScript\DeleteTests.cs" />
@@ -112,6 +115,13 @@
     <None Include="TestFiles\Zip\file-004.zip" />
     <None Include="TestFiles\Zip\file_id.diz" />
     <None Include="TestFiles\Zip\jeza.nfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestFiles\Archive\destination\1\" />
+    <Folder Include="TestFiles\Archive\destination\2\" />
+    <Folder Include="TestFiles\Archive\source\1\" />
+    <Folder Include="TestFiles\Archive\source\2\" />
+    <Folder Include="TestFiles\Archive\source\3\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

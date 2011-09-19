@@ -31,26 +31,5 @@ namespace jeza.ioFTPD.Tests
                 Console.WriteLine(driveInformation.ToString());
             }
         }
-
-        [Test]
-        public void SerializeArchiveSettings()
-        {
-            ArchiveTask archiveTask = new ArchiveTask
-                                      {
-                                          ArchiveStatus = ArchiveStatus.Enabled,
-                                          ArchiveType = ArchiveType.Move,
-                                          Source = "C:\\temp",
-                                          Destination = "D:\\temp",
-                                          Action = new ArchiveAction()
-                                                   {
-                                                       Id = ArchiveActionAttribute.TotalUsedSpace,
-                                                       Value = 120*1024*1024,
-                                                       MinFolderAction = 10,
-                                                   },
-                                      };
-            ArchiveConfiguration archiveConfiguration = new ArchiveConfiguration();
-            archiveConfiguration.ArchiveTasks = new ArchiveTask[] {archiveTask};
-            Extensions.Serialize(archiveConfiguration, "archiveConfiguration.xml", "http://jeza.ioFTPD.Tools/XMLSchema.xsd");
         }
-    }
 }
