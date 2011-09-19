@@ -16,9 +16,14 @@
     <TestsFiles Include="jeza.ioFTPD.Tests/bin/$(Configuration)/*.*"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/jeza.ioFTPD.Archive.exe"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.dll"/>
+    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.xml"/>
+    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.xsd"/>
+    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.htm"/>
+    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.txt"/>
   </ItemGroup>
   <ItemGroup>
     <ZipScriptReleaseFiles Include="@(ReleaseFiles)" />
+    <ArchiveScriptReleaseFiles Include="@(ArchiveFiles)" />
     <TestsReleaseFiles Include="@(TestsFiles)" />
     <ZipArchive Include="$(buildDir)/jeza.ioFTPD.*/*.*" />
   </ItemGroup>
@@ -59,6 +64,7 @@
     <MSBuild Projects="jeza.ioFTPD.Tools.sln"
              Properties="Configuration=$(Configuration)" />
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ZipScriptReleaseFiles)"></Copy>
+    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ArchiveScript" SourceFiles="@(ArchiveScriptReleaseFiles)"></Copy>
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Archive" SourceFiles="@(ZipArchive)"></Copy>
   </Target>
   <Target Name="Documentation" DependsOnTargets="Compile">
