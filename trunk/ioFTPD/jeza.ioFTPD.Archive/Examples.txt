@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tasks xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
+  <task>
+    <status>Enabled</status>						:: This TASK is enabled
+    <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
+    <source>E:\\movies</source>						:: Source folder
+    <destination>D:\\archive\\movies</destination>	:: Destination folder
+    <action id="TotalUsedSpace">					:: Action will execute if total space of all folders in source is over 12345000 bytes
+      <value>12345000</value>
+      <minFolderAction>5</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 5
+    </action>
+  </task>
+  <task>
+    <status>Enabled</status>						:: This TASK is enabled
+    <actionType>Delete</actionType>					:: Folders will be deleted
+    <source>D:\\archive\\movies</source>			:: Source folder
+    <destination>D:\\archive\\movies</destination>	:: Will be ignored because actionType is Delete
+    <action id="TotalFreeSpace">					:: Action will execute if free space on source disk is bellow 12345000 bytes
+      <value>12345000</value>
+      <minFolderAction>20</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 20
+    </action>
+  </task>
+  <task>
+    <status>Enabled</status>						:: This TASK is enabled
+    <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
+    <source>E:\\series</source>						:: Source folder
+    <destination>E:\\archive\\series</destination>	:: Destination folder
+    <action id="TotalFolderCount">					:: Action will execute if total folder count in source is greather than 33
+      <value>33</value>
+      <minFolderAction>44</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 44
+    </action>
+  </task>
+  <task>
+    <status>Disabled</status>						:: This TASK is DISABLED. It will not be executed.
+    <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
+    <source>E:\\temp</source>						:: Source folder
+    <destination>E:\\temp\\archive</destination>	:: Destination folder
+    <action id="DateOlder">							:: Action will execute if one or more folders are older than 14 days
+      <value>14</value>
+      <minFolderAction>6</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 6
+    </action>
+  </task>
+</tasks>

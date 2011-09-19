@@ -1,4 +1,3 @@
-using System;
 using System.Xml.Serialization;
 
 namespace jeza.ioFTPD.Framework
@@ -39,5 +38,10 @@ namespace jeza.ioFTPD.Framework
         /// <value>The action.</value>
         [XmlElement(ElementName = "action")]
         public ArchiveAction Action { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("ArchiveType: {0}, ArchiveStatus: {1}, Source: {2}, Destination: {3}, Action: {4}", ArchiveType, ArchiveStatus, Source, Destination, Action);
+        }
     }
 }

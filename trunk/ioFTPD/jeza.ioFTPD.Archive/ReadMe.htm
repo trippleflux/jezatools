@@ -1,0 +1,82 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>jeza.ioFTPD.Archive Instructions</title>
+	</head>
+	<body>
+	    <table>
+	        <thead>
+	            <tr>
+	                <th>task structure:</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <td><b>status</b></td>
+	                <td><i>Enabled</i></td>
+	                <td>The specified task is enabled.</td>
+	            </tr>
+	            <tr>
+	                <td></td>
+	                <td><i>Disabled</i></td>
+	                <td>The specified task is disabled.</td>
+	            </tr>
+	            <tr>
+	                <td><b>actionType</b></td>
+	                <td><i>Move</i></td>
+	                <td>Move (archive) the specified folders.</td>
+	            </tr>
+	            <tr>
+	                <td></td>
+	                <td><i>Delete</i></td>
+	                <td>Permanently delete the specified folders.</td>
+	            </tr>
+	            <tr>
+	                <td><b>source</b></td>
+	                <td><i>E:\\temp</i></td>
+	                <td>Example: Source folder</td>
+	            </tr>
+	            <tr>
+	                <td><b>destination</b></td>
+	                <td><i>E:\\temp\\archive</i></td>
+	                <td>Example: Destination folder</td>
+	            </tr>
+	            <tr>
+	                <td><b>action/id</b></td>
+	                <td><i>TotalUsedSpace</i></td>
+	                <td>Action will execute if total used space in specifed source folder is over the value specifed in <code>action/value</code></td>
+	            </tr>
+	            <tr>
+	                <td></td>
+	                <td><i>TotalFreeSpace</i></td>
+	                <td>Action will execute if total free space on specified DISK is under the value specified in <code>action/value</code></td>
+	            </tr>
+	            <tr>
+	                <td></td>
+	                <td><i>TotalFolderCount</i></td>
+	                <td>Action will execute if total foldercount in specifed source folder is over the value specifed in <code>action/value</code></td>
+	            </tr>
+	            <tr>
+	                <td></td>
+	                <td><i>DateOlder</i></td>
+	                <td>Action will execute if one or more folders specified in source folder is older than the value specifed in <code>action/value</code></td>
+	            </tr>
+	            <tr>
+	                <td><b>action/value</b></td>
+	                <td><i>Number</i></td>
+	                <td>Example: Number or number of days if action is DateOlder</td>
+	            </tr>
+	            <tr>
+	                <td><b>action/minFolderAction</b></td>
+	                <td><i>Number</i></td>
+	                <td>Action will execute only if the number of folders is greather than specified.</td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <br />
+	    <br />
+        <p>
+            Check file Examples.txt for detailed examples.
+        </p>
+	</body>
+</html>

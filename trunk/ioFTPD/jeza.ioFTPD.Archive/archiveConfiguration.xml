@@ -10,4 +10,34 @@
       <minFolderAction>5</minFolderAction>
     </action>
   </task>
+  <task>
+    <status>Enabled</status>
+    <actionType>Delete</actionType>
+    <source>E:\\temp</source>
+    <destination>E:\\temp\\archive</destination>
+    <action id="TotalFreeSpace">
+      <value>12345000</value>
+      <minFolderAction>20</minFolderAction>
+    </action>
+  </task>
+  <task>
+    <status>Enabled</status>
+    <actionType>Move</actionType>
+    <source>E:\\temp</source>
+    <destination>E:\\temp\\archive</destination>
+    <action id="TotalFolderCount">
+      <value>33</value>
+      <minFolderAction>20</minFolderAction>
+    </action>
+  </task>
+  <task>
+    <status>Disabled</status>
+    <actionType>Move</actionType>
+    <source>E:\\temp</source>
+    <destination>E:\\temp\\archive</destination>
+    <action id="DateOlder">
+      <value>12345000</value>
+      <minFolderAction>5</minFolderAction>
+    </action>
+  </task>
 </tasks>

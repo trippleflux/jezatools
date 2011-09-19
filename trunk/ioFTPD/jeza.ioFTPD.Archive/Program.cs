@@ -1,12 +1,23 @@
-﻿namespace jeza.ioFTPD.Archive
+﻿using System;
+using jeza.ioFTPD.Framework;
+
+namespace jeza.ioFTPD.Archive
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-            ConsoleApp consoleApp = new ConsoleApp();
-            consoleApp.ParseConfig();
-            consoleApp.Execute();
+            Log.Debug("Archive...");
+            try
+            {
+                ConsoleApp consoleApp = new ConsoleApp();
+                consoleApp.ParseConfig();
+                consoleApp.Execute();
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.StackTrace);
+            }
         }
     }
 }

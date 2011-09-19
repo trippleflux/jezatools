@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{99D40587-4522-4B22-A424-26A7B1D56EEA}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -62,6 +62,8 @@
     <Content Include="archiveConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReadMe.htm" />
+    <Content Include="Examples.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="XMLSchema.xsd" />
