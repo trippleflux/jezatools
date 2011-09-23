@@ -3,9 +3,19 @@
   <task>
     <status>Enabled</status>
     <actionType>Move</actionType>
+    <source>E</source>
+    <destination></destination>
+    <action id="TotalUsedSpace">
+      <value>12345000</value>
+      <minFolderAction>5</minFolderAction>
+    </action>
+  </task>
+  <task>
+    <status>Enabled</status>
+    <actionType>Move</actionType>
     <source>E:\\temp</source>
     <destination>E:\\temp\\archive</destination>
-    <action id="TotalUsedSpace">
+    <action id="TotalFolderUsedSpace">
       <value>12345000</value>
       <minFolderAction>5</minFolderAction>
     </action>
