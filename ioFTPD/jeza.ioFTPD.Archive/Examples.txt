@@ -3,9 +3,19 @@
   <task>
     <status>Enabled</status>						:: This TASK is enabled
     <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
+    <source>E</source>								:: Source DISK (only letters are valid)
+    <destination></destination>						:: Will be ignored because of "TotalUsedSpace"
+    <action id="TotalUsedSpace">					:: Action will execute if total space used on DISK E is over 12345000 bytes
+      <value>12345000</value>
+      <minFolderAction>5</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 5
+    </action>
+  </task>
+  <task>
+    <status>Enabled</status>						:: This TASK is enabled
+    <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
     <source>E:\\movies</source>						:: Source folder
     <destination>D:\\archive\\movies</destination>	:: Destination folder
-    <action id="TotalUsedSpace">					:: Action will execute if total space of all folders in source is over 12345000 bytes
+    <action id="TotalFolderUsedSpace">				:: Action will execute if total space of all folders in source is over 12345000 bytes
       <value>12345000</value>
       <minFolderAction>5</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 5
     </action>

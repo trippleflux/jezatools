@@ -49,6 +49,7 @@
                     <xs:simpleType>
                       <xs:restriction base="xs:string">
                         <xs:enumeration value="TotalUsedSpace"/>
+                        <xs:enumeration value="TotalFolderUsedSpace"/>
                         <xs:enumeration value="TotalFreeSpace"/>
                         <xs:enumeration value="TotalFolderCount"/>
                         <xs:enumeration value="DateOlder"/>
