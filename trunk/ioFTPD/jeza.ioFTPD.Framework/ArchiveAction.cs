@@ -1,3 +1,4 @@
+using System;
 using System.Xml.Serialization;
 
 namespace jeza.ioFTPD.Framework
@@ -24,7 +25,7 @@ namespace jeza.ioFTPD.Framework
         /// </example>
         /// <value>The value.</value>
         [XmlElement(ElementName = "value")]
-        public long Value { get; set; }
+        public UInt64 Value { get; set; }
 
         /// <summary>
         /// Gets or sets the min folder action. How many folders should the script move/delete at once.

@@ -31,5 +31,5 @@ namespace jeza.ioFTPD.Tests
                 Console.WriteLine(driveInformation.ToString());
             }
         }
-        }
+    }
 }

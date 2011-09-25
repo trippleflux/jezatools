@@ -12,7 +12,10 @@
         <xs:element name="task">
           <xs:complexType>
             <xs:sequence>
-              
+
+              <xs:element name="skipPattern" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+              </xs:element>
+
               <xs:element name="status" minOccurs="1" maxOccurs="1">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">

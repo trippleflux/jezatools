@@ -7,7 +7,7 @@ namespace jeza.ioFTPD.Archive
     {
         private static void Main(string[] args)
         {
-            Log.Debug("Archive...");
+            Log.Debug((string) "Archive...");
             try
             {
                 ConsoleApp consoleApp = new ConsoleApp();
@@ -16,7 +16,7 @@ namespace jeza.ioFTPD.Archive
             }
             catch (Exception exception)
             {
-                Log.Debug(exception.StackTrace);
+                Log.Debug(exception.ToString());
             }
         }
     }

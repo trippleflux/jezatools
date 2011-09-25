@@ -64,6 +64,7 @@
     <Compile Include="DataParserDelete.cs" />
     <Compile Include="DataParserDiz.cs" />
     <Compile Include="DataParserZip.cs" />
+    <Compile Include="CompareDirectoryByDate.cs" />
     <Compile Include="DriveInformation.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IData.cs" />

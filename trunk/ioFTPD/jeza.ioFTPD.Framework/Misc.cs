@@ -1,5 +1,8 @@
 #region
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,6 +12,50 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Misc
     {
+        public static UInt64 GetFolderSize(this DirectoryInfo directoryInfo)
+        {
+            return (UInt64) directoryInfo.GetFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length);
+            //UInt64 totalSize = 0;
+            //foreach (var fileInfo in directoryInfo.GetFiles("*", SearchOption.AllDirectories))
+            //{
+            //    totalSize += (UInt64)fileInfo.Length;
+            //}
+            //return totalSize;
+        }
+
+        /// <summary>
+        /// Gets the folder count.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="skipPattern">Skip the folder if it starts with any of this strings.</param>
+        /// <returns></returns>
+        public static List<DirectoryInfo> GetFolders(this DirectoryInfo source,
+                                                     string[] skipPattern)
+        {
+            DirectoryInfo[] directories = source.GetDirectories();
+            List<DirectoryInfo> allFolders = new List<DirectoryInfo>();
+            foreach (DirectoryInfo directoryInfo in directories)
+            {
+                bool skipFolder = false;
+                if (skipPattern != null)
+                {
+                    foreach (string skipCharacter in skipPattern)
+                    {
+                        if (directoryInfo.Name.StartsWith(skipCharacter))
+                        {
+                            skipFolder = true;
+                            break;
+                        }
+                    }
+                }
+                if (!skipFolder)
+                {
+                    allFolders.Add(directoryInfo);
+                }
+            }
+            return allFolders;
+        }
+
         /// <summary>
         /// Converts string to number.
         /// </summary>
@@ -24,9 +71,9 @@ namespace jeza.ioFTPD.Framework
             StringBuilder sb = new StringBuilder();
             for (int c = 0; c < length; c++)
             {
-                if (IsNumber(input[c]))
+                if (IsNumber(input [c]))
                 {
-                    sb.Append(input[c]);
+                    sb.Append(input [c]);
                 }
                 else
                 {
@@ -56,7 +103,7 @@ namespace jeza.ioFTPD.Framework
             }
             for (int c = 0; c < length; c++)
             {
-                if (!IsNumber(input[c]))
+                if (!IsNumber(input [c]))
                 {
                     return false;
                 }
@@ -90,7 +137,7 @@ namespace jeza.ioFTPD.Framework
             StringBuilder stringBuilder = new StringBuilder(40);
             for (int i = 0; i < opBytes.Length; i++)
             {
-                stringBuilder.Append(opBytes[i].ToString("x2"));
+                stringBuilder.Append(opBytes [i].ToString("x2"));
             }
 
             return stringBuilder.ToString();
@@ -101,10 +148,5 @@ namespace jeza.ioFTPD.Framework
             return
                 Convert.ToBase64String(new SHA1CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
-
-        public const string DataTableNameOfItems = "Items";
-        public const string DataTableNameOfShops = "Shops";
-        public const string DataTableNameOfShopItems = "ShopItems";
-        public const string DataTableNameOfTrackers = "Trackers";
     }
 }
