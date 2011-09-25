@@ -23,20 +23,38 @@ namespace jeza.ioFTPD.Tests.Archive
 
         private static ArchiveConfiguration GetArchiveConfiguration()
         {
-            ArchiveTask archiveTask = new ArchiveTask
-                                      {
-                                          ArchiveStatus = ArchiveStatus.Enabled,
-                                          ArchiveType = ArchiveType.Move,
-                                          Source = "C:\\temp",
-                                          Destination = "D:\\temp",
-                                          Action = new ArchiveAction
-                                                   {
-                                                       Id = ArchiveActionAttribute.TotalUsedSpace,
-                                                       Value = 120 * 1024 * 1024,
-                                                       MinFolderAction = 10,
-                                                   },
-                                      };
-            return new ArchiveConfiguration {ArchiveTasks = new[] {archiveTask}};
+            ArchiveTask task1 = new ArchiveTask
+                                {
+                                    ArchiveStatus = ArchiveStatus.Enabled,
+                                    ArchiveType = ArchiveType.Move,
+                                    SkipPattern = new[] {".", "_"},
+                                    Source = "C:\\temp",
+                                    Destination = "D:\\temp",
+                                    Action = new ArchiveAction
+                                             {
+                                                 Id = ArchiveActionAttribute.TotalUsedSpace,
+                                                 Value = 120 * 1024 * 1024,
+                                                 MinFolderAction = 10,
+                                             },
+                                };
+            ArchiveTask task2 = new ArchiveTask
+                                {
+                                    ArchiveStatus = ArchiveStatus.Enabled,
+                                    ArchiveType = ArchiveType.Delete,
+                                    SkipPattern = null,
+                                    Source = "C:\\temp123",
+                                    Destination = "D:\\temp123",
+                                    Action = new ArchiveAction
+                                             {
+                                                 Id = ArchiveActionAttribute.TotalFolderCount,
+                                                 Value = 999 * 1024 * 1024,
+                                                 MinFolderAction = 5,
+                                             },
+                                };
+            return new ArchiveConfiguration
+                   {
+                       ArchiveTasks = new[] {task1, task2,}
+                   };
         }
 
         /// <summary>

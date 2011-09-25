@@ -77,6 +77,10 @@
     <Compile Include="ZipScript\ZipTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\jeza.ioFTPD.Archive\jeza.ioFTPD.Archive.csproj">
+      <Project>{99D40587-4522-4B22-A424-26A7B1D56EEA}</Project>
+      <Name>jeza.ioFTPD.Archive</Name>
+    </ProjectReference>
     <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
       <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
       <Name>jeza.ioFTPD.Framework</Name>
@@ -93,9 +97,14 @@
     <Content Include="TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind%282%29.mp3" />
     <Content Include="TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind%283%29.mp3" />
     <Content Include="TestFiles\Mp3\SwingingSafari.mp3" />
+    <Content Include="TestFiles\Video\fringe.315.hdtv.sample-lol.avi" />
     <None Include="TestFiles\Race\File.race" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="TestFiles\Archive\source\2\2.1\26kB" />
+    <None Include="TestFiles\Archive\source\2\2.2\2.2.1\26kB" />
+    <None Include="TestFiles\Archive\source\2\2.2\26kB" />
+    <None Include="TestFiles\Archive\source\2\26kB" />
     <None Include="TestFiles\Mp3\jozek.Pepek-2009-asd-Ind.sfv" />
     <None Include="TestFiles\Race\.ioFTPD.race" />
     <None Include="TestFiles\Rar\infected.part1.rar" />
@@ -120,8 +129,8 @@
     <Folder Include="TestFiles\Archive\destination\1\" />
     <Folder Include="TestFiles\Archive\destination\2\" />
     <Folder Include="TestFiles\Archive\source\1\" />
-    <Folder Include="TestFiles\Archive\source\2\" />
     <Folder Include="TestFiles\Archive\source\3\" />
+    <Folder Include="TestFiles\Archive\source\4\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

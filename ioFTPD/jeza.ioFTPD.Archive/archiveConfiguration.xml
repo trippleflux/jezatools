@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tasks xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
   <task>
-    <status>Enabled</status>
+    <skipPattern>.</skipPattern>
+    <skipPattern>_</skipPattern>
+    <status>Disabled</status>
     <actionType>Move</actionType>
-    <source>E</source>
-    <destination></destination>
+    <source>E:\\temp\\TestFiles</source>
+    <destination>E:\\temp\\archive</destination>
     <action id="TotalUsedSpace">
       <value>12345000</value>
       <minFolderAction>5</minFolderAction>
     </action>
   </task>
   <task>
-    <status>Enabled</status>
+    <status>Disabled</status>
     <actionType>Move</actionType>
     <source>E:\\temp</source>
     <destination>E:\\temp\\archive</destination>
@@ -21,7 +23,7 @@
     </action>
   </task>
   <task>
-    <status>Enabled</status>
+    <status>Disabled</status>
     <actionType>Delete</actionType>
     <source>E:\\temp</source>
     <destination>E:\\temp\\archive</destination>
@@ -31,22 +33,24 @@
     </action>
   </task>
   <task>
-    <status>Enabled</status>
+    <skipPattern>.</skipPattern>
+    <status>Disabled</status>
     <actionType>Move</actionType>
-    <source>E:\\temp</source>
+    <source>E:\\temp\\TestFiles</source>
     <destination>E:\\temp\\archive</destination>
     <action id="TotalFolderCount">
-      <value>33</value>
-      <minFolderAction>20</minFolderAction>
+      <value>3</value>
+      <minFolderAction>2</minFolderAction>
     </action>
   </task>
   <task>
+    <skipPattern>.</skipPattern>
     <status>Disabled</status>
     <actionType>Move</actionType>
     <source>E:\\temp</source>
     <destination>E:\\temp\\archive</destination>
     <action id="DateOlder">
-      <value>12345000</value>
+      <value>10</value>
       <minFolderAction>5</minFolderAction>
     </action>
   </task>

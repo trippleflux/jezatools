@@ -19,6 +19,12 @@ namespace jeza.ioFTPD.Framework
         public ArchiveStatus ArchiveStatus { get; set; }
 
         /// <summary>
+        /// Skip directoris that staarts with any of those strings.
+        /// </summary>
+        [XmlElement(ElementName = "skipPattern")]
+        public string[] SkipPattern = new string[] {".", "_"};
+
+        /// <summary>
         /// Gets or sets the source folder for archiving.
         /// </summary>
         /// <value>The source.</value>
