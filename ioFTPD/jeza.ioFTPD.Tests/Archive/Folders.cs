@@ -50,7 +50,7 @@ namespace jeza.ioFTPD.Tests.Archive
             {
                 totalFolderSize += folder.GetFolderSize();
             }
-            const Int32 expectedValue = 26567* 4;
+            const Int32 expectedValue = 216450;
             const int delta = 2000;
             Assert.AreApproximatelyEqual(expectedValue, (Int32)totalFolderSize, delta);
         }
