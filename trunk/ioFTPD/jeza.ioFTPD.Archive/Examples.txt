@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <tasks xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
   <task>
-    <skipPattern>.</skipPattern>					::Skip all folders in source that starts with '.'
-    <skipPattern>_</skipPattern>					::Skip all folders in source that starts with '_'
-    <status>Enabled</status>						:: This TASK is enabled
-    <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
-    <source>E:\\temp</source>						:: Source folder
-    <destination>E:\\temp\\archive</destination>	:: Destination folder
-    <action id="TotalUsedSpace">					:: Action will execute if total space used on DISK E is over 12345000 bytes
+    <regExpressionExclude>\S*([Cc]aprica)\S*</regExpressionExclude>		:: Skip all folders in source that starts with 'Caprica'
+    <status>Enabled</status>											:: This TASK is enabled
+    <actionType>Move</actionType>										:: Folders will be moved to location specified in destination
+    <source>E:\\temp</source>											:: Source folder
+    <destination>E:\\temp\\archive</destination>						:: Destination folder
+    <action id="TotalUsedSpace">										:: Action will execute if total space used on DISK E is over 12345000 bytes
       <value>12345000</value>
-      <minFolderAction>5</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 5
+      <minFolderAction>5</minFolderAction>								:: Action will not be executed if total folders count in source is bellow 5
     </action>
   </task>
   <task>
-    <status>Enabled</status>						:: This TASK is enabled
-    <actionType>Move</actionType>					:: Folders will be moved to location specified in destination
-    <source>E:\\movies</source>						:: Source folder
-    <destination>D:\\archive\\movies</destination>	:: Destination folder
-    <action id="TotalFolderUsedSpace">				:: Action will execute if total space of all folders in source is over 12345000 bytes
+    <regExpressionInclude>\S*([Ss]targate|[Ss]tar[Tt]rek)\S*</regExpressionInclude>		:: Include only folders with words 'Stargate' or 'Startrek'
+    <status>Enabled</status>															:: This TASK is enabled
+    <actionType>Move</actionType>														:: Folders will be moved to location specified in destination
+    <source>E:\\movies</source>															:: Source folder
+    <destination>D:\\archive\\movies</destination>										:: Destination folder
+    <action id="TotalFolderUsedSpace">													:: Action will execute if total space of all folders in source is over 12345000 bytes
       <value>12345000</value>
-      <minFolderAction>5</minFolderAction>			:: Action will not be executed if total folders count in source is bellow 5
+      <minFolderAction>5</minFolderAction>												:: Action will not be executed if total folders count in source is bellow 5
     </action>
   </task>
   <task>

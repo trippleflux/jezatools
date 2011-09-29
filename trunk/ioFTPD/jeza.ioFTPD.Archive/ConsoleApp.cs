@@ -34,7 +34,7 @@ namespace jeza.ioFTPD.Archive
                         Log.Debug(exception.StackTrace);
                         throw;
                     }
-                    List<DirectoryInfo> sourceFolders = sourceFolder.GetFolders(task.SkipPattern);
+                    List<DirectoryInfo> sourceFolders = sourceFolder.GetFolders(task);
                     if (task.Action.MinFolderAction > sourceFolders.Count)
                     {
                         Log.Debug("Skiping task because of MinFolderAction > ActualFodlersCount! '{0}' :: {1}", task.Action.MinFolderAction, sourceFolders.Count);

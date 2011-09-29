@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tasks xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
   <task>
-    <skipPattern>.</skipPattern>
-    <skipPattern>_</skipPattern>
+    <regExpressionInclude>\S*([Ss]targate|[Ss]tar[Tt]rek)\S*</regExpressionInclude>
     <status>Disabled</status>
     <actionType>Move</actionType>
     <source>E:\\temp\\TestFiles</source>
@@ -33,7 +32,6 @@
     </action>
   </task>
   <task>
-    <skipPattern>.</skipPattern>
     <status>Disabled</status>
     <actionType>Move</actionType>
     <source>E:\\temp\\TestFiles</source>
@@ -44,7 +42,7 @@
     </action>
   </task>
   <task>
-    <skipPattern>.</skipPattern>
+    <regExpressionExclude>\b(\.)\S*</regExpressionExclude>
     <status>Disabled</status>
     <actionType>Move</actionType>
     <source>E:\\temp</source>

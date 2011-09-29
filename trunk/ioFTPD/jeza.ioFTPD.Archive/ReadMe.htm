@@ -12,9 +12,14 @@
 	        </thead>
 	        <tbody>
 	            <tr>
-	                <td><b>skipPattern</b></td>
-	                <td><i>.</i></td>
-	                <td>Skip all folders in source that starts with character '.'.</td>
+	                <td><b>regExpressionExclude</b></td>
+	                <td><i>\b(\.|[Ff]|[Ss])\S*</i></td>
+	                <td>Skip all folders in source that starts with character '.', 'F' or 'f', 'S' or 's'.</td>
+	            </tr>
+	            <tr>
+	                <td><b>regExpressionInclude</b></td>
+	                <td><i>\S*([Ss]targate|[Ss]tar[Tt]rek)\S*</i></td>
+	                <td>Include only folders that start with word 'Stargate' or 'StarTrek'.</td>
 	            </tr>
 	            <tr>
 	                <td><b>status</b></td>
