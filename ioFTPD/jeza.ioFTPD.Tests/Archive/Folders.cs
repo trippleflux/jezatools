@@ -20,8 +20,10 @@ namespace jeza.ioFTPD.Tests.Archive
         public void NumberOfFoldersInSourceNoSkipPattern()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(@"..\..\TestFiles\Archive\source");
-            List<DirectoryInfo> folders = directoryInfo.GetFolders(null);
-            const int expectedValue = 5;
+            archiveTask.RegExpressionInclude = null;
+            archiveTask.RegExpressionExclude = null;
+            List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
+            const int expectedValue = 7;
             Assert.AreEqual(expectedValue, folders.Count);
         }
 
@@ -32,7 +34,9 @@ namespace jeza.ioFTPD.Tests.Archive
         public void NumberOfFoldersInSource()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(@"..\..\TestFiles\Archive\source");
-            List<DirectoryInfo> folders = directoryInfo.GetFolders(new string[] { "." });
+            archiveTask.RegExpressionInclude = null;
+            archiveTask.RegExpressionExclude = @"\b(\.|[Ff]|[Ss])\S*";
+            List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
             const int expectedValue = 4;
             Assert.AreEqual(expectedValue, folders.Count);
         }
@@ -44,7 +48,9 @@ namespace jeza.ioFTPD.Tests.Archive
         public void TotalFolderSize()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(@"..\..\TestFiles\Archive\source");
-            List<DirectoryInfo> folders = directoryInfo.GetFolders(new string[] { "." });
+            archiveTask.RegExpressionInclude = null;
+            archiveTask.RegExpressionExclude = @"\b(\.|[Ff]|[Ss])\S*";
+            List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
             UInt64 totalFolderSize = 0;
             foreach (DirectoryInfo folder in folders)
             {
@@ -60,10 +66,26 @@ namespace jeza.ioFTPD.Tests.Archive
         public void GetOldest()
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(@"..\..\TestFiles\Archive\source");
-            List<DirectoryInfo> folders = directoryInfo.GetFolders(new string[] { "." });
+            List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
             DirectoryInfo[] directoryInfos = folders.ToArray();
             Array.Sort(directoryInfos, (IComparer) new CompareDirectoryByDate());
             Assert.AreEqual("2", directoryInfos[0].Name);
         }
+
+        private readonly ArchiveTask archiveTask = new ArchiveTask
+        {
+            ArchiveStatus = ArchiveStatus.Enabled,
+            ArchiveType = ArchiveType.Delete,
+            RegExpressionInclude = @"\S*([Ss]targate|[Ss]tar[Tt]rek)\S*",
+            RegExpressionExclude = @"\S*([Cc]aprica|[Ff]ringe)\S*",
+            Source = "C:\\temp123asd",
+            Destination = "D:\\temp123dsa",
+            Action = new ArchiveAction
+            {
+                Id = ArchiveActionAttribute.TotalFolderCount,
+                Value = 999 * 1024 * 1024,
+                MinFolderAction = 5,
+            },
+        };
     }
 }

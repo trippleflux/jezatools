@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 #endregion
 
@@ -23,32 +24,56 @@ namespace jeza.ioFTPD.Framework
             //return totalSize;
         }
 
+        private static MatchCollection GetMatches(string text,
+                                                  string regularExpressionString)
+        {
+            Log.Debug("Check '{0}' for '{1}'", text, regularExpressionString);
+            return Regex.Matches(text, regularExpressionString);
+        }
+
+        /// <summary>
+        /// Determines whether the specified input is match.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="regularExpressionString">The regular expression string.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified input is match; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool IsMatch(string input,
+                                    string regularExpressionString)
+        {
+            Regex regex = new Regex(regularExpressionString);
+            return regex.IsMatch(input);
+        }
+
         /// <summary>
         /// Gets the folder count.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <param name="skipPattern">Skip the folder if it starts with any of this strings.</param>
+        /// <param name="archiveTask"><see cref="ArchiveTask"/>.</param>
         /// <returns></returns>
         public static List<DirectoryInfo> GetFolders(this DirectoryInfo source,
-                                                     string[] skipPattern)
+                                                     ArchiveTask archiveTask)
         {
             DirectoryInfo[] directories = source.GetDirectories();
             List<DirectoryInfo> allFolders = new List<DirectoryInfo>();
             foreach (DirectoryInfo directoryInfo in directories)
             {
-                bool skipFolder = false;
-                if (skipPattern != null)
+                if (archiveTask.RegExpressionInclude != null)
                 {
-                    foreach (string skipCharacter in skipPattern)
+                    if (IsMatch(directoryInfo.Name, archiveTask.RegExpressionInclude))
                     {
-                        if (directoryInfo.Name.StartsWith(skipCharacter))
-                        {
-                            skipFolder = true;
-                            break;
-                        }
+                        allFolders.Add(directoryInfo);
                     }
                 }
-                if (!skipFolder)
+                else if (archiveTask.RegExpressionExclude != null)
+                {
+                    if (!IsMatch(directoryInfo.Name, archiveTask.RegExpressionExclude))
+                    {
+                        allFolders.Add(directoryInfo);
+                    }
+                }
+                else
                 {
                     allFolders.Add(directoryInfo);
                 }

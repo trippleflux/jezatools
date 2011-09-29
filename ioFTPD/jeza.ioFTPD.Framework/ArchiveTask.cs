@@ -19,10 +19,22 @@ namespace jeza.ioFTPD.Framework
         public ArchiveStatus ArchiveStatus { get; set; }
 
         /// <summary>
-        /// Skip directoris that staarts with any of those strings.
+        /// Gets or sets the reg expression for skiping matching folders.
         /// </summary>
-        [XmlElement(ElementName = "skipPattern")]
-        public string[] SkipPattern = new string[] {".", "_"};
+        /// <value>
+        /// The reg expression.
+        /// </value>
+        [XmlElement(ElementName = "regExpressionExclude")]
+        public string RegExpressionExclude { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reg expression for including matching folders.
+        /// </summary>
+        /// <value>
+        /// The reg expression include.
+        /// </value>
+        [XmlElement(ElementName = "regExpressionInclude")]
+        public string RegExpressionInclude { get; set; }
 
         /// <summary>
         /// Gets or sets the source folder for archiving.
