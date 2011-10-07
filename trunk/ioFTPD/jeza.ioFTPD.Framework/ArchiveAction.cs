@@ -33,5 +33,10 @@ namespace jeza.ioFTPD.Framework
         /// <value>The min folder action.</value>
         [XmlElement(ElementName = "minFolderAction")]
         public int MinFolderAction { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("[Id: {0}, Value: {1}, MinFolderAction: {2}]", Id, Value, MinFolderAction);
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace jeza.ioFTPD.Archive
             {
                 if (task.ArchiveStatus == ArchiveStatus.Enabled)
                 {
-                    Log.Debug("Starting with task '{0}'!", task.ToString());
+                    Log.Debug("Starting with task: ['{0}']", task.ToString());
                     DirectoryInfo sourceFolder;
                     try
                     {
@@ -95,7 +95,7 @@ namespace jeza.ioFTPD.Archive
                 }
                 else
                 {
-                    Log.Debug("Task '{0}' is disabled!", task.ToString());
+                    Log.Debug("Task is disabled! ['{0}']", task.ToString());
                 }
             }
         }
@@ -128,7 +128,7 @@ namespace jeza.ioFTPD.Archive
         }
 
         private static void ExecuteArchiveTask(ArchiveTask archiveTask,
-                                        List<DirectoryInfo> sourceFolders)
+                                               List<DirectoryInfo> sourceFolders)
         {
             int currentFolderCount = sourceFolders.Count;
             int minFolderCountToKeep = archiveTask.Action.MinFolderAction;
@@ -149,7 +149,7 @@ namespace jeza.ioFTPD.Archive
         private static void ExecuteArchiveTask(ArchiveTask archiveTask,
                                                DirectoryInfo directoryInfo)
         {
-            Log.Debug("ExecuteArchiveTask '{0}' on '{1}'!", archiveTask.ToString(), directoryInfo.FullName);
+            Log.Debug("ExecuteArchiveTask '{0}' on '{1}'!", archiveTask.Action.Id, directoryInfo.FullName);
             switch (archiveTask.ArchiveType)
             {
                 case ArchiveType.Copy:
@@ -178,6 +178,7 @@ namespace jeza.ioFTPD.Archive
         private static void DeleteFolder(DirectoryInfo directoryInfo,
                                          bool recursive)
         {
+            Log.Debug("Deleting '{0}'", directoryInfo.FullName);
             directoryInfo.Delete(recursive);
         }
 
@@ -185,7 +186,7 @@ namespace jeza.ioFTPD.Archive
                                               DirectoryInfo directoryInfo)
         {
             DirectoryInfo destinationDirectoryInfo = new DirectoryInfo(archiveTask.Destination);
-            directoryInfo.CopyTo(destinationDirectoryInfo, true);
+            directoryInfo.CopyTo(new DirectoryInfo(Path.Combine(destinationDirectoryInfo.FullName, directoryInfo.Name)), true);
         }
 
         private ArchiveConfiguration configuration;
