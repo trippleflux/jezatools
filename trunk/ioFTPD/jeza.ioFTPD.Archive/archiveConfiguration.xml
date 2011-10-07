@@ -4,8 +4,8 @@
     <regExpressionInclude>\S*([Ss]targate|[Ss]tar[Tt]rek)\S*</regExpressionInclude>
     <status>Disabled</status>
     <actionType>Move</actionType>
-    <source>E:\\temp\\TestFiles</source>
-    <destination>E:\\temp\\archive</destination>
+    <source>C:\\temp\\TestFiles</source>
+    <destination>D:\\temp\\archive</destination>
     <action id="TotalUsedSpace">
       <value>12345000</value>
       <minFolderAction>5</minFolderAction>

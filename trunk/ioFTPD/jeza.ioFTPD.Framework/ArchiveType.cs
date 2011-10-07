@@ -13,5 +13,9 @@ namespace jeza.ioFTPD.Framework
         /// Deletes the folders.
         /// </summary>
         Delete,
+        /// <summary>
+        /// Copies folders to destination.
+        /// </summary>
+        Copy,
     }
 }

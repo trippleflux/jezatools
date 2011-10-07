@@ -1,14 +1,58 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 
 namespace jeza.ioFTPD.Framework
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Copies source directory to destination directory.
+        /// </summary>
+        /// <param name="sourceDirectory">The source.</param>
+        /// <param name="destinationDirectory">The dest directory.</param>
+        /// <param name="recursive">if set to <c>true</c> do it recursive for all subdirectories.</param>
+        public static void CopyTo(this DirectoryInfo sourceDirectory,
+                                  DirectoryInfo destinationDirectory,
+                                  bool recursive)
+        {
+            if (sourceDirectory == null)
+            {
+                throw new ArgumentNullException("sourceDirectory");
+            }
+            if (destinationDirectory == null)
+            {
+                throw new ArgumentNullException("destinationDirectory");
+            }
+            if (!sourceDirectory.Exists)
+            {
+                throw new DirectoryNotFoundException("Source directory not found: " + sourceDirectory.FullName);
+            }
+            if (!destinationDirectory.Exists)
+            {
+                destinationDirectory.Create();
+            }
+            foreach (System.IO.FileInfo file in sourceDirectory.GetFiles())
+            {
+                file.CopyTo(Path.Combine(destinationDirectory.FullName, file.Name), true);
+            }
+            if (!recursive)
+            {
+                return;
+            }
+            foreach (DirectoryInfo directory in sourceDirectory.GetDirectories())
+            {
+                CopyTo(directory, new DirectoryInfo(Path.Combine(destinationDirectory.FullName, directory.Name)), true);
+            }
+        }
+
         /// <summary>
         /// String Formats the submited input arguments.
         /// </summary>
@@ -35,15 +79,15 @@ namespace jeza.ioFTPD.Framework
         /// <param name="defaultNamespace">The default namespace.</param>
         /// <returns></returns>
         public static T Deserialize<T>(T xmlObject,
-                                        string fileName,
-                                        string defaultNamespace)
+                                       string fileName,
+                                       string defaultNamespace)
         {
             if (File.Exists(fileName))
             {
                 using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
                 {
-                    XmlSerializer xmlSerializer = new XmlSerializer(typeof(T), defaultNamespace);
-                    return (T)xmlSerializer.Deserialize(fileStream);
+                    XmlSerializer xmlSerializer = new XmlSerializer(typeof (T), defaultNamespace);
+                    return (T) xmlSerializer.Deserialize(fileStream);
                 }
             }
             Log.Debug("File '{0}' not found!", fileName);
@@ -300,5 +344,51 @@ namespace jeza.ioFTPD.Framework
 
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
         private static readonly Mutex RaceMutex = new Mutex(false, "raceMutex");
+
+        public static UInt64 GetFolderSize(this DirectoryInfo directoryInfo)
+        {
+            return (UInt64) directoryInfo.GetFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length);
+            //UInt64 totalSize = 0;
+            //foreach (var fileInfo in directoryInfo.GetFiles("*", SearchOption.AllDirectories))
+            //{
+            //    totalSize += (UInt64)fileInfo.Length;
+            //}
+            //return totalSize;
+        }
+
+        /// <summary>
+        /// Gets the folder count.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="archiveTask"><see cref="ArchiveTask"/>.</param>
+        /// <returns></returns>
+        public static List<DirectoryInfo> GetFolders(this DirectoryInfo source,
+                                                     ArchiveTask archiveTask)
+        {
+            DirectoryInfo[] directories = source.GetDirectories();
+            List<DirectoryInfo> allFolders = new List<DirectoryInfo>();
+            foreach (DirectoryInfo directoryInfo in directories)
+            {
+                if (archiveTask.RegExpressionInclude != null)
+                {
+                    if (Misc.IsMatch(directoryInfo.Name, archiveTask.RegExpressionInclude))
+                    {
+                        allFolders.Add(directoryInfo);
+                    }
+                }
+                else if (archiveTask.RegExpressionExclude != null)
+                {
+                    if (!Misc.IsMatch(directoryInfo.Name, archiveTask.RegExpressionExclude))
+                    {
+                        allFolders.Add(directoryInfo);
+                    }
+                }
+                else
+                {
+                    allFolders.Add(directoryInfo);
+                }
+            }
+            return allFolders;
+        }
     }
 }
