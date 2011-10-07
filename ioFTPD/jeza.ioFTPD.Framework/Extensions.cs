@@ -39,9 +39,12 @@ namespace jeza.ioFTPD.Framework
             {
                 destinationDirectory.Create();
             }
+            Log.Debug("CopyTo: '{0}' to '{1}'", sourceDirectory.FullName, destinationDirectory.FullName);
             foreach (System.IO.FileInfo file in sourceDirectory.GetFiles())
             {
-                file.CopyTo(Path.Combine(destinationDirectory.FullName, file.Name), true);
+                string fileName = Path.Combine(destinationDirectory.FullName, file.Name);
+                Log.Debug("CopyFile: '{0}' to '{1}'", file.FullName, fileName);
+                file.CopyTo(fileName, true);
             }
             if (!recursive)
             {

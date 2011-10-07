@@ -7,7 +7,8 @@ namespace jeza.ioFTPD.Archive
     {
         private static void Main(string[] args)
         {
-            Log.Debug((string) "Archive...");
+            Log.Debug((string)"--------------------------------------------------------------"); 
+            Log.Debug((string)"Archive...");
             try
             {
                 ConsoleApp consoleApp = new ConsoleApp();

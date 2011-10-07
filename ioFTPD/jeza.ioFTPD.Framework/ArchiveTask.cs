@@ -59,7 +59,7 @@ namespace jeza.ioFTPD.Framework
 
         public override string ToString()
         {
-            return string.Format("ArchiveType: {0}, ArchiveStatus: {1}, Source: {2}, Destination: {3}, Action: {4}", ArchiveType, ArchiveStatus, Source, Destination, Action);
+            return string.Format("ArchiveType: {0}, ArchiveStatus: {1}, Source: '{2}', Destination: '{3}', Action: {4}", ArchiveType, ArchiveStatus, Source, Destination, Action);
         }
     }
 }
