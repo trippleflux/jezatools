@@ -152,15 +152,20 @@ namespace jeza.ioFTPD.Archive
             Log.Debug("ExecuteArchiveTask '{0}' on '{1}'!", archiveTask.ToString(), directoryInfo.FullName);
             switch (archiveTask.ArchiveType)
             {
+                case ArchiveType.Copy:
+                {
+                    CopySourceFolders(archiveTask, directoryInfo);
+                    break;
+                }
                 case ArchiveType.Move:
                 {
-                    DirectoryInfo destinationDirectoryInfo = new DirectoryInfo(archiveTask.Destination);
-                    directoryInfo.MoveTo(Path.Combine(destinationDirectoryInfo.FullName, directoryInfo.Name));
+                    CopySourceFolders(archiveTask, directoryInfo);
+                    DeleteFolder(directoryInfo, true);
                     break;
                 }
                 case ArchiveType.Delete:
                 {
-                    directoryInfo.Delete(true);
+                    DeleteFolder(directoryInfo, true);
                     break;
                 }
                 default:
@@ -168,6 +173,19 @@ namespace jeza.ioFTPD.Archive
                     throw new NotSupportedException();
                 }
             }
+        }
+
+        private static void DeleteFolder(DirectoryInfo directoryInfo,
+                                         bool recursive)
+        {
+            directoryInfo.Delete(recursive);
+        }
+
+        private static void CopySourceFolders(ArchiveTask archiveTask,
+                                              DirectoryInfo directoryInfo)
+        {
+            DirectoryInfo destinationDirectoryInfo = new DirectoryInfo(archiveTask.Destination);
+            directoryInfo.CopyTo(destinationDirectoryInfo, true);
         }
 
         private ArchiveConfiguration configuration;

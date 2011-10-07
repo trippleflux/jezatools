@@ -12,6 +12,17 @@
     </action>
   </task>
   <task>
+    <regExpressionExclude>\S*([Cc]aprica)\S*</regExpressionExclude>		:: Skip all folders in source that starts with 'Caprica'
+    <status>Enabled</status>											:: This TASK is enabled
+    <actionType>Copy</actionType>										:: Folders will be copied to location specified in destination. Source fodler will not be deleted.
+    <source>E:\\temp</source>											:: Source folder
+    <destination>E:\\temp\\archive</destination>						:: Destination folder
+    <action id="TotalUsedSpace">										:: Action will execute if total space used on DISK E is over 12345000 bytes
+      <value>12345000</value>
+      <minFolderAction>5</minFolderAction>								:: Action will not be executed if total folders count in source is bellow 5
+    </action>
+  </task>
+  <task>
     <regExpressionInclude>\S*([Ss]targate|[Ss]tar[Tt]rek)\S*</regExpressionInclude>		:: Include only folders with words 'Stargate' or 'Startrek'
     <status>Enabled</status>															:: This TASK is enabled
     <actionType>Move</actionType>														:: Folders will be moved to location specified in destination

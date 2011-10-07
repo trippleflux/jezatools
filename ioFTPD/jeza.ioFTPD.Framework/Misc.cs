@@ -13,17 +13,6 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Misc
     {
-        public static UInt64 GetFolderSize(this DirectoryInfo directoryInfo)
-        {
-            return (UInt64) directoryInfo.GetFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length);
-            //UInt64 totalSize = 0;
-            //foreach (var fileInfo in directoryInfo.GetFiles("*", SearchOption.AllDirectories))
-            //{
-            //    totalSize += (UInt64)fileInfo.Length;
-            //}
-            //return totalSize;
-        }
-
         private static MatchCollection GetMatches(string text,
                                                   string regularExpressionString)
         {
@@ -40,45 +29,10 @@ namespace jeza.ioFTPD.Framework
         ///   <c>true</c> if the specified input is match; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsMatch(string input,
-                                    string regularExpressionString)
+                                   string regularExpressionString)
         {
             Regex regex = new Regex(regularExpressionString);
             return regex.IsMatch(input);
-        }
-
-        /// <summary>
-        /// Gets the folder count.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="archiveTask"><see cref="ArchiveTask"/>.</param>
-        /// <returns></returns>
-        public static List<DirectoryInfo> GetFolders(this DirectoryInfo source,
-                                                     ArchiveTask archiveTask)
-        {
-            DirectoryInfo[] directories = source.GetDirectories();
-            List<DirectoryInfo> allFolders = new List<DirectoryInfo>();
-            foreach (DirectoryInfo directoryInfo in directories)
-            {
-                if (archiveTask.RegExpressionInclude != null)
-                {
-                    if (IsMatch(directoryInfo.Name, archiveTask.RegExpressionInclude))
-                    {
-                        allFolders.Add(directoryInfo);
-                    }
-                }
-                else if (archiveTask.RegExpressionExclude != null)
-                {
-                    if (!IsMatch(directoryInfo.Name, archiveTask.RegExpressionExclude))
-                    {
-                        allFolders.Add(directoryInfo);
-                    }
-                }
-                else
-                {
-                    allFolders.Add(directoryInfo);
-                }
-            }
-            return allFolders;
         }
 
         /// <summary>

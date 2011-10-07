@@ -33,6 +33,7 @@
                   <xs:restriction base="xs:string">
                     <xs:enumeration value="Move"/>
                     <xs:enumeration value="Delete"/>
+                    <xs:enumeration value="Copy"/>
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
