@@ -1,4 +1,4 @@
-namespace jeza.ioFTPD.Framework
+namespace jeza.ioFTPD.Framework.Archive
 {
     public enum ArchiveStatus
     {

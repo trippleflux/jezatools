@@ -36,6 +36,7 @@
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -56,9 +57,9 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
-    <Compile Include="ArchiveAction.cs" />
-    <Compile Include="ArchiveConfiguration.cs" />
-    <Compile Include="ArchiveActionAttribute.cs" />
+    <Compile Include="Archive\ArchiveAction.cs" />
+    <Compile Include="Archive\ArchiveConfiguration.cs" />
+    <Compile Include="Archive\ArchiveActionAttribute.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
     <Compile Include="DataParserDelete.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="IoEnvironment.cs" />
+    <None Include="IServerData.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogDestination.cs" />
     <Compile Include="Misc.cs" />
@@ -89,10 +91,10 @@
     <Compile Include="Rescan.cs" />
     <Compile Include="RescanStats.cs" />
     <Compile Include="RescanStatsData.cs" />
-    <Compile Include="ArchiveStatus.cs" />
+    <Compile Include="Archive\ArchiveStatus.cs" />
     <Compile Include="TagManager.cs" />
-    <Compile Include="ArchiveTask.cs" />
-    <Compile Include="ArchiveType.cs" />
+    <Compile Include="Archive\ArchiveTask.cs" />
+    <Compile Include="Archive\ArchiveType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

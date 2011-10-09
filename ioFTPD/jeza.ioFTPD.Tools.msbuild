@@ -4,17 +4,17 @@
   <UsingTask AssemblyFile="lib\GallioBundle\bin\Gallio.MSBuildTasks.dll" TaskName="Gallio" />
   <PropertyGroup>
     <Major>3</Major>
-    <Minor>3</Minor>
+    <Minor>4</Minor>
     <Build>$(BUILD_NUMBER)</Build>
     <Revision>$(SVN_REVISION)</Revision>
     <Configuration>Release</Configuration>
     <buildDir>jeza.ioFTPD.Tools</buildDir>
   </PropertyGroup>
   <ItemGroup>
-    <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/jeza.ioFTPD.ZipScript.exe"/>
+    <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/jeza.ioFTPD.ZipScript.exe*"/>
     <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/*.dll"/>
     <TestsFiles Include="jeza.ioFTPD.Tests/bin/$(Configuration)/*.*"/>
-    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/jeza.ioFTPD.Archive.exe"/>
+    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/jeza.ioFTPD.Archive.exe*"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.dll"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.xml"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.xsd"/>
@@ -65,7 +65,9 @@
              Properties="Configuration=$(Configuration)" />
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ZipScriptReleaseFiles)"></Copy>
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ArchiveScript" SourceFiles="@(ArchiveScriptReleaseFiles)"></Copy>
+    <!--
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Archive" SourceFiles="@(ZipArchive)"></Copy>
+    -->
   </Target>
   <Target Name="Documentation" DependsOnTargets="Compile">
     <NDoc Documenter="MSDN"

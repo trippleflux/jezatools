@@ -77,7 +77,7 @@ namespace jeza.ioFTPD.Framework
                                     }
                                     else
                                     {
-                                        FileInfo.Create0ByteFile(fileName + Config.Crc32FailedFilesExtension);
+                                        FileInfo.Create0ByteFile(fileName + Config.FileExtensionCrc32Failed);
                                     }
                                 }
                             }

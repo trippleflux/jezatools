@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using jeza.ioFTPD.Framework;
+using jeza.ioFTPD.Framework.Archive;
 using MbUnit.Framework;
 
 namespace jeza.ioFTPD.Tests.Archive
@@ -61,16 +62,16 @@ namespace jeza.ioFTPD.Tests.Archive
             Assert.AreApproximatelyEqual(expectedValue, (Int32)totalFolderSize, delta);
         }
 
-        [Test]
-        [Explicit("Can not determine how SVN creates test folders")]
-        public void GetOldest()
-        {
-            DirectoryInfo directoryInfo = new DirectoryInfo(@"..\..\TestFiles\Archive\source");
-            List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
-            DirectoryInfo[] directoryInfos = folders.ToArray();
-            Array.Sort(directoryInfos, (IComparer) new CompareDirectoryByDate());
-            Assert.AreEqual("2", directoryInfos[0].Name);
-        }
+        //[Test]
+        //[Explicit("Can not determine how SVN creates test folders")]
+        //public void GetOldest()
+        //{
+        //    DirectoryInfo directoryInfo = new DirectoryInfo(@"..\..\TestFiles\Archive\source");
+        //    List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
+        //    DirectoryInfo[] directoryInfos = folders.ToArray();
+        //    Array.Sort(directoryInfos, (IComparer) new CompareDirectoryByDate());
+        //    Assert.AreEqual("2", directoryInfos[0].Name);
+        //}
 
         private readonly ArchiveTask archiveTask = new ArchiveTask
         {

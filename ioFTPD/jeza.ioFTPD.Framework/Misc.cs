@@ -36,6 +36,23 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
+        /// Converts string to boolean.
+        /// </summary>
+        /// <param name="keyValue">The key value.</param>
+        /// <returns></returns>
+        public static bool String2Boolean(string keyValue)
+        {
+            try
+            {
+                return Boolean.Parse(keyValue);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        
+        /// <summary>
         /// Converts string to number.
         /// </summary>
         /// <param name="input">Input string.</param>
