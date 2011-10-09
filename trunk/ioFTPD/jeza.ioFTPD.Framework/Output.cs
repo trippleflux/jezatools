@@ -343,6 +343,11 @@ namespace jeza.ioFTPD.Framework
                                     args [i] = file.Tag.Track.ToString();
                                     break;
                                 }
+                                case "newline":
+                                {
+                                    args [i] = CodeNewLine;
+                                    break;
+                                }
                                 default:
                                 {
                                     break;
@@ -361,7 +366,7 @@ namespace jeza.ioFTPD.Framework
 
         private static bool MinimumLength(string line)
         {
-            if (line.Length < 2)
+            if ((line == null) || (line.Length < 2))
             {
                 return true;
             }
@@ -370,7 +375,7 @@ namespace jeza.ioFTPD.Framework
 
         private static bool NotFormated(string line)
         {
-            if (line.IndexOf(SplitChar) == -1)
+            if ((line == null) || (line.IndexOf(SplitChar) == -1))
             {
                 return true;
             }
@@ -451,22 +456,27 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "releasename":
                     {
-                        args[i] = race.CurrentRaceData.DirectoryName;
+                        args [i] = race.CurrentRaceData.DirectoryName;
                         break;
                     }
                     case "irccolor":
                     {
-                        args[i] = CodeIrcColor;
+                        args [i] = CodeIrcColor;
                         break;
                     }
                     case "ircbold":
                     {
-                        args[i] = CodeIrcBold;
+                        args [i] = CodeIrcBold;
                         break;
                     }
                     case "ircunderline":
                     {
-                        args[i] = CodeIrcUnderline;
+                        args [i] = CodeIrcUnderline;
+                        break;
+                    }
+                    case "newline":
+                    {
+                        args[i] = CodeNewLine;
                         break;
                     }
                     default:
@@ -548,22 +558,27 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "releasename":
                     {
-                        args[i] = race.CurrentRaceData.DirectoryName;
+                        args [i] = race.CurrentRaceData.DirectoryName;
                         break;
                     }
                     case "irccolor":
                     {
-                        args[i] = CodeIrcColor;
+                        args [i] = CodeIrcColor;
                         break;
                     }
                     case "ircbold":
                     {
-                        args[i] = CodeIrcBold;
+                        args [i] = CodeIrcBold;
                         break;
                     }
                     case "ircunderline":
                     {
-                        args[i] = CodeIrcUnderline;
+                        args [i] = CodeIrcUnderline;
+                        break;
+                    }
+                    case "newline":
+                    {
+                        args[i] = CodeNewLine;
                         break;
                     }
                     default:
@@ -643,12 +658,12 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "totalusersracing":
                     {
-                        args[i] = race.TotalUsersRacing.ToString();
+                        args [i] = race.TotalUsersRacing.ToString();
                         break;
                     }
                     case "totalgroupsracing":
                     {
-                        args[i] = race.TotalGroupsRacing.ToString();
+                        args [i] = race.TotalGroupsRacing.ToString();
                         break;
                     }
                     case "progressbar":
@@ -689,6 +704,11 @@ namespace jeza.ioFTPD.Framework
                     case "ircunderline":
                     {
                         args [i] = CodeIrcUnderline;
+                        break;
+                    }
+                    case "newline":
+                    {
+                        args [i] = CodeNewLine;
                         break;
                     }
                     default:
@@ -765,6 +785,11 @@ namespace jeza.ioFTPD.Framework
                         args [i] = rescanStats.FailedFiles.ToString();
                         break;
                     }
+                    case "newline":
+                    {
+                        args [i] = CodeNewLine;
+                        break;
+                    }
                     default:
                     {
                         break;
@@ -795,5 +820,6 @@ namespace jeza.ioFTPD.Framework
         private const string CodeIrcBold = "\\002";
         private const string CodeIrcUnderline = "\\037";
         private const string CodeIrcColor = "\\003";
+        private string CodeNewLine = Environment.NewLine;
     }
 }

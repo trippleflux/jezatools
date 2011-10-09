@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace jeza.ioFTPD.Framework
+namespace jeza.ioFTPD.Framework.Archive
 {
     public class ArchiveTask
     {

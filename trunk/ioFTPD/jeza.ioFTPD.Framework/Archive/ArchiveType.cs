@@ -1,4 +1,4 @@
-namespace jeza.ioFTPD.Framework
+namespace jeza.ioFTPD.Framework.Archive
 {
     /// <summary>
     /// List of posible types for archiving

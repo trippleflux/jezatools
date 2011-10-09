@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
+using jeza.ioFTPD.Framework.Archive;
 
 namespace jeza.ioFTPD.Framework
 {

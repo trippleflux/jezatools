@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using jeza.ioFTPD.Framework;
+using jeza.ioFTPD.Framework.Archive;
 
 namespace jeza.ioFTPD.Archive
 {
