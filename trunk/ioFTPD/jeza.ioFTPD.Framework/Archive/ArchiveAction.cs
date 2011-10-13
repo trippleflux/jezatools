@@ -9,7 +9,7 @@ namespace jeza.ioFTPD.Framework.Archive
         /// Gets or sets the id for the action <see cref="ArchiveActionAttribute"/>.
         /// </summary>
         /// <value>The id.</value>
-        [XmlAttribute(AttributeName = "id")]
+        [XmlAttribute(AttributeName = Constants.XmlElementNameArchiveTaskActionId)]
         public ArchiveActionAttribute Id { get; set; }
 
         /// <summary>
@@ -24,14 +24,14 @@ namespace jeza.ioFTPD.Framework.Archive
         /// </list>
         /// </example>
         /// <value>The value.</value>
-        [XmlElement(ElementName = "value")]
+        [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskActionValue)]
         public UInt64 Value { get; set; }
 
         /// <summary>
         /// Gets or sets the min folder action. How many folders should the script move/delete at once.
         /// </summary>
         /// <value>The min folder action.</value>
-        [XmlElement(ElementName = "minFolderAction")]
+        [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskActionMinFolder)]
         public int MinFolderAction { get; set; }
 
         public override string ToString()

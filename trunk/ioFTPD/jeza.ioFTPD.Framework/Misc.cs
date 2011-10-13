@@ -31,7 +31,7 @@ namespace jeza.ioFTPD.Framework
         public static bool IsMatch(string input,
                                    string regularExpressionString)
         {
-            Regex regex = new Regex(regularExpressionString);
+            Regex regex = new Regex(regularExpressionString, RegexOptions.IgnoreCase);
             return regex.IsMatch(input);
         }
 

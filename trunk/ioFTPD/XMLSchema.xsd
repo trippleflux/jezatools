@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XMLSchema"
+    targetNamespace="http://jeza.ioFTPD.Tools/XMLSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="tasks">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="task">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="regExpressionInclude" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+              </xs:element>
+
+              <xs:element name="regExpressionExclude" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+              </xs:element>
+
+              <xs:element name="status" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Enabled"/>
+                    <xs:enumeration value="Disabled"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              
+              <xs:element name="actionType" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Move"/>
+                    <xs:enumeration value="Delete"/>
+                    <xs:enumeration value="Copy"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="source" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="destination" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="action" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="value" minOccurs="1" maxOccurs="1" type="xs:long">
+                    </xs:element>
+                    <xs:element name="minFolderAction" minOccurs="1" maxOccurs="1" type="xs:integer">
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="TotalUsedSpace"/>
+                        <xs:enumeration value="TotalFolderUsedSpace"/>
+                        <xs:enumeration value="TotalFreeSpace"/>
+                        <xs:enumeration value="TotalFolderCount"/>
+                        <xs:enumeration value="DateOlder"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  
+                </xs:complexType>
+              </xs:element>
+              
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        
+        <xs:element name="weeklyTask">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="status" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Enabled"/>
+                    <xs:enumeration value="Disabled"/>
+                    <xs:enumeration value="Pending"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="type" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Day"/>
+                    <xs:enumeration value="Week"/>
+                    <xs:enumeration value="Month"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="userId" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="credits" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="notes" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="creator" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="dateTimeStart" minOccurs="1" maxOccurs="1" type="xs:dateTime">
+              </xs:element>
+
+              <xs:element name="dateTimeStop" minOccurs="1" maxOccurs="1" type="xs:dateTime">
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="newDayTask">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="status" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Enabled"/>
+                    <xs:enumeration value="Disabled"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="type" minOccurs="1" maxOccurs="1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Day"/>
+                    <xs:enumeration value="Week"/>
+                    <xs:enumeration value="Month"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="path" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="format" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="symlink" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+              
+              <xs:element name="mode" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="uid" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="gid" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
