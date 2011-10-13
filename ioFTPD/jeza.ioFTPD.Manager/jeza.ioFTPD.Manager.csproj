@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{99D40587-4522-4B22-A424-26A7B1D56EEA}</ProjectGuid>
+    <ProjectGuid>{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>jeza.ioFTPD.Archive</RootNamespace>
-    <AssemblyName>jeza.ioFTPD.Archive</AssemblyName>
+    <RootNamespace>jeza.ioFTPD.Manager</RootNamespace>
+    <AssemblyName>jeza.ioFTPD.Manager</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -36,7 +36,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -53,20 +52,8 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
-    <Compile Include="ConsoleApp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="archiveConfiguration.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ReadMe.htm">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Examples.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\XMLSchema.xsd">
@@ -76,10 +63,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
-      <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
-      <Name>jeza.ioFTPD.Framework</Name>
-    </ProjectReference>
+    <Content Include="managerConfiguration.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

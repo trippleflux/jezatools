@@ -2,10 +2,10 @@ using System.Xml.Serialization;
 
 namespace jeza.ioFTPD.Framework.Archive
 {
-    [XmlRoot("tasks", IsNullable = false)]
+    [XmlRoot(Constants.XmlRootElementForConfiguration, IsNullable = false)]
     public class ArchiveConfiguration
     {
-        [XmlElement(ElementName = "task")]
+        [XmlElement(ElementName = Constants.XmlElementNameArchiveTask)]
         public ArchiveTask[] ArchiveTasks { get; set; }
     }
 }

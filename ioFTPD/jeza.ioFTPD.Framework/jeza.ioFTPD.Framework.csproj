@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -12,6 +12,25 @@
     <AssemblyName>jeza.ioFTPD.Framework</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +79,7 @@
     <Compile Include="Archive\ArchiveAction.cs" />
     <Compile Include="Archive\ArchiveConfiguration.cs" />
     <Compile Include="Archive\ArchiveActionAttribute.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
     <Compile Include="DataParserDelete.cs" />
@@ -73,6 +93,13 @@
     <None Include="IServerData.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogDestination.cs" />
+    <Compile Include="Manager\ManagerConfiguration.cs" />
+    <Compile Include="Manager\NewDayTask.cs" />
+    <Compile Include="Manager\NewDayTaskStatus.cs" />
+    <Compile Include="Manager\NewDayTaskType.cs" />
+    <Compile Include="Manager\WeeklyTask.cs" />
+    <Compile Include="Manager\WeeklyTaskStatus.cs" />
+    <Compile Include="Manager\WeeklyTaskType.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="RaceStatsEnumerator.cs" />
     <Compile Include="RaceStatsGroups.cs" />
@@ -95,6 +122,23 @@
     <Compile Include="TagManager.cs" />
     <Compile Include="Archive\ArchiveTask.cs" />
     <Compile Include="Archive\ArchiveType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
