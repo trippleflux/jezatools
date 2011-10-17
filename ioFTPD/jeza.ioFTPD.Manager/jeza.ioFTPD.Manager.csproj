@@ -6,7 +6,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>jeza.ioFTPD.Manager</RootNamespace>
     <AssemblyName>jeza.ioFTPD.Manager</AssemblyName>
@@ -40,9 +40,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -56,18 +59,30 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="IManager.cs" />
+    <Compile Include="ManagerService.cs" />
+    <Compile Include="ManagerWindowsService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\XMLSchema.xsd">
       <Link>XMLSchema.xsd</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="managerConfiguration.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
+      <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
+      <Name>jeza.ioFTPD.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

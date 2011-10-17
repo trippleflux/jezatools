@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>jeza.ioFTPD.Framework</RootNamespace>
     <AssemblyName>jeza.ioFTPD.Framework</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -31,6 +31,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,6 +80,7 @@
     <Compile Include="Archive\ArchiveAction.cs" />
     <Compile Include="Archive\ArchiveConfiguration.cs" />
     <Compile Include="Archive\ArchiveActionAttribute.cs" />
+    <Compile Include="ConsoleApp.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="IoEnvironment.cs" />
+    <Compile Include="Target.cs" />
     <None Include="IServerData.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogDestination.cs" />
