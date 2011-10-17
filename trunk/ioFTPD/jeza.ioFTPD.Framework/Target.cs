@@ -1,4 +1,4 @@
-namespace jeza.ioFTPD.ZipScript
+namespace jeza.ioFTPD.Framework
 {
     public enum Target
     {

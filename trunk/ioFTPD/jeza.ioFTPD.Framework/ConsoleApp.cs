@@ -1,11 +1,11 @@
 #region
+
 using System;
 using System.Text;
-using jeza.ioFTPD.Framework;
 
 #endregion
 
-namespace jeza.ioFTPD.ZipScript
+namespace jeza.ioFTPD.Framework
 {
     public class ConsoleApp
     {
