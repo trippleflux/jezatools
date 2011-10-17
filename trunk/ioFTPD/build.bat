@@ -1,1 +1,1 @@
-C:\WINDOWS\Microsoft.NET\Framework\v3.5\MSBuild.exe jeza.ioFTPD.Tools.msbuild %*
+C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe jeza.ioFTPD.Tools.msbuild %*
