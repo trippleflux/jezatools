@@ -1,20 +1,23 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{8CA77A16-B086-4727-AEF1-4FF68895C325}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyFileInfo.cs = AssemblyFileInfo.cs
+		build.bat = build.bat
+		jeza.ioFTPD.Tools.msbuild = jeza.ioFTPD.Tools.msbuild
+		XMLSchema.xsd = XMLSchema.xsd
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.ZipScript", "jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.csproj", "{4C916287-0460-4FBF-AFA4-B859D03362BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Framework", "jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj", "{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Tests", "jeza.ioFTPD.Tests\jeza.ioFTPD.Tests.csproj", "{62C6B033-8726-4B1D-ACA2-FD2D5521E570}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{8CA77A16-B086-4727-AEF1-4FF68895C325}"
-	ProjectSection(SolutionItems) = preProject
-		AssemblyFileInfo.cs = AssemblyFileInfo.cs
-		build.bat = build.bat
-		jeza.ioFTPD.Tools.msbuild = jeza.ioFTPD.Tools.msbuild
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Archive", "jeza.ioFTPD.Archive\jeza.ioFTPD.Archive.csproj", "{99D40587-4522-4B22-A424-26A7B1D56EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Manager", "jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.csproj", "{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -42,6 +45,10 @@ Global
 		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
