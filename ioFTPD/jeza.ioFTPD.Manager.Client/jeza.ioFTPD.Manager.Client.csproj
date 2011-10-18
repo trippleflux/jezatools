@@ -47,6 +47,9 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
+    <Compile Include="..\jeza.ioFTPD.Framework\ManagerResponse.cs">
+      <Link>ManagerResponse.cs</Link>
+    </Compile>
     <Compile Include="ManagerClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -5,7 +5,7 @@ namespace jeza.ioFTPD.Manager
 {
     public class ManagerService : IManager
     {
-        public int ProcessZipScript(string[] args)
+        public ManagerResponse ProcessZipScript(string[] args)
         {
             bool processExit = false;
             try
@@ -19,17 +19,21 @@ namespace jeza.ioFTPD.Manager
                 Log.Debug(exception.Message);
                 Log.Debug(exception.StackTrace);
             }
-            return processExit ? 0 : 1;
+            ManagerResponse managerResponse = new ManagerResponse
+                                              {
+                                                  Code = processExit ? 0 : 1,
+                                              };
+            return managerResponse;
         }
 
-        public int ProcessArchiveScript(string[] args)
+        public ManagerResponse ProcessArchiveScript(string[] args)
         {
-            throw new NotImplementedException();
+           return new ManagerResponse();
         }
 
-        public int ProcessManager(string[] args)
+        public ManagerResponse ProcessManager(string[] args)
         {
-            throw new NotImplementedException();
+            return new ManagerResponse();
         }
     }
 }

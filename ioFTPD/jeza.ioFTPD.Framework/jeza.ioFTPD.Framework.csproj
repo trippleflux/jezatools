@@ -92,6 +92,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="IoEnvironment.cs" />
+    <Compile Include="ManagerResponse.cs" />
     <Compile Include="Target.cs" />
     <None Include="IServerData.cs" />
     <Compile Include="Log.cs" />
