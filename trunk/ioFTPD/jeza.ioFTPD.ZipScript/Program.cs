@@ -8,8 +8,9 @@ namespace jeza.ioFTPD.ZipScript
 {
     public class Program
     {
-        public static int Main (string[] args)
+        public static int Main(string[] args)
         {
+            DateTime startTime = new DateTime(DateTime.Now.Ticks);
             bool processExit = false;
             try
             {
@@ -22,6 +23,8 @@ namespace jeza.ioFTPD.ZipScript
                 Log.Debug(exception.Message);
                 Log.Debug(exception.StackTrace);
             }
+            DateTime endTime = new DateTime(DateTime.Now.Ticks);
+            Console.WriteLine("Checked in {0}ms", (endTime - startTime).TotalMilliseconds);
             return processExit ? 0 : 1;
         }
     }

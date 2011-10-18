@@ -7,6 +7,9 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
+using jeza.ioFTPD.Framework;
+
 namespace jeza.ioFTPD.Manager.Client
 {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -15,13 +18,13 @@ namespace jeza.ioFTPD.Manager.Client
     {
     
         [System.ServiceModel.OperationContractAttribute(Action="http://jeza.ioFTPD.Manager/IManager/ProcessZipScript", ReplyAction="http://jeza.ioFTPD.Manager/IManager/ProcessZipScriptResponse")]
-        int ProcessZipScript(string[] args);
+        ManagerResponse ProcessZipScript(string[] args);
     
         [System.ServiceModel.OperationContractAttribute(Action="http://jeza.ioFTPD.Manager/IManager/ProcessArchiveScript", ReplyAction="http://jeza.ioFTPD.Manager/IManager/ProcessArchiveScriptResponse")]
-        int ProcessArchiveScript(string[] args);
+        ManagerResponse ProcessArchiveScript(string[] args);
     
         [System.ServiceModel.OperationContractAttribute(Action="http://jeza.ioFTPD.Manager/IManager/ProcessManager", ReplyAction="http://jeza.ioFTPD.Manager/IManager/ProcessManagerResponse")]
-        int ProcessManager(string[] args);
+        ManagerResponse ProcessManager(string[] args);
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -57,18 +60,18 @@ namespace jeza.ioFTPD.Manager.Client
             base(binding, remoteAddress)
         {
         }
-    
-        public int ProcessZipScript(string[] args)
+
+        public ManagerResponse ProcessZipScript(string[] args)
         {
             return Channel.ProcessZipScript(args);
         }
-    
-        public int ProcessArchiveScript(string[] args)
+
+        public ManagerResponse ProcessArchiveScript(string[] args)
         {
             return Channel.ProcessArchiveScript(args);
         }
-    
-        public int ProcessManager(string[] args)
+
+        public ManagerResponse ProcessManager(string[] args)
         {
             return Channel.ProcessManager(args);
         }

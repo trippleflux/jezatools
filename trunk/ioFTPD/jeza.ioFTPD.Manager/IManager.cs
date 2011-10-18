@@ -1,4 +1,5 @@
 using System.ServiceModel;
+using jeza.ioFTPD.Framework;
 
 namespace jeza.ioFTPD.Manager
 {
@@ -6,12 +7,12 @@ namespace jeza.ioFTPD.Manager
     public interface IManager
     {
         [OperationContract]
-        int ProcessZipScript(string[] args);
+        ManagerResponse ProcessZipScript(string[] args);
 
         [OperationContract]
-        int ProcessArchiveScript(string[] args);
+        ManagerResponse ProcessArchiveScript(string[] args);
         
         [OperationContract]
-        int ProcessManager(string[] args);
+        ManagerResponse ProcessManager(string[] args);
     }
 }

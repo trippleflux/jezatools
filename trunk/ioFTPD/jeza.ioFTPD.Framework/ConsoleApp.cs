@@ -1,9 +1,4 @@
-#region
-
-using System;
 using System.Text;
-
-#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -12,7 +7,6 @@ namespace jeza.ioFTPD.Framework
         public ConsoleApp(string[] args)
         {
             this.args = args;
-            startTime = new DateTime(DateTime.Now.Ticks);
             Log.Debug("args: '{0}'", ArgsToString);
         }
 
@@ -79,8 +73,6 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             Log.Debug("Script returned code {0}", returnValue);
-            DateTime endTime = new DateTime(DateTime.Now.Ticks);
-            Console.WriteLine("Checked in {0}ms", (endTime - startTime).TotalMilliseconds);
             return returnValue;
         }
 
@@ -100,6 +92,5 @@ namespace jeza.ioFTPD.Framework
 
         private readonly string[] args;
         private Target target;
-        private readonly DateTime startTime;
     }
 }

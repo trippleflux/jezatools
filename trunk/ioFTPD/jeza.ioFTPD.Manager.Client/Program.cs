@@ -1,4 +1,5 @@
 ﻿using System;
+using jeza.ioFTPD.Framework;
 
 namespace jeza.ioFTPD.Manager.Client
 {
@@ -8,10 +9,13 @@ namespace jeza.ioFTPD.Manager.Client
         {
             try
             {
+                DateTime startTime = new DateTime(DateTime.Now.Ticks);
                 ManagerClient client = new ManagerClient();
-                int managerReturnCode = client.ProcessZipScript(args);
-                Console.WriteLine("Manager Response : {0}", managerReturnCode);
-                return managerReturnCode;
+                ManagerResponse managerResponse = client.ProcessZipScript(args);
+                Console.WriteLine(managerResponse.Console);
+                DateTime endTime = new DateTime(DateTime.Now.Ticks);
+                Console.WriteLine("Checked in {0}ms", (endTime - startTime).TotalMilliseconds);
+                return managerResponse.Code;
             }
             catch (Exception)
             {
