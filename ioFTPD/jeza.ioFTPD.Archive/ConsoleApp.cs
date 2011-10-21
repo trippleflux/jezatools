@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using jeza.ioFTPD.Framework;
 using jeza.ioFTPD.Framework.Archive;
 
@@ -77,11 +78,8 @@ namespace jeza.ioFTPD.Archive
                         }
                         case ArchiveActionAttribute.TotalFolderUsedSpace:
                         {
-                            UInt64 totalFolderSize = 0;
-                            foreach (DirectoryInfo directoryInfo in sourceFolders)
-                            {
-                                totalFolderSize += directoryInfo.GetFolderSize();
-                            }
+                            UInt64 totalFolderSize = sourceFolders.Aggregate<DirectoryInfo, ulong>(0, (current,
+                                                                                                       directoryInfo) => current + directoryInfo.GetFolderSize());
                             if (totalFolderSize > task.Action.Value)
                             {
                                 ExecuteArchiveTask(task, sourceFolders);
@@ -101,8 +99,8 @@ namespace jeza.ioFTPD.Archive
             }
         }
 
-        private void ManageDiskSpace(ArchiveTask task,
-                                     List<DirectoryInfo> sourceFolders)
+        private static void ManageDiskSpace(ArchiveTask task,
+                                            List<DirectoryInfo> sourceFolders)
         {
             DriveInfo[] driveInfos = DriveInfo.GetDrives();
             foreach (DriveInfo driveInfo in driveInfos)
@@ -187,7 +185,24 @@ namespace jeza.ioFTPD.Archive
                                               DirectoryInfo directoryInfo)
         {
             DirectoryInfo destinationDirectoryInfo = new DirectoryInfo(archiveTask.Destination);
-            directoryInfo.CopyTo(new DirectoryInfo(Path.Combine(destinationDirectoryInfo.FullName, directoryInfo.Name)), true);
+            const string ioftpd = ".ioFTPD";
+            const string ioftpdBackup = ".backup";
+            string sourceFileName = Path.Combine(directoryInfo.FullName, ioftpd);
+            if (File.Exists(sourceFileName))
+            {
+                string backupSource = sourceFileName + ioftpdBackup;
+                Framework.FileInfo.DeleteFile(backupSource);
+                File.Move(sourceFileName, backupSource);
+            }
+            string destinationFolder = Path.Combine(destinationDirectoryInfo.FullName, directoryInfo.Name);
+            directoryInfo.CopyTo(new DirectoryInfo(destinationFolder), true);
+            string destinationFileName = Path.Combine(destinationFolder, ioftpd + ioftpdBackup);
+            if (File.Exists(destinationFileName))
+            {
+                string backupDestination = Path.Combine(destinationFolder, ioftpd);
+                Framework.FileInfo.DeleteFile(backupDestination);
+                File.Move(destinationFileName, backupDestination);
+            }
         }
 
         private ArchiveConfiguration configuration;

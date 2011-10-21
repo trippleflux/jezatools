@@ -34,7 +34,7 @@ namespace jeza.ioFTPD.Framework
             DeleteFile(file);
         }
 
-        private static void DeleteFile (string fileName)
+        public static void DeleteFile(string fileName)
         {
             Log.Debug("DeleteFile: '{0}'", fileName);
             if (File.Exists(fileName))
