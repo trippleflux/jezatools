@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using jeza.ioFTPD.Framework;
 using jeza.ioFTPD.Framework.Archive;
 
@@ -12,7 +13,11 @@ namespace jeza.ioFTPD.Archive
     {
         public void ParseConfig()
         {
-            configuration = Extensions.Deserialize(new ArchiveConfiguration(), ConfigurationFile, DefaultNamespace);
+            string codeBase = Assembly.GetExecutingAssembly().Location;
+            Log.Debug("Assembly.GetExecutingAssembly().Location: ['{0}']", codeBase);
+// ReSharper disable AssignNullToNotNullAttribute
+            configuration = Extensions.Deserialize(new ArchiveConfiguration(), Path.Combine(Path.GetDirectoryName(codeBase), ConfigurationFile), DefaultNamespace);
+// ReSharper restore AssignNullToNotNullAttribute
             if (configuration == null)
             {
                 throw new ConfigurationErrorsException("Failed to load configuration!");
@@ -178,6 +183,7 @@ namespace jeza.ioFTPD.Archive
                                          bool recursive)
         {
             Log.Debug("Deleting '{0}'", directoryInfo.FullName);
+            Console.WriteLine("!unlock " + directoryInfo.FullName + "\\*");
             directoryInfo.Delete(recursive);
         }
 
