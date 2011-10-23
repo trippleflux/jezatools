@@ -18,17 +18,14 @@
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.dll"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.xml"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.xsd"/>
-    <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.htm"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.txt"/>
     <ManagerFiles Include="jeza.ioFTPD.Manager/bin/$(Configuration)/jeza.ioFTPD.Manager.exe*"/>
     <ManagerFiles Include="jeza.ioFTPD.Manager/bin/$(Configuration)/*.dll"/>
-    <ManagerClientFiles Include="jeza.ioFTPD.Manager.Client/bin/$(Configuration)/jeza.ioFTPD.Manager.Client.exe*"/>
   </ItemGroup>
   <ItemGroup>
     <ZipScriptReleaseFiles Include="@(ReleaseFiles)" />
     <ArchiveScriptReleaseFiles Include="@(ArchiveFiles)" />
     <ManagerReleaseFiles Include="@(ManagerFiles)" />
-    <ManagerClientReleaseFiles Include="@(ManagerClientFiles)" />
     <TestsReleaseFiles Include="@(TestsFiles)" />
     <ZipArchive Include="$(buildDir)/jeza.ioFTPD.*/*.*" />
   </ItemGroup>
@@ -71,7 +68,6 @@
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ZipScript" SourceFiles="@(ZipScriptReleaseFiles)"></Copy>
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.ArchiveScript" SourceFiles="@(ArchiveScriptReleaseFiles)"></Copy>
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Manager" SourceFiles="@(ManagerReleaseFiles)"></Copy>
-    <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Manager.Client" SourceFiles="@(ManagerClientReleaseFiles)"></Copy>
     <!--
     <Copy DestinationFolder="$(buildDir)/jeza.ioFTPD.Archive" SourceFiles="@(ZipArchive)"></Copy>
     -->
