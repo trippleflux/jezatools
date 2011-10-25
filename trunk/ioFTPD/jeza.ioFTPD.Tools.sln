@@ -17,10 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Tests", "jeza.i
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Archive", "jeza.ioFTPD.Archive\jeza.ioFTPD.Archive.csproj", "{99D40587-4522-4B22-A424-26A7B1D56EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.ManagerService", "jeza.ioFTPD.ManagerService\jeza.ioFTPD.ManagerService.csproj", "{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.ManagerService.Client", "jeza.ioFTPD.ManagerService.Client\jeza.ioFTPD.ManagerService.Client.csproj", "{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Manager", "jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.csproj", "{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}"
 EndProject
 Global
@@ -77,18 +73,6 @@ Global
 		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{99D40587-4522-4B22-A424-26A7B1D56EEA}.Release|x86.ActiveCfg = Release|Any CPU
-		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{FB0A56A6-B79B-4682-BB8D-6809DF8B5455}.Release|x86.ActiveCfg = Release|Any CPU
-		{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{BDA21CE1-D4AD-490C-BBB6-9C040F621CBE}.Release|x86.ActiveCfg = Release|Any CPU
 		{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}.Debug|Any CPU.ActiveCfg = Release|Any CPU
 		{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

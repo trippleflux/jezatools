@@ -23,7 +23,6 @@ In ioFTPD.ini add :
 [FTP_Custom_Commands]
 newday            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe manualNewDay
 [FTP_SITE_Permissions]
-weekly		= 1
 newday		= 1
 [Scheduler]
 NewDay           = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerNewDay
@@ -44,15 +43,25 @@ Task structure:
 XMLNode					Value
 ----------------------- ------------------------------------------------------------------------------------
 status					Enabled/Disabled
-actionType				Move/Delete/Copy
-source					Source folder
-destination				Destination folder
-action
-		id				TotalUsedSpace/TotalFolderUsedSpace/TotalFreeSpace/TotalFolderCount/DateOlder
-		value			Number
-		minFolderAction	Number
-regExpressionExclude	Regular expression for excluding specified folders
-regExpressionInclude	Regular expression for including only specified folders
+type					Move/Delete/Copy
+realPath				Source folder
+virtualPath				Destination folder
+format					Format for the new day folder
+						{0}  - day in month
+						{1}  - week number in year
+						{2}  - month in year
+						{3}  - year
+						Example:
+							If todays date is 2011-11-30 
+								type=Month	{3:0000}-{2:00}-{0:00} WEEK-{1:00}	-> 2011-12-30 WEEK-53
+								type=Day	{2:00}{0:00}						-> 1201
+								type=Day	{2}{0}								-> 121
+symlink					Real path of the symlink (Must exist on disk)
+mode					folder MODE (777, 744,...)
+uid						USER ID for the folder
+gid						GROUP ID for the folder
+cultureInfo				http://www.csharp-examples.net/culture-names/
+firstDayOfWeek			Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------

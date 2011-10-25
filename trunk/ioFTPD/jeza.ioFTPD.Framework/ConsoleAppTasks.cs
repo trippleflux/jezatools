@@ -63,36 +63,9 @@ namespace jeza.ioFTPD.Framework
                         Log.Debug(exception.StackTrace);
                         throw;
                     }
-                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-                    CultureInfo cultureInfo = new CultureInfo(task.CultureInfo);
-                    Calendar calendar = cultureInfo.Calendar;
-                    switch (task.Type)
-                    {
-                        case NewDayTaskType.Day:
-                        {
-                            dateTime = dateTime.AddDays(1);
-                            break;
-                        }
-                        case NewDayTaskType.Week:
-                        {
-                            dateTime = dateTime.AddDays(7);
-                            break;
-                        }
-                        case NewDayTaskType.Month:
-                        {
-                            dateTime = dateTime.AddMonths(1);
-                            break;
-                        }
-                        default:
-                        {
-                            throw new ArgumentOutOfRangeException();
-                        }
-                    }
-                    string folderName = String.Format(CultureInfo.InvariantCulture, task.FolderFormat,
-                        dateTime.Day,
-                        calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, task.FirstDayOfWeek),
-                        dateTime.Month,
-                        dateTime.Year);
+                    //DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks).AddNextDate(task.Type);
+                    string folderName = dateTime.GetNewDayFolderFormat(task);
                     string newDayFolder = Path.Combine(sourceFolder.FullName, folderName);
                     FileInfo.CreateFolder(newDayFolder);
                     if (String.IsNullOrEmpty(task.Symlink))
