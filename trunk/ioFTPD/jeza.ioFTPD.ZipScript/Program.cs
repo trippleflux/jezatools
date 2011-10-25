@@ -14,9 +14,9 @@ namespace jeza.ioFTPD.ZipScript
             bool processExit = false;
             try
             {
-                ConsoleApp consoleApp = new ConsoleApp(args);
-                consoleApp.Parse();
-                processExit = consoleApp.Process();
+                ConsoleAppZipScript consoleAppZipScript = new ConsoleAppZipScript(args);
+                consoleAppZipScript.Parse();
+                processExit = consoleAppZipScript.Process();
             }
             catch (Exception exception)
             {

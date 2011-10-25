@@ -1,22 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using jeza.ioFTPD.Framework;
 using jeza.ioFTPD.Framework.Archive;
+using jeza.ioFTPD.Framework.Manager;
 
-namespace jeza.ioFTPD.Archive
+namespace jeza.ioFTPD.Framework
 {
-    public class ConsoleApp
+    public class ConsoleAppTasks
     {
         public void ParseConfig()
         {
             string codeBase = Assembly.GetExecutingAssembly().Location;
             Log.Debug("Assembly.GetExecutingAssembly().Location: ['{0}']", codeBase);
 // ReSharper disable AssignNullToNotNullAttribute
-            configuration = Extensions.Deserialize(new ArchiveConfiguration(), Path.Combine(Path.GetDirectoryName(codeBase), ConfigurationFile), DefaultNamespace);
+            configuration = Extensions.Deserialize(new TaskConfiguration(), Path.Combine(Path.GetDirectoryName(codeBase), configurationFile), DefaultNamespace);
 // ReSharper restore AssignNullToNotNullAttribute
             if (configuration == null)
             {
@@ -24,7 +25,90 @@ namespace jeza.ioFTPD.Archive
             }
         }
 
-        public void Execute()
+        public void Execute(TaskType taskType)
+        {
+            switch (taskType)
+            {
+                case TaskType.Archive:
+                {
+                    ExecuteArchiveTasks();
+                    break;
+                }
+                case TaskType.NewDay:
+                {
+                    ExecuteNewDayTask();
+                    break;
+                }
+                default:
+                {
+                    throw new NotSupportedException("Unknown TaskType");
+                }
+            }
+        }
+
+        private void ExecuteNewDayTask()
+        {
+            foreach (NewDayTask task in configuration.NewDayTask)
+            {
+                if (task.Status == NewDayTaskStatus.Enabled)
+                {
+                    Log.Debug("Starting with task: ['{0}']", task.ToString());
+                    DirectoryInfo sourceFolder;
+                    try
+                    {
+                        sourceFolder = new DirectoryInfo(task.RealPath);
+                    }
+                    catch (Exception exception)
+                    {
+                        Log.Debug(exception.StackTrace);
+                        throw;
+                    }
+                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    CultureInfo cultureInfo = new CultureInfo(task.CultureInfo);
+                    Calendar calendar = cultureInfo.Calendar;
+                    switch (task.Type)
+                    {
+                        case NewDayTaskType.Day:
+                        {
+                            dateTime = dateTime.AddDays(1);
+                            break;
+                        }
+                        case NewDayTaskType.Week:
+                        {
+                            dateTime = dateTime.AddDays(7);
+                            break;
+                        }
+                        case NewDayTaskType.Month:
+                        {
+                            dateTime = dateTime.AddMonths(1);
+                            break;
+                        }
+                        default:
+                        {
+                            throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                    string folderName = String.Format(CultureInfo.InvariantCulture, task.FolderFormat,
+                        dateTime.Day,
+                        calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, task.FirstDayOfWeek),
+                        dateTime.Month,
+                        dateTime.Year);
+                    string newDayFolder = Path.Combine(sourceFolder.FullName, folderName);
+                    FileInfo.CreateFolder(newDayFolder);
+                    if (String.IsNullOrEmpty(task.Symlink))
+                    {
+                        Misc.CreateSymlink(task.Symlink, task.VirtualPath + folderName);
+                        Misc.ChangeVfs(task.Symlink, task.Mode, task.UserId, task.GroupId);
+                    }
+                }
+                else
+                {
+                    Log.Debug("Task '{0}' is disabled!", task.ToString());
+                }
+            }
+        }
+
+        private void ExecuteArchiveTasks()
         {
             foreach (ArchiveTask task in configuration.ArchiveTasks)
             {
@@ -197,7 +281,7 @@ namespace jeza.ioFTPD.Archive
             if (File.Exists(sourceFileName))
             {
                 string backupSource = sourceFileName + ioftpdBackup;
-                Framework.FileInfo.DeleteFile(backupSource);
+                FileInfo.DeleteFile(backupSource);
                 File.Move(sourceFileName, backupSource);
             }
             string destinationFolder = Path.Combine(destinationDirectoryInfo.FullName, directoryInfo.Name);
@@ -206,13 +290,13 @@ namespace jeza.ioFTPD.Archive
             if (File.Exists(destinationFileName))
             {
                 string backupDestination = Path.Combine(destinationFolder, ioftpd);
-                Framework.FileInfo.DeleteFile(backupDestination);
+                FileInfo.DeleteFile(backupDestination);
                 File.Move(destinationFileName, backupDestination);
             }
         }
 
-        private ArchiveConfiguration configuration;
-        private const string ConfigurationFile = "archiveConfiguration.xml";
-        private const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
+        private TaskConfiguration configuration;
+        private readonly string configurationFile = Config.GetKeyValue("FileNameConfiguration");
+        private const string DefaultNamespace = Config.DefaultNamespace;
     }
 }

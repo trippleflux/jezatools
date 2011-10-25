@@ -16,9 +16,9 @@ namespace jeza.ioFTPD.Tests.Archive
         public void ReadIncludePatternFromFile()
         {
             SaveConfiguration();
-            ArchiveConfiguration actualArchiveConfiguration = Extensions.Deserialize(new ArchiveConfiguration(), ConfigurationFile, DefaultNamespace);
+            TaskConfiguration actualTaskConfiguration = Extensions.Deserialize(new TaskConfiguration(), ConfigurationFile, DefaultNamespace);
             ArchiveTask task = null;
-            foreach (ArchiveTask archiveTask in actualArchiveConfiguration.ArchiveTasks)
+            foreach (ArchiveTask archiveTask in actualTaskConfiguration.ArchiveTasks)
             {
                 if (archiveTask.RegExpressionInclude != null)
                 {
@@ -38,13 +38,13 @@ namespace jeza.ioFTPD.Tests.Archive
         [Test]
         public void ReadConfiguration()
         {
-            ArchiveConfiguration expectedArchiveConfiguration = GetArchiveConfiguration();
-            Extensions.Serialize(expectedArchiveConfiguration, ConfigurationFile, DefaultNamespace);
-            ArchiveConfiguration actualArchiveConfiguration = Extensions.Deserialize(new ArchiveConfiguration(), ConfigurationFile, DefaultNamespace);
-            Assert.AreEqual(expectedArchiveConfiguration.ArchiveTasks [0].Action.Id, actualArchiveConfiguration.ArchiveTasks [0].Action.Id, "Configuration missmatch!");
+            TaskConfiguration expectedTaskConfiguration = GetArchiveConfiguration();
+            Extensions.Serialize(expectedTaskConfiguration, ConfigurationFile, DefaultNamespace);
+            TaskConfiguration actualTaskConfiguration = Extensions.Deserialize(new TaskConfiguration(), ConfigurationFile, DefaultNamespace);
+            Assert.AreEqual(expectedTaskConfiguration.ArchiveTasks [0].Action.Id, actualTaskConfiguration.ArchiveTasks [0].Action.Id, "Configuration missmatch!");
         }
 
-        private ArchiveConfiguration GetArchiveConfiguration()
+        private TaskConfiguration GetArchiveConfiguration()
         {
             ArchiveTask task1 = new ArchiveTask
                                 {
@@ -73,7 +73,7 @@ namespace jeza.ioFTPD.Tests.Archive
                                              },
                                 };
 
-            return new ArchiveConfiguration
+            return new TaskConfiguration
                    {
                        ArchiveTasks = new[] {task1, task2, task3}
                    };
@@ -85,8 +85,8 @@ namespace jeza.ioFTPD.Tests.Archive
         [Test]
         public void SaveConfiguration()
         {
-            ArchiveConfiguration archiveConfiguration = GetArchiveConfiguration();
-            Extensions.Serialize(archiveConfiguration, ConfigurationFile, DefaultNamespace);
+            TaskConfiguration taskConfiguration = GetArchiveConfiguration();
+            Extensions.Serialize(taskConfiguration, ConfigurationFile, DefaultNamespace);
         }
 
         private readonly ArchiveTask task3 = new ArchiveTask
@@ -106,6 +106,6 @@ namespace jeza.ioFTPD.Tests.Archive
                                     };
 
         private const string ConfigurationFile = "testConfig.xml";
-        private const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
+        private const string DefaultNamespace = Config.DefaultNamespace;
     }
 }

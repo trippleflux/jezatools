@@ -5,15 +5,15 @@ namespace jeza.ioFTPD.Archive
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            Log.Debug((string)"--------------------------------------------------------------"); 
-            Log.Debug((string)"Archive...");
+            Log.Debug("--------------------------------------------------------------"); 
+            Log.Debug("Archive...");
             try
             {
-                ConsoleApp consoleApp = new ConsoleApp();
-                consoleApp.ParseConfig();
-                consoleApp.Execute();
+                ConsoleAppTasks consoleAppTasks = new ConsoleAppTasks();
+                consoleAppTasks.ParseConfig();
+                consoleAppTasks.Execute(TaskType.Archive);
             }
             catch (Exception exception)
             {

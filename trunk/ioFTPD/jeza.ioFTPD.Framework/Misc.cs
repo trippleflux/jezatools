@@ -13,6 +13,45 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Misc
     {
+        public static string ArgsToString(string[] args)
+        {
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            foreach (string arg in args)
+            {
+                sb.AppendFormat("args[{0}]='{1}' ", i++, arg);
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Creates the symlink between realpath and virtual path.
+        /// </summary>
+        /// <param name="realPath">The real path.</param>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <example>CreateSymlink("C:\ftp-root\today-mp3", "/mp3/1231/")</example>
+        public static void CreateSymlink(string realPath,
+                                         string virtualPath)
+        {
+            Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", realPath, virtualPath);
+        }
+
+        /// <summary>
+        /// Changes the VFS attributes of a directory.
+        /// </summary>
+        /// <param name="realPath">The real path.</param>
+        /// <param name="mode">The mode.</param>
+        /// <param name="uid">The uid.</param>
+        /// <param name="gid">The gid.</param>
+        /// <example>ChangeVfs("C:\ftp-root\today-mp3", 777, 0, 0)</example>
+        public static void ChangeVfs(string realPath,
+                                     int mode,
+                                     int uid,
+                                     int gid)
+        {
+            Console.Write("!vfs:add {3} {1}:{2} {0}\n", realPath, uid, gid, mode);
+        }
+
         private static MatchCollection GetMatches(string text,
                                                   string regularExpressionString)
         {
@@ -51,7 +90,7 @@ namespace jeza.ioFTPD.Framework
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Converts string to number.
         /// </summary>

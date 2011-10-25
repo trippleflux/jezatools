@@ -78,9 +78,10 @@
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
     <Compile Include="Archive\ArchiveAction.cs" />
-    <Compile Include="Archive\ArchiveConfiguration.cs" />
+    <Compile Include="ConsoleAppTasks.cs" />
+    <Compile Include="TaskConfiguration.cs" />
     <Compile Include="Archive\ArchiveActionAttribute.cs" />
-    <Compile Include="ConsoleApp.cs" />
+    <Compile Include="ConsoleAppZipScript.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Crc32.cs" />
     <Compile Include="DataParser.cs" />
@@ -94,10 +95,10 @@
     <Compile Include="IoEnvironment.cs" />
     <Compile Include="ManagerResponse.cs" />
     <Compile Include="Target.cs" />
+    <Compile Include="TaskType.cs" />
     <None Include="IServerData.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogDestination.cs" />
-    <Compile Include="Manager\ManagerConfiguration.cs" />
     <Compile Include="Manager\NewDayTask.cs" />
     <Compile Include="Manager\NewDayTaskStatus.cs" />
     <Compile Include="Manager\NewDayTaskType.cs" />

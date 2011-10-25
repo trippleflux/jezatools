@@ -10,24 +10,17 @@
     <dateTimeStart>2011-10-10T06:12:23.5997776</dateTimeStart>
     <dateTimeStop>2012-10-10T06:12:23.5997776</dateTimeStop>
   </weeklyTask>
-  <task>
-    <status>Disabled</status>
-    <actionType>Move</actionType>
-    <source></source>
-    <destination></destination>
-    <action id="TotalFolderCount">
-      <value>123</value>
-      <minFolderAction>1</minFolderAction>
-    </action>
-  </task>
   <newDayTask>
     <status>Enabled</status>
     <type>Day</type>
-    <path>E:\\mp3\\day</path>
+    <realPath>E:\\mp3\\day</realPath>
+    <virtualPath>/mp3/day/</virtualPath>
     <format>{0}{1}</format>
     <symlink>today-mp3</symlink>
     <mode>777</mode>
     <uid>0</uid>
     <gid>0</gid>
+    <cultureInfo>en-US</cultureInfo>
+    <firstDayOfWeek>Sunday</firstDayOfWeek>
   </newDayTask>
 </tasks>

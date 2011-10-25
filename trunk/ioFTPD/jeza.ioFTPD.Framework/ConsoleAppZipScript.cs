@@ -1,13 +1,11 @@
-using System.Text;
-
 namespace jeza.ioFTPD.Framework
 {
-    public class ConsoleApp
+    public class ConsoleAppZipScript
     {
-        public ConsoleApp(string[] args)
+        public ConsoleAppZipScript(string[] args)
         {
             this.args = args;
-            Log.Debug("args: '{0}'", ArgsToString);
+            Log.Debug("args: '{0}'", Misc.ArgsToString(args));
         }
 
         public void Parse()
@@ -74,20 +72,6 @@ namespace jeza.ioFTPD.Framework
             }
             Log.Debug("Script returned code {0}", returnValue);
             return returnValue;
-        }
-
-        private string ArgsToString
-        {
-            get
-            {
-                StringBuilder sb = new StringBuilder();
-                int i = 0;
-                foreach (string arg in args)
-                {
-                    sb.AppendFormat("args[{0}]='{1}' ", i++, arg);
-                }
-                return sb.ToString();
-            }
         }
 
         private readonly string[] args;

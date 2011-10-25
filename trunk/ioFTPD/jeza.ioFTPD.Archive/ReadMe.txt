@@ -26,7 +26,7 @@ archive           = EXEC ..\scripts\jeza.ioFTPD.ArchiveScript\jeza.ioFTPD.Archiv
 [FTP_SITE_Permissions]
 archive		= M
 [Scheduler]
-Archive           = 59 3 * * EXEC ..\scripts\jeza.ioFTPD.ArchiveScript\jeza.ioFTPD.Archive.exe
+Archive           = 59 3 * * EXEC ..\scripts\jeza.ioFTPD.ArchiveScript\jeza.ioFTPD.Archive.exe scheduler
 
 Restart ioFTPD server or execute SITE command REHASH
 ------------------------------------------------------------------------------------------------------------

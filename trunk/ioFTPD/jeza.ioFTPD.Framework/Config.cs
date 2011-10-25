@@ -23,7 +23,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="keyName">Name of the key.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns>Key value or <see cref="defaultValue"/></returns>
-        private static string GetKeyValue(string keyName,
+        public static string GetKeyValue(string keyName,
                                           string defaultValue)
         {
             return GetKeyValue(keyName) ?? defaultValue;
@@ -34,10 +34,12 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="keyName">Name of the key.</param>
         /// <returns>Key value or <c>null</c>.</returns>
-        private static string GetKeyValue(string keyName)
+        public static string GetKeyValue(string keyName)
         {
             return ConfigurationManager.AppSettings [keyName];
         }
+
+        public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
 
         public static string FileNameDebug
         {

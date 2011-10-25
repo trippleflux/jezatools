@@ -48,8 +48,8 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Assert.AreEqual(@"..\..\TestFiles\Rar\infected.part1.rar", race.CurrentRaceData.UploadFile, "UploadFile");
             Assert.AreEqual("/TestFiles/Rar/infected.part1.rar", race.CurrentRaceData.UploadVirtualFile, "UploadVirtualFile");
             Assert.AreEqual("NoUser", race.CurrentRaceData.UserName, "UserName");
-            Assert.AreEqual("0", race.CurrentRaceData.Uid, "UID");
-            Assert.AreEqual("0", race.CurrentRaceData.Gid, "GID");
+            Assert.AreEqual(0, race.CurrentRaceData.Uid, "UID");
+            Assert.AreEqual(0, race.CurrentRaceData.Gid, "GID");
             Assert.AreEqual("/NoPath", race.CurrentRaceData.UploadVirtualPath, "UploadVirtualPath");
         }
 
