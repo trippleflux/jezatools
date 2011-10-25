@@ -4,14 +4,14 @@ namespace jeza.ioFTPD.Framework
 {
     public class IoEnvironment
     {
-        public static string GetUid()
+        public static int GetUid()
         {
-            return Environment.GetEnvironmentVariable("UID") ?? "0";
+            return Misc.String2Number(Environment.GetEnvironmentVariable("UID") ?? "0");
         }
 
-        public static string GetGid()
+        public static int GetGid()
         {
-            return Environment.GetEnvironmentVariable("GID") ?? "0";
+            return Misc.String2Number(Environment.GetEnvironmentVariable("GID") ?? "0");
         }
 
         public static string GetVirtualPath()
@@ -37,7 +37,7 @@ namespace jeza.ioFTPD.Framework
         public static int GetSpeed()
         {
             string speed = Environment.GetEnvironmentVariable("SPEED");
-            return speed == null ? 1 : Int32.Parse(speed);
+            return speed == null ? 1 : Misc.String2Number(speed);
         }
     }
 }

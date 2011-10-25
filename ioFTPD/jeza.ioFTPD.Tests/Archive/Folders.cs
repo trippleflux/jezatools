@@ -24,7 +24,7 @@ namespace jeza.ioFTPD.Tests.Archive
             archiveTask.RegExpressionInclude = null;
             archiveTask.RegExpressionExclude = null;
             List<DirectoryInfo> folders = directoryInfo.GetFolders(archiveTask);
-            const int expectedValue = 7;
+            const int expectedValue = 6;
             Assert.AreEqual(expectedValue, folders.Count);
         }
 
@@ -57,7 +57,7 @@ namespace jeza.ioFTPD.Tests.Archive
             {
                 totalFolderSize += folder.GetFolderSize();
             }
-            const Int32 expectedValue = 216450;
+            const Int32 expectedValue = 106268;
             const int delta = 2000;
             Assert.AreApproximatelyEqual(expectedValue, (Int32)totalFolderSize, delta);
         }

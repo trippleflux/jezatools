@@ -14,7 +14,7 @@ namespace jeza.ioFTPD.Tests.Manager
         [Test]
         public void SaveConfigurationManager()
         {
-            Framework.Manager.ManagerConfiguration managerConfiguration = new Framework.Manager.ManagerConfiguration();
+            TaskConfiguration taskConfiguration = new TaskConfiguration();
             DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
             WeeklyTask weeklyTask1 = new WeeklyTask
                                      {
@@ -38,11 +38,26 @@ namespace jeza.ioFTPD.Tests.Manager
                                          DateTimeStop = dateTime.AddYears(2),
                                          WeeklyTaskType = WeeklyTaskType.Week,
                                      };
-            managerConfiguration.WeeklyTask = new[] {weeklyTask1, weeklyTask2};
-            Extensions.Serialize(managerConfiguration, ConfigurationFile, DefaultNamespace);
+            NewDayTask newDayTask = new NewDayTask()
+                                    {
+                                        FolderFormat = "{0}{1}",
+                                        GroupId = 0,
+                                        Mode = 777,
+                                        RealPath = "D:\\mp3\\day",
+                                        VirtualPath = "/mp3/day/",
+                                        Symlink = "today-mp3",
+                                        UserId = 0,
+                                        Status = NewDayTaskStatus.Enabled,
+                                        Type = NewDayTaskType.Day,
+                                        CultureInfo = "en-US",
+                                        FirstDayOfWeek = DayOfWeek.Sunday,
+                                    };
+            taskConfiguration.WeeklyTask = new[] {weeklyTask1, weeklyTask2};
+            taskConfiguration.NewDayTask =  new NewDayTask[] {newDayTask};
+            Extensions.Serialize(taskConfiguration, ConfigurationFile, DefaultNamespace);
         }
 
         private const string ConfigurationFile = "testConfigManager.xml";
-        private const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
+        private const string DefaultNamespace = Config.DefaultNamespace;
     }
 }

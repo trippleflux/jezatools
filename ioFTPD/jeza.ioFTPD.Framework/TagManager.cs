@@ -38,8 +38,10 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("CreateSymLink: {0}", symLink);
             FileInfo.CreateFolder(symLink);
             CurrentRaceData data = race.CurrentRaceData;
-            Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
-            Console.Write("!vfs:add {3} {1}:{2} {0}\n", symLink, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
+            //Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
+            Misc.CreateSymlink(symLink, data.UploadVirtualPath);
+            //Console.Write("!vfs:add {3} {1}:{2} {0}\n", symLink, data.Uid, data.Gid, Config.TagIncompleteLinkChMod);
+            Misc.ChangeVfs(symLink, Config.TagIncompleteLinkChMod, data.Uid, data.Gid);
         }
 
         /// <summary>

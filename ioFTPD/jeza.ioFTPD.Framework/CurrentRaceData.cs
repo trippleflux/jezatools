@@ -19,8 +19,8 @@ namespace jeza.ioFTPD.Framework
         public int Speed { get; set; }
         public string DirectoryParent { get; set; }
         public string UploadVirtualPath { get; set; }
-        public string Uid { get; set; }
-        public string Gid { get; set; }
+        public int Uid { get; set; }
+        public int Gid { get; set; }
 
         public override string ToString()
         {

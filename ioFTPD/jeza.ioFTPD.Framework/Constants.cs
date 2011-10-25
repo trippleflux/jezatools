@@ -32,11 +32,14 @@ namespace jeza.ioFTPD.Framework
         public const string XmlElementNameNewDayTask = "newDayTask";
         public const string XmlElementNameNewDayTaskStatus = "status";
         public const string XmlElementNameNewDayTaskType = "type";
-        public const string XmlElementNameNewDayTaskPath = "path";
+        public const string XmlElementNameNewDayTaskRealPath = "realPath";
+        public const string XmlElementNameNewDayTaskVirtualPath = "virtualPath";
         public const string XmlElementNameNewDayTaskFolderFormat = "format";
         public const string XmlElementNameNewDayTaskSymlink = "symlink";
         public const string XmlElementNameNewDayTaskMode = "mode";
         public const string XmlElementNameNewDayTaskUserId = "uid";
         public const string XmlElementNameNewDayTaskGroupId = "gid";
+        public const string XmlElementNameNewDayTaskCultureInfo = "cultureInfo";
+        public const string XmlElementNameNewDayTaskFirstDayOfWeek = "firstDayOfWeek";
     }
 }
