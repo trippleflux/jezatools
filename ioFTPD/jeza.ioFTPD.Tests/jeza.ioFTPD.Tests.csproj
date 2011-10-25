@@ -67,10 +67,12 @@
     </Compile>
     <Compile Include="Archive\Configuration.cs" />
     <Compile Include="Archive\Folders.cs" />
+    <Compile Include="ExtensionsTests.cs" />
     <Compile Include="FileFolderTests.cs" />
     <Compile Include="Manager\ManagerConfiguration.cs" />
     <Compile Include="Media\Mp3Sort.cs" />
     <Compile Include="Media\Video.cs" />
+    <Compile Include="MiscTests.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
     <Compile Include="ZipScript\DeleteTests.cs" />

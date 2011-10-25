@@ -15,7 +15,7 @@
     <type>Day</type>
     <realPath>E:\\mp3\\day</realPath>
     <virtualPath>/mp3/day/</virtualPath>
-    <format>{0}{1}</format>
+    <format>{2:00}{0:00}</format>
     <symlink>today-mp3</symlink>
     <mode>777</mode>
     <uid>0</uid>

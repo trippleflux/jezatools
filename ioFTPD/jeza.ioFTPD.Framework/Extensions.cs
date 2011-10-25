@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using jeza.ioFTPD.Framework.Archive;
+using jeza.ioFTPD.Framework.Manager;
 
 namespace jeza.ioFTPD.Framework
 {
@@ -14,6 +16,27 @@ namespace jeza.ioFTPD.Framework
     /// </summary>
     public static class Extensions
     {
+        public static DateTime AddNextDate(this DateTime dateTime,
+                                                         NewDayTaskType taskType)
+        {
+            switch (taskType)
+            {
+                case NewDayTaskType.Day:
+                case NewDayTaskType.Week:
+                    {
+                        return dateTime.AddDays(1);
+                    }
+                case NewDayTaskType.Month:
+                    {
+                        return dateTime.AddMonths(1);
+                    }
+                default:
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+            }
+        }
+
         /// <summary>
         /// Copies source directory to destination directory.
         /// </summary>
@@ -393,6 +416,18 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             return allFolders;
+        }
+
+        public static string GetNewDayFolderFormat(this DateTime dateTime,
+                                                   NewDayTask task)
+        {
+            CultureInfo cultureInfo = new CultureInfo(task.CultureInfo);
+            Calendar calendar = cultureInfo.Calendar;
+            return String.Format(CultureInfo.InvariantCulture, task.FolderFormat,
+                                 dateTime.Day,
+                                 calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, task.FirstDayOfWeek),
+                                 dateTime.Month,
+                                 dateTime.Year);
         }
     }
 }

@@ -4,7 +4,7 @@
         xmlns="http://www.gallio.org/">
   <traits>
     <name>ReSharper v5.0 Runner</name>
-    <version>3.2.0.0</version>
+    <version>3.3.0.0</version>
     <description>Enables ReSharper v5.0 to run tests using Gallio.</description>
 	<icon>plugin://Gallio.ReSharperRunner50/Resources/resharper.ico</icon>
   </traits>

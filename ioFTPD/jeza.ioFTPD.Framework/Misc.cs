@@ -19,9 +19,9 @@ namespace jeza.ioFTPD.Framework
             int i = 0;
             foreach (string arg in args)
             {
-                sb.AppendFormat("args[{0}]='{1}' ", i++, arg);
+                sb.AppendFormat("args[{0}]='{1}', ", i++, arg);
             }
-            return sb.ToString();
+            return sb.ToString().TrimEnd(',', ' ');
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace jeza.ioFTPD.Framework
             Console.Write("!vfs:add {3} {1}:{2} {0}\n", realPath, uid, gid, mode);
         }
 
-        private static MatchCollection GetMatches(string text,
+        public static MatchCollection GetMatches(string text,
                                                   string regularExpressionString)
         {
             Log.Debug("Check '{0}' for '{1}'", text, regularExpressionString);
