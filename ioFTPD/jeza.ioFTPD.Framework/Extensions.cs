@@ -16,25 +16,9 @@ namespace jeza.ioFTPD.Framework
     /// </summary>
     public static class Extensions
     {
-        public static DateTime AddNextDate(this DateTime dateTime,
-                                                         NewDayTaskType taskType)
+        public static DateTime AddNextDate(this DateTime dateTime)
         {
-            switch (taskType)
-            {
-                case NewDayTaskType.Day:
-                case NewDayTaskType.Week:
-                    {
-                        return dateTime.AddDays(1);
-                    }
-                case NewDayTaskType.Month:
-                    {
-                        return dateTime.AddMonths(1);
-                    }
-                default:
-                    {
-                        throw new ArgumentOutOfRangeException();
-                    }
-            }
+            return dateTime.AddDays(1);
         }
 
         /// <summary>

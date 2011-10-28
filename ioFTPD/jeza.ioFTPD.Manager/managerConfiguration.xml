@@ -12,7 +12,6 @@
   </weeklyTask>
   <newDayTask>
     <status>Enabled</status>
-    <type>Day</type>
     <realPath>E:\\mp3\\day</realPath>
     <virtualPath>/mp3/day/</virtualPath>
     <format>{2:00}{0:00}</format>
