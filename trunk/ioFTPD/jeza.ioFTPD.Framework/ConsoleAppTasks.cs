@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -64,7 +63,7 @@ namespace jeza.ioFTPD.Framework
                         throw;
                     }
                     //DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks).AddNextDate(task.Type);
+                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks).AddNextDate();
                     string folderName = dateTime.GetNewDayFolderFormat(task);
                     string newDayFolder = Path.Combine(sourceFolder.FullName, folderName);
                     FileInfo.CreateFolder(newDayFolder);

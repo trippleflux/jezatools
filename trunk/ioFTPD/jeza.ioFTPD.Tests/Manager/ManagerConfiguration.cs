@@ -48,12 +48,11 @@ namespace jeza.ioFTPD.Tests.Manager
                                         Symlink = "today-mp3",
                                         UserId = 0,
                                         Status = NewDayTaskStatus.Enabled,
-                                        Type = NewDayTaskType.Day,
                                         CultureInfo = "en-US",
                                         FirstDayOfWeek = DayOfWeek.Sunday,
                                     };
             taskConfiguration.WeeklyTask = new[] {weeklyTask1, weeklyTask2};
-            taskConfiguration.NewDayTask =  new NewDayTask[] {newDayTask};
+            taskConfiguration.NewDayTask =  new[] {newDayTask};
             Extensions.Serialize(taskConfiguration, ConfigurationFile, DefaultNamespace);
         }
 

@@ -101,7 +101,6 @@
     <Compile Include="LogDestination.cs" />
     <Compile Include="Manager\NewDayTask.cs" />
     <Compile Include="Manager\NewDayTaskStatus.cs" />
-    <Compile Include="Manager\NewDayTaskType.cs" />
     <Compile Include="Manager\WeeklyTask.cs" />
     <Compile Include="Manager\WeeklyTaskStatus.cs" />
     <Compile Include="Manager\WeeklyTaskType.cs" />
