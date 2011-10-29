@@ -21,8 +21,8 @@ namespace jeza.ioFTPD.Tests
         {
             Race race = new Race(new[] {"asdfasdf"}) {TotalFilesExpected = 5};
             Output output = new Output(race);
-            Assert.AreEqual("=[   0/5   ]=", output.Format("=[   0/{0,-3:B3} ]=¤TotalFilesExpected"));
-            Assert.AreEqual("=[   0/asd ]=", output.Format("=[   0/{0,-3:B3} ]=¤asd"));
+            Assert.AreEqual("=[   0/5   ]=", output.Format("=[   0/{5,-3:B3} ]="));
+            Assert.AreEqual("=[   0/asd ]=", output.Format("=[   0/asd ]="));
             RaceStats raceStats = new RaceStats();
             const ulong bytes = 123456789;
             raceStats
@@ -34,12 +34,8 @@ namespace jeza.ioFTPD.Tests
                 .AddUserName("user1")
                 .AddGroupName("group1");
             race.AddRaceStats(raceStats);
-            Assert.AreEqual("]-[Complete 123456789MB - 1/5F]-[",
-                            output.Format(
-                                "]-[Complete {0}MB - {1}/{2}F]-[¤TotalBytesUploaded TotalFilesUploaded TotalFilesExpected"));
-            Assert.AreEqual("]-[Complete 117MB - 1/5F]-[",
-                            output.Format(
-                                "]-[Complete {0}MB - {1}/{2}F]-[¤TotalMegaBytesUploaded TotalFilesUploaded TotalFilesExpected"));
+            Assert.AreEqual("]-[Complete 123456789MB - 1/5F]-[",output.Format("]-[Complete {7}MB - {6}/{5}F]-["));
+            Assert.AreEqual("]-[Complete 117MB - 1/5F]-[",output.Format("]-[Complete {8}MB - {6}/{5}F]-["));
             Assert.AreEqual("|  1.           user1/group1           117MB   100kBit/s   1F |",
                             output.FormatUserStats(1,
                                                    race.GetUserStats() [0],
@@ -48,8 +44,8 @@ namespace jeza.ioFTPD.Tests
                             output.FormatGroupStats(1,
                                                     race.GetGroupStats() [0],
                                                     "| {0,2:B2}. {1,-15:B15} {2,6:B6} {3,5:B5}kBit/s {4,3:B3}F |¤Possition GroupName FormatBytesUploaded AverageSpeed FilesUploaded"));
-            Assert.AreEqual("###--------------", output.Format("{0}¤ProgressBar"), "ProgressBar");
-            Assert.AreEqual("117MB", output.FormatSize(bytes), "FormatBytesUploaded");
+            Assert.AreEqual("###--------------", output.Format("{14}"), "ProgressBar");
+            Assert.AreEqual("117MB", bytes.FormatSize(), "FormatBytesUploaded");
         }
 
         [Test]
@@ -60,10 +56,11 @@ namespace jeza.ioFTPD.Tests
                             CurrentRaceData = new CurrentRaceData
                                                 {
                                                     UploadFile = @"..\..\TestFiles\Mp3\SwingingSafari.mp3",
+                                                    RaceType = RaceType.Mp3,
                                                 },
                         };
             Output output = new Output(race);
-            Assert.AreEqual("[Bert Kaempfert] [Collection] [Blues] [2002] [A Swinging Safari] [1]", output.Format("[{0}] [{1}] [{2}] [{3}] [{4}] [{5}]¤artist album genre year title tracknumber"));
+            Assert.AreEqual("[Bert Kaempfert] [Collection] [A Swinging Safari] [Blues] [2002] [1]", output.Format("[{20}] [{21}] [{22}] [{23}] [{24}] [{25}]"));
         }
     }
 }

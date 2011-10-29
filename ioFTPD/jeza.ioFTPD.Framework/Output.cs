@@ -1,11 +1,9 @@
 #region
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 using TagLib;
-using File=System.IO.File;
+using File = System.IO.File;
 
 #endregion
 
@@ -45,7 +43,7 @@ namespace jeza.ioFTPD.Framework
 
         public Output ClientMp3(string line)
         {
-            Console.WriteLine(FormatMp3(line));
+            Console.WriteLine(Format(line));
             return this;
         }
 
@@ -283,87 +281,6 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
-        public string FormatMp3(string line)
-        {
-            if (MinimumLength(line))
-            {
-                return "";
-            }
-            if (NotFormated(line))
-            {
-                return line;
-            }
-            string[] sections = line.Split(SplitChar);
-            string text = sections [0];
-            string[] args = sections [1].Split(' ');
-            int count = args.Length;
-            try
-            {
-                if (race != null)
-                {
-                    if (race.CurrentRaceData != null)
-                    {
-                        string uploadFile = race.CurrentRaceData.UploadFile;
-                        if (!File.Exists(uploadFile) || String.IsNullOrEmpty(uploadFile))
-                        {
-                            return line;
-                        }
-                        TagLib.File file = TagLib.File.Create(uploadFile);
-                        for (int i = 0; i < count; i++)
-                        {
-                            switch (args [i].ToLower())
-                            {
-                                case "artist":
-                                {
-                                    args [i] = file.Tag.FirstAlbumArtist;
-                                    break;
-                                }
-                                case "album":
-                                {
-                                    args [i] = file.Tag.Album;
-                                    break;
-                                }
-                                case "genre":
-                                {
-                                    args [i] = file.Tag.FirstGenre;
-                                    break;
-                                }
-                                case "year":
-                                {
-                                    args [i] = file.Tag.Year.ToString();
-                                    break;
-                                }
-                                case "title":
-                                {
-                                    args [i] = file.Tag.Title;
-                                    break;
-                                }
-                                case "tracknumber":
-                                {
-                                    args [i] = file.Tag.Track.ToString();
-                                    break;
-                                }
-                                case "newline":
-                                {
-                                    args [i] = CodeNewLine;
-                                    break;
-                                }
-                                default:
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (CorruptFileException)
-            {
-            }
-            text = String.Format(new MyFormat(), text, args);
-            return text;
-        }
-
         private static bool MinimumLength(string line)
         {
             if ((line == null) || (line.Length < 2))
@@ -436,7 +353,7 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "formatbytesuploaded":
                     {
-                        args [i] = FormatSize(stats.BytesUplaoded);
+                        args [i] = stats.BytesUplaoded.FormatSize();
                         break;
                     }
                     case "averagespeed":
@@ -476,7 +393,7 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "newline":
                     {
-                        args[i] = CodeNewLine;
+                        args [i] = codeNewLine;
                         break;
                     }
                     default:
@@ -538,7 +455,7 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "formatbytesuploaded":
                     {
-                        args [i] = FormatSize(stats.BytesUplaoded);
+                        args [i] = stats.BytesUplaoded.FormatSize();
                         break;
                     }
                     case "averagespeed":
@@ -578,7 +495,7 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "newline":
                     {
-                        args[i] = CodeNewLine;
+                        args [i] = codeNewLine;
                         break;
                     }
                     default:
@@ -593,224 +510,85 @@ namespace jeza.ioFTPD.Framework
 
         public string Format(string line)
         {
-            if (MinimumLength(line))
-            {
-                return "";
-            }
-            if (NotFormated(line))
+            if (MinimumLength(line) || race == null)
             {
                 return line;
             }
-            string[] sections = line.Split(SplitChar);
-            string text = sections [0];
-            string[] args = sections [1].Split(' ');
-            ArrayList unknownArgs = new ArrayList();
-            int count = args.Length;
-            for (int i = 0; i < count; i++)
+            Mp3Info mp3Info = new Mp3Info();
+            if (race.IsMp3Race())
             {
-                string arg = args [i].ToLowerInvariant();
-                switch (arg)
+                mp3Info = GetMp3Info();
+            }
+            return String.Format(new MyFormat(), line
+                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.FileName ?? "" // {0}
+                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.DirectoryName ?? "" // {1}
+                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UserName ?? "" // {2}
+                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.GroupName ?? "" // {3}
+                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UploadVirtualPath ?? "" // {4}
+                                          , race.TotalFilesExpected // {5}
+                                          , race.TotalFilesUploaded // {6}
+                                          , race.TotalBytesUploaded // {7}
+                                          , race.TotalMegaBytesUploaded // {8}
+                                          , race.TotalBytesUploadedFormated // {9}
+                                          , (race.TotalBytesUploaded * (UInt64) race.TotalFilesExpected).FormatSize() // {10} total bytes expected
+                                          , race.TotalAvarageSpeed // {11}
+                                          , race.TotalUsersRacing // {12}
+                                          , race.TotalGroupsRacing // {13}
+                                          , race.ProgressBar // {14}
+                                          , race.PercentComplete // {15}
+                                          , CodeIrcColor // {16}
+                                          , CodeIrcBold // {17}
+                                          , CodeIrcUnderline // {18}
+                                          , codeNewLine // {19}
+                                          , mp3Info.Artist // {20}
+                                          , mp3Info.Album // {21}
+                                          , mp3Info.Title // {22}
+                                          , mp3Info.Genre // {23}
+                                          , mp3Info.Year // {24}
+                                          , mp3Info.TrackNumber //{25}
+                                          , race.CurrentRaceData == null ? 0 : race.CurrentRaceData.Speed); // {26}
+        }
+
+        private Mp3Info GetMp3Info()
+        {
+            Mp3Info mp3Info = new Mp3Info();
+            try
+            {
+                string uploadFile = race.CurrentRaceData.UploadFile;
+                if (File.Exists(uploadFile) && !String.IsNullOrEmpty(uploadFile))
                 {
-                    case "filename":
+                    TagLib.File file = TagLib.File.Create(uploadFile);
+                    if (file != null)
                     {
-                        args [i] = race.CurrentRaceData.FileName;
-                        break;
-                    }
-                    case "releasename":
-                    {
-                        args [i] = race.CurrentRaceData.DirectoryName;
-                        break;
-                    }
-                    case "totalfilesexpected":
-                    {
-                        args [i] = race.TotalFilesExpected.ToString();
-                        break;
-                    }
-                    case "totalfilesuploaded":
-                    {
-                        args [i] = race.TotalFilesUploaded.ToString();
-                        break;
-                    }
-                    case "totalbytesuploaded":
-                    {
-                        args [i] = race.TotalBytesUploaded.ToString();
-                        break;
-                    }
-                    case "totalmegabytesuploaded":
-                    {
-                        args [i] = race.TotalMegaBytesUploaded.ToString();
-                        break;
-                    }
-                    case "totalavaragespeed":
-                    {
-                        args [i] = race.TotalAvarageSpeed.ToString();
-                        break;
-                    }
-                    case "formatbytesuploaded":
-                    {
-                        args [i] = FormatSize(race.TotalBytesUploaded);
-                        break;
-                    }
-                    case "formattotalbytesexpected":
-                    {
-                        args [i] = FormatSize(race.TotalBytesUploaded * (UInt64) race.TotalFilesExpected);
-                        break;
-                    }
-                    case "totalusersracing":
-                    {
-                        args [i] = race.TotalUsersRacing.ToString();
-                        break;
-                    }
-                    case "totalgroupsracing":
-                    {
-                        args [i] = race.TotalGroupsRacing.ToString();
-                        break;
-                    }
-                    case "progressbar":
-                    {
-                        args [i] = race.ProgressBar;
-                        break;
-                    }
-                    case "percentcomplete":
-                    {
-                        args [i] = race.PercentComplete.ToString();
-                        break;
-                    }
-                    case "username":
-                    {
-                        args [i] = race.CurrentRaceData.UserName;
-                        break;
-                    }
-                    case "groupname":
-                    {
-                        args [i] = race.CurrentRaceData.GroupName;
-                        break;
-                    }
-                    case "uploadvirtualpath":
-                    {
-                        args [i] = race.CurrentRaceData.UploadVirtualPath;
-                        break;
-                    }
-                    case "irccolor":
-                    {
-                        args [i] = CodeIrcColor;
-                        break;
-                    }
-                    case "ircbold":
-                    {
-                        args [i] = CodeIrcBold;
-                        break;
-                    }
-                    case "ircunderline":
-                    {
-                        args [i] = CodeIrcUnderline;
-                        break;
-                    }
-                    case "newline":
-                    {
-                        args [i] = CodeNewLine;
-                        break;
-                    }
-                    default:
-                    {
-                        unknownArgs.Add(arg);
-                        break;
+                        mp3Info.Artist = file.Tag.FirstAlbumArtist;
+                        mp3Info.Album = file.Tag.Album;
+                        mp3Info.Title = file.Tag.Title;
+                        mp3Info.Genre = file.Tag.FirstGenre;
+                        mp3Info.Year = file.Tag.Year;
+                        mp3Info.TrackNumber = file.Tag.Track;
                     }
                 }
             }
-            if (unknownArgs.Count > 0)
+            catch (CorruptFileException)
             {
-                //text = FormatMp3(text + SplitChar + String.Join(" ", args) +" " + String.Join(" ", unknownArgs.ToArray(typeof(string)) as string[]));
-                text = FormatMp3(text + SplitChar + String.Join(" ", args));
             }
-            text = String.Format(new MyFormat(), text, args);
-            return text;
+            return mp3Info;
         }
 
         public string FormatCrc32(string line)
         {
-            if (MinimumLength(line))
-            {
-                return "";
-            }
-            if (NotFormated(line))
-            {
-                return line;
-            }
-            string[] sections = line.Split(SplitChar);
-            string text = sections [0];
-            string[] args = sections [1].Split(' ');
-            int count = args.Length;
-            for (int i = 0; i < count; i++)
-            {
-                switch (args [i].ToLowerInvariant())
-                {
-                    case "filename":
-                    {
-                        args [i] = rescanStatsData.FileName;
-                        break;
-                    }
-                    case "expectedcrc32":
-                    {
-                        args [i] = rescanStatsData.ExpectedCrc32Value;
-                        break;
-                    }
-                    case "actualcrc32":
-                    {
-                        args [i] = rescanStatsData.ActualCrc32Value;
-                        break;
-                    }
-                    case "status":
-                    {
-                        args [i] = rescanStatsData.Status;
-                        break;
-                    }
-                    case "totalfiles":
-                    {
-                        args [i] = rescanStats.TotalFiles.ToString();
-                        break;
-                    }
-                    case "missingfiles":
-                    {
-                        args [i] = rescanStats.MissingFiles.ToString();
-                        break;
-                    }
-                    case "okfiles":
-                    {
-                        args [i] = rescanStats.OkFiles.ToString();
-                        break;
-                    }
-                    case "failedfiles":
-                    {
-                        args [i] = rescanStats.FailedFiles.ToString();
-                        break;
-                    }
-                    case "newline":
-                    {
-                        args [i] = CodeNewLine;
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
-                }
-            }
-            text = String.Format(new MyFormat(), text, args);
-            return text;
-        }
-
-        public string FormatSize(UInt64 bytes)
-        {
-            UInt64 formatedSize = bytes;
-            string[] postFix = new[] {"B", "kB", "MB", "GB", "TB"};
-            int count = 0;
-            while (formatedSize > 1024)
-            {
-                formatedSize = formatedSize / 1024;
-                count++;
-            }
-            return String.Format(CultureInfo.InvariantCulture, Config.FormatedBytes, formatedSize, postFix [count]);
+            return MinimumLength(line) || rescanStatsData == null || rescanStats == null
+                       ? line
+                       : String.Format(new MyFormat(), line
+                                       , rescanStatsData.FileName // {0}
+                                       , rescanStatsData.ExpectedCrc32Value // {1}
+                                       , rescanStatsData.ActualCrc32Value // {2}
+                                       , rescanStatsData.Status // {3}
+                                       , rescanStats.TotalFiles // {4}
+                                       , rescanStats.MissingFiles // {5}
+                                       , rescanStats.OkFiles // {6}
+                                       , rescanStats.FailedFiles // {7}
+                                       , codeNewLine); // {8}
         }
 
         private readonly Race race;
@@ -820,6 +598,6 @@ namespace jeza.ioFTPD.Framework
         private const string CodeIrcBold = "\\002";
         private const string CodeIrcUnderline = "\\037";
         private const string CodeIrcColor = "\\003";
-        private string CodeNewLine = Environment.NewLine;
+        private readonly string codeNewLine = Environment.NewLine;
     }
 }

@@ -235,7 +235,7 @@ namespace jeza.ioFTPD.Framework
             bool deletingFile = race.IsRaceTypeDelete();
             fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
-            bool isMp3Race = IsMp3Race(race);
+            bool isMp3Race = race.IsMp3Race();
             TagManager tagManager = new TagManager(race);
             if (!deletingFile)
             {
@@ -328,8 +328,8 @@ namespace jeza.ioFTPD.Framework
                     Output output = new Output(race);
                     if (isMp3Race)
                     {
-                        textWriter.WriteLine(output.FormatMp3(Config.MessageMp3InfoHead));
-                        textWriter.WriteLine(output.FormatMp3(Config.MessageMp3Info));
+                        textWriter.WriteLine(output.Format(Config.MessageMp3InfoHead));
+                        textWriter.WriteLine(output.Format(Config.MessageMp3Info));
                     }
                     textWriter.WriteLine(output.Format(Config.MessageStatsUsersHead));
                     textWriter.Write(output.MessageStatsUsers(Config.MessageStatsUsers, Config.MaxNumberOfUserStats));
@@ -348,9 +348,9 @@ namespace jeza.ioFTPD.Framework
         /// <returns>
         /// 	<c>true</c> if [is MP3 race] [the specified data parser]; otherwise, <c>false</c>.
         /// </returns>
-        private static bool IsMp3Race(Race race)
+        public static bool IsMp3Race(this Race race)
         {
-            return race.CurrentRaceData.RaceType == RaceType.Mp3;
+            return race.CurrentRaceData != null && race.CurrentRaceData.RaceType == RaceType.Mp3;
         }
 
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
@@ -412,6 +412,24 @@ namespace jeza.ioFTPD.Framework
                                  calendar.GetWeekOfYear(dateTime, CalendarWeekRule.FirstDay, task.FirstDayOfWeek),
                                  dateTime.Month,
                                  dateTime.Year);
+        }
+
+        /// <summary>
+        /// Format size.
+        /// </summary>
+        /// <param name="bytes">total bytes.</param>
+        /// <returns>Formated size like 123 MB, 123kB, ...</returns>
+        public static string FormatSize(this UInt64 bytes)
+        {
+            UInt64 formatedSize = bytes;
+            string[] postFix = new[] {"B", "kB", "MB", "GB", "TB"};
+            int count = 0;
+            while (formatedSize > 1024)
+            {
+                formatedSize = formatedSize / 1024;
+                count++;
+            }
+            return String.Format(CultureInfo.InvariantCulture, Config.FormatedBytes, formatedSize, postFix [count]);
         }
     }
 }

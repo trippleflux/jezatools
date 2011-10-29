@@ -546,6 +546,11 @@ namespace jeza.ioFTPD.Framework
             get { return GetTotalBytesUploaded(); }
         }
 
+        public string TotalBytesUploadedFormated
+        {
+            get { return TotalBytesUploaded.FormatSize(); }
+        }
+
         public bool IsRaceComplete
         {
             get { return TotalFilesExpected == TotalFilesUploaded; }
