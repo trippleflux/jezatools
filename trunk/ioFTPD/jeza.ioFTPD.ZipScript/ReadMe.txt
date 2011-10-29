@@ -1,0 +1,40 @@
+﻿Format:
+{0}		FileName
+{1}		DirectoryName
+{2}		UserName
+{3}		GroupName	
+{4}		UploadVirtualPath
+{5}		TotalFilesExpected
+{6}		TotalFilesUploaded
+{7}		TotalBytesUploaded
+{8}		TotalMegaBytesUploaded
+{9}		TotalBytesUploadedFormated
+{10}	TotalBytesExpectedFormated
+{11}	TotalAvarageSpeed
+{12}	TotalUsersRacing
+{13}	TotalGroupsRacing
+{14}	ProgressBar
+{15}	PercentComplete
+{16}	CodeIrcColor	
+{17}	CodeIrcBold
+{18}	CodeIrcUnderline
+{19}	codeNewLine
+{20}	FirstAlbumArtist	
+{21}	Album
+{22}	Title
+{23}	FirstGenre	
+{24}	Year
+{25}	Track
+{26}	UserSpeed
+
+FormatCRC32:
+{0}		FileName
+{1}		ExpectedCrc32Value
+{2}		ActualCrc32Value
+{3}		Status	
+{4}		TotalFiles
+{5}		MissingFiles
+{6}		OkFiles
+{7}		FailedFiles
+{8}		codeNewLine
+

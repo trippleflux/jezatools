@@ -1,5 +1,4 @@
 #region
-
 using System;
 
 #endregion
@@ -10,13 +9,9 @@ namespace jeza.ioFTPD.Framework
     {
         // String.Format calls this method to get an instance of an
         // ICustomFormatter to handle the formatting.
-        public object GetFormat(System.Type service)
+        public object GetFormat(Type service)
         {
-            if (service == typeof (ICustomFormatter))
-            {
-                return this;
-            }
-            return null;
+            return service == typeof (ICustomFormatter) ? this : null;
         }
 
         // After String.Format gets the ICustomFormatter, it calls this format
