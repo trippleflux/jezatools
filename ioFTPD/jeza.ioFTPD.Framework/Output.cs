@@ -300,120 +300,29 @@ namespace jeza.ioFTPD.Framework
             return false;
         }
 
-        private static bool NotFormated(string line)
-        {
-            if ((line == null) || (line.IndexOf(SplitChar) == -1))
-            {
-                return true;
-            }
-            return false;
-        }
-
         public string FormatUserStats
             (int possition,
              RaceStatsUsers stats,
              string line)
         {
-            if (MinimumLength(line))
-            {
-                return "";
-            }
-            if (NotFormated(line))
-            {
-                return line;
-            }
-            string[] sections = line.Split(SplitChar);
-            string text = sections [0];
-            string[] args = sections [1].Split(' ');
-            int count = args.Length;
-            for (int i = 0; i < count; i++)
-            {
-                string arg = args [i].ToLowerInvariant();
-                switch (arg)
-                {
-                    case "possition":
-                    {
-                        args [i] = possition.ToString();
-                        break;
-                    }
-                    case "username":
-                    {
-                        args [i] = stats.UserName;
-                        break;
-                    }
-                    case "groupname":
-                    {
-                        args [i] = stats.GroupName;
-                        break;
-                    }
-                    case "kilobytesuploaded":
-                    {
-                        args [i] = (stats.BytesUplaoded / 1024).ToString();
-                        break;
-                    }
-                    case "megabytesuploaded":
-                    {
-                        args [i] = (stats.BytesUplaoded / 1024 * 1024).ToString();
-                        break;
-                    }
-                    case "gigabytesuploaded":
-                    {
-                        args [i] = (stats.BytesUplaoded / 1024 * 1024 * 1204).ToString();
-                        break;
-                    }
-                    case "formatbytesuploaded":
-                    {
-                        args [i] = stats.BytesUplaoded.FormatSize();
-                        break;
-                    }
-                    case "averagespeed":
-                    {
-                        args [i] = stats.Speed.ToString();
-                        break;
-                    }
-                    case "filesuploaded":
-                    {
-                        args [i] = stats.FilesUplaoded.ToString();
-                        break;
-                    }
-                    case "uploadvirtualpath":
-                    {
-                        args [i] = race.CurrentRaceData.UploadVirtualPath;
-                        break;
-                    }
-                    case "releasename":
-                    {
-                        args [i] = race.CurrentRaceData.DirectoryName;
-                        break;
-                    }
-                    case "irccolor":
-                    {
-                        args[i] = Constants.CodeIrcColor;
-                        break;
-                    }
-                    case "ircbold":
-                    {
-                        args[i] = Constants.CodeIrcBold;
-                        break;
-                    }
-                    case "ircunderline":
-                    {
-                        args[i] = Constants.CodeIrcUnderline;
-                        break;
-                    }
-                    case "newline":
-                    {
-                        args[i] = Constants.CodeNewLine;
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
-                }
-            }
-            text = String.Format(new MyFormat(), text, args);
-            return text;
+            string formatUserStats = MinimumLength(line) || stats == null || race == null
+                                         ? line
+                                         : String.Format(new MyFormat(), line
+                                                         , possition // {0}
+                                                         , race.CurrentRaceData == null ? "" : race.CurrentRaceData.DirectoryName ?? "" // {1}
+                                                         , stats.UserName // {2}
+                                                         , stats.GroupName // {3}
+                                                         , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UploadVirtualPath ?? "" // {4}
+                                                         , race.TotalFilesExpected // {5}
+                                                         , stats.Speed // {6}
+                                                         , stats.FilesUplaoded // {7}
+                                                         , stats.BytesUplaoded.FormatSize() // {8}
+                                                         , Constants.CodeIrcColor // {9}
+                                                         , Constants.CodeIrcBold // {10}
+                                                         , Constants.CodeIrcUnderline // {11}
+                                                         , Constants.CodeNewLine); // {12}
+            Log.Debug("FormatUserStats: " + formatUserStats);
+            return formatUserStats;
         }
 
         public string FormatGroupStats
@@ -421,101 +330,23 @@ namespace jeza.ioFTPD.Framework
              RaceStatsGroups stats,
              string line)
         {
-            if (MinimumLength(line))
-            {
-                return "";
-            }
-            if (NotFormated(line))
-            {
-                return line;
-            }
-            string[] sections = line.Split(SplitChar);
-            string text = sections [0];
-            string[] args = sections [1].Split(' ');
-            int count = args.Length;
-            for (int i = 0; i < count; i++)
-            {
-                string arg = args [i].ToLowerInvariant();
-                switch (arg)
-                {
-                    case "possition":
-                    {
-                        args [i] = possition.ToString();
-                        break;
-                    }
-                    case "groupname":
-                    {
-                        args [i] = stats.GroupName;
-                        break;
-                    }
-                    case "kilobytesuploaded":
-                    {
-                        args [i] = (stats.BytesUplaoded / 1024).ToString();
-                        break;
-                    }
-                    case "megabytesuploaded":
-                    {
-                        args [i] = (stats.BytesUplaoded / 1024 * 1024).ToString();
-                        break;
-                    }
-                    case "gigabytesuploaded":
-                    {
-                        args [i] = (stats.BytesUplaoded / 1024 * 1024 * 1024).ToString();
-                        break;
-                    }
-                    case "formatbytesuploaded":
-                    {
-                        args [i] = stats.BytesUplaoded.FormatSize();
-                        break;
-                    }
-                    case "averagespeed":
-                    {
-                        args [i] = stats.Speed.ToString();
-                        break;
-                    }
-                    case "filesuploaded":
-                    {
-                        args [i] = stats.FilesUplaoded.ToString();
-                        break;
-                    }
-                    case "uploadvirtualpath":
-                    {
-                        args [i] = race.CurrentRaceData.UploadVirtualPath;
-                        break;
-                    }
-                    case "releasename":
-                    {
-                        args [i] = race.CurrentRaceData.DirectoryName;
-                        break;
-                    }
-                    case "irccolor":
-                    {
-                        args[i] = Constants.CodeIrcColor;
-                        break;
-                    }
-                    case "ircbold":
-                    {
-                        args[i] = Constants.CodeIrcBold;
-                        break;
-                    }
-                    case "ircunderline":
-                    {
-                        args[i] = Constants.CodeIrcUnderline;
-                        break;
-                    }
-                    case "newline":
-                    {
-                        args[i] = Constants.CodeNewLine;
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
-                }
-            }
-            text = String.Format(new MyFormat(), text, args);
-            return text;
+            string formatGroupStats = MinimumLength(line) || stats == null || race == null
+                                          ? line
+                                          : String.Format(new MyFormat(), line
+                                                          , possition // {0}
+                                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.DirectoryName ?? "" // {1}
+                                                          , "UserName" // {2}
+                                                          , stats.GroupName // {3}
+                                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UploadVirtualPath ?? "" // {4}
+                                                          , stats.Speed // {5}
+                                                          , stats.FilesUplaoded // {6}
+                                                          , stats.BytesUplaoded.FormatSize() // {7}
+                                                          , Constants.CodeIrcColor // {8}
+                                                          , Constants.CodeIrcBold // {9}
+                                                          , Constants.CodeIrcUnderline // {10}
+                                                          , Constants.CodeNewLine); // {11}
+            Log.Debug("FormatGroupStats: " + formatGroupStats);
+            return formatGroupStats;
         }
 
         public string Format(string line,
@@ -578,22 +409,23 @@ namespace jeza.ioFTPD.Framework
 
         public string FormatCrc32(string line)
         {
-            return MinimumLength(line) || rescanStatsData == null || rescanStats == null
-                       ? line
-                       : String.Format(new MyFormat(), line
-                                       , rescanStatsData.FileName // {0}
-                                       , rescanStatsData.ExpectedCrc32Value // {1}
-                                       , rescanStatsData.ActualCrc32Value // {2}
-                                       , rescanStatsData.Status // {3}
-                                       , rescanStats.TotalFiles // {4}
-                                       , rescanStats.MissingFiles // {5}
-                                       , rescanStats.OkFiles // {6}
-                                       , rescanStats.FailedFiles // {7}
-                                       , Constants.CodeNewLine); // {8}
+            string formatCrc32 = MinimumLength(line) || rescanStatsData == null || rescanStats == null
+                                     ? line
+                                     : String.Format(new MyFormat(), line
+                                                     , rescanStatsData.FileName // {0}
+                                                     , rescanStatsData.ExpectedCrc32Value // {1}
+                                                     , rescanStatsData.ActualCrc32Value // {2}
+                                                     , rescanStatsData.Status // {3}
+                                                     , rescanStats.TotalFiles // {4}
+                                                     , rescanStats.MissingFiles // {5}
+                                                     , rescanStats.OkFiles // {6}
+                                                     , rescanStats.FailedFiles // {7}
+                                                     , Constants.CodeNewLine); //{8}
+            Log.Debug("FormatCrc32: " + formatCrc32);
+            return formatCrc32;
         }
 
         private readonly Race race;
-        private const char SplitChar = '¤';
         private readonly RescanStatsData rescanStatsData;
         private readonly RescanStats rescanStats;
     }
