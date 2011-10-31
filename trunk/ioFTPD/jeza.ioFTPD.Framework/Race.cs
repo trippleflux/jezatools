@@ -202,18 +202,9 @@ namespace jeza.ioFTPD.Framework
                 if (CurrentRaceData != null)
                 {
                     string fileExtension = CurrentRaceData.FileExtension;
-                    if (Config.SkipFileExtension.IndexOf(',') > -1)
-                    {
-                        string[] skipFileExtensions = Config.SkipFileExtension.Split(',');
-                        foreach (string extension in skipFileExtensions)
-                        {
-                            if (fileExtension.EndsWith(extension, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                Log.Debug("Skip file extension match. ['{0}' => '{1}']", extension, Config.SkipFileExtension);
-                                return true;
-                            }
-                        }
-                    }
+                    bool containsFileExt = Config.SkipFileExtension.StringContainsFileExt(fileExtension);
+                    Log.Debug("Skip file extension match=[{2}] :: ['{0}' => '{1}']", fileExtension, Config.SkipFileExtension, containsFileExt);
+                    return containsFileExt;
                 }
                 return false;
             }
@@ -279,7 +270,8 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         private void SelectRaceType()
         {
-            if (string.IsNullOrEmpty(CurrentRaceData.FileExtension))
+            string fileExtension = CurrentRaceData.FileExtension;
+            if (string.IsNullOrEmpty(fileExtension))
             {
                 IsValid = false;
                 return;
@@ -287,17 +279,15 @@ namespace jeza.ioFTPD.Framework
             IsValid = true;
             CurrentRaceData.RaceType = EqualsRaceType(Config.FileExtensionSfv)
                                            ? RaceType.Sfv
-                                           : EqualsRaceType(Config.FileExtensionMp3)
-                                                 ? RaceType.Mp3
-                                                 : EqualsRaceType(Config.FileExtensionFlac)
-                                                       ? RaceType.Flac
-                                                       : EqualsRaceType(Config.FileExtensionZip)
-                                                             ? RaceType.Zip
-                                                             : EqualsRaceType(Config.FileExtensionNfo)
-                                                                   ? RaceType.Nfo
-                                                                   : EqualsRaceType(Config.FileExtensionDiz)
-                                                                         ? RaceType.Diz
-                                                                         : RaceType.Default;
+                                           : EqualsRaceType(Config.FileExtensionZip)
+                                                 ? RaceType.Zip
+                                                 : EqualsRaceType(Config.FileExtensionNfo)
+                                                       ? RaceType.Nfo
+                                                       : EqualsRaceType(Config.FileExtensionDiz)
+                                                             ? RaceType.Diz
+                                                             : Config.FileExtensionAudio.StringContainsFileExt(fileExtension)
+                                                                   ? RaceType.Audio
+                                                                   : RaceType.Default;
         }
 
         /// <summary>
@@ -326,14 +316,7 @@ namespace jeza.ioFTPD.Framework
 
         public RaceStatsUsers UserUploadedFirstFile()
         {
-            foreach (RaceStatsUsers raceStatsUser in GetUserStats())
-            {
-                if ((raceStatsUser.UserName == CurrentRaceData.UserName) && (raceStatsUser.FilesUplaoded == 1))
-                {
-                    return raceStatsUser;
-                }
-            }
-            return null;
+            return GetUserStats().FirstOrDefault(raceStatsUser => (raceStatsUser.UserName == CurrentRaceData.UserName) && (raceStatsUser.FilesUplaoded == 1));
         }
 
         public string GetRaceStats
@@ -456,11 +439,7 @@ namespace jeza.ioFTPD.Framework
 
         private Int32 GetTotalAvarageSpeed()
         {
-            Int32 totalSpeed = 0;
-            foreach (RaceStats stats in raceStats)
-            {
-                totalSpeed += stats.FileSpeed;
-            }
+            Int32 totalSpeed = raceStats.Sum(stats => stats.FileSpeed);
             return TotalFilesUploaded > 0
                        ? totalSpeed / TotalFilesUploaded
                        : 1;
@@ -556,6 +535,11 @@ namespace jeza.ioFTPD.Framework
         public bool IsRaceComplete
         {
             get { return TotalFilesExpected == TotalFilesUploaded; }
+        }
+
+        public bool IsAudioRace
+        {
+            get { return CurrentRaceData.RaceType == RaceType.Audio; }
         }
 
         public UInt64 TotalMegaBytesUploaded

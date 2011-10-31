@@ -257,7 +257,7 @@ namespace jeza.ioFTPD.Framework
             bool deletingFile = race.IsRaceTypeDelete();
             fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
-            bool isMp3Race = race.IsAudioRace();
+            bool isMp3Race = race.IsAudioRace;
             File mp3Info = isMp3Race ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
             TagManager tagManager = new TagManager(race);
             if (!deletingFile)
@@ -366,18 +366,6 @@ namespace jeza.ioFTPD.Framework
             MessageMutex.ReleaseMutex();
         }
 
-        /// <summary>
-        /// Determines whether current race is race with MP3 or FLAC files.
-        /// </summary>
-        /// <param name="race">The race.</param>
-        /// <returns>
-        /// 	<c>true</c> if [is MP3 race] [the specified data parser]; otherwise, <c>false</c>.
-        /// </returns>
-        public static bool IsAudioRace(this Race race)
-        {
-            return race.CurrentRaceData != null && (race.CurrentRaceData.RaceType == RaceType.Mp3 || race.CurrentRaceData.RaceType == RaceType.Flac);
-        }
-
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
         private static readonly Mutex RaceMutex = new Mutex(false, "raceMutex");
 
@@ -465,6 +453,26 @@ namespace jeza.ioFTPD.Framework
                 count++;
             }
             return String.Format(CultureInfo.InvariantCulture, Config.FormatedBytes, formatedSize, postFix [count]);
+        }
+
+        /// <summary>
+        /// Checks if <see cref="fileExtension"/> is in <see cref="input"/>
+        /// </summary>
+        /// <param name="input">input string</param>
+        /// <param name="fileExtension">file extension</param>
+        /// <returns><c>true</c> if <see cref="input"/> contains <see cref="fileExtension"/></returns>
+        public static bool StringContainsFileExt(this string input,
+                                    string fileExtension)
+        {
+            if (fileExtension.Length < 2)
+            {
+                return false;
+            }
+            if(fileExtension[0].Equals('.'))
+            {
+                fileExtension = fileExtension.Substring(1);
+            }
+            return input.IndexOf(fileExtension, StringComparison.InvariantCultureIgnoreCase) > -1;
         }
     }
 }

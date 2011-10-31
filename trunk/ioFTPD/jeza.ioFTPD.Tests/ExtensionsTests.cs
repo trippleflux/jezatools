@@ -9,6 +9,20 @@ namespace jeza.ioFTPD.Tests
     public class ExtensionsTests
     {
         [Test]
+        public void IsMatch()
+        {
+            string input = "mp3,flac";
+            string extension = ".mp3";
+            Assert.IsTrue(input.StringContainsFileExt(extension));
+            input = "mp3,flac";
+            extension = "mp3";
+            Assert.IsTrue(input.StringContainsFileExt(extension));
+            input = "mp3";
+            extension = ".zip";
+            Assert.IsFalse(input.StringContainsFileExt(extension));
+        }
+
+        [Test]
         public void NextDate()
         {
             DateTime dateTime = new DateTime(2011, 1, 1);
