@@ -1,3 +1,5 @@
+using System;
+
 namespace jeza.ioFTPD.Framework
 {
     public static class Constants
@@ -41,5 +43,10 @@ namespace jeza.ioFTPD.Framework
         public const string XmlElementNameNewDayTaskGroupId = "gid";
         public const string XmlElementNameNewDayTaskCultureInfo = "cultureInfo";
         public const string XmlElementNameNewDayTaskFirstDayOfWeek = "firstDayOfWeek";
+
+        public const string CodeIrcBold = "\\002";
+        public const string CodeIrcUnderline = "\\037";
+        public const string CodeIrcColor = "\\003";
+        public static readonly string CodeNewLine = Environment.NewLine;
     }
 }

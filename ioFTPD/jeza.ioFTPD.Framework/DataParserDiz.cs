@@ -55,8 +55,8 @@ namespace jeza.ioFTPD.Framework
             //    .Client(Config.ClientHead)
             //    .Client(Config.ClientFileName)
             //    .Client(Config.ClientFoot);
-            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
-            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete, null));
+            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink, null));
         }
 
         private void CreateZipRaceDataFile()

@@ -8,6 +8,8 @@ using System.Threading;
 using System.Xml.Serialization;
 using jeza.ioFTPD.Framework.Archive;
 using jeza.ioFTPD.Framework.Manager;
+using TagLib;
+using File = TagLib.File;
 
 namespace jeza.ioFTPD.Framework
 {
@@ -16,6 +18,26 @@ namespace jeza.ioFTPD.Framework
     /// </summary>
     public static class Extensions
     {
+        public static File GetMp3Info(string uploadFile)
+        {
+            try
+            {
+                if (System.IO.File.Exists(uploadFile) && !String.IsNullOrEmpty(uploadFile))
+                {
+                    Log.Debug("GetMp3Info: " + uploadFile);
+                    File file = File.Create(uploadFile);
+                    if (file != null)
+                    {
+                        return file;
+                    }
+                }
+            }
+            catch (CorruptFileException)
+            {
+            }
+            return null;
+        }
+
         public static DateTime AddNextDate(this DateTime dateTime)
         {
             return dateTime.AddDays(1);
@@ -93,7 +115,7 @@ namespace jeza.ioFTPD.Framework
                                        string fileName,
                                        string defaultNamespace)
         {
-            if (File.Exists(fileName))
+            if (System.IO.File.Exists(fileName))
             {
                 using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
                 {
@@ -235,7 +257,8 @@ namespace jeza.ioFTPD.Framework
             bool deletingFile = race.IsRaceTypeDelete();
             fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
-            bool isMp3Race = race.IsMp3Race();
+            bool isMp3Race = race.IsAudioRace();
+            File mp3Info = isMp3Race ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
             TagManager tagManager = new TagManager(race);
             if (!deletingFile)
             {
@@ -247,8 +270,8 @@ namespace jeza.ioFTPD.Framework
                 if (isMp3Race)
                 {
                     output
-                        .Client(Config.ClientMp3InfoHead)
-                        .ClientMp3(Config.ClientMp3Info);
+                        .ClientMp3(Config.ClientMp3InfoHead, mp3Info)
+                        .ClientMp3(Config.ClientMp3Info, mp3Info);
                 }
                 output
                     .Client(Config.ClientStatsUsersHead)
@@ -265,12 +288,12 @@ namespace jeza.ioFTPD.Framework
             if (race.IsRaceComplete)
             {
                 fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
-                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete));
+                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete, mp3Info));
                 tagManager.DeleteSymlink(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
 
                 if (Config.WriteStatsToMesasageFileWhenComplete)
                 {
-                    WriteStatsToMesasageFile(race, isMp3Race);
+                    WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
                 }
                 output.LogCompleteStats();
             }
@@ -279,11 +302,11 @@ namespace jeza.ioFTPD.Framework
                 tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
                 if (Config.WriteStatsToMesasageFileWhenRace)
                 {
-                    WriteStatsToMesasageFile(race, isMp3Race);
+                    WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
                 }
                 if (race.TotalFilesUploaded == 1)
                 {
-                    output.LogFirstFileWasUploaded(isMp3Race);
+                    output.LogFirstFileWasUploaded(isMp3Race, mp3Info);
                 }
                 else
                 {
@@ -311,8 +334,10 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="race">The race.</param>
         /// <param name="isMp3Race">if set to <c>true</c> [is MP3 race].</param>
+        /// <param name="mp3Info"><see cref="Mp3Info"/></param>
         public static void WriteStatsToMesasageFile(Race race,
-                                                    bool isMp3Race)
+                                                    bool isMp3Race,
+                                                    File mp3Info)
         {
             MessageMutex.WaitOne();
             Log.Debug("WriteStatsToMesasageFile");
@@ -328,8 +353,8 @@ namespace jeza.ioFTPD.Framework
                     Output output = new Output(race);
                     if (isMp3Race)
                     {
-                        textWriter.WriteLine(output.Format(Config.MessageMp3InfoHead));
-                        textWriter.WriteLine(output.Format(Config.MessageMp3Info));
+                        textWriter.WriteLine(output.Format(Config.MessageMp3InfoHead, mp3Info));
+                        textWriter.WriteLine(output.Format(Config.MessageMp3Info, mp3Info));
                     }
                     textWriter.WriteLine(output.Format(Config.MessageStatsUsersHead));
                     textWriter.Write(output.MessageStatsUsers(Config.MessageStatsUsers, Config.MaxNumberOfUserStats));
@@ -342,15 +367,15 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Determines whether current race is race with MP3 files.
+        /// Determines whether current race is race with MP3 or FLAC files.
         /// </summary>
         /// <param name="race">The race.</param>
         /// <returns>
         /// 	<c>true</c> if [is MP3 race] [the specified data parser]; otherwise, <c>false</c>.
         /// </returns>
-        public static bool IsMp3Race(this Race race)
+        public static bool IsAudioRace(this Race race)
         {
-            return race.CurrentRaceData != null && race.CurrentRaceData.RaceType == RaceType.Mp3;
+            return race.CurrentRaceData != null && (race.CurrentRaceData.RaceType == RaceType.Mp3 || race.CurrentRaceData.RaceType == RaceType.Flac);
         }
 
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
@@ -415,6 +440,16 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
+        /// Format the time span to hh:mm:ss
+        /// </summary>
+        /// <param name="timeSpan"><see cref="TimeSpan"/></param>
+        /// <returns><see cref="TimeSpan"/> formated as HH:MM:SS</returns>
+        public static string FormatTimeSpan(this TimeSpan timeSpan)
+        {
+            return String.Format("{0:00}:{1:00}:{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+        }
+
+        /// <summary>
         /// Format size.
         /// </summary>
         /// <param name="bytes">total bytes.</param>
@@ -422,7 +457,7 @@ namespace jeza.ioFTPD.Framework
         public static string FormatSize(this UInt64 bytes)
         {
             UInt64 formatedSize = bytes;
-            string[] postFix = new[] {"B", "kB", "MB", "GB", "TB"};
+            string[] postFix = new[] {"B", "kB", "MB", "GB", "TB", "PB", "EB"};
             int count = 0;
             while (formatedSize > 1024)
             {

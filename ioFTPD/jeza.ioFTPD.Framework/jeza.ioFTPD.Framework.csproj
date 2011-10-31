@@ -52,8 +52,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -68,7 +68,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="taglib-sharp, Version=2.0.3.4, Culture=neutral, PublicKeyToken=4735dfc8ebc2ad00, processorArchitecture=MSIL">
+    <Reference Include="taglib-sharp, Version=2.0.4.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\taglib-sharp.dll</HintPath>
     </Reference>
@@ -79,7 +79,6 @@
     </Compile>
     <Compile Include="Archive\ArchiveAction.cs" />
     <Compile Include="ConsoleAppTasks.cs" />
-    <Compile Include="Mp3Info.cs" />
     <Compile Include="TaskConfiguration.cs" />
     <Compile Include="Archive\ArchiveActionAttribute.cs" />
     <Compile Include="ConsoleAppZipScript.cs" />

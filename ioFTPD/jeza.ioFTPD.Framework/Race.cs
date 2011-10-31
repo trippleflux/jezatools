@@ -24,7 +24,7 @@ namespace jeza.ioFTPD.Framework
         public Race ParseDelete()
         {
             GetCurrentUploadData();
-            string fileName = args[2];
+            string fileName = args [2];
             CurrentRaceData.RaceType = RaceType.Delete;
             CurrentRaceData.FileExtension = Path.GetExtension(fileName);
             CurrentRaceData.FileName = fileName;
@@ -71,14 +71,14 @@ namespace jeza.ioFTPD.Framework
         private void GetCurrentUploadData()
         {
             CurrentRaceData = new CurrentRaceData
-                                {
-                                    UploadVirtualPath = GetVirtualPath(),
-                                    Speed = GetSpeed(),
-                                    UserName = GetUserName(),
-                                    GroupName = GetGroupName(),
-                                    Uid = GetUid(),
-                                    Gid = GetGid(),
-                                };
+                              {
+                                  UploadVirtualPath = GetVirtualPath(),
+                                  Speed = GetSpeed(),
+                                  UserName = GetUserName(),
+                                  GroupName = GetGroupName(),
+                                  Uid = GetUid(),
+                                  Gid = GetGid(),
+                              };
         }
 
         public void ProcessDelete()
@@ -286,16 +286,18 @@ namespace jeza.ioFTPD.Framework
             }
             IsValid = true;
             CurrentRaceData.RaceType = EqualsRaceType(Config.FileExtensionSfv)
-                                             ? RaceType.Sfv
-                                             : EqualsRaceType(Config.FileExtensionMp3)
-                                                   ? RaceType.Mp3
-                                                   : EqualsRaceType(Config.FileExtensionZip)
-                                                         ? RaceType.Zip
-                                                         : EqualsRaceType(Config.FileExtensionNfo)
-                                                               ? RaceType.Nfo
-                                                               : EqualsRaceType(Config.FileExtensionDiz)
-                                                                     ? RaceType.Diz
-                                                                     : RaceType.Default;
+                                           ? RaceType.Sfv
+                                           : EqualsRaceType(Config.FileExtensionMp3)
+                                                 ? RaceType.Mp3
+                                                 : EqualsRaceType(Config.FileExtensionFlac)
+                                                       ? RaceType.Flac
+                                                       : EqualsRaceType(Config.FileExtensionZip)
+                                                             ? RaceType.Zip
+                                                             : EqualsRaceType(Config.FileExtensionNfo)
+                                                                   ? RaceType.Nfo
+                                                                   : EqualsRaceType(Config.FileExtensionDiz)
+                                                                         ? RaceType.Diz
+                                                                         : RaceType.Default;
         }
 
         /// <summary>

@@ -81,6 +81,11 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("FileExtensionMp3"); }
         }
 
+        public static string FileExtensionFlac
+        {
+            get { return GetKeyValue("FileExtensionFlac"); }
+        }
+
         public static string FileExtensionZip
         {
             get { return GetKeyValue("FileExtensionZip"); }

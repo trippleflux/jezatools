@@ -40,6 +40,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\GallioBundle\bin\Gallio.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\GallioBundle\bin\MbUnit.dll</HintPath>
@@ -56,7 +59,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="taglib-sharp, Version=2.0.3.4, Culture=neutral, PublicKeyToken=4735dfc8ebc2ad00, processorArchitecture=MSIL">
+    <Reference Include="taglib-sharp, Version=2.0.4.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\taglib-sharp.dll</HintPath>
     </Reference>
@@ -76,7 +79,7 @@
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
     <Compile Include="ZipScript\DeleteTests.cs" />
-    <Compile Include="ZipScript\Mp3Tests.cs" />
+    <Compile Include="ZipScript\AudioTests.cs" />
     <Compile Include="ZipScript\RaceTests.cs" />
     <Compile Include="ZipScript\RarTests.cs" />
     <Compile Include="ZipScript\SfvTests.cs" />
@@ -104,12 +107,17 @@
     <Content Include="TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind.mp3" />
     <Content Include="TestFiles\Mp3\03-jozek.Pepek-2009-asd-Ind%282%29.mp3" />
     <Content Include="TestFiles\Mp3\04-jozek.Pepek-2009-asd-Ind%283%29.mp3" />
+    <Content Include="TestFiles\Mp3\06-judas_priest-beyond_the_realms_of_death.mp3" />
     <Content Include="TestFiles\Mp3\SwingingSafari.mp3" />
     <Content Include="TestFiles\Video\fringe.315.hdtv.sample-lol.avi" />
+    <None Include="TestFiles\Flac\bp2004-09-10t01.flac" />
+    <None Include="TestFiles\Flac\bp2004-09-10t01.sfv" />
     <None Include="TestFiles\Race\File.race" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="TestFiles\Archive\source\2\2.1\26kB" />
     <None Include="TestFiles\Archive\source\2\2.2\2.2.1\26kB" />
     <None Include="TestFiles\Archive\source\2\2.2\26kB" />

@@ -79,15 +79,15 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientHead)
                 .Client(Config.ClientFileNameSfv)
                 .Client(Config.ClientFoot);
-            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
-            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete, null));
+            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink, null));
             if(Config.LogToIoFtpdSfv)
             {
-                Log.IoFtpd(output.Format(Config.LogLineIoFtpdSfv));
+                Log.IoFtpd(output.Format(Config.LogLineIoFtpdSfv, null));
             }
             if (Config.LogToInternalSfv)
             {
-                Log.Internal(output.Format(Config.LogLineInternalSfv));
+                Log.Internal(output.Format(Config.LogLineInternalSfv, null));
             }
         }
 
