@@ -1,11 +1,7 @@
-#region
 using System;
 using System.Collections.Generic;
 using System.Text;
 using TagLib;
-using File = System.IO.File;
-
-#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -29,35 +25,48 @@ namespace jeza.ioFTPD.Framework
             this.race = race;
         }
 
+        public Output WriteLine(string line)
+        {
+            Console.WriteLine(line);
+            return this;
+        }
+
+        public Output Write(string line)
+        {
+            Console.Write(line);
+            return this;
+        }
+
         public Output ClientRescan(string line)
         {
-            Console.WriteLine(FormatCrc32(line));
+            WriteLine(FormatCrc32(line));
             return this;
         }
 
         public Output Client(string line)
         {
-            Console.WriteLine(Format(line));
+            WriteLine(Format(line));
             return this;
         }
 
-        public Output ClientMp3(string line)
+        public Output ClientMp3(string line,
+                                File mp3Info)
         {
-            Console.WriteLine(Format(line));
+            WriteLine(Format(line, mp3Info));
             return this;
         }
 
         public Output ClientStatsUsers(string line,
                                        int maxNumberOfStatsToShow)
         {
-            Console.Write(MessageStatsUsers(line, maxNumberOfStatsToShow));
+            Write(MessageStatsUsers(line, maxNumberOfStatsToShow));
             return this;
         }
 
         public Output ClientStatsGroups(string line,
                                         int maxNumberOfStatsToShow)
         {
-            Console.Write(MessageStatsGroups(line, maxNumberOfStatsToShow));
+            Write(MessageStatsGroups(line, maxNumberOfStatsToShow));
             return this;
         }
 
@@ -149,17 +158,18 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
-        public void LogFirstFileWasUploaded(bool isMp3Race)
+        public void LogFirstFileWasUploaded(bool isMp3Race,
+                                            File mp3Info)
         {
             if (isMp3Race)
             {
                 if (Config.LogToIoFtpdUpdateMp3)
                 {
-                    Log.IoFtpd(Format(Config.LogLineIoFtpdUpdateMp3));
+                    Log.IoFtpd(Format(Config.LogLineIoFtpdUpdateMp3, mp3Info));
                 }
                 if (Config.LogToInternalUpdateMp3)
                 {
-                    Log.Internal(Format(Config.LogLineInternalUpdateMp3));
+                    Log.Internal(Format(Config.LogLineInternalUpdateMp3, mp3Info));
                 }
             }
             else
@@ -378,22 +388,22 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "irccolor":
                     {
-                        args [i] = CodeIrcColor;
+                        args[i] = Constants.CodeIrcColor;
                         break;
                     }
                     case "ircbold":
                     {
-                        args [i] = CodeIrcBold;
+                        args[i] = Constants.CodeIrcBold;
                         break;
                     }
                     case "ircunderline":
                     {
-                        args [i] = CodeIrcUnderline;
+                        args[i] = Constants.CodeIrcUnderline;
                         break;
                     }
                     case "newline":
                     {
-                        args [i] = codeNewLine;
+                        args[i] = Constants.CodeNewLine;
                         break;
                     }
                     default:
@@ -480,22 +490,22 @@ namespace jeza.ioFTPD.Framework
                     }
                     case "irccolor":
                     {
-                        args [i] = CodeIrcColor;
+                        args[i] = Constants.CodeIrcColor;
                         break;
                     }
                     case "ircbold":
                     {
-                        args [i] = CodeIrcBold;
+                        args[i] = Constants.CodeIrcBold;
                         break;
                     }
                     case "ircunderline":
                     {
-                        args [i] = CodeIrcUnderline;
+                        args[i] = Constants.CodeIrcUnderline;
                         break;
                     }
                     case "newline":
                     {
-                        args [i] = codeNewLine;
+                        args[i] = Constants.CodeNewLine;
                         break;
                     }
                     default:
@@ -508,18 +518,14 @@ namespace jeza.ioFTPD.Framework
             return text;
         }
 
-        public string Format(string line)
+        public string Format(string line,
+                             File mp3Info = null)
         {
             if (MinimumLength(line) || race == null)
             {
                 return line;
             }
-            Mp3Info mp3Info = new Mp3Info();
-            if (race.IsMp3Race())
-            {
-                mp3Info = GetMp3Info();
-            }
-            return String.Format(new MyFormat(), line
+            string format = String.Format(new MyFormat(), line
                                           , race.CurrentRaceData == null ? "" : race.CurrentRaceData.FileName ?? "" // {0}
                                           , race.CurrentRaceData == null ? "" : race.CurrentRaceData.DirectoryName ?? "" // {1}
                                           , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UserName ?? "" // {2}
@@ -536,43 +542,38 @@ namespace jeza.ioFTPD.Framework
                                           , race.TotalGroupsRacing // {13}
                                           , race.ProgressBar // {14}
                                           , race.PercentComplete // {15}
-                                          , CodeIrcColor // {16}
-                                          , CodeIrcBold // {17}
-                                          , CodeIrcUnderline // {18}
-                                          , codeNewLine // {19}
-                                          , mp3Info.Artist // {20}
-                                          , mp3Info.Album // {21}
-                                          , mp3Info.Title // {22}
-                                          , mp3Info.Genre // {23}
-                                          , mp3Info.Year // {24}
-                                          , mp3Info.TrackNumber //{25}
-                                          , race.CurrentRaceData == null ? 0 : race.CurrentRaceData.Speed); // {26}
+                                          , Constants.CodeIrcColor // {16}
+                                          , Constants.CodeIrcBold // {17}
+                                          , Constants.CodeIrcUnderline // {18}
+                                          , Constants.CodeNewLine // {19}
+                                          , mp3Info == null ? "" : mp3Info.Tag.FirstPerformer // {20}
+                                          , mp3Info == null ? "" : mp3Info.Tag.Album // {21}
+                                          , mp3Info == null ? "" : mp3Info.Tag.Title // {22}
+                                          , mp3Info == null ? "" : mp3Info.Tag.FirstGenre // {23}
+                                          , mp3Info == null ? 0 : mp3Info.Tag.Year // {24}
+                                          , mp3Info == null ? 0 : mp3Info.Tag.Track //{25}
+                                          , race.CurrentRaceData == null ? 0 : race.CurrentRaceData.Speed // {26}
+                                          , mp3Info == null ? 0 : mp3Info.Properties.AudioBitrate // {27}
+                                          , mp3Info == null ? 0 : mp3Info.Properties.AudioChannels // {28}
+                                          , mp3Info == null ? 0 : mp3Info.Properties.AudioSampleRate // {29}
+                                          , mp3Info == null ? 0 : mp3Info.Properties.BitsPerSample // {30}
+                                          , mp3Info == null ? "" : mp3Info.Properties.Description // {31}
+                                          , mp3Info == null ? "" : mp3Info.Properties.MediaTypes.ToString("g") // {32}
+                                          , mp3Info == null || mp3Info.Properties.Codecs == null ? "" : GetCodecList(mp3Info.Properties.Codecs) // {33}
+                                          , mp3Info == null ? "" : mp3Info.Properties.Duration.FormatTimeSpan()); // {34}
+            Log.Debug("Format: " + format);
+            return format;
         }
 
-        private Mp3Info GetMp3Info()
+        private static string GetCodecList(IEnumerable<ICodec> codecs)
         {
-            Mp3Info mp3Info = new Mp3Info();
-            try
+            const char separator = ',';
+            StringBuilder sb = new StringBuilder();
+            foreach (ICodec codec in codecs)
             {
-                string uploadFile = race.CurrentRaceData.UploadFile;
-                if (File.Exists(uploadFile) && !String.IsNullOrEmpty(uploadFile))
-                {
-                    TagLib.File file = TagLib.File.Create(uploadFile);
-                    if (file != null)
-                    {
-                        mp3Info.Artist = file.Tag.FirstAlbumArtist;
-                        mp3Info.Album = file.Tag.Album;
-                        mp3Info.Title = file.Tag.Title;
-                        mp3Info.Genre = file.Tag.FirstGenre;
-                        mp3Info.Year = file.Tag.Year;
-                        mp3Info.TrackNumber = file.Tag.Track;
-                    }
-                }
+                sb.Append(codec.Description).Append(separator);
             }
-            catch (CorruptFileException)
-            {
-            }
-            return mp3Info;
+            return sb.ToString().TrimEnd(separator);
         }
 
         public string FormatCrc32(string line)
@@ -588,16 +589,12 @@ namespace jeza.ioFTPD.Framework
                                        , rescanStats.MissingFiles // {5}
                                        , rescanStats.OkFiles // {6}
                                        , rescanStats.FailedFiles // {7}
-                                       , codeNewLine); // {8}
+                                       , Constants.CodeNewLine); // {8}
         }
 
         private readonly Race race;
         private const char SplitChar = '¤';
         private readonly RescanStatsData rescanStatsData;
         private readonly RescanStats rescanStats;
-        private const string CodeIrcBold = "\\002";
-        private const string CodeIrcUnderline = "\\037";
-        private const string CodeIrcColor = "\\003";
-        private readonly string codeNewLine = Environment.NewLine;
     }
 }
