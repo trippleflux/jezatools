@@ -40,23 +40,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\GallioBundle\bin\Gallio.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="MbUnit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=eb9cfa67ee6ab36e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\GallioBundle\bin\MbUnit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="taglib-sharp, Version=2.0.4.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
@@ -88,17 +79,9 @@
     <Compile Include="ZipScript\ZipTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\jeza.ioFTPD.Archive\jeza.ioFTPD.Archive.csproj">
-      <Project>{99D40587-4522-4B22-A424-26A7B1D56EEA}</Project>
-      <Name>jeza.ioFTPD.Archive</Name>
-    </ProjectReference>
     <ProjectReference Include="..\jeza.ioFTPD.Framework\jeza.ioFTPD.Framework.csproj">
       <Project>{C03CAA07-CF29-4B13-B0B4-94EECB6C33C4}</Project>
       <Name>jeza.ioFTPD.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.csproj">
-      <Project>{4C916287-0460-4FBF-AFA4-B859D03362BB}</Project>
-      <Name>jeza.ioFTPD.ZipScript</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -58,7 +58,7 @@ namespace jeza.ioFTPD.Tests
             race.ParseUpload();
             const int totalFilesExpected = 123;
             race.TotalFilesExpected = totalFilesExpected;
-            bool isAudioRace = race.IsAudioRace();
+            bool isAudioRace = race.IsAudioRace;
             Assert.IsTrue(isAudioRace);
             Output output = new Output(race);
             File file = File.Create(@"..\..\TestFiles\Mp3\06-judas_priest-beyond_the_realms_of_death.mp3");
