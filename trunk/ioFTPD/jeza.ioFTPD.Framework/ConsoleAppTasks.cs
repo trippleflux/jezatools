@@ -67,11 +67,13 @@ namespace jeza.ioFTPD.Framework
                     string folderName = dateTime.GetNewDayFolderFormat(task);
                     string newDayFolder = Path.Combine(sourceFolder.FullName, folderName);
                     FileInfo.CreateFolder(newDayFolder);
-                    if (String.IsNullOrEmpty(task.Symlink))
+                    if (!String.IsNullOrEmpty(task.Symlink))
                     {
+                        FileInfo.CreateFolder(task.Symlink);
                         Misc.CreateSymlink(task.Symlink, task.VirtualPath + folderName);
                         Misc.ChangeVfs(task.Symlink, task.Mode, task.UserId, task.GroupId);
                     }
+                    Log.IoFtpd(String.Format(task.LogFormat, task.VirtualPath + folderName, newDayFolder));
                 }
                 else
                 {

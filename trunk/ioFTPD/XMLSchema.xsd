@@ -165,6 +165,9 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              
+              <xs:element name="logFormat" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
 
             </xs:sequence>
           </xs:complexType>

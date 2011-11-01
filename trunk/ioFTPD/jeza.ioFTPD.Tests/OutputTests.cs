@@ -42,11 +42,11 @@ namespace jeza.ioFTPD.Tests
             Assert.AreEqual("|  1.           user1/group1           117MB   100kBit/s   1F |",
                             output.FormatUserStats(1,
                                                    race.GetUserStats() [0],
-                                                   "| {0,2:B2}. {1,15:B15}/{2,-15:B15} {3,6:B6} {4,5:B5}kBit/s {5,3:B3}F |¤Possition UserName GroupName FormatBytesUploaded AverageSpeed FilesUploaded"));
+                                                   "| {0,2:B2}. {2,15:B15}/{3,-15:B15} {8,6:B6} {6,5:B5}kBit/s {7,3:B3}F |"));
             Assert.AreEqual("|  1. group1           117MB   100kBit/s   1F |",
                             output.FormatGroupStats(1,
                                                     race.GetGroupStats() [0],
-                                                    "| {0,2:B2}. {1,-15:B15} {2,6:B6} {3,5:B5}kBit/s {4,3:B3}F |¤Possition GroupName FormatBytesUploaded AverageSpeed FilesUploaded"));
+                                                    "| {0,2:B2}. {3,-15:B15} {7,6:B6} {5,5:B5}kBit/s {6,3:B3}F |"));
             Assert.AreEqual("###--------------", output.Format("{14}"), "ProgressBar");
             Assert.AreEqual("117MB", bytes.FormatSize(), "FormatBytesUploaded");
         }

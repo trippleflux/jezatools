@@ -43,6 +43,7 @@ namespace jeza.ioFTPD.Framework
         public const string XmlElementNameNewDayTaskGroupId = "gid";
         public const string XmlElementNameNewDayTaskCultureInfo = "cultureInfo";
         public const string XmlElementNameNewDayTaskFirstDayOfWeek = "firstDayOfWeek";
+        public const string XmlElementNameNewDayTaskLogFormat = "logFormat";
 
         public const string CodeIrcBold = "\\002";
         public const string CodeIrcUnderline = "\\037";

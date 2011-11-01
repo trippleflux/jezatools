@@ -7,6 +7,10 @@ namespace jeza.ioFTPD.Framework
 {
     public class Output
     {
+        public Output()
+        {
+        }
+
         public Output(RescanStatsData rescanStatsData,
                       RescanStats rescanStats)
         {

@@ -22,7 +22,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="line">The line.</param>
         /// <param name="fileName">Name of the file.</param>
         public static void DebugToFile(string line,
-                                 string fileName)
+                                       string fileName)
         {
 #if DEBUG
             WriteToFile(line, fileName, null);
@@ -47,28 +47,38 @@ namespace jeza.ioFTPD.Framework
                                         string line,
                                         object[] args)
         {
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
-            LogMutex.WaitOne();
-            using (FileStream stream = new FileStream(fileInfo.FullName,
-                                                      FileMode.Append,
-                                                      FileAccess.Write,
-                                                      FileShare.None))
+            try
             {
-                using (StreamWriter streamWriter = new StreamWriter(stream))
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+                LogMutex.WaitOne();
+                using (FileStream stream = new FileStream(fileInfo.FullName,
+                                                          FileMode.Append,
+                                                          FileAccess.Write,
+                                                          FileShare.None))
                 {
-                    DateTime dt = new DateTime(DateTime.Now.Ticks);
-                    line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + line;
-                    if (args != null)
+                    using (StreamWriter streamWriter = new StreamWriter(stream))
                     {
-                        streamWriter.WriteLine(line, args);
-                    }
-                    else
-                    {
-                        streamWriter.WriteLine(line);
+                        DateTime dt = new DateTime(DateTime.Now.Ticks);
+                        line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + line;
+                        if (args != null)
+                        {
+                            streamWriter.WriteLine(line, args);
+                        }
+                        else
+                        {
+                            streamWriter.WriteLine(line);
+                        }
                     }
                 }
+                LogMutex.ReleaseMutex();
             }
-            LogMutex.ReleaseMutex();
+            catch (Exception exception)
+            {
+                Output output = new Output();
+                output.Client(fileName);
+                output.Client(args != null ? String.Format(line, args) : line);
+                output.Client(exception.ToString());
+            }
         }
 
         /// <summary>

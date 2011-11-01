@@ -15,11 +15,12 @@
     <realPath>E:\\mp3\\day</realPath>
     <virtualPath>/mp3/day/</virtualPath>
     <format>{2:00}{0:00}</format>
-    <symlink>today-mp3</symlink>
+    <symlink>E:\\server\\ioFTPD\\site\\pub\\today-mp3</symlink>
     <mode>777</mode>
     <uid>0</uid>
     <gid>0</gid>
     <cultureInfo>en-US</cultureInfo>
     <firstDayOfWeek>Sunday</firstDayOfWeek>
+    <logFormat>NEWDATE: &quot;mp3 area&quot; &quot;{0}&quot; &quot;MP3 new Date&quot; &quot;{1}&quot;</logFormat>
   </newDayTask>
 </tasks>
