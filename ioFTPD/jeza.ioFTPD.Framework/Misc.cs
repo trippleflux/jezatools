@@ -33,7 +33,9 @@ namespace jeza.ioFTPD.Framework
         public static void CreateSymlink(string realPath,
                                          string virtualPath)
         {
-            Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", realPath, virtualPath);
+            string format = String.Format("!vfs:chattr 1 \"{0}\" \"{1}\"\n", realPath, virtualPath);
+            Log.Debug("CreateSymlink '{0}'", format);
+            Console.Write(format);
         }
 
         /// <summary>
@@ -49,7 +51,9 @@ namespace jeza.ioFTPD.Framework
                                      int uid,
                                      int gid)
         {
-            Console.Write("!vfs:add {3} {1}:{2} {0}\n", realPath, uid, gid, mode);
+            string format = String.Format("!vfs:add {3} {1}:{2} {0}\n", realPath, uid, gid, mode);
+            Log.Debug("ChangeVfs '{0}'", format);
+            Console.Write(format);
         }
 
         public static MatchCollection GetMatches(string text,

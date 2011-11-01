@@ -117,6 +117,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="path">The path.</param>
         public static void CreateFolder (string path)
         {
+            Log.Debug("CreateFolder '{0}'", path);
             Directory.CreateDirectory (path);
         }
 
