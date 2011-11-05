@@ -57,7 +57,9 @@ namespace jeza.ioFTPD.Framework
             CurrentRaceData.UploadFile = fileName;
             CurrentRaceData.UploadCrc = args [2];
             CurrentRaceData.UploadVirtualFile = args [3];
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
             bool directoryIsNull = fileInfo.Directory == null || fileInfo.Directory.Parent == null;
+// ReSharper restore ConditionIsAlwaysTrueOrFalse
             CurrentRaceData.DirectoryName = directoryIsNull ? "" : fileInfo.Directory.Name;
             CurrentRaceData.DirectoryPath = directoryIsNull ? "" : fileInfo.Directory.FullName;
             CurrentRaceData.DirectoryParent = directoryIsNull ? "" : fileInfo.Directory.Parent.FullName;
@@ -151,7 +153,7 @@ namespace jeza.ioFTPD.Framework
 
         private bool SkipCheck()
         {
-            if (SkipPath || SkipFileExtension)
+            if (SpeedTest() || SkipPath() || SkipFileExtension())
             {
                 if (!IsRaceTypeDelete())
                 {
@@ -169,45 +171,60 @@ namespace jeza.ioFTPD.Framework
 
         public string SourceFolder { get; set; }
 
-        public bool SkipPath
+        public bool SpeedTest()
         {
-            get
+            IsValid = true;
+            if (CurrentRaceData != null)
             {
-                IsValid = true;
-                if (CurrentRaceData != null)
+                string virtualPath = CurrentRaceData.UploadVirtualPath;
+                if (virtualPath.StartsWith(Config.SpeedTestFolder, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    string virtualPath = CurrentRaceData.UploadVirtualPath;
-                    if (Config.SkipPath.IndexOf(' ') > -1)
+                    Log.Debug("SpeedTest path match. ['{0}' => '{1}']", Config.SpeedTestFolder, virtualPath);
+                    if (Config.DeleteSpeedTest)
                     {
-                        string[] skipPaths = Config.SkipPath.Split(' ');
-                        foreach (string skipPath in skipPaths)
+                        IsValid = false;
+                    }
+                    Output output = new Output(this);
+                    output.LogSpeedTest();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool SkipPath()
+        {
+            IsValid = true;
+            if (CurrentRaceData != null)
+            {
+                string virtualPath = CurrentRaceData.UploadVirtualPath;
+                if (Config.SkipPath.IndexOf(' ') > -1)
+                {
+                    string[] skipPaths = Config.SkipPath.Split(' ');
+                    foreach (string skipPath in skipPaths)
+                    {
+                        if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
                         {
-                            if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, Config.SkipPath);
-                                return true;
-                            }
+                            Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, Config.SkipPath);
+                            return true;
                         }
                     }
                 }
-                return false;
             }
+            return false;
         }
 
-        public bool SkipFileExtension
+        public bool SkipFileExtension()
         {
-            get
+            IsValid = true;
+            if (CurrentRaceData != null)
             {
-                IsValid = true;
-                if (CurrentRaceData != null)
-                {
-                    string fileExtension = CurrentRaceData.FileExtension;
-                    bool containsFileExt = Config.SkipFileExtension.StringContainsFileExt(fileExtension);
-                    Log.Debug("Skip file extension match=[{2}] :: ['{0}' => '{1}']", fileExtension, Config.SkipFileExtension, containsFileExt);
-                    return containsFileExt;
-                }
-                return false;
+                string fileExtension = CurrentRaceData.FileExtension;
+                bool containsFileExt = Config.SkipFileExtension.StringContainsFileExt(fileExtension);
+                Log.Debug("Skip file extension match=[{2}] :: ['{0}' => '{1}']", fileExtension, Config.SkipFileExtension, containsFileExt);
+                return containsFileExt;
             }
+            return false;
         }
 
         /// <summary>
