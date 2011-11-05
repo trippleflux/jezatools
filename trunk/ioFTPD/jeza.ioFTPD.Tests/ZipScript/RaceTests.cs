@@ -16,7 +16,16 @@ namespace jeza.ioFTPD.Tests.ZipScript
         {
             Race race = new Race(ArgsRarPart1);
             race.ParseUpload();
-            Assert.IsFalse(race.SkipPath, "race.SkipPath");
+            Assert.IsFalse(race.SkipPath(), "race.SkipPath");
+        }
+
+        [Test]
+        public void SpeedTest()
+        {
+            Race race = new Race(ArgsRarPart1);
+            race.ParseUpload();
+            race.CurrentRaceData.UploadVirtualPath = Config.SpeedTestFolder + "asdfsdfsdf";
+            Assert.IsTrue(race.SpeedTest(), "race.SpeedTest");
         }
 
         [Test]

@@ -96,6 +96,11 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("FileExtensionDiz"); }
         }
 
+        public static string SpeedTestFolder
+        {
+            get { return GetKeyValue("SpeedTestFolder"); }
+        }
+
         public static string SkipPath
         {
             get { return GetKeyValue("SkipPath"); }
@@ -124,6 +129,11 @@ namespace jeza.ioFTPD.Framework
         public static bool WriteStatsToMesasageFileWhenComplete
         {
             get { return Misc.String2Boolean(GetKeyValue("WriteStatsToMesasageFileWhenComplete")); }
+        }
+
+        public static bool DeleteSpeedTest
+        {
+            get { return Misc.String2Boolean(GetKeyValue("DeleteSpeedTest")); }
         }
 
         public static int MaxNumberOfUserStats
@@ -194,6 +204,11 @@ namespace jeza.ioFTPD.Framework
         public static bool LogToIoFtpdGroupStatsBody
         {
             get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdGroupStatsBody")); }
+        }
+
+        public static bool LogToIoFtpdSpeedTest
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdSpeedTest")); }
         }
 
         public static int LogToIoFtpdUserStatsBodyMaxNumber
@@ -269,6 +284,11 @@ namespace jeza.ioFTPD.Framework
         public static bool LogToInternalGroupStatsBody
         {
             get { return Misc.String2Boolean(GetKeyValue("LogToInternalGroupStatsBody")); }
+        }
+
+        public static bool LogToInternalSpeedTest
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalSpeedTest")); }
         }
 
         public static int LogToInternalUserStatsBodyMaxNumber
@@ -486,6 +506,11 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("LogLineIoFtpdGroupStatsBody"); }
         }
 
+        public static string LogLineIoFtpdSpeedTest
+        {
+            get { return GetKeyValue("LogLineIoFtpdSpeedTest"); }
+        }
+
         public static string LogLineInternalSfv
         {
             get { return GetKeyValue("LogLineInternalSfv"); }
@@ -544,6 +569,11 @@ namespace jeza.ioFTPD.Framework
         public static string LogLineInternalGroupStatsBody
         {
             get { return GetKeyValue("LogLineInternalGroupStatsBody"); }
+        }
+
+        public static string LogLineInternalSpeedTest
+        {
+            get { return GetKeyValue("LogLineInternalSpeedTest"); }
         }
 
         public static int ProgressBarLength

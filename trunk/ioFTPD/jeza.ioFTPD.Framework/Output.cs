@@ -189,6 +189,18 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
+        public void LogSpeedTest()
+        {
+            if (Config.LogToIoFtpdSpeedTest)
+            {
+                Log.IoFtpd(Format(Config.LogLineIoFtpdSpeedTest));
+            }
+            if (Config.LogToInternalSpeedTest)
+            {
+                Log.Internal(Format(Config.LogLineInternalSpeedTest));
+            }
+        }
+
         public void LogRace(RaceStatsUsers usersRaceStats)
         {
             if (Config.LogToIoFtpdRace)
