@@ -22,10 +22,13 @@ Folder jeza.ioFTPD.Manager contains next files:
 In ioFTPD.ini add :
 [FTP_Custom_Commands]
 newday            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe manualNewDay
+weekly            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe weekly 
 [FTP_SITE_Permissions]
 newday		= 1
+weekly		= 1
 [Scheduler]
 NewDay           = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerNewDay
+Weekly            = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerWeekly check
 
 Restart ioFTPD server or execute SITE command REHASH
 ------------------------------------------------------------------------------------------------------------

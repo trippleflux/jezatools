@@ -83,17 +83,10 @@
                 </xs:simpleType>
               </xs:element>
 
-              <xs:element name="type" minOccurs="1" maxOccurs="1">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="Day"/>
-                    <xs:enumeration value="Week"/>
-                    <xs:enumeration value="Month"/>
-                  </xs:restriction>
-                </xs:simpleType>
+              <xs:element name="userId" minOccurs="1" maxOccurs="1" type="xs:integer">
               </xs:element>
 
-              <xs:element name="userId" minOccurs="1" maxOccurs="1" type="xs:integer">
+              <xs:element name="userName" minOccurs="1" maxOccurs="1" type="xs:string">
               </xs:element>
 
               <xs:element name="credits" minOccurs="1" maxOccurs="1" type="xs:integer">

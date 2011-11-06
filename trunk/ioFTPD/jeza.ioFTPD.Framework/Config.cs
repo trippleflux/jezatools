@@ -51,6 +51,16 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("FileNameRace", ".jeza.ioFTPD.Race"); }
         }
 
+        public static string FileNameConfiguration
+        {
+            get { return GetKeyValue("FileNameConfiguration"); }
+        }
+
+        public static string ClientWeeklyList
+        {
+            get { return GetKeyValue("ClientWeeklyList"); }
+        }
+        
         public static string FileNameIoFtpdMessage
         {
             get { return GetKeyValue("FileNameIoFtpdMessage", ".ioFTPD.Message"); }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using jeza.ioFTPD.Framework.Manager;
 using TagLib;
 
 namespace jeza.ioFTPD.Framework
@@ -439,6 +440,24 @@ namespace jeza.ioFTPD.Framework
                                                      , Constants.CodeNewLine); //{8}
             Log.Debug("FormatCrc32: " + formatCrc32);
             return formatCrc32;
+        }
+
+        public string FormatWeeklyTask(string line, WeeklyTask weeklyTask)
+        {
+            string formatWeeklyTask = MinimumLength(line) || weeklyTask == null
+                                     ? line
+                                     : String.Format(new MyFormat(), line
+                                                     , weeklyTask.WeeklyTaskStatus // {0}
+                                                     , weeklyTask.Uid // {1}
+                                                     , weeklyTask.Username// {2}
+                                                     , weeklyTask.Creator // {3}
+                                                     , weeklyTask.Credits.FormatSize() // {4}
+                                                     , weeklyTask.DateTimeStart // {5}
+                                                     , weeklyTask.DateTimeStop // {6}
+                                                     , weeklyTask.Notes // {7}
+                                                     , Constants.CodeNewLine); //{8}
+            Log.Debug("FormatWeeklyTask: " + formatWeeklyTask);
+            return formatWeeklyTask;
         }
 
         private readonly Race race;
