@@ -15,7 +15,7 @@ namespace jeza.ioFTPD.Manager
                 int numberOfArguments = args.Length;
                 if (numberOfArguments > 0)
                 {
-                    ConsoleAppTasks consoleAppTasks = new ConsoleAppTasks();
+                    ConsoleAppTasks consoleAppTasks = new ConsoleAppTasks(args);
                     consoleAppTasks.ParseConfig();
 
                     string firstArgument = args[0].ToLowerInvariant();
@@ -23,6 +23,11 @@ namespace jeza.ioFTPD.Manager
                     if (firstArgument.EndsWith("newday"))
                     {
                         consoleAppTasks.Execute(TaskType.NewDay);
+                    }
+                    //args: 'args[0]='schedulerWeekly' '
+                    if (firstArgument.EndsWith("weekly"))
+                    {
+                        consoleAppTasks.Execute(TaskType.Weekly);
                     }
                 } 
             }

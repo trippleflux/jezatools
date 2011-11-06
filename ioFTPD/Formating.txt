@@ -1,4 +1,4 @@
-﻿Format:
+Format:
 {0}		FileName
 {1}		DirectoryName
 {2}		UserName
@@ -38,13 +38,13 @@ FormatCRC32:
 {7}		FailedFiles
 {8}		codeNewLine
 
-FormatCRC32:
-{0}		FileName
-{1}		ExpectedCrc32Value
-{2}		ActualCrc32Value
-{3}		Status	
-{4}		TotalFiles
-{5}		MissingFiles
-{6}		OkFiles
-{7}		FailedFiles
+FormatWeeklyTask:
+{0}		WeeklyTaskStatus
+{1}		Uid
+{2}		Username
+{3}		Creator	
+{4}		Credits
+{5}		DateTimeStart
+{6}		DateTimeStop
+{7}		Notes
 {8}		codeNewLine

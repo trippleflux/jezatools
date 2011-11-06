@@ -64,6 +64,7 @@
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="FileFolderTests.cs" />
     <Compile Include="Manager\ManagerConfiguration.cs" />
+    <Compile Include="Manager\Weekly.cs" />
     <Compile Include="Media\Mp3Sort.cs" />
     <Compile Include="Media\Video.cs" />
     <Compile Include="MiscTests.cs" />

@@ -39,6 +39,17 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
+        /// Execute site command.
+        /// </summary>
+        /// <param name="command"></param>
+        public static void ExecuteSiteCommand(string command)
+        {
+            string format = String.Format("!change {0}\n", command);
+            Log.Debug("ExecuteSiteCommand '{0}'", format);
+            Console.Write(format);
+        }
+
+        /// <summary>
         /// Changes the VFS attributes of a directory.
         /// </summary>
         /// <param name="realPath">The real path.</param>

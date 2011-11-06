@@ -23,8 +23,8 @@ namespace jeza.ioFTPD.Framework
 
         public const string XmlElementNameWeeklyTask = "weeklyTask";
         public const string XmlElementNameWeeklyTaskStatus = "status";
-        public const string XmlElementNameWeeklyTaskType = "type";
         public const string XmlElementNameWeeklyTaskUserId = "userId";
+        public const string XmlElementNameWeeklyTaskUserName = "userName";
         public const string XmlElementNameWeeklyTaskCredits = "credits";
         public const string XmlElementNameWeeklyTaskNotes = "notes";
         public const string XmlElementNameWeeklyTaskCreator = "creator";

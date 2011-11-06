@@ -11,9 +11,9 @@ namespace jeza.ioFTPD.Framework
         public ArchiveTask[] ArchiveTasks { get; set; }
 
         [XmlElement(ElementName = Constants.XmlElementNameWeeklyTask)]
-        public WeeklyTask[] WeeklyTask { get; set; }
+        public WeeklyTask[] WeeklyTasks { get; set; }
 
         [XmlElement(ElementName = Constants.XmlElementNameNewDayTask)]
-        public NewDayTask[] NewDayTask { get; set; }
+        public NewDayTask[] NewDayTasks { get; set; }
     }
 }

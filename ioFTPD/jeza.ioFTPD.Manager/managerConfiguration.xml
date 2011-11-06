@@ -2,8 +2,8 @@
 <tasks xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
   <weeklyTask>
     <status>Pending</status>
-    <type>Week</type>
     <userId>123</userId>
+    <userName>username</userName>
     <credits>1024</credits>
     <notes>weekly for some user!</notes>
     <creator>jeza</creator>

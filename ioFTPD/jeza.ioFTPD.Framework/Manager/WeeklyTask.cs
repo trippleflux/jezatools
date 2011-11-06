@@ -8,11 +8,11 @@ namespace jeza.ioFTPD.Framework.Manager
         [XmlElement(ElementName = Constants.XmlElementNameWeeklyTaskStatus, IsNullable = false)]
         public WeeklyTaskStatus WeeklyTaskStatus { get; set; }
 
-        [XmlElement(ElementName = Constants.XmlElementNameWeeklyTaskType)]
-        public WeeklyTaskType WeeklyTaskType { get; set; }
-
         [XmlElement(ElementName = Constants.XmlElementNameWeeklyTaskUserId)]
         public int Uid { get; set; }
+
+        [XmlElement(ElementName = Constants.XmlElementNameWeeklyTaskUserName)]
+        public string Username { get; set; }
 
         [XmlElement(ElementName = Constants.XmlElementNameWeeklyTaskCredits)]
         public UInt64 Credits { get; set; }

@@ -96,7 +96,6 @@
     <Compile Include="Manager\NewDayTaskStatus.cs" />
     <Compile Include="Manager\WeeklyTask.cs" />
     <Compile Include="Manager\WeeklyTaskStatus.cs" />
-    <Compile Include="Manager\WeeklyTaskType.cs" />
     <Compile Include="Misc.cs" />
     <Compile Include="RaceStatsEnumerator.cs" />
     <Compile Include="RaceStatsGroups.cs" />

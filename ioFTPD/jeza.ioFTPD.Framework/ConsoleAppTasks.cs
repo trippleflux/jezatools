@@ -11,17 +11,32 @@ namespace jeza.ioFTPD.Framework
 {
     public class ConsoleAppTasks
     {
+        public ConsoleAppTasks()
+        {
+        }
+
+        public ConsoleAppTasks(string[] args)
+        {
+            this.args = args;
+        }
+
         public void ParseConfig()
+        {
+            GetExecutionPath();
+            taskConfiguration = Extensions.Deserialize(new TaskConfiguration(), configurationFileName, DefaultNamespace);
+            if (taskConfiguration == null)
+            {
+                throw new ConfigurationErrorsException("Failed to load TaskConfiguration!");
+            }
+        }
+
+        public void GetExecutionPath()
         {
             string codeBase = Assembly.GetExecutingAssembly().Location;
             Log.Debug("Assembly.GetExecutingAssembly().Location: ['{0}']", codeBase);
 // ReSharper disable AssignNullToNotNullAttribute
-            configuration = Extensions.Deserialize(new TaskConfiguration(), Path.Combine(Path.GetDirectoryName(codeBase), configurationFile), DefaultNamespace);
+            configurationFileName = Path.Combine(Path.GetDirectoryName(codeBase), configurationFile);
 // ReSharper restore AssignNullToNotNullAttribute
-            if (configuration == null)
-            {
-                throw new ConfigurationErrorsException("Failed to load configuration!");
-            }
         }
 
         public void Execute(TaskType taskType)
@@ -38,6 +53,11 @@ namespace jeza.ioFTPD.Framework
                     ExecuteNewDayTask();
                     break;
                 }
+                case TaskType.Weekly:
+                {
+                    ExecuteWeeklyTask();
+                    break;
+                }
                 default:
                 {
                     throw new NotSupportedException("Unknown TaskType");
@@ -45,9 +65,97 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
+        private void ExecuteWeeklyTask()
+        {
+            if (args.Length < 2)
+            {
+                OutputWeeklyTaskList();
+                return;
+            }
+            switch (args [1].ToLowerInvariant())
+            {
+                case "add":
+                {
+                    if (args.Length < 4)
+                    {
+                        OutputWeeklyTaskList();
+                    }
+                    string username = args [2];
+                    UInt64 amount = (UInt64) Misc.String2Number(args [3]);
+                    string creator = IoEnvironment.GetUserName();
+                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    WeeklyTask newWeeklyTask = new WeeklyTask
+                                               {
+                                                   Creator = creator,
+                                                   Uid = 0, //TODO: get UID from username
+                                                   Credits = amount,
+                                                   Username = username,
+                                                   WeeklyTaskStatus = WeeklyTaskStatus.Enabled,
+                                                   Notes = amount.FormatSize() + " From " + creator,
+                                                   DateTimeStart = dateTime,
+                                                   DateTimeStop = dateTime.AddYears(1),
+                                               };
+                    List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
+                    weeklyTasks.Add(newWeeklyTask);
+                    taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
+                    Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+                    break;
+                }
+                case "del":
+                {
+                    if (args.Length < 3)
+                    {
+                        OutputWeeklyTaskList();
+                    }
+                    string username = args [2];
+                    List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
+                    List<WeeklyTask> list = weeklyTasks.FindAll(task => task.Username == username);
+                    foreach (WeeklyTask weeklyTask in list)
+                    {
+                        weeklyTasks.Remove(weeklyTask);
+                    }
+                    taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
+                    Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+                    break;
+                }
+                case "check":
+                {
+                    List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
+                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    foreach (WeeklyTask weeklyTask in weeklyTasks.Where(weeklyTask => weeklyTask.WeeklyTaskStatus == WeeklyTaskStatus.Enabled))
+                    {
+                        if (weeklyTask.DateTimeStop < dateTime)
+                        {
+                            weeklyTask.WeeklyTaskStatus = WeeklyTaskStatus.Disabled;
+                        }
+                        else
+                        {
+                            Misc.ExecuteSiteCommand(String.Format("{0} credits {1}", weeklyTask.Username, weeklyTask.Credits));
+                        }
+                    }
+                    taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
+                    Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+        }
+
+        private void OutputWeeklyTaskList()
+        {
+            Output output = new Output();
+            foreach (WeeklyTask weeklyTask in taskConfiguration.WeeklyTasks)
+            {
+                output.Client(output.FormatWeeklyTask(Config.ClientWeeklyList, weeklyTask));
+            }
+        }
+
         private void ExecuteNewDayTask()
         {
-            foreach (NewDayTask task in configuration.NewDayTask)
+            foreach (NewDayTask task in taskConfiguration.NewDayTasks)
             {
                 if (task.Status == NewDayTaskStatus.Enabled)
                 {
@@ -84,7 +192,7 @@ namespace jeza.ioFTPD.Framework
 
         private void ExecuteArchiveTasks()
         {
-            foreach (ArchiveTask task in configuration.ArchiveTasks)
+            foreach (ArchiveTask task in taskConfiguration.ArchiveTasks)
             {
                 if (task.ArchiveStatus == ArchiveStatus.Enabled)
                 {
@@ -269,8 +377,18 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
-        private TaskConfiguration configuration;
+        private TaskConfiguration taskConfiguration;
+
+        public TaskConfiguration TaskConfiguration
+        {
+            get { return taskConfiguration; }
+            set { taskConfiguration = value; }
+        }
+
         private readonly string configurationFile = Config.GetKeyValue("FileNameConfiguration");
+        private readonly string[] args;
+        private string configurationFileName = "testConfig.xml";
+
         private const string DefaultNamespace = Config.DefaultNamespace;
     }
 }
