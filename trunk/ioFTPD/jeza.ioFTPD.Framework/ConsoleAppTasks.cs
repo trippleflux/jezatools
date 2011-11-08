@@ -77,7 +77,7 @@ namespace jeza.ioFTPD.Framework
                 OutputRequestList();
                 return;
             }
-            if (args [0].ToLowerInvariant().Equals("request"))
+            if (args [0].ToLowerInvariant().Equals(Constants.RequestAdd))
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST ADD '{0}'", requestName);
@@ -92,9 +92,16 @@ namespace jeza.ioFTPD.Framework
                                                   DateAdded = dateTime,
                                                   Name = requestName,
                                               };
-                    List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
-                    requestTasks.Add(requestTask);
-                    taskConfiguration.RequestTasks = requestTasks.ToArray();
+                    if (taskConfiguration.RequestTasks != null)
+                    {
+                        List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                        requestTasks.Add(requestTask);
+                        taskConfiguration.RequestTasks = requestTasks.ToArray();
+                    }
+                    else
+                    {
+                        taskConfiguration.RequestTasks = new[] {requestTask};
+                    }
                     SaveConfiguration();
                     FileInfo.CreateFolder(request);
                 }
@@ -104,32 +111,12 @@ namespace jeza.ioFTPD.Framework
                 }
                 return;
             }
-            if (args [0].ToLowerInvariant().Equals("reqdel"))
+            if (args[0].ToLowerInvariant().Equals(Constants.RequestDel))
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST DEL '{0}'", requestName);
                 string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
-                List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
-                RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
-                if (reqTask != null)
-                {
-                    requestTasks.Remove(reqTask);
-                }
-                taskConfiguration.RequestTasks = requestTasks.ToArray();
-                SaveConfiguration();
-                if (request.DirectoryExists())
-                {
-                    request.KickUsersFromDirectory();
-                    request.RemoveFolder();
-                }
-                return;
-            }
-            if (args [0].ToLowerInvariant().Equals("reqfill"))
-            {
-                string requestName = args [1];
-                Log.Debug("REQUEST FILL '{0}'", requestName);
-                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
-                if (request.DirectoryExists())
+                if (taskConfiguration.RequestTasks != null)
                 {
                     List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
                     RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
@@ -139,6 +126,32 @@ namespace jeza.ioFTPD.Framework
                     }
                     taskConfiguration.RequestTasks = requestTasks.ToArray();
                     SaveConfiguration();
+                }
+                if (request.DirectoryExists())
+                {
+                    request.KickUsersFromDirectory();
+                    request.RemoveFolder();
+                }
+                return;
+            }
+            if (args[0].ToLowerInvariant().Equals(Constants.RequestFill))
+            {
+                string requestName = args [1];
+                Log.Debug("REQUEST FILL '{0}'", requestName);
+                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                if (request.DirectoryExists())
+                {
+                    if (taskConfiguration.RequestTasks != null)
+                    {
+                        List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                        RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
+                        if (reqTask != null)
+                        {
+                            requestTasks.Remove(reqTask);
+                        }
+                        taskConfiguration.RequestTasks = requestTasks.ToArray();
+                        SaveConfiguration();
+                    }
                     request.KickUsersFromDirectory();
                     Directory.Move(request, Path.Combine(Config.RequestFolder, Config.RequestFilled + requestName));
                 }
@@ -156,9 +169,12 @@ namespace jeza.ioFTPD.Framework
         {
             Output output = new Output();
             output.Client(output.FormatNone(Config.ClientRequestHead));
-            foreach (RequestTask requestTask in taskConfiguration.RequestTasks)
+            if (taskConfiguration.RequestTasks != null)
             {
-                output.Client(output.FormatRequestTask(Config.ClientRequestBody, requestTask));
+                foreach (RequestTask requestTask in taskConfiguration.RequestTasks)
+                {
+                    output.Client(output.FormatRequestTask(Config.ClientRequestBody, requestTask));
+                }
             }
             output.Client(output.FormatNone(Config.ClientRequestFoot));
         }
@@ -172,7 +188,7 @@ namespace jeza.ioFTPD.Framework
             }
             switch (args [1].ToLowerInvariant())
             {
-                case "add":
+                case Constants.WeeklyAdd:
                 {
                     if (args.Length < 4)
                     {
@@ -199,7 +215,7 @@ namespace jeza.ioFTPD.Framework
                     SaveConfiguration();
                     break;
                 }
-                case "del":
+                case Constants.WeeklyDel:
                 {
                     if (args.Length < 3)
                     {
@@ -216,7 +232,7 @@ namespace jeza.ioFTPD.Framework
                     SaveConfiguration();
                     break;
                 }
-                case "check":
+                case Constants.WeeklyCheck:
                 {
                     List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
                     DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
