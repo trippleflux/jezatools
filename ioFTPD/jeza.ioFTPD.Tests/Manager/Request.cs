@@ -13,30 +13,47 @@ namespace jeza.ioFTPD.Tests.Manager
         /// Gets the requests list.
         /// </summary>
         [Test]
+        public void ListEmpty()
+        {
+            //DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+            ConsoleAppTasks task = new ConsoleAppTasks(new[] {"listrequest"})
+                                   {
+                                       TaskConfiguration = new TaskConfiguration {WeeklyTasks = new WeeklyTask[] {}},
+                                   };
+            TaskConfiguration taskConfiguration = task.TaskConfiguration;
+            Assert.IsNull(taskConfiguration.RequestTasks);
+            task.Execute(TaskType.Request);
+            Assert.IsNull(taskConfiguration.RequestTasks);
+        }
+
+        /// <summary>
+        /// Gets the requests list.
+        /// </summary>
+        [Test]
         public void List()
         {
             DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-            ConsoleAppTasks task = new ConsoleAppTasks(new[] { "listrequest" })
-            {
-                TaskConfiguration = new TaskConfiguration
-                {
-                    RequestTasks = new[]
-                                                                             {
-                                                                                 new RequestTask
-                                                                                 {
-                                                                                     Creator = "testRequester",
-                                                                                     DateAdded = dateTime,
-                                                                                     Name = "Some.Stupid.Request With Spaces",
-                                                                                 },
-                                                                                 new RequestTask
-                                                                                 {
-                                                                                     Creator = "testRequester 2",
-                                                                                     DateAdded = dateTime,
-                                                                                     Name = "Some.Stupid.Request 2",
-                                                                                 },
-                                                                             },
-                }
-            };
+            ConsoleAppTasks task = new ConsoleAppTasks(new[] {"listrequest"})
+                                   {
+                                       TaskConfiguration = new TaskConfiguration
+                                                           {
+                                                               RequestTasks = new[]
+                                                                              {
+                                                                                  new RequestTask
+                                                                                  {
+                                                                                      Creator = "testRequester",
+                                                                                      DateAdded = dateTime,
+                                                                                      Name = "Some.Stupid.Request With Spaces",
+                                                                                  },
+                                                                                  new RequestTask
+                                                                                  {
+                                                                                      Creator = "testRequester 2",
+                                                                                      DateAdded = dateTime,
+                                                                                      Name = "Some.Stupid.Request 2",
+                                                                                  },
+                                                                              },
+                                                           }
+                                   };
             TaskConfiguration taskConfiguration = task.TaskConfiguration;
             Assert.AreEqual(2, taskConfiguration.RequestTasks.Length);
             task.Execute(TaskType.Request);
@@ -53,27 +70,27 @@ namespace jeza.ioFTPD.Tests.Manager
             string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
             request.RemoveFolder();
             DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-            ConsoleAppTasks task = new ConsoleAppTasks(new[] { "request", requestName })
-            {
-                TaskConfiguration = new TaskConfiguration
-                {
-                    RequestTasks = new[]
-                                                                             {
-                                                                                 new RequestTask
-                                                                                 {
-                                                                                     Creator = "testRequester",
-                                                                                     DateAdded = dateTime,
-                                                                                     Name = "Some.Stupid.Request With Spaces",
-                                                                                 },
-                                                                                 new RequestTask
-                                                                                 {
-                                                                                     Creator = "testRequester 2",
-                                                                                     DateAdded = dateTime,
-                                                                                     Name = "Some.Stupid.Request 2",
-                                                                                 },
-                                                                             },
-                }
-            };
+            ConsoleAppTasks task = new ConsoleAppTasks(new[] {"request", requestName})
+                                   {
+                                       TaskConfiguration = new TaskConfiguration
+                                                           {
+                                                               RequestTasks = new[]
+                                                                              {
+                                                                                  new RequestTask
+                                                                                  {
+                                                                                      Creator = "testRequester",
+                                                                                      DateAdded = dateTime,
+                                                                                      Name = "Some.Stupid.Request With Spaces",
+                                                                                  },
+                                                                                  new RequestTask
+                                                                                  {
+                                                                                      Creator = "testRequester 2",
+                                                                                      DateAdded = dateTime,
+                                                                                      Name = "Some.Stupid.Request 2",
+                                                                                  },
+                                                                              },
+                                                           }
+                                   };
             TaskConfiguration taskConfiguration = task.TaskConfiguration;
             Assert.AreEqual(2, taskConfiguration.RequestTasks.Length);
             task.Execute(TaskType.Request);
@@ -88,27 +105,27 @@ namespace jeza.ioFTPD.Tests.Manager
         {
             DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
             const string name = "Some.Stupid.Request With Spaces";
-            ConsoleAppTasks task = new ConsoleAppTasks(new[] { "reqdel", name })
-            {
-                TaskConfiguration = new TaskConfiguration
-                {
-                    RequestTasks = new[]
-                                                                             {
-                                                                                 new RequestTask
-                                                                                 {
-                                                                                     Creator = "testRequester",
-                                                                                     DateAdded = dateTime,
-                                                                                     Name = name,
-                                                                                 },
-                                                                                 new RequestTask
-                                                                                 {
-                                                                                     Creator = "testRequester 2",
-                                                                                     DateAdded = dateTime,
-                                                                                     Name = "Some.Stupid.Request 2",
-                                                                                 },
-                                                                             },
-                }
-            };
+            ConsoleAppTasks task = new ConsoleAppTasks(new[] {"delrequest", name})
+                                   {
+                                       TaskConfiguration = new TaskConfiguration
+                                                           {
+                                                               RequestTasks = new[]
+                                                                              {
+                                                                                  new RequestTask
+                                                                                  {
+                                                                                      Creator = "testRequester",
+                                                                                      DateAdded = dateTime,
+                                                                                      Name = name,
+                                                                                  },
+                                                                                  new RequestTask
+                                                                                  {
+                                                                                      Creator = "testRequester 2",
+                                                                                      DateAdded = dateTime,
+                                                                                      Name = "Some.Stupid.Request 2",
+                                                                                  },
+                                                                              },
+                                                           }
+                                   };
             TaskConfiguration taskConfiguration = task.TaskConfiguration;
             Assert.AreEqual(2, taskConfiguration.RequestTasks.Length);
             task.Execute(TaskType.Request);

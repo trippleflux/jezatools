@@ -54,5 +54,13 @@ namespace jeza.ioFTPD.Framework
         public const string CodeIrcUnderline = "\\037";
         public const string CodeIrcColor = "\\003";
         public static readonly string CodeNewLine = Environment.NewLine;
+        
+        public const string RequestAdd = "request";
+        public const string RequestDel = "delrequest";
+        public const string RequestFill = "fillrequest";
+
+        public const string WeeklyAdd = "add";
+        public const string WeeklyDel = "del";
+        public const string WeeklyCheck = "check";
     }
 }
