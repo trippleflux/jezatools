@@ -23,9 +23,15 @@ In ioFTPD.ini add :
 [FTP_Custom_Commands]
 newday            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe manualNewDay
 weekly            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe weekly 
+requests          = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe listrequest 
+request           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe request 
+reqdel            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe delrequest 
+reqfill           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe fillrequest 
+
 [FTP_SITE_Permissions]
 newday		= 1
 weekly		= 1
+
 [Scheduler]
 NewDay           = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerNewDay
 Weekly            = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerWeekly check

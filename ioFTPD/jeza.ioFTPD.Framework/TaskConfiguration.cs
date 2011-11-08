@@ -15,5 +15,8 @@ namespace jeza.ioFTPD.Framework
 
         [XmlElement(ElementName = Constants.XmlElementNameNewDayTask)]
         public NewDayTask[] NewDayTasks { get; set; }
+
+        [XmlElement(ElementName = Constants.XmlElementNameRequestTask)]
+        public RequestTask[] RequestTasks { get; set; }
     }
 }

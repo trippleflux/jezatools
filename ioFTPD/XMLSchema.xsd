@@ -166,6 +166,23 @@
           </xs:complexType>
         </xs:element>
 
+        <xs:element name="requestTask">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="name" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="creator" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="dateAdded" minOccurs="1" maxOccurs="1" type="xs:dateTime">
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
       </xs:choice>
     </xs:complexType>
   </xs:element>

@@ -18,6 +18,47 @@ namespace jeza.ioFTPD.Framework
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Removes the folder.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        public static void RemoveFolder(this string path)
+        {
+            if (path.DirectoryExists())
+            {
+                Directory.Delete(path);
+            }
+        }
+
+        /// <summary>
+        /// Kicks the users from directory.
+        /// </summary>
+        /// <param name="fullName">The full name.</param>
+        public static void KickUsersFromDirectory(this string fullName)
+        {
+            Console.WriteLine("!unlock " + fullName + "\\*");
+        }
+
+        /// <summary>
+        /// Determines whether the given path refers to an existing directory on disk.
+        /// </summary>
+        /// <param name="fullName">The full name.</param>
+        /// <returns></returns>
+        public static bool DirectoryExists(this string fullName)
+        {
+            return Directory.Exists(fullName);
+        }
+
+        /// <summary>
+        /// Determines whether the specified file exists.
+        /// </summary>
+        /// <param name="fullName">The full name.</param>
+        /// <returns></returns>
+        public static bool FileExists(this string fullName)
+        {
+            return System.IO.File.Exists(fullName);
+        }
+
         public static File GetMp3Info(string uploadFile)
         {
             try

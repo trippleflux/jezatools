@@ -58,11 +58,109 @@ namespace jeza.ioFTPD.Framework
                     ExecuteWeeklyTask();
                     break;
                 }
+                case TaskType.Request:
+                {
+                    ExecuteRequestTask();
+                    break;
+                }
                 default:
                 {
                     throw new NotSupportedException("Unknown TaskType");
                 }
             }
+        }
+
+        private void ExecuteRequestTask()
+        {
+            if (args.Length < 2)
+            {
+                OutputRequestList();
+                return;
+            }
+            if (args [0].ToLowerInvariant().Equals("request"))
+            {
+                string requestName = args [1];
+                Log.Debug("REQUEST ADD '{0}'", requestName);
+                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                if (!request.DirectoryExists())
+                {
+                    string creator = IoEnvironment.GetUserName();
+                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    RequestTask requestTask = new RequestTask
+                                              {
+                                                  Creator = creator,
+                                                  DateAdded = dateTime,
+                                                  Name = requestName,
+                                              };
+                    List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                    requestTasks.Add(requestTask);
+                    taskConfiguration.RequestTasks = requestTasks.ToArray();
+                    SaveConfiguration();
+                    FileInfo.CreateFolder(request);
+                }
+                else
+                {
+                    Log.Debug("REQUEST allready exists!");
+                }
+                return;
+            }
+            if (args [0].ToLowerInvariant().Equals("reqdel"))
+            {
+                string requestName = args [1];
+                Log.Debug("REQUEST DEL '{0}'", requestName);
+                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
+                if (reqTask != null)
+                {
+                    requestTasks.Remove(reqTask);
+                }
+                taskConfiguration.RequestTasks = requestTasks.ToArray();
+                SaveConfiguration();
+                if (request.DirectoryExists())
+                {
+                    request.KickUsersFromDirectory();
+                    request.RemoveFolder();
+                }
+                return;
+            }
+            if (args [0].ToLowerInvariant().Equals("reqfill"))
+            {
+                string requestName = args [1];
+                Log.Debug("REQUEST FILL '{0}'", requestName);
+                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                if (request.DirectoryExists())
+                {
+                    List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                    RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
+                    if (reqTask != null)
+                    {
+                        requestTasks.Remove(reqTask);
+                    }
+                    taskConfiguration.RequestTasks = requestTasks.ToArray();
+                    SaveConfiguration();
+                    request.KickUsersFromDirectory();
+                    Directory.Move(request, Path.Combine(Config.RequestFolder, Config.RequestFilled + requestName));
+                }
+                return;
+            }
+        }
+
+        private void SaveConfiguration()
+        {
+            //TODO: create backup
+            Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+        }
+
+        private void OutputRequestList()
+        {
+            Output output = new Output();
+            output.Client(output.FormatNone(Config.ClientRequestHead));
+            foreach (RequestTask requestTask in taskConfiguration.RequestTasks)
+            {
+                output.Client(output.FormatRequestTask(Config.ClientRequestBody, requestTask));
+            }
+            output.Client(output.FormatNone(Config.ClientRequestFoot));
         }
 
         private void ExecuteWeeklyTask()
@@ -98,7 +196,7 @@ namespace jeza.ioFTPD.Framework
                     List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
                     weeklyTasks.Add(newWeeklyTask);
                     taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
-                    Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+                    SaveConfiguration();
                     break;
                 }
                 case "del":
@@ -115,7 +213,7 @@ namespace jeza.ioFTPD.Framework
                         weeklyTasks.Remove(weeklyTask);
                     }
                     taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
-                    Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+                    SaveConfiguration();
                     break;
                 }
                 case "check":
@@ -134,7 +232,7 @@ namespace jeza.ioFTPD.Framework
                         }
                     }
                     taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
-                    Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
+                    SaveConfiguration();
                     break;
                 }
                 default:
@@ -349,7 +447,7 @@ namespace jeza.ioFTPD.Framework
                                          bool recursive)
         {
             Log.Debug("Deleting '{0}'", directoryInfo.FullName);
-            Console.WriteLine("!unlock " + directoryInfo.FullName + "\\*");
+            directoryInfo.FullName.KickUsersFromDirectory();
             directoryInfo.Delete(recursive);
         }
 

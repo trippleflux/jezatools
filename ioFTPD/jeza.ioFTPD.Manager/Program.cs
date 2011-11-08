@@ -29,6 +29,11 @@ namespace jeza.ioFTPD.Manager
                     {
                         consoleAppTasks.Execute(TaskType.Weekly);
                     }
+                    //args: 'args[0]='listRequest' '
+                    if (firstArgument.EndsWith("request"))
+                    {
+                        consoleAppTasks.Execute(TaskType.Request);
+                    }
                 } 
             }
             catch (Exception exception)
