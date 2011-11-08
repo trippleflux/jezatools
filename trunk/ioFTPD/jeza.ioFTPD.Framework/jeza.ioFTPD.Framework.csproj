@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Archive\ArchiveAction.cs" />
     <Compile Include="ConsoleAppTasks.cs" />
+    <Compile Include="Manager\RequestTask.cs" />
     <Compile Include="TaskConfiguration.cs" />
     <Compile Include="Archive\ArchiveActionAttribute.cs" />
     <Compile Include="ConsoleAppZipScript.cs" />

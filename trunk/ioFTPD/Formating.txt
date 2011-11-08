@@ -1,6 +1,20 @@
+Example: "some long string of 33 characters"
+{0}			"some long string of 33 characters"				//output as it is
+{0,10}		"some long string of 33 characters"				//prepare space for 10 characters (right aligned), if total length is over, than output as it is
+{0,-10}		"some long string of 33 characters"				//prepare space for 10 characters (left aligned), if total length is over, than output as it is
+{0,-40}		"some long string of 33 characters       "		//prepare space for 40 characters (left aligned), if total length is less, then add SPACE ar end
+{0,40}		"       some long string of 33 characters"		//prepare space for 40 characters (right aligned), if total length is less, then add SPACE on start
+{0,10:B9}	" some long"									//prepare space for 10 characters (right aligned), if total length is over, cut it to 9 characters
+{0,-10:B9}	"some long "									//prepare space for 10 characters (left aligned), if total length is over, cut it to 9 characters
+{0,20:B19}	" some long string of"							//prepare space for 20 characters (right aligned), if total length is over, cut it to 19 characters
+{0,-20:B19}	"some long string of "							//prepare space for 20 characters (left aligned), if total length is over, cut it to 19 characters
+{0,40:B39}	"       some long string of 33 characters"		//prepare space for 40 characters (right aligned), if total length is over, cut it to 39 characters
+{0,-40:B39}	"some long string of 33 characters       "		//prepare space for 40 characters (left aligned), if total length is over, cut it to 39 characters
+
+
 Format:
 {0}		FileName
-{1}		DirectoryName
+{1}		ReleaseName
 {2}		UserName
 {3}		GroupName	
 {4}		UploadVirtualPath
@@ -19,15 +33,24 @@ Format:
 {17}	CodeIrcBold
 {18}	CodeIrcUnderline
 {19}	codeNewLine
-{20}	FirstAlbumArtist	
+{20}	Artist	
 {21}	Album
 {22}	Title
-{23}	FirstGenre	
+{23}	Genre	
 {24}	Year
 {25}	Track
 {26}	UserSpeed
+{27}	AudioBitrate
+{28}	AudioChannels
+{29}	AudioSampleRate
+{30}	BitsPerSample
+{31}	Description
+{32}	MediaTypes
+{33}	Codecs
+{34}	Duration
 
 FormatCRC32:
+ClientCrc32Body, ClientCrc32Foot
 {0}		FileName
 {1}		ExpectedCrc32Value
 {2}		ActualCrc32Value
@@ -48,3 +71,34 @@ FormatWeeklyTask:
 {6}		DateTimeStop
 {7}		Notes
 {8}		codeNewLine
+
+FormatUserStats:
+ClientStatsUsers, LogLineIoFtpdRace, LogLineIoFtpdLeadUser, LogLineIoFtpdUserStatsBody, LogLineInternalRace, LogLineInternalLeadUser, LogLineInternalUserStatsBody
+{0}		Position
+{1}		ReleaseName
+{2}		Username
+{3}		Groupname	
+{4}		UploadVirtualPath
+{5}		TotalFilesExpected
+{6}		Speed
+{7}		FilesUplaoded
+{8}		BytesUplaodedFormated
+{9}		CodeIrcColor	
+{10}	CodeIrcBold
+{11}	CodeIrcUnderline
+{12}	codeNewLine
+
+FormatGroupStats:
+ClientStatsGroups, LogLineIoFtpdLeadGroup, LogLineIoFtpdGroupStatsBody, LogLineInternalLeadGroup, LogLineInternalGroupStatsBody
+{0}		Position
+{1}		ReleaseName
+{2}		"UserName"
+{3}		Groupname	
+{4}		UploadVirtualPath
+{5}		Speed
+{6}		FilesUplaoded
+{7}		BytesUplaodedFormated
+{8}		CodeIrcColor	
+{9}		CodeIrcBold
+{10}	CodeIrcUnderline
+{11}	codeNewLine

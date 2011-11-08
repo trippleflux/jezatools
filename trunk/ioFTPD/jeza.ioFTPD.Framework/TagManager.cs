@@ -56,7 +56,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("DeleteSymlink: {0}", symLink);
             FileInfo fileInfo = new FileInfo();
             fileInfo.DeleteFile(symLink, ".ioFTPD");
-            fileInfo.RemoveFolder(symLink);
+            symLink.RemoveFolder();
         }
 
         private readonly Race race;

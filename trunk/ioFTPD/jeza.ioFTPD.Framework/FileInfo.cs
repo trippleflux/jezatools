@@ -121,18 +121,6 @@ namespace jeza.ioFTPD.Framework
             Directory.CreateDirectory (path);
         }
 
-        /// <summary>
-        /// Removes the folder.
-        /// </summary>
-        /// <param name="path">The path.</param>
-        public void RemoveFolder (string path)
-        {
-            if (Directory.Exists(path))
-            {
-                Directory.Delete (path);
-            }
-        }
-
         private static readonly Mutex OByteMutex = new Mutex (false, "OByteMutex");
     }
 }

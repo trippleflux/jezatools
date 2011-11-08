@@ -5,5 +5,6 @@ namespace jeza.ioFTPD.Framework
         Archive,
         NewDay,
         Weekly,
+        Request,
     }
 }

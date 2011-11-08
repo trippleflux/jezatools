@@ -24,7 +24,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="defaultValue">The default value.</param>
         /// <returns>Key value or <see cref="defaultValue"/></returns>
         public static string GetKeyValue(string keyName,
-                                          string defaultValue)
+                                         string defaultValue)
         {
             return GetKeyValue(keyName) ?? defaultValue;
         }
@@ -40,6 +40,36 @@ namespace jeza.ioFTPD.Framework
         }
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
+
+        public static string RequestFolder
+        {
+            get { return GetKeyValue("RequestFolder"); }
+        }
+
+        public static string RequestPrefix
+        {
+            get { return GetKeyValue("RequestPrefix"); }
+        }
+
+        public static string RequestFilled
+        {
+            get { return GetKeyValue("RequestFilled"); }
+        }
+
+        public static string ClientRequestHead
+        {
+            get { return GetKeyValue("ClientRequestHead"); }
+        }
+
+        public static string ClientRequestBody
+        {
+            get { return GetKeyValue("ClientRequestBody"); }
+        }
+
+        public static string ClientRequestFoot
+        {
+            get { return GetKeyValue("ClientRequestFoot"); }
+        }
 
         public static string FileNameDebug
         {
@@ -60,7 +90,7 @@ namespace jeza.ioFTPD.Framework
         {
             get { return GetKeyValue("ClientWeeklyList"); }
         }
-        
+
         public static string FileNameIoFtpdMessage
         {
             get { return GetKeyValue("FileNameIoFtpdMessage", ".ioFTPD.Message"); }

@@ -413,6 +413,21 @@ namespace jeza.ioFTPD.Framework
             return format;
         }
 
+        public string FormatNone(string line)
+        {
+            if (MinimumLength(line))
+            {
+                return line;
+            }
+            string format = String.Format(new MyFormat(), line
+                                          , Constants.CodeIrcColor // {0}
+                                          , Constants.CodeIrcBold // {1}
+                                          , Constants.CodeIrcUnderline // {2}
+                                          , Constants.CodeNewLine); // {3}
+            Log.Debug("FormatNone: " + format);
+            return format;
+        }
+
         private static string GetCodecList(IEnumerable<ICodec> codecs)
         {
             const char separator = ',';
@@ -457,6 +472,19 @@ namespace jeza.ioFTPD.Framework
                                                      , weeklyTask.Notes // {7}
                                                      , Constants.CodeNewLine); //{8}
             Log.Debug("FormatWeeklyTask: " + formatWeeklyTask);
+            return formatWeeklyTask;
+        }
+
+        public string FormatRequestTask(string line, RequestTask requestTask)
+        {
+            string formatWeeklyTask = MinimumLength(line) || requestTask == null
+                                     ? line
+                                     : String.Format(new MyFormat(), line
+                                                     , requestTask.Name // {0}
+                                                     , requestTask.DateAdded.ToString("yyyy-MM-dd") // {1}
+                                                     , requestTask.Creator // {2}
+                                                     , Constants.CodeNewLine); //{3}
+            Log.Debug("FormatRequestTask: " + formatWeeklyTask);
             return formatWeeklyTask;
         }
 
