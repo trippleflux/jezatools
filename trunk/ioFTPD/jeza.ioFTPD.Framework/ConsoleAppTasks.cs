@@ -71,12 +71,33 @@ namespace jeza.ioFTPD.Framework
                 {
                     return ExecuteDupeDelDirTask() ? Constants.CodeOk : Constants.CodeFail;
                 }
+                case TaskType.DupeList:
+                {
+                    ExecuteDupeListTask();
+                    break;
+                }
                 default:
                 {
                     throw new NotSupportedException("Unknown TaskType");
                 }
             }
             return Constants.CodeOk;
+        }
+
+        private void ExecuteDupeListTask()
+        {
+            string releaseName = args[1].Trim();
+            List<DataBaseDupe> dupes = DataBase.SelectFromDupeAll(String.Format("SELECT * FROM Folders WHERE ReleaseName like '%{0}%'", releaseName));
+            Output output = new Output();
+            output.Client(output.FormatNone(Config.ClientDupeListHead));
+            if (dupes != null)
+            {
+                foreach (DataBaseDupe dataBaseDupe in dupes)
+                {
+                    output.Client(output.FormatDupe(Config.ClientDupeListBody, dataBaseDupe));
+                }
+            }
+            output.Client(output.FormatNone(Config.ClientDupeListFoot));
         }
 
         private bool ExecuteDupeNewDirTask()

@@ -22,11 +22,12 @@ Folder jeza.ioFTPD.Manager contains next files:
 In ioFTPD.ini add :
 [FTP_Custom_Commands]
 newday            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe manualNewDay
-weekly            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe weekly 
-requests          = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe listrequest 
-request           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe request 
-reqdel            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe delrequest 
-reqfill           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe fillrequest 
+weekly            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe weekly
+requests          = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe listrequest
+request           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe request
+reqdel            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe delrequest
+reqfill           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe fillrequest
+dupe              = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe dupelist
 
 [FTP_SITE_Permissions]
 newday		= 1
