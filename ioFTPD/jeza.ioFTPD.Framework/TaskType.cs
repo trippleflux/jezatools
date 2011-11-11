@@ -8,5 +8,6 @@ namespace jeza.ioFTPD.Framework
         Request,
         DupeNewDir,
         DupeDelDir,
+        DupeList,
     }
 }

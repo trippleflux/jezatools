@@ -45,6 +45,14 @@ namespace jeza.ioFTPD.Manager
                     {
                         codeReturn = consoleAppTasks.Execute(TaskType.DupeDelDir);
                     }
+                    //args: 'args[0]='dupelist', args[1]='testasd''
+                    if (firstArgument.Equals("dupelist"))
+                    {
+                        if (args.Length == 2)
+                        {
+                            consoleAppTasks.Execute(TaskType.DupeList);
+                        }
+                    }
                 } 
             }
             catch (Exception exception)

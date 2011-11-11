@@ -41,9 +41,29 @@ namespace jeza.ioFTPD.Framework
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
 
+        public static string DataSourceDupe
+        {
+            get { return GetKeyValue("DataSourceDupe"); }
+        }
+
         public static string ClientDupeNewDir
         {
             get { return GetKeyValue("ClientDupeNewDir"); }
+        }
+
+        public static string ClientDupeListHead
+        {
+            get { return GetKeyValue("ClientDupeListHead"); }
+        }
+
+        public static string ClientDupeListBody
+        {
+            get { return GetKeyValue("ClientDupeListBody"); }
+        }
+
+        public static string ClientDupeListFoot
+        {
+            get { return GetKeyValue("ClientDupeListFoot"); }
         }
 
         public static string RequestFolder
