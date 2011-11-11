@@ -102,3 +102,17 @@ ClientStatsGroups, LogLineIoFtpdLeadGroup, LogLineIoFtpdGroupStatsBody, LogLineI
 {9}		CodeIrcBold
 {10}	CodeIrcUnderline
 {11}	codeNewLine
+
+FormatDupe:
+{0}		Id
+{1}		UserName
+{2}		GroupName
+{3}		DateTime	
+{4}		PathReal
+{5}		PathVirtual
+{6}		ReleaseName
+{7}		Nuked
+{8}		NukedReason
+{9}		Wiped
+{10}	WipedReason
+{11}	CodeNewLine

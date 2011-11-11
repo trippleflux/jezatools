@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Archive\Configuration.cs" />
     <Compile Include="Archive\Folders.cs" />
+    <Compile Include="Dupe\NewDir.cs" />
     <Compile Include="Dupe\Sqlite.cs" />
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="FileFolderTests.cs" />

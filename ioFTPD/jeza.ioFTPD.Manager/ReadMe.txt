@@ -36,6 +36,10 @@ weekly		= 1
 NewDay           = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerNewDay
 Weekly            = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerWeekly check
 
+[Events]
+OnNewDir = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe newdir
+OnDelDir = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe deldir
+
 Restart ioFTPD server or execute SITE command REHASH
 ------------------------------------------------------------------------------------------------------------
 3.) 

@@ -5,11 +5,12 @@ namespace jeza.ioFTPD.Manager
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static int Main(string[] args)
         {
             Log.Debug("--------------------------------------------------------------");
             Log.Debug("Manager...");
             Log.Debug("args: '{0}'", Misc.ArgsToString(args));
+            int codeReturn = Constants.CodeOk;
             try
             {
                 int numberOfArguments = args.Length;
@@ -34,12 +35,24 @@ namespace jeza.ioFTPD.Manager
                     {
                         consoleAppTasks.Execute(TaskType.Request);
                     }
+                    //args: 'args[0]='newdir', args[1]='D:\temp\testasd', args[2]='/temp/testasd''
+                    if (firstArgument.Equals("newdir"))
+                    {
+                        codeReturn = consoleAppTasks.Execute(TaskType.DupeNewDir);
+                    }
+                    //args: 'args[0]='deldir', args[1]='D:\temp\testasd', args[2]='/temp/testasd''
+                    if (firstArgument.Equals("deldir"))
+                    {
+                        codeReturn = consoleAppTasks.Execute(TaskType.DupeDelDir);
+                    }
                 } 
             }
             catch (Exception exception)
             {
                 Log.Debug(exception.ToString());
+                codeReturn = Constants.CodeFail;
             }
+            return codeReturn;
         }
     }
 }

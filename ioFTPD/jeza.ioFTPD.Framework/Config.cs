@@ -41,6 +41,11 @@ namespace jeza.ioFTPD.Framework
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
 
+        public static string ClientDupeNewDir
+        {
+            get { return GetKeyValue("ClientDupeNewDir"); }
+        }
+
         public static string RequestFolder
         {
             get { return GetKeyValue("RequestFolder"); }

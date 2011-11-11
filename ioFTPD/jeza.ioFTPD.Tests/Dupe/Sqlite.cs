@@ -14,7 +14,7 @@ namespace jeza.ioFTPD.Tests.Dupe
         public void Insert()
         {
             string releasename = Guid.NewGuid().ToString();
-            string commandText = String.Format(@"INSERT INTO Folders (UserName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
+            string commandText = String.Format(@"INSERT INTO Folders (UserName, GroupName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', 'group', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
             int numberOfRows = DataBase.Insert(commandText);
             Assert.AreEqual(1, numberOfRows);
         }
@@ -29,7 +29,7 @@ namespace jeza.ioFTPD.Tests.Dupe
             string commandText = String.Format(@"SELECT * FROM Folders WHERE ReleaseName = '{0}'", releasename);
             DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(commandText);
             Assert.IsNull(dataBaseDupe);
-            commandText = String.Format(@"INSERT INTO Folders (UserName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
+            commandText = String.Format(@"INSERT INTO Folders (UserName, GroupName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', 'group', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
             int numberOfRows = DataBase.Insert(commandText);
             Assert.AreEqual(1, numberOfRows);
             commandText = String.Format(@"SELECT * FROM Folders WHERE ReleaseName = '{0}'", releasename);
@@ -48,7 +48,7 @@ namespace jeza.ioFTPD.Tests.Dupe
             string commandText = String.Format(@"SELECT * FROM Folders WHERE ReleaseName = '{0}'", releasename);
             DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(commandText);
             Assert.IsNull(dataBaseDupe);
-            commandText = String.Format(@"INSERT INTO Folders (UserName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
+            commandText = String.Format(@"INSERT INTO Folders (UserName, GroupName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', 'group', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
             int numberOfRows = DataBase.Insert(commandText);
             Assert.AreEqual(1, numberOfRows);
             const string nukedReason = "Nuked for some reason";
@@ -73,7 +73,7 @@ namespace jeza.ioFTPD.Tests.Dupe
             string commandText = String.Format(@"SELECT * FROM Folders WHERE ReleaseName = '{0}'", releasename);
             DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(commandText);
             Assert.IsNull(dataBaseDupe);
-            commandText = String.Format(@"INSERT INTO Folders (UserName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
+            commandText = String.Format(@"INSERT INTO Folders (UserName, GroupName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', 'group', '{0}', 'c:\temp\{0}', '/temp/{0}')", releasename);
             int numberOfRows = DataBase.Insert(commandText);
             Assert.AreEqual(1, numberOfRows);
             const string wipedReason = "Wiped for some reason";

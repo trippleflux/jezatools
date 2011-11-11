@@ -6,5 +6,7 @@ namespace jeza.ioFTPD.Framework
         NewDay,
         Weekly,
         Request,
+        DupeNewDir,
+        DupeDelDir,
     }
 }
