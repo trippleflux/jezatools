@@ -457,6 +457,27 @@ namespace jeza.ioFTPD.Framework
             return formatCrc32;
         }
 
+        public string FormatDupe(string line, DataBaseDupe dataBaseDupe)
+        {
+            string formatDupe = MinimumLength(line) || dataBaseDupe == null
+                                     ? line
+                                     : String.Format(new MyFormat(), line
+                                                     , dataBaseDupe.Id// {0}
+                                                     , dataBaseDupe.UserName // {1}
+                                                     , dataBaseDupe.GroupName // {2}
+                                                     , dataBaseDupe.DateTime // {3}
+                                                     , dataBaseDupe.PathReal // {4}
+                                                     , dataBaseDupe.PathVirtual // {5}
+                                                     , dataBaseDupe.ReleaseName // {6}
+                                                     , dataBaseDupe.Nuked // {7}
+                                                     , dataBaseDupe.NukedReason // {8}
+                                                     , dataBaseDupe.Wiped // {9}
+                                                     , dataBaseDupe.WipedReason // {10}
+                                                     , Constants.CodeNewLine); //{11}
+            Log.Debug("FormatDupe: " + formatDupe);
+            return formatDupe;
+        }
+
         public string FormatWeeklyTask(string line, WeeklyTask weeklyTask)
         {
             string formatWeeklyTask = MinimumLength(line) || weeklyTask == null

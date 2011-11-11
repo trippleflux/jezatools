@@ -74,14 +74,15 @@ namespace jeza.ioFTPD.Framework
                                             {
                                                 Id = Misc.String2Number(itemArray [0].ToString()),
                                                 UserName = itemArray [1].ToString(),
-                                                DateTime = itemArray[2].ToString(),
-                                                PathReal = itemArray [3].ToString(),
-                                                PathVirtual = itemArray [4].ToString(),
-                                                ReleaseName = itemArray [5].ToString(),
-                                                Nuked = Misc.String2Number(itemArray [6].ToString()) > 0 ? true : false,
-                                                NukedReason = itemArray [7].ToString(),
-                                                Wiped = Misc.String2Number(itemArray[8].ToString()) > 0 ? true : false,
-                                                WipedReason = itemArray [9].ToString(),
+                                                GroupName = itemArray[2].ToString(),
+                                                DateTime = itemArray[3].ToString(),
+                                                PathReal = itemArray [4].ToString(),
+                                                PathVirtual = itemArray [5].ToString(),
+                                                ReleaseName = itemArray [6].ToString(),
+                                                Nuked = Misc.String2Number(itemArray [7].ToString()) > 0 ? true : false,
+                                                NukedReason = itemArray [8].ToString(),
+                                                Wiped = Misc.String2Number(itemArray[9].ToString()) > 0 ? true : false,
+                                                WipedReason = itemArray [10].ToString(),
                                             };
                 return dataBaseDupe;
             }

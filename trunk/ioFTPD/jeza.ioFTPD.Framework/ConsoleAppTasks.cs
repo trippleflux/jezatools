@@ -39,7 +39,7 @@ namespace jeza.ioFTPD.Framework
 // ReSharper restore AssignNullToNotNullAttribute
         }
 
-        public void Execute(TaskType taskType)
+        public int Execute(TaskType taskType)
         {
             switch (taskType)
             {
@@ -63,11 +63,66 @@ namespace jeza.ioFTPD.Framework
                     ExecuteRequestTask();
                     break;
                 }
+                case TaskType.DupeNewDir:
+                {
+                    return ExecuteDupeNewDirTask() ? Constants.CodeOk : Constants.CodeFail;
+                }
+                case TaskType.DupeDelDir:
+                {
+                    return ExecuteDupeDelDirTask() ? Constants.CodeOk : Constants.CodeFail;
+                }
                 default:
                 {
                     throw new NotSupportedException("Unknown TaskType");
                 }
             }
+            return Constants.CodeOk;
+        }
+
+        private bool ExecuteDupeNewDirTask()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(args [1]);
+            string releaseName = directoryInfo.Name;
+            DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(String.Format("SELECT * FROM Folders WHERE ReleaseName = '{0}'", releaseName));
+            if (dataBaseDupe == null)
+            {
+                string userName = IoEnvironment.GetUserName();
+                string groupName = IoEnvironment.GetGroupName();
+                string insertCommand = String.Format(@"INSERT INTO Folders (UserName, GroupName, PathReal, PathVirtual, ReleaseName) VALUES('{0}', '{1}', '{2}', '{3}', '{4}')", userName, groupName, args [1], args [2], releaseName);
+                int rows = DataBase.Insert(insertCommand);
+                if (rows > 0)
+                {
+                    Log.Debug("INSERT new DUPE '{0}'", insertCommand);
+                    return true;
+                }
+                Log.Debug("INSERT of new DUPE FAILED! '{0}'", insertCommand);
+                return false;
+            }
+            Log.Debug("New dir is a dupe of '{0}'", dataBaseDupe.ToString());
+            Output output = new Output();
+            output.Client(output.FormatDupe(Config.ClientDupeNewDir, dataBaseDupe));
+            return false;
+        }
+
+        private bool ExecuteDupeDelDirTask()
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(args [1]);
+            string releaseName = directoryInfo.Name;
+            DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(String.Format("SELECT * FROM Folders WHERE ReleaseName = '{0}'", releaseName));
+            if (dataBaseDupe == null)
+            {
+                return true;
+            }
+            Log.Debug("Removing dupe '{0}'", dataBaseDupe.ToString());
+            string deleteCommand = String.Format(@"DELETE FROM Folders WHERE ReleaseName = '{0}'", releaseName);
+            int rows = DataBase.ExecuteNonQuery(deleteCommand);
+            if (rows > 0)
+            {
+                Log.Debug("Removed dupe");
+                return true;
+            }
+            Log.Debug("DELETE of DUPE FAILED! '{0}'", deleteCommand);
+            return false;
         }
 
         private void ExecuteRequestTask()
@@ -111,7 +166,7 @@ namespace jeza.ioFTPD.Framework
                 }
                 return;
             }
-            if (args[0].ToLowerInvariant().Equals(Constants.RequestDel))
+            if (args [0].ToLowerInvariant().Equals(Constants.RequestDel))
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST DEL '{0}'", requestName);
@@ -134,7 +189,7 @@ namespace jeza.ioFTPD.Framework
                 }
                 return;
             }
-            if (args[0].ToLowerInvariant().Equals(Constants.RequestFill))
+            if (args [0].ToLowerInvariant().Equals(Constants.RequestFill))
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST FILL '{0}'", requestName);
