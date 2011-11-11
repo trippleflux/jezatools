@@ -62,5 +62,7 @@ namespace jeza.ioFTPD.Framework
         public const string WeeklyAdd = "add";
         public const string WeeklyDel = "del";
         public const string WeeklyCheck = "check";
+
+        public const string DataSource = "Data Source=Dupe\\jeza.ioFTPD.Dupe.s3db";
     }
 }

@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Archive\Configuration.cs" />
     <Compile Include="Archive\Folders.cs" />
+    <Compile Include="Dupe\Sqlite.cs" />
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="FileFolderTests.cs" />
     <Compile Include="Manager\ManagerConfiguration.cs" />
@@ -87,6 +88,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Dupe\Folders.png" />
     <Content Include="TestFiles\Mp3\01-jozek.Pepek-2009-asd-Ind.mp3">
     </Content>
     <Content Include="TestFiles\Mp3\02-jozek.Pepek-2009-asd-Ind.mp3" />
@@ -95,6 +97,9 @@
     <Content Include="TestFiles\Mp3\06-judas_priest-beyond_the_realms_of_death.mp3" />
     <Content Include="TestFiles\Mp3\SwingingSafari.mp3" />
     <Content Include="TestFiles\Video\fringe.315.hdtv.sample-lol.avi" />
+    <None Include="Dupe\jeza.ioFTPD.Dupe.s3db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\Flac\bp2004-09-10t01.flac" />
     <None Include="TestFiles\Flac\bp2004-09-10t01.sfv" />
     <None Include="TestFiles\Race\File.race" />
