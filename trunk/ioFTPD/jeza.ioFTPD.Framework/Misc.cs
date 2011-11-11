@@ -1,13 +1,9 @@
-#region
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using System.Data;
+using System.Data.SQLite;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-
-#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -68,7 +64,7 @@ namespace jeza.ioFTPD.Framework
         }
 
         public static MatchCollection GetMatches(string text,
-                                                  string regularExpressionString)
+                                                 string regularExpressionString)
         {
             Log.Debug("Check '{0}' for '{1}'", text, regularExpressionString);
             return Regex.Matches(text, regularExpressionString);
