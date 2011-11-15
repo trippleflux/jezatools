@@ -337,6 +337,10 @@ namespace jeza.ioFTPD.Framework
                     WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
                 }
                 output.LogCompleteStats();
+                if (isMp3Race)
+                {
+                    SortAudio(race, mp3Info);
+                }
             }
             else
             {
@@ -370,12 +374,94 @@ namespace jeza.ioFTPD.Framework
             race.IsValid = true;
         }
 
+        public static void SortAudio(Race race,
+                                     File mp3Info)
+        {
+            if (mp3Info != null)
+            {
+                Log.Debug("AudioSort");
+                if (Config.AudioSortByArtist)
+                {
+                    Log.Debug("AudioSortByArtist is enabled");
+                    string path = Config.AudioSortByArtistPath;
+                    bool directoryExists = DirectoryExists(path);
+                    if (!directoryExists)
+                    {
+                        FileInfo.CreateFolder(path);
+                    }
+                    string firstPerformer = mp3Info.Tag.FirstPerformer;
+                    if (firstPerformer != null)
+                    {
+                        string directoryRoot = Path.Combine(path, firstPerformer [0].ToString().ToUpperInvariant());
+                        FileInfo.CreateFolder(directoryRoot);
+                        string directory = Path.Combine(directoryRoot, race.CurrentRaceData.DirectoryName);
+                        FileInfo.CreateFolder(directory);
+                        Misc.CreateSymlink(directory, race.CurrentRaceData.UploadVirtualPath);
+                    }
+                    else
+                    {
+                        Log.Debug("AudioSortByArtist failed to get Artist!");
+                    }
+                }
+                if (Config.AudioSortByGenre)
+                {
+                    Log.Debug("AudioSortByGenre is enabled");
+                    string path = Config.AudioSortByGenrePath;
+                    bool directoryExists = DirectoryExists(path);
+                    if (!directoryExists)
+                    {
+                        FileInfo.CreateFolder(path);
+                    }
+                    string firstGenre = mp3Info.Tag.FirstGenre;
+                    if (firstGenre != null)
+                    {
+                        string directoryRoot = Path.Combine(path, firstGenre.ToLowerInvariant());
+                        FileInfo.CreateFolder(directoryRoot);
+                        string directory = Path.Combine(directoryRoot, race.CurrentRaceData.DirectoryName);
+                        FileInfo.CreateFolder(directory);
+                        Misc.CreateSymlink(directory, race.CurrentRaceData.UploadVirtualPath);
+                    }
+                    else
+                    {
+                        Log.Debug("AudioSortByGenre failed to get Genre!");
+                    }
+                }
+                if (Config.AudioSortByYear)
+                {
+                    Log.Debug("AudioSortByYear is enabled");
+                    string path = Config.AudioSortByYearPath;
+                    bool directoryExists = DirectoryExists(path);
+                    if (!directoryExists)
+                    {
+                        FileInfo.CreateFolder(path);
+                    }
+                    UInt64 year = mp3Info.Tag.Year;
+                    if (year > 0)
+                    {
+                        string directoryRoot = Path.Combine(path, year.ToString());
+                        FileInfo.CreateFolder(directoryRoot);
+                        string directory = Path.Combine(directoryRoot, race.CurrentRaceData.DirectoryName);
+                        FileInfo.CreateFolder(directory);
+                        Misc.CreateSymlink(directory, race.CurrentRaceData.UploadVirtualPath);
+                    }
+                    else
+                    {
+                        Log.Debug("AudioSortByYear failed to get year!");
+                    }
+                }
+            }
+            else
+            {
+                Log.Debug("AudioSort Skiped because no audio info!");
+            }
+        }
+
         /// <summary>
         /// Writes the stats to ioFTPD message file <see cref="Config.FileNameIoFtpdMessage"/>.
         /// </summary>
         /// <param name="race">The race.</param>
         /// <param name="isMp3Race">if set to <c>true</c> [is MP3 race].</param>
-        /// <param name="mp3Info"><see cref="Mp3Info"/></param>
+        /// <param name="mp3Info"><see cref="File"/></param>
         public static void WriteStatsToMesasageFile(Race race,
                                                     bool isMp3Race,
                                                     File mp3Info)
@@ -503,13 +589,13 @@ namespace jeza.ioFTPD.Framework
         /// <param name="fileExtension">file extension</param>
         /// <returns><c>true</c> if <see cref="input"/> contains <see cref="fileExtension"/></returns>
         public static bool StringContainsFileExt(this string input,
-                                    string fileExtension)
+                                                 string fileExtension)
         {
             if (fileExtension.Length < 2)
             {
                 return false;
             }
-            if(fileExtension[0].Equals('.'))
+            if (fileExtension [0].Equals('.'))
             {
                 fileExtension = fileExtension.Substring(1);
             }

@@ -1,0 +1,637 @@
+-----------------------------------------------------------------------------------------
+12.10.2007
+
+replace	jSB.tcl			[ ]	1.0.0.6
+replace	jScripts.tcl	[x]	1.0.2.9
+replace	jTQ.tcl			[ ]	1.0.3.0
+
+just replace jScripts.tcl (nothing new in config)
+
+-----------------------------------------------------------------------------------------
+02.04.2007
+
+replace	jSB.tcl			[ ]	1.0.0.6
+replace	jScripts.tcl	[ ]	1.0.2.8
+replace	jTQ.tcl			[x]	1.0.3.0
+
+set jTQ(skin,quota,out,account,disabled)				"\[\00312QUOTA\003\] \002%u\002 Is Disabled "
+
+-----------------------------------------------------------------------------------------
+09.01.2007
+
+replace	jSB.tcl			[ ]	1.0.0.6
+replace	jScripts.tcl	[x]	1.0.2.8
+replace	jTQ.tcl			[ ]	1.0.2.9
+
+set jScripts(default,show,age)								"chan"
+set jScripts(location,log,sysop)								"c:/ioFTPD/logs/SysOp.log"
+set jScripts(enable,user,age)									true
+set jScripts(skin,age,help)									"!jage UserName"
+set jScripts(skin,age,user)									"\[\00312AGE\003\] \002%A\002 Was Added On \002%D\002 (\002%E\002 Days Ago)"
+set jScripts(skin,age,admin)									"\[\00312AGE\003\] \002%A\002/\002%B\002 Was Added On \002%D\002 (\002%E\002 Days Ago) by \002%C\002"
+set jScripts(skin,age,noinfo)									"\[\00312AGE\003\] No Info About \002%A\002"
+																		       !jage-jScripts:AGE-all
+
+-----------------------------------------------------------------------------------------
+16.12.2006
+
+replace	jSB.tcl			[ ]	1.0.0.6
+replace	jScripts.tcl	[x]	1.0.2.7
+replace	jTQ.tcl			[ ]	1.0.2.9
+
+set jScripts(enable,stats,details)							true
+
+-----------------------------------------------------------------------------------------
+02.11.2006
+
+replace	jSB.tcl			[x]	1.0.0.6
+replace	jScripts.tcl	[x]	1.0.2.6
+replace	jTQ.tcl			[x]	1.0.2.9
+
+add		jFTP.tcl			[x]	1.0.0.0
+			jFTPD.conf		[x]	1.0.0.0
+			ftplib.tcl		[x]	x.x.x.x
+			
+set jScripts(location_jFTP)									"scripts/jScripts/"
+set jScripts(location_ftplib)									"scripts/jScripts/"
+set jScripts(location_dupe)									"c:/ioFTPD/scripts/jcScripts/Release/jcScripts.exe"
+set jScripts(enable_jFTP)										true
+set jScripts(enable,dupe,head)								false
+
+set jSB(location_xferlog)									"C:/ioFTPD/logs/xferlog"
+
+set jSB(enable,arhive,logs)								true
+set jSB(enable,xferlog,readonly)							true
+### Archive         -#
+set jSB(arch,list)											"ioFTPD Error"
+set jSB(arch,ioFTPD,size)									102400	;#size in B
+set jSB(arch,ioFTPD,head,date)							"%Y.%m.%d.%H%M%S"
+set jSB(arch,ioFTPD,path)									"C:/ioFTPD/logs/archive/"
+set jSB(arch,ioFTPD,name)									"%W.ioFTPD.log"	;#%W = $jSB(arch,ioFTPD,head,date)
+set jSB(arch,ioFTPD,action)								"copy"	;#"copy" "clear"
+set jSB(arch,Error,size)									1024	;#size in B
+set jSB(arch,Error,head,date)								"%Y.%m.%d.%H%M%S"
+set jSB(arch,Error,path)									"C:/ioFTPD/logs/archive/"
+set jSB(arch,Error,name)									"%W.ioFTPD.log"	;#%W = $jSB(arch,Error,head,date)
+set jSB(arch,Error,action)									"clear"	;#"copy" "clear"
+
+set jTQ(bind)													{
+																	      kickall-jTQ:KICKALL-op
+																	}
+
+-----------------------------------------------------------------------------------------
+04.06.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.2.4
+replace jTQ.tcl			[ ]	1.0.2.8
+
+set jScripts(default,show,group)								"chan"
+set jScripts(enable,group)										true
+### USER            -#
+set jScripts(group,default,section)							0
+
+set jScripts(skin,group,help)									"\[\00312GROUPiNFO\003\] !group groupname"
+set jScripts(skin,group,notfound)								"\[\00312GROUPiNFO\003\] \002%H\002 Was Not Found"
+set jScripts(skin,group,head)									"\[\00312GROUPiNFO\003\] \002%H\002 With \002%I\002 Users"
+#set jScripts(skin,group,body,allup)							"\[\00312GROUPiNFO\003\] \[ALLUP STATS: \002#%K\002 With \002%J\002\]"
+#set jScripts(skin,group,body,alldn)							"\[\00312GROUPiNFO\003\] \[ALLDN STATS: \002#%M\002 With \002%L\002\]"
+#set jScripts(skin,group,body,mnup)							"\[\00312GROUPiNFO\003\] \[MNUP STATS: \002#%O\002 With \002%N\002\]"
+#set jScripts(skin,group,body,mndn)							"\[\00312GROUPiNFO\003\] \[MNDN STATS: \002#%R\002 With \002%P\002\]"
+#set jScripts(skin,group,body,wkup)							"\[\00312GROUPiNFO\003\] \[WKUP STATS: \002#%T\002 With \002%S\002\]"
+#set jScripts(skin,group,body,wkdn)							"\[\00312GROUPiNFO\003\] \[WKDN STATS: \002#%V\002 With \002%U\002\]"
+#set jScripts(skin,group,body,dayup)							"\[\00312GROUPiNFO\003\] \[DAYUP STATS: \002#%Q\002 With \002%Z\002\]"
+#set jScripts(skin,group,body,daydn)							"\[\00312GROUPiNFO\003\] "
+set jScripts(skin,group,body,allup)							"\[\00312GROUPiNFO\003\] \[ALLUP STATS: \002#%K\002 With \002%J\002\]-\[ALLDN STATS: \002#%M\002 With \002%L\002\]"
+set jScripts(skin,group,body,alldn)							""
+set jScripts(skin,group,body,mnup)							"\[\00312GROUPiNFO\003\] \[MNUP STATS: \002#%O\002 With \002%N\002\]-\[MNDN STATS: \002#%R\002 With \002%P\002\]"
+set jScripts(skin,group,body,mndn)							""
+set jScripts(skin,group,body,wkup)							"\[\00312GROUPiNFO\003\] \[WKUP STATS: \002#%T\002 With \002%S\002\]-\[WKDN STATS: \002#%V\002 With \002%U\002\]"
+set jScripts(skin,group,body,wkdn)							""
+set jScripts(skin,group,body,dayup)							"\[\00312GROUPiNFO\003\] \[DAYUP STATS: \002#%Q\002 With \002%Z\002\]-\[DAYDN STATS: \002#%Y\002 With \002%W\002\]"
+set jScripts(skin,group,body,daydn)							""
+
+
+																		     !jgroup-jScripts:GROUP-all
+
+-----------------------------------------------------------------------------------------
+03.06.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.2.3
+replace jTQ.tcl			[ ]	1.0.2.8
+
+set jScripts(default,show,user)								"chan"
+set jScripts(enable,user)										true
+### USER            -#
+set jScripts(user,default,section)							0
+
+set jScripts(skin,user,help)									"\[\00312USERiNFO\003\] !user login"
+set jScripts(skin,user,notfound)								"\[\00312USERiNFO\003\] \002%d\002 Was Not Found"
+set jScripts(skin,user,head)									"\[\00312USERiNFO\003\] \002%d\002/\002%e\002 With \002%g\002 Credits Was Last Seen On \002%i\002"
+#set jScripts(skin,user,body,allup)							"\[\00312USERiNFO\003\] \[ALLUP STATS: \002#%k\002 With \002%j\002\]"
+#set jScripts(skin,user,body,alldn)							"\[\00312USERiNFO\003\] \[ALLDN STATS: \002#%m\002 With \002%l\002\]"
+#set jScripts(skin,user,body,mnup)							"\[\00312USERiNFO\003\] \[MNUP STATS: \002#%o\002 With \002%n\002\]"
+#set jScripts(skin,user,body,mndn)							"\[\00312USERiNFO\003\] \[MNDN STATS: \002#%r\002 With \002%p\002\]"
+#set jScripts(skin,user,body,wkup)							"\[\00312USERiNFO\003\] \[WKUP STATS: \002#%t\002 With \002%s\002\]"
+#set jScripts(skin,user,body,wkdn)							"\[\00312USERiNFO\003\] \[WKDN STATS: \002#%v\002 With \002%u\002\]"
+#set jScripts(skin,user,body,dayup)							"\[\00312USERiNFO\003\] \[DAYUP STATS: \002#%q\002 With \002%z\002\]"
+#set jScripts(skin,user,body,daydn)							"\[\00312USERiNFO\003\] "
+set jScripts(skin,user,body,allup)							"\[\00312USERiNFO\003\] \[ALLUP STATS: \002#%k\002 With \002%j\002\]-\[ALLDN STATS: \002#%m\002 With \002%l\002\]"
+set jScripts(skin,user,body,alldn)							""
+set jScripts(skin,user,body,mnup)							"\[\00312USERiNFO\003\] \[MNUP STATS: \002#%o\002 With \002%n\002\]-\[MNDN STATS: \002#%r\002 With \002%p\002\]"
+set jScripts(skin,user,body,mndn)							""
+set jScripts(skin,user,body,wkup)							"\[\00312USERiNFO\003\] \[WKUP STATS: \002#%t\002 With \002%s\002\]-\[WKDN STATS: \002#%v\002 With \002%u\002\]"
+set jScripts(skin,user,body,wkdn)							""
+set jScripts(skin,user,body,dayup)							"\[\00312USERiNFO\003\] \[DAYUP STATS: \002#%q\002 With \002%z\002\]-\[DAYDN STATS: \002#%y\002 With \002%w\002\]"
+set jScripts(skin,user,body,daydn)							""
+
+																		      !juser-jScripts:USER-all
+
+-----------------------------------------------------------------------------------------
+10.05.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.2.2
+replace jTQ.tcl			[x]	1.0.2.8
+
+set jTQ(time,kick,on,endquota)							5							;#seconds to wait betwen kicks
+
+set jScripts(enable,up)											true
+set jScripts(enable,up,head)									true
+set jScripts(enable,up,body)									true
+set jScripts(enable,up,foot)									true
+set jScripts(enable,dn)											true
+set jScripts(enable,dn,head)									true
+set jScripts(enable,dn,body)									true
+set jScripts(enable,dn,foot)									true
+
+set jScripts(skin,who,up,head)								"\[\00312\002SPEED\002\003\] Uploaders:"
+set jScripts(skin,who,up,yes)									"\[\00312\002SPEED\002\003\] \002%H\002@\002%I\002 Is \002uploading\002 \002%L\002 @ \002%M\002kBps"
+set jScripts(skin,who,up,no)									"\[\00312\002SPEED\002\003\] No Uploads In Progres"
+set jScripts(skin,who,up,foot)								"\[\00312\002SPEED\002\003\] \037\002Total\002\037: \002%B\002 @ \002%A\002kBps"
+set jScripts(skin,who,dn,head)								"\[\00312\002SPEED\002\003\] Leechers:"
+set jScripts(skin,who,dn,yes)									"\[\00312\002SPEED\002\003\] \002%H\002@\002%I\002 Is \002downloading\002 \002%L\002 @ \002%M\002kBps \002%N\002@\002%O\002 (\002%P\002%%)"
+set jScripts(skin,who,dn,no)									"\[\00312\002SPEED\002\003\] We Are Free From Leechers"
+set jScripts(skin,who,dn,foot)								"\[\00312\002SPEED\002\003\] \037\002Total\002\037: \002%D\002 @ \002%C\002kBps"
+
+-----------------------------------------------------------------------------------------
+17.04.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[ ]	1.0.2.1
+replace jTQ.tcl			[x]	1.0.2.7
+
+set jTQ(group_quota_disable_flag)						"6"
+set jTQ(group_quota_failed_action)						"nothing"			;#"nothing" "delete" "disable" "trial" "credits"
+set jTQ(group_quota_fail_remove_credits)				20480000					;#remove this amount of credits if fail quota (kB)
+set jTQ(group_quota_fail_remove_in_section)			0							;#in what section remove credits
+
+-----------------------------------------------------------------------------------------
+03.04.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.2.1
+replace jTQ.tcl			[x]	1.0.2.6
+
+set jScripts(log_jTQ)											"scripts/jScripts/logs"
+replace with
+set jScripts(log_dir)											"scripts/jScripts/logs"
+
+set jTQ(skin,credits,all)									"\[\00312\037\002TOTAL CREDiTS\002\037\003\] \002%F\002GB"
+set jTQ(quotas,kick,chan,list)							"#jScr1pts"
+set jTQ(quotas,endofmonth,kick,msg)						"AUTO Kick On End Of QUOTA Month"
+set jTQ(enable,kick,on,endquota)							true
+
+-----------------------------------------------------------------------------------------
+02.03.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.1.9
+replace jTQ.tcl			[ ]	1.0.2.2
+
+### SPEED           -#
+set jScripts(speed,bw,total,up)								128
+set jScripts(speed,bw,total,dn)								32
+
+
+-----------------------------------------------------------------------------------------
+26.02.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.1.8
+replace jTQ.tcl			[ ]	1.0.2.2
+
+### APPROVE         -#
+set jScripts(approve,list)										"E:/mp3|2|mp3 F:/burn/razno_26/0day|1|0day"
+
+set jScripts(enable,approve)									true
+
+set jScripts(skin,approve,notfound)							"\[iNFO\] \002%R\002 Was Not Found"
+set jScripts(skin,approve,dir)								"_Approved_By_%S_On_%T"
+set jScripts(skin,approve,anounce)							"\00307\[\003\00310\002%U\002\003\00307\]\003 \00307\002approved\002\003 \002%R\002 By \002%S\002"
+
+																		   !japprove-jScripts:APPROVE-op
+
+-----------------------------------------------------------------------------------------
+25.02.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.1.7
+replace jTQ.tcl			[ ]	1.0.2.2
+
+set jScripts(default,show,rank)								"chan"
+
+### RANK            -#
+set jScripts(rank,sections)									"DiVX:0 MP3:1"
+set jScripts(rank,default,type)								"MNUP"
+set jScripts(rank,default,name)								"DiVX"
+set jScripts(rank,default,section)							0
+
+set jScripts(enable,rank)										true
+
+set jScripts(skin,rank,first,up)								"\[\00312\002%4z\002\003\] \002%b\002 Is Our #\002%a\002 \002%A\002 With \002%e\002MB, Followed By \002%i\002 Who Needs \002%q\002MB To Be Our Best Man"
+set jScripts(skin,rank,normal,up)							"\[\00312\002%4z\002\003\] \002%i\002 Is #\002%h\002 \002%A\002 With \002%l\002MB, Right After #%a Racer \002%b\002 With \002%e\002MB And Before #\002%o\002 \002%p\002 With \002%t\002MB"
+set jScripts(skin,rank,first,dn)								"\[\00312\002%4z\002\003\] \002%b\002 Is Our \037King Of Leech\037 On \002%A\002 Stats With \002%e\002MB Folowed By \002%i\002 With \002%l\002MB"
+set jScripts(skin,rank,normal,dn)							"\[\00312\002%4z\002\003\] \002%i\002 Is #\002%h\002 Leecher On \002%A\002 Stats With \002%l\002MB, Right After \037Leecher\037 #\002%a\002 \002%b\002 With \002%e\002MB"
+set jScripts(skin,rank,usernotfound)						"\[iNFO\] \002%x\002 Was Not Found"
+
+
+
+																				!jrank-jScripts:RANK-all
+																				
+Cookies for rank:
+
+				{a}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,pos)] }
+				{b}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,name)] }
+				{c}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,group)] }
+				{d}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,flags)] }
+				{e}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,mb)] }
+				{f}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,files)] }
+				{g}		{ append rpl [format %${x}.${y}s $jScripts(rank,01,speed)] }
+				
+				{h}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,pos)] }
+				{i}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,name)] }
+				{j}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,group)] }
+				{k}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,flags)] }
+				{l}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,mb)] }
+				{m}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,files)] }
+				{n}		{ append rpl [format %${x}.${y}s $jScripts(rank,02,speed)] }
+				
+				{o}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,pos)] }
+				{p}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,name)] }
+				{r}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,group)] }
+				{s}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,flags)] }
+				{t}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,mb)] }
+				{u}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,files)] }
+				{v}		{ append rpl [format %${x}.${y}s $jScripts(rank,03,speed)] }
+				
+				{z}		{ append rpl [format %${x}.${y}s $jScripts(rank,section)] }
+				{q}		{ append rpl [format %${x}.${y}s $jScripts(rank,dif,up)] }
+				{w}		{ append rpl [format %${x}.${y}s $jScripts(rank,dif,dn)] }
+				{y}		{ append rpl [format %${x}.${y}s $jScripts(rank,section,nr)] }
+				{x}		{ append rpl [format %${x}.${y}s $jScripts(rank,user)] }
+			  	
+				{A}		{ append rpl [format %${x}.${y}s $jScripts(rank,type)] }
+																				
+
+-----------------------------------------------------------------------------------------
+19.02.2006
+
+replace jSB.tcl			[ ]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.1.5
+replace jTQ.tcl			[ ]	1.0.2.2
+
+set jScripts(default_show_undupe)							"chan"
+set jScripts(default,show,dupe)								"chan"
+set jScripts(default,show,dupe,number)						3
+set jScripts(default,show,todo)								"chan"
+
+set jScripts(location,todo)									"scripts/jScripts/todo/"
+set jScripts(location,todo,filename)						"Todo.txt"
+
+set jScripts(enable,undupe)									true
+set jScripts(enable,dupe)										true
+set jScripts(enable,todo)										true
+set jScripts(enable,list,todo,admin)						true
+
+set jScripts(skin,dupe,head)									"\[\00312\002DUPE\002\003\]"
+set jScripts(skin,undupe,head)								"\[\00312\002UNDUPE\002\003\]"
+
+set jScripts(skin,todo,head)									"\[Current Tasks On $jScripts(default_site_name)\]"
+set jScripts(skin,todo,body)									"\[%2a\] %b"
+set jScripts(skin,todo,foot)									"End Of List"
+set jScripts(skin,todo,add)									"Task Added To Todo List"
+set jScripts(skin,todo,del)									"Task Removed From Todo List"
+set jScripts(skin,todo,line)									"%10c: %d"
+
+ 																	       !jundupe-jScripts:UNDUPE-all
+ 																	         !jdupe-jScripts:DUPE-all
+																				!jtodo-jScripts:TODO-op
+
+
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+22.01.2006
+
+replace jSB.tcl			[x]	1.0.0.5
+replace jScripts.tcl		[x]	1.0.1.2
+replace jTQ.tcl			[ ]	1.0.2.2
+
+set jScripts(default_show_kill)								"chan"
+
+set jScripts(location_sitekill)								"c:/ioFTPD/system/SiteKill.exe"
+
+### SiTEKiLL        -#
+set jScripts(sitekill,exclude)								"ioftpd"
+set jScripts(sitekill,idletime)								100
+set jScripts(sitekill,service)								"FTP_Service_0"
+
+set jScripts(enable,sitekill)									false
+
+ 																	   !jkickidlers-jScripts:KiCKiDLERS-op
+
+set jSB(imdb,file,action)									"w"	;#w=write,a=append to file
+
+-----------------------------------------------------------------------------------------
+19.01.2006
+
+replace jSB.tcl			[ ]	1.0.0.4
+replace jScripts.tcl		[x]	1.0.1.1
+replace jTQ.tcl			[ ]	1.0.2.2
+
+
+### BiNDiNGS        -#            						
+set jScripts(bind)												{
+																	       !jrehash-jScripts:REHASH-op
+																	       !jaffils-jScripts:AFFiLS-all
+																	       !jbanned-jScripts:BANNED-all
+																	     !jsections-jScripts:SECTiONS-all
+																	          !jbnc-jScripts:BNC-all
+																	      !jbnctest-jScripts:BNCTEST-all
+																	           !jbw-jScripts:BW-all
+																	          !jwho-jScripts:WHO-all
+																	        !jspeed-jScripts:SPEED-all
+																	           !jup-jScripts:UP-all
+																	           !jdn-jScripts:DN-all
+																	         !jidle-jScripts:IDLE-all
+																	           !jdf-jScripts:FREESPACE-all
+																	     !jrequests-jScripts:REQUESTS-all
+																	       !jreqadd-jScripts:REQADD-op
+																	       !jreqdel-jScripts:REQDEL-op
+																	      !jreqfill-jScripts:REQFILL-all
+ 																	            !bw-jScripts:BW-all
+																		}
+set jScripts(time_triggers)									{
+																          daystats-jScripts:DAYSTATS-op
+																		}
+
+### BiNDiNGS        -#            						
+set jTQ(bind)													{
+																	       passed-jTQ:PASSED-all
+																	       trials-jTQ:TRiALS-all
+																	       quotas-jTQ:QUOTAS-all
+																	       ustats-jTQ:USTATS-all
+																	       gstats-jTQ:GSTATS-all
+																	      credits-jTQ:CREDITS-all
+																	}
+set jTQ(time_triggers)										{
+																	       update-jTQ:UPDATE-op
+																	   trialcheck-jTQ:TRiALCHECK-op
+																	   quotacheck-jTQ:QUOTACHECK-op
+																	}
+
+-----------------------------------------------------------------------------------------
+18.01.2006
+
+replace jSB.tcl			[ ]	1.0.0.4
+replace jScripts.tcl		[x]	1.0.1.0
+replace jTQ.tcl			[ ]	1.0.2.2
+
+
+
+set jScripts(skin,stats,user)									"\[\00312STATS\003\] \002%U\002@\002%V\002 Is #\002%T\002 With \002%Z\002MB In Section \002%W\002"
+
+-----------------------------------------------------------------------------------------
+16.01.2006
+
+replace jSB.tcl			[x]	1.0.0.4
+replace jScripts.tcl		[x]	1.0.0.9
+replace jTQ.tcl			[ ]	1.0.2.2
+
+set jScripts(stats,excludedusers,list)						"apophis ioFTPD Jeza j3su5 seth"
+set jScripts(stats,excludedgroups,list)					"SMW"
+set jScripts(stats,excludedflags,list)						"1 M E"
+
+-----------------------------------------------------------------------------------------
+15.01.2006
+
+replace jSB.tcl			[ ]	1.0.0.3
+replace jScripts.tcl		[x]	1.0.0.8
+replace jTQ.tcl			[x]	1.0.2.2
+
+set jTQ(enable_gmt)											true
+
+#set jScripts(daystatsup,default,show)						"DiVX:0:#jScr1pts MP3:1:#jScr1pts"
+set jScripts(daystatsup,default,show)						"DiVX:0:#jScr1pts"
+set jScripts(daystatsup,default,type)						"DAYUP"
+set jScripts(daystatsup,default,number)					3
+set jScripts(daystatsup,default,section)					0
+#set jScripts(daystatsdn,default,show)						"DiVX:0:#jScr1pts MP3:1:#jScr1pts"
+set jScripts(daystatsdn,default,show)						"DiVX:0:#jScr1pts"
+set jScripts(daystatsdn,default,type)						"DAYDN"
+set jScripts(daystatsdn,default,number)					1
+set jScripts(daystatsdn,default,section)					0
+set jScripts(daystatsup,excludedusers,list)				"ioFTPD"
+set jScripts(daystatsup,excludedgroups,list)				"LEECH"
+set jScripts(daystatsup,excludedflags,list)				"M"
+set jScripts(daystatsdn,excludedusers,list)				"Jeza ioFTPD"
+set jScripts(daystatsdn,excludedgroups,list)				"FRiENDS ViP NUKERS"
+set jScripts(daystatsdn,excludedflags,list)				"1 M E"
+
+set jScripts(enable,daystats)									true
+set jScripts(enable,daystatsup,head)						true
+set jScripts(enable,daystatsup,body)						true
+set jScripts(enable,daystatsup,foot)						false
+set jScripts(enable,daystatsdn,head)						false
+set jScripts(enable,daystatsdn,body)						true
+set jScripts(enable,daystatsdn,foot)						false
+
+#set jScripts(skin,daystatsup,head)							"Todays Best Uploaders On \002$jScripts(default_site_name)\002 %Y Are"
+set jScripts(skin,daystatsup,head)							"Todays Best Uploaders On \002$jScripts(default_site_name)\002 Are"
+set jScripts(skin,daystatsup,body)							"\002%-2T\002 \002%U\002 From \002%V\002 With \002%Z\002 MB"
+set jScripts(skin,daystatsup,foot)							"----------------------------------------------------------"
+
+set jScripts(skin,daystatsdn,head)							"Todays King Leechers On \002$jScripts(default_site_name) %Y\002"
+#set jScripts(skin,daystatsdn,body)							"\002%-2T\002 \002%15U\002 From \002%-15V\002 With \002%12Z\002 MB"
+set jScripts(skin,daystatsdn,body)							"King Of \037Leech\037 Was \002%U\002 From \002%V\002 With \002%Z\002 MB"
+set jScripts(skin,daystatsdn,foot)							"----------------------------------------------------------"
+
+
+set jScripts(time_triggers)									{
+																          daystats-jScripts:DAYSTATS
+																		}
+bind time -|-														"54 23 * * *" jScripts:DAYSTATS
+
+-----------------------------------------------------------------------------------------
+09.01.2006
+
+replace jSB.tcl			[ ]	1.0.0.3
+replace jScripts.tcl		[x]	1.0.0.7
+replace jTQ.tcl			[x]	1.0.2.1
+
+set jTQ(default_show_credits)								"chan"
+
+set jTQ(enable_credits)										true
+
+																	      credits-jTQ:CREDITS
+
+set jTQ(skin,credits)										"\[\00312\037\002CREDiTS %4s\002\037\003\] \002%u\002 \002%E\002MB"
+
+
+### BiNDiNGS        -#            						
+set jScripts(bind)												{
+																	       !jrehash-jScripts:REHASH
+																	       !jaffils-jScripts:AFFiLS
+																	       !jbanned-jScripts:BANNED
+																	     !jsections-jScripts:SECTiONS
+																	          !jbnc-jScripts:BNC
+																	      !jbnctest-jScripts:BNCTEST
+																	           !jbw-jScripts:BW
+																	          !jwho-jScripts:WHO
+																	        !jspeed-jScripts:SPEED
+																	           !jup-jScripts:UP
+																	           !jdn-jScripts:DN
+																	         !jidle-jScripts:IDLE
+																	           !jdf-jScripts:FREESPACE
+																	     !jrequests-jScripts:REQUESTS
+																	       !jreqadd-jScripts:REQADD
+																	       !jreqdel-jScripts:REQDEL
+																	      !jreqfill-jScripts:REQFILL
+ 																	            !bw-jScripts:BW
+																		}
+																		
+set jScripts(default_show_stats)								"chan"
+
+### STATS           -#
+set jScripts(stats,sections)									"DiVX:0 MP3:1"
+set jScripts(stats,default,type)								"MNUP"
+set jScripts(stats,default,name)								"BLABLA"
+set jScripts(stats,default,number)							5
+set jScripts(stats,default,section)							0
+set jScripts(stats,triggers)									"!dayup:DAYUP:Todays.lost.souls\
+																		 !daydn:DAYDN:MothaFucka\
+																		 !wkup:WKUP:HubbaBubba\
+																		 !wkdn:WKDN:Needs.a.woman.top.$jScripts(stats,default,number)\
+																		 !mnup:MNUP:Needs.a.life.top.$jScripts(stats,default,number)\
+																		 !mndn:MNDN:HitaHata\
+																		 !allup:ALLUP:Unsaveable.top.$jScripts(stats,default,number)\
+																		 !alldn:ALLDN:UmbaBumba.top.$jScripts(stats,default,number)"
+
+set jScripts(enable_stats_head)								true
+set jScripts(enable_stats)										true
+set jScripts(enable_stats_foot)								true
+
+set jScripts(skin,stats,head)									"-PiMPEK- \002%Q\002\n----------------------------------------------------------"
+#set jScripts(skin,stats,head)									"TOP \002%x\002 \002%R\002 In Section \002%S\002\n----------------------------------------------------------"
+#set jScripts(skin,stats,head)									"----------------------------------------------------------"
+set jScripts(skin,stats,body)									"\002%-2T\002'\002%15U\002 @ \002%-15V\002'\002%12Z\002 MB"
+set jScripts(skin,stats,foot)									"----------------------------------------------------------"
+
+-----------------------------------------------------------------------------------------
+07.01.2006
+
+replace jSB.tcl			[ ]
+replace jScripts.tcl		[x]
+replace jTQ.tcl			[x]
+
+set jTQ(default_show_gstats)								"chan"
+
+set jTQ(enable_gstats)										true
+
+																	       gstats-jTQ:GSTATS
+
+set jTQ(skin,gstats,help)									"\[\00312HELP\003\] !gstats group all/mn/wk/day"
+
+set jTQ(skin,gstats,groupstats)							"\[\00312\037\002STATS %4s\002\037\003\] \002%g\002 \00312\[\003\002%3wUP\002:\002\037%8C\037\002MB\00312\]\003 \00304\[\003\002%3wDN\002:\002\037%8D\037\002MB\00304\]\003"
+
+set jTQ(skin_group_not_found)								"\[\00304iNFO\003\] \002%g\002 Was Not Found."
+
+set jScripts(enable_df_head)									false
+set jScripts(df_per_line)										2
+
+-----------------------------------------------------------------------------------------
+30.12.2005
+
+replace jSB.tcl			[ ]
+replace jScripts.tcl		[x]
+replace jTQ.tcl			[x]
+
+set jTQ(default_show_ustats)								"chan"
+
+set jTQ(enable_ustats)										true
+
+																	       ustats-jTQ:USTATS
+
+set jTQ(skin,ustats,help)									"\[\00312HELP\003\] !ustats login all/mn/wk/day"
+set jTQ(skin,passed,help)									"\[\00312HELP\003\] !passed login"
+
+set jTQ(skin,ustats,userstats)							"\[\00312\037\002STATS %4s\002\037\003\] \002%B\002 \00312\[\003\002%3wUP\002:\002\037%8C\037\002MB\00312\]\003 \00304\[\003\002%3wDN\002:\002\037%8D\037\002MB\00304\]\003"
+
+set jScripts(default_show_triggers)							"notice"
+
+set jScripts(location_triggers)								"scripts/jScripts/triggers/"
+
+### TRiGGERS        -#
+set jScripts(triggers,list)									"!help:help.txt !news:news.txt"
+
+
+-----------------------------------------------------------------------------------------
+29.12.2005
+
+replace jSB.tcl			[x]
+replace jScripts.tcl		[x]
+replace jTQ.tcl			[ ]
+
+set jSB(section,requeue,chan)								"#jScripts #pimpek"
+set jSB(section,requeue,anounce)							"REQDEL REQFILLED REQUEST"
+
+set jScripts(default_show_reqadd)							"chan"
+set jScripts(default_show_reqdel)							"chan"
+set jScripts(default_show_reqfill)							"chan"
+
+set jScripts(location_ioA)										"c:/ioFTPD/scripts/ioA/ioA.exe"
+
+set jScripts(enable_reqadd)									true
+set jScripts(enable_reqdel)									true
+set jScripts(enable_reqfill)									true
+
+																	       reqadd-jScripts:REQADD
+																	       reqdel-jScripts:REQDEL
+																	      reqfill-jScripts:REQFILL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

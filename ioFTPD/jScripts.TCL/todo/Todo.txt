@@ -1,0 +1,2 @@
+g30rg35   : update !help command
+g30rg35   : add !failed,!passed,!nextmn,!total to quota

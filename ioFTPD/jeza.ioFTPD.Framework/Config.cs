@@ -656,19 +656,34 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("ProgressBarCharMissing"); }
         }
 
-        public static string Mp3SortPathArtist
+        public static bool AudioSortByArtist
         {
-            get { return GetKeyValue("Mp3SortPathArtist"); }
+            get { return Misc.String2Boolean(GetKeyValue("AudioSortByArtist")); }
         }
 
-        public static string Mp3SortPathGenre
+        public static bool AudioSortByGenre
         {
-            get { return GetKeyValue("Mp3SortPathGenre"); }
+            get { return Misc.String2Boolean(GetKeyValue("AudioSortByGenre")); }
         }
 
-        public static string Mp3SortPathYear
+        public static bool AudioSortByYear
         {
-            get { return GetKeyValue("Mp3SortPathYear"); }
+            get { return Misc.String2Boolean(GetKeyValue("AudioSortByYear")); }
+        }
+
+        public static string AudioSortByArtistPath
+        {
+            get { return GetKeyValue("AudioSortByArtistPath"); }
+        }
+
+        public static string AudioSortByGenrePath
+        {
+            get { return GetKeyValue("AudioSortByGenrePath"); }
+        }
+
+        public static string AudioSortByYearPath
+        {
+            get { return GetKeyValue("AudioSortByYearPath"); }
         }
 
         public static string TagCleanUpString
