@@ -3,8 +3,8 @@
   <Import Project="lib\MSBuild.Community.Tasks.Nightly\Build\MSBuild.Community.Tasks.Targets"/>
   <UsingTask AssemblyFile="lib\GallioBundle\bin\Gallio.MSBuildTasks.dll" TaskName="Gallio" />
   <PropertyGroup>
-    <Major>3</Major>
-    <Minor>9</Minor>
+    <Major>4</Major>
+    <Minor>0</Minor>
     <Build>$(BUILD_NUMBER)</Build>
     <Revision>$(SVN_REVISION)</Revision>
     <Configuration>Release</Configuration>

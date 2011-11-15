@@ -20,6 +20,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Archive", "jeza
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Manager", "jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.csproj", "{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SiteBot", "SiteBot", "{DE82DE86-9641-4895-B971-B30C39F0EB37}"
+	ProjectSection(SolutionItems) = preProject
+		jScripts.TCL\ftplib.tcl = jScripts.TCL\ftplib.tcl
+		jScripts.TCL\jFTP.conf = jScripts.TCL\jFTP.conf
+		jScripts.TCL\jFTP.tcl = jScripts.TCL\jFTP.tcl
+		jScripts.TCL\jSB.conf = jScripts.TCL\jSB.conf
+		jScripts.TCL\jSB.tcl = jScripts.TCL\jSB.tcl
+		jScripts.TCL\jScripts.conf = jScripts.TCL\jScripts.conf
+		jScripts.TCL\jScripts.tcl = jScripts.TCL\jScripts.tcl
+		jScripts.TCL\jTQ.conf = jScripts.TCL\jTQ.conf
+		jScripts.TCL\jTQ.tcl = jScripts.TCL\jTQ.tcl
+		jScripts.TCL\mysql.sql = jScripts.TCL\mysql.sql
+		jScripts.TCL\update.txt = jScripts.TCL\update.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "todo", "todo", "{7F773E09-685E-4AA7-BD39-F6B2BEBF780A}"
+	ProjectSection(SolutionItems) = preProject
+		jScripts.TCL\todo\Todo.txt = jScripts.TCL\todo\Todo.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "triggers", "triggers", "{EDE8BF87-586F-4584-83BA-7184D80956F3}"
+	ProjectSection(SolutionItems) = preProject
+		jScripts.TCL\triggers\help.txt = jScripts.TCL\triggers\help.txt
+		jScripts.TCL\triggers\news.txt = jScripts.TCL\triggers\news.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -99,5 +125,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F773E09-685E-4AA7-BD39-F6B2BEBF780A} = {DE82DE86-9641-4895-B971-B30C39F0EB37}
+		{EDE8BF87-586F-4584-83BA-7184D80956F3} = {DE82DE86-9641-4895-B971-B30C39F0EB37}
 	EndGlobalSection
 EndGlobal
