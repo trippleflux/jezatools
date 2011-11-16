@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 using jeza.ioFTPD.Framework;
 using MbUnit.Framework;
@@ -7,6 +8,30 @@ namespace jeza.ioFTPD.Tests
     [TestFixture]
     public class MiscTests
     {
+        [Test]
+        public void Split()
+        {
+            string list = "asd";
+            char[] separator = new char[] { ' ', ',' };
+            string[] strings = list.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            Assert.IsNotNull(strings);
+            Assert.AreEqual(1, strings.Length);
+            list = "asd, dsa";
+            strings = list.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            Assert.IsNotNull(strings);
+            Assert.AreEqual(2, strings.Length);
+
+            list = "asd, dsa tre";
+            strings = list.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            Assert.IsNotNull(strings);
+            Assert.AreEqual(3, strings.Length);
+
+            list = "";
+            strings = list.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            Assert.IsNotNull(strings);
+            Assert.AreEqual(0, strings.Length);
+        }
+
         [Test]
         public void ArgsToString()
         {

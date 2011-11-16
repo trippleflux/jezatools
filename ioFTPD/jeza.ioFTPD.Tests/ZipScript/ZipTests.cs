@@ -10,6 +10,22 @@ namespace jeza.ioFTPD.Tests.ZipScript
     public class ZipTests : ZipScriptBase
     {
         /// <summary>
+        /// Refuse file because of its extension.
+        /// </summary>
+        [Test]
+        public void RefuseExtension()
+        {
+            CleanTestFilesOutput();
+            Race race = new Race(ArgsBat);
+            race.ParseUpload();
+            Assert.AreEqual(".bat", race.CurrentRaceData.FileExtension, "FileExtension");
+            Assert.AreEqual("file_bat.bat", race.CurrentRaceData.FileName, "FileName");
+            Assert.AreEqual("Zip", race.CurrentRaceData.DirectoryName, "DirectoryName");
+            race.Process();
+            Assert.IsFalse(race.IsValid);
+        }
+
+        /// <summary>
         /// DIZ file can't be uploaded.
         /// </summary>
         [Test]

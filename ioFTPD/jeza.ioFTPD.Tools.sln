@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		build.bat = build.bat
 		Formating.txt = Formating.txt
 		jeza.ioFTPD.Tools.msbuild = jeza.ioFTPD.Tools.msbuild
+		ToDo.txt = ToDo.txt
 		XMLSchema.xsd = XMLSchema.xsd
 	EndProjectSection
 EndProject

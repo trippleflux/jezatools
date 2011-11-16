@@ -125,6 +125,7 @@
     <None Include="TestFiles\ZipCorrect\file-002.zip" />
     <None Include="TestFiles\ZipCorrect\file-003.zip" />
     <None Include="TestFiles\ZipCorrect\file-004.zip" />
+    <None Include="TestFiles\Zip\file_bat.bat" />
     <None Include="TestFiles\Zip\file-000.zip" />
     <None Include="TestFiles\Zip\file-001.zip" />
     <None Include="TestFiles\Zip\file-002.zip" />
