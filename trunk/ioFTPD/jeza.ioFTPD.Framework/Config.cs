@@ -161,6 +161,16 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("FileExtensionDiz"); }
         }
 
+        public static string FileExtensionRefuse
+        {
+            get { return GetKeyValue("FileExtensionRefuse"); }
+        }
+
+        public static string FileExtensionSkip
+        {
+            get { return GetKeyValue("FileExtensionSkip"); }
+        }
+
         public static string SpeedTestFolder
         {
             get { return GetKeyValue("SpeedTestFolder"); }
@@ -171,9 +181,9 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("SkipPath"); }
         }
 
-        public static string SkipFileExtension
+        public static string SkipPathMessageFile
         {
-            get { return GetKeyValue("SkipFileExtension"); }
+            get { return GetKeyValue("SkipPathMessageFile"); }
         }
 
         public static bool DeleteCrc32FailedFiles
@@ -199,6 +209,16 @@ namespace jeza.ioFTPD.Framework
         public static bool DeleteSpeedTest
         {
             get { return Misc.String2Boolean(GetKeyValue("DeleteSpeedTest")); }
+        }
+
+        public static bool AudioGenresAllowedCheck
+        {
+            get { return Misc.String2Boolean(GetKeyValue("AudioGenresAllowedCheck")); }
+        }
+
+        public static bool AudioGenresBannedCheck
+        {
+            get { return Misc.String2Boolean(GetKeyValue("AudioGenresBannedCheck")); }
         }
 
         public static int MaxNumberOfUserStats
@@ -682,6 +702,16 @@ namespace jeza.ioFTPD.Framework
         }
 
         public static string AudioSortByYearPath
+        {
+            get { return GetKeyValue("AudioSortByYearPath"); }
+        }
+
+        public static string AudioGenresAllowed
+        {
+            get { return GetKeyValue("AudioSortByYearPath"); }
+        }
+
+        public static string AudioGenresBanned
         {
             get { return GetKeyValue("AudioSortByYearPath"); }
         }

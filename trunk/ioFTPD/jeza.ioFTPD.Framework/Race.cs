@@ -108,6 +108,7 @@ namespace jeza.ioFTPD.Framework
             {
                 return;
             }
+            RefuseFileExtension();
             if (!IsValid)
             {
                 Log.Debug("Not Valid!");
@@ -153,7 +154,7 @@ namespace jeza.ioFTPD.Framework
 
         private bool SkipCheck()
         {
-            if (SpeedTest() || SkipPath() || SkipFileExtension())
+            if (SpeedTest() || SkipPath(Config.SkipPath) || SkipFileExtension())
             {
                 if (!IsRaceTypeDelete())
                 {
@@ -162,6 +163,17 @@ namespace jeza.ioFTPD.Framework
                 return true;
             }
             return false;
+        }
+
+        private void RefuseFileExtension()
+        {
+            if (CurrentRaceData != null)
+            {
+                string fileExtension = CurrentRaceData.FileExtension;
+                bool containsFileExt = Config.FileExtensionRefuse.StringContainsFileExt(fileExtension);
+                Log.Debug("Refuse file extension match=[{2}] :: ['{0}' => '{1}']", fileExtension, Config.FileExtensionRefuse, containsFileExt);
+                IsValid = !containsFileExt;
+            }
         }
 
         public bool IsRaceTypeDelete()
@@ -192,22 +204,20 @@ namespace jeza.ioFTPD.Framework
             return false;
         }
 
-        public bool SkipPath()
+        public bool SkipPath(string skipPathConfig)
         {
             IsValid = true;
             if (CurrentRaceData != null)
             {
                 string virtualPath = CurrentRaceData.UploadVirtualPath;
-                if (Config.SkipPath.IndexOf(' ') > -1)
+                char[] separator = new[] {' ', ','};
+                string[] skipPaths = skipPathConfig.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string skipPath in skipPaths)
                 {
-                    string[] skipPaths = Config.SkipPath.Split(' ');
-                    foreach (string skipPath in skipPaths)
+                    if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (virtualPath.StartsWith(skipPath, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, Config.SkipPath);
-                            return true;
-                        }
+                        Log.Debug("Skip path match. ['{0}' => '{1}']", skipPath, skipPath);
+                        return true;
                     }
                 }
             }
@@ -220,8 +230,8 @@ namespace jeza.ioFTPD.Framework
             if (CurrentRaceData != null)
             {
                 string fileExtension = CurrentRaceData.FileExtension;
-                bool containsFileExt = Config.SkipFileExtension.StringContainsFileExt(fileExtension);
-                Log.Debug("Skip file extension match=[{2}] :: ['{0}' => '{1}']", fileExtension, Config.SkipFileExtension, containsFileExt);
+                bool containsFileExt = Config.FileExtensionSkip.StringContainsFileExt(fileExtension);
+                Log.Debug("Skip file extension match=[{2}] :: ['{0}' => '{1}']", fileExtension, Config.FileExtensionSkip, containsFileExt);
                 return containsFileExt;
             }
             return false;

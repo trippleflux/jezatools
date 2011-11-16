@@ -334,7 +334,7 @@ namespace jeza.ioFTPD.Framework
 
                 if (Config.WriteStatsToMesasageFileWhenComplete)
                 {
-                    WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
+                    SkipCreationOfMessageFile(race, isMp3Race, mp3Info);
                 }
                 output.LogCompleteStats();
                 if (isMp3Race)
@@ -347,7 +347,7 @@ namespace jeza.ioFTPD.Framework
                 tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
                 if (Config.WriteStatsToMesasageFileWhenRace)
                 {
-                    WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
+                    SkipCreationOfMessageFile(race, isMp3Race, mp3Info);
                 }
                 if (race.TotalFilesUploaded == 1)
                 {
@@ -372,6 +372,16 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             race.IsValid = true;
+        }
+
+        private static void SkipCreationOfMessageFile(Race race,
+                                                      bool isMp3Race,
+                                                      File mp3Info)
+        {
+            if (!race.SkipPath(Config.SkipPathMessageFile))
+            {
+                WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
+            }
         }
 
         public static void SortAudio(Race race,

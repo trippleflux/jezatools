@@ -1,0 +1,10 @@
+ZipScript
++ Allowed genres
++ Banned genres
++ Skip folders based on their names
++ Execute external script on race complete (unrar, unzip,...)
+
+Manager
++ Nuke/Unnuke
++ Pre
++ Search

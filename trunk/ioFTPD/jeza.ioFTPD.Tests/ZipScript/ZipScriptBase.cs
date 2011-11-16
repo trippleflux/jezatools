@@ -187,6 +187,14 @@ namespace jeza.ioFTPD.Tests.ZipScript
                                                   , "/TestFiles/Zip/file_id.diz"
                                               };
 
+        protected readonly string[] ArgsBat = new[]
+                                              {
+                                                  "upload"
+                                                  , @"..\..\TestFiles\Zip\file_bat.bat"
+                                                  , "aabbccdd"
+                                                  , "/TestFiles/Zip/file_bat.bat"
+                                              };
+
         protected void CleanTestFilesOutput()
         {
             FileInfo fileInfoRar = new FileInfo();

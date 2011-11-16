@@ -4,7 +4,7 @@
   <UsingTask AssemblyFile="lib\GallioBundle\bin\Gallio.MSBuildTasks.dll" TaskName="Gallio" />
   <PropertyGroup>
     <Major>4</Major>
-    <Minor>0</Minor>
+    <Minor>1</Minor>
     <Build>$(BUILD_NUMBER)</Build>
     <Revision>$(SVN_REVISION)</Revision>
     <Configuration>Release</Configuration>
