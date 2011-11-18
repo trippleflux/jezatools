@@ -391,7 +391,7 @@ namespace jeza.ioFTPD.Framework
                                                     , imdbInfo.Runtime ?? "" // {15}
                                                     , imdbInfo.Rating ?? "" // {16}
                                                     , imdbInfo.Votes ?? "" // {17}
-                                                    , imdbInfo.ID ?? "" // {18}
+                                                    , imdbInfo.Id ?? "" // {18}
                                                     , Constants.CodeIrcColor // {19}
                                                     , Constants.CodeIrcBold // {20}
                                                     , Constants.CodeIrcUnderline // {21}
