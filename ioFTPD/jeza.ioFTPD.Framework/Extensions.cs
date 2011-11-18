@@ -72,7 +72,9 @@ namespace jeza.ioFTPD.Framework
             string stringResponse = String.Empty;
             if (responseHtml != null)
             {
+// ReSharper disable AssignNullToNotNullAttribute
                 using (StreamReader r = new StreamReader(responseHtml.GetResponseStream()))
+// ReSharper restore AssignNullToNotNullAttribute
                 {
                     stringResponse = r.ReadToEnd();
                 }
@@ -237,10 +239,8 @@ namespace jeza.ioFTPD.Framework
         /// <summary>
         /// Reads the race data.
         /// </summary>
-        /// <param name="dataParser">The data parser.</param>
         /// <param name="race">The race.</param>
-        public static void ReadRaceData(this IDataParser dataParser,
-                                        Race race)
+        public static void ReadRaceData(Race race)
         {
             race.ClearRaceStats();
             RaceMutex.WaitOne();
@@ -289,10 +289,8 @@ namespace jeza.ioFTPD.Framework
         /// <summary>
         /// Updates the race data.
         /// </summary>
-        /// <param name="dataParser">The data parser.</param>
         /// <param name="race">The race.</param>
-        public static void UpdateRaceData(this IDataParser dataParser,
-                                          Race race)
+        public static void UpdateRaceData(Race race)
         {
             Log.Debug("UpdateRaceData");
             RaceMutex.WaitOne();
@@ -355,17 +353,15 @@ namespace jeza.ioFTPD.Framework
         /// <summary>
         /// Processes with the race data (Client output, complete/incompletetags creating/deletion...).
         /// </summary>
-        /// <param name="dataParser">The data parser.</param>
         /// <param name="race">The race.</param>
-        public static void ProcessRaceData(this IDataParser dataParser,
-                                           Race race)
+        public static void ProcessRaceData(Race race)
         {
             FileInfo fileInfo = new FileInfo();
             bool deletingFile = race.IsRaceTypeDelete();
             fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
-            bool isMp3Race = race.IsAudioRace;
-            File mp3Info = isMp3Race ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
+            bool isAudioRace = race.IsAudioRace;
+            File audioInfo = isAudioRace ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
             TagManager tagManager = new TagManager(race);
             if (!deletingFile)
             {
@@ -374,11 +370,41 @@ namespace jeza.ioFTPD.Framework
                 output
                     .Client(Config.ClientHead)
                     .Client(Config.ClientFileNameOk);
-                if (isMp3Race)
+                if (isAudioRace)
                 {
+                    if (Config.AudioGenresAllowedCheck)
+                    {
+                        if (audioInfo == null)
+                        {
+                            ProcessBannedAudio(race, output);
+                        }
+                        else
+                        {
+                            string firstGenre = audioInfo.Tag.FirstGenre.ToLowerInvariant();
+                            if (Config.AudioGenresAllowed.IndexOf(firstGenre) == -1)
+                            {
+                                ProcessBannedAudio(race, output);
+                            }
+                        }
+                    }
+                    if (Config.AudioGenresBannedCheck)
+                    {
+                        if (audioInfo != null)
+                        {
+                            string firstGenre = audioInfo.Tag.FirstGenre.ToLowerInvariant();
+                            if (Config.AudioGenresBanned.IndexOf(firstGenre) > -1)
+                            {
+                                ProcessBannedAudio(race, output);
+                            }
+                        }
+                        else
+                        {
+                            ProcessBannedAudio(race, output);
+                        }
+                    }
                     output
-                        .ClientMp3(Config.ClientMp3InfoHead, mp3Info)
-                        .ClientMp3(Config.ClientMp3Info, mp3Info);
+                        .ClientMp3(Config.ClientMp3InfoHead, audioInfo)
+                        .ClientMp3(Config.ClientMp3Info, audioInfo);
                 }
                 output
                     .Client(Config.ClientStatsUsersHead)
@@ -395,17 +421,17 @@ namespace jeza.ioFTPD.Framework
             if (race.IsRaceComplete)
             {
                 fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
-                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isMp3Race ? Config.TagCompleteMp3 : Config.TagComplete, mp3Info));
+                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isAudioRace ? Config.TagCompleteMp3 : Config.TagComplete, audioInfo));
                 tagManager.DeleteSymlink(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
 
                 if (Config.WriteStatsToMesasageFileWhenComplete)
                 {
-                    SkipCreationOfMessageFile(race, isMp3Race, mp3Info);
+                    SkipCreationOfMessageFile(race, isAudioRace, audioInfo);
                 }
                 output.LogCompleteStats();
-                if (isMp3Race)
+                if (isAudioRace)
                 {
-                    SortAudio(race, mp3Info);
+                    SortAudio(race, audioInfo);
                 }
             }
             else
@@ -413,11 +439,11 @@ namespace jeza.ioFTPD.Framework
                 tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
                 if (Config.WriteStatsToMesasageFileWhenRace)
                 {
-                    SkipCreationOfMessageFile(race, isMp3Race, mp3Info);
+                    SkipCreationOfMessageFile(race, isAudioRace, audioInfo);
                 }
                 if (race.TotalFilesUploaded == 1)
                 {
-                    output.LogFirstFileWasUploaded(isMp3Race, mp3Info);
+                    output.LogFirstFileWasUploaded(isAudioRace, audioInfo);
                 }
                 else
                 {
@@ -438,6 +464,17 @@ namespace jeza.ioFTPD.Framework
                 }
             }
             race.IsValid = true;
+        }
+
+        private static void ProcessBannedAudio(Race race,
+                                               Output output)
+        {
+            output.Client(Config.ClientFileNameAudioGenreNotAllowed);
+            race.IsValid = false;
+            race.CurrentRaceData.RaceType = RaceType.Delete;
+            UpdateRaceData(race);
+            KickUsersFromDirectory(race.CurrentRaceData.DirectoryPath);
+            Misc.ChangeVfs(race.CurrentRaceData.DirectoryPath, 444, race.CurrentRaceData.Uid, race.CurrentRaceData.Gid);
         }
 
         private static void SkipCreationOfMessageFile(Race race,

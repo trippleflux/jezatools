@@ -41,13 +41,13 @@ namespace jeza.ioFTPD.Tests.Manager
                                                                               {
                                                                                   new RequestTask
                                                                                   {
-                                                                                      Creator = "testRequester",
+                                                                                      Username = "testRequester",
                                                                                       DateAdded = dateTime,
                                                                                       Name = "Some.Stupid.Request With Spaces",
                                                                                   },
                                                                                   new RequestTask
                                                                                   {
-                                                                                      Creator = "testRequester 2",
+                                                                                      Username = "testRequester 2",
                                                                                       DateAdded = dateTime,
                                                                                       Name = "Some.Stupid.Request 2",
                                                                                   },
@@ -78,13 +78,13 @@ namespace jeza.ioFTPD.Tests.Manager
                                                                               {
                                                                                   new RequestTask
                                                                                   {
-                                                                                      Creator = "testRequester",
+                                                                                      Username = "testRequester",
                                                                                       DateAdded = dateTime,
                                                                                       Name = "Some.Stupid.Request With Spaces",
                                                                                   },
                                                                                   new RequestTask
                                                                                   {
-                                                                                      Creator = "testRequester 2",
+                                                                                      Username = "testRequester 2",
                                                                                       DateAdded = dateTime,
                                                                                       Name = "Some.Stupid.Request 2",
                                                                                   },
@@ -113,13 +113,13 @@ namespace jeza.ioFTPD.Tests.Manager
                                                                               {
                                                                                   new RequestTask
                                                                                   {
-                                                                                      Creator = "testRequester",
+                                                                                      Username = "testRequester",
                                                                                       DateAdded = dateTime,
                                                                                       Name = name,
                                                                                   },
                                                                                   new RequestTask
                                                                                   {
-                                                                                      Creator = "testRequester 2",
+                                                                                      Username = "testRequester 2",
                                                                                       DateAdded = dateTime,
                                                                                       Name = "Some.Stupid.Request 2",
                                                                                   },

@@ -41,6 +41,71 @@ namespace jeza.ioFTPD.Framework
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
 
+        public static bool LogToIoFtpdRequest
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdRequest")); }
+        }
+
+        public static bool LogToIoFtpdRequestFilled
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdRequestFilled")); }
+        }
+
+        public static bool LogToIoFtpdRequestDeleted
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdRequestDeleted")); }
+        }
+
+        public static bool LogToInternalRequest
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalRequest")); }
+        }
+
+        public static bool LogToInternalRequestFilled
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalRequestFilled")); }
+        }
+
+        public static bool LogToInternalRequestDeleted
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalRequestDeleted")); }
+        }
+
+        public static string LogLineIoFtpdRequest
+        {
+            get { return GetKeyValue("LogLineIoFtpdRequest"); }
+        }
+
+        public static string LogLineIoFtpdRequestFilled
+        {
+            get { return GetKeyValue("LogLineIoFtpdRequestFilled"); }
+        }
+
+        public static string LogLineIoFtpdRequestDeleted
+        {
+            get { return GetKeyValue("LogLineIoFtpdRequestDeleted"); }
+        }
+
+        public static string LogLineInternalRequest
+        {
+            get { return GetKeyValue("LogLineInternalRequest"); }
+        }
+
+        public static string LogLineInternalRequestFilled
+        {
+            get { return GetKeyValue("LogLineInternalRequestFilled"); }
+        }
+
+        public static string LogLineInternalRequestDeleted
+        {
+            get { return GetKeyValue("LogLineInternalRequestDeleted"); }
+        }
+
+        public static string TmdbApiKey
+        {
+            get { return GetKeyValue("TmdbApiKey"); }
+        }
+
         public static string DataSourceDupe
         {
             get { return GetKeyValue("DataSourceDupe"); }
@@ -474,6 +539,11 @@ namespace jeza.ioFTPD.Framework
         public static string ClientFileNameSfvFirst
         {
             get { return GetKeyValue("ClientFileNameSfvFirst"); }
+        }
+
+        public static string ClientFileNameAudioGenreNotAllowed
+        {
+            get { return GetKeyValue("ClientFileNameAudioGenreNotAllowed"); }
         }
 
         public static string ClientMp3InfoHead

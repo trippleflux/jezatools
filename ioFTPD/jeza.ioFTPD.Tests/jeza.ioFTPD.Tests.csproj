@@ -54,6 +54,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\taglib-sharp.dll</HintPath>
     </Reference>
+    <Reference Include="TheMovieDb">
+      <HintPath>..\lib\TheMovieDb.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyFileInfo.cs">

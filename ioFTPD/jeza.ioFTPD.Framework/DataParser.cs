@@ -11,7 +11,7 @@ namespace jeza.ioFTPD.Framework
 
         public void Parse()
         {
-            this.ReadRaceData(race);
+            Extensions.ReadRaceData(race);
         }
 
         public void Process()
@@ -21,9 +21,9 @@ namespace jeza.ioFTPD.Framework
             {
                 race.LeadUser = race.GetLeadUser();
                 race.LeadGroup = race.GetLeadGroup();
-                this.UpdateRaceData(race);
+                Extensions.UpdateRaceData(race);
                 Parse();
-                this.ProcessRaceData(race);
+                Extensions.ProcessRaceData(race);
             }
             else
             {

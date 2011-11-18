@@ -49,6 +49,7 @@ namespace jeza.ioFTPD.Framework
         public const string XmlElementNameRequestTaskName = "name";
         public const string XmlElementNameRequestTaskDateAdded = "dateAdded";
         public const string XmlElementNameRequestTaskCreator = "creator";
+        public const string XmlElementNameRequestTaskGroupname = "groupname";
 
         public const string CodeIrcBold = "\\002";
         public const string CodeIrcUnderline = "\\037";
