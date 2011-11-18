@@ -54,6 +54,7 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -82,6 +83,9 @@
     <Compile Include="ConsoleAppTasks.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="DataBaseDupe.cs" />
+    <Compile Include="DataParserNfo.cs" />
+    <Compile Include="Json\JsonObject.cs" />
+    <Compile Include="Json\JsonParser.cs" />
     <Compile Include="Manager\RequestTask.cs" />
     <Compile Include="TaskConfiguration.cs" />
     <Compile Include="Archive\ArchiveActionAttribute.cs" />

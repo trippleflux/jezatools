@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
 using jeza.ioFTPD.Framework.Archive;
+using jeza.ioFTPD.Framework.Json;
 using jeza.ioFTPD.Framework.Manager;
 using TagLib;
 using File = TagLib.File;
@@ -18,6 +20,70 @@ namespace jeza.ioFTPD.Framework
     /// </summary>
     public static class Extensions
     {
+        public static string GetImdbId(string url)
+        {
+            string imdbId = String.Empty;
+            string[] strings = url.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (strings.Length == 0)
+            {
+                return imdbId;
+            }
+            foreach (string s in strings)
+            {
+                if (s.StartsWith("tt"))
+                {
+                    imdbId = s;
+                    break;
+                }
+            }
+            return imdbId;
+        }
+
+        /// <summary>
+        /// Gets the imdb response for specified event name.
+        /// </summary>
+        /// <param name="searchString">The event name.</param>
+        /// <returns></returns>
+        public static dynamic GetImdbResponseForEventName(string searchString)
+        {
+            Log.Debug("GetImdbResponseForEventName: '{0}'", searchString);
+            string what = searchString.Trim().Replace(" ", "%20");
+            string htmlUri = "http://www.imdbapi.com/?t=" + what;
+            return GetImdbInfo(htmlUri);
+        }
+
+        /// <summary>
+        /// Gets the imdb response for event id.
+        /// </summary>
+        /// <param name="eventId">The event id.</param>
+        /// <returns></returns>
+        public static dynamic GetImdbResponseForEventId(string eventId)
+        {
+            Log.Debug("GetImdbResponseForEventId: '{0}'", eventId);
+            string htmlUri = "http://www.imdbapi.com/?i=" + eventId;
+            return GetImdbInfo(htmlUri);
+        }
+
+        private static object GetImdbInfo(string htmlUri)
+        {
+            Log.Debug("GetImdbInfo: '{0}'", htmlUri);
+            WebRequest requestHtml = WebRequest.Create(htmlUri);
+            WebResponse responseHtml = requestHtml.GetResponse();
+            string stringResponse = String.Empty;
+            if (responseHtml != null)
+            {
+                using (StreamReader r = new StreamReader(responseHtml.GetResponseStream()))
+                {
+                    stringResponse = r.ReadToEnd();
+                }
+            }
+
+            JsonParser jsonParser = new JsonParser { CamelizeProperties = true };
+            dynamic output = jsonParser.Parse(stringResponse);
+            //{"Response":"Parse Error"}
+            return output;
+        }
+
         /// <summary>
         /// Removes the folder.
         /// </summary>

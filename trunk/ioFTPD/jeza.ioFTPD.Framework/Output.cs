@@ -366,6 +366,40 @@ namespace jeza.ioFTPD.Framework
             return formatGroupStats;
         }
 
+        public string FormatImdb
+            (string line,
+             dynamic imdbInfo)
+        {
+            string formatImdb = MinimumLength(line) || imdbInfo == null || race == null
+                                    ? line
+                                    : String.Format(new MyFormat(), line
+                                                    , race.CurrentRaceData == null ? "" : race.CurrentRaceData.FileName ?? "" // {0}
+                                                    , race.CurrentRaceData == null ? "" : race.CurrentRaceData.DirectoryName ?? "" // {1}
+                                                    , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UserName ?? "" // {2}
+                                                    , race.CurrentRaceData == null ? "" : race.CurrentRaceData.GroupName ?? "" // {3}
+                                                    , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UploadVirtualPath ?? "" // {4}
+                                                    , imdbInfo.Title ?? "" // {5}
+                                                    , imdbInfo.Year ?? "" // {6}
+                                                    , imdbInfo.Rated ?? "" // {7}
+                                                    , imdbInfo.Released ?? "" // {8}
+                                                    , imdbInfo.Genre ?? "" // {9}
+                                                    , imdbInfo.Director ?? "" // {10}
+                                                    , imdbInfo.Writer ?? "" // {11}
+                                                    , imdbInfo.Actors ?? "" // {12}
+                                                    , imdbInfo.Plot ?? "" // {13}
+                                                    , imdbInfo.Poster ?? "" // {14}
+                                                    , imdbInfo.Runtime ?? "" // {15}
+                                                    , imdbInfo.Rating ?? "" // {16}
+                                                    , imdbInfo.Votes ?? "" // {17}
+                                                    , imdbInfo.ID ?? "" // {18}
+                                                    , Constants.CodeIrcColor // {19}
+                                                    , Constants.CodeIrcBold // {20}
+                                                    , Constants.CodeIrcUnderline // {21}
+                                                    , Constants.CodeNewLine); // {22}
+            Log.Debug("formatImdb: " + formatImdb);
+            return formatImdb;
+        }
+
         public string Format(string line,
                              File mp3Info = null)
         {
@@ -408,7 +442,9 @@ namespace jeza.ioFTPD.Framework
                                           , mp3Info == null ? "" : mp3Info.Properties.Description // {31}
                                           , mp3Info == null ? "" : mp3Info.Properties.MediaTypes.ToString("g") // {32}
                                           , mp3Info == null || mp3Info.Properties.Codecs == null ? "" : GetCodecList(mp3Info.Properties.Codecs) // {33}
-                                          , mp3Info == null ? "" : mp3Info.Properties.Duration.FormatTimeSpan()); // {34}
+                                          , mp3Info == null ? "" : mp3Info.Properties.Duration.FormatTimeSpan() // {34}
+                                          , race.CurrentRaceData == null ? "" : race.CurrentRaceData.LinkImdb ?? "") // {35}
+                ;
             Log.Debug("Format: " + format);
             return format;
         }
@@ -457,54 +493,57 @@ namespace jeza.ioFTPD.Framework
             return formatCrc32;
         }
 
-        public string FormatDupe(string line, DataBaseDupe dataBaseDupe)
+        public string FormatDupe(string line,
+                                 DataBaseDupe dataBaseDupe)
         {
             string formatDupe = MinimumLength(line) || dataBaseDupe == null
-                                     ? line
-                                     : String.Format(new MyFormat(), line
-                                                     , dataBaseDupe.Id// {0}
-                                                     , dataBaseDupe.UserName // {1}
-                                                     , dataBaseDupe.GroupName // {2}
-                                                     , dataBaseDupe.DateTime // {3}
-                                                     , dataBaseDupe.PathReal // {4}
-                                                     , dataBaseDupe.PathVirtual // {5}
-                                                     , dataBaseDupe.ReleaseName // {6}
-                                                     , dataBaseDupe.Nuked // {7}
-                                                     , dataBaseDupe.NukedReason // {8}
-                                                     , dataBaseDupe.Wiped // {9}
-                                                     , dataBaseDupe.WipedReason // {10}
-                                                     , Constants.CodeNewLine); //{11}
+                                    ? line
+                                    : String.Format(new MyFormat(), line
+                                                    , dataBaseDupe.Id // {0}
+                                                    , dataBaseDupe.UserName // {1}
+                                                    , dataBaseDupe.GroupName // {2}
+                                                    , dataBaseDupe.DateTime // {3}
+                                                    , dataBaseDupe.PathReal // {4}
+                                                    , dataBaseDupe.PathVirtual // {5}
+                                                    , dataBaseDupe.ReleaseName // {6}
+                                                    , dataBaseDupe.Nuked // {7}
+                                                    , dataBaseDupe.NukedReason // {8}
+                                                    , dataBaseDupe.Wiped // {9}
+                                                    , dataBaseDupe.WipedReason // {10}
+                                                    , Constants.CodeNewLine); //{11}
             Log.Debug("FormatDupe: " + formatDupe);
             return formatDupe;
         }
 
-        public string FormatWeeklyTask(string line, WeeklyTask weeklyTask)
+        public string FormatWeeklyTask(string line,
+                                       WeeklyTask weeklyTask)
         {
             string formatWeeklyTask = MinimumLength(line) || weeklyTask == null
-                                     ? line
-                                     : String.Format(new MyFormat(), line
-                                                     , weeklyTask.WeeklyTaskStatus // {0}
-                                                     , weeklyTask.Uid // {1}
-                                                     , weeklyTask.Username// {2}
-                                                     , weeklyTask.Creator // {3}
-                                                     , weeklyTask.Credits.FormatSize() // {4}
-                                                     , weeklyTask.DateTimeStart // {5}
-                                                     , weeklyTask.DateTimeStop // {6}
-                                                     , weeklyTask.Notes // {7}
-                                                     , Constants.CodeNewLine); //{8}
+                                          ? line
+                                          : String.Format(new MyFormat(), line
+                                                          , weeklyTask.WeeklyTaskStatus // {0}
+                                                          , weeklyTask.Uid // {1}
+                                                          , weeklyTask.Username // {2}
+                                                          , weeklyTask.Creator // {3}
+                                                          , weeklyTask.Credits.FormatSize() // {4}
+                                                          , weeklyTask.DateTimeStart // {5}
+                                                          , weeklyTask.DateTimeStop // {6}
+                                                          , weeklyTask.Notes // {7}
+                                                          , Constants.CodeNewLine); //{8}
             Log.Debug("FormatWeeklyTask: " + formatWeeklyTask);
             return formatWeeklyTask;
         }
 
-        public string FormatRequestTask(string line, RequestTask requestTask)
+        public string FormatRequestTask(string line,
+                                        RequestTask requestTask)
         {
             string formatWeeklyTask = MinimumLength(line) || requestTask == null
-                                     ? line
-                                     : String.Format(new MyFormat(), line
-                                                     , requestTask.Name // {0}
-                                                     , requestTask.DateAdded.ToString("yyyy-MM-dd") // {1}
-                                                     , requestTask.Creator // {2}
-                                                     , Constants.CodeNewLine); //{3}
+                                          ? line
+                                          : String.Format(new MyFormat(), line
+                                                          , requestTask.Name // {0}
+                                                          , requestTask.DateAdded.ToString("yyyy-MM-dd") // {1}
+                                                          , requestTask.Creator // {2}
+                                                          , Constants.CodeNewLine); //{3}
             Log.Debug("FormatRequestTask: " + formatWeeklyTask);
             return formatWeeklyTask;
         }

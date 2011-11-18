@@ -1,5 +1,3 @@
-#region
-#endregion
 namespace jeza.ioFTPD.Framework
 {
     public class CurrentRaceData
@@ -21,10 +19,11 @@ namespace jeza.ioFTPD.Framework
         public string UploadVirtualPath { get; set; }
         public int Uid { get; set; }
         public int Gid { get; set; }
+        public string LinkImdb { get; set; }
 
         public override string ToString()
         {
-            return string.Format("FileExtension: {0}, FileName: {1}, FileNameWithoutExtension: {16}, FileSize: {2}, DirectoryName: {3}, DirectoryPath: {4}, RaceType: {5}, UploadCrc: {6}, UploadFile: {7}, UploadVirtualFile: {8}, UserName: {9}, GroupName: {10}, Speed: {11}, DirectoryParent: {12}, UploadVirtualPath: {13}, Uid: {14}, Gid: {15}", FileExtension, FileName, FileSize, DirectoryName, DirectoryPath, RaceType, UploadCrc, UploadFile, UploadVirtualFile, UserName, GroupName, Speed, DirectoryParent, UploadVirtualPath, Uid, Gid, FileNameWithoutExtension);
+            return string.Format("FileExtension: {0}, FileName: {1}, FileNameWithoutExtension: {2}, FileSize: {3}, DirectoryName: {4}, DirectoryPath: {5}, RaceType: {6}, UploadCrc: {7}, UploadFile: {8}, UploadVirtualFile: {9}, UserName: {10}, GroupName: {11}, Speed: {12}, DirectoryParent: {13}, UploadVirtualPath: {14}, Uid: {15}, Gid: {16}, LinkImdb: {17}", FileExtension, FileName, FileNameWithoutExtension, FileSize, DirectoryName, DirectoryPath, RaceType, UploadCrc, UploadFile, UploadVirtualFile, UserName, GroupName, Speed, DirectoryParent, UploadVirtualPath, Uid, Gid, LinkImdb);
         }
     }
 }

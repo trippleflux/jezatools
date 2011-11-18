@@ -44,8 +44,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\GallioBundle\bin\MbUnit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -75,6 +75,7 @@
     <Compile Include="Rescan\RescanTests.cs" />
     <Compile Include="ZipScript\DeleteTests.cs" />
     <Compile Include="ZipScript\AudioTests.cs" />
+    <Compile Include="ZipScript\NfoTests.cs" />
     <Compile Include="ZipScript\RaceTests.cs" />
     <Compile Include="ZipScript\RarTests.cs" />
     <Compile Include="ZipScript\SfvTests.cs" />
@@ -103,6 +104,8 @@
     </None>
     <None Include="TestFiles\Flac\bp2004-09-10t01.flac" />
     <None Include="TestFiles\Flac\bp2004-09-10t01.sfv" />
+    <None Include="TestFiles\Nfo\Movie02.nfo" />
+    <None Include="TestFiles\Nfo\Movie01.nfo" />
     <None Include="TestFiles\Race\File.race" />
   </ItemGroup>
   <ItemGroup>

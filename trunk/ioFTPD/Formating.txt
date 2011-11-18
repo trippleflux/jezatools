@@ -48,6 +48,7 @@ Format:
 {32}	MediaTypes
 {33}	Codecs
 {34}	Duration
+{34}	ImdbLink
 
 FormatCRC32:
 ClientCrc32Body, ClientCrc32Foot
@@ -116,3 +117,29 @@ FormatDupe:
 {9}		Wiped
 {10}	WipedReason
 {11}	CodeNewLine
+
+FormatImdb:
+{0}		FileName
+{1}		ReleaseName
+{2}		UserName
+{3}		GroupName	
+{4}		UploadVirtualPath
+{5}		Title
+{6}		Year
+{7}		Rated
+{8}		Released
+{9}		Genre
+{10}	Director
+{11}	Writer
+{12}	Actors
+{13}	Plot
+{14}	Poster
+{15}	Runtime
+{16}	Rating	
+{17}	Votes
+{18}	ID
+{19}	CodeIrcColor
+{20}	CodeIrcBold	
+{21}	CodeIrcUnderline
+{22}	CodeNewLine
+

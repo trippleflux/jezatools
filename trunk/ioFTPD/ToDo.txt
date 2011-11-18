@@ -3,8 +3,13 @@ ZipScript
 + Banned genres
 + Skip folders based on their names
 + Execute external script on race complete (unrar, unzip,...)
++ imdb Top250
 
 Manager
 + Nuke/Unnuke
 + Pre
 + Search
++ imdb info
++ mp3 sort
++ anounce request
++ anounce dupe
