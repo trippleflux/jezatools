@@ -24,22 +24,31 @@ namespace jeza.ioFTPD.Framework
                     string line = streamReader.ReadLine();
                     if (line != null)
                     {
+                        if (line.Length < 1)
+                        {
+                            continue;
+                        }
                         Log.Debug("line: '{0}'", line);
                         if (IsImdbUrl(line))
                         {
-                            line = Regex.Replace(line, @"\[|\]|\(|\)|\<|\>|\$|\""|\'|\!|\%|\&|\?|\:|;|_|-|+|\.|\,", " ");
+                            line = Regex.Replace(line, @"\[|\]|\(|\)|\<|\>|\$|\""|\'|\!|\#", " ");
                             string[] split = line.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                            bool found = false;
                             foreach (string s in split)
                             {
                                 if (IsImdbUrl(s))
                                 {
                                     imdbUrl = s;
+                                    found = true;
                                     break;
                                 }
                             }
+                            if (found)
+                            {
+                                break;
+                            }
                         }
                     }
-                    break;
                 }
             }
             RaceMutex.ReleaseMutex();
@@ -47,13 +56,18 @@ namespace jeza.ioFTPD.Framework
 
         public void Process()
         {
+            Output output = new Output(race);
+            output
+                .Client(Config.ClientHead)
+                .Client(Config.ClientFileName)
+                .Client(Config.ClientFoot);
+
             if (String.IsNullOrEmpty(imdbUrl))
             {
                 return;
             }
             Log.Debug("Process IMDB info");
             race.CurrentRaceData.LinkImdb = imdbUrl;
-            Output output = new Output(race);
             if (Config.LogToIoFtpdUpdateNfo)
             {
                 Log.IoFtpd(output.Format(Config.LogLineIoFtpdUpdateNfo));
@@ -70,11 +84,11 @@ namespace jeza.ioFTPD.Framework
             dynamic imdbResponse = Extensions.GetImdbResponseForEventId(imdbId);
             if (Config.LogToIoFtpdUpdateImdb)
             {
-                Log.IoFtpd(imdbResponse.FormatImdb(Config.LogLineIoFtpdUpdateImdb, imdbResponse));
+                Log.IoFtpd(output.FormatImdb(Config.LogLineIoFtpdUpdateImdb, imdbResponse));
             }
             if (Config.LogToInternalUpdateImdb)
             {
-                Log.Internal(imdbResponse.FormatImdb(Config.LogLineInternalUpdateImdb, imdbResponse));
+                Log.Internal(output.FormatImdb(Config.LogLineInternalUpdateImdb, imdbResponse));
             }
         }
 

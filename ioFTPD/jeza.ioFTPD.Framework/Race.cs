@@ -117,7 +117,9 @@ namespace jeza.ioFTPD.Framework
             IDataParser dataParser;
             if (CurrentRaceData.RaceType == RaceType.Nfo)
             {
-                OutputFileName(false);
+                dataParser = new DataParserNfo(this);
+                dataParser.Parse();
+                dataParser.Process();
                 return;
             }
             if (CurrentRaceData.RaceType == RaceType.Zip)
@@ -129,9 +131,6 @@ namespace jeza.ioFTPD.Framework
             }
             if (CurrentRaceData.RaceType == RaceType.Diz)
             {
-                //dataParser = new DataParserDiz(this);
-                //dataParser.Parse();
-                //dataParser.Process();
                 IsValid = false;
                 Log.Debug("DIZ not allowed!");
                 return;
