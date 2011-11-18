@@ -1,14 +1,26 @@
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using jeza.ioFTPD.Framework;
 using jeza.ioFTPD.Framework.Json;
 using MbUnit.Framework;
+using TheMovieDb;
 
 namespace jeza.ioFTPD.Tests
 {
     [TestFixture]
     public class MiscTests
     {
+        [Test]
+        public void Tmdb()
+        {
+            TmdbApi theMovieDb = new TmdbApi(Config.TmdbApiKey);
+            IEnumerable<TmdbMovie> movies = theMovieDb.MovieSearch("True Grit");
+            Assert.IsNotNull(movies);
+            IEnumerable<TmdbMovie> movieSearchByImdb = theMovieDb.MovieSearchByImdb("tt1403865");
+            Assert.IsNotNull(movieSearchByImdb);
+        }
+
         [Test]
         public void ImdbId()
         {

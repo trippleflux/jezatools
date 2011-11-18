@@ -176,6 +176,9 @@
               <xs:element name="creator" minOccurs="1" maxOccurs="1" type="xs:string">
               </xs:element>
 
+              <xs:element name="groupname" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
               <xs:element name="dateAdded" minOccurs="1" maxOccurs="1" type="xs:dateTime">
               </xs:element>
 

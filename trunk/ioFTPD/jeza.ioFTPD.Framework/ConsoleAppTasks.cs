@@ -161,10 +161,12 @@ namespace jeza.ioFTPD.Framework
                 if (!request.DirectoryExists())
                 {
                     string creator = IoEnvironment.GetUserName();
+                    string groupname = IoEnvironment.GetGroupName();
                     DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
                     RequestTask requestTask = new RequestTask
                                               {
-                                                  Creator = creator,
+                                                  Username = creator,
+                                                  Groupname = groupname,
                                                   DateAdded = dateTime,
                                                   Name = requestName,
                                               };
@@ -180,6 +182,16 @@ namespace jeza.ioFTPD.Framework
                     }
                     SaveConfiguration();
                     FileInfo.CreateFolder(request);
+                    if (Config.LogToIoFtpdRequest)
+                    {
+                        Output output = new Output();
+                        output.Client(output.FormatRequestTask(Config.LogLineIoFtpdRequest, requestTask));
+                    }
+                    if (Config.LogToInternalRequest)
+                    {
+                        Output output = new Output();
+                        output.Client(output.FormatRequestTask(Config.LogLineInternalRequest, requestTask));
+                    }
                 }
                 else
                 {
@@ -195,13 +207,23 @@ namespace jeza.ioFTPD.Framework
                 if (taskConfiguration.RequestTasks != null)
                 {
                     List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
-                    RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
-                    if (reqTask != null)
+                    RequestTask requestTask = requestTasks.Find(task => task.Name == requestName);
+                    if (requestTask != null)
                     {
-                        requestTasks.Remove(reqTask);
+                        requestTasks.Remove(requestTask);
                     }
                     taskConfiguration.RequestTasks = requestTasks.ToArray();
                     SaveConfiguration();
+                    if (Config.LogToIoFtpdRequestDeleted)
+                    {
+                        Output output = new Output();
+                        output.Client(output.FormatRequestTask(Config.LogLineIoFtpdRequestDeleted, requestTask));
+                    }
+                    if (Config.LogToInternalRequestDeleted)
+                    {
+                        Output output = new Output();
+                        output.Client(output.FormatRequestTask(Config.LogLineInternalRequestDeleted, requestTask));
+                    }
                 }
                 if (request.DirectoryExists())
                 {
@@ -220,13 +242,23 @@ namespace jeza.ioFTPD.Framework
                     if (taskConfiguration.RequestTasks != null)
                     {
                         List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
-                        RequestTask reqTask = requestTasks.Find(task => task.Name == requestName);
-                        if (reqTask != null)
+                        RequestTask requestTask = requestTasks.Find(task => task.Name == requestName);
+                        if (requestTask != null)
                         {
-                            requestTasks.Remove(reqTask);
+                            requestTasks.Remove(requestTask);
                         }
                         taskConfiguration.RequestTasks = requestTasks.ToArray();
                         SaveConfiguration();
+                        if (Config.LogToIoFtpdRequestFilled)
+                        {
+                            Output output = new Output();
+                            output.Client(output.FormatRequestTask(Config.LogLineIoFtpdRequestFilled, requestTask));
+                        }
+                        if (Config.LogToInternalRequestFilled)
+                        {
+                            Output output = new Output();
+                            output.Client(output.FormatRequestTask(Config.LogLineInternalRequestFilled, requestTask));
+                        }
                     }
                     request.KickUsersFromDirectory();
                     Directory.Move(request, Path.Combine(Config.RequestFolder, Config.RequestFilled + requestName));

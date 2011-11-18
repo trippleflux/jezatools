@@ -9,15 +9,15 @@ namespace jeza.ioFTPD.Framework
 
         public void Parse()
         {
-            this.ReadRaceData(race);
+            Extensions.ReadRaceData(race);
         }
 
         public void Process()
         {
             Log.Debug("DataParserDelete.Process()");
-            this.UpdateRaceData(race);
+            Extensions.UpdateRaceData(race);
             Parse();
-            this.ProcessRaceData(race);
+            Extensions.ProcessRaceData(race);
         }
 
         private readonly Race race;

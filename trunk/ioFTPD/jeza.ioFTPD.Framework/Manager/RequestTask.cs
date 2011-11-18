@@ -12,6 +12,9 @@ namespace jeza.ioFTPD.Framework.Manager
         public DateTime DateAdded { get; set; }
 
         [XmlElement(ElementName = Constants.XmlElementNameRequestTaskCreator)]
-        public string Creator { get; set; }
+        public string Username { get; set; }
+
+        [XmlElement(ElementName = Constants.XmlElementNameRequestTaskGroupname)]
+        public string Groupname { get; set; }
     }
 }

@@ -55,9 +55,9 @@ namespace jeza.ioFTPD.Framework
         }
 
         public Output ClientMp3(string line,
-                                File mp3Info)
+                                File audioInfo)
         {
-            WriteLine(Format(line, mp3Info));
+            WriteLine(Format(line, audioInfo));
             return this;
         }
 
@@ -401,7 +401,7 @@ namespace jeza.ioFTPD.Framework
         }
 
         public string Format(string line,
-                             File mp3Info = null)
+                             File audioInfo = null)
         {
             if (MinimumLength(line) || race == null)
             {
@@ -428,21 +428,21 @@ namespace jeza.ioFTPD.Framework
                                           , Constants.CodeIrcBold // {17}
                                           , Constants.CodeIrcUnderline // {18}
                                           , Constants.CodeNewLine // {19}
-                                          , mp3Info == null ? "" : mp3Info.Tag.FirstPerformer // {20}
-                                          , mp3Info == null ? "" : mp3Info.Tag.Album // {21}
-                                          , mp3Info == null ? "" : mp3Info.Tag.Title // {22}
-                                          , mp3Info == null ? "" : mp3Info.Tag.FirstGenre // {23}
-                                          , mp3Info == null ? 0 : mp3Info.Tag.Year // {24}
-                                          , mp3Info == null ? 0 : mp3Info.Tag.Track //{25}
+                                          , audioInfo == null ? "" : audioInfo.Tag.FirstPerformer // {20}
+                                          , audioInfo == null ? "" : audioInfo.Tag.Album // {21}
+                                          , audioInfo == null ? "" : audioInfo.Tag.Title // {22}
+                                          , audioInfo == null ? "" : audioInfo.Tag.FirstGenre // {23}
+                                          , audioInfo == null ? 0 : audioInfo.Tag.Year // {24}
+                                          , audioInfo == null ? 0 : audioInfo.Tag.Track //{25}
                                           , race.CurrentRaceData == null ? 0 : race.CurrentRaceData.Speed // {26}
-                                          , mp3Info == null ? 0 : mp3Info.Properties.AudioBitrate // {27}
-                                          , mp3Info == null ? 0 : mp3Info.Properties.AudioChannels // {28}
-                                          , mp3Info == null ? 0 : mp3Info.Properties.AudioSampleRate // {29}
-                                          , mp3Info == null ? 0 : mp3Info.Properties.BitsPerSample // {30}
-                                          , mp3Info == null ? "" : mp3Info.Properties.Description // {31}
-                                          , mp3Info == null ? "" : mp3Info.Properties.MediaTypes.ToString("g") // {32}
-                                          , mp3Info == null || mp3Info.Properties.Codecs == null ? "" : GetCodecList(mp3Info.Properties.Codecs) // {33}
-                                          , mp3Info == null ? "" : mp3Info.Properties.Duration.FormatTimeSpan() // {34}
+                                          , audioInfo == null ? 0 : audioInfo.Properties.AudioBitrate // {27}
+                                          , audioInfo == null ? 0 : audioInfo.Properties.AudioChannels // {28}
+                                          , audioInfo == null ? 0 : audioInfo.Properties.AudioSampleRate // {29}
+                                          , audioInfo == null ? 0 : audioInfo.Properties.BitsPerSample // {30}
+                                          , audioInfo == null ? "" : audioInfo.Properties.Description // {31}
+                                          , audioInfo == null ? "" : audioInfo.Properties.MediaTypes.ToString("g") // {32}
+                                          , audioInfo == null || audioInfo.Properties.Codecs == null ? "" : GetCodecList(audioInfo.Properties.Codecs) // {33}
+                                          , audioInfo == null ? "" : audioInfo.Properties.Duration.FormatTimeSpan() // {34}
                                           , race.CurrentRaceData == null ? "" : race.CurrentRaceData.LinkImdb ?? "") // {35}
                 ;
             Log.Debug("Format: " + format);
@@ -537,15 +537,16 @@ namespace jeza.ioFTPD.Framework
         public string FormatRequestTask(string line,
                                         RequestTask requestTask)
         {
-            string formatWeeklyTask = MinimumLength(line) || requestTask == null
+            string formatRequestTask = MinimumLength(line) || requestTask == null
                                           ? line
                                           : String.Format(new MyFormat(), line
                                                           , requestTask.Name // {0}
                                                           , requestTask.DateAdded.ToString("yyyy-MM-dd") // {1}
-                                                          , requestTask.Creator // {2}
-                                                          , Constants.CodeNewLine); //{3}
-            Log.Debug("FormatRequestTask: " + formatWeeklyTask);
-            return formatWeeklyTask;
+                                                          , requestTask.Username // {2}
+                                                          , Constants.CodeNewLine   //{3}
+                                                          , requestTask.Groupname); //{4}
+            Log.Debug("FormatRequestTask: " + formatRequestTask);
+            return formatRequestTask;
         }
 
         private readonly Race race;
