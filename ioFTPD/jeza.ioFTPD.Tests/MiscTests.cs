@@ -1,6 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 using jeza.ioFTPD.Framework;
+using jeza.ioFTPD.Framework.Json;
 using MbUnit.Framework;
 
 namespace jeza.ioFTPD.Tests
@@ -9,10 +10,48 @@ namespace jeza.ioFTPD.Tests
     public class MiscTests
     {
         [Test]
+        public void ImdbId()
+        {
+            string imdbUrl = "http://www.imdb.com/title/tt123456789/";
+            string imdbId = Extensions.GetImdbId(imdbUrl);
+            Assert.AreEqual("tt123456789", imdbId);
+
+            imdbUrl = "http://www.imdb.com/title/as123456789/";
+            imdbId = Extensions.GetImdbId(imdbUrl);
+            Assert.AreEqual(String.Empty, imdbId);
+        }
+
+        [Test]
+        public void Json()
+        {
+            JsonParser jsonParser = new JsonParser {CamelizeProperties = true}; 
+            const string input = @"{""title"":""True Grit"",""Year"":""1969"",""Rated"":""G"",""Released"":""11 Jun 1969"",""Genre"":""Adventure, Western, Drama"",""Director"":""Henry Hathaway"",""Writer"":""Charles Portis, Marguerite Roberts"",""Actors"":""John Wayne, Kim Darby, Glen Campbell, Jeremy Slate"",""Plot"":""A drunken, hard-nosed U.S. Marshal and a Texas Ranger help a stubborn young woman track down her father's murderer in Indian territory."",""Poster"":""http://ia.media-imdb.com/images/M/MV5BMTYwNTE3NDYzOV5BMl5BanBnXkFtZTcwNTU5MzY0MQ@@._V1._SX320.jpg"",""Runtime"":""2 hrs 8 mins"",""Rating"":""7.3"",""Votes"":""10654"",""ID"":""tt0065126"",""Response"":""True""}";
+            dynamic output = jsonParser.Parse(input);
+            dynamic title = output.Title;
+            Assert.IsNotNull(title);
+            string titleOfTheMovie = title.ToString();
+            Assert.AreEqual("True Grit", titleOfTheMovie);
+        }
+
+        [Test]
+        public void JsonGet()
+        {
+            dynamic output = Extensions.GetImdbResponseForEventName("true grit");
+            Assert.IsNotNull(output);
+            dynamic title = output.Title;
+            string titleOfTheMovie = title.ToString();
+            Assert.AreEqual("True Grit", titleOfTheMovie);
+
+            output = Extensions.GetImdbResponseForEventName(Guid.NewGuid().ToString());
+            Assert.IsNotNull(output);
+            Assert.IsNotNull(output.Response);
+        }
+
+        [Test]
         public void Split()
         {
             string list = "asd";
-            char[] separator = new char[] { ' ', ',' };
+            char[] separator = new[] { ' ', ',' };
             string[] strings = list.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Assert.IsNotNull(strings);
             Assert.AreEqual(1, strings.Length);

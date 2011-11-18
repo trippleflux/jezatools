@@ -241,6 +241,16 @@ namespace jeza.ioFTPD.Framework
             get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdUpdate")); }
         }
 
+        public static bool LogToIoFtpdUpdateNfo
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdUpdateNfo")); }
+        }
+
+        public static bool LogToIoFtpdUpdateImdb
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdUpdateImdb")); }
+        }
+
         public static bool LogToIoFtpdUpdateMp3
         {
             get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdUpdateMp3")); }
@@ -319,6 +329,16 @@ namespace jeza.ioFTPD.Framework
         public static bool LogToInternalUpdate
         {
             get { return Misc.String2Boolean(GetKeyValue("LogToInternalUpdate")); }
+        }
+
+        public static bool LogToInternalUpdateNfo
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalUpdateNfo")); }
+        }
+
+        public static bool LogToInternalUpdateImdb
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalUpdateImdb")); }
         }
 
         public static bool LogToInternalUpdateMp3
@@ -541,6 +561,16 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("LogLineIoFtpdUpdate"); }
         }
 
+        public static string LogLineIoFtpdUpdateNfo
+        {
+            get { return GetKeyValue("LogLineIoFtpdUpdateNfo"); }
+        }
+
+        public static string LogLineIoFtpdUpdateImdb
+        {
+            get { return GetKeyValue("LogLineIoFtpdUpdateImdb"); }
+        }
+
         public static string LogLineIoFtpdUpdateMp3
         {
             get { return GetKeyValue("LogLineIoFtpdUpdateMp3"); }
@@ -604,6 +634,16 @@ namespace jeza.ioFTPD.Framework
         public static string LogLineInternalUpdate
         {
             get { return GetKeyValue("LogLineInternalUpdate"); }
+        }
+
+        public static string LogLineInternalUpdateNfo
+        {
+            get { return GetKeyValue("LogLineInternalUpdateNfo"); }
+        }
+
+        public static string LogLineInternalUpdateImdb
+        {
+            get { return GetKeyValue("LogLineInternalUpdateImdb"); }
         }
 
         public static string LogLineInternalUpdateMp3

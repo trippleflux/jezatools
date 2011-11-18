@@ -171,6 +171,22 @@ namespace jeza.ioFTPD.Tests.ZipScript
                                                   , "/TestFiles/Rar/infected.sfv"
                                               };
 
+        protected readonly string[] ArgsNfo01 = new[]
+                                              {
+                                                  "upload"
+                                                  , @"..\..\TestFiles\Nfo\Movie01.nfo"
+                                                  , "aabbccdd"
+                                                  , "/TestFiles/Nfo/Movie01.nfo"
+                                              };
+
+        protected readonly string[] ArgsNfo02 = new[]
+                                              {
+                                                  "upload"
+                                                  , @"..\..\TestFiles\Nfo\Movie02.nfo"
+                                                  , "aabbccdd"
+                                                  , "/TestFiles/Nfo/Movie02.nfo"
+                                              };
+
         protected readonly string[] ArgsSfvMp3 = new[]
                                                  {
                                                      "upload"
@@ -255,6 +271,28 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Assert.AreEqual("infected.sfv", race.CurrentRaceData.FileName, "FileName");
             Assert.AreEqual(432, race.CurrentRaceData.FileSize, "FileSize");
             Assert.AreEqual("Rar", race.CurrentRaceData.DirectoryName, "DirectoryName");
+            race.Process();
+            return race;
+        }
+
+        protected Race UploadNfoFile01()
+        {
+            Race race = new Race(ArgsNfo01);
+            race.ParseUpload();
+            Assert.AreEqual(".nfo", race.CurrentRaceData.FileExtension, "FileExtension");
+            Assert.AreEqual("Movie01.nfo", race.CurrentRaceData.FileName, "FileName");
+            Assert.AreEqual("Nfo", race.CurrentRaceData.DirectoryName, "DirectoryName");
+            race.Process();
+            return race;
+        }
+
+        protected Race UploadNfoFile02()
+        {
+            Race race = new Race(ArgsNfo02);
+            race.ParseUpload();
+            Assert.AreEqual(".nfo", race.CurrentRaceData.FileExtension, "FileExtension");
+            Assert.AreEqual("Movie02.nfo", race.CurrentRaceData.FileName, "FileName");
+            Assert.AreEqual("Nfo", race.CurrentRaceData.DirectoryName, "DirectoryName");
             race.Process();
             return race;
         }
