@@ -69,6 +69,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\Formating.txt">
+      <Link>Formating.txt</Link>
+    </Content>
     <Content Include="managerConfiguration.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
