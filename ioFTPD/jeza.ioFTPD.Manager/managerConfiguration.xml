@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <tasks xmlns="http://jeza.ioFTPD.Tools/XMLSchema.xsd">
-  <weeklyTask>
-    <status>Pending</status>
-    <userId>123</userId>
-    <userName>username</userName>
-    <credits>1024</credits>
-    <notes>weekly for some user!</notes>
-    <creator>jeza</creator>
-    <dateTimeStart>2011-10-10T06:12:23.5997776</dateTimeStart>
-    <dateTimeStop>2012-10-10T06:12:23.5997776</dateTimeStop>
-  </weeklyTask>
   <newDayTask>
     <status>Enabled</status>
     <realPath>E:\\mp3\\day</realPath>
