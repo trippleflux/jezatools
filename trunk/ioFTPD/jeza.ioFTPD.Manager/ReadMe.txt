@@ -10,11 +10,15 @@ Installation:
 Copy jeza.ioFTPD.Manager to ioFTPD\scripts.
 Folder jeza.ioFTPD.Manager contains next files:
  'ICSharpCode.SharpZipLib.dll'
+ 'jeza.ioFTPD.Dupe.s3db'
+ 'jeza.ioFTPD.Framework.dll'
  'jeza.ioFTPD.Manager.exe'
  'jeza.ioFTPD.Manager.exe.config'
- 'jeza.ioFTPD.Framework.dll'
  'managerConfiguration.xml'
  'ReadMe.txt'
+ 'SQLite.Interop.dll'
+ 'System.Data.SQLite.dll'
+ 'System.Data.SQLite.xml'
  'taglib-sharp.dll'
  'XMLSchema.xsd'
 ------------------------------------------------------------------------------------------------------------
@@ -28,10 +32,12 @@ request           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe 
 reqdel            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe delrequest
 reqfill           = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe fillrequest
 dupe              = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe dupelist
+undupe            = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe duperemove
 
 [FTP_SITE_Permissions]
 newday		= 1
 weekly		= 1
+undupe		= 1V
 
 [Scheduler]
 NewDay           = 59 23 * * EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe schedulerNewDay
@@ -43,9 +49,7 @@ OnDelDir = EXEC ..\scripts\jeza.ioFTPD.Manager\jeza.ioFTPD.Manager.exe deldir
 
 Restart ioFTPD server or execute SITE command REHASH
 ------------------------------------------------------------------------------------------------------------
-3.) 
-------------------------------------------------------------------------------------------------------------
-4.) Edit 'managerConfiguration.xml'
+3.) Edit 'managerConfiguration.xml'
 
 
 ============================================================================================================
@@ -53,7 +57,7 @@ Restart ioFTPD server or execute SITE command REHASH
 ============================================================================================================
 Configuration:
 ------------------------------------------------------------------------------------------------------------
-Task structure:
+NewDayTask structure:
 XMLNode					Value
 ----------------------- ------------------------------------------------------------------------------------
 status					Enabled/Disabled

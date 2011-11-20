@@ -53,6 +53,14 @@ namespace jeza.ioFTPD.Manager
                             consoleAppTasks.Execute(TaskType.DupeList);
                         }
                     }
+                    //args: 'args[0]='duperemove', args[1]='testasd''
+                    if (firstArgument.Equals("duperemove"))
+                    {
+                        if (args.Length == 2)
+                        {
+                            consoleAppTasks.Execute(TaskType.DupeRemove);
+                        }
+                    }
                 } 
             }
             catch (Exception exception)

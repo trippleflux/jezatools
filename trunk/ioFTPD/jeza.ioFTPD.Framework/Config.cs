@@ -41,6 +41,41 @@ namespace jeza.ioFTPD.Framework
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
 
+        public static string RequestFileMessage
+        {
+            get { return GetKeyValue("RequestFileMessage"); }
+        }
+
+        public static bool LogToIoFtpdDupe
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdDupe")); }
+        }
+
+        public static bool LogToInternalDupe
+        {
+            get { return Misc.String2Boolean(GetKeyValue("LogToInternalDupe")); }
+        }
+
+        public static string ClientDupeRemove
+        {
+            get { return GetKeyValue("ClientDupeRemove"); }
+        }
+
+        public static string ClientDupeRemoveNotFound
+        {
+            get { return GetKeyValue("ClientDupeRemoveNotFound"); }
+        }
+
+        public static string LogLineIoFtpdDupe
+        {
+            get { return GetKeyValue("LogLineIoFtpdDupe"); }
+        }
+
+        public static string LogLineInternalDupe
+        {
+            get { return GetKeyValue("LogLineInternalDupe"); }
+        }
+
         public static bool LogToIoFtpdRequest
         {
             get { return Misc.String2Boolean(GetKeyValue("LogToIoFtpdRequest")); }

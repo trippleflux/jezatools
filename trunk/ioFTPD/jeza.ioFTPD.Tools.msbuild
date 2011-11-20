@@ -24,6 +24,7 @@
     <ManagerFiles Include="jeza.ioFTPD.Manager/bin/$(Configuration)/*.xml"/>
     <ManagerFiles Include="jeza.ioFTPD.Manager/bin/$(Configuration)/*.xsd"/>
     <ManagerFiles Include="jeza.ioFTPD.Manager/bin/$(Configuration)/*.txt"/>
+    <ManagerFiles Include="jeza.ioFTPD.Manager/bin/$(Configuration)/Dupe/*.s3db"/>
   </ItemGroup>
   <ItemGroup>
     <ZipScriptReleaseFiles Include="@(ReleaseFiles)" />

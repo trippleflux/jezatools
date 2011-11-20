@@ -9,4 +9,3 @@ Manager
 + Search
 + imdb info
 + mp3 sort
-+ anounce dupe

@@ -57,6 +57,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\jeza.ioFTPD.Tests\Dupe\jeza.ioFTPD.Dupe.s3db">
+      <Link>Dupe\jeza.ioFTPD.Dupe.s3db</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\XMLSchema.xsd">
       <Link>XMLSchema.xsd</Link>
       <SubType>Designer</SubType>
