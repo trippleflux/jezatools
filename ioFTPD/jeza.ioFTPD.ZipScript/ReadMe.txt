@@ -1,50 +1,28 @@
-﻿Format:
-{0}		FileName
-{1}		DirectoryName
-{2}		UserName
-{3}		GroupName	
-{4}		UploadVirtualPath
-{5}		TotalFilesExpected
-{6}		TotalFilesUploaded
-{7}		TotalBytesUploaded
-{8}		TotalMegaBytesUploaded
-{9}		TotalBytesUploadedFormated
-{10}	TotalBytesExpectedFormated
-{11}	TotalAvarageSpeed
-{12}	TotalUsersRacing
-{13}	TotalGroupsRacing
-{14}	ProgressBar
-{15}	PercentComplete
-{16}	CodeIrcColor	
-{17}	CodeIrcBold
-{18}	CodeIrcUnderline
-{19}	codeNewLine
-{20}	FirstAlbumArtist	
-{21}	Album
-{22}	Title
-{23}	FirstGenre	
-{24}	Year
-{25}	Track
-{26}	UserSpeed
+﻿============================================================================================================
+************************************************************************************************************
+Microsoft .net Framework 4.0 must be installed on machine where the script will be executed.
+************************************************************************************************************
+============================================================================================================
 
-FormatCRC32:
-{0}		FileName
-{1}		ExpectedCrc32Value
-{2}		ActualCrc32Value
-{3}		Status	
-{4}		TotalFiles
-{5}		MissingFiles
-{6}		OkFiles
-{7}		FailedFiles
-{8}		codeNewLine
+Extract ZIP to some location on your DISK...
 
-FormatCRC32:
-{0}		FileName
-{1}		ExpectedCrc32Value
-{2}		ActualCrc32Value
-{3}		Status	
-{4}		TotalFiles
-{5}		MissingFiles
-{6}		OkFiles
-{7}		FailedFiles
-{8}		codeNewLine
+============================================================================================================
+============================================================================================================
+
+Installation:
+------------------------------------------------------------------------------------------------------------
+Copy folder 'jeza.ioFTPD.ZipScript' to ioFTPD/scripts/
+
+In your favorite editor open 'jeza.ioFTPD.ZipScript.exe.config' and change it so it fits to your site configuration.
+
+ioFTPD.ini:
+[Events]
+OnUploadComplete	= EXEC ..\scripts\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.exe upload
+[FTP_Post-Command_Events]
+dele				= EXEC ..\scripts\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.exe delete
+[FTP_Custom_Commands]
+rescan            = EXEC ..\scripts\jeza.ioFTPD.ZipScript\jeza.ioFTPD.ZipScript.exe rescan
+[FTP_SITE_Permissions]
+rescan		= 1V
+
+SITE REHASH or restart ioFTPD server

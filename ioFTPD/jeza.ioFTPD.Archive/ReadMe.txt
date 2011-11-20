@@ -8,16 +8,6 @@ Installation:
 ------------------------------------------------------------------------------------------------------------
 1.) 
 Copy jeza.ioFTPD.ArchiveScript to ioFTPD\scripts.
-Folder jeza.ioFTPD.ArchiveScript contains next files:
- 'archiveConfiguration.xml'
- 'Examples.txt'
- 'ICSharpCode.SharpZipLib.dll'
- 'jeza.ioFTPD.Archive.exe'
- 'jeza.ioFTPD.Archive.exe.config'
- 'jeza.ioFTPD.Framework.dll'
- 'ReadMe.txt'
- 'taglib-sharp.dll'
- 'XMLSchema.xsd'
 ------------------------------------------------------------------------------------------------------------
 2.) 
 In ioFTPD.ini add :
