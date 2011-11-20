@@ -510,7 +510,10 @@ namespace jeza.ioFTPD.Framework
                                                     , dataBaseDupe.NukedReason // {8}
                                                     , dataBaseDupe.Wiped // {9}
                                                     , dataBaseDupe.WipedReason // {10}
-                                                    , Constants.CodeNewLine); //{11}
+                                                    , Constants.CodeNewLine //{11}
+                                                    , Constants.CodeIrcColor // {12}
+                                                    , Constants.CodeIrcBold // {13}
+                                                    , Constants.CodeIrcUnderline); // {14}
             Log.Debug("FormatDupe: " + formatDupe);
             return formatDupe;
         }
@@ -538,13 +541,13 @@ namespace jeza.ioFTPD.Framework
                                         RequestTask requestTask)
         {
             string formatRequestTask = MinimumLength(line) || requestTask == null
-                                          ? line
-                                          : String.Format(new MyFormat(), line
-                                                          , requestTask.Name // {0}
-                                                          , requestTask.DateAdded.ToString("yyyy-MM-dd") // {1}
-                                                          , requestTask.Username // {2}
-                                                          , Constants.CodeNewLine   //{3}
-                                                          , requestTask.Groupname); //{4}
+                                           ? line
+                                           : String.Format(new MyFormat(), line
+                                                           , requestTask.Name // {0}
+                                                           , requestTask.DateAdded.ToString("yyyy-MM-dd") // {1}
+                                                           , requestTask.Username // {2}
+                                                           , Constants.CodeNewLine //{3}
+                                                           , requestTask.Groupname); //{4}
             Log.Debug("FormatRequestTask: " + formatRequestTask);
             return formatRequestTask;
         }

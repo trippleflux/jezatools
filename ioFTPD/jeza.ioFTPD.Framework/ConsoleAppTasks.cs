@@ -4,6 +4,8 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading;
 using jeza.ioFTPD.Framework.Archive;
 using jeza.ioFTPD.Framework.Manager;
 
@@ -76,6 +78,11 @@ namespace jeza.ioFTPD.Framework
                     ExecuteDupeListTask();
                     break;
                 }
+                case TaskType.DupeRemove:
+                {
+                    ExecuteDupeRemoveTask();
+                    break;
+                }
                 default:
                 {
                     throw new NotSupportedException("Unknown TaskType");
@@ -84,9 +91,19 @@ namespace jeza.ioFTPD.Framework
             return Constants.CodeOk;
         }
 
+        private void ExecuteDupeRemoveTask()
+        {
+            string releaseName = args [1].Trim();
+            int rows = DataBase.ExecuteNonQuery(String.Format("DELETE FROM Folders WHERE ReleaseName = '{0}'", releaseName));
+            Output output = new Output();
+            output.Client(rows > 0
+                              ? String.Format(Config.ClientDupeRemove, releaseName)
+                              : String.Format(Config.ClientDupeRemoveNotFound, releaseName));
+        }
+
         private void ExecuteDupeListTask()
         {
-            string releaseName = args[1].Trim();
+            string releaseName = args [1].Trim();
             List<DataBaseDupe> dupes = DataBase.SelectFromDupeAll(String.Format("SELECT * FROM Folders WHERE ReleaseName like '%{0}%'", releaseName));
             Output output = new Output();
             output.Client(output.FormatNone(Config.ClientDupeListHead));
@@ -122,6 +139,14 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("New dir is a dupe of '{0}'", dataBaseDupe.ToString());
             Output output = new Output();
             output.Client(output.FormatDupe(Config.ClientDupeNewDir, dataBaseDupe));
+            if (Config.LogToIoFtpdDupe)
+            {
+                Log.IoFtpd(output.FormatDupe(Config.LogLineIoFtpdDupe, dataBaseDupe));
+            }
+            if (Config.LogToInternalDupe)
+            {
+                Log.Internal(output.FormatDupe(Config.LogLineIoFtpdDupe, dataBaseDupe));
+            }
             return false;
         }
 
@@ -158,45 +183,51 @@ namespace jeza.ioFTPD.Framework
                 string requestName = args [1];
                 Log.Debug("REQUEST ADD '{0}'", requestName);
                 string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
-                if (!request.DirectoryExists())
+                string creator = IoEnvironment.GetUserName();
+                string groupname = IoEnvironment.GetGroupName();
+                DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                RequestTask requestTask = new RequestTask
+                                          {
+                                              Username = creator,
+                                              Groupname = groupname,
+                                              DateAdded = dateTime,
+                                              Name = requestName,
+                                          };
+                if (taskConfiguration.RequestTasks != null)
                 {
-                    string creator = IoEnvironment.GetUserName();
-                    string groupname = IoEnvironment.GetGroupName();
-                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-                    RequestTask requestTask = new RequestTask
-                                              {
-                                                  Username = creator,
-                                                  Groupname = groupname,
-                                                  DateAdded = dateTime,
-                                                  Name = requestName,
-                                              };
-                    if (taskConfiguration.RequestTasks != null)
+                    List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                    RequestTask task = requestTasks.Find(r => r.Name == requestName);
+                    if (task == null)
                     {
-                        List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                        //add
                         requestTasks.Add(requestTask);
                         taskConfiguration.RequestTasks = requestTasks.ToArray();
+                        if (!request.DirectoryExists())
+                        {
+                            FileInfo.CreateFolder(request);
+                        }
+                        if (Config.LogToIoFtpdRequest)
+                        {
+                            Output output = new Output();
+                            Log.IoFtpd(output.FormatRequestTask(Config.LogLineIoFtpdRequest, requestTask));
+                        }
+                        if (Config.LogToInternalRequest)
+                        {
+                            Output output = new Output();
+                            Log.Internal(output.FormatRequestTask(Config.LogLineInternalRequest, requestTask));
+                        }
                     }
                     else
                     {
-                        taskConfiguration.RequestTasks = new[] {requestTask};
-                    }
-                    SaveConfiguration();
-                    FileInfo.CreateFolder(request);
-                    if (Config.LogToIoFtpdRequest)
-                    {
-                        Output output = new Output();
-                        output.Client(output.FormatRequestTask(Config.LogLineIoFtpdRequest, requestTask));
-                    }
-                    if (Config.LogToInternalRequest)
-                    {
-                        Output output = new Output();
-                        output.Client(output.FormatRequestTask(Config.LogLineInternalRequest, requestTask));
+                        Log.Debug("REQUEST allready exists!");
                     }
                 }
                 else
                 {
-                    Log.Debug("REQUEST allready exists!");
+                    taskConfiguration.RequestTasks = new[] {requestTask};
                 }
+                SaveConfiguration();
+                OutputRequestList();
                 return;
             }
             if (args [0].ToLowerInvariant().Equals(Constants.RequestDel))
@@ -217,12 +248,12 @@ namespace jeza.ioFTPD.Framework
                     if (Config.LogToIoFtpdRequestDeleted)
                     {
                         Output output = new Output();
-                        output.Client(output.FormatRequestTask(Config.LogLineIoFtpdRequestDeleted, requestTask));
+                        Log.IoFtpd(output.FormatRequestTask(Config.LogLineIoFtpdRequestDeleted, requestTask));
                     }
                     if (Config.LogToInternalRequestDeleted)
                     {
                         Output output = new Output();
-                        output.Client(output.FormatRequestTask(Config.LogLineInternalRequestDeleted, requestTask));
+                        Log.Internal(output.FormatRequestTask(Config.LogLineInternalRequestDeleted, requestTask));
                     }
                 }
                 if (request.DirectoryExists())
@@ -230,6 +261,7 @@ namespace jeza.ioFTPD.Framework
                     request.KickUsersFromDirectory();
                     request.RemoveFolder();
                 }
+                OutputRequestList();
                 return;
             }
             if (args [0].ToLowerInvariant().Equals(Constants.RequestFill))
@@ -237,32 +269,33 @@ namespace jeza.ioFTPD.Framework
                 string requestName = args [1];
                 Log.Debug("REQUEST FILL '{0}'", requestName);
                 string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                if (taskConfiguration.RequestTasks != null)
+                {
+                    List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
+                    RequestTask requestTask = requestTasks.Find(task => task.Name == requestName);
+                    if (requestTask != null)
+                    {
+                        requestTasks.Remove(requestTask);
+                    }
+                    taskConfiguration.RequestTasks = requestTasks.ToArray();
+                    SaveConfiguration();
+                    if (Config.LogToIoFtpdRequestFilled)
+                    {
+                        Output output = new Output();
+                        Log.IoFtpd(output.FormatRequestTask(Config.LogLineIoFtpdRequestFilled, requestTask));
+                    }
+                    if (Config.LogToInternalRequestFilled)
+                    {
+                        Output output = new Output();
+                        Log.Internal(output.FormatRequestTask(Config.LogLineInternalRequestFilled, requestTask));
+                    }
+                }
                 if (request.DirectoryExists())
                 {
-                    if (taskConfiguration.RequestTasks != null)
-                    {
-                        List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
-                        RequestTask requestTask = requestTasks.Find(task => task.Name == requestName);
-                        if (requestTask != null)
-                        {
-                            requestTasks.Remove(requestTask);
-                        }
-                        taskConfiguration.RequestTasks = requestTasks.ToArray();
-                        SaveConfiguration();
-                        if (Config.LogToIoFtpdRequestFilled)
-                        {
-                            Output output = new Output();
-                            output.Client(output.FormatRequestTask(Config.LogLineIoFtpdRequestFilled, requestTask));
-                        }
-                        if (Config.LogToInternalRequestFilled)
-                        {
-                            Output output = new Output();
-                            output.Client(output.FormatRequestTask(Config.LogLineInternalRequestFilled, requestTask));
-                        }
-                    }
                     request.KickUsersFromDirectory();
                     Directory.Move(request, Path.Combine(Config.RequestFolder, Config.RequestFilled + requestName));
                 }
+                OutputRequestList();
                 return;
             }
         }
@@ -273,18 +306,44 @@ namespace jeza.ioFTPD.Framework
             Extensions.Serialize(taskConfiguration, configurationFileName, DefaultNamespace);
         }
 
+        public static void WriteToMesasageFile(string text)
+        {
+            MessageMutex.WaitOne();
+            Log.Debug("WriteToMesasageFile");
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.RequestFileMessage);
+            using (FileStream fileStream = new FileStream(fileInfo.FullName,
+                                                          FileMode.OpenOrCreate,
+                                                          FileAccess.ReadWrite,
+                                                          FileShare.None))
+            {
+                using (TextWriter textWriter = new StreamWriter(fileStream))
+                {
+                    textWriter.WriteLine(text);
+                }
+            }
+            MessageMutex.ReleaseMutex();
+        }
+
         private void OutputRequestList()
         {
+            StringBuilder sb = new StringBuilder();
             Output output = new Output();
-            output.Client(output.FormatNone(Config.ClientRequestHead));
+            string head = output.FormatNone(Config.ClientRequestHead);
+            output.Client(head);
+            sb.AppendLine(head);
             if (taskConfiguration.RequestTasks != null)
             {
                 foreach (RequestTask requestTask in taskConfiguration.RequestTasks)
                 {
-                    output.Client(output.FormatRequestTask(Config.ClientRequestBody, requestTask));
+                    string body = output.FormatRequestTask(Config.ClientRequestBody, requestTask);
+                    output.Client(body);
+                    sb.AppendLine(body);
                 }
             }
-            output.Client(output.FormatNone(Config.ClientRequestFoot));
+            string foot = output.FormatNone(Config.ClientRequestFoot);
+            output.Client(foot);
+            sb.AppendLine(foot);
+            WriteToMesasageFile(sb.ToString());
         }
 
         private void ExecuteWeeklyTask()
@@ -610,6 +669,7 @@ namespace jeza.ioFTPD.Framework
         private readonly string configurationFile = Config.GetKeyValue("FileNameConfiguration");
         private readonly string[] args;
         private string configurationFileName = "testConfig.xml";
+        private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
 
         private const string DefaultNamespace = Config.DefaultNamespace;
     }

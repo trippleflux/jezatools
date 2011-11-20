@@ -117,6 +117,9 @@ FormatDupe:
 {9}		Wiped
 {10}	WipedReason
 {11}	CodeNewLine
+{12}	CodeIrcColor
+{13}	CodeIrcBold	
+{14}	CodeIrcUnderline
 
 FormatImdb:
 {0}		FileName
@@ -143,3 +146,9 @@ FormatImdb:
 {21}	CodeIrcUnderline
 {22}	CodeNewLine
 
+FormatRequestTask:
+{0}		Name
+{1}		DateAdded
+{2}		UserName
+{3}		CodeNewLine	
+{4}		Groupname
