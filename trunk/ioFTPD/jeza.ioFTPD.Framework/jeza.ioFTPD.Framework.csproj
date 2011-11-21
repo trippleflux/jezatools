@@ -152,9 +152,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\lib\SQLite.Interop.dll">
-      <Link>SQLite.Interop.dll</Link>
-    </Content>
+    <Content Include="SQLite.Interop.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
