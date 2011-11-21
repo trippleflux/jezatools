@@ -13,6 +13,7 @@
   <ItemGroup>
     <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/jeza.ioFTPD.ZipScript.exe*"/>
     <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/*.dll"/>
+    <ReleaseFiles Include="jeza.ioFTPD.ZipScript/bin/$(Configuration)/*.txt"/>
     <TestsFiles Include="jeza.ioFTPD.Tests/bin/$(Configuration)/*.*"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/jeza.ioFTPD.Archive.exe*"/>
     <ArchiveFiles Include="jeza.ioFTPD.Archive/bin/$(Configuration)/*.dll"/>
@@ -83,7 +84,7 @@
           DestinationFiles="Documentation\MSBuild.Community.Tasks.chm" />
     <RemoveDir Directories="doc" />
   </Target>
-  <Target Name="Zip" DependsOnTargets="RunTests">
+  <Target Name="Zip" DependsOnTargets="Compile">
     <Zip Files="@(ZipArchive)"
          ZipFileName="$(buildDir)/jeza.ioFTPD.Tools.v$(Major).$(Minor).$(Build).$(Revision).zip" 
          Condition="$(Revision) != '' "/>
