@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		build.bat = build.bat
 		Formating.txt = Formating.txt
 		jeza.ioFTPD.Tools.msbuild = jeza.ioFTPD.Tools.msbuild
+		RunTests.bat = RunTests.bat
 		ToDo.txt = ToDo.txt
+		TrialQuotaSchema.xsd = TrialQuotaSchema.xsd
 		XMLSchema.xsd = XMLSchema.xsd
 	EndProjectSection
 EndProject
@@ -46,6 +48,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "triggers", "triggers", "{ED
 		jScripts.TCL\triggers\help.txt = jScripts.TCL\triggers\help.txt
 		jScripts.TCL\triggers\news.txt = jScripts.TCL\triggers\news.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jeza.ioFTPD.Trial", "jeza.ioFTPD.Trial\jeza.ioFTPD.Trial.csproj", "{36122163-CF85-47EE-9FB0-C7E75D91CDB4}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -123,6 +127,18 @@ Global
 		{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}.Release|Win32.ActiveCfg = Release|Any CPU
 		{3F8981AD-2988-46D3-97F9-7F2BBEF88E14}.Release|x86.ActiveCfg = Release|Any CPU
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Debug|Win32.ActiveCfg = Debug|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Debug|x86.ActiveCfg = Debug|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Debug|x86.Build.0 = Debug|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Release|Any CPU.ActiveCfg = Release|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Release|Win32.ActiveCfg = Release|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Release|x86.ActiveCfg = Release|x86
+		{36122163-CF85-47EE-9FB0-C7E75D91CDB4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TrialQuotaSchema"
+    targetNamespace="http://jeza.ioFTPD.Tools/TrialQuotaSchema.xsd"
+    elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="ArrayOfTrial">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        
+        <xs:element name="Trial">
+          <xs:complexType>
+            <xs:sequence>
+
+              <xs:element name="Uid" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="Period" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="QuotaToPass" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="StartAllUp" minOccurs="1" maxOccurs="1" type="xs:integer">
+              </xs:element>
+
+              <xs:element name="DateAdded" minOccurs="1" maxOccurs="1" type="xs:dateTime">
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
