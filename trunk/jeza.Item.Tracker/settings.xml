@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Languages>
+    <Language Culture="sl-SI">
+      <TabItems TabPageItems="Izdelki">
+        <GroupBoxItemsType>Tip</GroupBoxItemsType>
+        <LabelItemsTypeExisting>Obstojeci</LabelItemsTypeExisting>
+        <LabelItemsTypeNew>Nov</LabelItemsTypeNew>
+        <ButtonItemsTypeSelect>Izberi</ButtonItemsTypeSelect>
+        <ButtonItemsTypeSave>Shrani</ButtonItemsTypeSave>
+        <GroupBoxItemsStatus>Status</GroupBoxItemsStatus>
+        <LabelItemsStatusExisting>Obsotjeci</LabelItemsStatusExisting>
+        <LabelItemsStatusNew>Nov</LabelItemsStatusNew>
+        <GroupBoxItems>Izdelki</GroupBoxItems>
+      </TabItems>
+      <TabOrders Name="Narocila" />
+      <TabReports Name="Statistika" />
+    </Language>
+  </Languages>
+</Settings>

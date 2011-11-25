@@ -1,5 +1,6 @@
 #region
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
@@ -9,11 +10,10 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Log
     {
+        [Conditional("DEBUG")]
         public static void Debug(string line)
         {
-#if DEBUG
             Debug(line, null);
-#endif
         }
 
         /// <summary>
@@ -21,18 +21,17 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="fileName">Name of the file.</param>
+        [Conditional("DEBUG")]
         public static void DebugToFile(string line,
                                        string fileName)
         {
-#if DEBUG
             WriteToFile(line, fileName, null);
-#endif
         }
 
+        [Conditional("DEBUG")]
         public static void Debug(string line,
                                  params object[] args)
         {
-#if DEBUG
             string path = Environment.GetEnvironmentVariable("PATH");
             if ((path == null) || (path.IndexOf(';') > -1))
             {
@@ -40,7 +39,6 @@ namespace jeza.ioFTPD.Framework
             }
             string fileName = Path.Combine(path, Config.FileNameDebug);
             WriteToFile(fileName, line, args);
-#endif
         }
 
         private static void WriteToFile(string fileName,
