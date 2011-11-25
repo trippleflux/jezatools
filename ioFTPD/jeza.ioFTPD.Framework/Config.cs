@@ -40,6 +40,62 @@ namespace jeza.ioFTPD.Framework
         }
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
+        public const string DefaultNamespaceTrialQuota = "http://jeza.ioFTPD.Tools/TrialQuotaSchema.xsd";
+
+        public static int TrialDefaultTime
+        {
+            get { return Misc.String2Number(GetKeyValue("TrialDefaultTime")); }
+        }
+
+        public static int TrialDefaultQuota
+        {
+            get { return Misc.String2Number(GetKeyValue("TrialDefaultQuota")); }
+        }
+
+        public static string ClientTrialListHead
+        {
+            get { return GetKeyValue("ClientTrialListHead"); }
+        }
+
+        public static string ClientTrialListBody
+        {
+            get { return GetKeyValue("ClientTrialListBody"); }
+        }
+
+        public static string ClientTrialListFoot
+        {
+            get { return GetKeyValue("ClientTrialListFoot"); }
+        }
+
+        public static string ClientTrialUserNotFound
+        {
+            get { return GetKeyValue("ClientTrialUserNotFound"); }
+        }
+
+        public static string ClientTrialUserExists
+        {
+            get { return GetKeyValue("ClientTrialUserExists"); }
+        }
+
+        public static string ClientTrialUserRemove
+        {
+            get { return GetKeyValue("ClientTrialUserRemove"); }
+        }
+
+        public static string ClientTrialUserRemoveFail
+        {
+            get { return GetKeyValue("ClientTrialUserRemoveFail"); }
+        }
+
+        public static string ClientTrialUserAdd
+        {
+            get { return GetKeyValue("ClientTrialUserAdd"); }
+        }
+
+        public static int TrialFailedFlag
+        {
+            get { return Misc.String2Number(GetKeyValue("TrialFailedFlag")); }
+        }
 
         public static string RequestFileMessage
         {

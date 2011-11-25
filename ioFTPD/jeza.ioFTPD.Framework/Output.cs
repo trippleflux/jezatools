@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using jeza.ioFTPD.Framework.ioFTPD;
 using jeza.ioFTPD.Framework.Manager;
 using TagLib;
 
@@ -462,6 +463,36 @@ namespace jeza.ioFTPD.Framework
                                           , Constants.CodeNewLine); // {3}
             Log.Debug("FormatNone: " + format);
             return format;
+        }
+
+        public string FormatTrial(string line,
+                                  TrialQuota.Trial trial)
+        {
+            if (MinimumLength(line) || trial == null)
+            {
+                return line;
+            }
+            DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+            int days = (dateTime - trial.DateAdded).Days;
+            UInt64 usersAllUp = UserManager.GetStats(trial.Uid, UploadStats.AllUp);
+            string formatTrial = String.Format(new MyFormat(), line
+                                               , trial.Uid  //{0}
+                                               , UserManager.UidToUsername(trial.Uid)  //{1}
+                                               , UserManager.GetUser(trial.Uid).GroupName  //{2}
+                                               , UserManager.GetUser(trial.Uid).Tag  //{3}
+                                               , trial.DateAdded  //{4}
+                                               , trial.Period  //{5}
+                                               , trial.QuotaToPass  //{6}
+                                               , trial.StartAllUp.FormatSize()  //{7}
+                                               , days  //{8}
+                                               , usersAllUp.FormatSize()  //{9}
+                                               , (usersAllUp - trial.StartAllUp).FormatSize()  //{10}
+                                               , Constants.CodeIrcColor  //{11}
+                                               , Constants.CodeIrcBold  //{12}
+                                               , Constants.CodeIrcUnderline  //{13}
+                                               , Constants.CodeNewLine);  //{14}
+            Log.Debug("FormatTrial: " + formatTrial);
+            return formatTrial;
         }
 
         private static string GetCodecList(IEnumerable<ICodec> codecs)

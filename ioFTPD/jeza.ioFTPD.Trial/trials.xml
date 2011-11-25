@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTrial xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://jeza.ioFTPD.Tools/TrialQuotaSchema.xsd">
+  <Trial>
+    <Uid>0</Uid>
+    <Period>7</Period>
+    <QuotaToPass>5000</QuotaToPass>
+    <StartAllUp>0</StartAllUp>
+    <DateAdded>3011-11-23T14:47:25.7192149</DateAdded>
+  </Trial>
+</ArrayOfTrial>

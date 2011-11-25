@@ -76,6 +76,7 @@
     <Compile Include="MiscTests.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
+    <Compile Include="Trial\ManagingTrials.cs" />
     <Compile Include="ZipScript\DeleteTests.cs" />
     <Compile Include="ZipScript\AudioTests.cs" />
     <Compile Include="ZipScript\NfoTests.cs" />
@@ -102,6 +103,16 @@
     <Content Include="TestFiles\Mp3\06-judas_priest-beyond_the_realms_of_death.mp3" />
     <Content Include="TestFiles\Mp3\SwingingSafari.mp3" />
     <Content Include="TestFiles\Video\fringe.315.hdtv.sample-lol.avi" />
+    <None Include="..\TrialQuotaSchema.xsd">
+      <Link>TrialQuotaSchema.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\XMLSchema.xsd">
+      <Link>XMLSchema.xsd</Link>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Dupe\jeza.ioFTPD.Dupe.s3db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

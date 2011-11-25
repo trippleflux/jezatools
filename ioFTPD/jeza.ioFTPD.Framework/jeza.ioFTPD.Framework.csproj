@@ -81,9 +81,12 @@
     </Compile>
     <Compile Include="Archive\ArchiveAction.cs" />
     <Compile Include="ConsoleAppTasks.cs" />
+    <Compile Include="ConsoleAppTrial.cs" />
     <Compile Include="DataBase.cs" />
     <Compile Include="DataBaseDupe.cs" />
     <Compile Include="DataParserNfo.cs" />
+    <Compile Include="ioFTPD\UploadStats.cs" />
+    <Compile Include="ioFTPD\UserFile.cs" />
     <Compile Include="Json\JsonObject.cs" />
     <Compile Include="Json\JsonParser.cs" />
     <Compile Include="Manager\RequestTask.cs" />
@@ -104,6 +107,9 @@
     <Compile Include="ManagerResponse.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="TaskType.cs" />
+    <Compile Include="TrialQuota\TargetTrial.cs" />
+    <Compile Include="TrialQuota\Trial.cs" />
+    <Compile Include="ioFTPD\UserManager.cs" />
     <None Include="IServerData.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogDestination.cs" />
