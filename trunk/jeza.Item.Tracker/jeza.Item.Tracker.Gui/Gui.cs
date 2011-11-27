@@ -4,27 +4,30 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using NLog;
 
 namespace jeza.Item.Tracker.Gui
 {
     public partial class Gui : Form
     {
+        private static Logger Logger = LogManager.GetCurrentClassLogger();
+        
         public Gui()
         {
             InitializeComponent();
             
-            Settings settings = Misc.Deserialize(new Settings(), "settings.xml");
-            string setting = ConfigurationManager.AppSettings["language"];
-            language = settings.Languages.Find(l => l.Culture.Equals(setting));
+            //Settings settings = Misc.Deserialize(new Settings(), "settings.xml");
+            //string setting = ConfigurationManager.AppSettings["language"];
+            //language = settings.Languages.Find(l => l.Culture.Equals(setting));
             
-            tabPageItems.Text = language.TabItems.TabPageItems;
-            groupBoxItems.Text = language.TabItems.GroupBoxItems;
+            //tabPageItems.Text = language.TabItems.TabPageItems;
+            //groupBoxItems.Text = language.TabItems.GroupBoxItems;
             
-            groupBoxItemsStatus.Text = language.TabItems.GroupBoxItemsStatus;
-            labelItemsStatusExisting.Text = language.TabItems.LabelItemsStatusExisting;
-            labelItemsStatusNew.Text = language.TabItems.LabelItemsStatusNew;
+            //groupBoxItemsStatus.Text = language.TabItems.GroupBoxItemsStatus;
+            //labelItemsStatusExisting.Text = language.TabItems.LabelItemsStatusExisting;
+            //labelItemsStatusNew.Text = language.TabItems.LabelItemsStatusNew;
             
-            groupBoxItemsType.Text = language.TabItems.GroupBoxItemsType;
+            //groupBoxItemsType.Text = language.TabItems.GroupBoxItemsType;
         }
 
         private void buttonItemsSave_Click(object sender, EventArgs e)
@@ -41,12 +44,13 @@ namespace jeza.Item.Tracker.Gui
 
         private void buttonItemsPictureBoxSelect_Click(object sender, EventArgs e)
         {
+            Logger.Debug("Select image...");
             try
             {
                 OpenFileDialog open = new OpenFileDialog
                                           {
                                               Filter =
-                                                  @"Image Files(*.jpg; *.jpeg; *.gif; *.bmp; *.png)|*.jpg; *.jpeg; *.gif; *.bmp; *.png"
+                                                  @"Image Files(*.jpg; *.jpeg)|*.jpg; *.jpeg"
                                           };
                 if (open.ShowDialog() == DialogResult.OK)
                 {
@@ -58,17 +62,18 @@ namespace jeza.Item.Tracker.Gui
                     {
                         using (MemoryStream memoryStream = new MemoryStream())
                         {
-                            thumb.Save(memoryStream, ImageFormat.Png);
-                            thumb.Save(@"D:\temp\bugs\gaming\thumbUntitled.png");
+                            thumb.Save(memoryStream, ImageFormat.Jpeg);
+                            //thumb.Save(@"D:\temp\bugs\gaming\thumbUntitled.png");
                             //byte[] bytes = memoryStream.ToArray();
                         }
                     }
                     textBoxItemsImage.Text = open.FileName;
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                throw new ApplicationException("Failed loading image");
+                Logger.Error(exception.StackTrace);
+                MessageBox.Show(exception.Message);
             }
         }
     }

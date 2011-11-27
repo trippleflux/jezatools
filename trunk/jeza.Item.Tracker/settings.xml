@@ -11,7 +11,16 @@
         <GroupBoxItemsStatus>Status</GroupBoxItemsStatus>
         <LabelItemsStatusExisting>Obsotjeci</LabelItemsStatusExisting>
         <LabelItemsStatusNew>Nov</LabelItemsStatusNew>
+        <ButtonItemsStatusSelect>Izberi</ButtonItemsStatusSelect>
+        <ButtonItemsStatusSave>Shrani</ButtonItemsStatusSave>
         <GroupBoxItems>Izdelki</GroupBoxItems>
+        <LabelItemsList>Izdelki</LabelItemsList>
+        <ButtonItemsSelect>Izberi</ButtonItemsSelect>
+        <LabelItemsNew>Izdelek</LabelItemsNew>
+        <LabelItemsItemType>Tip</LabelItemsItemType>
+        <LabelItemsImage>Slika</LabelItemsImage>
+        <ButtonItemsSave>Shrani</ButtonItemsSave>
+        <ButtonItemsPictureBoxSelect>Izberi</ButtonItemsPictureBoxSelect>
       </TabItems>
       <TabOrders Name="Narocila" />
       <TabReports Name="Statistika" />

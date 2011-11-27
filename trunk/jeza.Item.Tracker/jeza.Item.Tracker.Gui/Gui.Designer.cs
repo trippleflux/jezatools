@@ -47,7 +47,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsSave = new System.Windows.Forms.Button();
             this.labelItemsNew = new System.Windows.Forms.Label();
             this.textBoxItemsNew = new System.Windows.Forms.TextBox();
-            this.labelItemsType = new System.Windows.Forms.Label();
+            this.labelItemsList = new System.Windows.Forms.Label();
             this.groupBoxItemsType = new System.Windows.Forms.GroupBox();
             this.buttonItemsTypeSelect = new System.Windows.Forms.Button();
             this.labelItemsTypeExisting = new System.Windows.Forms.Label();
@@ -164,7 +164,7 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxItems.Controls.Add(this.buttonItemsSave);
             this.groupBoxItems.Controls.Add(this.labelItemsNew);
             this.groupBoxItems.Controls.Add(this.textBoxItemsNew);
-            this.groupBoxItems.Controls.Add(this.labelItemsType);
+            this.groupBoxItems.Controls.Add(this.labelItemsList);
             this.groupBoxItems.Location = new System.Drawing.Point(8, 122);
             this.groupBoxItems.Name = "groupBoxItems";
             this.groupBoxItems.Size = new System.Drawing.Size(966, 444);
@@ -267,14 +267,14 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxItemsNew.Size = new System.Drawing.Size(300, 20);
             this.textBoxItemsNew.TabIndex = 7;
             // 
-            // labelItemsType
+            // labelItemsList
             // 
-            this.labelItemsType.AutoSize = true;
-            this.labelItemsType.Location = new System.Drawing.Point(6, 17);
-            this.labelItemsType.Name = "labelItemsType";
-            this.labelItemsType.Size = new System.Drawing.Size(35, 13);
-            this.labelItemsType.TabIndex = 6;
-            this.labelItemsType.Text = "Name";
+            this.labelItemsList.AutoSize = true;
+            this.labelItemsList.Location = new System.Drawing.Point(6, 17);
+            this.labelItemsList.Name = "labelItemsList";
+            this.labelItemsList.Size = new System.Drawing.Size(35, 13);
+            this.labelItemsList.TabIndex = 6;
+            this.labelItemsList.Text = "Name";
             // 
             // groupBoxItemsType
             // 
@@ -937,7 +937,7 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonItemsSave;
         private System.Windows.Forms.Label labelItemsNew;
         private System.Windows.Forms.TextBox textBoxItemsNew;
-        private System.Windows.Forms.Label labelItemsType;
+        private System.Windows.Forms.Label labelItemsList;
         private System.Windows.Forms.ListBox listBoxItems;
         private System.Windows.Forms.TabPage tabPageOrder;
         private System.Windows.Forms.TabPage tabPageReports;

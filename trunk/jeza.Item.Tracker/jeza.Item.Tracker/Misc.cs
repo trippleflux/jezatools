@@ -25,8 +25,17 @@ namespace jeza.Item.Tracker
                     GroupBoxItemsStatus = "Status",
                     LabelItemsStatusExisting = "Obsotjeci",
                     LabelItemsStatusNew = "Nov",
+                    ButtonItemsStatusSelect = "Izberi",
+                    ButtonItemsStatusSave = "Shrani",
 
                     GroupBoxItems = "Izdelki",
+                    LabelItemsList = "Izdelki",
+                    ButtonItemsSelect = "Izberi",
+                    LabelItemsNew = "Izdelek",
+                    ButtonItemsSave = "Shrani",
+                    LabelItemsItemType = "Tip",
+                    ButtonItemsPictureBoxSelect = "Izberi",
+                    LabelItemsImage = "Slika",
                 },
                 TabOrders = new TabOrders
                 {
