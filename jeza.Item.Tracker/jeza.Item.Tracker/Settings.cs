@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace jeza.Item.Tracker
@@ -55,7 +56,34 @@ namespace jeza.Item.Tracker
         public string LabelItemsStatusNew { get; set; }
 
         [XmlElement]
+        public string ButtonItemsStatusSelect { get; set; }
+
+        [XmlElement]
+        public string ButtonItemsStatusSave { get; set; }
+
+        [XmlElement]
         public string GroupBoxItems { get; set; }
+
+        [XmlElement]
+        public string LabelItemsList { get; set; }
+
+        [XmlElement]
+        public string ButtonItemsSelect { get; set; }
+
+        [XmlElement]
+        public string LabelItemsNew { get; set; }
+
+        [XmlElement]
+        public string LabelItemsItemType { get; set; }
+
+        [XmlElement]
+        public string LabelItemsImage { get; set; }
+
+        [XmlElement]
+        public string ButtonItemsSave { get; set; }
+
+        [XmlElement]
+        public string ButtonItemsPictureBoxSelect { get; set; }
     }
 
     public class TabOrders
