@@ -16,6 +16,7 @@ namespace jeza.ioFTPD.Framework
         public int MissingFiles { get; set; }
         public int OkFiles { get; set; }
         public int FailedFiles { get; set; }
+        public UInt64 TotalBytesUploaded { get; set; }
         public List<RescanStatsData> RescanStatsData { get; set; }
 
         public override string ToString()

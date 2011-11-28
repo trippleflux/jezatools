@@ -6,6 +6,7 @@
         public string ExpectedCrc32Value { get; set; }
         public string ActualCrc32Value { get; set; }
         public string Status { get; set; }
+        public string ReleaseName { get; set; }
 
         public override string ToString()
         {

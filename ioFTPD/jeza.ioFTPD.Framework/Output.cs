@@ -24,6 +24,7 @@ namespace jeza.ioFTPD.Framework
         public Output(RescanStats rescanStats)
         {
             this.rescanStats = rescanStats;
+            rescanStatsData = new RescanStatsData();
         }
 
         public Output(Race race)
@@ -519,7 +520,10 @@ namespace jeza.ioFTPD.Framework
                                                      , rescanStats.MissingFiles // {5}
                                                      , rescanStats.OkFiles // {6}
                                                      , rescanStats.FailedFiles // {7}
-                                                     , Constants.CodeNewLine); //{8}
+                                                     , Constants.CodeNewLine    //{8}
+                                                     , rescanStats.TotalBytesUploaded.FormatSize()   //{9}
+                                                     , rescanStatsData.ReleaseName //{10}
+                                                     , rescanStats.TotalFiles == 0 ? 0 : (rescanStats.OkFiles * 100 / rescanStats.TotalFiles)); //{11}
             Log.Debug("FormatCrc32: " + formatCrc32);
             return formatCrc32;
         }

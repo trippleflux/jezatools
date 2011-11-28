@@ -1,0 +1,9 @@
+========================================================================================================================
+From 4.4.39.589 to 4.5.42.594
+
+In jeza.ioFTPD.ZipScript.exe.config add
+    <!-- delete all files that start with this string in rescan folder -->
+    <add key="TagCleanUpStringCrc32" value="]-[" />
+    <add key="TagIncompleteCrc32" value="]-[iNCOMPLETE]-[ {11}% ]-[{6}FiLE(s) of {4}FiLE(s)]-[iNCOMPLETE]-[" />
+    <add key="TagCompleteCrc32" value="]-[Complete]-[{11}%]-[ {9} - {6}F]-[" />
+========================================================================================================================
