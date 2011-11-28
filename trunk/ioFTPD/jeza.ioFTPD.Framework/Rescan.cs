@@ -45,14 +45,15 @@ namespace jeza.ioFTPD.Framework
                         rescanStats.TotalFiles = dataParserSfv.SfvData.Count;
                         foreach (KeyValuePair<string, string> keyValuePair in dataParserSfv.SfvData)
                         {
-                            if (!rescanFolder && !(keyValuePair.Key.ToLowerInvariant().Equals(args[1].ToLowerInvariant())))
+                            if (!rescanFolder && !(keyValuePair.Key.ToLowerInvariant().Equals(args [1].ToLowerInvariant())))
                             {
                                 continue;
                             }
                             RescanStatsData rescanStatsData = new RescanStatsData
                                                               {
-                                                                  FileName = keyValuePair.Key, 
+                                                                  FileName = keyValuePair.Key,
                                                                   ExpectedCrc32Value = keyValuePair.Value,
+                                                                  ReleaseName = directoryInfo.Name,
                                                               };
                             string fileName = Path.Combine(SourceFolder, keyValuePair.Key);
                             FileInfo fileInfo = new FileInfo();
@@ -64,6 +65,7 @@ namespace jeza.ioFTPD.Framework
                                 if (actualCrc32Value.ToLower().Equals(keyValuePair.Value.ToLower()))
                                 {
                                     rescanStats.OkFiles++;
+                                    rescanStats.TotalBytesUploaded += fileInfo.GetFileSize(fileName);
                                     rescanStatsData.Status = "OK";
                                     fileInfo.DeleteFile(SourceFolder, fileName + Config.FileExtensionMissing);
                                 }
@@ -94,6 +96,11 @@ namespace jeza.ioFTPD.Framework
                         }
                         Output outputFoot = new Output(rescanStats);
                         outputFoot.ClientRescan(Config.ClientCrc32Foot);
+                        new FileInfo().DeleteFilesThatStartsWith(SourceFolder, Config.TagCleanUpStringCrc32);
+                        FileInfo.Create0ByteFile(Path.Combine(SourceFolder,
+                                                              outputFoot.FormatCrc32(rescanStats.TotalFiles == rescanStats.OkFiles
+                                                                                         ? Config.TagCompleteCrc32
+                                                                                         : Config.TagIncompleteCrc32)));
                     }
                 }
             }

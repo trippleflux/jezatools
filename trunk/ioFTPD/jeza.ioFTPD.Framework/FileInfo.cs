@@ -1,4 +1,5 @@
 #region
+using System;
 using System.IO;
 using System.Threading;
 
@@ -19,6 +20,17 @@ namespace jeza.ioFTPD.Framework
             {
                 stream.Flush ();
             }
+        }
+
+        /// <summary>
+        /// Gets the size, in bytes, of the current file.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>File size or 0.</returns>
+        public UInt64 GetFileSize(string fileName)
+        {
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+            return File.Exists(fileName) ? (UInt64)fileInfo.Length : 0;
         }
 
         /// <summary>

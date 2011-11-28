@@ -42,6 +42,26 @@ namespace jeza.ioFTPD.Framework
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
         public const string DefaultNamespaceTrialQuota = "http://jeza.ioFTPD.Tools/TrialQuotaSchema.xsd";
 
+        public static string TagCleanUpStringCrc32
+        {
+            get { return GetKeyValue("TagCleanUpStringCrc32"); }
+        }
+
+        public static string TagIncompleteCrc32
+        {
+            get { return GetKeyValue("TagIncompleteCrc32"); }
+        }
+
+        public static string TagCompleteCrc32
+        {
+            get { return GetKeyValue("TagCompleteCrc32"); }
+        }
+
+        public static string TagIncompleteLinkCrc32
+        {
+            get { return GetKeyValue("TagIncompleteLinkCrc32"); }
+        }
+
         public static int TrialDefaultTime
         {
             get { return Misc.String2Number(GetKeyValue("TrialDefaultTime")); }
