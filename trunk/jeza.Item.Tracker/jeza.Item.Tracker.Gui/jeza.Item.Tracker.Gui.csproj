@@ -89,7 +89,7 @@
     </Compile>
     <None Include="..\jeza.Item.Tracker.s3db">
       <Link>jeza.Item.Tracker.s3db</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>

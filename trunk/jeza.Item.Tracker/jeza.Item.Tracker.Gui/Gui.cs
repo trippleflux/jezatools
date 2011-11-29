@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using NLog;
@@ -114,9 +113,25 @@ namespace jeza.Item.Tracker.Gui
             {
                 if (textBoxItemsNew.Text.Length > 1)
                 {
-                    Item item = new Item {Name = textBoxItemsNew.Text, Description = textBoxItemsItemDescription.Text};
-                    ItemType selectedValue = (ItemType) comboBoxItemsItemType.SelectedItem;
-                    item.ItemTypeId = selectedValue.Id;
+                    Item item = new Item
+                                {
+                                    Name = textBoxItemsNew.Text, 
+                                    Description = textBoxItemsItemDescription.Text
+                                };
+                    ItemType selectedItem = (ItemType) comboBoxItemsItemType.SelectedItem;
+                    if (selectedItem != null)
+                    {
+                        item.ItemTypeId = selectedItem.Id;
+                    }
+                    item.Image = new byte[] {};
+                    if (textBoxItemsImage.Text.Length > 1)
+                    {
+                        string imagePath = textBoxItemsImage.Text.Trim();
+                        BinaryReader binaryData = new BinaryReader(new FileStream(imagePath, FileMode.Open, FileAccess.Read));
+                        byte[] imageData = new byte[binaryData.BaseStream.Length];
+                        binaryData.BaseStream.Read(imageData, 0, Convert.ToInt32(binaryData.BaseStream.Length));
+                        item.Image = imageData;
+                    }
                     int rowsUpdated = dataBase.InsertItem(item);
                     if (rowsUpdated < 1)
                     {
@@ -225,15 +240,13 @@ namespace jeza.Item.Tracker.Gui
                     //pictureBoxItems.ClientSize = new Size(300, 300);
                     Bitmap bitmap = new Bitmap(open.FileName);
                     pictureBoxItems.Image = bitmap;
-                    using (Image thumb = bitmap.GetThumbnailImage(250, 250, null, new IntPtr()))
-                    {
-                        using (MemoryStream memoryStream = new MemoryStream())
-                        {
-                            thumb.Save(memoryStream, ImageFormat.Jpeg);
-                            //thumb.Save(@"D:\temp\bugs\gaming\thumbUntitled.png");
-                            //byte[] bytes = memoryStream.ToArray();
-                        }
-                    }
+                    //using (Image thumb = bitmap.GetThumbnailImage(250, 250, null, new IntPtr()))
+                    //{
+                    //    using (MemoryStream memoryStream = new MemoryStream())
+                    //    {
+                    //        thumb.Save(memoryStream, ImageFormat.Jpeg);
+                    //    }
+                    //}
                     textBoxItemsImage.Text = open.FileName;
                 }
             }
@@ -248,6 +261,39 @@ namespace jeza.Item.Tracker.Gui
              EventArgs e)
         {
             textBoxItemsTypeNew.Text = comboBoxItemsTypeExisting.SelectedText;
+        }
+
+        private void ButtonItemsSelectClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Item selectedItem = (Item)listBoxItems.SelectedItem;
+                if (selectedItem != null)
+                {
+                    List<Item> items = dataBase.GetItems();
+                    Item find = items.Find(item => item.Id == selectedItem.Id);
+                    if (find == null)
+                    {
+                        return;
+                    }
+                    textBoxItemsNew.Text = find.Name;
+                    textBoxItemsItemDescription.Text = find.Description;
+                    if (find.Image != null)
+                    {
+                        MemoryStream memoryStream = new MemoryStream(find.Image);
+                        Bitmap bitmap = new Bitmap(memoryStream);
+                        pictureBoxItems.Image = bitmap;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
         }
     }
 }
