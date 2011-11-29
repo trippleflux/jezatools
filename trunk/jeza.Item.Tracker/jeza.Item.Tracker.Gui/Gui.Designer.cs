@@ -113,6 +113,8 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxOrderPersonInfoName = new System.Windows.Forms.TextBox();
             this.labelOrderPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
+            this.labelItemsItemDescription = new System.Windows.Forms.Label();
+            this.textBoxItemsItemDescription = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
@@ -153,6 +155,8 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxItems
             // 
+            this.groupBoxItems.Controls.Add(this.labelItemsItemDescription);
+            this.groupBoxItems.Controls.Add(this.textBoxItemsItemDescription);
             this.groupBoxItems.Controls.Add(this.labelItemsImage);
             this.groupBoxItems.Controls.Add(this.textBoxItemsImage);
             this.groupBoxItems.Controls.Add(this.buttonItemsPictureBoxSelect);
@@ -175,7 +179,7 @@ namespace jeza.Item.Tracker.Gui
             // labelItemsImage
             // 
             this.labelItemsImage.AutoSize = true;
-            this.labelItemsImage.Location = new System.Drawing.Point(494, 96);
+            this.labelItemsImage.Location = new System.Drawing.Point(494, 141);
             this.labelItemsImage.Name = "labelItemsImage";
             this.labelItemsImage.Size = new System.Drawing.Size(36, 13);
             this.labelItemsImage.TabIndex = 17;
@@ -183,24 +187,24 @@ namespace jeza.Item.Tracker.Gui
             // 
             // textBoxItemsImage
             // 
-            this.textBoxItemsImage.Location = new System.Drawing.Point(494, 112);
+            this.textBoxItemsImage.Location = new System.Drawing.Point(494, 157);
             this.textBoxItemsImage.Name = "textBoxItemsImage";
             this.textBoxItemsImage.Size = new System.Drawing.Size(300, 20);
             this.textBoxItemsImage.TabIndex = 16;
             // 
             // buttonItemsPictureBoxSelect
             // 
-            this.buttonItemsPictureBoxSelect.Location = new System.Drawing.Point(800, 111);
+            this.buttonItemsPictureBoxSelect.Location = new System.Drawing.Point(800, 156);
             this.buttonItemsPictureBoxSelect.Name = "buttonItemsPictureBoxSelect";
             this.buttonItemsPictureBoxSelect.Size = new System.Drawing.Size(80, 21);
             this.buttonItemsPictureBoxSelect.TabIndex = 15;
             this.buttonItemsPictureBoxSelect.Text = "Select";
             this.buttonItemsPictureBoxSelect.UseVisualStyleBackColor = true;
-            this.buttonItemsPictureBoxSelect.Click += new System.EventHandler(this.buttonItemsPictureBoxSelect_Click);
+            this.buttonItemsPictureBoxSelect.Click += new System.EventHandler(this.ButtonItemsPictureBoxSelectClick);
             // 
             // pictureBoxItems
             // 
-            this.pictureBoxItems.Location = new System.Drawing.Point(494, 138);
+            this.pictureBoxItems.Location = new System.Drawing.Point(494, 183);
             this.pictureBoxItems.Name = "pictureBoxItems";
             this.pictureBoxItems.Size = new System.Drawing.Size(250, 250);
             this.pictureBoxItems.TabIndex = 14;
@@ -218,7 +222,7 @@ namespace jeza.Item.Tracker.Gui
             // labelItemsItemType
             // 
             this.labelItemsItemType.AutoSize = true;
-            this.labelItemsItemType.Location = new System.Drawing.Point(494, 56);
+            this.labelItemsItemType.Location = new System.Drawing.Point(494, 101);
             this.labelItemsItemType.Name = "labelItemsItemType";
             this.labelItemsItemType.Size = new System.Drawing.Size(54, 13);
             this.labelItemsItemType.TabIndex = 12;
@@ -227,7 +231,7 @@ namespace jeza.Item.Tracker.Gui
             // comboBoxItemsItemType
             // 
             this.comboBoxItemsItemType.FormattingEnabled = true;
-            this.comboBoxItemsItemType.Location = new System.Drawing.Point(494, 72);
+            this.comboBoxItemsItemType.Location = new System.Drawing.Point(494, 117);
             this.comboBoxItemsItemType.Name = "comboBoxItemsItemType";
             this.comboBoxItemsItemType.Size = new System.Drawing.Size(300, 21);
             this.comboBoxItemsItemType.TabIndex = 11;
@@ -249,7 +253,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsSave.TabIndex = 9;
             this.buttonItemsSave.Text = "Save";
             this.buttonItemsSave.UseVisualStyleBackColor = true;
-            this.buttonItemsSave.Click += new System.EventHandler(this.buttonItemsSave_Click);
+            this.buttonItemsSave.Click += new System.EventHandler(this.ButtonItemsSaveClick);
             // 
             // labelItemsNew
             // 
@@ -299,6 +303,8 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsTypeSelect.TabIndex = 5;
             this.buttonItemsTypeSelect.Text = "Select";
             this.buttonItemsTypeSelect.UseVisualStyleBackColor = true;
+            this.buttonItemsTypeSelect.Visible = false;
+            this.buttonItemsTypeSelect.Click += new System.EventHandler(this.ButtonItemsTypeSelectClick);
             // 
             // labelItemsTypeExisting
             // 
@@ -325,7 +331,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsTypeSave.TabIndex = 2;
             this.buttonItemsTypeSave.Text = "Save";
             this.buttonItemsTypeSave.UseVisualStyleBackColor = true;
-            this.buttonItemsTypeSave.Click += new System.EventHandler(this.buttonItemsTypeSave_Click);
+            this.buttonItemsTypeSave.Click += new System.EventHandler(this.ButtonItemsTypeSaveClick);
             // 
             // labelItemsTypeNew
             // 
@@ -366,6 +372,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsStatusSelect.TabIndex = 5;
             this.buttonItemsStatusSelect.Text = "Select";
             this.buttonItemsStatusSelect.UseVisualStyleBackColor = true;
+            this.buttonItemsStatusSelect.Visible = false;
             // 
             // labelItemsStatusExisting
             // 
@@ -392,7 +399,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsStatusSave.TabIndex = 2;
             this.buttonItemsStatusSave.Text = "Save";
             this.buttonItemsStatusSave.UseVisualStyleBackColor = true;
-            this.buttonItemsStatusSave.Click += new System.EventHandler(this.buttonItemsStatusSave_Click);
+            this.buttonItemsStatusSave.Click += new System.EventHandler(this.ButtonItemsStatusSaveClick);
             // 
             // labelItemsStatusNew
             // 
@@ -887,6 +894,22 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
             // 
+            // labelItemsItemDescription
+            // 
+            this.labelItemsItemDescription.AutoSize = true;
+            this.labelItemsItemDescription.Location = new System.Drawing.Point(494, 56);
+            this.labelItemsItemDescription.Name = "labelItemsItemDescription";
+            this.labelItemsItemDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelItemsItemDescription.TabIndex = 19;
+            this.labelItemsItemDescription.Text = "Description";
+            // 
+            // textBoxItemsItemDescription
+            // 
+            this.textBoxItemsItemDescription.Location = new System.Drawing.Point(494, 72);
+            this.textBoxItemsItemDescription.Name = "textBoxItemsItemDescription";
+            this.textBoxItemsItemDescription.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemsItemDescription.TabIndex = 18;
+            // 
             // Gui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -999,6 +1022,8 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Label labelOrderCalculation;
         private System.Windows.Forms.Button buttonOrderItemSave;
         private System.Windows.Forms.Button buttonOrderCalculation;
+        private System.Windows.Forms.Label labelItemsItemDescription;
+        private System.Windows.Forms.TextBox textBoxItemsItemDescription;
     }
 }
 

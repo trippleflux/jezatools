@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using NLog;
 
@@ -27,7 +28,20 @@ namespace jeza.Item.Tracker
         public static string GetKeyValue(string keyName)
         {
             Log.Debug("GetKeyValue '{0}'", keyName);
-            return ConfigurationManager.AppSettings[keyName];
+            try
+            {
+                string appSetting = ConfigurationManager.AppSettings[keyName];
+                if (appSetting == null)
+                {
+                    Log.Warn("Failed to get key[\"{0}\"]", keyName);
+                }
+                return appSetting;
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString);
+            }
+            return null;
         }
 
         public static string DataSource
