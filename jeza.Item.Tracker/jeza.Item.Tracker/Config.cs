@@ -27,7 +27,7 @@ namespace jeza.Item.Tracker
         /// <returns>Key value or <c>null</c>.</returns>
         public static string GetKeyValue(string keyName)
         {
-            Log.Debug("GetKeyValue '{0}'", keyName);
+            //Log.Debug("GetKeyValue '{0}'", keyName);
             try
             {
                 string appSetting = ConfigurationManager.AppSettings[keyName];
@@ -35,6 +35,7 @@ namespace jeza.Item.Tracker
                 {
                     Log.Warn("Failed to get key[\"{0}\"]", keyName);
                 }
+                Log.Debug("GetKeyValue '{0}' => '{1}'", keyName, appSetting);
                 return appSetting;
             }
             catch (Exception exception)

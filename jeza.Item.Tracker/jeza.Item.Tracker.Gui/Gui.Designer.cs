@@ -36,6 +36,8 @@ namespace jeza.Item.Tracker.Gui
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageItems = new System.Windows.Forms.TabPage();
             this.groupBoxItems = new System.Windows.Forms.GroupBox();
+            this.labelItemsItemDescription = new System.Windows.Forms.Label();
+            this.textBoxItemsItemDescription = new System.Windows.Forms.TextBox();
             this.labelItemsImage = new System.Windows.Forms.Label();
             this.textBoxItemsImage = new System.Windows.Forms.TextBox();
             this.buttonItemsPictureBoxSelect = new System.Windows.Forms.Button();
@@ -113,8 +115,6 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxOrderPersonInfoName = new System.Windows.Forms.TextBox();
             this.labelOrderPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
-            this.labelItemsItemDescription = new System.Windows.Forms.Label();
-            this.textBoxItemsItemDescription = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
@@ -176,6 +176,22 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxItems.TabStop = false;
             this.groupBoxItems.Text = "Items";
             // 
+            // labelItemsItemDescription
+            // 
+            this.labelItemsItemDescription.AutoSize = true;
+            this.labelItemsItemDescription.Location = new System.Drawing.Point(494, 56);
+            this.labelItemsItemDescription.Name = "labelItemsItemDescription";
+            this.labelItemsItemDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelItemsItemDescription.TabIndex = 19;
+            this.labelItemsItemDescription.Text = "Description";
+            // 
+            // textBoxItemsItemDescription
+            // 
+            this.textBoxItemsItemDescription.Location = new System.Drawing.Point(494, 72);
+            this.textBoxItemsItemDescription.Name = "textBoxItemsItemDescription";
+            this.textBoxItemsItemDescription.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemsItemDescription.TabIndex = 18;
+            // 
             // labelItemsImage
             // 
             this.labelItemsImage.AutoSize = true;
@@ -187,6 +203,7 @@ namespace jeza.Item.Tracker.Gui
             // 
             // textBoxItemsImage
             // 
+            this.textBoxItemsImage.Enabled = false;
             this.textBoxItemsImage.Location = new System.Drawing.Point(494, 157);
             this.textBoxItemsImage.Name = "textBoxItemsImage";
             this.textBoxItemsImage.Size = new System.Drawing.Size(300, 20);
@@ -218,6 +235,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemsSelect.TabIndex = 13;
             this.buttonItemsSelect.Text = "Select";
             this.buttonItemsSelect.UseVisualStyleBackColor = true;
+            this.buttonItemsSelect.Click += new System.EventHandler(this.ButtonItemsSelectClick);
             // 
             // labelItemsItemType
             // 
@@ -893,22 +911,6 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageReports.TabIndex = 3;
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
-            // 
-            // labelItemsItemDescription
-            // 
-            this.labelItemsItemDescription.AutoSize = true;
-            this.labelItemsItemDescription.Location = new System.Drawing.Point(494, 56);
-            this.labelItemsItemDescription.Name = "labelItemsItemDescription";
-            this.labelItemsItemDescription.Size = new System.Drawing.Size(60, 13);
-            this.labelItemsItemDescription.TabIndex = 19;
-            this.labelItemsItemDescription.Text = "Description";
-            // 
-            // textBoxItemsItemDescription
-            // 
-            this.textBoxItemsItemDescription.Location = new System.Drawing.Point(494, 72);
-            this.textBoxItemsItemDescription.Name = "textBoxItemsItemDescription";
-            this.textBoxItemsItemDescription.Size = new System.Drawing.Size(300, 20);
-            this.textBoxItemsItemDescription.TabIndex = 18;
             // 
             // Gui
             // 
