@@ -67,7 +67,7 @@ namespace jeza.ioFTPD.Tests.Manager
         public void Add()
         {
             const string requestName = "some stupid request";
-            string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+            string request = Misc.PathCombine(Config.RequestFolder, Config.RequestPrefix + requestName);
             request.RemoveFolder();
             DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
             ConsoleAppTasks task = new ConsoleAppTasks(new[] {"request", requestName})

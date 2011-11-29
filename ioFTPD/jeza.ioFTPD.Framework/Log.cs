@@ -37,7 +37,7 @@ namespace jeza.ioFTPD.Framework
             {
                 path = "";
             }
-            string fileName = Path.Combine(path, Config.FileNameDebug);
+            string fileName = Misc.PathCombine(path, Config.FileNameDebug);
             WriteToFile(fileName, line, args);
         }
 
@@ -85,6 +85,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="message">The message.</param>
         public static void IoFtpd(string message)
         {
+            Log.Debug("Log to ioFTPD: '{0}'", message);
             Console.Write("!putlog {0}\n", message);
         }
 
@@ -94,6 +95,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="message">The message.</param>
         public static void Internal(string message)
         {
+            Log.Debug("Log to Internal: '{0}'", message);
             try
             {
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.FileNameInternalLog);

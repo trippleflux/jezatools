@@ -23,7 +23,7 @@ namespace jeza.ioFTPD.Framework
         public static string GetImdbId(string url)
         {
             string imdbId = String.Empty;
-            string[] strings = url.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] strings = url.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
             if (strings.Length == 0)
             {
                 return imdbId;
@@ -73,14 +73,13 @@ namespace jeza.ioFTPD.Framework
             if (responseHtml != null)
             {
 // ReSharper disable AssignNullToNotNullAttribute
-                using (StreamReader r = new StreamReader(responseHtml.GetResponseStream()))
-// ReSharper restore AssignNullToNotNullAttribute
+                using (StreamReader r = new StreamReader(responseHtml.GetResponseStream())) // ReSharper restore AssignNullToNotNullAttribute
                 {
                     stringResponse = r.ReadToEnd();
                 }
             }
 
-            JsonParser jsonParser = new JsonParser { CamelizeProperties = true };
+            JsonParser jsonParser = new JsonParser {CamelizeProperties = true};
             dynamic output = jsonParser.Parse(stringResponse);
             //{"Response":"Parse Error"}
             return output;
@@ -92,9 +91,16 @@ namespace jeza.ioFTPD.Framework
         /// <param name="path">The path.</param>
         public static void RemoveFolder(this string path)
         {
-            if (path.DirectoryExists())
+            try
             {
-                Directory.Delete(path);
+                if (path.DirectoryExists())
+                {
+                    Directory.Delete(path);
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
             }
         }
 
@@ -181,7 +187,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("CopyTo: '{0}' to '{1}'", sourceDirectory.FullName, destinationDirectory.FullName);
             foreach (System.IO.FileInfo file in sourceDirectory.GetFiles())
             {
-                string fileName = Path.Combine(destinationDirectory.FullName, file.Name);
+                string fileName = Misc.PathCombine(destinationDirectory.FullName, file.Name);
                 Log.Debug("CopyFile: '{0}' to '{1}'", file.FullName, fileName);
                 file.CopyTo(fileName, true);
             }
@@ -191,7 +197,7 @@ namespace jeza.ioFTPD.Framework
             }
             foreach (DirectoryInfo directory in sourceDirectory.GetDirectories())
             {
-                CopyTo(directory, new DirectoryInfo(Path.Combine(destinationDirectory.FullName, directory.Name)), true);
+                CopyTo(directory, new DirectoryInfo(Misc.PathCombine(destinationDirectory.FullName, directory.Name)), true);
             }
         }
 
@@ -505,9 +511,9 @@ namespace jeza.ioFTPD.Framework
                     string firstPerformer = mp3Info.Tag.FirstPerformer;
                     if (firstPerformer != null)
                     {
-                        string directoryRoot = Path.Combine(path, firstPerformer [0].ToString().ToUpperInvariant());
+                        string directoryRoot = Misc.PathCombine(path, firstPerformer [0].ToString().ToUpperInvariant());
                         FileInfo.CreateFolder(directoryRoot);
-                        string directory = Path.Combine(directoryRoot, race.CurrentRaceData.DirectoryName);
+                        string directory = Misc.PathCombine(directoryRoot, race.CurrentRaceData.DirectoryName);
                         FileInfo.CreateFolder(directory);
                         Misc.CreateSymlink(directory, race.CurrentRaceData.UploadVirtualPath);
                     }
@@ -528,9 +534,9 @@ namespace jeza.ioFTPD.Framework
                     string firstGenre = mp3Info.Tag.FirstGenre;
                     if (firstGenre != null)
                     {
-                        string directoryRoot = Path.Combine(path, firstGenre.ToLowerInvariant());
+                        string directoryRoot = Misc.PathCombine(path, firstGenre.ToLowerInvariant());
                         FileInfo.CreateFolder(directoryRoot);
-                        string directory = Path.Combine(directoryRoot, race.CurrentRaceData.DirectoryName);
+                        string directory = Misc.PathCombine(directoryRoot, race.CurrentRaceData.DirectoryName);
                         FileInfo.CreateFolder(directory);
                         Misc.CreateSymlink(directory, race.CurrentRaceData.UploadVirtualPath);
                     }
@@ -551,9 +557,9 @@ namespace jeza.ioFTPD.Framework
                     UInt64 year = mp3Info.Tag.Year;
                     if (year > 0)
                     {
-                        string directoryRoot = Path.Combine(path, year.ToString());
+                        string directoryRoot = Misc.PathCombine(path, year.ToString());
                         FileInfo.CreateFolder(directoryRoot);
-                        string directory = Path.Combine(directoryRoot, race.CurrentRaceData.DirectoryName);
+                        string directory = Misc.PathCombine(directoryRoot, race.CurrentRaceData.DirectoryName);
                         FileInfo.CreateFolder(directory);
                         Misc.CreateSymlink(directory, race.CurrentRaceData.UploadVirtualPath);
                     }
@@ -582,7 +588,7 @@ namespace jeza.ioFTPD.Framework
             MessageMutex.WaitOne();
             Log.Debug("WriteStatsToMesasageFile");
             System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameIoFtpdMessage));
+                new System.IO.FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameIoFtpdMessage));
             using (FileStream fileStream = new FileStream(fileInfo.FullName,
                                                           FileMode.OpenOrCreate,
                                                           FileAccess.ReadWrite,

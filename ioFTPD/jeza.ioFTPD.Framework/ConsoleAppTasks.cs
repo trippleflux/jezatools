@@ -37,7 +37,7 @@ namespace jeza.ioFTPD.Framework
             string codeBase = Assembly.GetExecutingAssembly().Location;
             Log.Debug("Assembly.GetExecutingAssembly().Location: ['{0}']", codeBase);
 // ReSharper disable AssignNullToNotNullAttribute
-            configurationFileName = Path.Combine(Path.GetDirectoryName(codeBase), configurationFile);
+            configurationFileName = Misc.PathCombine(Path.GetDirectoryName(codeBase), configurationFile);
 // ReSharper restore AssignNullToNotNullAttribute
         }
 
@@ -182,7 +182,7 @@ namespace jeza.ioFTPD.Framework
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST ADD '{0}'", requestName);
-                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                string request = Misc.PathCombine(Config.RequestFolder, Config.RequestPrefix + requestName);
                 string creator = IoEnvironment.GetUserName();
                 string groupname = IoEnvironment.GetGroupName();
                 DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
@@ -234,7 +234,7 @@ namespace jeza.ioFTPD.Framework
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST DEL '{0}'", requestName);
-                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                string request = Misc.PathCombine(Config.RequestFolder, Config.RequestPrefix + requestName);
                 if (taskConfiguration.RequestTasks != null)
                 {
                     List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
@@ -268,7 +268,7 @@ namespace jeza.ioFTPD.Framework
             {
                 string requestName = args [1];
                 Log.Debug("REQUEST FILL '{0}'", requestName);
-                string request = Path.Combine(Config.RequestFolder, Config.RequestPrefix + requestName);
+                string request = Misc.PathCombine(Config.RequestFolder, Config.RequestPrefix + requestName);
                 if (taskConfiguration.RequestTasks != null)
                 {
                     List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
@@ -293,7 +293,7 @@ namespace jeza.ioFTPD.Framework
                 if (request.DirectoryExists())
                 {
                     request.KickUsersFromDirectory();
-                    Directory.Move(request, Path.Combine(Config.RequestFolder, Config.RequestFilled + requestName));
+                    Directory.Move(request, Misc.PathCombine(Config.RequestFolder, Config.RequestFilled + requestName));
                 }
                 OutputRequestList();
                 return;
@@ -454,7 +454,7 @@ namespace jeza.ioFTPD.Framework
                     //DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
                     DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks).AddNextDate();
                     string folderName = dateTime.GetNewDayFolderFormat(task);
-                    string newDayFolder = Path.Combine(sourceFolder.FullName, folderName);
+                    string newDayFolder = Misc.PathCombine(sourceFolder.FullName, folderName);
                     FileInfo.CreateFolder(newDayFolder);
                     if (!String.IsNullOrEmpty(task.Symlink))
                     {
@@ -640,19 +640,19 @@ namespace jeza.ioFTPD.Framework
             DirectoryInfo destinationDirectoryInfo = new DirectoryInfo(archiveTask.Destination);
             const string ioftpd = ".ioFTPD";
             const string ioftpdBackup = ".backup";
-            string sourceFileName = Path.Combine(directoryInfo.FullName, ioftpd);
+            string sourceFileName = Misc.PathCombine(directoryInfo.FullName, ioftpd);
             if (File.Exists(sourceFileName))
             {
                 string backupSource = sourceFileName + ioftpdBackup;
                 FileInfo.DeleteFile(backupSource);
                 File.Move(sourceFileName, backupSource);
             }
-            string destinationFolder = Path.Combine(destinationDirectoryInfo.FullName, directoryInfo.Name);
+            string destinationFolder = Misc.PathCombine(destinationDirectoryInfo.FullName, directoryInfo.Name);
             directoryInfo.CopyTo(new DirectoryInfo(destinationFolder), true);
-            string destinationFileName = Path.Combine(destinationFolder, ioftpd + ioftpdBackup);
+            string destinationFileName = Misc.PathCombine(destinationFolder, ioftpd + ioftpdBackup);
             if (File.Exists(destinationFileName))
             {
-                string backupDestination = Path.Combine(destinationFolder, ioftpd);
+                string backupDestination = Misc.PathCombine(destinationFolder, ioftpd);
                 FileInfo.DeleteFile(backupDestination);
                 File.Move(destinationFileName, backupDestination);
             }

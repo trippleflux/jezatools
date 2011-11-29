@@ -20,8 +20,8 @@ namespace jeza.ioFTPD.Tests.Media
                         };
             TagLib.File file = TagLib.File.Create(@"..\..\TestFiles\Mp3\SwingingSafari.mp3");
             Extensions.SortAudio(race, file);
-            string root = Path.Combine(Config.AudioSortByArtistPath, "B");
-            string directory = Path.Combine(root, "SwingingSafari");
+            string root = Misc.PathCombine(Config.AudioSortByArtistPath, "B");
+            string directory = Misc.PathCombine(root, "SwingingSafari");
             Assert.IsTrue(Directory.Exists(directory));
         }
 
@@ -38,8 +38,8 @@ namespace jeza.ioFTPD.Tests.Media
             };
             TagLib.File file = TagLib.File.Create(@"..\..\TestFiles\Mp3\SwingingSafari.mp3");
             Extensions.SortAudio(race, file);
-            string root = Path.Combine(Config.AudioSortByGenrePath, "blues");
-            string directory = Path.Combine(root, "SwingingSafari");
+            string root = Misc.PathCombine(Config.AudioSortByGenrePath, "blues");
+            string directory = Misc.PathCombine(root, "SwingingSafari");
             Assert.IsTrue(Directory.Exists(directory));
         }
 
@@ -56,8 +56,8 @@ namespace jeza.ioFTPD.Tests.Media
             };
             TagLib.File file = TagLib.File.Create(@"..\..\TestFiles\Mp3\SwingingSafari.mp3");
             Extensions.SortAudio(race, file);
-            string root = Path.Combine(Config.AudioSortByYearPath, "2002");
-            string directory = Path.Combine(root, "SwingingSafari");
+            string root = Misc.PathCombine(Config.AudioSortByYearPath, "2002");
+            string directory = Misc.PathCombine(root, "SwingingSafari");
             Assert.IsTrue(Directory.Exists(directory));
         }
     }

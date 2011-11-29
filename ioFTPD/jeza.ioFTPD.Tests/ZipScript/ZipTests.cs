@@ -62,7 +62,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race.ParseUpload();
             race.Process();
             Assert.IsTrue(race.IsValid);
-            FileInfo fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             const int fileSize = 24683;
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                        FileMode.Open,
@@ -87,7 +87,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsCorrectZipFile2);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                        FileMode.Open,
                                                        FileAccess.Read,
@@ -111,7 +111,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsCorrectZipFile3);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                        FileMode.Open,
                                                        FileAccess.Read,
@@ -135,7 +135,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsCorrectZipFile4);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                        FileMode.Open,
                                                        FileAccess.Read,
@@ -159,7 +159,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsCorrectZipFile5);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                        FileMode.Open,
                                                        FileAccess.Read,

@@ -1,6 +1,5 @@
 using System;
-using System.Data;
-using System.Data.SQLite;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -193,6 +192,25 @@ namespace jeza.ioFTPD.Framework
         {
             return
                 Convert.ToBase64String(new SHA1CryptoServiceProvider().ComputeHash(Encoding.UTF8.GetBytes(password)));
+        }
+
+        /// <summary>
+        /// Combines two strings into a path.
+        /// </summary>
+        /// <param name="path1">The path1.</param>
+        /// <param name="path2">The path2.</param>
+        /// <returns><c>null</c> o exception.</returns>
+        public static string PathCombine(string path1, string path2)
+        {
+            try
+            {
+                return Path.Combine(path1, path2);
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
+            }
+            return null;
         }
     }
 }

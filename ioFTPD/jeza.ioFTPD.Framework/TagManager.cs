@@ -1,8 +1,5 @@
-#region
 using System;
 using System.IO;
-
-#endregion
 
 namespace jeza.ioFTPD.Framework
 {
@@ -22,7 +19,8 @@ namespace jeza.ioFTPD.Framework
             (string path,
              string tag)
         {
-            string tag2Create = Path.Combine(path, tag);
+            Log.Debug("CreateTag: '{0}', '{1}'", path, tag);
+            string tag2Create = Misc.PathCombine(path, tag);
             FileInfo.Create0ByteFile(tag2Create);
         }
 
@@ -34,8 +32,8 @@ namespace jeza.ioFTPD.Framework
         public void CreateSymLink(string path,
                                   string link)
         {
-            string symLink = Path.Combine(path, link);
-            Log.Debug("CreateSymLink: {0}", symLink);
+            Log.Debug("CreateSymLink: '{0}', '{1}'", path, link);
+            string symLink = Misc.PathCombine(path, link);
             FileInfo.CreateFolder(symLink);
             CurrentRaceData data = race.CurrentRaceData;
             //Console.Write("!vfs:chattr 1 \"{0}\" \"{1}\"\n", symLink, data.UploadVirtualPath);
@@ -52,8 +50,8 @@ namespace jeza.ioFTPD.Framework
         public void DeleteSymlink(string path,
                                   string link)
         {
-            string symLink = Path.Combine(path, link);
-            Log.Debug("DeleteSymlink: {0}", symLink);
+            Log.Debug("DeleteSymlink: '{0}', '{1}'", path, link);
+            string symLink = Misc.PathCombine(path, link);
             FileInfo fileInfo = new FileInfo();
             fileInfo.DeleteFile(symLink, ".ioFTPD");
             symLink.RemoveFolder();

@@ -13,12 +13,19 @@ namespace jeza.ioFTPD.Framework
         /// Creates new empty file.
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
-        public static void Create0ByteFile (string fileName)
+        public static void Create0ByteFile(string fileName)
         {
             Log.Debug("Create0ByteFile: {0}", fileName);
-            using (FileStream stream = File.Open (fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+            try
             {
-                stream.Flush ();
+                using (FileStream stream = File.Open(fileName, FileMode.Create, FileAccess.ReadWrite, FileShare.None))
+                {
+                    stream.Flush();
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
             }
         }
 
@@ -30,7 +37,7 @@ namespace jeza.ioFTPD.Framework
         public UInt64 GetFileSize(string fileName)
         {
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
-            return File.Exists(fileName) ? (UInt64)fileInfo.Length : 0;
+            return File.Exists(fileName) ? (UInt64) fileInfo.Length : 0;
         }
 
         /// <summary>
@@ -42,7 +49,7 @@ namespace jeza.ioFTPD.Framework
             (string path,
              string fileName)
         {
-            string file = Path.Combine(path, fileName);
+            string file = Misc.PathCombine(path, fileName);
             DeleteFile(file);
         }
 
@@ -53,9 +60,9 @@ namespace jeza.ioFTPD.Framework
             {
                 do
                 {
-                    Thread.Sleep (100);
-                } while (IsFileOpen (fileName));
-                File.Delete (fileName);
+                    Thread.Sleep(100);
+                } while (IsFileOpen(fileName));
+                File.Delete(fileName);
             }
             else
             {
@@ -63,15 +70,15 @@ namespace jeza.ioFTPD.Framework
             }
         }
 
-        private static bool IsFileOpen (string fileName)
+        private static bool IsFileOpen(string fileName)
         {
             FileStream s = null;
             try
             {
-                s = File.Open (fileName,
-                               FileMode.Open,
-                               FileAccess.ReadWrite,
-                               FileShare.None);
+                s = File.Open(fileName,
+                              FileMode.Open,
+                              FileAccess.ReadWrite,
+                              FileShare.None);
                 return false;
             }
             catch (IOException)
@@ -82,7 +89,7 @@ namespace jeza.ioFTPD.Framework
             {
                 if (s != null)
                 {
-                    s.Close ();
+                    s.Close();
                 }
             }
         }
@@ -96,11 +103,11 @@ namespace jeza.ioFTPD.Framework
             (string path,
              string extension)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo (path);
-            System.IO.FileInfo[] files = directoryInfo.GetFiles ("*" + extension);
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            System.IO.FileInfo[] files = directoryInfo.GetFiles("*" + extension);
             foreach (System.IO.FileInfo file in files)
             {
-                DeleteFile (file.FullName);
+                DeleteFile(file.FullName);
             }
         }
 
@@ -113,26 +120,33 @@ namespace jeza.ioFTPD.Framework
             (string path,
              string prefix)
         {
-            OByteMutex.WaitOne ();
-            DirectoryInfo directoryInfo = new DirectoryInfo (path);
-            System.IO.FileInfo[] files = directoryInfo.GetFiles (prefix + "*");
+            OByteMutex.WaitOne();
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            System.IO.FileInfo[] files = directoryInfo.GetFiles(prefix + "*");
             foreach (System.IO.FileInfo file in files)
             {
-                DeleteFile (file.FullName);
+                DeleteFile(file.FullName);
             }
-            OByteMutex.ReleaseMutex ();
+            OByteMutex.ReleaseMutex();
         }
 
         /// <summary>
         /// Creates the folder.
         /// </summary>
         /// <param name="path">The path.</param>
-        public static void CreateFolder (string path)
+        public static void CreateFolder(string path)
         {
             Log.Debug("CreateFolder '{0}'", path);
-            Directory.CreateDirectory (path);
+            try
+            {
+                Directory.CreateDirectory(path);
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
+            }
         }
 
-        private static readonly Mutex OByteMutex = new Mutex (false, "OByteMutex");
+        private static readonly Mutex OByteMutex = new Mutex(false, "OByteMutex");
     }
 }

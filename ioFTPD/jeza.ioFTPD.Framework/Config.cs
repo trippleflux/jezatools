@@ -36,7 +36,20 @@ namespace jeza.ioFTPD.Framework
         /// <returns>Key value or <c>null</c>.</returns>
         public static string GetKeyValue(string keyName)
         {
-            return ConfigurationManager.AppSettings [keyName];
+            try
+            {
+                string appSetting = ConfigurationManager.AppSettings [keyName];
+                if (appSetting == null)
+                {
+                    Log.Debug("Failed to get AppSettings[\"{0}\"]", keyName);
+                }
+                return appSetting;
+            }
+            catch (ConfigurationErrorsException configurationErrorsException)
+            {
+                Log.Debug(configurationErrorsException.ToString());
+                return null;
+            }
         }
 
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";

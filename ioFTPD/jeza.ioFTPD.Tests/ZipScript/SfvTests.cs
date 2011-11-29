@@ -49,7 +49,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         {
             CleanTestFilesOutput();
             Race race = UploadSfvFile ();
-            FileInfo fileInfo = new FileInfo (Path.Combine (race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo (Misc.PathCombine (race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.OpenOrCreate,
                                                        FileAccess.ReadWrite,

@@ -24,7 +24,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Race race = new Race (ArgsRarPart1);
             race.ParseUpload ();
             race.Process ();
-            FileInfo fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            FileInfo fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream (fileInfo.FullName,
                                                        FileMode.Open,
                                                        FileAccess.Read,
@@ -48,7 +48,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsRarPart2);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -72,7 +72,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsRarPart3);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,
@@ -96,7 +96,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
             race = new Race(ArgsRarPart4);
             race.ParseUpload();
             race.Process();
-            fileInfo = new FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
+            fileInfo = new FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.Open,
                                                       FileAccess.Read,

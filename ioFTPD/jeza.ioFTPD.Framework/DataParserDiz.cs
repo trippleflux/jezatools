@@ -17,7 +17,7 @@ namespace jeza.ioFTPD.Framework
         public void Parse()
         {
             RaceMutex.WaitOne();
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Path.Combine(race.CurrentRaceData.DirectoryPath, fileName));
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, fileName));
             Log.Debug("Parsing: '{0}'", fileInfo.FullName);
             using (StreamReader streamReader = new StreamReader(fileInfo.FullName))
             {
@@ -64,7 +64,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("CreateZipRaceDataFile");
             RaceMutex.WaitOne();
             System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(currentRaceData.DirectoryPath, Config.FileNameRace));
+                new System.IO.FileInfo(Misc.PathCombine(currentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
