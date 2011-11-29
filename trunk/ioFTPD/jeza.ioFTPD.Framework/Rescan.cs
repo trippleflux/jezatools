@@ -55,7 +55,7 @@ namespace jeza.ioFTPD.Framework
                                                                   ExpectedCrc32Value = keyValuePair.Value,
                                                                   ReleaseName = directoryInfo.Name,
                                                               };
-                            string fileName = Path.Combine(SourceFolder, keyValuePair.Key);
+                            string fileName = Misc.PathCombine(SourceFolder, keyValuePair.Key);
                             FileInfo fileInfo = new FileInfo();
                             if (File.Exists(fileName))
                             {
@@ -97,10 +97,10 @@ namespace jeza.ioFTPD.Framework
                         Output outputFoot = new Output(rescanStats);
                         outputFoot.ClientRescan(Config.ClientCrc32Foot);
                         new FileInfo().DeleteFilesThatStartsWith(SourceFolder, Config.TagCleanUpStringCrc32);
-                        FileInfo.Create0ByteFile(Path.Combine(SourceFolder,
-                                                              outputFoot.FormatCrc32(rescanStats.TotalFiles == rescanStats.OkFiles
-                                                                                         ? Config.TagCompleteCrc32
-                                                                                         : Config.TagIncompleteCrc32)));
+                        FileInfo.Create0ByteFile(Misc.PathCombine(SourceFolder,
+                                                                  outputFoot.FormatCrc32(rescanStats.TotalFiles == rescanStats.OkFiles
+                                                                                             ? Config.TagCompleteCrc32
+                                                                                             : Config.TagIncompleteCrc32)));
                     }
                 }
             }

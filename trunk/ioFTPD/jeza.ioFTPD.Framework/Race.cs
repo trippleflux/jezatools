@@ -36,7 +36,7 @@ namespace jeza.ioFTPD.Framework
             CurrentRaceData.DirectoryPath = directoryIsNull ? "" : directoryInfo.FullName;
             CurrentRaceData.DirectoryParent = directoryIsNull ? "" : directoryInfo.Parent.FullName;
             CurrentRaceData.FileSize = 0;
-            RaceFile = Path.Combine(SourceFolder, Config.FileNameRace);
+            RaceFile = Misc.PathCombine(SourceFolder, Config.FileNameRace);
             IsValid = true;
             Log.Debug("CurrentRaceData: {0}", CurrentRaceData);
             return this;
@@ -65,7 +65,7 @@ namespace jeza.ioFTPD.Framework
             CurrentRaceData.DirectoryParent = directoryIsNull ? "" : fileInfo.Directory.Parent.FullName;
             CurrentRaceData.FileSize = fileInfo.Length;
             SelectRaceType();
-            RaceFile = Path.Combine(CurrentRaceData.DirectoryPath, Config.FileNameRace);
+            RaceFile = Misc.PathCombine(CurrentRaceData.DirectoryPath, Config.FileNameRace);
             Log.Debug("CurrentRaceData: {0}", CurrentRaceData);
             return this;
         }
@@ -282,11 +282,15 @@ namespace jeza.ioFTPD.Framework
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(CurrentRaceData.DirectoryPath);
             System.IO.FileInfo[] fileInfo = directoryInfo.GetFiles("*.sfv");
+            Log.Debug("SfvCheck: have {0} SFV files in '{1}'", fileInfo.Length, directoryInfo.FullName);
             if (fileInfo.Length == 1)
             {
                 return true;
             }
-            OutputSfvFirst(Config.ClientFileName, fileInfo.Length == 1 ? Config.ClientFileNameSfvExists : Config.ClientFileNameSfvFirst);
+            OutputSfvFirst(Config.ClientFileName,
+                           fileInfo.Length > 1
+                               ? Config.ClientFileNameSfvExists
+                               : Config.ClientFileNameSfvFirst);
             IsValid = false;
             return false;
         }

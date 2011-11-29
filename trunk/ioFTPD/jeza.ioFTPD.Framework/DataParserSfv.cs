@@ -26,6 +26,7 @@ namespace jeza.ioFTPD.Framework
 
         public void Parse()
         {
+            Log.Debug("Parsing SFV '{0}'", fileName);
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
             using (StreamReader streamReader = new StreamReader(fileInfo.FullName))
             {
@@ -56,7 +57,7 @@ namespace jeza.ioFTPD.Framework
                     }
                     if (!IsHex(crc32))
                     {
-                        Log.Debug("ArgumentException: Incorrect CRC32 [{0}]. Line '{1}'",crc32,line);
+                        Log.Debug("ArgumentException: Incorrect CRC32 [{0}]. Line '{1}'", crc32, line);
                         continue;
                     }
                     sfvData.Add(key, crc32);
@@ -67,27 +68,31 @@ namespace jeza.ioFTPD.Framework
 
         public void Process()
         {
+            Log.Debug("Process with SFV");
             TagManager tagManager = new TagManager(race);
+            Log.Debug("Create missing files");
             foreach (KeyValuePair<string, string> keyValuePair in sfvData)
             {
                 tagManager.CreateTag(currentRaceData.DirectoryPath, keyValuePair.Key + Config.FileExtensionMissing);
             }
             race.TotalFilesExpected = sfvData.Count;
+            Log.Debug("Total files expected: {0}", race.TotalFilesExpected);
             CreateSfvRaceDataFile();
             Output output = new Output(race);
             output
                 .Client(Config.ClientHead)
                 .Client(Config.ClientFileNameSfv)
                 .Client(Config.ClientFoot);
-            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete, null));
-            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink, null));
-            if(Config.LogToIoFtpdSfv)
+            Log.Debug("Create INCOMPLETE Symlinks");
+            tagManager.CreateTag(currentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
+            tagManager.CreateSymLink(currentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
+            if (Config.LogToIoFtpdSfv)
             {
-                Log.IoFtpd(output.Format(Config.LogLineIoFtpdSfv, null));
+                Log.IoFtpd(output.Format(Config.LogLineIoFtpdSfv));
             }
             if (Config.LogToInternalSfv)
             {
-                Log.Internal(output.Format(Config.LogLineInternalSfv, null));
+                Log.Internal(output.Format(Config.LogLineInternalSfv));
             }
         }
 
@@ -115,7 +120,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("CreateSfvRaceDataFile");
             RaceMutex.WaitOne();
             System.IO.FileInfo fileInfo =
-                new System.IO.FileInfo(Path.Combine(currentRaceData.DirectoryPath, Config.FileNameRace));
+                new System.IO.FileInfo(Misc.PathCombine(currentRaceData.DirectoryPath, Config.FileNameRace));
             using (FileStream stream = new FileStream(fileInfo.FullName,
                                                       FileMode.OpenOrCreate,
                                                       FileAccess.ReadWrite,
@@ -124,8 +129,8 @@ namespace jeza.ioFTPD.Framework
                 using (BinaryWriter writer = new BinaryWriter(stream))
                 {
                     stream.Seek(0, SeekOrigin.Begin);
-                    writer.Write(race.TotalFilesExpected);              //total files expected
-                    writer.Write(DateTime.Now.Ticks);                   //start of race
+                    writer.Write(race.TotalFilesExpected); //total files expected
+                    writer.Write(DateTime.Now.Ticks); //start of race
                     int count = 1;
                     foreach (KeyValuePair<string, string> keyValuePair in sfvData)
                     {
