@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using NLog;
 
 namespace jeza.Item.Tracker
@@ -17,7 +19,7 @@ namespace jeza.Item.Tracker
             {
                 SQLiteConnection cnn = new SQLiteConnection(Config.DataSource);
                 cnn.Open();
-                SQLiteCommand mycommand = new SQLiteCommand(cnn) { CommandText = commandText };
+                SQLiteCommand mycommand = new SQLiteCommand(cnn) {CommandText = commandText};
                 SQLiteDataReader reader = mycommand.ExecuteReader();
                 dt.Load(reader);
                 reader.Close();
@@ -36,7 +38,7 @@ namespace jeza.Item.Tracker
             Log.Debug("ExecuteNonQuery: '{0}'", commandText);
             SQLiteConnection cnn = new SQLiteConnection(Config.DataSource);
             cnn.Open();
-            SQLiteCommand mycommand = new SQLiteCommand(cnn) { CommandText = commandText };
+            SQLiteCommand mycommand = new SQLiteCommand(cnn) {CommandText = commandText};
             int rowsUpdated = mycommand.ExecuteNonQuery();
             cnn.Close();
             return rowsUpdated;
@@ -47,24 +49,65 @@ namespace jeza.Item.Tracker
             Log.Debug("ExecuteScalar: '{0}'", commandText);
             SQLiteConnection cnn = new SQLiteConnection(Config.DataSource);
             cnn.Open();
-            SQLiteCommand mycommand = new SQLiteCommand(cnn) { CommandText = commandText };
+            SQLiteCommand mycommand = new SQLiteCommand(cnn) {CommandText = commandText};
             object value = mycommand.ExecuteScalar();
             cnn.Close();
             return value != null ? value.ToString() : "";
         }
-        public int InsertItem()
+
+        public List<ItemType> GetItemTypes()
         {
-            throw new NotImplementedException();
+            DataTable dataTable = GetDataTable(@"SELECT Id, Name, Description FROM ItemType");
+            DataRowCollection dataRowCollection = dataTable.Rows;
+            if (dataRowCollection.Count > 0)
+            {
+                return (from DataRow dataRow in dataRowCollection
+                        select dataRow.ItemArray
+                        into itemArray select new ItemType
+                                              {
+                                                  Id = Misc.String2Number(itemArray[0].ToString()),
+                                                  Name = itemArray[1].ToString(),
+                                                  Description = itemArray[2].ToString(),
+                                              }).ToList();
+            }
+            return null;
         }
 
-        public int InsertItemStatus()
+        public List<ItemStatus> GetItemStatus()
         {
-            throw new NotImplementedException();
+            DataTable dataTable = GetDataTable(@"SELECT Id, Name, Description FROM ItemStatus");
+            DataRowCollection dataRowCollection = dataTable.Rows;
+            if (dataRowCollection.Count > 0)
+            {
+                return (from DataRow dataRow in dataRowCollection
+                        select dataRow.ItemArray
+                        into itemArray
+                        select new ItemStatus
+                               {
+                                   Id = Misc.String2Number(itemArray[0].ToString()),
+                                   Name = itemArray[1].ToString(),
+                                   Description = itemArray[2].ToString(),
+                               }).ToList();
+            }
+            return null;
         }
 
-        public int InsertItemType()
+        public int InsertItem(Item item)
         {
-            throw new NotImplementedException();
+            string insertCommand = String.Format(@"INSERT INTO Item (Name, Description, ItemType) VALUES('{0}', '{1}', {2})", item.Name, item.Description, item.ItemTypeId);
+            return ExecuteNonQuery(insertCommand);
+        }
+
+        public int InsertItemStatus(string itemStatus)
+        {
+            string insertCommand = String.Format(@"INSERT INTO ItemStatus (Name, Description) VALUES('{0}', '{0}')", itemStatus);
+            return ExecuteNonQuery(insertCommand);
+        }
+
+        public int InsertItemType(string itemTypeName)
+        {
+            string insertCommand = String.Format(@"INSERT INTO ItemType (Name, Description) VALUES('{0}', '{0}')", itemTypeName);
+            return ExecuteNonQuery(insertCommand);
         }
 
         public int InsertOrderPerson()
@@ -85,6 +128,26 @@ namespace jeza.Item.Tracker
         public int InsertStore()
         {
             throw new NotImplementedException();
+        }
+
+        public List<Item> GetItems()
+        {
+            DataTable dataTable = GetDataTable(@"SELECT Id, Name, Description, ItemType FROM Item");
+            DataRowCollection dataRowCollection = dataTable.Rows;
+            if (dataRowCollection.Count > 0)
+            {
+                return (from DataRow dataRow in dataRowCollection
+                        select dataRow.ItemArray
+                            into itemArray
+                            select new Item
+                            {
+                                Id = Misc.String2Number(itemArray[0].ToString()),
+                                Name = itemArray[1].ToString(),
+                                Description = itemArray[2].ToString(),
+                                ItemTypeId = Misc.String2Number(itemArray[3].ToString()),
+                            }).ToList();
+            }
+            return null;
         }
     }
 }
