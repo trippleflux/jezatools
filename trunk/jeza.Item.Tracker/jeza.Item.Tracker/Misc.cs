@@ -1,51 +1,54 @@
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Net.Mime;
 using System.Text;
 using System.Xml.Serialization;
+using NLog;
 
 namespace jeza.Item.Tracker
 {
     public static class Misc
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public static Language GetLanguageSlovenian()
         {
             Language languageSlovenian = new Language
-            {
-                Culture = "sl-SI",
-                TabItems = new TabItems
-                {
-                    TabPageItems = "Izdelki",
-                    
-                    GroupBoxItemsType = "Tip",
-                    LabelItemsTypeExisting = "Obstojeci",
-                    ButtonItemsTypeSelect = "Izberi",
-                    LabelItemsTypeNew = "Nov",
-                    ButtonItemsTypeSave = "Shrani",
-
-                    GroupBoxItemsStatus = "Status",
-                    LabelItemsStatusExisting = "Obsotjeci",
-                    LabelItemsStatusNew = "Nov",
-                    ButtonItemsStatusSelect = "Izberi",
-                    ButtonItemsStatusSave = "Shrani",
-
-                    GroupBoxItems = "Izdelki",
-                    LabelItemsList = "Izdelki",
-                    ButtonItemsSelect = "Izberi",
-                    LabelItemsNew = "Izdelek",
-                    ButtonItemsSave = "Shrani",
-                    LabelItemsItemType = "Tip",
-                    ButtonItemsPictureBoxSelect = "Izberi",
-                    LabelItemsImage = "Slika",
-                },
-                TabOrders = new TabOrders
-                {
-                    Name = "Narocila",
-                },
-                TabReports = new TabReports
-                {
-                    Name = "Statistika",
-                },
-            };
+                                         {
+                                             Culture = "sl-SI",
+                                             TabItems = new TabItems
+                                                        {
+                                                            TabPageItems = "Izdelki",
+                                                            GroupBoxItemsType = "Tip",
+                                                            LabelItemsTypeExisting = "Obstojeci",
+                                                            ButtonItemsTypeSelect = "Izberi",
+                                                            LabelItemsTypeNew = "Nov",
+                                                            ButtonItemsTypeSave = "Shrani",
+                                                            GroupBoxItemsStatus = "Status",
+                                                            LabelItemsStatusExisting = "Obsotjeci",
+                                                            LabelItemsStatusNew = "Nov",
+                                                            ButtonItemsStatusSelect = "Izberi",
+                                                            ButtonItemsStatusSave = "Shrani",
+                                                            GroupBoxItems = "Izdelki",
+                                                            LabelItemsList = "Izdelki",
+                                                            ButtonItemsSelect = "Izberi",
+                                                            LabelItemsNew = "Izdelek",
+                                                            ButtonItemsSave = "Shrani",
+                                                            LabelItemsItemType = "Tip",
+                                                            ButtonItemsPictureBoxSelect = "Izberi",
+                                                            LabelItemsImage = "Slika",
+                                                        },
+                                             TabOrders = new TabOrders
+                                                         {
+                                                             Name = "Narocila",
+                                                         },
+                                             TabReports = new TabReports
+                                                          {
+                                                              Name = "Statistika",
+                                                          },
+                                         };
             return languageSlovenian;
         }
 
@@ -56,8 +59,9 @@ namespace jeza.Item.Tracker
         /// <param name="xmlObject">The XML object.</param>
         /// <param name="fileName">Name of the file.</param>
         /// <returns></returns>
-        public static T Deserialize<T>(T xmlObject,
-                                       string fileName)
+        public static T Deserialize<T>
+            (T xmlObject,
+             string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -70,8 +74,9 @@ namespace jeza.Item.Tracker
             throw new Exception("Failed to deserialize configuration!");
         }
 
-        public static void Serialize<T>(T xmlObject,
-                                        string fileName)
+        public static void Serialize<T>
+            (T xmlObject,
+             string fileName)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof (T));
             using (TextWriter textWriter = new StreamWriter(fileName))
@@ -166,6 +171,59 @@ namespace jeza.Item.Tracker
                 return true;
             }
             return Char.IsNumber(c);
+        }
+
+        /// <summary>
+        /// Gets the image data (bytes).
+        /// </summary>
+        /// <param name="imagePath">The image path.</param>
+        /// <returns></returns>
+        public static byte[] GetImageData(string imagePath)
+        {
+            try
+            {
+                if (File.Exists(imagePath))
+                {
+                    BinaryReader binaryData = new BinaryReader(new FileStream(imagePath, FileMode.Open, FileAccess.Read));
+                    byte[] imageData = new byte[binaryData.BaseStream.Length];
+                    binaryData.BaseStream.Read(imageData, 0, Convert.ToInt32(binaryData.BaseStream.Length));
+                    return imageData;
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception.ToString);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Returns a thumbnail 250x250 for this image.
+        /// </summary>
+        /// <param name="imagePath">The image path.</param>
+        /// <returns></returns>
+        public static byte[] GetThumbNailImageData(string imagePath)
+        {
+            try
+            {
+                if (File.Exists(imagePath))
+                {
+                    Bitmap bitmap = new Bitmap(imagePath);
+                    using (Image thumb = bitmap.GetThumbnailImage(250, 250, null, new IntPtr()))
+                    {
+                        using (MemoryStream memoryStream = new MemoryStream())
+                        {
+                            thumb.Save(memoryStream, ImageFormat.Jpeg);
+                            return memoryStream.ToArray();
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception.ToString);
+            }
+            return null;
         }
     }
 }

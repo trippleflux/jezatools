@@ -14,5 +14,10 @@ namespace jeza.Item.Tracker
         public string Telephone { get; set; }
         public string TelephoneMobile { get; set; }
         public string Fax { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1} ({2}) - {3}", Name, SurName, NickName, Description);
+        }
     }
 }

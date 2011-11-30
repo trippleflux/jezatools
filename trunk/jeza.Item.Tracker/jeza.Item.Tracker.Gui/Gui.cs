@@ -31,6 +31,21 @@ namespace jeza.Item.Tracker.Gui
             FillItemTypes();
             FillItemStatus();
             FillItems();
+            FillPersonInfo();
+        }
+
+        private void FillPersonInfo()
+        {
+            Logger.Debug("Fill person info");
+            List<PersonInfo> list = dataBase.GetPersonInfo();
+            if (list == null)
+            {
+                return;
+            }
+            ComboBox.ObjectCollection items = comboBoxOrderSubscriberPersonInfo.Items;
+            items.Clear();
+            items.AddRange(list.ToArray());
+            comboBoxOrderSubscriberPersonInfo.SelectedItem = items[0];
         }
 
         private void FillItems()
@@ -115,7 +130,7 @@ namespace jeza.Item.Tracker.Gui
                 {
                     Item item = new Item
                                 {
-                                    Name = textBoxItemsNew.Text, 
+                                    Name = textBoxItemsNew.Text,
                                     Description = textBoxItemsItemDescription.Text
                                 };
                     ItemType selectedItem = (ItemType) comboBoxItemsItemType.SelectedItem;
@@ -126,11 +141,7 @@ namespace jeza.Item.Tracker.Gui
                     item.Image = new byte[] {};
                     if (textBoxItemsImage.Text.Length > 1)
                     {
-                        string imagePath = textBoxItemsImage.Text.Trim();
-                        BinaryReader binaryData = new BinaryReader(new FileStream(imagePath, FileMode.Open, FileAccess.Read));
-                        byte[] imageData = new byte[binaryData.BaseStream.Length];
-                        binaryData.BaseStream.Read(imageData, 0, Convert.ToInt32(binaryData.BaseStream.Length));
-                        item.Image = imageData;
+                        item.Image = Misc.GetThumbNailImageData(textBoxItemsImage.Text);
                     }
                     int rowsUpdated = dataBase.InsertItem(item);
                     if (rowsUpdated < 1)
@@ -237,16 +248,8 @@ namespace jeza.Item.Tracker.Gui
                 if (open.ShowDialog() == DialogResult.OK)
                 {
                     pictureBoxItems.SizeMode = PictureBoxSizeMode.StretchImage;
-                    //pictureBoxItems.ClientSize = new Size(300, 300);
                     Bitmap bitmap = new Bitmap(open.FileName);
                     pictureBoxItems.Image = bitmap;
-                    //using (Image thumb = bitmap.GetThumbnailImage(250, 250, null, new IntPtr()))
-                    //{
-                    //    using (MemoryStream memoryStream = new MemoryStream())
-                    //    {
-                    //        thumb.Save(memoryStream, ImageFormat.Jpeg);
-                    //    }
-                    //}
                     textBoxItemsImage.Text = open.FileName;
                 }
             }
@@ -263,31 +266,154 @@ namespace jeza.Item.Tracker.Gui
             textBoxItemsTypeNew.Text = comboBoxItemsTypeExisting.SelectedText;
         }
 
-        private void ButtonItemsSelectClick(object sender, EventArgs e)
+        private void ButtonItemsSelectClick
+            (object sender,
+             EventArgs e)
         {
             try
             {
-                Item selectedItem = (Item)listBoxItems.SelectedItem;
+                Item selectedItem = (Item) listBoxItems.SelectedItem;
                 if (selectedItem != null)
                 {
-                    List<Item> items = dataBase.GetItems();
-                    Item find = items.Find(item => item.Id == selectedItem.Id);
-                    if (find == null)
+                    Item item = dataBase.GetItem(selectedItem.Id);
+                    if (item == null)
                     {
                         return;
                     }
-                    textBoxItemsNew.Text = find.Name;
-                    textBoxItemsItemDescription.Text = find.Description;
-                    if (find.Image != null)
+                    textBoxItemsNew.Text = item.Name;
+                    textBoxItemsItemDescription.Text = item.Description;
+                    pictureBoxItems.Image = new Bitmap(1, 1);
+                    if (item.Image != null)
                     {
-                        MemoryStream memoryStream = new MemoryStream(find.Image);
-                        Bitmap bitmap = new Bitmap(memoryStream);
-                        pictureBoxItems.Image = bitmap;
+                        if (item.Image.Length > 0)
+                        {
+                            MemoryStream memoryStream = new MemoryStream(item.Image);
+                            Bitmap bitmap = new Bitmap(memoryStream);
+                            pictureBoxItems.Image = bitmap;
+                        }
                     }
                 }
                 else
                 {
                     MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonOrderitemSelectClick
+            (object sender,
+             EventArgs e)
+        {
+            try
+            {
+                Item selectedItem = (Item) comboBoxOrderItem.SelectedItem;
+                if (selectedItem != null)
+                {
+                    Item item = dataBase.GetItem(selectedItem.Id);
+                    if (item == null)
+                    {
+                        return;
+                    }
+                    pictureBoxOrderItem.Image = new Bitmap(1, 1);
+                    if (item.Image != null)
+                    {
+                        if (item.Image.Length > 0)
+                        {
+                            MemoryStream memoryStream = new MemoryStream(item.Image);
+                            Bitmap bitmap = new Bitmap(memoryStream);
+                            pictureBoxOrderItem.Image = bitmap;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonOrderSubscriberPersonInfoSelectClick
+            (object sender,
+             EventArgs e)
+        {
+            try
+            {
+                PersonInfo selectedItem = (PersonInfo) comboBoxOrderSubscriberPersonInfo.SelectedItem;
+                if (selectedItem != null)
+                {
+                    PersonInfo personInfo = dataBase.GetPersonInfo(selectedItem.Id);
+                    if (personInfo == null)
+                    {
+                        Logger.Warn("Failed to get person info for id={0}", selectedItem.Id);
+                        return;
+                    }
+                    textBoxOrderPersonInfoName.Text = personInfo.Name;
+                    textBoxOrderPersonInfoSurName.Text = personInfo.SurName;
+                    textBoxOrderPersonInfoNickName.Text = personInfo.NickName;
+                    textBoxOrderPersonInfoDescription.Text = personInfo.Description;
+                    textBoxOrderPersonInfoAddress.Text = personInfo.Address;
+                    textBoxOrderPersonInfoPopstNumber.Text = personInfo.PostNumber.ToString();
+                    textBoxOrderPersonInfoCity.Text = personInfo.City;
+                    textBoxOrderPersonInfoEmail.Text = personInfo.Email;
+                    textBoxOrderPersonInfoTelephone.Text = personInfo.Telephone;
+                    textBoxOrderPersonInfoTelephoneMobile.Text = personInfo.TelephoneMobile;
+                    textBoxOrderPersonInfoFaxNumber.Text = personInfo.Fax;
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Person!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonOrderPersonInfoSaveClick
+            (object sender,
+             EventArgs e)
+        {
+            try
+            {
+                if (textBoxOrderPersonInfoName.Text.Length > 1)
+                {
+                    PersonInfo personInfo = new PersonInfo
+                                            {
+                                                Name = textBoxOrderPersonInfoName.Text,
+                                                SurName = textBoxOrderPersonInfoSurName.Text,
+                                                NickName = textBoxOrderPersonInfoNickName.Text,
+                                                Description = textBoxOrderPersonInfoDescription.Text,
+                                                Address = textBoxOrderPersonInfoAddress.Text,
+                                                PostNumber = Misc.String2Number(textBoxOrderPersonInfoPopstNumber.Text),
+                                                City = textBoxOrderPersonInfoCity.Text,
+                                                Email = textBoxOrderPersonInfoEmail.Text,
+                                                Telephone = textBoxOrderPersonInfoTelephone.Text,
+                                                TelephoneMobile = textBoxOrderPersonInfoTelephoneMobile.Text,
+                                                Fax = textBoxOrderPersonInfoFaxNumber.Text,
+                                            };
+                    int rowsUpdated = dataBase.InsertPerson(personInfo);
+                    if (rowsUpdated < 1)
+                    {
+                        MessageBox.Show(@"Failed to insert PersonInfo!", @"Error", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        FillPersonInfo();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Insert Persons Name!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception exception)
