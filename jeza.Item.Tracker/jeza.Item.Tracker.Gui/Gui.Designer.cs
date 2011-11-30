@@ -70,6 +70,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonOrderCalculation = new System.Windows.Forms.Button();
             this.labelOrderCalculation = new System.Windows.Forms.Label();
             this.groupBoxOrderItem = new System.Windows.Forms.GroupBox();
+            this.buttonOrderitemSelect = new System.Windows.Forms.Button();
             this.buttonOrderItemSave = new System.Windows.Forms.Button();
             this.textBoxOrderItemPostage = new System.Windows.Forms.TextBox();
             this.labelOrderItemPostage = new System.Windows.Forms.Label();
@@ -488,6 +489,7 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxOrderItem
             // 
+            this.groupBoxOrderItem.Controls.Add(this.buttonOrderitemSelect);
             this.groupBoxOrderItem.Controls.Add(this.buttonOrderItemSave);
             this.groupBoxOrderItem.Controls.Add(this.textBoxOrderItemPostage);
             this.groupBoxOrderItem.Controls.Add(this.labelOrderItemPostage);
@@ -511,6 +513,16 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxOrderItem.TabIndex = 2;
             this.groupBoxOrderItem.TabStop = false;
             this.groupBoxOrderItem.Text = "Item";
+            // 
+            // buttonOrderitemSelect
+            // 
+            this.buttonOrderitemSelect.Location = new System.Drawing.Point(334, 34);
+            this.buttonOrderitemSelect.Name = "buttonOrderitemSelect";
+            this.buttonOrderitemSelect.Size = new System.Drawing.Size(140, 21);
+            this.buttonOrderitemSelect.TabIndex = 31;
+            this.buttonOrderitemSelect.Text = "Select";
+            this.buttonOrderitemSelect.UseVisualStyleBackColor = true;
+            this.buttonOrderitemSelect.Click += new System.EventHandler(this.ButtonOrderitemSelectClick);
             // 
             // buttonOrderItemSave
             // 
@@ -625,7 +637,7 @@ namespace jeza.Item.Tracker.Gui
             // labelOrderItemPicture
             // 
             this.labelOrderItemPicture.AutoSize = true;
-            this.labelOrderItemPicture.Location = new System.Drawing.Point(320, 16);
+            this.labelOrderItemPicture.Location = new System.Drawing.Point(331, 59);
             this.labelOrderItemPicture.Name = "labelOrderItemPicture";
             this.labelOrderItemPicture.Size = new System.Drawing.Size(40, 13);
             this.labelOrderItemPicture.TabIndex = 5;
@@ -650,7 +662,7 @@ namespace jeza.Item.Tracker.Gui
             // 
             // pictureBoxOrderItem
             // 
-            this.pictureBoxOrderItem.Location = new System.Drawing.Point(323, 35);
+            this.pictureBoxOrderItem.Location = new System.Drawing.Point(334, 78);
             this.pictureBoxOrderItem.Name = "pictureBoxOrderItem";
             this.pictureBoxOrderItem.Size = new System.Drawing.Size(250, 250);
             this.pictureBoxOrderItem.TabIndex = 0;
@@ -699,6 +711,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonOrderSubscriberPersonInfoSelect.TabIndex = 4;
             this.buttonOrderSubscriberPersonInfoSelect.Text = "Select";
             this.buttonOrderSubscriberPersonInfoSelect.UseVisualStyleBackColor = true;
+            this.buttonOrderSubscriberPersonInfoSelect.Click += new System.EventHandler(this.ButtonOrderSubscriberPersonInfoSelectClick);
             // 
             // buttonOrderPersonInfoSave
             // 
@@ -708,6 +721,7 @@ namespace jeza.Item.Tracker.Gui
             this.buttonOrderPersonInfoSave.TabIndex = 28;
             this.buttonOrderPersonInfoSave.Text = "Save";
             this.buttonOrderPersonInfoSave.UseVisualStyleBackColor = true;
+            this.buttonOrderPersonInfoSave.Click += new System.EventHandler(this.ButtonOrderPersonInfoSaveClick);
             // 
             // comboBoxOrderSubscriberPersonInfo
             // 
@@ -1026,6 +1040,7 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonOrderCalculation;
         private System.Windows.Forms.Label labelItemsItemDescription;
         private System.Windows.Forms.TextBox textBoxItemsItemDescription;
+        private System.Windows.Forms.Button buttonOrderitemSelect;
     }
 }
 
