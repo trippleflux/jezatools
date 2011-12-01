@@ -37,113 +37,105 @@ namespace jeza.Item.Tracker.Gui
         private void FillPersonInfo()
         {
             Logger.Debug("Fill person info");
-            List<PersonInfo> list = dataBase.GetPersonInfo();
+            List<PersonInfo> list = dataBase.PersonInfoGetAll();
             if (list == null)
             {
                 return;
             }
-            ComboBox.ObjectCollection items = comboBoxOrderSubscriberPersonInfo.Items;
-            items.Clear();
-            items.AddRange(list.ToArray());
-            comboBoxOrderSubscriberPersonInfo.SelectedItem = items[0];
+            //Order tab
+            comboBoxOrderPersonInfo.Items.Clear();
+            comboBoxOrderPersonInfo.Items.AddRange(list.ToArray());
+            comboBoxOrderPersonInfo.SelectedItem = comboBoxOrderPersonInfo.Items[0];
+            //PersonInfo tab
+            listBoxPersonInfoList.Items.Clear();
+            listBoxPersonInfoList.Items.AddRange(list.ToArray());
         }
 
         private void FillItems()
         {
-            Logger.Debug("FillItems");
-            List<Item> items = dataBase.GetItems();
+            Logger.Debug("Fill Items");
+            List<Item> items = dataBase.ItemGetAll();
             if (items == null)
             {
                 return;
             }
-            ListBox.ObjectCollection objectCollection = listBoxItems.Items;
+            ListBox.ObjectCollection objectCollection = listBoxItemsList.Items;
             objectCollection.Clear();
             objectCollection.AddRange(items.ToArray());
-            FillComboBoxWithItems(items, comboBoxOrderItem);
+            ComboBox.ObjectCollection collection = comboBoxOrderItem.Items;
+            collection.Clear();
+            collection.AddRange(items.ToArray());
+            comboBoxOrderItem.SelectedItem = collection[0];
         }
 
         private void FillItemTypes()
         {
-            Logger.Debug("FillItemTypes");
-            List<ItemType> itemTypes = dataBase.GetItemTypes();
+            Logger.Info("Fill Item Types...");
+            List<ItemType> itemTypes = dataBase.ItemTypeGetAll();
             if (itemTypes == null)
             {
-                buttonItemsTypeSelect.Enabled = false;
+                Logger.Warn("ItemTypes is empty");
                 return;
             }
-            FillComboBoxWithItemTypes(itemTypes, comboBoxItemsTypeExisting);
-            FillComboBoxWithItemTypes(itemTypes, comboBoxItemsItemType);
-            buttonItemsTypeSelect.Enabled = true;
-        }
-
-        private static void FillComboBoxWithItems
-            (List<Item> list,
-             ComboBox comboBox)
-        {
-            ComboBox.ObjectCollection items = comboBox.Items;
-            items.Clear();
-            items.AddRange(list.ToArray());
-            comboBox.SelectedItem = items[0];
-        }
-
-        private static void FillComboBoxWithItemTypes
-            (List<ItemType> itemTypes,
-             ComboBox comboBox)
-        {
-            ComboBox.ObjectCollection items = comboBox.Items;
-            items.Clear();
-            items.AddRange(itemTypes.ToArray());
-            comboBox.SelectedItem = items[0];
+            //order tab
+            comboBoxOrderItemType.Items.Clear();
+            comboBoxOrderItemType.Items.AddRange(itemTypes.ToArray());
+            comboBoxOrderItemType.SelectedItem = comboBoxOrderItemType.Items[0];
+            //items tab
+            comboBoxItemsType.Items.Clear();
+            comboBoxItemsType.Items.AddRange(itemTypes.ToArray());
+            comboBoxItemsType.SelectedItem = comboBoxItemsType.Items[0];
+            //item type tab
+            listBoxItemTypeList.Items.Clear();
+            listBoxItemTypeList.Items.AddRange(itemTypes.ToArray());
         }
 
         private void FillItemStatus()
         {
-            Logger.Debug("FillItemStatus");
-            List<ItemStatus> list = dataBase.GetItemStatus();
+            Logger.Debug("Fill Item Status");
+            List<ItemStatus> list = dataBase.ItemStatusGetAll();
             if (list == null)
             {
-                buttonItemsStatusSelect.Enabled = false;
                 return;
             }
-            FillComboBoxWithItemStatus(list, comboBoxItemsStatusExisting);
-            FillComboBoxWithItemStatus(list, comboBoxOrderItemStatus);
-            buttonItemsStatusSelect.Enabled = true;
-        }
-
-        private static void FillComboBoxWithItemStatus
-            (List<ItemStatus> list,
-             ComboBox comboBox)
-        {
-            ComboBox.ObjectCollection items = comboBox.Items;
-            items.Clear();
-            items.AddRange(list.ToArray());
-            comboBox.SelectedItem = items[0];
+            //Order tab
+            comboBoxOrderItemStatus.Items.Clear();
+            comboBoxOrderItemStatus.Items.AddRange(list.ToArray());
+            comboBoxOrderItemStatus.SelectedItem = comboBoxOrderItemStatus.Items[0];
+            //Item Status tab
+            listBoxItemStatusList.Items.Clear();
+            listBoxItemStatusList.Items.AddRange(list.ToArray());
         }
 
         private void ButtonItemsSaveClick
             (object sender,
              EventArgs e)
         {
+            Logger.Info("Save item...");
             try
             {
-                if (textBoxItemsNew.Text.Length > 1)
+                if (textBoxItemsName.Text.Length > 1)
                 {
                     Item item = new Item
                                 {
-                                    Name = textBoxItemsNew.Text,
-                                    Description = textBoxItemsItemDescription.Text
+                                    Name = textBoxItemsName.Text,
+                                    Description = textBoxItemsDescription.Text
                                 };
-                    ItemType selectedItem = (ItemType) comboBoxItemsItemType.SelectedItem;
+                    Item existingItem = dataBase.ItemGet(item.Name);
+                    if (existingItem != null)
+                    {
+                        MessageBox.Show(@"Item with that name already exists!", @"Warn", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Stop);
+                        return;
+                    }
+                    ItemType selectedItem = (ItemType) comboBoxItemsType.SelectedItem;
                     if (selectedItem != null)
                     {
                         item.ItemTypeId = selectedItem.Id;
                     }
                     item.Image = new byte[] {};
-                    if (textBoxItemsImage.Text.Length > 1)
-                    {
-                        item.Image = Misc.GetThumbNailImageData(textBoxItemsImage.Text);
-                    }
-                    int rowsUpdated = dataBase.InsertItem(item);
+                    //TODO: add image
+                    int rowsUpdated = dataBase.ItemInsert(item);
                     if (rowsUpdated < 1)
                     {
                         MessageBox.Show(@"Failed to insert Item!", @"Error", MessageBoxButtons.OK,
@@ -152,11 +144,64 @@ namespace jeza.Item.Tracker.Gui
                     else
                     {
                         FillItems();
+                        EnableItemsSaveButton();
+                        textBoxItemsName.Text = String.Empty;
+                        textBoxItemsDescription.Text = String.Empty;
+                        pictureBoxItems.Image = new Bitmap(1, 1);
+                        SetItemId(-1);
                     }
                 }
                 else
                 {
                     MessageBox.Show(@"Insert Items Name!", @"Info", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonItemTypeSaveClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Save item type...");
+            try
+            {
+                if (textBoxItemTypeName.Text.Length > 1)
+                {
+                    ItemType itemType = new ItemType
+                                        {
+                                            Name = textBoxItemTypeName.Text,
+                                            Description = textBoxItemTypeDescription.Text
+                                        };
+                    ItemType existingItemType = dataBase.ItemTypeGet(itemType.Name);
+                    if (existingItemType != null)
+                    {
+                        MessageBox.Show(@"ItemType with that name already exists!", @"Warn", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Stop);
+                        return;
+                    }
+                    int rowsUpdated = dataBase.ItemTypeInsert(itemType);
+                    if (rowsUpdated < 1)
+                    {
+                        MessageBox.Show(@"Failed to insert Item type!", @"Error", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        FillItemTypes();
+                        EnableItemTypeSaveButton();
+                        textBoxItemTypeName.Text = String.Empty;
+                        textBoxItemTypeDescription.Text = String.Empty;
+                        SetItemTypeId(-1);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Insert ItemType Name!", @"Info", MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                 }
             }
@@ -172,72 +217,11 @@ namespace jeza.Item.Tracker.Gui
             MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void ButtonItemsStatusSaveClick
-            (object sender,
-             EventArgs e)
-        {
-            try
-            {
-                if (textBoxItemsStatusNew.Text.Length > 1)
-                {
-                    int rowsUpdated = dataBase.InsertItemStatus(textBoxItemsStatusNew.Text.Trim());
-                    if (rowsUpdated < 1)
-                    {
-                        MessageBox.Show(@"Failed to insert ItemStatus!", @"Error", MessageBoxButtons.OK,
-                                        MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        FillItemStatus();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(@"Insert ItemStatus Name!", @"Info", MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
-        }
-
-        private void ButtonItemsTypeSaveClick
-            (object sender,
-             EventArgs e)
-        {
-            try
-            {
-                if (textBoxItemsTypeNew.Text.Length > 1)
-                {
-                    int rowsUpdated = dataBase.InsertItemType(textBoxItemsTypeNew.Text.Trim());
-                    if (rowsUpdated < 1)
-                    {
-                        MessageBox.Show(@"Failed to insert ItemType!", @"Error", MessageBoxButtons.OK,
-                                        MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        FillItemTypes();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(@"Insert ItemType Name!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
-        }
-
         private void ButtonItemsPictureBoxSelectClick
             (object sender,
              EventArgs e)
         {
-            Logger.Debug("Select image...");
+            Logger.Info("Select image...");
             try
             {
                 OpenFileDialog open = new OpenFileDialog
@@ -250,7 +234,7 @@ namespace jeza.Item.Tracker.Gui
                     pictureBoxItems.SizeMode = PictureBoxSizeMode.StretchImage;
                     Bitmap bitmap = new Bitmap(open.FileName);
                     pictureBoxItems.Image = bitmap;
-                    textBoxItemsImage.Text = open.FileName;
+                    Logger.Debug("Selected image is '{0}'", open.FileName);
                 }
             }
             catch (Exception exception)
@@ -259,29 +243,23 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void ButtonItemsTypeSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            textBoxItemsTypeNew.Text = comboBoxItemsTypeExisting.SelectedText;
-        }
-
         private void ButtonItemsSelectClick
             (object sender,
              EventArgs e)
         {
+            Logger.Info("Select item...");
             try
             {
-                Item selectedItem = (Item) listBoxItems.SelectedItem;
+                Item selectedItem = (Item) listBoxItemsList.SelectedItem;
                 if (selectedItem != null)
                 {
-                    Item item = dataBase.GetItem(selectedItem.Id);
+                    Item item = dataBase.ItemGet(selectedItem.Id);
                     if (item == null)
                     {
                         return;
                     }
-                    textBoxItemsNew.Text = item.Name;
-                    textBoxItemsItemDescription.Text = item.Description;
+                    textBoxItemsName.Text = item.Name;
+                    textBoxItemsDescription.Text = item.Description;
                     pictureBoxItems.Image = new Bitmap(1, 1);
                     if (item.Image != null)
                     {
@@ -292,6 +270,8 @@ namespace jeza.Item.Tracker.Gui
                             pictureBoxItems.Image = bitmap;
                         }
                     }
+                    DisableItemsSaveButton();
+                    SetItemId(item.Id);
                 }
                 else
                 {
@@ -302,6 +282,52 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
+        }
+
+        private void ButtonItemTypeListSelectClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Select item type...");
+            try
+            {
+                ItemType selectedItem = (ItemType) listBoxItemTypeList.SelectedItem;
+                if (selectedItem != null)
+                {
+                    ItemType itemType = dataBase.ItemTypeGet(selectedItem.Id);
+                    if (itemType == null)
+                    {
+                        return;
+                    }
+                    textBoxItemTypeName.Text = itemType.Name;
+                    textBoxItemTypeDescription.Text = itemType.Description;
+                    DisableItemTypeSaveButton();
+                    SetItemTypeId(itemType.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void SetItemStatusId(int itemStatusId)
+        {
+            labelItemStatusId.Text = itemStatusId.ToString();
+        }
+
+        private void SetItemTypeId(int itemId)
+        {
+            labelItemTypeId.Text = itemId.ToString();
+        }
+
+        private void SetItemId(int itemId)
+        {
+            labelItemsId.Text = itemId.ToString();
         }
 
         private void ButtonOrderitemSelectClick
@@ -313,19 +339,19 @@ namespace jeza.Item.Tracker.Gui
                 Item selectedItem = (Item) comboBoxOrderItem.SelectedItem;
                 if (selectedItem != null)
                 {
-                    Item item = dataBase.GetItem(selectedItem.Id);
+                    Item item = dataBase.ItemGet(selectedItem.Id);
                     if (item == null)
                     {
                         return;
                     }
-                    pictureBoxOrderItem.Image = new Bitmap(1, 1);
+                    pictureBoxOrder.Image = new Bitmap(1, 1);
                     if (item.Image != null)
                     {
                         if (item.Image.Length > 0)
                         {
                             MemoryStream memoryStream = new MemoryStream(item.Image);
                             Bitmap bitmap = new Bitmap(memoryStream);
-                            pictureBoxOrderItem.Image = bitmap;
+                            pictureBoxOrder.Image = bitmap;
                         }
                     }
                 }
@@ -340,32 +366,375 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void ButtonOrderSubscriberPersonInfoSelectClick
+        private void ButtonItemsStatusSaveClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Save item status...");
+            try
+            {
+                if (textBoxItemStatusName.Text.Length > 1)
+                {
+                    ItemStatus itemStatus = new ItemStatus
+                                            {
+                                                Name = textBoxItemStatusName.Text,
+                                                Description = textBoxItemStatusDescription.Text
+                                            };
+                    ItemStatus existingItemStatus = dataBase.ItemStatusGet(itemStatus.Name);
+                    if (existingItemStatus != null)
+                    {
+                        MessageBox.Show(@"ItemStatus with that name already exists!", @"Warn", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Stop);
+                        return;
+                    }
+                    int rowsUpdated = dataBase.ItemStatusInsert(itemStatus);
+                    if (rowsUpdated < 1)
+                    {
+                        MessageBox.Show(@"Failed to insert Item status!", @"Error", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        FillItemStatus();
+                        EnableItemStatusSaveButton();
+                        textBoxItemStatusName.Text = String.Empty;
+                        textBoxItemStatusDescription.Text = String.Empty;
+                        SetItemStatusId(-1);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Insert ItemType Name!", @"Info", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonItemStatusUpdateClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Update Item Status...");
+            int itemStatusId = Misc.String2Number(labelItemStatusId.Text);
+            if (itemStatusId > -1)
+            {
+                ItemStatus itemStatus = new ItemStatus
+                                        {
+                                            Id = itemStatusId,
+                                            Name = textBoxItemStatusName.Text,
+                                            Description = textBoxItemStatusDescription.Text
+                                        };
+                int rowsUpdated = dataBase.ItemStatusUpdate(itemStatus);
+                if (rowsUpdated < 1)
+                {
+                    MessageBox.Show(@"Failed to update Item Status!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    textBoxItemStatusName.Text = String.Empty;
+                    textBoxItemStatusDescription.Text = String.Empty;
+                    SetItemStatusId(-1);
+                    EnableItemStatusSaveButton();
+                }
+                FillItemStatus();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to update Item Status!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonItemStatusDeleteClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Delete Item Status...");
+            int itemStatusId = Misc.String2Number(labelItemStatusId.Text);
+            if (itemStatusId > -1)
+            {
+                int rowsUpdated = dataBase.ItemStatusDelete(itemStatusId);
+                if (rowsUpdated < 1)
+                {
+                    MessageBox.Show(@"Failed to delete Item Status!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    textBoxItemStatusName.Text = String.Empty;
+                    textBoxItemStatusDescription.Text = String.Empty;
+                    SetItemStatusId(-1);
+                    EnableItemStatusSaveButton();
+                }
+                FillItemStatus();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to delete Item Status!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonItemsStatusSelectClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Select item status...");
+            try
+            {
+                ItemStatus selectedItemStatus = (ItemStatus) listBoxItemStatusList.SelectedItem;
+                if (selectedItemStatus != null)
+                {
+                    ItemStatus itemStatus = dataBase.ItemStatusGet(selectedItemStatus.Id);
+                    if (itemStatus == null)
+                    {
+                        return;
+                    }
+                    textBoxItemStatusName.Text = itemStatus.Name;
+                    textBoxItemStatusDescription.Text = itemStatus.Description;
+                    DisableItemStatusSaveButton();
+                    SetItemStatusId(itemStatus.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item Status!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonItemsUpdateClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Update Item...");
+            int itemId = Misc.String2Number(labelItemsId.Text);
+            if (itemId > -1)
+            {
+                Item item = new Item
+                            {
+                                Id = itemId,
+                                Name = textBoxItemsName.Text,
+                                Description = textBoxItemsDescription.Text
+                            };
+                ItemType selectedItem = (ItemType) comboBoxItemsType.SelectedItem;
+                if (selectedItem != null)
+                {
+                    item.ItemTypeId = selectedItem.Id;
+                }
+                item.Image = new byte[] {};
+                //TODO: add image
+                int rowsUpdated = dataBase.ItemUpdate(item);
+                if (rowsUpdated < 1)
+                {
+                    MessageBox.Show(@"Failed to update Item!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    textBoxItemsName.Text = String.Empty;
+                    textBoxItemsDescription.Text = String.Empty;
+                    pictureBoxItems.Image = new Bitmap(1, 1);
+                    SetItemId(-1);
+                    EnableItemsSaveButton();
+                }
+                FillItems();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to update Item!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void EnableItemsSaveButton()
+        {
+            Logger.Info("EnableItemsSaveButton");
+            ChangeItemsButtonStatus(true);
+        }
+
+        private void DisableItemsSaveButton()
+        {
+            Logger.Info("DisableItemsSaveButton");
+            ChangeItemsButtonStatus(false);
+        }
+
+        private void EnableItemTypeSaveButton()
+        {
+            Logger.Info("EnableItemTypeSaveButton");
+            ChangeItemTypeButtonStatus(true);
+        }
+
+        private void DisableItemTypeSaveButton()
+        {
+            Logger.Info("DisableItemTypeSaveButton");
+            ChangeItemTypeButtonStatus(false);
+        }
+
+        private void EnableItemStatusSaveButton()
+        {
+            Logger.Info("EnableItemStatusSaveButton");
+            ChangeItemStatusButtonStatus(true);
+        }
+
+        private void DisableItemStatusSaveButton()
+        {
+            Logger.Info("DisableItemStatusSaveButton");
+            ChangeItemStatusButtonStatus(false);
+        }
+
+        private void ChangeItemStatusButtonStatus(bool enabled)
+        {
+            buttonItemsStatusSave.Enabled = enabled;
+            buttonItemStatusUpdate.Enabled = !enabled;
+            buttonItemStatusDelete.Enabled = !enabled;
+        }
+
+        private void ChangeItemsButtonStatus(bool enabled)
+        {
+            buttonItemsSave.Enabled = enabled;
+            buttonItemsUpdate.Enabled = !enabled;
+            buttonItemsDelete.Enabled = !enabled;
+        }
+
+        private void ChangeItemTypeButtonStatus(bool enabled)
+        {
+            buttonItemTypeSave.Enabled = enabled;
+            buttonItemTypeUpdate.Enabled = !enabled;
+            buttonItemTypeDelete.Enabled = !enabled;
+        }
+
+        private void ButtonItemsDeleteClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Delete Item...");
+            int itemId = Misc.String2Number(labelItemsId.Text);
+            if (itemId > -1)
+            {
+                int rowsDeleted = dataBase.ItemDelete(itemId);
+                if (rowsDeleted < 1)
+                {
+                    MessageBox.Show(@"Failed to delete Item!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    textBoxItemsName.Text = String.Empty;
+                    textBoxItemsDescription.Text = String.Empty;
+                    pictureBoxItems.Image = new Bitmap(1, 1);
+                    SetItemId(-1);
+                    EnableItemsSaveButton();
+                }
+                FillItems();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to delete Item!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonItemTypeUpdateClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Update Item Type...");
+            int itemTypeId = Misc.String2Number(labelItemTypeId.Text);
+            if (itemTypeId > -1)
+            {
+                ItemType itemType = new ItemType
+                                    {
+                                        Id = itemTypeId,
+                                        Name = textBoxItemTypeName.Text,
+                                        Description = textBoxItemTypeDescription.Text
+                                    };
+                int rowsUpdated = dataBase.ItemTypeUpdate(itemType);
+                if (rowsUpdated < 1)
+                {
+                    MessageBox.Show(@"Failed to update ItemType!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    textBoxItemTypeName.Text = String.Empty;
+                    textBoxItemTypeDescription.Text = String.Empty;
+                    SetItemTypeId(-1);
+                    EnableItemTypeSaveButton();
+                }
+                FillItemTypes();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to update ItemType!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonItemTypeDeleteClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Delete Item Type...");
+            int itemTypeId = Misc.String2Number(labelItemTypeId.Text);
+            if (itemTypeId > -1)
+            {
+                int rowsUpdated = dataBase.ItemTypeDelete(itemTypeId);
+                if (rowsUpdated < 1)
+                {
+                    MessageBox.Show(@"Failed to delete ItemType!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    textBoxItemTypeName.Text = String.Empty;
+                    textBoxItemTypeDescription.Text = String.Empty;
+                    SetItemTypeId(-1);
+                    EnableItemTypeSaveButton();
+                }
+                FillItemTypes();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to delete ItemType!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonPersonInfoListSelectClick
             (object sender,
              EventArgs e)
         {
             try
             {
-                PersonInfo selectedItem = (PersonInfo) comboBoxOrderSubscriberPersonInfo.SelectedItem;
+                PersonInfo selectedItem = (PersonInfo) listBoxPersonInfoList.SelectedItem;
                 if (selectedItem != null)
                 {
-                    PersonInfo personInfo = dataBase.GetPersonInfo(selectedItem.Id);
+                    PersonInfo personInfo = dataBase.PersonInfoGet(selectedItem.Id);
                     if (personInfo == null)
                     {
                         Logger.Warn("Failed to get person info for id={0}", selectedItem.Id);
                         return;
                     }
-                    textBoxOrderPersonInfoName.Text = personInfo.Name;
-                    textBoxOrderPersonInfoSurName.Text = personInfo.SurName;
-                    textBoxOrderPersonInfoNickName.Text = personInfo.NickName;
-                    textBoxOrderPersonInfoDescription.Text = personInfo.Description;
-                    textBoxOrderPersonInfoAddress.Text = personInfo.Address;
-                    textBoxOrderPersonInfoPopstNumber.Text = personInfo.PostNumber.ToString();
-                    textBoxOrderPersonInfoCity.Text = personInfo.City;
-                    textBoxOrderPersonInfoEmail.Text = personInfo.Email;
-                    textBoxOrderPersonInfoTelephone.Text = personInfo.Telephone;
-                    textBoxOrderPersonInfoTelephoneMobile.Text = personInfo.TelephoneMobile;
-                    textBoxOrderPersonInfoFaxNumber.Text = personInfo.Fax;
+                    textBoxPersonInfoName.Text = personInfo.Name;
+                    textBoxPersonInfoSurName.Text = personInfo.SurName;
+                    textBoxPersonInfoNickName.Text = personInfo.NickName;
+                    textBoxPersonInfoDescription.Text = personInfo.Description;
+                    textBoxPersonInfoAddress.Text = personInfo.Address;
+                    textBoxPersonInfoPopstNumber.Text = personInfo.PostNumber.ToString();
+                    textBoxPersonInfoCity.Text = personInfo.City;
+                    textBoxPersonInfoEmail.Text = personInfo.Email;
+                    textBoxPersonInfoTelephone.Text = personInfo.Telephone;
+                    textBoxPersonInfoTelephoneMobile.Text = personInfo.TelephoneMobile;
+                    textBoxPersonInfoFaxNumber.Text = personInfo.Fax;
                 }
                 else
                 {
@@ -384,23 +753,31 @@ namespace jeza.Item.Tracker.Gui
         {
             try
             {
-                if (textBoxOrderPersonInfoName.Text.Length > 1)
+                string name = textBoxPersonInfoName.Text.Trim();
+                if (name.Length > 1)
                 {
+                    PersonInfo personInfoExisting = dataBase.PersonInfoGet(name);
+                    if (personInfoExisting != null)
+                    {
+                        MessageBox.Show(@"PersonInfo with that name already exists!", @"Warn", MessageBoxButtons.OK,
+                                        MessageBoxIcon.Stop);
+                        return;
+                    }
                     PersonInfo personInfo = new PersonInfo
                                             {
-                                                Name = textBoxOrderPersonInfoName.Text,
-                                                SurName = textBoxOrderPersonInfoSurName.Text,
-                                                NickName = textBoxOrderPersonInfoNickName.Text,
-                                                Description = textBoxOrderPersonInfoDescription.Text,
-                                                Address = textBoxOrderPersonInfoAddress.Text,
-                                                PostNumber = Misc.String2Number(textBoxOrderPersonInfoPopstNumber.Text),
-                                                City = textBoxOrderPersonInfoCity.Text,
-                                                Email = textBoxOrderPersonInfoEmail.Text,
-                                                Telephone = textBoxOrderPersonInfoTelephone.Text,
-                                                TelephoneMobile = textBoxOrderPersonInfoTelephoneMobile.Text,
-                                                Fax = textBoxOrderPersonInfoFaxNumber.Text,
+                                                Name = name,
+                                                SurName = textBoxPersonInfoSurName.Text,
+                                                NickName = textBoxPersonInfoNickName.Text,
+                                                Description = textBoxPersonInfoDescription.Text,
+                                                Address = textBoxPersonInfoAddress.Text,
+                                                PostNumber = Misc.String2Number(textBoxPersonInfoPopstNumber.Text),
+                                                City = textBoxPersonInfoCity.Text,
+                                                Email = textBoxPersonInfoEmail.Text,
+                                                Telephone = textBoxPersonInfoTelephone.Text,
+                                                TelephoneMobile = textBoxPersonInfoTelephoneMobile.Text,
+                                                Fax = textBoxPersonInfoFaxNumber.Text,
                                             };
-                    int rowsUpdated = dataBase.InsertPerson(personInfo);
+                    int rowsUpdated = dataBase.PersonInfoInsert(personInfo);
                     if (rowsUpdated < 1)
                     {
                         MessageBox.Show(@"Failed to insert PersonInfo!", @"Error", MessageBoxButtons.OK,
@@ -409,6 +786,17 @@ namespace jeza.Item.Tracker.Gui
                     else
                     {
                         FillPersonInfo();
+                        textBoxPersonInfoName.Text = String.Empty;
+                        textBoxPersonInfoSurName.Text = String.Empty;
+                        textBoxPersonInfoNickName.Text = String.Empty;
+                        textBoxPersonInfoDescription.Text = String.Empty;
+                        textBoxPersonInfoAddress.Text = String.Empty;
+                        textBoxPersonInfoPopstNumber.Text = String.Empty;
+                        textBoxPersonInfoCity.Text = String.Empty;
+                        textBoxPersonInfoEmail.Text = String.Empty;
+                        textBoxPersonInfoTelephone.Text = String.Empty;
+                        textBoxPersonInfoTelephoneMobile.Text = String.Empty;
+                        textBoxPersonInfoFaxNumber.Text = String.Empty;
                     }
                 }
                 else

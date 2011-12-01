@@ -34,105 +34,127 @@ namespace jeza.Item.Tracker.Gui
         private void InitializeComponent()
         {
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.groupBoxItems = new System.Windows.Forms.GroupBox();
-            this.labelItemsItemDescription = new System.Windows.Forms.Label();
-            this.textBoxItemsItemDescription = new System.Windows.Forms.TextBox();
-            this.labelItemsImage = new System.Windows.Forms.Label();
-            this.textBoxItemsImage = new System.Windows.Forms.TextBox();
-            this.buttonItemsPictureBoxSelect = new System.Windows.Forms.Button();
-            this.pictureBoxItems = new System.Windows.Forms.PictureBox();
-            this.buttonItemsSelect = new System.Windows.Forms.Button();
-            this.labelItemsItemType = new System.Windows.Forms.Label();
-            this.comboBoxItemsItemType = new System.Windows.Forms.ComboBox();
-            this.listBoxItems = new System.Windows.Forms.ListBox();
-            this.buttonItemsSave = new System.Windows.Forms.Button();
-            this.labelItemsNew = new System.Windows.Forms.Label();
-            this.textBoxItemsNew = new System.Windows.Forms.TextBox();
-            this.labelItemsList = new System.Windows.Forms.Label();
-            this.groupBoxItemsType = new System.Windows.Forms.GroupBox();
-            this.buttonItemsTypeSelect = new System.Windows.Forms.Button();
-            this.labelItemsTypeExisting = new System.Windows.Forms.Label();
-            this.comboBoxItemsTypeExisting = new System.Windows.Forms.ComboBox();
-            this.buttonItemsTypeSave = new System.Windows.Forms.Button();
-            this.labelItemsTypeNew = new System.Windows.Forms.Label();
-            this.textBoxItemsTypeNew = new System.Windows.Forms.TextBox();
-            this.groupBoxItemsStatus = new System.Windows.Forms.GroupBox();
-            this.buttonItemsStatusSelect = new System.Windows.Forms.Button();
-            this.labelItemsStatusExisting = new System.Windows.Forms.Label();
-            this.comboBoxItemsStatusExisting = new System.Windows.Forms.ComboBox();
-            this.buttonItemsStatusSave = new System.Windows.Forms.Button();
-            this.labelItemsStatusNew = new System.Windows.Forms.Label();
-            this.textBoxItemsStatusNew = new System.Windows.Forms.TextBox();
-            this.tabPageOrder = new System.Windows.Forms.TabPage();
-            this.groupBoxOrderCalculation = new System.Windows.Forms.GroupBox();
-            this.labelOrderCalculationTotalValue = new System.Windows.Forms.Label();
-            this.buttonOrderCalculation = new System.Windows.Forms.Button();
-            this.labelOrderCalculation = new System.Windows.Forms.Label();
-            this.groupBoxOrderItem = new System.Windows.Forms.GroupBox();
+            this.tabPageOrders = new System.Windows.Forms.TabPage();
+            this.groupBoxOrder = new System.Windows.Forms.GroupBox();
+            this.comboBoxOrderItemType = new System.Windows.Forms.ComboBox();
+            this.labelOrderItemType = new System.Windows.Forms.Label();
             this.buttonOrderitemSelect = new System.Windows.Forms.Button();
-            this.buttonOrderItemSave = new System.Windows.Forms.Button();
-            this.textBoxOrderItemPostage = new System.Windows.Forms.TextBox();
-            this.labelOrderItemPostage = new System.Windows.Forms.Label();
+            this.comboBoxOrderPersonInfo = new System.Windows.Forms.ComboBox();
+            this.labelOrderPersonInfo = new System.Windows.Forms.Label();
+            this.buttonOrderSave = new System.Windows.Forms.Button();
+            this.textBoxOrderPostage = new System.Windows.Forms.TextBox();
+            this.labelOrderPostage = new System.Windows.Forms.Label();
             this.comboBoxOrderItemStatus = new System.Windows.Forms.ComboBox();
             this.checkBoxOrderItemLegalEntity = new System.Windows.Forms.CheckBox();
             this.labelOrderItemStatus = new System.Windows.Forms.Label();
             this.labelOrderItemLegalEntity = new System.Windows.Forms.Label();
-            this.textBoxOrderItemPriceNeto = new System.Windows.Forms.TextBox();
-            this.labelOrderItemPriceNeto = new System.Windows.Forms.Label();
-            this.textBoxOrderItemPriceGross = new System.Windows.Forms.TextBox();
-            this.labelOrderItemPriceGross = new System.Windows.Forms.Label();
+            this.textBoxOrderTax = new System.Windows.Forms.TextBox();
+            this.labelOrderTax = new System.Windows.Forms.Label();
+            this.textBoxOrderPrice = new System.Windows.Forms.TextBox();
+            this.labelOrderPrice = new System.Windows.Forms.Label();
             this.textBoxOrderItemNumber = new System.Windows.Forms.TextBox();
             this.labelOrderItemCount = new System.Windows.Forms.Label();
             this.labelOrderItemPicture = new System.Windows.Forms.Label();
             this.comboBoxOrderItem = new System.Windows.Forms.ComboBox();
             this.labelOrderItem = new System.Windows.Forms.Label();
-            this.pictureBoxOrderItem = new System.Windows.Forms.PictureBox();
-            this.groupBoxOrderPersonInfo = new System.Windows.Forms.GroupBox();
-            this.buttonOrderSubscriberPersonInfoSelect = new System.Windows.Forms.Button();
+            this.pictureBoxOrder = new System.Windows.Forms.PictureBox();
+            this.tabPageItems = new System.Windows.Forms.TabPage();
+            this.groupBoxItems = new System.Windows.Forms.GroupBox();
+            this.labelItemsId = new System.Windows.Forms.Label();
+            this.buttonItemsUpdate = new System.Windows.Forms.Button();
+            this.buttonItemsDelete = new System.Windows.Forms.Button();
+            this.labelItemsDescription = new System.Windows.Forms.Label();
+            this.textBoxItemsDescription = new System.Windows.Forms.TextBox();
+            this.labelItemsImage = new System.Windows.Forms.Label();
+            this.buttonItemsPictureBoxSelect = new System.Windows.Forms.Button();
+            this.pictureBoxItems = new System.Windows.Forms.PictureBox();
+            this.buttonItemsSelect = new System.Windows.Forms.Button();
+            this.labelItemsType = new System.Windows.Forms.Label();
+            this.comboBoxItemsType = new System.Windows.Forms.ComboBox();
+            this.listBoxItemsList = new System.Windows.Forms.ListBox();
+            this.buttonItemsSave = new System.Windows.Forms.Button();
+            this.labelItemsName = new System.Windows.Forms.Label();
+            this.textBoxItemsName = new System.Windows.Forms.TextBox();
+            this.labelItemsList = new System.Windows.Forms.Label();
+            this.tabPageItemType = new System.Windows.Forms.TabPage();
+            this.groupBoxItemType = new System.Windows.Forms.GroupBox();
+            this.labelItemTypeId = new System.Windows.Forms.Label();
+            this.labelItemTypeList = new System.Windows.Forms.Label();
+            this.textBoxItemTypeName = new System.Windows.Forms.TextBox();
+            this.buttonItemTypeUpdate = new System.Windows.Forms.Button();
+            this.buttonItemTypeDelete = new System.Windows.Forms.Button();
+            this.listBoxItemTypeList = new System.Windows.Forms.ListBox();
+            this.buttonItemTypeListSelect = new System.Windows.Forms.Button();
+            this.labelItemTypeName = new System.Windows.Forms.Label();
+            this.buttonItemTypeSave = new System.Windows.Forms.Button();
+            this.labelItemTypeDescription = new System.Windows.Forms.Label();
+            this.textBoxItemTypeDescription = new System.Windows.Forms.TextBox();
+            this.tabPageItemStatus = new System.Windows.Forms.TabPage();
+            this.groupBoxItemsStatus = new System.Windows.Forms.GroupBox();
+            this.labelItemStatusId = new System.Windows.Forms.Label();
+            this.labelItemStatusList = new System.Windows.Forms.Label();
+            this.labelItemStatusDescription = new System.Windows.Forms.Label();
+            this.textBoxItemStatusDescription = new System.Windows.Forms.TextBox();
+            this.buttonItemStatusUpdate = new System.Windows.Forms.Button();
+            this.buttonItemStatusDelete = new System.Windows.Forms.Button();
+            this.listBoxItemStatusList = new System.Windows.Forms.ListBox();
+            this.buttonItemsStatusSelect = new System.Windows.Forms.Button();
+            this.buttonItemsStatusSave = new System.Windows.Forms.Button();
+            this.labelItemsStatusNew = new System.Windows.Forms.Label();
+            this.textBoxItemStatusName = new System.Windows.Forms.TextBox();
+            this.tabPagePersonInfo = new System.Windows.Forms.TabPage();
+            this.groupBoxPersonInfo = new System.Windows.Forms.GroupBox();
+            this.buttonPersonInfoListSelect = new System.Windows.Forms.Button();
+            this.buttonPersonInfoDelete = new System.Windows.Forms.Button();
+            this.buttonPersonInfoUpdate = new System.Windows.Forms.Button();
+            this.labelPersonInfoList = new System.Windows.Forms.Label();
+            this.listBoxPersonInfoList = new System.Windows.Forms.ListBox();
             this.buttonOrderPersonInfoSave = new System.Windows.Forms.Button();
-            this.comboBoxOrderSubscriberPersonInfo = new System.Windows.Forms.ComboBox();
-            this.textBoxOrderPersonInfoFaxNumber = new System.Windows.Forms.TextBox();
-            this.labelOrderSubscriberPersonInfo = new System.Windows.Forms.Label();
-            this.labelOrderPersonInfoFax = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoTelephoneMobile = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoTelephoneMobile = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoTelephone = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoTelephone = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoEmail = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoEmail = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoPopstNumber = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoPostNumber = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoCity = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoCity = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoAddress = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoAddress = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoDescription = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoDescription = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoNickName = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoNickName = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoSurName = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoSurName = new System.Windows.Forms.Label();
-            this.textBoxOrderPersonInfoName = new System.Windows.Forms.TextBox();
-            this.labelOrderPersonInfoName = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoFaxNumber = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoFax = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoTelephoneMobile = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoTelephoneMobile = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoTelephone = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoTelephone = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoEmail = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoEmail = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoPopstNumber = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoPostNumber = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoCity = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoCity = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoAddress = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoAddress = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoDescription = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoDescription = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoNickName = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoNickName = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoSurName = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoSurName = new System.Windows.Forms.Label();
+            this.textBoxPersonInfoName = new System.Windows.Forms.TextBox();
+            this.labelPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
+            this.tabPageOrders.SuspendLayout();
+            this.groupBoxOrder.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrder)).BeginInit();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).BeginInit();
-            this.groupBoxItemsType.SuspendLayout();
+            this.tabPageItemType.SuspendLayout();
+            this.groupBoxItemType.SuspendLayout();
+            this.tabPageItemStatus.SuspendLayout();
             this.groupBoxItemsStatus.SuspendLayout();
-            this.tabPageOrder.SuspendLayout();
-            this.groupBoxOrderCalculation.SuspendLayout();
-            this.groupBoxOrderItem.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrderItem)).BeginInit();
-            this.groupBoxOrderPersonInfo.SuspendLayout();
+            this.tabPagePersonInfo.SuspendLayout();
+            this.groupBoxPersonInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
             // 
+            this.tabControl.Controls.Add(this.tabPageOrders);
             this.tabControl.Controls.Add(this.tabPageItems);
-            this.tabControl.Controls.Add(this.tabPageOrder);
+            this.tabControl.Controls.Add(this.tabPageItemType);
+            this.tabControl.Controls.Add(this.tabPageItemStatus);
+            this.tabControl.Controls.Add(this.tabPagePersonInfo);
             this.tabControl.Controls.Add(this.tabPageReports);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.Location = new System.Drawing.Point(0, 0);
@@ -141,11 +163,239 @@ namespace jeza.Item.Tracker.Gui
             this.tabControl.Size = new System.Drawing.Size(1000, 600);
             this.tabControl.TabIndex = 2;
             // 
+            // tabPageOrders
+            // 
+            this.tabPageOrders.Controls.Add(this.groupBoxOrder);
+            this.tabPageOrders.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOrders.Name = "tabPageOrders";
+            this.tabPageOrders.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOrders.Size = new System.Drawing.Size(992, 574);
+            this.tabPageOrders.TabIndex = 2;
+            this.tabPageOrders.Text = "Orders";
+            this.tabPageOrders.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxOrder
+            // 
+            this.groupBoxOrder.Controls.Add(this.comboBoxOrderItemType);
+            this.groupBoxOrder.Controls.Add(this.labelOrderItemType);
+            this.groupBoxOrder.Controls.Add(this.buttonOrderitemSelect);
+            this.groupBoxOrder.Controls.Add(this.comboBoxOrderPersonInfo);
+            this.groupBoxOrder.Controls.Add(this.labelOrderPersonInfo);
+            this.groupBoxOrder.Controls.Add(this.buttonOrderSave);
+            this.groupBoxOrder.Controls.Add(this.textBoxOrderPostage);
+            this.groupBoxOrder.Controls.Add(this.labelOrderPostage);
+            this.groupBoxOrder.Controls.Add(this.comboBoxOrderItemStatus);
+            this.groupBoxOrder.Controls.Add(this.checkBoxOrderItemLegalEntity);
+            this.groupBoxOrder.Controls.Add(this.labelOrderItemStatus);
+            this.groupBoxOrder.Controls.Add(this.labelOrderItemLegalEntity);
+            this.groupBoxOrder.Controls.Add(this.textBoxOrderTax);
+            this.groupBoxOrder.Controls.Add(this.labelOrderTax);
+            this.groupBoxOrder.Controls.Add(this.textBoxOrderPrice);
+            this.groupBoxOrder.Controls.Add(this.labelOrderPrice);
+            this.groupBoxOrder.Controls.Add(this.textBoxOrderItemNumber);
+            this.groupBoxOrder.Controls.Add(this.labelOrderItemCount);
+            this.groupBoxOrder.Controls.Add(this.labelOrderItemPicture);
+            this.groupBoxOrder.Controls.Add(this.comboBoxOrderItem);
+            this.groupBoxOrder.Controls.Add(this.labelOrderItem);
+            this.groupBoxOrder.Controls.Add(this.pictureBoxOrder);
+            this.groupBoxOrder.Location = new System.Drawing.Point(3, 6);
+            this.groupBoxOrder.Name = "groupBoxOrder";
+            this.groupBoxOrder.Size = new System.Drawing.Size(981, 560);
+            this.groupBoxOrder.TabIndex = 2;
+            this.groupBoxOrder.TabStop = false;
+            this.groupBoxOrder.Text = "Order";
+            // 
+            // comboBoxOrderItemType
+            // 
+            this.comboBoxOrderItemType.FormattingEnabled = true;
+            this.comboBoxOrderItemType.Location = new System.Drawing.Point(15, 72);
+            this.comboBoxOrderItemType.Name = "comboBoxOrderItemType";
+            this.comboBoxOrderItemType.Size = new System.Drawing.Size(308, 21);
+            this.comboBoxOrderItemType.TabIndex = 33;
+            // 
+            // labelOrderItemType
+            // 
+            this.labelOrderItemType.AutoSize = true;
+            this.labelOrderItemType.Location = new System.Drawing.Point(12, 56);
+            this.labelOrderItemType.Name = "labelOrderItemType";
+            this.labelOrderItemType.Size = new System.Drawing.Size(54, 13);
+            this.labelOrderItemType.TabIndex = 32;
+            this.labelOrderItemType.Text = "Item Type";
+            // 
+            // buttonOrderitemSelect
+            // 
+            this.buttonOrderitemSelect.Location = new System.Drawing.Point(565, 56);
+            this.buttonOrderitemSelect.Name = "buttonOrderitemSelect";
+            this.buttonOrderitemSelect.Size = new System.Drawing.Size(140, 21);
+            this.buttonOrderitemSelect.TabIndex = 31;
+            this.buttonOrderitemSelect.Text = "Select";
+            this.buttonOrderitemSelect.UseVisualStyleBackColor = true;
+            this.buttonOrderitemSelect.Click += new System.EventHandler(this.ButtonOrderitemSelectClick);
+            // 
+            // comboBoxOrderPersonInfo
+            // 
+            this.comboBoxOrderPersonInfo.FormattingEnabled = true;
+            this.comboBoxOrderPersonInfo.Location = new System.Drawing.Point(15, 32);
+            this.comboBoxOrderPersonInfo.Name = "comboBoxOrderPersonInfo";
+            this.comboBoxOrderPersonInfo.Size = new System.Drawing.Size(308, 21);
+            this.comboBoxOrderPersonInfo.TabIndex = 3;
+            // 
+            // labelOrderPersonInfo
+            // 
+            this.labelOrderPersonInfo.AutoSize = true;
+            this.labelOrderPersonInfo.Location = new System.Drawing.Point(12, 16);
+            this.labelOrderPersonInfo.Name = "labelOrderPersonInfo";
+            this.labelOrderPersonInfo.Size = new System.Drawing.Size(61, 13);
+            this.labelOrderPersonInfo.TabIndex = 2;
+            this.labelOrderPersonInfo.Text = "Person Info";
+            // 
+            // buttonOrderSave
+            // 
+            this.buttonOrderSave.Location = new System.Drawing.Point(565, 83);
+            this.buttonOrderSave.Name = "buttonOrderSave";
+            this.buttonOrderSave.Size = new System.Drawing.Size(140, 21);
+            this.buttonOrderSave.TabIndex = 30;
+            this.buttonOrderSave.Text = "Save";
+            this.buttonOrderSave.UseVisualStyleBackColor = true;
+            // 
+            // textBoxOrderPostage
+            // 
+            this.textBoxOrderPostage.Location = new System.Drawing.Point(349, 153);
+            this.textBoxOrderPostage.Name = "textBoxOrderPostage";
+            this.textBoxOrderPostage.Size = new System.Drawing.Size(200, 20);
+            this.textBoxOrderPostage.TabIndex = 15;
+            this.textBoxOrderPostage.Text = "0";
+            // 
+            // labelOrderPostage
+            // 
+            this.labelOrderPostage.AutoSize = true;
+            this.labelOrderPostage.Location = new System.Drawing.Point(346, 136);
+            this.labelOrderPostage.Name = "labelOrderPostage";
+            this.labelOrderPostage.Size = new System.Drawing.Size(46, 13);
+            this.labelOrderPostage.TabIndex = 14;
+            this.labelOrderPostage.Text = "Postage";
+            // 
+            // comboBoxOrderItemStatus
+            // 
+            this.comboBoxOrderItemStatus.FormattingEnabled = true;
+            this.comboBoxOrderItemStatus.Location = new System.Drawing.Point(15, 151);
+            this.comboBoxOrderItemStatus.Name = "comboBoxOrderItemStatus";
+            this.comboBoxOrderItemStatus.Size = new System.Drawing.Size(308, 21);
+            this.comboBoxOrderItemStatus.TabIndex = 13;
+            // 
+            // checkBoxOrderItemLegalEntity
+            // 
+            this.checkBoxOrderItemLegalEntity.AutoSize = true;
+            this.checkBoxOrderItemLegalEntity.Location = new System.Drawing.Point(565, 36);
+            this.checkBoxOrderItemLegalEntity.Name = "checkBoxOrderItemLegalEntity";
+            this.checkBoxOrderItemLegalEntity.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxOrderItemLegalEntity.TabIndex = 1;
+            this.checkBoxOrderItemLegalEntity.UseVisualStyleBackColor = true;
+            // 
+            // labelOrderItemStatus
+            // 
+            this.labelOrderItemStatus.AutoSize = true;
+            this.labelOrderItemStatus.Location = new System.Drawing.Point(12, 135);
+            this.labelOrderItemStatus.Name = "labelOrderItemStatus";
+            this.labelOrderItemStatus.Size = new System.Drawing.Size(37, 13);
+            this.labelOrderItemStatus.TabIndex = 12;
+            this.labelOrderItemStatus.Text = "Status";
+            // 
+            // labelOrderItemLegalEntity
+            // 
+            this.labelOrderItemLegalEntity.AutoSize = true;
+            this.labelOrderItemLegalEntity.Location = new System.Drawing.Point(562, 16);
+            this.labelOrderItemLegalEntity.Name = "labelOrderItemLegalEntity";
+            this.labelOrderItemLegalEntity.Size = new System.Drawing.Size(62, 13);
+            this.labelOrderItemLegalEntity.TabIndex = 0;
+            this.labelOrderItemLegalEntity.Text = "Legal Entity";
+            // 
+            // textBoxOrderTax
+            // 
+            this.textBoxOrderTax.Location = new System.Drawing.Point(349, 113);
+            this.textBoxOrderTax.Name = "textBoxOrderTax";
+            this.textBoxOrderTax.Size = new System.Drawing.Size(200, 20);
+            this.textBoxOrderTax.TabIndex = 11;
+            // 
+            // labelOrderTax
+            // 
+            this.labelOrderTax.AutoSize = true;
+            this.labelOrderTax.Location = new System.Drawing.Point(346, 96);
+            this.labelOrderTax.Name = "labelOrderTax";
+            this.labelOrderTax.Size = new System.Drawing.Size(25, 13);
+            this.labelOrderTax.TabIndex = 10;
+            this.labelOrderTax.Text = "Tax";
+            // 
+            // textBoxOrderPrice
+            // 
+            this.textBoxOrderPrice.Location = new System.Drawing.Point(349, 73);
+            this.textBoxOrderPrice.Name = "textBoxOrderPrice";
+            this.textBoxOrderPrice.Size = new System.Drawing.Size(200, 20);
+            this.textBoxOrderPrice.TabIndex = 9;
+            // 
+            // labelOrderPrice
+            // 
+            this.labelOrderPrice.AutoSize = true;
+            this.labelOrderPrice.Location = new System.Drawing.Point(346, 56);
+            this.labelOrderPrice.Name = "labelOrderPrice";
+            this.labelOrderPrice.Size = new System.Drawing.Size(31, 13);
+            this.labelOrderPrice.TabIndex = 8;
+            this.labelOrderPrice.Text = "Price";
+            // 
+            // textBoxOrderItemNumber
+            // 
+            this.textBoxOrderItemNumber.Location = new System.Drawing.Point(349, 33);
+            this.textBoxOrderItemNumber.Name = "textBoxOrderItemNumber";
+            this.textBoxOrderItemNumber.Size = new System.Drawing.Size(200, 20);
+            this.textBoxOrderItemNumber.TabIndex = 7;
+            this.textBoxOrderItemNumber.Text = "1";
+            // 
+            // labelOrderItemCount
+            // 
+            this.labelOrderItemCount.AutoSize = true;
+            this.labelOrderItemCount.Location = new System.Drawing.Point(346, 16);
+            this.labelOrderItemCount.Name = "labelOrderItemCount";
+            this.labelOrderItemCount.Size = new System.Drawing.Size(44, 13);
+            this.labelOrderItemCount.TabIndex = 6;
+            this.labelOrderItemCount.Text = "Number";
+            // 
+            // labelOrderItemPicture
+            // 
+            this.labelOrderItemPicture.AutoSize = true;
+            this.labelOrderItemPicture.Location = new System.Drawing.Point(12, 175);
+            this.labelOrderItemPicture.Name = "labelOrderItemPicture";
+            this.labelOrderItemPicture.Size = new System.Drawing.Size(40, 13);
+            this.labelOrderItemPicture.TabIndex = 5;
+            this.labelOrderItemPicture.Text = "Picture";
+            // 
+            // comboBoxOrderItem
+            // 
+            this.comboBoxOrderItem.FormattingEnabled = true;
+            this.comboBoxOrderItem.Location = new System.Drawing.Point(15, 111);
+            this.comboBoxOrderItem.Name = "comboBoxOrderItem";
+            this.comboBoxOrderItem.Size = new System.Drawing.Size(308, 21);
+            this.comboBoxOrderItem.TabIndex = 4;
+            // 
+            // labelOrderItem
+            // 
+            this.labelOrderItem.AutoSize = true;
+            this.labelOrderItem.Location = new System.Drawing.Point(12, 95);
+            this.labelOrderItem.Name = "labelOrderItem";
+            this.labelOrderItem.Size = new System.Drawing.Size(27, 13);
+            this.labelOrderItem.TabIndex = 1;
+            this.labelOrderItem.Text = "Item";
+            // 
+            // pictureBoxOrder
+            // 
+            this.pictureBoxOrder.Location = new System.Drawing.Point(15, 194);
+            this.pictureBoxOrder.Name = "pictureBoxOrder";
+            this.pictureBoxOrder.Size = new System.Drawing.Size(250, 250);
+            this.pictureBoxOrder.TabIndex = 0;
+            this.pictureBoxOrder.TabStop = false;
+            // 
             // tabPageItems
             // 
             this.tabPageItems.Controls.Add(this.groupBoxItems);
-            this.tabPageItems.Controls.Add(this.groupBoxItemsType);
-            this.tabPageItems.Controls.Add(this.groupBoxItemsStatus);
             this.tabPageItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageItems.Name = "tabPageItems";
             this.tabPageItems.Padding = new System.Windows.Forms.Padding(3);
@@ -156,73 +406,101 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxItems
             // 
-            this.groupBoxItems.Controls.Add(this.labelItemsItemDescription);
-            this.groupBoxItems.Controls.Add(this.textBoxItemsItemDescription);
+            this.groupBoxItems.Controls.Add(this.labelItemsId);
+            this.groupBoxItems.Controls.Add(this.buttonItemsUpdate);
+            this.groupBoxItems.Controls.Add(this.buttonItemsDelete);
+            this.groupBoxItems.Controls.Add(this.labelItemsDescription);
+            this.groupBoxItems.Controls.Add(this.textBoxItemsDescription);
             this.groupBoxItems.Controls.Add(this.labelItemsImage);
-            this.groupBoxItems.Controls.Add(this.textBoxItemsImage);
             this.groupBoxItems.Controls.Add(this.buttonItemsPictureBoxSelect);
             this.groupBoxItems.Controls.Add(this.pictureBoxItems);
             this.groupBoxItems.Controls.Add(this.buttonItemsSelect);
-            this.groupBoxItems.Controls.Add(this.labelItemsItemType);
-            this.groupBoxItems.Controls.Add(this.comboBoxItemsItemType);
-            this.groupBoxItems.Controls.Add(this.listBoxItems);
+            this.groupBoxItems.Controls.Add(this.labelItemsType);
+            this.groupBoxItems.Controls.Add(this.comboBoxItemsType);
+            this.groupBoxItems.Controls.Add(this.listBoxItemsList);
             this.groupBoxItems.Controls.Add(this.buttonItemsSave);
-            this.groupBoxItems.Controls.Add(this.labelItemsNew);
-            this.groupBoxItems.Controls.Add(this.textBoxItemsNew);
+            this.groupBoxItems.Controls.Add(this.labelItemsName);
+            this.groupBoxItems.Controls.Add(this.textBoxItemsName);
             this.groupBoxItems.Controls.Add(this.labelItemsList);
-            this.groupBoxItems.Location = new System.Drawing.Point(8, 122);
+            this.groupBoxItems.Location = new System.Drawing.Point(3, 6);
             this.groupBoxItems.Name = "groupBoxItems";
-            this.groupBoxItems.Size = new System.Drawing.Size(966, 444);
+            this.groupBoxItems.Size = new System.Drawing.Size(981, 560);
             this.groupBoxItems.TabIndex = 6;
             this.groupBoxItems.TabStop = false;
             this.groupBoxItems.Text = "Items";
             // 
-            // labelItemsItemDescription
+            // labelItemsId
             // 
-            this.labelItemsItemDescription.AutoSize = true;
-            this.labelItemsItemDescription.Location = new System.Drawing.Point(494, 56);
-            this.labelItemsItemDescription.Name = "labelItemsItemDescription";
-            this.labelItemsItemDescription.Size = new System.Drawing.Size(60, 13);
-            this.labelItemsItemDescription.TabIndex = 19;
-            this.labelItemsItemDescription.Text = "Description";
+            this.labelItemsId.AutoSize = true;
+            this.labelItemsId.Enabled = false;
+            this.labelItemsId.Location = new System.Drawing.Point(746, 32);
+            this.labelItemsId.Name = "labelItemsId";
+            this.labelItemsId.Size = new System.Drawing.Size(16, 13);
+            this.labelItemsId.TabIndex = 20;
+            this.labelItemsId.Text = "-1";
+            this.labelItemsId.Visible = false;
             // 
-            // textBoxItemsItemDescription
+            // buttonItemsUpdate
             // 
-            this.textBoxItemsItemDescription.Location = new System.Drawing.Point(494, 72);
-            this.textBoxItemsItemDescription.Name = "textBoxItemsItemDescription";
-            this.textBoxItemsItemDescription.Size = new System.Drawing.Size(300, 20);
-            this.textBoxItemsItemDescription.TabIndex = 18;
+            this.buttonItemsUpdate.Enabled = false;
+            this.buttonItemsUpdate.Location = new System.Drawing.Point(660, 86);
+            this.buttonItemsUpdate.Name = "buttonItemsUpdate";
+            this.buttonItemsUpdate.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemsUpdate.TabIndex = 8;
+            this.buttonItemsUpdate.Text = "Update";
+            this.buttonItemsUpdate.UseVisualStyleBackColor = true;
+            this.buttonItemsUpdate.Click += new System.EventHandler(this.ButtonItemsUpdateClick);
+            // 
+            // buttonItemsDelete
+            // 
+            this.buttonItemsDelete.Enabled = false;
+            this.buttonItemsDelete.Location = new System.Drawing.Point(660, 113);
+            this.buttonItemsDelete.Name = "buttonItemsDelete";
+            this.buttonItemsDelete.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemsDelete.TabIndex = 9;
+            this.buttonItemsDelete.Text = "Delete";
+            this.buttonItemsDelete.UseVisualStyleBackColor = true;
+            this.buttonItemsDelete.Click += new System.EventHandler(this.ButtonItemsDeleteClick);
+            // 
+            // labelItemsDescription
+            // 
+            this.labelItemsDescription.AutoSize = true;
+            this.labelItemsDescription.Location = new System.Drawing.Point(6, 56);
+            this.labelItemsDescription.Name = "labelItemsDescription";
+            this.labelItemsDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelItemsDescription.TabIndex = 19;
+            this.labelItemsDescription.Text = "Description";
+            // 
+            // textBoxItemsDescription
+            // 
+            this.textBoxItemsDescription.Location = new System.Drawing.Point(6, 72);
+            this.textBoxItemsDescription.Name = "textBoxItemsDescription";
+            this.textBoxItemsDescription.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemsDescription.TabIndex = 2;
             // 
             // labelItemsImage
             // 
             this.labelItemsImage.AutoSize = true;
-            this.labelItemsImage.Location = new System.Drawing.Point(494, 141);
+            this.labelItemsImage.Location = new System.Drawing.Point(6, 136);
             this.labelItemsImage.Name = "labelItemsImage";
             this.labelItemsImage.Size = new System.Drawing.Size(36, 13);
             this.labelItemsImage.TabIndex = 17;
             this.labelItemsImage.Text = "Image";
             // 
-            // textBoxItemsImage
-            // 
-            this.textBoxItemsImage.Enabled = false;
-            this.textBoxItemsImage.Location = new System.Drawing.Point(494, 157);
-            this.textBoxItemsImage.Name = "textBoxItemsImage";
-            this.textBoxItemsImage.Size = new System.Drawing.Size(300, 20);
-            this.textBoxItemsImage.TabIndex = 16;
-            // 
             // buttonItemsPictureBoxSelect
             // 
-            this.buttonItemsPictureBoxSelect.Location = new System.Drawing.Point(800, 156);
+            this.buttonItemsPictureBoxSelect.Enabled = false;
+            this.buttonItemsPictureBoxSelect.Location = new System.Drawing.Point(6, 152);
             this.buttonItemsPictureBoxSelect.Name = "buttonItemsPictureBoxSelect";
             this.buttonItemsPictureBoxSelect.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsPictureBoxSelect.TabIndex = 15;
-            this.buttonItemsPictureBoxSelect.Text = "Select";
+            this.buttonItemsPictureBoxSelect.TabIndex = 4;
+            this.buttonItemsPictureBoxSelect.Text = "Select Image";
             this.buttonItemsPictureBoxSelect.UseVisualStyleBackColor = true;
             this.buttonItemsPictureBoxSelect.Click += new System.EventHandler(this.ButtonItemsPictureBoxSelectClick);
             // 
             // pictureBoxItems
             // 
-            this.pictureBoxItems.Location = new System.Drawing.Point(494, 183);
+            this.pictureBoxItems.Location = new System.Drawing.Point(6, 176);
             this.pictureBoxItems.Name = "pictureBoxItems";
             this.pictureBoxItems.Size = new System.Drawing.Size(250, 250);
             this.pictureBoxItems.TabIndex = 14;
@@ -230,192 +508,327 @@ namespace jeza.Item.Tracker.Gui
             // 
             // buttonItemsSelect
             // 
-            this.buttonItemsSelect.Location = new System.Drawing.Point(312, 32);
+            this.buttonItemsSelect.Location = new System.Drawing.Point(660, 32);
             this.buttonItemsSelect.Name = "buttonItemsSelect";
             this.buttonItemsSelect.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsSelect.TabIndex = 13;
+            this.buttonItemsSelect.TabIndex = 6;
             this.buttonItemsSelect.Text = "Select";
             this.buttonItemsSelect.UseVisualStyleBackColor = true;
             this.buttonItemsSelect.Click += new System.EventHandler(this.ButtonItemsSelectClick);
             // 
-            // labelItemsItemType
+            // labelItemsType
             // 
-            this.labelItemsItemType.AutoSize = true;
-            this.labelItemsItemType.Location = new System.Drawing.Point(494, 101);
-            this.labelItemsItemType.Name = "labelItemsItemType";
-            this.labelItemsItemType.Size = new System.Drawing.Size(54, 13);
-            this.labelItemsItemType.TabIndex = 12;
-            this.labelItemsItemType.Text = "Item Type";
+            this.labelItemsType.AutoSize = true;
+            this.labelItemsType.Location = new System.Drawing.Point(6, 96);
+            this.labelItemsType.Name = "labelItemsType";
+            this.labelItemsType.Size = new System.Drawing.Size(54, 13);
+            this.labelItemsType.TabIndex = 12;
+            this.labelItemsType.Text = "Item Type";
             // 
-            // comboBoxItemsItemType
+            // comboBoxItemsType
             // 
-            this.comboBoxItemsItemType.FormattingEnabled = true;
-            this.comboBoxItemsItemType.Location = new System.Drawing.Point(494, 117);
-            this.comboBoxItemsItemType.Name = "comboBoxItemsItemType";
-            this.comboBoxItemsItemType.Size = new System.Drawing.Size(300, 21);
-            this.comboBoxItemsItemType.TabIndex = 11;
+            this.comboBoxItemsType.FormattingEnabled = true;
+            this.comboBoxItemsType.Location = new System.Drawing.Point(6, 112);
+            this.comboBoxItemsType.Name = "comboBoxItemsType";
+            this.comboBoxItemsType.Size = new System.Drawing.Size(300, 21);
+            this.comboBoxItemsType.TabIndex = 3;
             // 
-            // listBoxItems
+            // listBoxItemsList
             // 
-            this.listBoxItems.FormattingEnabled = true;
-            this.listBoxItems.Location = new System.Drawing.Point(6, 33);
-            this.listBoxItems.Name = "listBoxItems";
-            this.listBoxItems.ScrollAlwaysVisible = true;
-            this.listBoxItems.Size = new System.Drawing.Size(300, 407);
-            this.listBoxItems.TabIndex = 10;
+            this.listBoxItemsList.FormattingEnabled = true;
+            this.listBoxItemsList.Location = new System.Drawing.Point(310, 32);
+            this.listBoxItemsList.Name = "listBoxItemsList";
+            this.listBoxItemsList.ScrollAlwaysVisible = true;
+            this.listBoxItemsList.Size = new System.Drawing.Size(345, 511);
+            this.listBoxItemsList.TabIndex = 5;
             // 
             // buttonItemsSave
             // 
-            this.buttonItemsSave.Location = new System.Drawing.Point(800, 32);
+            this.buttonItemsSave.Location = new System.Drawing.Point(660, 59);
             this.buttonItemsSave.Name = "buttonItemsSave";
             this.buttonItemsSave.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsSave.TabIndex = 9;
+            this.buttonItemsSave.TabIndex = 7;
             this.buttonItemsSave.Text = "Save";
             this.buttonItemsSave.UseVisualStyleBackColor = true;
             this.buttonItemsSave.Click += new System.EventHandler(this.ButtonItemsSaveClick);
             // 
-            // labelItemsNew
+            // labelItemsName
             // 
-            this.labelItemsNew.AutoSize = true;
-            this.labelItemsNew.Location = new System.Drawing.Point(494, 17);
-            this.labelItemsNew.Name = "labelItemsNew";
-            this.labelItemsNew.Size = new System.Drawing.Size(35, 13);
-            this.labelItemsNew.TabIndex = 8;
-            this.labelItemsNew.Text = "Name";
+            this.labelItemsName.AutoSize = true;
+            this.labelItemsName.Location = new System.Drawing.Point(6, 16);
+            this.labelItemsName.Name = "labelItemsName";
+            this.labelItemsName.Size = new System.Drawing.Size(35, 13);
+            this.labelItemsName.TabIndex = 8;
+            this.labelItemsName.Text = "Name";
             // 
-            // textBoxItemsNew
+            // textBoxItemsName
             // 
-            this.textBoxItemsNew.Location = new System.Drawing.Point(494, 33);
-            this.textBoxItemsNew.Name = "textBoxItemsNew";
-            this.textBoxItemsNew.Size = new System.Drawing.Size(300, 20);
-            this.textBoxItemsNew.TabIndex = 7;
+            this.textBoxItemsName.Location = new System.Drawing.Point(6, 32);
+            this.textBoxItemsName.Name = "textBoxItemsName";
+            this.textBoxItemsName.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemsName.TabIndex = 1;
             // 
             // labelItemsList
             // 
             this.labelItemsList.AutoSize = true;
-            this.labelItemsList.Location = new System.Drawing.Point(6, 17);
+            this.labelItemsList.Location = new System.Drawing.Point(310, 16);
             this.labelItemsList.Name = "labelItemsList";
-            this.labelItemsList.Size = new System.Drawing.Size(35, 13);
+            this.labelItemsList.Size = new System.Drawing.Size(23, 13);
             this.labelItemsList.TabIndex = 6;
-            this.labelItemsList.Text = "Name";
+            this.labelItemsList.Text = "List";
             // 
-            // groupBoxItemsType
+            // tabPageItemType
             // 
-            this.groupBoxItemsType.Controls.Add(this.buttonItemsTypeSelect);
-            this.groupBoxItemsType.Controls.Add(this.labelItemsTypeExisting);
-            this.groupBoxItemsType.Controls.Add(this.comboBoxItemsTypeExisting);
-            this.groupBoxItemsType.Controls.Add(this.buttonItemsTypeSave);
-            this.groupBoxItemsType.Controls.Add(this.labelItemsTypeNew);
-            this.groupBoxItemsType.Controls.Add(this.textBoxItemsTypeNew);
-            this.groupBoxItemsType.Location = new System.Drawing.Point(8, 6);
-            this.groupBoxItemsType.Name = "groupBoxItemsType";
-            this.groupBoxItemsType.Size = new System.Drawing.Size(480, 110);
-            this.groupBoxItemsType.TabIndex = 5;
-            this.groupBoxItemsType.TabStop = false;
-            this.groupBoxItemsType.Text = "Type";
+            this.tabPageItemType.Controls.Add(this.groupBoxItemType);
+            this.tabPageItemType.Location = new System.Drawing.Point(4, 22);
+            this.tabPageItemType.Name = "tabPageItemType";
+            this.tabPageItemType.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageItemType.Size = new System.Drawing.Size(992, 574);
+            this.tabPageItemType.TabIndex = 4;
+            this.tabPageItemType.Text = "Item Type";
+            this.tabPageItemType.UseVisualStyleBackColor = true;
             // 
-            // buttonItemsTypeSelect
+            // groupBoxItemType
             // 
-            this.buttonItemsTypeSelect.Location = new System.Drawing.Point(312, 32);
-            this.buttonItemsTypeSelect.Name = "buttonItemsTypeSelect";
-            this.buttonItemsTypeSelect.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsTypeSelect.TabIndex = 5;
-            this.buttonItemsTypeSelect.Text = "Select";
-            this.buttonItemsTypeSelect.UseVisualStyleBackColor = true;
-            this.buttonItemsTypeSelect.Visible = false;
-            this.buttonItemsTypeSelect.Click += new System.EventHandler(this.ButtonItemsTypeSelectClick);
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeId);
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeList);
+            this.groupBoxItemType.Controls.Add(this.textBoxItemTypeName);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeUpdate);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeDelete);
+            this.groupBoxItemType.Controls.Add(this.listBoxItemTypeList);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeListSelect);
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeName);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeSave);
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeDescription);
+            this.groupBoxItemType.Controls.Add(this.textBoxItemTypeDescription);
+            this.groupBoxItemType.Location = new System.Drawing.Point(3, 6);
+            this.groupBoxItemType.Name = "groupBoxItemType";
+            this.groupBoxItemType.Size = new System.Drawing.Size(981, 560);
+            this.groupBoxItemType.TabIndex = 6;
+            this.groupBoxItemType.TabStop = false;
+            this.groupBoxItemType.Text = "Type";
             // 
-            // labelItemsTypeExisting
+            // labelItemTypeId
             // 
-            this.labelItemsTypeExisting.AutoSize = true;
-            this.labelItemsTypeExisting.Location = new System.Drawing.Point(6, 16);
-            this.labelItemsTypeExisting.Name = "labelItemsTypeExisting";
-            this.labelItemsTypeExisting.Size = new System.Drawing.Size(35, 13);
-            this.labelItemsTypeExisting.TabIndex = 4;
-            this.labelItemsTypeExisting.Text = "Name";
+            this.labelItemTypeId.AutoSize = true;
+            this.labelItemTypeId.Enabled = false;
+            this.labelItemTypeId.Location = new System.Drawing.Point(746, 36);
+            this.labelItemTypeId.Name = "labelItemTypeId";
+            this.labelItemTypeId.Size = new System.Drawing.Size(16, 13);
+            this.labelItemTypeId.TabIndex = 21;
+            this.labelItemTypeId.Text = "-1";
+            this.labelItemTypeId.Visible = false;
             // 
-            // comboBoxItemsTypeExisting
+            // labelItemTypeList
             // 
-            this.comboBoxItemsTypeExisting.FormattingEnabled = true;
-            this.comboBoxItemsTypeExisting.Location = new System.Drawing.Point(6, 32);
-            this.comboBoxItemsTypeExisting.Name = "comboBoxItemsTypeExisting";
-            this.comboBoxItemsTypeExisting.Size = new System.Drawing.Size(300, 21);
-            this.comboBoxItemsTypeExisting.TabIndex = 3;
+            this.labelItemTypeList.AutoSize = true;
+            this.labelItemTypeList.Location = new System.Drawing.Point(310, 16);
+            this.labelItemTypeList.Name = "labelItemTypeList";
+            this.labelItemTypeList.Size = new System.Drawing.Size(23, 13);
+            this.labelItemTypeList.TabIndex = 10;
+            this.labelItemTypeList.Text = "List";
             // 
-            // buttonItemsTypeSave
+            // textBoxItemTypeName
             // 
-            this.buttonItemsTypeSave.Location = new System.Drawing.Point(312, 72);
-            this.buttonItemsTypeSave.Name = "buttonItemsTypeSave";
-            this.buttonItemsTypeSave.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsTypeSave.TabIndex = 2;
-            this.buttonItemsTypeSave.Text = "Save";
-            this.buttonItemsTypeSave.UseVisualStyleBackColor = true;
-            this.buttonItemsTypeSave.Click += new System.EventHandler(this.ButtonItemsTypeSaveClick);
+            this.textBoxItemTypeName.Location = new System.Drawing.Point(6, 32);
+            this.textBoxItemTypeName.Name = "textBoxItemTypeName";
+            this.textBoxItemTypeName.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemTypeName.TabIndex = 1;
             // 
-            // labelItemsTypeNew
+            // buttonItemTypeUpdate
             // 
-            this.labelItemsTypeNew.AutoSize = true;
-            this.labelItemsTypeNew.Location = new System.Drawing.Point(6, 56);
-            this.labelItemsTypeNew.Name = "labelItemsTypeNew";
-            this.labelItemsTypeNew.Size = new System.Drawing.Size(35, 13);
-            this.labelItemsTypeNew.TabIndex = 1;
-            this.labelItemsTypeNew.Text = "Name";
+            this.buttonItemTypeUpdate.Enabled = false;
+            this.buttonItemTypeUpdate.Location = new System.Drawing.Point(660, 86);
+            this.buttonItemTypeUpdate.Name = "buttonItemTypeUpdate";
+            this.buttonItemTypeUpdate.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemTypeUpdate.TabIndex = 6;
+            this.buttonItemTypeUpdate.Text = "Update";
+            this.buttonItemTypeUpdate.UseVisualStyleBackColor = true;
+            this.buttonItemTypeUpdate.Click += new System.EventHandler(this.ButtonItemTypeUpdateClick);
             // 
-            // textBoxItemsTypeNew
+            // buttonItemTypeDelete
             // 
-            this.textBoxItemsTypeNew.Location = new System.Drawing.Point(6, 72);
-            this.textBoxItemsTypeNew.Name = "textBoxItemsTypeNew";
-            this.textBoxItemsTypeNew.Size = new System.Drawing.Size(300, 20);
-            this.textBoxItemsTypeNew.TabIndex = 0;
+            this.buttonItemTypeDelete.Enabled = false;
+            this.buttonItemTypeDelete.Location = new System.Drawing.Point(660, 113);
+            this.buttonItemTypeDelete.Name = "buttonItemTypeDelete";
+            this.buttonItemTypeDelete.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemTypeDelete.TabIndex = 7;
+            this.buttonItemTypeDelete.Text = "Delete";
+            this.buttonItemTypeDelete.UseVisualStyleBackColor = true;
+            this.buttonItemTypeDelete.Click += new System.EventHandler(this.ButtonItemTypeDeleteClick);
+            // 
+            // listBoxItemTypeList
+            // 
+            this.listBoxItemTypeList.FormattingEnabled = true;
+            this.listBoxItemTypeList.Location = new System.Drawing.Point(310, 32);
+            this.listBoxItemTypeList.Name = "listBoxItemTypeList";
+            this.listBoxItemTypeList.ScrollAlwaysVisible = true;
+            this.listBoxItemTypeList.Size = new System.Drawing.Size(345, 511);
+            this.listBoxItemTypeList.TabIndex = 3;
+            // 
+            // buttonItemTypeListSelect
+            // 
+            this.buttonItemTypeListSelect.Location = new System.Drawing.Point(660, 32);
+            this.buttonItemTypeListSelect.Name = "buttonItemTypeListSelect";
+            this.buttonItemTypeListSelect.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemTypeListSelect.TabIndex = 4;
+            this.buttonItemTypeListSelect.Text = "Select";
+            this.buttonItemTypeListSelect.UseVisualStyleBackColor = true;
+            this.buttonItemTypeListSelect.Click += new System.EventHandler(this.ButtonItemTypeListSelectClick);
+            // 
+            // labelItemTypeName
+            // 
+            this.labelItemTypeName.AutoSize = true;
+            this.labelItemTypeName.Location = new System.Drawing.Point(6, 16);
+            this.labelItemTypeName.Name = "labelItemTypeName";
+            this.labelItemTypeName.Size = new System.Drawing.Size(35, 13);
+            this.labelItemTypeName.TabIndex = 4;
+            this.labelItemTypeName.Text = "Name";
+            // 
+            // buttonItemTypeSave
+            // 
+            this.buttonItemTypeSave.Location = new System.Drawing.Point(660, 59);
+            this.buttonItemTypeSave.Name = "buttonItemTypeSave";
+            this.buttonItemTypeSave.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemTypeSave.TabIndex = 5;
+            this.buttonItemTypeSave.Text = "Save";
+            this.buttonItemTypeSave.UseVisualStyleBackColor = true;
+            this.buttonItemTypeSave.Click += new System.EventHandler(this.ButtonItemTypeSaveClick);
+            // 
+            // labelItemTypeDescription
+            // 
+            this.labelItemTypeDescription.AutoSize = true;
+            this.labelItemTypeDescription.Location = new System.Drawing.Point(6, 56);
+            this.labelItemTypeDescription.Name = "labelItemTypeDescription";
+            this.labelItemTypeDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelItemTypeDescription.TabIndex = 1;
+            this.labelItemTypeDescription.Text = "Description";
+            // 
+            // textBoxItemTypeDescription
+            // 
+            this.textBoxItemTypeDescription.Location = new System.Drawing.Point(6, 72);
+            this.textBoxItemTypeDescription.Name = "textBoxItemTypeDescription";
+            this.textBoxItemTypeDescription.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemTypeDescription.TabIndex = 2;
+            // 
+            // tabPageItemStatus
+            // 
+            this.tabPageItemStatus.Controls.Add(this.groupBoxItemsStatus);
+            this.tabPageItemStatus.Location = new System.Drawing.Point(4, 22);
+            this.tabPageItemStatus.Name = "tabPageItemStatus";
+            this.tabPageItemStatus.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageItemStatus.Size = new System.Drawing.Size(992, 574);
+            this.tabPageItemStatus.TabIndex = 5;
+            this.tabPageItemStatus.Text = "Item Status";
+            this.tabPageItemStatus.UseVisualStyleBackColor = true;
             // 
             // groupBoxItemsStatus
             // 
+            this.groupBoxItemsStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxItemsStatus.AutoSize = true;
+            this.groupBoxItemsStatus.Controls.Add(this.labelItemStatusId);
+            this.groupBoxItemsStatus.Controls.Add(this.labelItemStatusList);
+            this.groupBoxItemsStatus.Controls.Add(this.labelItemStatusDescription);
+            this.groupBoxItemsStatus.Controls.Add(this.textBoxItemStatusDescription);
+            this.groupBoxItemsStatus.Controls.Add(this.buttonItemStatusUpdate);
+            this.groupBoxItemsStatus.Controls.Add(this.buttonItemStatusDelete);
+            this.groupBoxItemsStatus.Controls.Add(this.listBoxItemStatusList);
             this.groupBoxItemsStatus.Controls.Add(this.buttonItemsStatusSelect);
-            this.groupBoxItemsStatus.Controls.Add(this.labelItemsStatusExisting);
-            this.groupBoxItemsStatus.Controls.Add(this.comboBoxItemsStatusExisting);
             this.groupBoxItemsStatus.Controls.Add(this.buttonItemsStatusSave);
             this.groupBoxItemsStatus.Controls.Add(this.labelItemsStatusNew);
-            this.groupBoxItemsStatus.Controls.Add(this.textBoxItemsStatusNew);
-            this.groupBoxItemsStatus.Location = new System.Drawing.Point(494, 6);
+            this.groupBoxItemsStatus.Controls.Add(this.textBoxItemStatusName);
+            this.groupBoxItemsStatus.Location = new System.Drawing.Point(3, 6);
             this.groupBoxItemsStatus.Name = "groupBoxItemsStatus";
-            this.groupBoxItemsStatus.Size = new System.Drawing.Size(480, 110);
-            this.groupBoxItemsStatus.TabIndex = 0;
+            this.groupBoxItemsStatus.Size = new System.Drawing.Size(981, 565);
+            this.groupBoxItemsStatus.TabIndex = 1;
             this.groupBoxItemsStatus.TabStop = false;
             this.groupBoxItemsStatus.Text = "Status";
             // 
+            // labelItemStatusId
+            // 
+            this.labelItemStatusId.AutoSize = true;
+            this.labelItemStatusId.Enabled = false;
+            this.labelItemStatusId.Location = new System.Drawing.Point(747, 38);
+            this.labelItemStatusId.Name = "labelItemStatusId";
+            this.labelItemStatusId.Size = new System.Drawing.Size(16, 13);
+            this.labelItemStatusId.TabIndex = 13;
+            this.labelItemStatusId.Text = "-1";
+            this.labelItemStatusId.Visible = false;
+            // 
+            // labelItemStatusList
+            // 
+            this.labelItemStatusList.AutoSize = true;
+            this.labelItemStatusList.Location = new System.Drawing.Point(310, 16);
+            this.labelItemStatusList.Name = "labelItemStatusList";
+            this.labelItemStatusList.Size = new System.Drawing.Size(23, 13);
+            this.labelItemStatusList.TabIndex = 12;
+            this.labelItemStatusList.Text = "List";
+            // 
+            // labelItemStatusDescription
+            // 
+            this.labelItemStatusDescription.AutoSize = true;
+            this.labelItemStatusDescription.Location = new System.Drawing.Point(6, 56);
+            this.labelItemStatusDescription.Name = "labelItemStatusDescription";
+            this.labelItemStatusDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelItemStatusDescription.TabIndex = 11;
+            this.labelItemStatusDescription.Text = "Description";
+            // 
+            // textBoxItemStatusDescription
+            // 
+            this.textBoxItemStatusDescription.Location = new System.Drawing.Point(6, 72);
+            this.textBoxItemStatusDescription.Name = "textBoxItemStatusDescription";
+            this.textBoxItemStatusDescription.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemStatusDescription.TabIndex = 2;
+            // 
+            // buttonItemStatusUpdate
+            // 
+            this.buttonItemStatusUpdate.Enabled = false;
+            this.buttonItemStatusUpdate.Location = new System.Drawing.Point(660, 86);
+            this.buttonItemStatusUpdate.Name = "buttonItemStatusUpdate";
+            this.buttonItemStatusUpdate.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemStatusUpdate.TabIndex = 6;
+            this.buttonItemStatusUpdate.Text = "Update";
+            this.buttonItemStatusUpdate.UseVisualStyleBackColor = true;
+            this.buttonItemStatusUpdate.Click += new System.EventHandler(this.ButtonItemStatusUpdateClick);
+            // 
+            // buttonItemStatusDelete
+            // 
+            this.buttonItemStatusDelete.Enabled = false;
+            this.buttonItemStatusDelete.Location = new System.Drawing.Point(660, 113);
+            this.buttonItemStatusDelete.Name = "buttonItemStatusDelete";
+            this.buttonItemStatusDelete.Size = new System.Drawing.Size(80, 21);
+            this.buttonItemStatusDelete.TabIndex = 7;
+            this.buttonItemStatusDelete.Text = "Delete";
+            this.buttonItemStatusDelete.UseVisualStyleBackColor = true;
+            this.buttonItemStatusDelete.Click += new System.EventHandler(this.ButtonItemStatusDeleteClick);
+            // 
+            // listBoxItemStatusList
+            // 
+            this.listBoxItemStatusList.FormattingEnabled = true;
+            this.listBoxItemStatusList.Location = new System.Drawing.Point(310, 32);
+            this.listBoxItemStatusList.Name = "listBoxItemStatusList";
+            this.listBoxItemStatusList.ScrollAlwaysVisible = true;
+            this.listBoxItemStatusList.Size = new System.Drawing.Size(345, 511);
+            this.listBoxItemStatusList.TabIndex = 3;
+            // 
             // buttonItemsStatusSelect
             // 
-            this.buttonItemsStatusSelect.Location = new System.Drawing.Point(314, 32);
+            this.buttonItemsStatusSelect.Location = new System.Drawing.Point(660, 32);
             this.buttonItemsStatusSelect.Name = "buttonItemsStatusSelect";
             this.buttonItemsStatusSelect.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsStatusSelect.TabIndex = 5;
+            this.buttonItemsStatusSelect.TabIndex = 4;
             this.buttonItemsStatusSelect.Text = "Select";
             this.buttonItemsStatusSelect.UseVisualStyleBackColor = true;
-            this.buttonItemsStatusSelect.Visible = false;
-            // 
-            // labelItemsStatusExisting
-            // 
-            this.labelItemsStatusExisting.AutoSize = true;
-            this.labelItemsStatusExisting.Location = new System.Drawing.Point(6, 16);
-            this.labelItemsStatusExisting.Name = "labelItemsStatusExisting";
-            this.labelItemsStatusExisting.Size = new System.Drawing.Size(35, 13);
-            this.labelItemsStatusExisting.TabIndex = 4;
-            this.labelItemsStatusExisting.Text = "Name";
-            // 
-            // comboBoxItemsStatusExisting
-            // 
-            this.comboBoxItemsStatusExisting.FormattingEnabled = true;
-            this.comboBoxItemsStatusExisting.Location = new System.Drawing.Point(8, 32);
-            this.comboBoxItemsStatusExisting.Name = "comboBoxItemsStatusExisting";
-            this.comboBoxItemsStatusExisting.Size = new System.Drawing.Size(300, 21);
-            this.comboBoxItemsStatusExisting.TabIndex = 3;
+            this.buttonItemsStatusSelect.Click += new System.EventHandler(this.ButtonItemsStatusSelectClick);
             // 
             // buttonItemsStatusSave
             // 
-            this.buttonItemsStatusSave.Location = new System.Drawing.Point(314, 73);
+            this.buttonItemsStatusSave.Location = new System.Drawing.Point(660, 59);
             this.buttonItemsStatusSave.Name = "buttonItemsStatusSave";
             this.buttonItemsStatusSave.Size = new System.Drawing.Size(80, 21);
-            this.buttonItemsStatusSave.TabIndex = 2;
+            this.buttonItemsStatusSave.TabIndex = 5;
             this.buttonItemsStatusSave.Text = "Save";
             this.buttonItemsStatusSave.UseVisualStyleBackColor = true;
             this.buttonItemsStatusSave.Click += new System.EventHandler(this.ButtonItemsStatusSaveClick);
@@ -423,498 +836,300 @@ namespace jeza.Item.Tracker.Gui
             // labelItemsStatusNew
             // 
             this.labelItemsStatusNew.AutoSize = true;
-            this.labelItemsStatusNew.Location = new System.Drawing.Point(8, 56);
+            this.labelItemsStatusNew.Location = new System.Drawing.Point(6, 16);
             this.labelItemsStatusNew.Name = "labelItemsStatusNew";
             this.labelItemsStatusNew.Size = new System.Drawing.Size(35, 13);
             this.labelItemsStatusNew.TabIndex = 1;
             this.labelItemsStatusNew.Text = "Name";
             // 
-            // textBoxItemsStatusNew
+            // textBoxItemStatusName
             // 
-            this.textBoxItemsStatusNew.Location = new System.Drawing.Point(8, 75);
-            this.textBoxItemsStatusNew.Name = "textBoxItemsStatusNew";
-            this.textBoxItemsStatusNew.Size = new System.Drawing.Size(300, 20);
-            this.textBoxItemsStatusNew.TabIndex = 0;
+            this.textBoxItemStatusName.Location = new System.Drawing.Point(6, 32);
+            this.textBoxItemStatusName.Name = "textBoxItemStatusName";
+            this.textBoxItemStatusName.Size = new System.Drawing.Size(300, 20);
+            this.textBoxItemStatusName.TabIndex = 1;
             // 
-            // tabPageOrder
+            // tabPagePersonInfo
             // 
-            this.tabPageOrder.Controls.Add(this.groupBoxOrderCalculation);
-            this.tabPageOrder.Controls.Add(this.groupBoxOrderItem);
-            this.tabPageOrder.Controls.Add(this.groupBoxOrderPersonInfo);
-            this.tabPageOrder.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOrder.Name = "tabPageOrder";
-            this.tabPageOrder.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOrder.Size = new System.Drawing.Size(992, 574);
-            this.tabPageOrder.TabIndex = 2;
-            this.tabPageOrder.Text = "Order";
-            this.tabPageOrder.UseVisualStyleBackColor = true;
+            this.tabPagePersonInfo.Controls.Add(this.groupBoxPersonInfo);
+            this.tabPagePersonInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePersonInfo.Name = "tabPagePersonInfo";
+            this.tabPagePersonInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePersonInfo.Size = new System.Drawing.Size(992, 574);
+            this.tabPagePersonInfo.TabIndex = 6;
+            this.tabPagePersonInfo.Text = "Person Info";
+            this.tabPagePersonInfo.UseVisualStyleBackColor = true;
             // 
-            // groupBoxOrderCalculation
+            // groupBoxPersonInfo
             // 
-            this.groupBoxOrderCalculation.Controls.Add(this.labelOrderCalculationTotalValue);
-            this.groupBoxOrderCalculation.Controls.Add(this.buttonOrderCalculation);
-            this.groupBoxOrderCalculation.Controls.Add(this.labelOrderCalculation);
-            this.groupBoxOrderCalculation.Location = new System.Drawing.Point(644, 237);
-            this.groupBoxOrderCalculation.Name = "groupBoxOrderCalculation";
-            this.groupBoxOrderCalculation.Size = new System.Drawing.Size(340, 329);
-            this.groupBoxOrderCalculation.TabIndex = 3;
-            this.groupBoxOrderCalculation.TabStop = false;
-            this.groupBoxOrderCalculation.Text = "Calculation";
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoListSelect);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoDelete);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoUpdate);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoList);
+            this.groupBoxPersonInfo.Controls.Add(this.listBoxPersonInfoList);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonOrderPersonInfoSave);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoFaxNumber);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoFax);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoTelephoneMobile);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoTelephoneMobile);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoTelephone);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoTelephone);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoEmail);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoEmail);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoPopstNumber);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoPostNumber);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoCity);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoCity);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoAddress);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoAddress);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoDescription);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoDescription);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoNickName);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoNickName);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoSurName);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoSurName);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoName);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoName);
+            this.groupBoxPersonInfo.Location = new System.Drawing.Point(3, 6);
+            this.groupBoxPersonInfo.Name = "groupBoxPersonInfo";
+            this.groupBoxPersonInfo.Size = new System.Drawing.Size(981, 565);
+            this.groupBoxPersonInfo.TabIndex = 0;
+            this.groupBoxPersonInfo.TabStop = false;
+            this.groupBoxPersonInfo.Text = "Person Info";
             // 
-            // labelOrderCalculationTotalValue
+            // buttonPersonInfoListSelect
             // 
-            this.labelOrderCalculationTotalValue.AutoSize = true;
-            this.labelOrderCalculationTotalValue.Location = new System.Drawing.Point(164, 59);
-            this.labelOrderCalculationTotalValue.Name = "labelOrderCalculationTotalValue";
-            this.labelOrderCalculationTotalValue.Size = new System.Drawing.Size(0, 13);
-            this.labelOrderCalculationTotalValue.TabIndex = 1;
+            this.buttonPersonInfoListSelect.Location = new System.Drawing.Point(660, 32);
+            this.buttonPersonInfoListSelect.Name = "buttonPersonInfoListSelect";
+            this.buttonPersonInfoListSelect.Size = new System.Drawing.Size(80, 21);
+            this.buttonPersonInfoListSelect.TabIndex = 13;
+            this.buttonPersonInfoListSelect.Text = "Select";
+            this.buttonPersonInfoListSelect.UseVisualStyleBackColor = true;
+            this.buttonPersonInfoListSelect.Click += new System.EventHandler(this.ButtonPersonInfoListSelectClick);
             // 
-            // buttonOrderCalculation
+            // buttonPersonInfoDelete
             // 
-            this.buttonOrderCalculation.Location = new System.Drawing.Point(9, 19);
-            this.buttonOrderCalculation.Name = "buttonOrderCalculation";
-            this.buttonOrderCalculation.Size = new System.Drawing.Size(140, 21);
-            this.buttonOrderCalculation.TabIndex = 29;
-            this.buttonOrderCalculation.Text = "Calculate";
-            this.buttonOrderCalculation.UseVisualStyleBackColor = true;
+            this.buttonPersonInfoDelete.Enabled = false;
+            this.buttonPersonInfoDelete.Location = new System.Drawing.Point(660, 113);
+            this.buttonPersonInfoDelete.Name = "buttonPersonInfoDelete";
+            this.buttonPersonInfoDelete.Size = new System.Drawing.Size(80, 21);
+            this.buttonPersonInfoDelete.TabIndex = 16;
+            this.buttonPersonInfoDelete.Text = "Delete";
+            this.buttonPersonInfoDelete.UseVisualStyleBackColor = true;
             // 
-            // labelOrderCalculation
+            // buttonPersonInfoUpdate
             // 
-            this.labelOrderCalculation.AutoSize = true;
-            this.labelOrderCalculation.Location = new System.Drawing.Point(6, 59);
-            this.labelOrderCalculation.Name = "labelOrderCalculation";
-            this.labelOrderCalculation.Size = new System.Drawing.Size(31, 13);
-            this.labelOrderCalculation.TabIndex = 0;
-            this.labelOrderCalculation.Text = "Total";
+            this.buttonPersonInfoUpdate.Enabled = false;
+            this.buttonPersonInfoUpdate.Location = new System.Drawing.Point(660, 86);
+            this.buttonPersonInfoUpdate.Name = "buttonPersonInfoUpdate";
+            this.buttonPersonInfoUpdate.Size = new System.Drawing.Size(80, 21);
+            this.buttonPersonInfoUpdate.TabIndex = 15;
+            this.buttonPersonInfoUpdate.Text = "Update";
+            this.buttonPersonInfoUpdate.UseVisualStyleBackColor = true;
             // 
-            // groupBoxOrderItem
+            // labelPersonInfoList
             // 
-            this.groupBoxOrderItem.Controls.Add(this.buttonOrderitemSelect);
-            this.groupBoxOrderItem.Controls.Add(this.buttonOrderItemSave);
-            this.groupBoxOrderItem.Controls.Add(this.textBoxOrderItemPostage);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemPostage);
-            this.groupBoxOrderItem.Controls.Add(this.comboBoxOrderItemStatus);
-            this.groupBoxOrderItem.Controls.Add(this.checkBoxOrderItemLegalEntity);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemStatus);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemLegalEntity);
-            this.groupBoxOrderItem.Controls.Add(this.textBoxOrderItemPriceNeto);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemPriceNeto);
-            this.groupBoxOrderItem.Controls.Add(this.textBoxOrderItemPriceGross);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemPriceGross);
-            this.groupBoxOrderItem.Controls.Add(this.textBoxOrderItemNumber);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemCount);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItemPicture);
-            this.groupBoxOrderItem.Controls.Add(this.comboBoxOrderItem);
-            this.groupBoxOrderItem.Controls.Add(this.labelOrderItem);
-            this.groupBoxOrderItem.Controls.Add(this.pictureBoxOrderItem);
-            this.groupBoxOrderItem.Location = new System.Drawing.Point(8, 237);
-            this.groupBoxOrderItem.Name = "groupBoxOrderItem";
-            this.groupBoxOrderItem.Size = new System.Drawing.Size(630, 331);
-            this.groupBoxOrderItem.TabIndex = 2;
-            this.groupBoxOrderItem.TabStop = false;
-            this.groupBoxOrderItem.Text = "Item";
+            this.labelPersonInfoList.AutoSize = true;
+            this.labelPersonInfoList.Location = new System.Drawing.Point(310, 16);
+            this.labelPersonInfoList.Name = "labelPersonInfoList";
+            this.labelPersonInfoList.Size = new System.Drawing.Size(23, 13);
+            this.labelPersonInfoList.TabIndex = 53;
+            this.labelPersonInfoList.Text = "List";
             // 
-            // buttonOrderitemSelect
+            // listBoxPersonInfoList
             // 
-            this.buttonOrderitemSelect.Location = new System.Drawing.Point(334, 34);
-            this.buttonOrderitemSelect.Name = "buttonOrderitemSelect";
-            this.buttonOrderitemSelect.Size = new System.Drawing.Size(140, 21);
-            this.buttonOrderitemSelect.TabIndex = 31;
-            this.buttonOrderitemSelect.Text = "Select";
-            this.buttonOrderitemSelect.UseVisualStyleBackColor = true;
-            this.buttonOrderitemSelect.Click += new System.EventHandler(this.ButtonOrderitemSelectClick);
-            // 
-            // buttonOrderItemSave
-            // 
-            this.buttonOrderItemSave.Location = new System.Drawing.Point(9, 264);
-            this.buttonOrderItemSave.Name = "buttonOrderItemSave";
-            this.buttonOrderItemSave.Size = new System.Drawing.Size(140, 21);
-            this.buttonOrderItemSave.TabIndex = 30;
-            this.buttonOrderItemSave.Text = "Save";
-            this.buttonOrderItemSave.UseVisualStyleBackColor = true;
-            // 
-            // textBoxOrderItemPostage
-            // 
-            this.textBoxOrderItemPostage.Location = new System.Drawing.Point(9, 236);
-            this.textBoxOrderItemPostage.Name = "textBoxOrderItemPostage";
-            this.textBoxOrderItemPostage.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderItemPostage.TabIndex = 15;
-            this.textBoxOrderItemPostage.Text = "0";
-            // 
-            // labelOrderItemPostage
-            // 
-            this.labelOrderItemPostage.AutoSize = true;
-            this.labelOrderItemPostage.Location = new System.Drawing.Point(6, 219);
-            this.labelOrderItemPostage.Name = "labelOrderItemPostage";
-            this.labelOrderItemPostage.Size = new System.Drawing.Size(46, 13);
-            this.labelOrderItemPostage.TabIndex = 14;
-            this.labelOrderItemPostage.Text = "Postage";
-            // 
-            // comboBoxOrderItemStatus
-            // 
-            this.comboBoxOrderItemStatus.FormattingEnabled = true;
-            this.comboBoxOrderItemStatus.Location = new System.Drawing.Point(9, 75);
-            this.comboBoxOrderItemStatus.Name = "comboBoxOrderItemStatus";
-            this.comboBoxOrderItemStatus.Size = new System.Drawing.Size(308, 21);
-            this.comboBoxOrderItemStatus.TabIndex = 13;
-            // 
-            // checkBoxOrderItemLegalEntity
-            // 
-            this.checkBoxOrderItemLegalEntity.AutoSize = true;
-            this.checkBoxOrderItemLegalEntity.Location = new System.Drawing.Point(225, 119);
-            this.checkBoxOrderItemLegalEntity.Name = "checkBoxOrderItemLegalEntity";
-            this.checkBoxOrderItemLegalEntity.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxOrderItemLegalEntity.TabIndex = 1;
-            this.checkBoxOrderItemLegalEntity.UseVisualStyleBackColor = true;
-            // 
-            // labelOrderItemStatus
-            // 
-            this.labelOrderItemStatus.AutoSize = true;
-            this.labelOrderItemStatus.Location = new System.Drawing.Point(6, 59);
-            this.labelOrderItemStatus.Name = "labelOrderItemStatus";
-            this.labelOrderItemStatus.Size = new System.Drawing.Size(37, 13);
-            this.labelOrderItemStatus.TabIndex = 12;
-            this.labelOrderItemStatus.Text = "Status";
-            // 
-            // labelOrderItemLegalEntity
-            // 
-            this.labelOrderItemLegalEntity.AutoSize = true;
-            this.labelOrderItemLegalEntity.Location = new System.Drawing.Point(222, 99);
-            this.labelOrderItemLegalEntity.Name = "labelOrderItemLegalEntity";
-            this.labelOrderItemLegalEntity.Size = new System.Drawing.Size(62, 13);
-            this.labelOrderItemLegalEntity.TabIndex = 0;
-            this.labelOrderItemLegalEntity.Text = "Legal Entity";
-            // 
-            // textBoxOrderItemPriceNeto
-            // 
-            this.textBoxOrderItemPriceNeto.Location = new System.Drawing.Point(9, 196);
-            this.textBoxOrderItemPriceNeto.Name = "textBoxOrderItemPriceNeto";
-            this.textBoxOrderItemPriceNeto.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderItemPriceNeto.TabIndex = 11;
-            // 
-            // labelOrderItemPriceNeto
-            // 
-            this.labelOrderItemPriceNeto.AutoSize = true;
-            this.labelOrderItemPriceNeto.Location = new System.Drawing.Point(6, 179);
-            this.labelOrderItemPriceNeto.Name = "labelOrderItemPriceNeto";
-            this.labelOrderItemPriceNeto.Size = new System.Drawing.Size(57, 13);
-            this.labelOrderItemPriceNeto.TabIndex = 10;
-            this.labelOrderItemPriceNeto.Text = "Price Neto";
-            // 
-            // textBoxOrderItemPriceGross
-            // 
-            this.textBoxOrderItemPriceGross.Location = new System.Drawing.Point(9, 156);
-            this.textBoxOrderItemPriceGross.Name = "textBoxOrderItemPriceGross";
-            this.textBoxOrderItemPriceGross.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderItemPriceGross.TabIndex = 9;
-            // 
-            // labelOrderItemPriceGross
-            // 
-            this.labelOrderItemPriceGross.AutoSize = true;
-            this.labelOrderItemPriceGross.Location = new System.Drawing.Point(6, 139);
-            this.labelOrderItemPriceGross.Name = "labelOrderItemPriceGross";
-            this.labelOrderItemPriceGross.Size = new System.Drawing.Size(61, 13);
-            this.labelOrderItemPriceGross.TabIndex = 8;
-            this.labelOrderItemPriceGross.Text = "Price Gross";
-            // 
-            // textBoxOrderItemNumber
-            // 
-            this.textBoxOrderItemNumber.Location = new System.Drawing.Point(9, 116);
-            this.textBoxOrderItemNumber.Name = "textBoxOrderItemNumber";
-            this.textBoxOrderItemNumber.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderItemNumber.TabIndex = 7;
-            this.textBoxOrderItemNumber.Text = "1";
-            // 
-            // labelOrderItemCount
-            // 
-            this.labelOrderItemCount.AutoSize = true;
-            this.labelOrderItemCount.Location = new System.Drawing.Point(6, 99);
-            this.labelOrderItemCount.Name = "labelOrderItemCount";
-            this.labelOrderItemCount.Size = new System.Drawing.Size(44, 13);
-            this.labelOrderItemCount.TabIndex = 6;
-            this.labelOrderItemCount.Text = "Number";
-            // 
-            // labelOrderItemPicture
-            // 
-            this.labelOrderItemPicture.AutoSize = true;
-            this.labelOrderItemPicture.Location = new System.Drawing.Point(331, 59);
-            this.labelOrderItemPicture.Name = "labelOrderItemPicture";
-            this.labelOrderItemPicture.Size = new System.Drawing.Size(40, 13);
-            this.labelOrderItemPicture.TabIndex = 5;
-            this.labelOrderItemPicture.Text = "Picture";
-            // 
-            // comboBoxOrderItem
-            // 
-            this.comboBoxOrderItem.FormattingEnabled = true;
-            this.comboBoxOrderItem.Location = new System.Drawing.Point(9, 35);
-            this.comboBoxOrderItem.Name = "comboBoxOrderItem";
-            this.comboBoxOrderItem.Size = new System.Drawing.Size(308, 21);
-            this.comboBoxOrderItem.TabIndex = 4;
-            // 
-            // labelOrderItem
-            // 
-            this.labelOrderItem.AutoSize = true;
-            this.labelOrderItem.Location = new System.Drawing.Point(6, 19);
-            this.labelOrderItem.Name = "labelOrderItem";
-            this.labelOrderItem.Size = new System.Drawing.Size(27, 13);
-            this.labelOrderItem.TabIndex = 1;
-            this.labelOrderItem.Text = "Item";
-            // 
-            // pictureBoxOrderItem
-            // 
-            this.pictureBoxOrderItem.Location = new System.Drawing.Point(334, 78);
-            this.pictureBoxOrderItem.Name = "pictureBoxOrderItem";
-            this.pictureBoxOrderItem.Size = new System.Drawing.Size(250, 250);
-            this.pictureBoxOrderItem.TabIndex = 0;
-            this.pictureBoxOrderItem.TabStop = false;
-            // 
-            // groupBoxOrderPersonInfo
-            // 
-            this.groupBoxOrderPersonInfo.Controls.Add(this.buttonOrderSubscriberPersonInfoSelect);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.buttonOrderPersonInfoSave);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.comboBoxOrderSubscriberPersonInfo);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoFaxNumber);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderSubscriberPersonInfo);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoFax);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoTelephoneMobile);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoTelephoneMobile);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoTelephone);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoTelephone);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoEmail);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoEmail);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoPopstNumber);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoPostNumber);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoCity);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoCity);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoAddress);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoAddress);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoDescription);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoDescription);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoNickName);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoNickName);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoSurName);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoSurName);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.textBoxOrderPersonInfoName);
-            this.groupBoxOrderPersonInfo.Controls.Add(this.labelOrderPersonInfoName);
-            this.groupBoxOrderPersonInfo.Location = new System.Drawing.Point(8, 6);
-            this.groupBoxOrderPersonInfo.Name = "groupBoxOrderPersonInfo";
-            this.groupBoxOrderPersonInfo.Size = new System.Drawing.Size(976, 225);
-            this.groupBoxOrderPersonInfo.TabIndex = 1;
-            this.groupBoxOrderPersonInfo.TabStop = false;
-            this.groupBoxOrderPersonInfo.Text = "PersonInfo";
-            // 
-            // buttonOrderSubscriberPersonInfoSelect
-            // 
-            this.buttonOrderSubscriberPersonInfoSelect.Location = new System.Drawing.Point(645, 32);
-            this.buttonOrderSubscriberPersonInfoSelect.Name = "buttonOrderSubscriberPersonInfoSelect";
-            this.buttonOrderSubscriberPersonInfoSelect.Size = new System.Drawing.Size(140, 21);
-            this.buttonOrderSubscriberPersonInfoSelect.TabIndex = 4;
-            this.buttonOrderSubscriberPersonInfoSelect.Text = "Select";
-            this.buttonOrderSubscriberPersonInfoSelect.UseVisualStyleBackColor = true;
-            this.buttonOrderSubscriberPersonInfoSelect.Click += new System.EventHandler(this.ButtonOrderSubscriberPersonInfoSelectClick);
+            this.listBoxPersonInfoList.FormattingEnabled = true;
+            this.listBoxPersonInfoList.Location = new System.Drawing.Point(310, 32);
+            this.listBoxPersonInfoList.Name = "listBoxPersonInfoList";
+            this.listBoxPersonInfoList.ScrollAlwaysVisible = true;
+            this.listBoxPersonInfoList.Size = new System.Drawing.Size(345, 511);
+            this.listBoxPersonInfoList.TabIndex = 12;
             // 
             // buttonOrderPersonInfoSave
             // 
-            this.buttonOrderPersonInfoSave.Location = new System.Drawing.Point(645, 73);
+            this.buttonOrderPersonInfoSave.Location = new System.Drawing.Point(660, 59);
             this.buttonOrderPersonInfoSave.Name = "buttonOrderPersonInfoSave";
-            this.buttonOrderPersonInfoSave.Size = new System.Drawing.Size(140, 21);
-            this.buttonOrderPersonInfoSave.TabIndex = 28;
+            this.buttonOrderPersonInfoSave.Size = new System.Drawing.Size(80, 21);
+            this.buttonOrderPersonInfoSave.TabIndex = 14;
             this.buttonOrderPersonInfoSave.Text = "Save";
             this.buttonOrderPersonInfoSave.UseVisualStyleBackColor = true;
             this.buttonOrderPersonInfoSave.Click += new System.EventHandler(this.ButtonOrderPersonInfoSaveClick);
             // 
-            // comboBoxOrderSubscriberPersonInfo
+            // textBoxPersonInfoFaxNumber
             // 
-            this.comboBoxOrderSubscriberPersonInfo.FormattingEnabled = true;
-            this.comboBoxOrderSubscriberPersonInfo.Location = new System.Drawing.Point(9, 32);
-            this.comboBoxOrderSubscriberPersonInfo.Name = "comboBoxOrderSubscriberPersonInfo";
-            this.comboBoxOrderSubscriberPersonInfo.Size = new System.Drawing.Size(618, 21);
-            this.comboBoxOrderSubscriberPersonInfo.TabIndex = 3;
+            this.textBoxPersonInfoFaxNumber.Location = new System.Drawing.Point(6, 432);
+            this.textBoxPersonInfoFaxNumber.Name = "textBoxPersonInfoFaxNumber";
+            this.textBoxPersonInfoFaxNumber.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoFaxNumber.TabIndex = 11;
             // 
-            // textBoxOrderPersonInfoFaxNumber
+            // labelPersonInfoFax
             // 
-            this.textBoxOrderPersonInfoFaxNumber.Location = new System.Drawing.Point(428, 193);
-            this.textBoxOrderPersonInfoFaxNumber.Name = "textBoxOrderPersonInfoFaxNumber";
-            this.textBoxOrderPersonInfoFaxNumber.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoFaxNumber.TabIndex = 27;
+            this.labelPersonInfoFax.AutoSize = true;
+            this.labelPersonInfoFax.Location = new System.Drawing.Point(6, 416);
+            this.labelPersonInfoFax.Name = "labelPersonInfoFax";
+            this.labelPersonInfoFax.Size = new System.Drawing.Size(64, 13);
+            this.labelPersonInfoFax.TabIndex = 49;
+            this.labelPersonInfoFax.Text = "Fax Number";
             // 
-            // labelOrderSubscriberPersonInfo
+            // textBoxPersonInfoTelephoneMobile
             // 
-            this.labelOrderSubscriberPersonInfo.AutoSize = true;
-            this.labelOrderSubscriberPersonInfo.Location = new System.Drawing.Point(6, 16);
-            this.labelOrderSubscriberPersonInfo.Name = "labelOrderSubscriberPersonInfo";
-            this.labelOrderSubscriberPersonInfo.Size = new System.Drawing.Size(43, 13);
-            this.labelOrderSubscriberPersonInfo.TabIndex = 2;
-            this.labelOrderSubscriberPersonInfo.Text = "Existing";
+            this.textBoxPersonInfoTelephoneMobile.Location = new System.Drawing.Point(6, 392);
+            this.textBoxPersonInfoTelephoneMobile.Name = "textBoxPersonInfoTelephoneMobile";
+            this.textBoxPersonInfoTelephoneMobile.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoTelephoneMobile.TabIndex = 10;
             // 
-            // labelOrderPersonInfoFax
+            // labelPersonInfoTelephoneMobile
             // 
-            this.labelOrderPersonInfoFax.AutoSize = true;
-            this.labelOrderPersonInfoFax.Location = new System.Drawing.Point(425, 176);
-            this.labelOrderPersonInfoFax.Name = "labelOrderPersonInfoFax";
-            this.labelOrderPersonInfoFax.Size = new System.Drawing.Size(64, 13);
-            this.labelOrderPersonInfoFax.TabIndex = 26;
-            this.labelOrderPersonInfoFax.Text = "Fax Number";
+            this.labelPersonInfoTelephoneMobile.AutoSize = true;
+            this.labelPersonInfoTelephoneMobile.Location = new System.Drawing.Point(6, 376);
+            this.labelPersonInfoTelephoneMobile.Name = "labelPersonInfoTelephoneMobile";
+            this.labelPersonInfoTelephoneMobile.Size = new System.Drawing.Size(92, 13);
+            this.labelPersonInfoTelephoneMobile.TabIndex = 47;
+            this.labelPersonInfoTelephoneMobile.Text = "Mobile Telephone";
             // 
-            // textBoxOrderPersonInfoTelephoneMobile
+            // textBoxPersonInfoTelephone
             // 
-            this.textBoxOrderPersonInfoTelephoneMobile.Location = new System.Drawing.Point(428, 153);
-            this.textBoxOrderPersonInfoTelephoneMobile.Name = "textBoxOrderPersonInfoTelephoneMobile";
-            this.textBoxOrderPersonInfoTelephoneMobile.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoTelephoneMobile.TabIndex = 25;
+            this.textBoxPersonInfoTelephone.Location = new System.Drawing.Point(6, 352);
+            this.textBoxPersonInfoTelephone.Name = "textBoxPersonInfoTelephone";
+            this.textBoxPersonInfoTelephone.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoTelephone.TabIndex = 9;
             // 
-            // labelOrderPersonInfoTelephoneMobile
+            // labelPersonInfoTelephone
             // 
-            this.labelOrderPersonInfoTelephoneMobile.AutoSize = true;
-            this.labelOrderPersonInfoTelephoneMobile.Location = new System.Drawing.Point(425, 136);
-            this.labelOrderPersonInfoTelephoneMobile.Name = "labelOrderPersonInfoTelephoneMobile";
-            this.labelOrderPersonInfoTelephoneMobile.Size = new System.Drawing.Size(92, 13);
-            this.labelOrderPersonInfoTelephoneMobile.TabIndex = 24;
-            this.labelOrderPersonInfoTelephoneMobile.Text = "Mobile Telephone";
+            this.labelPersonInfoTelephone.AutoSize = true;
+            this.labelPersonInfoTelephone.Location = new System.Drawing.Point(6, 336);
+            this.labelPersonInfoTelephone.Name = "labelPersonInfoTelephone";
+            this.labelPersonInfoTelephone.Size = new System.Drawing.Size(58, 13);
+            this.labelPersonInfoTelephone.TabIndex = 45;
+            this.labelPersonInfoTelephone.Text = "Telephone";
             // 
-            // textBoxOrderPersonInfoTelephone
+            // textBoxPersonInfoEmail
             // 
-            this.textBoxOrderPersonInfoTelephone.Location = new System.Drawing.Point(428, 113);
-            this.textBoxOrderPersonInfoTelephone.Name = "textBoxOrderPersonInfoTelephone";
-            this.textBoxOrderPersonInfoTelephone.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoTelephone.TabIndex = 23;
+            this.textBoxPersonInfoEmail.Location = new System.Drawing.Point(6, 312);
+            this.textBoxPersonInfoEmail.Name = "textBoxPersonInfoEmail";
+            this.textBoxPersonInfoEmail.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoEmail.TabIndex = 8;
             // 
-            // labelOrderPersonInfoTelephone
+            // labelPersonInfoEmail
             // 
-            this.labelOrderPersonInfoTelephone.AutoSize = true;
-            this.labelOrderPersonInfoTelephone.Location = new System.Drawing.Point(425, 96);
-            this.labelOrderPersonInfoTelephone.Name = "labelOrderPersonInfoTelephone";
-            this.labelOrderPersonInfoTelephone.Size = new System.Drawing.Size(58, 13);
-            this.labelOrderPersonInfoTelephone.TabIndex = 22;
-            this.labelOrderPersonInfoTelephone.Text = "Telephone";
+            this.labelPersonInfoEmail.AutoSize = true;
+            this.labelPersonInfoEmail.Location = new System.Drawing.Point(6, 296);
+            this.labelPersonInfoEmail.Name = "labelPersonInfoEmail";
+            this.labelPersonInfoEmail.Size = new System.Drawing.Size(32, 13);
+            this.labelPersonInfoEmail.TabIndex = 43;
+            this.labelPersonInfoEmail.Text = "Email";
             // 
-            // textBoxOrderPersonInfoEmail
+            // textBoxPersonInfoPopstNumber
             // 
-            this.textBoxOrderPersonInfoEmail.Location = new System.Drawing.Point(427, 73);
-            this.textBoxOrderPersonInfoEmail.Name = "textBoxOrderPersonInfoEmail";
-            this.textBoxOrderPersonInfoEmail.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoEmail.TabIndex = 21;
+            this.textBoxPersonInfoPopstNumber.Location = new System.Drawing.Point(6, 272);
+            this.textBoxPersonInfoPopstNumber.Name = "textBoxPersonInfoPopstNumber";
+            this.textBoxPersonInfoPopstNumber.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoPopstNumber.TabIndex = 7;
             // 
-            // labelOrderPersonInfoEmail
+            // labelPersonInfoPostNumber
             // 
-            this.labelOrderPersonInfoEmail.AutoSize = true;
-            this.labelOrderPersonInfoEmail.Location = new System.Drawing.Point(424, 56);
-            this.labelOrderPersonInfoEmail.Name = "labelOrderPersonInfoEmail";
-            this.labelOrderPersonInfoEmail.Size = new System.Drawing.Size(32, 13);
-            this.labelOrderPersonInfoEmail.TabIndex = 20;
-            this.labelOrderPersonInfoEmail.Text = "Email";
+            this.labelPersonInfoPostNumber.AutoSize = true;
+            this.labelPersonInfoPostNumber.Location = new System.Drawing.Point(6, 256);
+            this.labelPersonInfoPostNumber.Name = "labelPersonInfoPostNumber";
+            this.labelPersonInfoPostNumber.Size = new System.Drawing.Size(68, 13);
+            this.labelPersonInfoPostNumber.TabIndex = 41;
+            this.labelPersonInfoPostNumber.Text = "Post Number";
             // 
-            // textBoxOrderPersonInfoPopstNumber
+            // textBoxPersonInfoCity
             // 
-            this.textBoxOrderPersonInfoPopstNumber.Location = new System.Drawing.Point(219, 153);
-            this.textBoxOrderPersonInfoPopstNumber.Name = "textBoxOrderPersonInfoPopstNumber";
-            this.textBoxOrderPersonInfoPopstNumber.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoPopstNumber.TabIndex = 15;
+            this.textBoxPersonInfoCity.Location = new System.Drawing.Point(6, 232);
+            this.textBoxPersonInfoCity.Name = "textBoxPersonInfoCity";
+            this.textBoxPersonInfoCity.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoCity.TabIndex = 6;
             // 
-            // labelOrderPersonInfoPostNumber
+            // labelPersonInfoCity
             // 
-            this.labelOrderPersonInfoPostNumber.AutoSize = true;
-            this.labelOrderPersonInfoPostNumber.Location = new System.Drawing.Point(216, 136);
-            this.labelOrderPersonInfoPostNumber.Name = "labelOrderPersonInfoPostNumber";
-            this.labelOrderPersonInfoPostNumber.Size = new System.Drawing.Size(68, 13);
-            this.labelOrderPersonInfoPostNumber.TabIndex = 14;
-            this.labelOrderPersonInfoPostNumber.Text = "Post Number";
+            this.labelPersonInfoCity.AutoSize = true;
+            this.labelPersonInfoCity.Location = new System.Drawing.Point(6, 216);
+            this.labelPersonInfoCity.Name = "labelPersonInfoCity";
+            this.labelPersonInfoCity.Size = new System.Drawing.Size(24, 13);
+            this.labelPersonInfoCity.TabIndex = 39;
+            this.labelPersonInfoCity.Text = "City";
             // 
-            // textBoxOrderPersonInfoCity
+            // textBoxPersonInfoAddress
             // 
-            this.textBoxOrderPersonInfoCity.Location = new System.Drawing.Point(219, 113);
-            this.textBoxOrderPersonInfoCity.Name = "textBoxOrderPersonInfoCity";
-            this.textBoxOrderPersonInfoCity.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoCity.TabIndex = 13;
+            this.textBoxPersonInfoAddress.Location = new System.Drawing.Point(6, 192);
+            this.textBoxPersonInfoAddress.Name = "textBoxPersonInfoAddress";
+            this.textBoxPersonInfoAddress.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoAddress.TabIndex = 5;
             // 
-            // labelOrderPersonInfoCity
+            // labelPersonInfoAddress
             // 
-            this.labelOrderPersonInfoCity.AutoSize = true;
-            this.labelOrderPersonInfoCity.Location = new System.Drawing.Point(216, 96);
-            this.labelOrderPersonInfoCity.Name = "labelOrderPersonInfoCity";
-            this.labelOrderPersonInfoCity.Size = new System.Drawing.Size(24, 13);
-            this.labelOrderPersonInfoCity.TabIndex = 12;
-            this.labelOrderPersonInfoCity.Text = "City";
+            this.labelPersonInfoAddress.AutoSize = true;
+            this.labelPersonInfoAddress.Location = new System.Drawing.Point(6, 176);
+            this.labelPersonInfoAddress.Name = "labelPersonInfoAddress";
+            this.labelPersonInfoAddress.Size = new System.Drawing.Size(45, 13);
+            this.labelPersonInfoAddress.TabIndex = 37;
+            this.labelPersonInfoAddress.Text = "Address";
             // 
-            // textBoxOrderPersonInfoAddress
+            // textBoxPersonInfoDescription
             // 
-            this.textBoxOrderPersonInfoAddress.Location = new System.Drawing.Point(219, 73);
-            this.textBoxOrderPersonInfoAddress.Name = "textBoxOrderPersonInfoAddress";
-            this.textBoxOrderPersonInfoAddress.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoAddress.TabIndex = 11;
+            this.textBoxPersonInfoDescription.Location = new System.Drawing.Point(6, 152);
+            this.textBoxPersonInfoDescription.Name = "textBoxPersonInfoDescription";
+            this.textBoxPersonInfoDescription.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoDescription.TabIndex = 4;
             // 
-            // labelOrderPersonInfoAddress
+            // labelPersonInfoDescription
             // 
-            this.labelOrderPersonInfoAddress.AutoSize = true;
-            this.labelOrderPersonInfoAddress.Location = new System.Drawing.Point(216, 56);
-            this.labelOrderPersonInfoAddress.Name = "labelOrderPersonInfoAddress";
-            this.labelOrderPersonInfoAddress.Size = new System.Drawing.Size(45, 13);
-            this.labelOrderPersonInfoAddress.TabIndex = 10;
-            this.labelOrderPersonInfoAddress.Text = "Address";
+            this.labelPersonInfoDescription.AutoSize = true;
+            this.labelPersonInfoDescription.Location = new System.Drawing.Point(6, 136);
+            this.labelPersonInfoDescription.Name = "labelPersonInfoDescription";
+            this.labelPersonInfoDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelPersonInfoDescription.TabIndex = 35;
+            this.labelPersonInfoDescription.Text = "Description";
             // 
-            // textBoxOrderPersonInfoDescription
+            // textBoxPersonInfoNickName
             // 
-            this.textBoxOrderPersonInfoDescription.Location = new System.Drawing.Point(9, 193);
-            this.textBoxOrderPersonInfoDescription.Name = "textBoxOrderPersonInfoDescription";
-            this.textBoxOrderPersonInfoDescription.Size = new System.Drawing.Size(410, 20);
-            this.textBoxOrderPersonInfoDescription.TabIndex = 7;
+            this.textBoxPersonInfoNickName.Location = new System.Drawing.Point(6, 112);
+            this.textBoxPersonInfoNickName.Name = "textBoxPersonInfoNickName";
+            this.textBoxPersonInfoNickName.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoNickName.TabIndex = 3;
             // 
-            // labelOrderPersonInfoDescription
+            // labelPersonInfoNickName
             // 
-            this.labelOrderPersonInfoDescription.AutoSize = true;
-            this.labelOrderPersonInfoDescription.Location = new System.Drawing.Point(6, 176);
-            this.labelOrderPersonInfoDescription.Name = "labelOrderPersonInfoDescription";
-            this.labelOrderPersonInfoDescription.Size = new System.Drawing.Size(60, 13);
-            this.labelOrderPersonInfoDescription.TabIndex = 6;
-            this.labelOrderPersonInfoDescription.Text = "Description";
+            this.labelPersonInfoNickName.AutoSize = true;
+            this.labelPersonInfoNickName.Location = new System.Drawing.Point(6, 96);
+            this.labelPersonInfoNickName.Name = "labelPersonInfoNickName";
+            this.labelPersonInfoNickName.Size = new System.Drawing.Size(55, 13);
+            this.labelPersonInfoNickName.TabIndex = 33;
+            this.labelPersonInfoNickName.Text = "Nickname";
             // 
-            // textBoxOrderPersonInfoNickName
+            // textBoxPersonInfoSurName
             // 
-            this.textBoxOrderPersonInfoNickName.Location = new System.Drawing.Point(9, 153);
-            this.textBoxOrderPersonInfoNickName.Name = "textBoxOrderPersonInfoNickName";
-            this.textBoxOrderPersonInfoNickName.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoNickName.TabIndex = 5;
+            this.textBoxPersonInfoSurName.Location = new System.Drawing.Point(6, 72);
+            this.textBoxPersonInfoSurName.Name = "textBoxPersonInfoSurName";
+            this.textBoxPersonInfoSurName.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoSurName.TabIndex = 2;
             // 
-            // labelOrderPersonInfoNickName
+            // labelPersonInfoSurName
             // 
-            this.labelOrderPersonInfoNickName.AutoSize = true;
-            this.labelOrderPersonInfoNickName.Location = new System.Drawing.Point(6, 136);
-            this.labelOrderPersonInfoNickName.Name = "labelOrderPersonInfoNickName";
-            this.labelOrderPersonInfoNickName.Size = new System.Drawing.Size(55, 13);
-            this.labelOrderPersonInfoNickName.TabIndex = 4;
-            this.labelOrderPersonInfoNickName.Text = "Nickname";
+            this.labelPersonInfoSurName.AutoSize = true;
+            this.labelPersonInfoSurName.Location = new System.Drawing.Point(6, 56);
+            this.labelPersonInfoSurName.Name = "labelPersonInfoSurName";
+            this.labelPersonInfoSurName.Size = new System.Drawing.Size(49, 13);
+            this.labelPersonInfoSurName.TabIndex = 31;
+            this.labelPersonInfoSurName.Text = "Surname";
             // 
-            // textBoxOrderPersonInfoSurName
+            // textBoxPersonInfoName
             // 
-            this.textBoxOrderPersonInfoSurName.Location = new System.Drawing.Point(9, 113);
-            this.textBoxOrderPersonInfoSurName.Name = "textBoxOrderPersonInfoSurName";
-            this.textBoxOrderPersonInfoSurName.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoSurName.TabIndex = 3;
+            this.textBoxPersonInfoName.Location = new System.Drawing.Point(6, 32);
+            this.textBoxPersonInfoName.Name = "textBoxPersonInfoName";
+            this.textBoxPersonInfoName.Size = new System.Drawing.Size(300, 20);
+            this.textBoxPersonInfoName.TabIndex = 1;
             // 
-            // labelOrderPersonInfoSurName
+            // labelPersonInfoName
             // 
-            this.labelOrderPersonInfoSurName.AutoSize = true;
-            this.labelOrderPersonInfoSurName.Location = new System.Drawing.Point(6, 96);
-            this.labelOrderPersonInfoSurName.Name = "labelOrderPersonInfoSurName";
-            this.labelOrderPersonInfoSurName.Size = new System.Drawing.Size(49, 13);
-            this.labelOrderPersonInfoSurName.TabIndex = 2;
-            this.labelOrderPersonInfoSurName.Text = "Surname";
-            // 
-            // textBoxOrderPersonInfoName
-            // 
-            this.textBoxOrderPersonInfoName.Location = new System.Drawing.Point(9, 73);
-            this.textBoxOrderPersonInfoName.Name = "textBoxOrderPersonInfoName";
-            this.textBoxOrderPersonInfoName.Size = new System.Drawing.Size(200, 20);
-            this.textBoxOrderPersonInfoName.TabIndex = 1;
-            // 
-            // labelOrderPersonInfoName
-            // 
-            this.labelOrderPersonInfoName.AutoSize = true;
-            this.labelOrderPersonInfoName.Location = new System.Drawing.Point(6, 56);
-            this.labelOrderPersonInfoName.Name = "labelOrderPersonInfoName";
-            this.labelOrderPersonInfoName.Size = new System.Drawing.Size(35, 13);
-            this.labelOrderPersonInfoName.TabIndex = 0;
-            this.labelOrderPersonInfoName.Text = "Name";
+            this.labelPersonInfoName.AutoSize = true;
+            this.labelPersonInfoName.Location = new System.Drawing.Point(6, 16);
+            this.labelPersonInfoName.Name = "labelPersonInfoName";
+            this.labelPersonInfoName.Size = new System.Drawing.Size(35, 13);
+            this.labelPersonInfoName.TabIndex = 29;
+            this.labelPersonInfoName.Text = "Name";
             // 
             // tabPageReports
             // 
@@ -936,22 +1151,24 @@ namespace jeza.Item.Tracker.Gui
             this.Name = "Gui";
             this.Text = "Item Tracker";
             this.tabControl.ResumeLayout(false);
+            this.tabPageOrders.ResumeLayout(false);
+            this.groupBoxOrder.ResumeLayout(false);
+            this.groupBoxOrder.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrder)).EndInit();
             this.tabPageItems.ResumeLayout(false);
             this.groupBoxItems.ResumeLayout(false);
             this.groupBoxItems.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).EndInit();
-            this.groupBoxItemsType.ResumeLayout(false);
-            this.groupBoxItemsType.PerformLayout();
+            this.tabPageItemType.ResumeLayout(false);
+            this.groupBoxItemType.ResumeLayout(false);
+            this.groupBoxItemType.PerformLayout();
+            this.tabPageItemStatus.ResumeLayout(false);
+            this.tabPageItemStatus.PerformLayout();
             this.groupBoxItemsStatus.ResumeLayout(false);
             this.groupBoxItemsStatus.PerformLayout();
-            this.tabPageOrder.ResumeLayout(false);
-            this.groupBoxOrderCalculation.ResumeLayout(false);
-            this.groupBoxOrderCalculation.PerformLayout();
-            this.groupBoxOrderItem.ResumeLayout(false);
-            this.groupBoxOrderItem.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrderItem)).EndInit();
-            this.groupBoxOrderPersonInfo.ResumeLayout(false);
-            this.groupBoxOrderPersonInfo.PerformLayout();
+            this.tabPagePersonInfo.ResumeLayout(false);
+            this.groupBoxPersonInfo.ResumeLayout(false);
+            this.groupBoxPersonInfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -960,87 +1177,104 @@ namespace jeza.Item.Tracker.Gui
 
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageItems;
-        private System.Windows.Forms.GroupBox groupBoxItemsStatus;
-        private System.Windows.Forms.Label labelItemsStatusNew;
-        private System.Windows.Forms.TextBox textBoxItemsStatusNew;
-        private System.Windows.Forms.Button buttonItemsStatusSave;
-        private System.Windows.Forms.Label labelItemsStatusExisting;
-        private System.Windows.Forms.ComboBox comboBoxItemsStatusExisting;
-        private System.Windows.Forms.GroupBox groupBoxItemsType;
-        private System.Windows.Forms.Label labelItemsTypeExisting;
-        private System.Windows.Forms.ComboBox comboBoxItemsTypeExisting;
-        private System.Windows.Forms.Button buttonItemsTypeSave;
-        private System.Windows.Forms.Label labelItemsTypeNew;
-        private System.Windows.Forms.TextBox textBoxItemsTypeNew;
         private System.Windows.Forms.GroupBox groupBoxItems;
         private System.Windows.Forms.Button buttonItemsSave;
-        private System.Windows.Forms.Label labelItemsNew;
-        private System.Windows.Forms.TextBox textBoxItemsNew;
+        private System.Windows.Forms.Label labelItemsName;
+        private System.Windows.Forms.TextBox textBoxItemsName;
         private System.Windows.Forms.Label labelItemsList;
-        private System.Windows.Forms.ListBox listBoxItems;
-        private System.Windows.Forms.TabPage tabPageOrder;
+        private System.Windows.Forms.ListBox listBoxItemsList;
+        private System.Windows.Forms.TabPage tabPageOrders;
         private System.Windows.Forms.TabPage tabPageReports;
-        private System.Windows.Forms.GroupBox groupBoxOrderPersonInfo;
         private System.Windows.Forms.Label labelOrderItemLegalEntity;
         private System.Windows.Forms.CheckBox checkBoxOrderItemLegalEntity;
-        private System.Windows.Forms.GroupBox groupBoxOrderItem;
-        private System.Windows.Forms.ComboBox comboBoxOrderSubscriberPersonInfo;
-        private System.Windows.Forms.Label labelOrderSubscriberPersonInfo;
-        private System.Windows.Forms.GroupBox groupBoxOrderCalculation;
-        private System.Windows.Forms.Button buttonOrderSubscriberPersonInfoSelect;
+        private System.Windows.Forms.GroupBox groupBoxOrder;
+        private System.Windows.Forms.ComboBox comboBoxOrderPersonInfo;
+        private System.Windows.Forms.Label labelOrderPersonInfo;
         private System.Windows.Forms.Button buttonItemsSelect;
-        private System.Windows.Forms.Label labelItemsItemType;
-        private System.Windows.Forms.ComboBox comboBoxItemsItemType;
-        private System.Windows.Forms.Button buttonItemsTypeSelect;
-        private System.Windows.Forms.Button buttonItemsStatusSelect;
+        private System.Windows.Forms.Label labelItemsType;
+        private System.Windows.Forms.ComboBox comboBoxItemsType;
         private System.Windows.Forms.Button buttonItemsPictureBoxSelect;
         private System.Windows.Forms.PictureBox pictureBoxItems;
-        private System.Windows.Forms.TextBox textBoxItemsImage;
         private System.Windows.Forms.Label labelItemsImage;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoName;
-        private System.Windows.Forms.Label labelOrderPersonInfoName;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoDescription;
-        private System.Windows.Forms.Label labelOrderPersonInfoDescription;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoNickName;
-        private System.Windows.Forms.Label labelOrderPersonInfoNickName;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoSurName;
-        private System.Windows.Forms.Label labelOrderPersonInfoSurName;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoPopstNumber;
-        private System.Windows.Forms.Label labelOrderPersonInfoPostNumber;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoCity;
-        private System.Windows.Forms.Label labelOrderPersonInfoCity;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoAddress;
-        private System.Windows.Forms.Label labelOrderPersonInfoAddress;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoFaxNumber;
-        private System.Windows.Forms.Label labelOrderPersonInfoFax;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoTelephoneMobile;
-        private System.Windows.Forms.Label labelOrderPersonInfoTelephoneMobile;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoTelephone;
-        private System.Windows.Forms.Label labelOrderPersonInfoTelephone;
-        private System.Windows.Forms.TextBox textBoxOrderPersonInfoEmail;
-        private System.Windows.Forms.Label labelOrderPersonInfoEmail;
-        private System.Windows.Forms.Button buttonOrderPersonInfoSave;
-        private System.Windows.Forms.PictureBox pictureBoxOrderItem;
+        private System.Windows.Forms.PictureBox pictureBoxOrder;
         private System.Windows.Forms.ComboBox comboBoxOrderItemStatus;
         private System.Windows.Forms.Label labelOrderItemStatus;
-        private System.Windows.Forms.TextBox textBoxOrderItemPriceNeto;
-        private System.Windows.Forms.Label labelOrderItemPriceNeto;
-        private System.Windows.Forms.TextBox textBoxOrderItemPriceGross;
-        private System.Windows.Forms.Label labelOrderItemPriceGross;
+        private System.Windows.Forms.TextBox textBoxOrderTax;
+        private System.Windows.Forms.Label labelOrderTax;
+        private System.Windows.Forms.TextBox textBoxOrderPrice;
+        private System.Windows.Forms.Label labelOrderPrice;
         private System.Windows.Forms.TextBox textBoxOrderItemNumber;
         private System.Windows.Forms.Label labelOrderItemCount;
         private System.Windows.Forms.Label labelOrderItemPicture;
         private System.Windows.Forms.ComboBox comboBoxOrderItem;
         private System.Windows.Forms.Label labelOrderItem;
-        private System.Windows.Forms.TextBox textBoxOrderItemPostage;
-        private System.Windows.Forms.Label labelOrderItemPostage;
-        private System.Windows.Forms.Label labelOrderCalculationTotalValue;
-        private System.Windows.Forms.Label labelOrderCalculation;
-        private System.Windows.Forms.Button buttonOrderItemSave;
-        private System.Windows.Forms.Button buttonOrderCalculation;
-        private System.Windows.Forms.Label labelItemsItemDescription;
-        private System.Windows.Forms.TextBox textBoxItemsItemDescription;
+        private System.Windows.Forms.TextBox textBoxOrderPostage;
+        private System.Windows.Forms.Label labelOrderPostage;
+        private System.Windows.Forms.Button buttonOrderSave;
+        private System.Windows.Forms.Label labelItemsDescription;
+        private System.Windows.Forms.TextBox textBoxItemsDescription;
         private System.Windows.Forms.Button buttonOrderitemSelect;
+        private System.Windows.Forms.TabPage tabPageItemType;
+        private System.Windows.Forms.TabPage tabPageItemStatus;
+        private System.Windows.Forms.TabPage tabPagePersonInfo;
+        private System.Windows.Forms.GroupBox groupBoxPersonInfo;
+        private System.Windows.Forms.Button buttonPersonInfoListSelect;
+        private System.Windows.Forms.Button buttonPersonInfoDelete;
+        private System.Windows.Forms.Button buttonPersonInfoUpdate;
+        private System.Windows.Forms.Label labelPersonInfoList;
+        private System.Windows.Forms.ListBox listBoxPersonInfoList;
+        private System.Windows.Forms.Button buttonOrderPersonInfoSave;
+        private System.Windows.Forms.TextBox textBoxPersonInfoFaxNumber;
+        private System.Windows.Forms.Label labelPersonInfoFax;
+        private System.Windows.Forms.TextBox textBoxPersonInfoTelephoneMobile;
+        private System.Windows.Forms.Label labelPersonInfoTelephoneMobile;
+        private System.Windows.Forms.TextBox textBoxPersonInfoTelephone;
+        private System.Windows.Forms.Label labelPersonInfoTelephone;
+        private System.Windows.Forms.TextBox textBoxPersonInfoEmail;
+        private System.Windows.Forms.Label labelPersonInfoEmail;
+        private System.Windows.Forms.TextBox textBoxPersonInfoPopstNumber;
+        private System.Windows.Forms.Label labelPersonInfoPostNumber;
+        private System.Windows.Forms.TextBox textBoxPersonInfoCity;
+        private System.Windows.Forms.Label labelPersonInfoCity;
+        private System.Windows.Forms.TextBox textBoxPersonInfoAddress;
+        private System.Windows.Forms.Label labelPersonInfoAddress;
+        private System.Windows.Forms.TextBox textBoxPersonInfoDescription;
+        private System.Windows.Forms.Label labelPersonInfoDescription;
+        private System.Windows.Forms.TextBox textBoxPersonInfoNickName;
+        private System.Windows.Forms.Label labelPersonInfoNickName;
+        private System.Windows.Forms.TextBox textBoxPersonInfoSurName;
+        private System.Windows.Forms.Label labelPersonInfoSurName;
+        private System.Windows.Forms.TextBox textBoxPersonInfoName;
+        private System.Windows.Forms.Label labelPersonInfoName;
+        private System.Windows.Forms.Button buttonItemsUpdate;
+        private System.Windows.Forms.Button buttonItemsDelete;
+        private System.Windows.Forms.GroupBox groupBoxItemType;
+        private System.Windows.Forms.Button buttonItemTypeListSelect;
+        private System.Windows.Forms.Label labelItemTypeName;
+        private System.Windows.Forms.Button buttonItemTypeSave;
+        private System.Windows.Forms.Label labelItemTypeDescription;
+        private System.Windows.Forms.TextBox textBoxItemTypeDescription;
+        private System.Windows.Forms.GroupBox groupBoxItemsStatus;
+        private System.Windows.Forms.Button buttonItemsStatusSelect;
+        private System.Windows.Forms.Button buttonItemsStatusSave;
+        private System.Windows.Forms.Label labelItemsStatusNew;
+        private System.Windows.Forms.TextBox textBoxItemStatusName;
+        private System.Windows.Forms.Button buttonItemTypeUpdate;
+        private System.Windows.Forms.Button buttonItemTypeDelete;
+        private System.Windows.Forms.ListBox listBoxItemTypeList;
+        private System.Windows.Forms.Button buttonItemStatusUpdate;
+        private System.Windows.Forms.Button buttonItemStatusDelete;
+        private System.Windows.Forms.ListBox listBoxItemStatusList;
+        private System.Windows.Forms.Label labelItemStatusList;
+        private System.Windows.Forms.Label labelItemStatusDescription;
+        private System.Windows.Forms.TextBox textBoxItemStatusDescription;
+        private System.Windows.Forms.Label labelItemTypeList;
+        private System.Windows.Forms.TextBox textBoxItemTypeName;
+        private System.Windows.Forms.ComboBox comboBoxOrderItemType;
+        private System.Windows.Forms.Label labelOrderItemType;
+        private System.Windows.Forms.Label labelItemsId;
+        private System.Windows.Forms.Label labelItemTypeId;
+        private System.Windows.Forms.Label labelItemStatusId;
     }
 }
 

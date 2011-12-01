@@ -10,5 +10,10 @@ namespace jeza.Item.Tracker
         {
             return string.Format("{0}", Name);
         }
+
+        public string FormatItem()
+        {
+            return string.Format("[Id: {0}, Name: {1}, Description: {2}]", Id, Name, Description);
+        }
     }
 }

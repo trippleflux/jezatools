@@ -1,3 +1,5 @@
+using System;
+
 namespace jeza.Item.Tracker
 {
     public class ItemStatus
@@ -9,6 +11,11 @@ namespace jeza.Item.Tracker
         public override string ToString()
         {
             return string.Format("{0}", Name);
+        }
+
+        public object FormatItemStatus()
+        {
+            return string.Format("[Id: {0}, Name: {1}, Description: {2}]", Id, Name, Description);
         }
     }
 }
