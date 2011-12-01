@@ -15,6 +15,15 @@ namespace jeza.Item.Tracker
         public string TelephoneMobile { get; set; }
         public string Fax { get; set; }
 
+        public string Format()
+        {
+            return
+                string.Format(
+                    "[Id: {0}, Name: {1}, SurName: {2}, NickName: {3}, Description: {4}, Address: {5}, PostNumber: {6}, City: {7}, Email: {8}, Telephone: {9}, TelephoneMobile: {10}, Fax: {11}]",
+                    Id, Name, SurName, NickName, Description, Address, PostNumber, City, Email, Telephone,
+                    TelephoneMobile, Fax);
+        }
+
         public override string ToString()
         {
             return string.Format("{0}, {1} ({2}) - {3}", Name, SurName, NickName, Description);
