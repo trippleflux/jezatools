@@ -73,7 +73,7 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("Create missing files");
             foreach (KeyValuePair<string, string> keyValuePair in sfvData)
             {
-                tagManager.CreateTag(currentRaceData.DirectoryPath, keyValuePair.Key + Config.FileExtensionMissing);
+                FileInfo.Create0ByteFile(Misc.PathCombine(currentRaceData.DirectoryPath, keyValuePair.Key + Config.FileExtensionMissing));
             }
             race.TotalFilesExpected = sfvData.Count;
             Log.Debug("Total files expected: {0}", race.TotalFilesExpected);

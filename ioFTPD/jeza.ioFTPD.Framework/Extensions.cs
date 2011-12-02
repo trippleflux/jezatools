@@ -95,6 +95,7 @@ namespace jeza.ioFTPD.Framework
             {
                 if (path.DirectoryExists())
                 {
+                    Log.Debug("Removing '{0}'", path);
                     Directory.Delete(path);
                 }
             }
@@ -365,6 +366,7 @@ namespace jeza.ioFTPD.Framework
             FileInfo fileInfo = new FileInfo();
             bool deletingFile = race.IsRaceTypeDelete();
             fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
+            fileInfo.DeleteFoldersThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
             bool isAudioRace = race.IsAudioRace;
             File audioInfo = isAudioRace ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
@@ -421,12 +423,12 @@ namespace jeza.ioFTPD.Framework
             }
             else
             {
-                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath,
-                                     race.CurrentRaceData.FileName + Config.FileExtensionMissing);
+                FileInfo.Create0ByteFile(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, race.CurrentRaceData.FileName + Config.FileExtensionMissing));
             }
             if (race.IsRaceComplete)
             {
                 fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
+                fileInfo.DeleteFoldersThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
                 tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isAudioRace ? Config.TagCompleteMp3 : Config.TagComplete, audioInfo));
                 tagManager.DeleteSymlink(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
 

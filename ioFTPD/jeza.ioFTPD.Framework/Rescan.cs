@@ -96,11 +96,22 @@ namespace jeza.ioFTPD.Framework
                         }
                         Output outputFoot = new Output(rescanStats);
                         outputFoot.ClientRescan(Config.ClientCrc32Foot);
+                        new FileInfo().DeleteFoldersThatStartsWith(SourceFolder, Config.TagCleanUpStringCrc32);
                         new FileInfo().DeleteFilesThatStartsWith(SourceFolder, Config.TagCleanUpStringCrc32);
-                        FileInfo.Create0ByteFile(Misc.PathCombine(SourceFolder,
-                                                                  outputFoot.FormatCrc32(rescanStats.TotalFiles == rescanStats.OkFiles
-                                                                                             ? Config.TagCompleteCrc32
-                                                                                             : Config.TagIncompleteCrc32)));
+                        if (Config.TagAsFolderCrc32)
+                        {
+                            FileInfo.CreateFolder(Misc.PathCombine(SourceFolder,
+                                                                      outputFoot.FormatCrc32(rescanStats.TotalFiles == rescanStats.OkFiles
+                                                                                                 ? Config.TagCompleteCrc32
+                                                                                                 : Config.TagIncompleteCrc32)));
+                        }
+                        else
+                        {
+                            FileInfo.Create0ByteFile(Misc.PathCombine(SourceFolder,
+                                                                      outputFoot.FormatCrc32(rescanStats.TotalFiles == rescanStats.OkFiles
+                                                                                                 ? Config.TagCompleteCrc32
+                                                                                                 : Config.TagIncompleteCrc32)));
+                        }
                     }
                 }
             }
