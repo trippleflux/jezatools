@@ -21,7 +21,14 @@ namespace jeza.ioFTPD.Framework
         {
             Log.Debug("CreateTag: '{0}', '{1}'", path, tag);
             string tag2Create = Misc.PathCombine(path, tag);
-            FileInfo.Create0ByteFile(tag2Create);
+            if (Config.TagAsFolder)
+            {
+                FileInfo.CreateFolder(tag2Create);
+            }
+            else
+            {
+                FileInfo.Create0ByteFile(tag2Create);
+            }
         }
 
         /// <summary>

@@ -75,6 +75,16 @@ namespace jeza.ioFTPD.Framework
             get { return GetKeyValue("TagIncompleteLinkCrc32"); }
         }
 
+        public static bool TagAsFolderCrc32
+        {
+            get { return Misc.String2Boolean(GetKeyValue("TagAsFolderCrc32")); }
+        }
+
+        public static bool TagAsFolder
+        {
+            get { return Misc.String2Boolean(GetKeyValue("TagAsFolder")); }
+        }
+
         public static int TrialDefaultTime
         {
             get { return Misc.String2Number(GetKeyValue("TrialDefaultTime")); }

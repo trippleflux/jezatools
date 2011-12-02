@@ -130,6 +130,20 @@ namespace jeza.ioFTPD.Framework
             OByteMutex.ReleaseMutex();
         }
 
+        public void DeleteFoldersThatStartsWith
+            (string path,
+             string prefix)
+        {
+            FolderMutex.WaitOne();
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            DirectoryInfo[] directoriesToRemove = directoryInfo.GetDirectories(prefix + "*", SearchOption.TopDirectoryOnly);
+            foreach (DirectoryInfo folder in directoriesToRemove)
+            {
+                folder.FullName.RemoveFolder();
+            }
+            FolderMutex.ReleaseMutex();
+        }
+
         /// <summary>
         /// Creates the folder.
         /// </summary>
@@ -148,5 +162,6 @@ namespace jeza.ioFTPD.Framework
         }
 
         private static readonly Mutex OByteMutex = new Mutex(false, "OByteMutex");
+        private static readonly Mutex FolderMutex = new Mutex(false, "FolderMutex");
     }
 }
