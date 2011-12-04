@@ -54,7 +54,7 @@ namespace jeza.Item.Tracker.Gui
         private void FillItems()
         {
             Logger.Debug("Fill Items");
-            List<Item> items = dataBase.ItemGetAll();
+            List<Item> items = dataBase.ItemGetAll(@"SELECT Id, Name, Description, ItemType, Image FROM Item");
             if (items == null)
             {
                 return;
@@ -62,10 +62,10 @@ namespace jeza.Item.Tracker.Gui
             ListBox.ObjectCollection objectCollection = listBoxItemsList.Items;
             objectCollection.Clear();
             objectCollection.AddRange(items.ToArray());
-            ComboBox.ObjectCollection collection = comboBoxOrderItem.Items;
-            collection.Clear();
-            collection.AddRange(items.ToArray());
-            comboBoxOrderItem.SelectedItem = collection[0];
+            //ComboBox.ObjectCollection collection = comboBoxOrderItem.Items;
+            //collection.Clear();
+            //collection.AddRange(items.ToArray());
+            //comboBoxOrderItem.SelectedItem = collection[0];
         }
 
         private void FillItemTypes()
@@ -81,6 +81,7 @@ namespace jeza.Item.Tracker.Gui
             comboBoxOrderItemType.Items.Clear();
             comboBoxOrderItemType.Items.AddRange(itemTypes.ToArray());
             comboBoxOrderItemType.SelectedItem = comboBoxOrderItemType.Items[0];
+            FillOrderItems(itemTypes[0]);
             //items tab
             comboBoxItemsType.Items.Clear();
             comboBoxItemsType.Items.AddRange(itemTypes.ToArray());
@@ -325,45 +326,14 @@ namespace jeza.Item.Tracker.Gui
             labelItemTypeId.Text = itemId.ToString();
         }
 
+        private void SetPersonInfoId(int personInfoId)
+        {
+            labelPersonInfoId.Text = personInfoId.ToString();
+        }
+
         private void SetItemId(int itemId)
         {
             labelItemsId.Text = itemId.ToString();
-        }
-
-        private void ButtonOrderitemSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            try
-            {
-                Item selectedItem = (Item) comboBoxOrderItem.SelectedItem;
-                if (selectedItem != null)
-                {
-                    Item item = dataBase.ItemGet(selectedItem.Id);
-                    if (item == null)
-                    {
-                        return;
-                    }
-                    pictureBoxOrder.Image = new Bitmap(1, 1);
-                    if (item.Image != null)
-                    {
-                        if (item.Image.Length > 0)
-                        {
-                            MemoryStream memoryStream = new MemoryStream(item.Image);
-                            Bitmap bitmap = new Bitmap(memoryStream);
-                            pictureBoxOrder.Image = bitmap;
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
         }
 
         private void ButtonItemsStatusSaveClick
@@ -555,6 +525,18 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
+        private void EnablePersonInfoSaveButton()
+        {
+            Logger.Info("EnablePersonInfoSaveButton");
+            ChangePersonInfoButtonStatus(true);
+        }
+
+        private void DisablePersonInfoSaveButton()
+        {
+            Logger.Info("DisablePersonInfoSaveButton");
+            ChangePersonInfoButtonStatus(false);
+        }
+
         private void EnableItemsSaveButton()
         {
             Logger.Info("EnableItemsSaveButton");
@@ -591,23 +573,30 @@ namespace jeza.Item.Tracker.Gui
             ChangeItemStatusButtonStatus(false);
         }
 
+        private void ChangePersonInfoButtonStatus(bool enabled)
+        {
+            buttonPersonInfoSave.Text = enabled ? "Save" : "New";
+            buttonPersonInfoUpdate.Enabled = !enabled;
+            buttonPersonInfoDelete.Enabled = !enabled;
+        }
+
         private void ChangeItemStatusButtonStatus(bool enabled)
         {
-            buttonItemsStatusSave.Enabled = enabled;
+            buttonItemsStatusSave.Text = enabled ? "Save" : "New";
             buttonItemStatusUpdate.Enabled = !enabled;
             buttonItemStatusDelete.Enabled = !enabled;
         }
 
         private void ChangeItemsButtonStatus(bool enabled)
         {
-            buttonItemsSave.Enabled = enabled;
+            buttonItemsSave.Text = enabled ? "Save" : "New";
             buttonItemsUpdate.Enabled = !enabled;
             buttonItemsDelete.Enabled = !enabled;
         }
 
         private void ChangeItemTypeButtonStatus(bool enabled)
         {
-            buttonItemTypeSave.Enabled = enabled;
+            buttonItemTypeSave.Text = enabled ? "Save" : "New";
             buttonItemTypeUpdate.Enabled = !enabled;
             buttonItemTypeDelete.Enabled = !enabled;
         }
@@ -735,6 +724,8 @@ namespace jeza.Item.Tracker.Gui
                     textBoxPersonInfoTelephone.Text = personInfo.Telephone;
                     textBoxPersonInfoTelephoneMobile.Text = personInfo.TelephoneMobile;
                     textBoxPersonInfoFaxNumber.Text = personInfo.Fax;
+                    SetPersonInfoId(personInfo.Id);
+                    DisablePersonInfoSaveButton();
                 }
                 else
                 {
@@ -747,7 +738,7 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void ButtonOrderPersonInfoSaveClick
+        private void ButtonPersonInfoSaveClick
             (object sender,
              EventArgs e)
         {
@@ -763,22 +754,9 @@ namespace jeza.Item.Tracker.Gui
                                         MessageBoxIcon.Stop);
                         return;
                     }
-                    PersonInfo personInfo = new PersonInfo
-                                            {
-                                                Name = name,
-                                                SurName = textBoxPersonInfoSurName.Text,
-                                                NickName = textBoxPersonInfoNickName.Text,
-                                                Description = textBoxPersonInfoDescription.Text,
-                                                Address = textBoxPersonInfoAddress.Text,
-                                                PostNumber = Misc.String2Number(textBoxPersonInfoPopstNumber.Text),
-                                                City = textBoxPersonInfoCity.Text,
-                                                Email = textBoxPersonInfoEmail.Text,
-                                                Telephone = textBoxPersonInfoTelephone.Text,
-                                                TelephoneMobile = textBoxPersonInfoTelephoneMobile.Text,
-                                                Fax = textBoxPersonInfoFaxNumber.Text,
-                                            };
-                    int rowsUpdated = dataBase.PersonInfoInsert(personInfo);
-                    if (rowsUpdated < 1)
+                    PersonInfo personInfo = GetPersonInfo();
+                    int rowsInserted = dataBase.PersonInfoInsert(personInfo);
+                    if (rowsInserted < 1)
                     {
                         MessageBox.Show(@"Failed to insert PersonInfo!", @"Error", MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);
@@ -786,17 +764,8 @@ namespace jeza.Item.Tracker.Gui
                     else
                     {
                         FillPersonInfo();
-                        textBoxPersonInfoName.Text = String.Empty;
-                        textBoxPersonInfoSurName.Text = String.Empty;
-                        textBoxPersonInfoNickName.Text = String.Empty;
-                        textBoxPersonInfoDescription.Text = String.Empty;
-                        textBoxPersonInfoAddress.Text = String.Empty;
-                        textBoxPersonInfoPopstNumber.Text = String.Empty;
-                        textBoxPersonInfoCity.Text = String.Empty;
-                        textBoxPersonInfoEmail.Text = String.Empty;
-                        textBoxPersonInfoTelephone.Text = String.Empty;
-                        textBoxPersonInfoTelephoneMobile.Text = String.Empty;
-                        textBoxPersonInfoFaxNumber.Text = String.Empty;
+                        ClearPersonInfoTextBoxes();
+                        EnablePersonInfoSaveButton();
                     }
                 }
                 else
@@ -808,6 +777,160 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
+        }
+
+        private PersonInfo GetPersonInfo()
+        {
+            return new PersonInfo
+                   {
+                       Name = textBoxPersonInfoName.Text.Trim(),
+                       SurName = textBoxPersonInfoSurName.Text,
+                       NickName = textBoxPersonInfoNickName.Text,
+                       Description = textBoxPersonInfoDescription.Text,
+                       Address = textBoxPersonInfoAddress.Text,
+                       PostNumber = Misc.String2Number(textBoxPersonInfoPopstNumber.Text),
+                       City = textBoxPersonInfoCity.Text,
+                       Email = textBoxPersonInfoEmail.Text,
+                       Telephone = textBoxPersonInfoTelephone.Text,
+                       TelephoneMobile = textBoxPersonInfoTelephoneMobile.Text,
+                       Fax = textBoxPersonInfoFaxNumber.Text,
+                   };
+        }
+
+        private void ClearPersonInfoTextBoxes()
+        {
+            textBoxPersonInfoName.Text = String.Empty;
+            textBoxPersonInfoSurName.Text = String.Empty;
+            textBoxPersonInfoNickName.Text = String.Empty;
+            textBoxPersonInfoDescription.Text = String.Empty;
+            textBoxPersonInfoAddress.Text = String.Empty;
+            textBoxPersonInfoPopstNumber.Text = String.Empty;
+            textBoxPersonInfoCity.Text = String.Empty;
+            textBoxPersonInfoEmail.Text = String.Empty;
+            textBoxPersonInfoTelephone.Text = String.Empty;
+            textBoxPersonInfoTelephoneMobile.Text = String.Empty;
+            textBoxPersonInfoFaxNumber.Text = String.Empty;
+        }
+
+        private void ButtonPersonInfoUpdateClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Update Person info...");
+            int personInfoId = GetPersonInfoId();
+            if (personInfoId > -1)
+            {
+                PersonInfo personInfo = GetPersonInfo();
+                personInfo.Id = personInfoId;
+                int rowsUpdated = dataBase.PersonInfoUpdate(personInfo);
+                if (rowsUpdated < 1)
+                {
+                    MessageBox.Show(@"Failed to update PersonInfo!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    ClearPersonInfoTextBoxes();
+                    SetPersonInfoId(-1);
+                    EnablePersonInfoSaveButton();
+                }
+                FillPersonInfo();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to update PersonInfo!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonPersonInfoDeleteClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Delete Person info...");
+            int personInfoId = GetPersonInfoId();
+            if (personInfoId > -1)
+            {
+                int rowsDeleted = dataBase.PersonInfoDelete(personInfoId);
+                if (rowsDeleted < 1)
+                {
+                    MessageBox.Show(@"Failed to delete PersonInfo!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                else
+                {
+                    ClearPersonInfoTextBoxes();
+                    SetPersonInfoId(-1);
+                    EnablePersonInfoSaveButton();
+                }
+                FillPersonInfo();
+            }
+            else
+            {
+                MessageBox.Show(@"Failed to delete PersonInfo!", @"Error", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+        private int GetPersonInfoId()
+        {
+            return Misc.String2Number(labelPersonInfoId.Text);
+        }
+
+        private void ComboBoxOrderItemTypeSelectedIndexChanged
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Item type was changed...");
+            ComboBox comboBox = (ComboBox) sender;
+            ItemType selectedItemType = (ItemType) comboBox.SelectedItem;
+            if (selectedItemType == null)
+            {
+                Logger.Warn("Failed to ge Item Type!");
+                return;
+            }
+            FillOrderItems(selectedItemType);
+        }
+
+        private void FillOrderItems(ItemType selectedItemType)
+        {
+            List<Item> items = dataBase.ItemGetByType(selectedItemType.Id);
+            if (items.Count > 0)
+            {
+                comboBoxOrderItem.Items.Clear();
+                comboBoxOrderItem.Items.AddRange(items.ToArray());
+                comboBoxOrderItem.SelectedItem = comboBoxOrderItem.Items[0];
+            }
+            else
+            {
+                Logger.Warn("No items for selected Type were found!");
+                MessageBox.Show(@"No items for selected Type were found!", @"Info",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void buttonOrderSave_Click(object sender, EventArgs e)
+        {
+            Logger.Info("Order save...");
+            //Item selectedItem = (Item)comboBoxOrderItem.SelectedItem;
+            //if (selectedItem != null)
+            //{
+            //    Item item = dataBase.ItemGet(selectedItem.Id);
+            //    if (item == null)
+            //    {
+            //        return;
+            //    }
+            //    pictureBoxOrder.Image = new Bitmap(1, 1);
+            //    if (item.Image != null)
+            //    {
+            //        if (item.Image.Length > 0)
+            //        {
+            //            MemoryStream memoryStream = new MemoryStream(item.Image);
+            //            Bitmap bitmap = new Bitmap(memoryStream);
+            //            pictureBoxOrder.Image = bitmap;
+            //        }
+            //    }
+            //}
         }
     }
 }
