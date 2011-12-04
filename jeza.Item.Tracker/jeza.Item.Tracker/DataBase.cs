@@ -103,10 +103,15 @@ namespace jeza.Item.Tracker
             return ItemSelect(commandText);
         }
 
-        public List<Item> ItemGetAll()
+        public List<Item> ItemGetByType(int itemTypeId)
         {
-            const string commandText = @"SELECT Id, Name, Description, ItemType, Image FROM Item";
-            Log.Debug("ItemGetAll");
+            string commandText = @"SELECT Id, Name, Description, ItemType, Image FROM Item WHERE ItemType = " + itemTypeId;
+            return ItemGetAll(commandText);
+        }
+
+        public List<Item> ItemGetAll(string commandText)
+        {
+            Log.Debug("ItemGetAll: '{0}'", commandText);
             List<Item> items = new List<Item>();
             try
             {
@@ -159,7 +164,7 @@ namespace jeza.Item.Tracker
                         sqLiteCommand.Parameters.AddWithValue("@name", item.Name);
                         sqLiteCommand.Parameters.AddWithValue("@description", item.Description);
                         sqLiteCommand.Parameters.AddWithValue("@itemType", item.ItemTypeId);
-                        sqLiteCommand.Parameters.AddWithValue("@image", item.Image);
+                        sqLiteCommand.Parameters.AddWithValue("@image", item.Image ?? new byte[]{1});
                         int rowsUpdated = sqLiteCommand.ExecuteNonQuery();
                         sqLiteConnection.Close();
                         return rowsUpdated;
@@ -388,7 +393,7 @@ namespace jeza.Item.Tracker
                                                 Name = name,
                                                 Description = description,
                                             };
-                        Log.Debug("Found ItemType: {0}", itemType.FormatItem());
+                        Log.Debug("Found ItemType: {0}", itemType.Format());
                         return itemType;
                     }
                     reader.Close();
@@ -409,7 +414,7 @@ namespace jeza.Item.Tracker
                 string commandText =
                     @"UPDATE ItemType SET Name = @name, Description = @description WHERE Id = " +
                     itemType.Id;
-                Log.Debug("ItemTypeUpdate: [{0}], ItemType={1}", commandText, itemType.FormatItem());
+                Log.Debug("ItemTypeUpdate: [{0}], ItemType={1}", commandText, itemType.Format());
                 using (sqLiteConnection)
                 {
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
@@ -479,6 +484,12 @@ namespace jeza.Item.Tracker
                 bytes = stream.ToArray();
             }
             return bytes;
+        }
+
+        public int PersonInfoDelete(int personInfoId)
+        {
+            string commandText = String.Format(@"DELETE FROM PersonInfo WHERE Id = {0}", personInfoId);
+            return ExecuteNonQuery(commandText);
         }
 
         public PersonInfo PersonInfoGet(int personInfoId)
@@ -576,6 +587,43 @@ namespace jeza.Item.Tracker
                 return personInfo;
             }
             return null;
+        }
+
+        public int PersonInfoUpdate(PersonInfo personInfo)
+        {
+            try
+            {
+                string commandText =
+                    @"UPDATE PersonInfo SET Name = @name, SurName = @surName, NickName = @nickName, Description = @description, Address = @address, PostNumber = @postNumber, City = @city, Email = @email, Telephone= @telephone, TelephoneMobile = @telephoneMobile, Fax= @fax WHERE Id = " +
+                    personInfo.Id;
+                Log.Debug("PersonInfoUpdate: [{0}], Item={1}", commandText, personInfo.Format());
+                using (sqLiteConnection)
+                {
+                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
+                    {
+                        sqLiteConnection.Open();
+                        sqLiteCommand.Parameters.AddWithValue("@name", personInfo.Name);
+                        sqLiteCommand.Parameters.AddWithValue("@surName", personInfo.SurName);
+                        sqLiteCommand.Parameters.AddWithValue("@nickName", personInfo.NickName);
+                        sqLiteCommand.Parameters.AddWithValue("@description", personInfo.Description);
+                        sqLiteCommand.Parameters.AddWithValue("@address", personInfo.Address);
+                        sqLiteCommand.Parameters.AddWithValue("@postNumber", personInfo.PostNumber);
+                        sqLiteCommand.Parameters.AddWithValue("@city", personInfo.City);
+                        sqLiteCommand.Parameters.AddWithValue("@email", personInfo.Email);
+                        sqLiteCommand.Parameters.AddWithValue("@telephone", personInfo.Telephone);
+                        sqLiteCommand.Parameters.AddWithValue("@telephoneMobile", personInfo.TelephoneMobile);
+                        sqLiteCommand.Parameters.AddWithValue("@fax", personInfo.Fax);
+                        int rowsUpdated = sqLiteCommand.ExecuteNonQuery();
+                        sqLiteConnection.Close();
+                        return rowsUpdated;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString);
+                return 0;
+            }
         }
 
         public int StoreInsert()
