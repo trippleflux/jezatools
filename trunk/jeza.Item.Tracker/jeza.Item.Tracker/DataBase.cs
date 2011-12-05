@@ -12,6 +12,7 @@ namespace jeza.Item.Tracker
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
         private readonly SQLiteConnection sqLiteConnection = new SQLiteConnection();
+        const string SelectTextOrders = @"SELECT Id, ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, DateTime, Tax FROM Orders";
 
         public DataBase()
         {
@@ -105,7 +106,8 @@ namespace jeza.Item.Tracker
 
         public List<Item> ItemGetByType(int itemTypeId)
         {
-            string commandText = @"SELECT Id, Name, Description, ItemType, Image FROM Item WHERE ItemType = " + itemTypeId;
+            string commandText = @"SELECT Id, Name, Description, ItemType, Image FROM Item WHERE ItemType = " +
+                                 itemTypeId;
             return ItemGetAll(commandText);
         }
 
@@ -164,7 +166,7 @@ namespace jeza.Item.Tracker
                         sqLiteCommand.Parameters.AddWithValue("@name", item.Name);
                         sqLiteCommand.Parameters.AddWithValue("@description", item.Description);
                         sqLiteCommand.Parameters.AddWithValue("@itemType", item.ItemTypeId);
-                        sqLiteCommand.Parameters.AddWithValue("@image", item.Image ?? new byte[]{1});
+                        sqLiteCommand.Parameters.AddWithValue("@image", item.Image ?? new byte[] {1});
                         int rowsUpdated = sqLiteCommand.ExecuteNonQuery();
                         sqLiteConnection.Close();
                         return rowsUpdated;
@@ -486,9 +488,126 @@ namespace jeza.Item.Tracker
             return bytes;
         }
 
-        public int PersonInfoDelete(int personInfoId)
+        public int OrderDelete(int orderId)
         {
-            string commandText = String.Format(@"DELETE FROM PersonInfo WHERE Id = {0}", personInfoId);
+            string commandText = String.Format(@"DELETE FROM Orders WHERE Id = {0}", orderId);
+            return ExecuteNonQuery(commandText);
+        }
+
+        public int OrderInsert(Order order)
+        {
+            string insertCommand =
+                String.Format(
+                    @"INSERT INTO Orders ( ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, Tax) VALUES({0}, {1}, '{2}', '{3}', {4}, {5}, {6}, '{7}')",
+                    order.ItemId,
+                    order.Count,
+                    order.Price,
+                    order.Postage,
+                    order.ItemStatusId,
+                    order.PersonInfoId,
+                    order.LegalEntity ? 1 : 0,
+                    order.Tax ?? "0");
+            return ExecuteNonQuery(insertCommand);
+        }
+
+        private List<Order> OrderGetAll(string commandText)
+        {
+            Log.Debug("OrderGetAll");
+            DataTable dataTable = GetDataTable(commandText);
+            DataRowCollection dataRowCollection = dataTable.Rows;
+            if (dataRowCollection.Count > 0)
+            {
+                return (from DataRow dataRow in dataRowCollection
+                        select dataRow.ItemArray
+                            into itemArray
+                            select new Order
+                            {
+                                Id = Misc.String2Number(itemArray[0].ToString()),
+                                ItemId = Misc.String2Number(itemArray[1].ToString()),
+                                Count = Misc.String2Number(itemArray[2].ToString()),
+                                Price = itemArray[3].ToString(),
+                                Postage = itemArray[4].ToString(),
+                                ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
+                                PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
+                                LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
+                                DateTime = itemArray[8].ToString(),
+                                Tax = itemArray[9].ToString(),
+                            }).ToList();
+            }
+            return null;
+        }
+
+        public List<Order> OrderGetAll()
+        {
+            const string commandText = SelectTextOrders;
+            return OrderGetAll(commandText);
+        }
+
+        public List<Order> OrderGetById(int orderId)
+        {
+            string commandText = String.Format("{0} WHERE Id = {1}", SelectTextOrders, orderId);
+            return OrderGetAll(commandText);
+        }
+
+        public List<Order> OrderGetByItemId(int itemId)
+        {
+            string commandText = String.Format("{0} WHERE ItemId = {1}", SelectTextOrders, itemId);
+            return OrderGetAll(commandText);
+        }
+
+        public List<Order> OrderGetByItemStatus(int itemStatus)
+        {
+            string commandText = String.Format("{0} WHERE ItemStatus = {1}", SelectTextOrders, itemStatus);
+            return OrderGetAll(commandText);
+        }
+
+        public List<Order> OrderGetByPersonInfo(int personInfo)
+        {
+            string commandText = String.Format("{0} WHERE PersonInfoId = {1}", SelectTextOrders, personInfo);
+            return OrderGetAll(commandText);
+        }
+
+        public List<Order> OrderGetByLegalEntity()
+        {
+            string commandText = String.Format("{0} WHERE LegalEntity = 1", SelectTextOrders);
+            return OrderGetAll(commandText);
+        }
+
+        public int OrderUpdate(Order order)
+        {
+            try
+            {
+                string commandText = @"UPDATE Orders SET ItemId = @itemId, Count = @count, Price = @price, Postage = @postage, ItemStatus = @itemStatusId, PersonInfoId = @personInfoId, LegalEntity = @legalEntity, Tax = @tax WHERE Id = " + order.Id;
+                Log.Debug("OrderUpdate: [{0}], Order={1}", commandText, order.Format());
+                using (sqLiteConnection)
+                {
+                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
+                    {
+                        sqLiteConnection.Open();
+                        sqLiteCommand.Parameters.AddWithValue("@itemId", order.ItemId);
+                        sqLiteCommand.Parameters.AddWithValue("@count", order.Count);
+                        sqLiteCommand.Parameters.AddWithValue("@price", order.Price);
+                        sqLiteCommand.Parameters.AddWithValue("@postage", order.Postage);
+                        sqLiteCommand.Parameters.AddWithValue("@itemStatusId", order.ItemStatusId);
+                        sqLiteCommand.Parameters.AddWithValue("@personInfoId", order.PersonInfoId);
+                        sqLiteCommand.Parameters.AddWithValue("@legalEntity", order.LegalEntity);
+                        sqLiteCommand.Parameters.AddWithValue("@tax", order.Tax ?? "0");
+                        int rowsUpdated = sqLiteCommand.ExecuteNonQuery();
+                        sqLiteConnection.Close();
+                        return rowsUpdated;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString);
+                return 0;
+            }
+        }
+
+        public int PersonInfoDelete(int orderId)
+        {
+            string commandText = String.Format(@"DELETE FROM PersonInfo WHERE Id = {0}", orderId);
             return ExecuteNonQuery(commandText);
         }
 

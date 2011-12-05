@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace jeza.Item.Tracker.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MiscTests
     {
-        [TestMethod]
+        [Test]
         public void SerializeSettings()
         {
             Settings settings = new Settings
@@ -16,7 +16,7 @@ namespace jeza.Item.Tracker.Tests
             Misc.Serialize(settings, FileName);
         }
 
-        [TestMethod]
+        [Test]
         public void DeserializeSettings()
         {
             Settings settings = Misc.Deserialize(new Settings(), FileName);
