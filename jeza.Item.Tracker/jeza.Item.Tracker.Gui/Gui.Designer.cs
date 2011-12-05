@@ -37,11 +37,19 @@ namespace jeza.Item.Tracker.Gui
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
             this.groupBoxOrder = new System.Windows.Forms.GroupBox();
+            this.buttonOrdersSum = new System.Windows.Forms.Button();
+            this.labelOrdersSumNumber = new System.Windows.Forms.Label();
+            this.labelOrdersId = new System.Windows.Forms.Label();
+            this.buttonOrdersUpdate = new System.Windows.Forms.Button();
+            this.buttonOrdersDelete = new System.Windows.Forms.Button();
+            this.buttonOrderSave = new System.Windows.Forms.Button();
+            this.listBoxOrdersList = new System.Windows.Forms.ListBox();
+            this.labelOrdersList = new System.Windows.Forms.Label();
             this.comboBoxOrderItemType = new System.Windows.Forms.ComboBox();
             this.labelOrderItemType = new System.Windows.Forms.Label();
             this.comboBoxOrderPersonInfo = new System.Windows.Forms.ComboBox();
             this.labelOrderPersonInfo = new System.Windows.Forms.Label();
-            this.buttonOrderSave = new System.Windows.Forms.Button();
+            this.buttonOrderSelect = new System.Windows.Forms.Button();
             this.textBoxOrderPostage = new System.Windows.Forms.TextBox();
             this.labelOrderPostage = new System.Windows.Forms.Label();
             this.comboBoxOrderItemStatus = new System.Windows.Forms.ComboBox();
@@ -54,10 +62,10 @@ namespace jeza.Item.Tracker.Gui
             this.labelOrderPrice = new System.Windows.Forms.Label();
             this.textBoxOrderItemNumber = new System.Windows.Forms.TextBox();
             this.labelOrderItemCount = new System.Windows.Forms.Label();
-            this.labelOrderItemPicture = new System.Windows.Forms.Label();
+            this.labelOrdersPicture = new System.Windows.Forms.Label();
             this.comboBoxOrderItem = new System.Windows.Forms.ComboBox();
             this.labelOrderItem = new System.Windows.Forms.Label();
-            this.pictureBoxOrder = new System.Windows.Forms.PictureBox();
+            this.pictureBoxOrders = new System.Windows.Forms.PictureBox();
             this.tabPageItems = new System.Windows.Forms.TabPage();
             this.groupBoxItems = new System.Windows.Forms.GroupBox();
             this.labelItemsId = new System.Windows.Forms.Label();
@@ -134,12 +142,10 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxPersonInfoName = new System.Windows.Forms.TextBox();
             this.labelPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
-            this.listBoxOrdersList = new System.Windows.Forms.ListBox();
-            this.labelOrdersList = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.groupBoxOrder.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).BeginInit();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).BeginInit();
@@ -172,13 +178,19 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxOrder
             // 
+            this.groupBoxOrder.Controls.Add(this.buttonOrdersSum);
+            this.groupBoxOrder.Controls.Add(this.labelOrdersSumNumber);
+            this.groupBoxOrder.Controls.Add(this.labelOrdersId);
+            this.groupBoxOrder.Controls.Add(this.buttonOrdersUpdate);
+            this.groupBoxOrder.Controls.Add(this.buttonOrdersDelete);
+            this.groupBoxOrder.Controls.Add(this.buttonOrderSave);
             this.groupBoxOrder.Controls.Add(this.listBoxOrdersList);
             this.groupBoxOrder.Controls.Add(this.labelOrdersList);
             this.groupBoxOrder.Controls.Add(this.comboBoxOrderItemType);
             this.groupBoxOrder.Controls.Add(this.labelOrderItemType);
             this.groupBoxOrder.Controls.Add(this.comboBoxOrderPersonInfo);
             this.groupBoxOrder.Controls.Add(this.labelOrderPersonInfo);
-            this.groupBoxOrder.Controls.Add(this.buttonOrderSave);
+            this.groupBoxOrder.Controls.Add(this.buttonOrderSelect);
             this.groupBoxOrder.Controls.Add(this.textBoxOrderPostage);
             this.groupBoxOrder.Controls.Add(this.labelOrderPostage);
             this.groupBoxOrder.Controls.Add(this.comboBoxOrderItemStatus);
@@ -191,13 +203,62 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxOrder.Controls.Add(this.labelOrderPrice);
             this.groupBoxOrder.Controls.Add(this.textBoxOrderItemNumber);
             this.groupBoxOrder.Controls.Add(this.labelOrderItemCount);
-            this.groupBoxOrder.Controls.Add(this.labelOrderItemPicture);
+            this.groupBoxOrder.Controls.Add(this.labelOrdersPicture);
             this.groupBoxOrder.Controls.Add(this.comboBoxOrderItem);
             this.groupBoxOrder.Controls.Add(this.labelOrderItem);
-            this.groupBoxOrder.Controls.Add(this.pictureBoxOrder);
+            this.groupBoxOrder.Controls.Add(this.pictureBoxOrders);
             resources.ApplyResources(this.groupBoxOrder, "groupBoxOrder");
             this.groupBoxOrder.Name = "groupBoxOrder";
             this.groupBoxOrder.TabStop = false;
+            // 
+            // buttonOrdersSum
+            // 
+            resources.ApplyResources(this.buttonOrdersSum, "buttonOrdersSum");
+            this.buttonOrdersSum.Name = "buttonOrdersSum";
+            this.buttonOrdersSum.UseVisualStyleBackColor = true;
+            this.buttonOrdersSum.Click += new System.EventHandler(this.ButtonOrdersSumClick);
+            // 
+            // labelOrdersSumNumber
+            // 
+            resources.ApplyResources(this.labelOrdersSumNumber, "labelOrdersSumNumber");
+            this.labelOrdersSumNumber.Name = "labelOrdersSumNumber";
+            // 
+            // labelOrdersId
+            // 
+            resources.ApplyResources(this.labelOrdersId, "labelOrdersId");
+            this.labelOrdersId.Name = "labelOrdersId";
+            // 
+            // buttonOrdersUpdate
+            // 
+            resources.ApplyResources(this.buttonOrdersUpdate, "buttonOrdersUpdate");
+            this.buttonOrdersUpdate.Name = "buttonOrdersUpdate";
+            this.buttonOrdersUpdate.UseVisualStyleBackColor = true;
+            this.buttonOrdersUpdate.Click += new System.EventHandler(this.buttonOrdersUpdate_Click);
+            // 
+            // buttonOrdersDelete
+            // 
+            resources.ApplyResources(this.buttonOrdersDelete, "buttonOrdersDelete");
+            this.buttonOrdersDelete.Name = "buttonOrdersDelete";
+            this.buttonOrdersDelete.UseVisualStyleBackColor = true;
+            this.buttonOrdersDelete.Click += new System.EventHandler(this.buttonOrdersDelete_Click);
+            // 
+            // buttonOrderSave
+            // 
+            resources.ApplyResources(this.buttonOrderSave, "buttonOrderSave");
+            this.buttonOrderSave.Name = "buttonOrderSave";
+            this.buttonOrderSave.UseVisualStyleBackColor = true;
+            this.buttonOrderSave.Click += new System.EventHandler(this.ButtonOrderSaveClick);
+            // 
+            // listBoxOrdersList
+            // 
+            this.listBoxOrdersList.FormattingEnabled = true;
+            resources.ApplyResources(this.listBoxOrdersList, "listBoxOrdersList");
+            this.listBoxOrdersList.Name = "listBoxOrdersList";
+            // 
+            // labelOrdersList
+            // 
+            resources.ApplyResources(this.labelOrdersList, "labelOrdersList");
+            this.labelOrdersList.Name = "labelOrdersList";
             // 
             // comboBoxOrderItemType
             // 
@@ -222,12 +283,12 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelOrderPersonInfo, "labelOrderPersonInfo");
             this.labelOrderPersonInfo.Name = "labelOrderPersonInfo";
             // 
-            // buttonOrderSave
+            // buttonOrderSelect
             // 
-            resources.ApplyResources(this.buttonOrderSave, "buttonOrderSave");
-            this.buttonOrderSave.Name = "buttonOrderSave";
-            this.buttonOrderSave.UseVisualStyleBackColor = true;
-            this.buttonOrderSave.Click += new System.EventHandler(this.buttonOrderSave_Click);
+            resources.ApplyResources(this.buttonOrderSelect, "buttonOrderSelect");
+            this.buttonOrderSelect.Name = "buttonOrderSelect";
+            this.buttonOrderSelect.UseVisualStyleBackColor = true;
+            this.buttonOrderSelect.Click += new System.EventHandler(this.ButtonOrderSelectClick);
             // 
             // textBoxOrderPostage
             // 
@@ -291,10 +352,10 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelOrderItemCount, "labelOrderItemCount");
             this.labelOrderItemCount.Name = "labelOrderItemCount";
             // 
-            // labelOrderItemPicture
+            // labelOrdersPicture
             // 
-            resources.ApplyResources(this.labelOrderItemPicture, "labelOrderItemPicture");
-            this.labelOrderItemPicture.Name = "labelOrderItemPicture";
+            resources.ApplyResources(this.labelOrdersPicture, "labelOrdersPicture");
+            this.labelOrdersPicture.Name = "labelOrdersPicture";
             // 
             // comboBoxOrderItem
             // 
@@ -307,11 +368,11 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelOrderItem, "labelOrderItem");
             this.labelOrderItem.Name = "labelOrderItem";
             // 
-            // pictureBoxOrder
+            // pictureBoxOrders
             // 
-            resources.ApplyResources(this.pictureBoxOrder, "pictureBoxOrder");
-            this.pictureBoxOrder.Name = "pictureBoxOrder";
-            this.pictureBoxOrder.TabStop = false;
+            resources.ApplyResources(this.pictureBoxOrders, "pictureBoxOrders");
+            this.pictureBoxOrders.Name = "pictureBoxOrders";
+            this.pictureBoxOrders.TabStop = false;
             // 
             // tabPageItems
             // 
@@ -813,17 +874,6 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageReports.Name = "tabPageReports";
             this.tabPageReports.UseVisualStyleBackColor = true;
             // 
-            // listBoxOrdersList
-            // 
-            this.listBoxOrdersList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxOrdersList, "listBoxOrdersList");
-            this.listBoxOrdersList.Name = "listBoxOrdersList";
-            // 
-            // labelOrdersList
-            // 
-            resources.ApplyResources(this.labelOrdersList, "labelOrdersList");
-            this.labelOrdersList.Name = "labelOrdersList";
-            // 
             // Gui
             // 
             resources.ApplyResources(this, "$this");
@@ -838,7 +888,7 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageOrders.ResumeLayout(false);
             this.groupBoxOrder.ResumeLayout(false);
             this.groupBoxOrder.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).EndInit();
             this.tabPageItems.ResumeLayout(false);
             this.groupBoxItems.ResumeLayout(false);
             this.groupBoxItems.PerformLayout();
@@ -880,7 +930,7 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonItemsPictureBoxSelect;
         private System.Windows.Forms.PictureBox pictureBoxItems;
         private System.Windows.Forms.Label labelItemsImage;
-        private System.Windows.Forms.PictureBox pictureBoxOrder;
+        private System.Windows.Forms.PictureBox pictureBoxOrders;
         private System.Windows.Forms.ComboBox comboBoxOrderItemStatus;
         private System.Windows.Forms.Label labelOrderItemStatus;
         private System.Windows.Forms.TextBox textBoxOrderTax;
@@ -889,12 +939,12 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Label labelOrderPrice;
         private System.Windows.Forms.TextBox textBoxOrderItemNumber;
         private System.Windows.Forms.Label labelOrderItemCount;
-        private System.Windows.Forms.Label labelOrderItemPicture;
+        private System.Windows.Forms.Label labelOrdersPicture;
         private System.Windows.Forms.ComboBox comboBoxOrderItem;
         private System.Windows.Forms.Label labelOrderItem;
         private System.Windows.Forms.TextBox textBoxOrderPostage;
         private System.Windows.Forms.Label labelOrderPostage;
-        private System.Windows.Forms.Button buttonOrderSave;
+        private System.Windows.Forms.Button buttonOrderSelect;
         private System.Windows.Forms.Label labelItemsDescription;
         private System.Windows.Forms.TextBox textBoxItemsDescription;
         private System.Windows.Forms.TabPage tabPageItemType;
@@ -961,6 +1011,12 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Label labelPersonInfoId;
         private System.Windows.Forms.ListBox listBoxOrdersList;
         private System.Windows.Forms.Label labelOrdersList;
+        private System.Windows.Forms.Button buttonOrderSave;
+        private System.Windows.Forms.Label labelOrdersId;
+        private System.Windows.Forms.Button buttonOrdersUpdate;
+        private System.Windows.Forms.Button buttonOrdersDelete;
+        private System.Windows.Forms.Button buttonOrdersSum;
+        private System.Windows.Forms.Label labelOrdersSumNumber;
     }
 }
 

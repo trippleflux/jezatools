@@ -32,6 +32,20 @@ namespace jeza.Item.Tracker.Gui
             FillItemStatus();
             FillItems();
             FillPersonInfo();
+            FillOrders();
+        }
+
+        private void FillOrders()
+        {
+            Logger.Debug("Fill orders");
+            List<Order> list = dataBase.OrderGetAll();
+            if (list == null)
+            {
+                return;
+            }
+            //Order tab
+            listBoxOrdersList.Items.Clear();
+            listBoxOrdersList.Items.AddRange(list.ToArray());
         }
 
         private void FillPersonInfo()
@@ -909,28 +923,171 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void buttonOrderSave_Click(object sender, EventArgs e)
+        private void ButtonOrderSelectClick(object sender, EventArgs e)
+        {
+            Logger.Info("Order select...");
+            try
+            {
+                Order selectedItem = (Order)listBoxOrdersList.SelectedItem;
+                if (selectedItem != null)
+                {
+                    List<Order> list = dataBase.OrderGetById(selectedItem.Id);
+                    if (list == null)
+                    {
+                        return;
+                    }
+                    Order order = list[0];
+                    comboBoxOrderItem.SelectedValue = order.ItemId;
+                    comboBoxOrderItemStatus.SelectedValue = order.ItemStatusId;
+                    //comboBoxOrderItemType.SelectedValue = ???
+                    comboBoxOrderPersonInfo.SelectedValue = order.PersonInfoId;
+                    textBoxOrderItemNumber.Text = order.Count.ToString();
+                    textBoxOrderPrice.Text = order.Price;
+                    textBoxOrderPostage.Text = order.Postage;
+                    textBoxOrderTax.Text = order.Tax;
+                    //    DisableItemsSaveButton();
+                    //    SetItemId(item.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an order!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }            
+        }
+
+        private void ButtonOrderSaveClick(object sender, EventArgs e)
         {
             Logger.Info("Order save...");
-            //Item selectedItem = (Item)comboBoxOrderItem.SelectedItem;
-            //if (selectedItem != null)
-            //{
-            //    Item item = dataBase.ItemGet(selectedItem.Id);
-            //    if (item == null)
-            //    {
-            //        return;
-            //    }
-            //    pictureBoxOrder.Image = new Bitmap(1, 1);
-            //    if (item.Image != null)
-            //    {
-            //        if (item.Image.Length > 0)
-            //        {
-            //            MemoryStream memoryStream = new MemoryStream(item.Image);
-            //            Bitmap bitmap = new Bitmap(memoryStream);
-            //            pictureBoxOrder.Image = bitmap;
-            //        }
-            //    }
-            //}
+            try
+            {
+                Item selectedItem = (Item)comboBoxOrderItem.SelectedItem;
+                if(selectedItem == null)
+                {
+                    Logger.Error("Failed to get Item!");
+                    return;
+                }
+                ItemStatus selectedItemStatus = (ItemStatus)comboBoxOrderItemStatus.SelectedItem;
+                if (selectedItemStatus == null)
+                {
+                    Logger.Error("Failed to get ItemStatus!");
+                    return;
+                }
+                PersonInfo selectedPersonInfo = (PersonInfo)comboBoxOrderPersonInfo.SelectedItem;
+                if (selectedPersonInfo == null)
+                {
+                    Logger.Error("Failed to get PersonInfo!");
+                    return;
+                }
+                string count = GetCount();
+                decimal price = GetPrice();
+                decimal postage = GetPostage();
+                string tax = GetTax();
+                Order order = new Order
+                              {
+                                  ItemId = selectedItem.Id,
+                                  Count = Misc.String2Number(count),
+                                  ItemStatusId = selectedItemStatus.Id,
+                                  PersonInfoId = selectedPersonInfo.Id,
+                                  LegalEntity = false,
+                                  Postage = postage.DecimalToString(),
+                                  Price = price.DecimalToString(),
+                                  Tax = tax,
+                              };
+                int rowsInserted = dataBase.OrderInsert(order);
+                if (rowsInserted != 1)
+                {
+                    MessageBox.Show(@"Failed to insert Order!", @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                FillOrders();
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private string GetCount()
+        {
+            string count = textBoxOrderItemNumber.Text.Trim();
+            if (count.Length < 1)
+            {
+                MessageBox.Show(@"Specify number of items!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                const string defaultValue = "1";
+                textBoxOrderItemNumber.Text = defaultValue;
+                count = defaultValue;
+            }
+            return count;
+        }
+
+        private decimal GetPrice()
+        {
+            string price = textBoxOrderPrice.Text.Trim();
+            if (price.Length < 1)
+            {
+                MessageBox.Show(@"Specify price!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                const string defaultValue = "1";
+                textBoxOrderPrice.Text = defaultValue;
+                price = defaultValue;
+            }
+            return Misc.String2Decimal(price);
+        }
+
+        private decimal GetPostage()
+        {
+            string postage = textBoxOrderPostage.Text.Trim();
+            if (postage.Length < 1)
+            {
+                MessageBox.Show(@"Specify postage!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                const string defaultValue = "0";
+                textBoxOrderPostage.Text = defaultValue;
+                postage = defaultValue;
+            }
+            return Misc.String2Decimal(postage);
+        }
+
+        private string GetTax()
+        {
+            string tax = textBoxOrderTax.Text.Trim();
+            if (tax.Length < 1)
+            {
+                MessageBox.Show(@"Specify tax!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                const string defaultValue = "0";
+                textBoxOrderTax.Text = defaultValue;
+                tax = defaultValue;
+            }
+            return tax;
+        }
+
+        private void buttonOrdersUpdate_Click(object sender, EventArgs e)
+        {
+            Logger.Info("Order update...");
+        }
+
+        private void buttonOrdersDelete_Click(object sender, EventArgs e)
+        {
+            Logger.Info("Order delete...");
+        }
+
+        private void ButtonOrdersSumClick(object sender, EventArgs e)
+        {
+            Logger.Info("Calculate Sum...");
+            string count = GetCount();
+            decimal price = GetPrice();
+            decimal postage = GetPostage();
+            //string tax = GetTax();
+            try
+            {
+                labelOrdersSumNumber.Text = string.Format("{0} {1}", (Misc.String2Number(count) * price + postage), System.Configuration.ConfigurationManager.AppSettings["defaultCurrency"]);
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+            }
         }
     }
 }

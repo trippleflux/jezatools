@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace jeza.Item.Tracker.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class DataBaseTests
     {
-        [TestMethod]
+        [Test]
         public void GetItemNonExisting()
         {
             DataBase dataBase = new DataBase();
@@ -16,7 +15,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNull(item);
         }
 
-        [TestMethod]
+        [Test]
         public void GetItemByType()
         {
             DataBase dataBase = new DataBase();
@@ -75,7 +74,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsTrue(items.Count == 0, "Expected: {0}, Actual:{1}", 0, items.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void GetPersonInfoNonExisting()
         {
             DataBase dataBase = new DataBase();
@@ -83,7 +82,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNull(personInfo);
         }
 
-        [TestMethod]
+        [Test]
         public void InsertPersonOnlyName()
         {
             DataBase dataBase = new DataBase();
@@ -97,7 +96,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(name, info.Name, "PersonInfo not found! '{0}'", name);
         }
 
-        [TestMethod]
+        [Test]
         public void DeletePersonOnlyName()
         {
             DataBase dataBase = new DataBase();
@@ -113,7 +112,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(1, rowsDeleted, "Person not deleted!");
         }
 
-        [TestMethod]
+        [Test]
         public void InsertPersonAll()
         {
             DataBase dataBase = new DataBase();
@@ -136,7 +135,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(1, rowsInserted, "Person not inserted!");
         }
 
-        [TestMethod]
+        [Test]
         public void InsertItemType()
         {
             DataBase dataBase = new DataBase();
@@ -146,7 +145,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(1, rowsInserted, "Item type not inserted!");
         }
 
-        [TestMethod]
+        [Test]
         public void InsertItemStatus()
         {
             DataBase dataBase = new DataBase();
@@ -156,7 +155,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(1, rowsInserted, "Item status not inserted!");
         }
 
-        [TestMethod]
+        [Test]
         public void InsertItem()
         {
             DataBase dataBase = new DataBase();
@@ -176,7 +175,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNotNull(find);
         }
 
-        [TestMethod]
+        [Test]
         public void UpdateItem()
         {
             DataBase dataBase = new DataBase();
@@ -204,7 +203,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(item.ItemTypeId, updatedItem.ItemTypeId);
         }
 
-        [TestMethod]
+        [Test]
         public void UpdateItemStatus()
         {
             DataBase dataBase = new DataBase();
@@ -229,7 +228,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(itemStatus.Description, updatedItemStatus.Description);
         }
 
-        [TestMethod]
+        [Test]
         public void UpdateItemType()
         {
             DataBase dataBase = new DataBase();
@@ -250,7 +249,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(itemType.Description, updatedItemType.Description);
         }
 
-        [TestMethod]
+        [Test]
         public void UpdatePersonInfo()
         {
             DataBase dataBase = new DataBase();
@@ -293,13 +292,12 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(personInfo.Fax, updatedPersonInfo.Fax);
         }
 
-        [TestMethod]
+        [Test]
         public void InsertItemWitPicture()
         {
             DataBase dataBase = new DataBase();
             string name = Guid.NewGuid().ToString();
-            string[] directories = Directory.GetDirectories("..\\..\\..\\..\\");
-            string imagePath = Path.Combine(directories[0], "Untitled.png");
+            const string imagePath = "Untitled.png";
             byte[] imageData = Misc.GetImageData(imagePath);
             Assert.IsNotNull(imageData, "No image '{0}'!", imagePath);
             Item item = new Item

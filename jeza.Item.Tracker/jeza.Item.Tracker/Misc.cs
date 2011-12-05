@@ -13,6 +13,11 @@ namespace jeza.Item.Tracker
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
+        public static string DecimalToString(this decimal number)
+        {
+            return String.Format("{0:0.000}", number);
+        }
+
         public static Language GetLanguageSlovenian()
         {
             Language languageSlovenian = new Language
@@ -131,6 +136,38 @@ namespace jeza.Item.Tracker
                 return Int32.Parse(sb.ToString());
             }
             return 0;
+        }
+
+        /// <summary>
+        /// Converts string to decimal.
+        /// </summary>
+        /// <param name="input">Input string.</param>
+        /// <returns><c>0</c> if input string was not a number.</returns>
+        public static decimal String2Decimal(string input)
+        {
+            int length = input.Length;
+            if (length < 1)
+            {
+                return 0;
+            }
+            StringBuilder sb = new StringBuilder();
+            const char dot = '.';
+            if (input[0] == dot)
+            {
+                sb.Append("0");
+            }
+            for (int c = 0; c < length; c++)
+            {
+                if (input[c] == dot)
+                {
+                    sb.Append(input[c]);
+                }
+                else if (Char.IsNumber(input[c]))
+                {
+                    sb.Append(input[c]);
+                }
+            }
+            return Decimal.Parse(sb.ToString());
         }
 
         /// <summary>
