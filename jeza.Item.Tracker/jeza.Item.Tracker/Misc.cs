@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Net.Mime;
 using System.Text;
@@ -152,22 +153,23 @@ namespace jeza.Item.Tracker
             }
             StringBuilder sb = new StringBuilder();
             const char dot = '.';
-            if (input[0] == dot)
+            const char coma = ',';
+            if (input[0] == dot || input[0] == coma)
             {
                 sb.Append("0");
             }
             for (int c = 0; c < length; c++)
             {
-                if (input[c] == dot)
+                if (input[c] == dot || input[c] == coma)
                 {
-                    sb.Append(input[c]);
+                    sb.Append(coma);
                 }
                 else if (Char.IsNumber(input[c]))
                 {
                     sb.Append(input[c]);
                 }
             }
-            return Decimal.Parse(sb.ToString());
+            return Decimal.Parse(sb.ToString(), NumberStyles.Float);
         }
 
         /// <summary>

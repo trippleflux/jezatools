@@ -233,14 +233,14 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.buttonOrdersUpdate, "buttonOrdersUpdate");
             this.buttonOrdersUpdate.Name = "buttonOrdersUpdate";
             this.buttonOrdersUpdate.UseVisualStyleBackColor = true;
-            this.buttonOrdersUpdate.Click += new System.EventHandler(this.buttonOrdersUpdate_Click);
+            this.buttonOrdersUpdate.Click += new System.EventHandler(this.ButtonOrdersUpdateClick);
             // 
             // buttonOrdersDelete
             // 
             resources.ApplyResources(this.buttonOrdersDelete, "buttonOrdersDelete");
             this.buttonOrdersDelete.Name = "buttonOrdersDelete";
             this.buttonOrdersDelete.UseVisualStyleBackColor = true;
-            this.buttonOrdersDelete.Click += new System.EventHandler(this.buttonOrdersDelete_Click);
+            this.buttonOrdersDelete.Click += new System.EventHandler(this.ButtonOrdersDeleteClick);
             // 
             // buttonOrderSave
             // 
@@ -362,6 +362,7 @@ namespace jeza.Item.Tracker.Gui
             this.comboBoxOrderItem.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxOrderItem, "comboBoxOrderItem");
             this.comboBoxOrderItem.Name = "comboBoxOrderItem";
+            this.comboBoxOrderItem.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOrderItemSelectedIndexChanged);
             // 
             // labelOrderItem
             // 
