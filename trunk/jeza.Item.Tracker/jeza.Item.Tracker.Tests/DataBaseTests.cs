@@ -176,6 +176,22 @@ namespace jeza.Item.Tracker.Tests
         }
 
         [Test]
+        public void ItemGetByName()
+        {
+            DataBase dataBase = new DataBase();
+            string name = Guid.NewGuid().ToString();
+            Item item = new Item
+            {
+                Name = name,
+                ItemTypeId = 0,
+            };
+            int rowsInserted = dataBase.ItemInsert(item);
+            Assert.AreEqual(1, rowsInserted);
+            Item itemGet = dataBase.ItemGet(name);
+            Assert.IsNotNull(itemGet);
+        }
+
+        [Test]
         public void UpdateItem()
         {
             DataBase dataBase = new DataBase();

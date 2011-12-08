@@ -125,8 +125,8 @@ namespace jeza.Item.Tracker
                     while (reader.Read())
                     {
                         int id = reader.GetInt32(0);
-                        string name = reader.GetString(1);
-                        string description = reader.GetString(2);
+                        string name = reader.GetValue(1).ToString();
+                        string description = reader.GetValue(2).ToString();
                         int itemTypeId = reader.GetInt32(3);
                         byte[] bytes = GetBytes(reader);
                         Item item = new Item
@@ -193,8 +193,8 @@ namespace jeza.Item.Tracker
                     while (reader.Read())
                     {
                         int id = reader.GetInt32(0);
-                        string name = reader.GetString(1);
-                        string description = reader.GetString(2);
+                        string name = reader.GetValue(1).ToString();
+                        string description = reader.GetValue(2).ToString();
                         int itemTypeId = reader.GetInt32(3);
                         byte[] bytes = GetBytes(reader);
                         Item item = new Item
@@ -279,7 +279,7 @@ namespace jeza.Item.Tracker
                     {
                         int id = reader.GetInt32(0);
                         string name = reader.GetString(1);
-                        string description = reader.GetString(2);
+                        string description = reader.GetValue(2).ToString();
                         ItemStatus itemStatus = new ItemStatus
                                                 {
                                                     Id = id,
@@ -388,7 +388,7 @@ namespace jeza.Item.Tracker
                     {
                         int id = reader.GetInt32(0);
                         string name = reader.GetString(1);
-                        string description = reader.GetString(2);
+                        string description = reader.GetValue(2).ToString();
                         ItemType itemType = new ItemType
                                             {
                                                 Id = id,
@@ -532,6 +532,7 @@ namespace jeza.Item.Tracker
                                 LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
                                 DateTime = itemArray[8].ToString(),
                                 Tax = itemArray[9].ToString(),
+                                //PersonInfoText = itemArray[10].ToString(),
                             }).ToList();
             }
             return null;
@@ -539,8 +540,32 @@ namespace jeza.Item.Tracker
 
         public List<Order> OrderGetAll()
         {
-            const string commandText = SelectTextOrders;
-            return OrderGetAll(commandText);
+            const string commandText = @"SELECT o.Id, o.ItemId, o.Count, o.Price, o.Postage, o.ItemStatus, o.PersonInfoId, o.LegalEntity, o.DateTime, o.Tax, p.Name, p.SurName, p.NickName, i.Name FROM Orders o, PersonInfo p, Item i WHERE o.PersonInfoId = p.Id";
+            Log.Debug("OrderGetAll");
+            DataTable dataTable = GetDataTable(commandText);
+            DataRowCollection dataRowCollection = dataTable.Rows;
+            if (dataRowCollection.Count > 0)
+            {
+                return (from DataRow dataRow in dataRowCollection
+                        select dataRow.ItemArray
+                            into itemArray
+                            select new Order
+                            {
+                                Id = Misc.String2Number(itemArray[0].ToString()),
+                                ItemId = Misc.String2Number(itemArray[1].ToString()),
+                                Count = Misc.String2Number(itemArray[2].ToString()),
+                                Price = itemArray[3].ToString(),
+                                Postage = itemArray[4].ToString(),
+                                ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
+                                PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
+                                LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
+                                DateTime = itemArray[8].ToString(),
+                                Tax = itemArray[9].ToString(),
+                                PersonInfoText = String.Format("{0}, {1} - [{2}]", itemArray[10], itemArray[11], itemArray[12]),
+                                ItemText = itemArray[13].ToString(),
+                            }).ToList();
+            }
+            return null;
         }
 
         public List<Order> OrderGetById(int orderId)

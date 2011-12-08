@@ -151,25 +151,27 @@ namespace jeza.Item.Tracker
             {
                 return 0;
             }
-            StringBuilder sb = new StringBuilder();
-            const char dot = '.';
-            const char coma = ',';
-            if (input[0] == dot || input[0] == coma)
-            {
-                sb.Append("0");
-            }
-            for (int c = 0; c < length; c++)
-            {
-                if (input[c] == dot || input[c] == coma)
-                {
-                    sb.Append(coma);
-                }
-                else if (Char.IsNumber(input[c]))
-                {
-                    sb.Append(input[c]);
-                }
-            }
-            return Decimal.Parse(sb.ToString(), NumberStyles.Float);
+            //StringBuilder sb = new StringBuilder();
+            //const char dot = '.';
+            //const char coma = ',';
+            //if (input[0] == dot || input[0] == coma)
+            //{
+            //    sb.Append("0");
+            //}
+            //for (int c = 0; c < length; c++)
+            //{
+            //    if (input[c] == dot || input[c] == coma)
+            //    {
+            //        sb.Append(coma);
+            //    }
+            //    else if (Char.IsNumber(input[c]))
+            //    {
+            //        sb.Append(input[c]);
+            //    }
+            //}
+            decimal parsedValue;
+            bool tryParse = decimal.TryParse(input, NumberStyles.Any, CultureInfo.CurrentCulture, out parsedValue);
+            return tryParse ? parsedValue : 0;
         }
 
         /// <summary>
