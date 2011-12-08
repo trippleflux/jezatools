@@ -142,6 +142,7 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxPersonInfoName = new System.Windows.Forms.TextBox();
             this.labelPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
+            this.groupBoxReports = new System.Windows.Forms.GroupBox();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.groupBoxOrder.SuspendLayout();
@@ -155,6 +156,7 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxItemsStatus.SuspendLayout();
             this.tabPagePersonInfo.SuspendLayout();
             this.groupBoxPersonInfo.SuspendLayout();
+            this.tabPageReports.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -871,9 +873,16 @@ namespace jeza.Item.Tracker.Gui
             // 
             // tabPageReports
             // 
+            this.tabPageReports.Controls.Add(this.groupBoxReports);
             resources.ApplyResources(this.tabPageReports, "tabPageReports");
             this.tabPageReports.Name = "tabPageReports";
             this.tabPageReports.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxReports
+            // 
+            resources.ApplyResources(this.groupBoxReports, "groupBoxReports");
+            this.groupBoxReports.Name = "groupBoxReports";
+            this.groupBoxReports.TabStop = false;
             // 
             // Gui
             // 
@@ -904,6 +913,7 @@ namespace jeza.Item.Tracker.Gui
             this.tabPagePersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.PerformLayout();
+            this.tabPageReports.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1018,6 +1028,7 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonOrdersDelete;
         private System.Windows.Forms.Button buttonOrdersSum;
         private System.Windows.Forms.Label labelOrdersSumNumber;
+        private System.Windows.Forms.GroupBox groupBoxReports;
     }
 }
 

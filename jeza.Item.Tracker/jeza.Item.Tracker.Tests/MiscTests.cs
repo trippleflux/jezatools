@@ -29,6 +29,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(0M, Misc.String2Decimal("0"));
             Assert.AreEqual(0M, Misc.String2Decimal("0.0"));
             Assert.AreEqual(0.1M, Misc.String2Decimal("0,1"));
+            Assert.AreEqual(0.1M, Misc.String2Decimal("0.1"));
             Assert.AreEqual(0.123M, Misc.String2Decimal("0,123"));
             Assert.AreEqual(0.123M, Misc.String2Decimal("0.123"));
             Assert.AreEqual(10.123M, Misc.String2Decimal("10.123"));

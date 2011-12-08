@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -31,15 +32,15 @@ namespace jeza.Item.Tracker.Tests
             DataBase dataBase = new DataBase();
 
             Order order = new Order
-            {
-                ItemId = 555,
-                Count = 1,
-                ItemStatusId = 1,
-                LegalEntity = true,
-                PersonInfoId = 1,
-                Postage = 0M.DecimalToString(),
-                Price = 1M.DecimalToString(),
-            };
+                          {
+                              ItemId = 555,
+                              Count = 1,
+                              ItemStatusId = 1,
+                              LegalEntity = true,
+                              PersonInfoId = 1,
+                              Postage = 0M.DecimalToString(),
+                              Price = 1M.DecimalToString(),
+                          };
             int rowsInserted = dataBase.OrderInsert(order);
             Assert.AreEqual(1, rowsInserted);
             List<Order> list = dataBase.OrderGetByItemId(555);
@@ -60,15 +61,15 @@ namespace jeza.Item.Tracker.Tests
             DataBase dataBase = new DataBase();
 
             Order order = new Order
-            {
-                ItemId = 555,
-                Count = 1,
-                ItemStatusId = 1,
-                LegalEntity = true,
-                PersonInfoId = 1,
-                Postage = 0M.DecimalToString(),
-                Price = 1M.DecimalToString(),
-            };
+                          {
+                              ItemId = 555,
+                              Count = 1,
+                              ItemStatusId = 1,
+                              LegalEntity = true,
+                              PersonInfoId = 1,
+                              Postage = 0M.DecimalToString(),
+                              Price = 1M.DecimalToString(),
+                          };
             int rowsInserted = dataBase.OrderInsert(order);
             Assert.AreEqual(1, rowsInserted);
             List<Order> list = dataBase.OrderGetByItemId(555);
@@ -84,14 +85,37 @@ namespace jeza.Item.Tracker.Tests
         public void OrderGetAll()
         {
             DataBase dataBase = new DataBase();
-
+            string itemTypeName = Guid.NewGuid().ToString();
+            ItemType itemType = new ItemType {Name = itemTypeName,};
+            dataBase.ItemTypeInsert(itemType);
+            ItemType itemTypeGet = dataBase.ItemTypeGet(itemTypeName);
+            Assert.IsNotNull(itemTypeGet);
+            string itemName = Guid.NewGuid().ToString();
+            Item item = new Item
+                        {
+                            Name = itemName,
+                            ItemTypeId = itemTypeGet.Id,
+                        };
+            dataBase.ItemInsert(item);
+            Item itemGet = dataBase.ItemGet(itemName);
+            Assert.IsNotNull(itemGet);
+            string itemStatusName = Guid.NewGuid().ToString();
+            ItemStatus itemStatus = new ItemStatus {Name = itemStatusName};
+            dataBase.ItemStatusInsert(itemStatus);
+            ItemStatus itemStatusGet = dataBase.ItemStatusGet(itemStatusName);
+            Assert.IsNotNull(itemStatusGet);
+            string personInfoName = Guid.NewGuid().ToString();
+            PersonInfo personInfo = new PersonInfo {Name = personInfoName};
+            dataBase.PersonInfoInsert(personInfo);
+            PersonInfo personInfoGet = dataBase.PersonInfoGet(personInfoName);
+            Assert.IsNotNull(personInfoGet);
             Order order = new Order
                           {
-                              ItemId = 666,
+                              ItemId = itemGet.Id,
                               Count = 1,
-                              ItemStatusId = 1,
+                              ItemStatusId = itemStatusGet.Id,
                               LegalEntity = true,
-                              PersonInfoId = 1,
+                              PersonInfoId = personInfoGet.Id,
                               Postage = 0M.DecimalToString(),
                               Price = 1M.DecimalToString(),
                           };
@@ -99,7 +123,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(1, rowsInserted);
             List<Order> orders = dataBase.OrderGetAll();
             Assert.IsNotNull(orders);
-            Order find = orders.Find(o => o.ItemId == 666);
+            Order find = orders.Find(o => o.ItemId == itemGet.Id);
             Assert.IsNotNull(find);
         }
 
@@ -108,15 +132,15 @@ namespace jeza.Item.Tracker.Tests
         {
             DataBase dataBase = new DataBase();
             int rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 1,
-                Count = 1,
-                ItemStatusId = 1,
-                LegalEntity = true,
-                PersonInfoId = 1,
-                Postage = 0M.DecimalToString(),
-                Price = 1.00M.DecimalToString(),
-            });
+                                                    {
+                                                        ItemId = 1,
+                                                        Count = 1,
+                                                        ItemStatusId = 1,
+                                                        LegalEntity = true,
+                                                        PersonInfoId = 1,
+                                                        Postage = 0M.DecimalToString(),
+                                                        Price = 1.00M.DecimalToString(),
+                                                    });
             Assert.AreEqual(1, rowsInserted);
             List<Order> orders = dataBase.OrderGetByItemId(1);
             Assert.IsNotNull(orders);
@@ -178,38 +202,38 @@ namespace jeza.Item.Tracker.Tests
 
             const int itemStatusId = 3;
             int rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 1,
-                Count = 2,
-                ItemStatusId = itemStatusId,
-                LegalEntity = true,
-                PersonInfoId = 4,
-                Postage = 5M.DecimalToString(),
-                Price = 6.00M.DecimalToString(),
-            });
+                                                    {
+                                                        ItemId = 1,
+                                                        Count = 2,
+                                                        ItemStatusId = itemStatusId,
+                                                        LegalEntity = true,
+                                                        PersonInfoId = 4,
+                                                        Postage = 5M.DecimalToString(),
+                                                        Price = 6.00M.DecimalToString(),
+                                                    });
             Assert.AreEqual(1, rowsInserted);
             rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 10,
-                Count = 20,
-                ItemStatusId = itemStatusId,
-                LegalEntity = false,
-                PersonInfoId = 5,
-                Postage = 10M.DecimalToString(),
-                Price = 2.99M.DecimalToString(),
-            });
+                                                {
+                                                    ItemId = 10,
+                                                    Count = 20,
+                                                    ItemStatusId = itemStatusId,
+                                                    LegalEntity = false,
+                                                    PersonInfoId = 5,
+                                                    Postage = 10M.DecimalToString(),
+                                                    Price = 2.99M.DecimalToString(),
+                                                });
             Assert.AreEqual(1, rowsInserted);
             const decimal price = 7.123M;
             rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 2,
-                Count = itemStatusId,
-                ItemStatusId = 4,
-                LegalEntity = false,
-                PersonInfoId = 5,
-                Postage = 6M.DecimalToString(),
-                Price = price.DecimalToString(),
-            });
+                                                {
+                                                    ItemId = 2,
+                                                    Count = itemStatusId,
+                                                    ItemStatusId = 4,
+                                                    LegalEntity = false,
+                                                    PersonInfoId = 5,
+                                                    Postage = 6M.DecimalToString(),
+                                                    Price = price.DecimalToString(),
+                                                });
             Assert.AreEqual(1, rowsInserted);
             List<Order> orders = dataBase.OrderGetByItemStatus(itemStatusId);
             Assert.IsNotNull(orders);
@@ -224,38 +248,38 @@ namespace jeza.Item.Tracker.Tests
             DataBase dataBase = new DataBase();
             const int personInfoId = 5;
             int rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 1,
-                Count = 2,
-                ItemStatusId = 3,
-                LegalEntity = true,
-                PersonInfoId = 4,
-                Postage = 5M.DecimalToString(),
-                Price = 6.00M.DecimalToString(),
-            });
+                                                    {
+                                                        ItemId = 1,
+                                                        Count = 2,
+                                                        ItemStatusId = 3,
+                                                        LegalEntity = true,
+                                                        PersonInfoId = 4,
+                                                        Postage = 5M.DecimalToString(),
+                                                        Price = 6.00M.DecimalToString(),
+                                                    });
             Assert.AreEqual(1, rowsInserted);
             rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 10,
-                Count = 20,
-                ItemStatusId = 3,
-                LegalEntity = false,
-                PersonInfoId = personInfoId,
-                Postage = 10M.DecimalToString(),
-                Price = 2.99M.DecimalToString(),
-            });
+                                                {
+                                                    ItemId = 10,
+                                                    Count = 20,
+                                                    ItemStatusId = 3,
+                                                    LegalEntity = false,
+                                                    PersonInfoId = personInfoId,
+                                                    Postage = 10M.DecimalToString(),
+                                                    Price = 2.99M.DecimalToString(),
+                                                });
             Assert.AreEqual(1, rowsInserted);
             const decimal price = 7.123M;
             rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 2,
-                Count = 3,
-                ItemStatusId = 4,
-                LegalEntity = false,
-                PersonInfoId = personInfoId,
-                Postage = 6M.DecimalToString(),
-                Price = price.DecimalToString(),
-            });
+                                                {
+                                                    ItemId = 2,
+                                                    Count = 3,
+                                                    ItemStatusId = 4,
+                                                    LegalEntity = false,
+                                                    PersonInfoId = personInfoId,
+                                                    Postage = 6M.DecimalToString(),
+                                                    Price = price.DecimalToString(),
+                                                });
             Assert.AreEqual(1, rowsInserted);
             List<Order> orders = dataBase.OrderGetByPersonInfo(personInfoId);
             Assert.IsNotNull(orders);
@@ -270,38 +294,38 @@ namespace jeza.Item.Tracker.Tests
             DataBase dataBase = new DataBase();
             const decimal @decimal = 6.00M;
             int rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 1,
-                Count = 2,
-                ItemStatusId = 3,
-                LegalEntity = true,
-                PersonInfoId = 4,
-                Postage = 5M.DecimalToString(),
-                Price = @decimal.DecimalToString(),
-            });
+                                                    {
+                                                        ItemId = 1,
+                                                        Count = 2,
+                                                        ItemStatusId = 3,
+                                                        LegalEntity = true,
+                                                        PersonInfoId = 4,
+                                                        Postage = 5M.DecimalToString(),
+                                                        Price = @decimal.DecimalToString(),
+                                                    });
             Assert.AreEqual(1, rowsInserted);
             rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 10,
-                Count = 20,
-                ItemStatusId = 3,
-                LegalEntity = false,
-                PersonInfoId = 5,
-                Postage = 10M.DecimalToString(),
-                Price = 2.99M.DecimalToString(),
-            });
+                                                {
+                                                    ItemId = 10,
+                                                    Count = 20,
+                                                    ItemStatusId = 3,
+                                                    LegalEntity = false,
+                                                    PersonInfoId = 5,
+                                                    Postage = 10M.DecimalToString(),
+                                                    Price = 2.99M.DecimalToString(),
+                                                });
             Assert.AreEqual(1, rowsInserted);
             const decimal price = 7.123M;
             rowsInserted = dataBase.OrderInsert(new Order
-            {
-                ItemId = 2,
-                Count = 3,
-                ItemStatusId = 4,
-                LegalEntity = false,
-                PersonInfoId = 5,
-                Postage = 6M.DecimalToString(),
-                Price = price.DecimalToString(),
-            });
+                                                {
+                                                    ItemId = 2,
+                                                    Count = 3,
+                                                    ItemStatusId = 4,
+                                                    LegalEntity = false,
+                                                    PersonInfoId = 5,
+                                                    Postage = 6M.DecimalToString(),
+                                                    Price = price.DecimalToString(),
+                                                });
             Assert.AreEqual(1, rowsInserted);
             List<Order> orders = dataBase.OrderGetByLegalEntity();
             Assert.IsNotNull(orders);
