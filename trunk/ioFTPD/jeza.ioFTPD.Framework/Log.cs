@@ -61,10 +61,18 @@ namespace jeza.ioFTPD.Framework
                         if (args != null)
                         {
                             streamWriter.WriteLine(line, args);
+                            if(Config.LogToConsole)
+                            {
+                                Console.WriteLine(line, args);
+                            }
                         }
                         else
                         {
                             streamWriter.WriteLine(line);
+                            if (Config.LogToConsole)
+                            {
+                                Console.WriteLine(line);
+                            }
                         }
                     }
                 }
@@ -85,7 +93,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="message">The message.</param>
         public static void IoFtpd(string message)
         {
-            Log.Debug("Log to ioFTPD: '{0}'", message);
+            Debug("Log to ioFTPD: '{0}'", message);
             Console.Write("!putlog {0}\n", message);
         }
 
@@ -95,7 +103,7 @@ namespace jeza.ioFTPD.Framework
         /// <param name="message">The message.</param>
         public static void Internal(string message)
         {
-            Log.Debug("Log to Internal: '{0}'", message);
+            Debug("Log to Internal: '{0}'", message);
             try
             {
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.FileNameInternalLog);

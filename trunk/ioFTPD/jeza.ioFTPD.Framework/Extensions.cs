@@ -89,14 +89,15 @@ namespace jeza.ioFTPD.Framework
         /// Removes the folder.
         /// </summary>
         /// <param name="path">The path.</param>
-        public static void RemoveFolder(this string path)
+        /// <param name="recursive">true to remove directories, subdirectories, and files in path; otherwise, false</param>
+        public static void RemoveFolder(this string path, bool recursive=false)
         {
             try
             {
                 if (path.DirectoryExists())
                 {
                     Log.Debug("Removing '{0}'", path);
-                    Directory.Delete(path);
+                    Directory.Delete(path, recursive);
                 }
             }
             catch (Exception exception)
@@ -181,11 +182,25 @@ namespace jeza.ioFTPD.Framework
             {
                 throw new DirectoryNotFoundException("Source directory not found: " + sourceDirectory.FullName);
             }
+            Log.Debug("CopyTo: '{0}' to '{1}'", sourceDirectory.FullName, destinationDirectory.FullName);
+            if (sourceDirectory.Root.Name == destinationDirectory.Root.Name)
+            {
+                Log.Debug("Source and Destination have the same ROOT. '{0}'::'{1}'", sourceDirectory.Root.Name, destinationDirectory.Root.Name);
+                try
+                {
+                    sourceDirectory.MoveTo(destinationDirectory.FullName);
+                }
+                catch (Exception exception)
+                {
+                    Log.Debug(exception.ToString());
+                    throw;
+                }
+                return;
+            }
             if (!destinationDirectory.Exists)
             {
                 destinationDirectory.Create();
             }
-            Log.Debug("CopyTo: '{0}' to '{1}'", sourceDirectory.FullName, destinationDirectory.FullName);
             foreach (System.IO.FileInfo file in sourceDirectory.GetFiles())
             {
                 string fileName = Misc.PathCombine(destinationDirectory.FullName, file.Name);
