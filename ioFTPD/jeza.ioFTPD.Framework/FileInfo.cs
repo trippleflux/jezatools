@@ -139,7 +139,7 @@ namespace jeza.ioFTPD.Framework
             DirectoryInfo[] directoriesToRemove = directoryInfo.GetDirectories(prefix + "*", SearchOption.TopDirectoryOnly);
             foreach (DirectoryInfo folder in directoriesToRemove)
             {
-                folder.FullName.RemoveFolder();
+                folder.FullName.RemoveFolder(true);
             }
             FolderMutex.ReleaseMutex();
         }

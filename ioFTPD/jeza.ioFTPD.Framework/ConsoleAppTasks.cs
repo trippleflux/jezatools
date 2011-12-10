@@ -611,7 +611,10 @@ namespace jeza.ioFTPD.Framework
                 case ArchiveType.Move:
                 {
                     CopySourceFolders(archiveTask, directoryInfo);
-                    DeleteFolder(directoryInfo, true);
+                    if (!sameRoot)
+                    {
+                        DeleteFolder(directoryInfo, true);
+                    }
                     break;
                 }
                 case ArchiveType.Delete:
@@ -631,24 +634,40 @@ namespace jeza.ioFTPD.Framework
         {
             Log.Debug("Deleting '{0}'", directoryInfo.FullName);
             directoryInfo.FullName.KickUsersFromDirectory();
-            directoryInfo.Delete(recursive);
+            directoryInfo.FullName.RemoveFolder(recursive);
+            //try
+            //{
+            //    directoryInfo.Delete(recursive);
+            //}
+            //catch (Exception exception)
+            //{
+            //    Log.Debug(exception.ToString());
+            //    throw;
+            //}
         }
 
         private static void CopySourceFolders(ArchiveTask archiveTask,
-                                              DirectoryInfo directoryInfo)
+                                              DirectoryInfo sourceDirectory)
         {
-            DirectoryInfo destinationDirectoryInfo = new DirectoryInfo(archiveTask.Destination);
+            DirectoryInfo destinationDirectory = new DirectoryInfo(archiveTask.Destination);
+            Log.Debug("Source Folder     : '{0}'", sourceDirectory.FullName);
+            Log.Debug("Destination Folder: '{0}'", destinationDirectory.FullName);
+            sameRoot = false;
+            if (sourceDirectory.Root.Name == destinationDirectory.Root.Name)
+            {
+                sameRoot = true;
+            }
             const string ioftpd = ".ioFTPD";
             const string ioftpdBackup = ".backup";
-            string sourceFileName = Misc.PathCombine(directoryInfo.FullName, ioftpd);
+            string sourceFileName = Misc.PathCombine(sourceDirectory.FullName, ioftpd);
             if (File.Exists(sourceFileName))
             {
                 string backupSource = sourceFileName + ioftpdBackup;
                 FileInfo.DeleteFile(backupSource);
                 File.Move(sourceFileName, backupSource);
             }
-            string destinationFolder = Misc.PathCombine(destinationDirectoryInfo.FullName, directoryInfo.Name);
-            directoryInfo.CopyTo(new DirectoryInfo(destinationFolder), true);
+            string destinationFolder = Misc.PathCombine(destinationDirectory.FullName, sourceDirectory.Name);
+            sourceDirectory.CopyTo(new DirectoryInfo(destinationFolder), true);
             string destinationFileName = Misc.PathCombine(destinationFolder, ioftpd + ioftpdBackup);
             if (File.Exists(destinationFileName))
             {
@@ -670,7 +689,7 @@ namespace jeza.ioFTPD.Framework
         private readonly string[] args;
         private string configurationFileName = "testConfig.xml";
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
-
+        private static bool sameRoot;
         private const string DefaultNamespace = Config.DefaultNamespace;
     }
 }

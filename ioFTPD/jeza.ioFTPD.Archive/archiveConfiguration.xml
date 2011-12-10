@@ -12,13 +12,13 @@
     </action>
   </task>
   <task>
-    <status>Disabled</status>
+    <status>Enabled</status>
     <actionType>Move</actionType>
-    <source>E:\\temp</source>
+    <source>E:\\temp\\TestFiles</source>
     <destination>E:\\temp\\archive</destination>
     <action id="TotalFolderUsedSpace">
       <value>12345000</value>
-      <minFolderAction>5</minFolderAction>
+      <minFolderAction>2</minFolderAction>
     </action>
   </task>
   <task>
