@@ -16,6 +16,7 @@ namespace jeza.Item.Tracker
 
         public DataBase()
         {
+            Log.Info("DataSource: '{0}'", Config.DataSource);
             sqLiteConnection = new SQLiteConnection(Config.DataSource);
         }
 

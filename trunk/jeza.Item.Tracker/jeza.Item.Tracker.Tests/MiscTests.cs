@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using jeza.Item.Tracker.Settings;
 using NUnit.Framework;
 
 namespace jeza.Item.Tracker.Tests
@@ -9,7 +10,7 @@ namespace jeza.Item.Tracker.Tests
         [Test]
         public void SerializeSettings()
         {
-            Settings settings = new Settings
+            Settings.Settings settings = new Settings.Settings
                                     {
                                         Languages = new List<Language> {Misc.GetLanguageSlovenian()},
                                     };
@@ -19,7 +20,7 @@ namespace jeza.Item.Tracker.Tests
         [Test]
         public void DeserializeSettings()
         {
-            Settings settings = Misc.Deserialize(new Settings(), FileName);
+            Settings.Settings settings = Misc.Deserialize(new Settings.Settings(), FileName);
             Assert.IsNotNull(settings);
         }
 
@@ -35,6 +36,6 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(10.123M, Misc.String2Decimal("10.123"));
         }
 
-        private const string FileName = "..\\..\\..\\..\\..\\..\\settings.xml";
+        private const string FileName = "..\\..\\..\\settings.xml";
     }
 }

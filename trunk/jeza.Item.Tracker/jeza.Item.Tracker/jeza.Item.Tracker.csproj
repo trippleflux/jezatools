@@ -56,9 +56,9 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite, Version=1.0.76.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+    <Reference Include="System.Data.SQLite, Version=1.0.77.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Data.SQLite.x64.1.0.76.0\lib\net40\System.Data.SQLite.dll</HintPath>
+      <HintPath>..\packages\System.Data.SQLite.1.0.76.0\lib\net40\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -76,7 +76,14 @@
     <Compile Include="Order.cs" />
     <Compile Include="PersonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Settings\Language.cs" />
+    <Compile Include="Settings\Settings.cs" />
+    <Compile Include="Settings\TabItems.cs" />
+    <Compile Include="Settings\TabItemStatus.cs" />
+    <Compile Include="Settings\TabItemTypes.cs" />
+    <Compile Include="Settings\TabOrders.cs" />
+    <Compile Include="Settings\TabPersonInfo.cs" />
+    <Compile Include="Settings\TabReports.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -1,4 +1,5 @@
 using System.Configuration;
+using jeza.Item.Tracker.Settings;
 
 namespace jeza.Item.Tracker.Gui
 {
@@ -36,35 +37,35 @@ namespace jeza.Item.Tracker.Gui
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gui));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
-            this.groupBoxOrder = new System.Windows.Forms.GroupBox();
+            this.groupBoxOrders = new System.Windows.Forms.GroupBox();
             this.buttonOrdersSum = new System.Windows.Forms.Button();
             this.labelOrdersSumNumber = new System.Windows.Forms.Label();
             this.labelOrdersId = new System.Windows.Forms.Label();
             this.buttonOrdersUpdate = new System.Windows.Forms.Button();
             this.buttonOrdersDelete = new System.Windows.Forms.Button();
-            this.buttonOrderSave = new System.Windows.Forms.Button();
+            this.buttonOrdersSave = new System.Windows.Forms.Button();
             this.listBoxOrdersList = new System.Windows.Forms.ListBox();
             this.labelOrdersList = new System.Windows.Forms.Label();
-            this.comboBoxOrderItemType = new System.Windows.Forms.ComboBox();
-            this.labelOrderItemType = new System.Windows.Forms.Label();
-            this.comboBoxOrderPersonInfo = new System.Windows.Forms.ComboBox();
-            this.labelOrderPersonInfo = new System.Windows.Forms.Label();
-            this.buttonOrderSelect = new System.Windows.Forms.Button();
-            this.textBoxOrderPostage = new System.Windows.Forms.TextBox();
-            this.labelOrderPostage = new System.Windows.Forms.Label();
-            this.comboBoxOrderItemStatus = new System.Windows.Forms.ComboBox();
-            this.checkBoxOrderItemLegalEntity = new System.Windows.Forms.CheckBox();
-            this.labelOrderItemStatus = new System.Windows.Forms.Label();
-            this.labelOrderItemLegalEntity = new System.Windows.Forms.Label();
-            this.textBoxOrderTax = new System.Windows.Forms.TextBox();
-            this.labelOrderTax = new System.Windows.Forms.Label();
-            this.textBoxOrderPrice = new System.Windows.Forms.TextBox();
-            this.labelOrderPrice = new System.Windows.Forms.Label();
-            this.textBoxOrderItemNumber = new System.Windows.Forms.TextBox();
-            this.labelOrderItemCount = new System.Windows.Forms.Label();
+            this.comboBoxOrdersItemType = new System.Windows.Forms.ComboBox();
+            this.labelOrdersItemType = new System.Windows.Forms.Label();
+            this.comboBoxOrdersPersonInfo = new System.Windows.Forms.ComboBox();
+            this.labelOrdersPersonInfo = new System.Windows.Forms.Label();
+            this.buttonOrdersSelect = new System.Windows.Forms.Button();
+            this.textBoxOrdersPostage = new System.Windows.Forms.TextBox();
+            this.labelOrdersPostage = new System.Windows.Forms.Label();
+            this.comboBoxOrdersItemStatus = new System.Windows.Forms.ComboBox();
+            this.checkBoxOrdersLegalEntity = new System.Windows.Forms.CheckBox();
+            this.labelOrdersItemStatus = new System.Windows.Forms.Label();
+            this.labelOrdersLegalEntity = new System.Windows.Forms.Label();
+            this.textBoxOrdersTax = new System.Windows.Forms.TextBox();
+            this.labelOrdersTax = new System.Windows.Forms.Label();
+            this.textBoxOrdersPrice = new System.Windows.Forms.TextBox();
+            this.labelOrdersPrice = new System.Windows.Forms.Label();
+            this.textBoxOrdersItemCount = new System.Windows.Forms.TextBox();
+            this.labelOrdersItemCount = new System.Windows.Forms.Label();
             this.labelOrdersPicture = new System.Windows.Forms.Label();
-            this.comboBoxOrderItem = new System.Windows.Forms.ComboBox();
-            this.labelOrderItem = new System.Windows.Forms.Label();
+            this.comboBoxOrdersItem = new System.Windows.Forms.ComboBox();
+            this.labelOrdersItem = new System.Windows.Forms.Label();
             this.pictureBoxOrders = new System.Windows.Forms.PictureBox();
             this.tabPageItems = new System.Windows.Forms.TabPage();
             this.groupBoxItems = new System.Windows.Forms.GroupBox();
@@ -98,7 +99,7 @@ namespace jeza.Item.Tracker.Gui
             this.labelItemTypeDescription = new System.Windows.Forms.Label();
             this.textBoxItemTypeDescription = new System.Windows.Forms.TextBox();
             this.tabPageItemStatus = new System.Windows.Forms.TabPage();
-            this.groupBoxItemsStatus = new System.Windows.Forms.GroupBox();
+            this.groupBoxItemStatus = new System.Windows.Forms.GroupBox();
             this.labelItemStatusId = new System.Windows.Forms.Label();
             this.labelItemStatusList = new System.Windows.Forms.Label();
             this.labelItemStatusDescription = new System.Windows.Forms.Label();
@@ -106,14 +107,14 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemStatusUpdate = new System.Windows.Forms.Button();
             this.buttonItemStatusDelete = new System.Windows.Forms.Button();
             this.listBoxItemStatusList = new System.Windows.Forms.ListBox();
-            this.buttonItemsStatusSelect = new System.Windows.Forms.Button();
-            this.buttonItemsStatusSave = new System.Windows.Forms.Button();
-            this.labelItemsStatusNew = new System.Windows.Forms.Label();
+            this.buttonItemStatusSelect = new System.Windows.Forms.Button();
+            this.buttonItemStatusSave = new System.Windows.Forms.Button();
+            this.labelItemStatusName = new System.Windows.Forms.Label();
             this.textBoxItemStatusName = new System.Windows.Forms.TextBox();
             this.tabPagePersonInfo = new System.Windows.Forms.TabPage();
             this.groupBoxPersonInfo = new System.Windows.Forms.GroupBox();
             this.labelPersonInfoId = new System.Windows.Forms.Label();
-            this.buttonPersonInfoListSelect = new System.Windows.Forms.Button();
+            this.buttonPersonInfoSelect = new System.Windows.Forms.Button();
             this.buttonPersonInfoDelete = new System.Windows.Forms.Button();
             this.buttonPersonInfoUpdate = new System.Windows.Forms.Button();
             this.labelPersonInfoList = new System.Windows.Forms.Label();
@@ -145,7 +146,7 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxReports = new System.Windows.Forms.GroupBox();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
-            this.groupBoxOrder.SuspendLayout();
+            this.groupBoxOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).BeginInit();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
@@ -153,7 +154,7 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemType.SuspendLayout();
             this.groupBoxItemType.SuspendLayout();
             this.tabPageItemStatus.SuspendLayout();
-            this.groupBoxItemsStatus.SuspendLayout();
+            this.groupBoxItemStatus.SuspendLayout();
             this.tabPagePersonInfo.SuspendLayout();
             this.groupBoxPersonInfo.SuspendLayout();
             this.tabPageReports.SuspendLayout();
@@ -173,45 +174,45 @@ namespace jeza.Item.Tracker.Gui
             // 
             // tabPageOrders
             // 
-            this.tabPageOrders.Controls.Add(this.groupBoxOrder);
+            this.tabPageOrders.Controls.Add(this.groupBoxOrders);
             resources.ApplyResources(this.tabPageOrders, "tabPageOrders");
             this.tabPageOrders.Name = "tabPageOrders";
             this.tabPageOrders.UseVisualStyleBackColor = true;
             // 
-            // groupBoxOrder
+            // groupBoxOrders
             // 
-            this.groupBoxOrder.Controls.Add(this.buttonOrdersSum);
-            this.groupBoxOrder.Controls.Add(this.labelOrdersSumNumber);
-            this.groupBoxOrder.Controls.Add(this.labelOrdersId);
-            this.groupBoxOrder.Controls.Add(this.buttonOrdersUpdate);
-            this.groupBoxOrder.Controls.Add(this.buttonOrdersDelete);
-            this.groupBoxOrder.Controls.Add(this.buttonOrderSave);
-            this.groupBoxOrder.Controls.Add(this.listBoxOrdersList);
-            this.groupBoxOrder.Controls.Add(this.labelOrdersList);
-            this.groupBoxOrder.Controls.Add(this.comboBoxOrderItemType);
-            this.groupBoxOrder.Controls.Add(this.labelOrderItemType);
-            this.groupBoxOrder.Controls.Add(this.comboBoxOrderPersonInfo);
-            this.groupBoxOrder.Controls.Add(this.labelOrderPersonInfo);
-            this.groupBoxOrder.Controls.Add(this.buttonOrderSelect);
-            this.groupBoxOrder.Controls.Add(this.textBoxOrderPostage);
-            this.groupBoxOrder.Controls.Add(this.labelOrderPostage);
-            this.groupBoxOrder.Controls.Add(this.comboBoxOrderItemStatus);
-            this.groupBoxOrder.Controls.Add(this.checkBoxOrderItemLegalEntity);
-            this.groupBoxOrder.Controls.Add(this.labelOrderItemStatus);
-            this.groupBoxOrder.Controls.Add(this.labelOrderItemLegalEntity);
-            this.groupBoxOrder.Controls.Add(this.textBoxOrderTax);
-            this.groupBoxOrder.Controls.Add(this.labelOrderTax);
-            this.groupBoxOrder.Controls.Add(this.textBoxOrderPrice);
-            this.groupBoxOrder.Controls.Add(this.labelOrderPrice);
-            this.groupBoxOrder.Controls.Add(this.textBoxOrderItemNumber);
-            this.groupBoxOrder.Controls.Add(this.labelOrderItemCount);
-            this.groupBoxOrder.Controls.Add(this.labelOrdersPicture);
-            this.groupBoxOrder.Controls.Add(this.comboBoxOrderItem);
-            this.groupBoxOrder.Controls.Add(this.labelOrderItem);
-            this.groupBoxOrder.Controls.Add(this.pictureBoxOrders);
-            resources.ApplyResources(this.groupBoxOrder, "groupBoxOrder");
-            this.groupBoxOrder.Name = "groupBoxOrder";
-            this.groupBoxOrder.TabStop = false;
+            this.groupBoxOrders.Controls.Add(this.buttonOrdersSum);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersSumNumber);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersId);
+            this.groupBoxOrders.Controls.Add(this.buttonOrdersUpdate);
+            this.groupBoxOrders.Controls.Add(this.buttonOrdersDelete);
+            this.groupBoxOrders.Controls.Add(this.buttonOrdersSave);
+            this.groupBoxOrders.Controls.Add(this.listBoxOrdersList);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersList);
+            this.groupBoxOrders.Controls.Add(this.comboBoxOrdersItemType);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersItemType);
+            this.groupBoxOrders.Controls.Add(this.comboBoxOrdersPersonInfo);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersPersonInfo);
+            this.groupBoxOrders.Controls.Add(this.buttonOrdersSelect);
+            this.groupBoxOrders.Controls.Add(this.textBoxOrdersPostage);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersPostage);
+            this.groupBoxOrders.Controls.Add(this.comboBoxOrdersItemStatus);
+            this.groupBoxOrders.Controls.Add(this.checkBoxOrdersLegalEntity);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersItemStatus);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersLegalEntity);
+            this.groupBoxOrders.Controls.Add(this.textBoxOrdersTax);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersTax);
+            this.groupBoxOrders.Controls.Add(this.textBoxOrdersPrice);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersPrice);
+            this.groupBoxOrders.Controls.Add(this.textBoxOrdersItemCount);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersItemCount);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersPicture);
+            this.groupBoxOrders.Controls.Add(this.comboBoxOrdersItem);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersItem);
+            this.groupBoxOrders.Controls.Add(this.pictureBoxOrders);
+            resources.ApplyResources(this.groupBoxOrders, "groupBoxOrders");
+            this.groupBoxOrders.Name = "groupBoxOrders";
+            this.groupBoxOrders.TabStop = false;
             // 
             // buttonOrdersSum
             // 
@@ -244,12 +245,12 @@ namespace jeza.Item.Tracker.Gui
             this.buttonOrdersDelete.UseVisualStyleBackColor = true;
             this.buttonOrdersDelete.Click += new System.EventHandler(this.ButtonOrdersDeleteClick);
             // 
-            // buttonOrderSave
+            // buttonOrdersSave
             // 
-            resources.ApplyResources(this.buttonOrderSave, "buttonOrderSave");
-            this.buttonOrderSave.Name = "buttonOrderSave";
-            this.buttonOrderSave.UseVisualStyleBackColor = true;
-            this.buttonOrderSave.Click += new System.EventHandler(this.ButtonOrderSaveClick);
+            resources.ApplyResources(this.buttonOrdersSave, "buttonOrdersSave");
+            this.buttonOrdersSave.Name = "buttonOrdersSave";
+            this.buttonOrdersSave.UseVisualStyleBackColor = true;
+            this.buttonOrdersSave.Click += new System.EventHandler(this.ButtonOrderSaveClick);
             // 
             // listBoxOrdersList
             // 
@@ -262,114 +263,114 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelOrdersList, "labelOrdersList");
             this.labelOrdersList.Name = "labelOrdersList";
             // 
-            // comboBoxOrderItemType
+            // comboBoxOrdersItemType
             // 
-            this.comboBoxOrderItemType.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxOrderItemType, "comboBoxOrderItemType");
-            this.comboBoxOrderItemType.Name = "comboBoxOrderItemType";
-            this.comboBoxOrderItemType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOrderItemTypeSelectedIndexChanged);
+            this.comboBoxOrdersItemType.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxOrdersItemType, "comboBoxOrdersItemType");
+            this.comboBoxOrdersItemType.Name = "comboBoxOrdersItemType";
+            this.comboBoxOrdersItemType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOrderItemTypeSelectedIndexChanged);
             // 
-            // labelOrderItemType
+            // labelOrdersItemType
             // 
-            resources.ApplyResources(this.labelOrderItemType, "labelOrderItemType");
-            this.labelOrderItemType.Name = "labelOrderItemType";
+            resources.ApplyResources(this.labelOrdersItemType, "labelOrdersItemType");
+            this.labelOrdersItemType.Name = "labelOrdersItemType";
             // 
-            // comboBoxOrderPersonInfo
+            // comboBoxOrdersPersonInfo
             // 
-            this.comboBoxOrderPersonInfo.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxOrderPersonInfo, "comboBoxOrderPersonInfo");
-            this.comboBoxOrderPersonInfo.Name = "comboBoxOrderPersonInfo";
+            this.comboBoxOrdersPersonInfo.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxOrdersPersonInfo, "comboBoxOrdersPersonInfo");
+            this.comboBoxOrdersPersonInfo.Name = "comboBoxOrdersPersonInfo";
             // 
-            // labelOrderPersonInfo
+            // labelOrdersPersonInfo
             // 
-            resources.ApplyResources(this.labelOrderPersonInfo, "labelOrderPersonInfo");
-            this.labelOrderPersonInfo.Name = "labelOrderPersonInfo";
+            resources.ApplyResources(this.labelOrdersPersonInfo, "labelOrdersPersonInfo");
+            this.labelOrdersPersonInfo.Name = "labelOrdersPersonInfo";
             // 
-            // buttonOrderSelect
+            // buttonOrdersSelect
             // 
-            resources.ApplyResources(this.buttonOrderSelect, "buttonOrderSelect");
-            this.buttonOrderSelect.Name = "buttonOrderSelect";
-            this.buttonOrderSelect.UseVisualStyleBackColor = true;
-            this.buttonOrderSelect.Click += new System.EventHandler(this.ButtonOrderSelectClick);
+            resources.ApplyResources(this.buttonOrdersSelect, "buttonOrdersSelect");
+            this.buttonOrdersSelect.Name = "buttonOrdersSelect";
+            this.buttonOrdersSelect.UseVisualStyleBackColor = true;
+            this.buttonOrdersSelect.Click += new System.EventHandler(this.ButtonOrderSelectClick);
             // 
-            // textBoxOrderPostage
+            // textBoxOrdersPostage
             // 
-            resources.ApplyResources(this.textBoxOrderPostage, "textBoxOrderPostage");
-            this.textBoxOrderPostage.Name = "textBoxOrderPostage";
+            resources.ApplyResources(this.textBoxOrdersPostage, "textBoxOrdersPostage");
+            this.textBoxOrdersPostage.Name = "textBoxOrdersPostage";
             // 
-            // labelOrderPostage
+            // labelOrdersPostage
             // 
-            resources.ApplyResources(this.labelOrderPostage, "labelOrderPostage");
-            this.labelOrderPostage.Name = "labelOrderPostage";
+            resources.ApplyResources(this.labelOrdersPostage, "labelOrdersPostage");
+            this.labelOrdersPostage.Name = "labelOrdersPostage";
             // 
-            // comboBoxOrderItemStatus
+            // comboBoxOrdersItemStatus
             // 
-            this.comboBoxOrderItemStatus.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxOrderItemStatus, "comboBoxOrderItemStatus");
-            this.comboBoxOrderItemStatus.Name = "comboBoxOrderItemStatus";
+            this.comboBoxOrdersItemStatus.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxOrdersItemStatus, "comboBoxOrdersItemStatus");
+            this.comboBoxOrdersItemStatus.Name = "comboBoxOrdersItemStatus";
             // 
-            // checkBoxOrderItemLegalEntity
+            // checkBoxOrdersLegalEntity
             // 
-            resources.ApplyResources(this.checkBoxOrderItemLegalEntity, "checkBoxOrderItemLegalEntity");
-            this.checkBoxOrderItemLegalEntity.Name = "checkBoxOrderItemLegalEntity";
-            this.checkBoxOrderItemLegalEntity.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.checkBoxOrdersLegalEntity, "checkBoxOrdersLegalEntity");
+            this.checkBoxOrdersLegalEntity.Name = "checkBoxOrdersLegalEntity";
+            this.checkBoxOrdersLegalEntity.UseVisualStyleBackColor = true;
             // 
-            // labelOrderItemStatus
+            // labelOrdersItemStatus
             // 
-            resources.ApplyResources(this.labelOrderItemStatus, "labelOrderItemStatus");
-            this.labelOrderItemStatus.Name = "labelOrderItemStatus";
+            resources.ApplyResources(this.labelOrdersItemStatus, "labelOrdersItemStatus");
+            this.labelOrdersItemStatus.Name = "labelOrdersItemStatus";
             // 
-            // labelOrderItemLegalEntity
+            // labelOrdersLegalEntity
             // 
-            resources.ApplyResources(this.labelOrderItemLegalEntity, "labelOrderItemLegalEntity");
-            this.labelOrderItemLegalEntity.Name = "labelOrderItemLegalEntity";
+            resources.ApplyResources(this.labelOrdersLegalEntity, "labelOrdersLegalEntity");
+            this.labelOrdersLegalEntity.Name = "labelOrdersLegalEntity";
             // 
-            // textBoxOrderTax
+            // textBoxOrdersTax
             // 
-            resources.ApplyResources(this.textBoxOrderTax, "textBoxOrderTax");
-            this.textBoxOrderTax.Name = "textBoxOrderTax";
+            resources.ApplyResources(this.textBoxOrdersTax, "textBoxOrdersTax");
+            this.textBoxOrdersTax.Name = "textBoxOrdersTax";
             // 
-            // labelOrderTax
+            // labelOrdersTax
             // 
-            resources.ApplyResources(this.labelOrderTax, "labelOrderTax");
-            this.labelOrderTax.Name = "labelOrderTax";
+            resources.ApplyResources(this.labelOrdersTax, "labelOrdersTax");
+            this.labelOrdersTax.Name = "labelOrdersTax";
             // 
-            // textBoxOrderPrice
+            // textBoxOrdersPrice
             // 
-            resources.ApplyResources(this.textBoxOrderPrice, "textBoxOrderPrice");
-            this.textBoxOrderPrice.Name = "textBoxOrderPrice";
+            resources.ApplyResources(this.textBoxOrdersPrice, "textBoxOrdersPrice");
+            this.textBoxOrdersPrice.Name = "textBoxOrdersPrice";
             // 
-            // labelOrderPrice
+            // labelOrdersPrice
             // 
-            resources.ApplyResources(this.labelOrderPrice, "labelOrderPrice");
-            this.labelOrderPrice.Name = "labelOrderPrice";
+            resources.ApplyResources(this.labelOrdersPrice, "labelOrdersPrice");
+            this.labelOrdersPrice.Name = "labelOrdersPrice";
             // 
-            // textBoxOrderItemNumber
+            // textBoxOrdersItemCount
             // 
-            resources.ApplyResources(this.textBoxOrderItemNumber, "textBoxOrderItemNumber");
-            this.textBoxOrderItemNumber.Name = "textBoxOrderItemNumber";
+            resources.ApplyResources(this.textBoxOrdersItemCount, "textBoxOrdersItemCount");
+            this.textBoxOrdersItemCount.Name = "textBoxOrdersItemCount";
             // 
-            // labelOrderItemCount
+            // labelOrdersItemCount
             // 
-            resources.ApplyResources(this.labelOrderItemCount, "labelOrderItemCount");
-            this.labelOrderItemCount.Name = "labelOrderItemCount";
+            resources.ApplyResources(this.labelOrdersItemCount, "labelOrdersItemCount");
+            this.labelOrdersItemCount.Name = "labelOrdersItemCount";
             // 
             // labelOrdersPicture
             // 
             resources.ApplyResources(this.labelOrdersPicture, "labelOrdersPicture");
             this.labelOrdersPicture.Name = "labelOrdersPicture";
             // 
-            // comboBoxOrderItem
+            // comboBoxOrdersItem
             // 
-            this.comboBoxOrderItem.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBoxOrderItem, "comboBoxOrderItem");
-            this.comboBoxOrderItem.Name = "comboBoxOrderItem";
-            this.comboBoxOrderItem.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOrderItemSelectedIndexChanged);
+            this.comboBoxOrdersItem.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBoxOrdersItem, "comboBoxOrdersItem");
+            this.comboBoxOrdersItem.Name = "comboBoxOrdersItem";
+            this.comboBoxOrdersItem.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOrderItemSelectedIndexChanged);
             // 
-            // labelOrderItem
+            // labelOrdersItem
             // 
-            resources.ApplyResources(this.labelOrderItem, "labelOrderItem");
-            this.labelOrderItem.Name = "labelOrderItem";
+            resources.ApplyResources(this.labelOrdersItem, "labelOrdersItem");
+            this.labelOrdersItem.Name = "labelOrdersItem";
             // 
             // pictureBoxOrders
             // 
@@ -589,27 +590,27 @@ namespace jeza.Item.Tracker.Gui
             // 
             // tabPageItemStatus
             // 
-            this.tabPageItemStatus.Controls.Add(this.groupBoxItemsStatus);
+            this.tabPageItemStatus.Controls.Add(this.groupBoxItemStatus);
             resources.ApplyResources(this.tabPageItemStatus, "tabPageItemStatus");
             this.tabPageItemStatus.Name = "tabPageItemStatus";
             this.tabPageItemStatus.UseVisualStyleBackColor = true;
             // 
-            // groupBoxItemsStatus
+            // groupBoxItemStatus
             // 
-            resources.ApplyResources(this.groupBoxItemsStatus, "groupBoxItemsStatus");
-            this.groupBoxItemsStatus.Controls.Add(this.labelItemStatusId);
-            this.groupBoxItemsStatus.Controls.Add(this.labelItemStatusList);
-            this.groupBoxItemsStatus.Controls.Add(this.labelItemStatusDescription);
-            this.groupBoxItemsStatus.Controls.Add(this.textBoxItemStatusDescription);
-            this.groupBoxItemsStatus.Controls.Add(this.buttonItemStatusUpdate);
-            this.groupBoxItemsStatus.Controls.Add(this.buttonItemStatusDelete);
-            this.groupBoxItemsStatus.Controls.Add(this.listBoxItemStatusList);
-            this.groupBoxItemsStatus.Controls.Add(this.buttonItemsStatusSelect);
-            this.groupBoxItemsStatus.Controls.Add(this.buttonItemsStatusSave);
-            this.groupBoxItemsStatus.Controls.Add(this.labelItemsStatusNew);
-            this.groupBoxItemsStatus.Controls.Add(this.textBoxItemStatusName);
-            this.groupBoxItemsStatus.Name = "groupBoxItemsStatus";
-            this.groupBoxItemsStatus.TabStop = false;
+            resources.ApplyResources(this.groupBoxItemStatus, "groupBoxItemStatus");
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusId);
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusList);
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusDescription);
+            this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusDescription);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusUpdate);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusDelete);
+            this.groupBoxItemStatus.Controls.Add(this.listBoxItemStatusList);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusSelect);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusSave);
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusName);
+            this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusName);
+            this.groupBoxItemStatus.Name = "groupBoxItemStatus";
+            this.groupBoxItemStatus.TabStop = false;
             // 
             // labelItemStatusId
             // 
@@ -651,24 +652,24 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.listBoxItemStatusList, "listBoxItemStatusList");
             this.listBoxItemStatusList.Name = "listBoxItemStatusList";
             // 
-            // buttonItemsStatusSelect
+            // buttonItemStatusSelect
             // 
-            resources.ApplyResources(this.buttonItemsStatusSelect, "buttonItemsStatusSelect");
-            this.buttonItemsStatusSelect.Name = "buttonItemsStatusSelect";
-            this.buttonItemsStatusSelect.UseVisualStyleBackColor = true;
-            this.buttonItemsStatusSelect.Click += new System.EventHandler(this.ButtonItemsStatusSelectClick);
+            resources.ApplyResources(this.buttonItemStatusSelect, "buttonItemStatusSelect");
+            this.buttonItemStatusSelect.Name = "buttonItemStatusSelect";
+            this.buttonItemStatusSelect.UseVisualStyleBackColor = true;
+            this.buttonItemStatusSelect.Click += new System.EventHandler(this.ButtonItemsStatusSelectClick);
             // 
-            // buttonItemsStatusSave
+            // buttonItemStatusSave
             // 
-            resources.ApplyResources(this.buttonItemsStatusSave, "buttonItemsStatusSave");
-            this.buttonItemsStatusSave.Name = "buttonItemsStatusSave";
-            this.buttonItemsStatusSave.UseVisualStyleBackColor = true;
-            this.buttonItemsStatusSave.Click += new System.EventHandler(this.ButtonItemsStatusSaveClick);
+            resources.ApplyResources(this.buttonItemStatusSave, "buttonItemStatusSave");
+            this.buttonItemStatusSave.Name = "buttonItemStatusSave";
+            this.buttonItemStatusSave.UseVisualStyleBackColor = true;
+            this.buttonItemStatusSave.Click += new System.EventHandler(this.ButtonItemsStatusSaveClick);
             // 
-            // labelItemsStatusNew
+            // labelItemStatusName
             // 
-            resources.ApplyResources(this.labelItemsStatusNew, "labelItemsStatusNew");
-            this.labelItemsStatusNew.Name = "labelItemsStatusNew";
+            resources.ApplyResources(this.labelItemStatusName, "labelItemStatusName");
+            this.labelItemStatusName.Name = "labelItemStatusName";
             // 
             // textBoxItemStatusName
             // 
@@ -685,7 +686,7 @@ namespace jeza.Item.Tracker.Gui
             // groupBoxPersonInfo
             // 
             this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoId);
-            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoListSelect);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoSelect);
             this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoDelete);
             this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoUpdate);
             this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoList);
@@ -722,12 +723,12 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelPersonInfoId, "labelPersonInfoId");
             this.labelPersonInfoId.Name = "labelPersonInfoId";
             // 
-            // buttonPersonInfoListSelect
+            // buttonPersonInfoSelect
             // 
-            resources.ApplyResources(this.buttonPersonInfoListSelect, "buttonPersonInfoListSelect");
-            this.buttonPersonInfoListSelect.Name = "buttonPersonInfoListSelect";
-            this.buttonPersonInfoListSelect.UseVisualStyleBackColor = true;
-            this.buttonPersonInfoListSelect.Click += new System.EventHandler(this.ButtonPersonInfoListSelectClick);
+            resources.ApplyResources(this.buttonPersonInfoSelect, "buttonPersonInfoSelect");
+            this.buttonPersonInfoSelect.Name = "buttonPersonInfoSelect";
+            this.buttonPersonInfoSelect.UseVisualStyleBackColor = true;
+            this.buttonPersonInfoSelect.Click += new System.EventHandler(this.ButtonPersonInfoListSelectClick);
             // 
             // buttonPersonInfoDelete
             // 
@@ -896,8 +897,8 @@ namespace jeza.Item.Tracker.Gui
             this.Name = "Gui";
             this.tabControl.ResumeLayout(false);
             this.tabPageOrders.ResumeLayout(false);
-            this.groupBoxOrder.ResumeLayout(false);
-            this.groupBoxOrder.PerformLayout();
+            this.groupBoxOrders.ResumeLayout(false);
+            this.groupBoxOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).EndInit();
             this.tabPageItems.ResumeLayout(false);
             this.groupBoxItems.ResumeLayout(false);
@@ -908,8 +909,8 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxItemType.PerformLayout();
             this.tabPageItemStatus.ResumeLayout(false);
             this.tabPageItemStatus.PerformLayout();
-            this.groupBoxItemsStatus.ResumeLayout(false);
-            this.groupBoxItemsStatus.PerformLayout();
+            this.groupBoxItemStatus.ResumeLayout(false);
+            this.groupBoxItemStatus.PerformLayout();
             this.tabPagePersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.PerformLayout();
@@ -930,11 +931,11 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.ListBox listBoxItemsList;
         private System.Windows.Forms.TabPage tabPageOrders;
         private System.Windows.Forms.TabPage tabPageReports;
-        private System.Windows.Forms.Label labelOrderItemLegalEntity;
-        private System.Windows.Forms.CheckBox checkBoxOrderItemLegalEntity;
-        private System.Windows.Forms.GroupBox groupBoxOrder;
-        private System.Windows.Forms.ComboBox comboBoxOrderPersonInfo;
-        private System.Windows.Forms.Label labelOrderPersonInfo;
+        private System.Windows.Forms.Label labelOrdersLegalEntity;
+        private System.Windows.Forms.CheckBox checkBoxOrdersLegalEntity;
+        private System.Windows.Forms.GroupBox groupBoxOrders;
+        private System.Windows.Forms.ComboBox comboBoxOrdersPersonInfo;
+        private System.Windows.Forms.Label labelOrdersPersonInfo;
         private System.Windows.Forms.Button buttonItemsSelect;
         private System.Windows.Forms.Label labelItemsType;
         private System.Windows.Forms.ComboBox comboBoxItemsType;
@@ -942,27 +943,27 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.PictureBox pictureBoxItems;
         private System.Windows.Forms.Label labelItemsImage;
         private System.Windows.Forms.PictureBox pictureBoxOrders;
-        private System.Windows.Forms.ComboBox comboBoxOrderItemStatus;
-        private System.Windows.Forms.Label labelOrderItemStatus;
-        private System.Windows.Forms.TextBox textBoxOrderTax;
-        private System.Windows.Forms.Label labelOrderTax;
-        private System.Windows.Forms.TextBox textBoxOrderPrice;
-        private System.Windows.Forms.Label labelOrderPrice;
-        private System.Windows.Forms.TextBox textBoxOrderItemNumber;
-        private System.Windows.Forms.Label labelOrderItemCount;
+        private System.Windows.Forms.ComboBox comboBoxOrdersItemStatus;
+        private System.Windows.Forms.Label labelOrdersItemStatus;
+        private System.Windows.Forms.TextBox textBoxOrdersTax;
+        private System.Windows.Forms.Label labelOrdersTax;
+        private System.Windows.Forms.TextBox textBoxOrdersPrice;
+        private System.Windows.Forms.Label labelOrdersPrice;
+        private System.Windows.Forms.TextBox textBoxOrdersItemCount;
+        private System.Windows.Forms.Label labelOrdersItemCount;
         private System.Windows.Forms.Label labelOrdersPicture;
-        private System.Windows.Forms.ComboBox comboBoxOrderItem;
-        private System.Windows.Forms.Label labelOrderItem;
-        private System.Windows.Forms.TextBox textBoxOrderPostage;
-        private System.Windows.Forms.Label labelOrderPostage;
-        private System.Windows.Forms.Button buttonOrderSelect;
+        private System.Windows.Forms.ComboBox comboBoxOrdersItem;
+        private System.Windows.Forms.Label labelOrdersItem;
+        private System.Windows.Forms.TextBox textBoxOrdersPostage;
+        private System.Windows.Forms.Label labelOrdersPostage;
+        private System.Windows.Forms.Button buttonOrdersSelect;
         private System.Windows.Forms.Label labelItemsDescription;
         private System.Windows.Forms.TextBox textBoxItemsDescription;
         private System.Windows.Forms.TabPage tabPageItemType;
         private System.Windows.Forms.TabPage tabPageItemStatus;
         private System.Windows.Forms.TabPage tabPagePersonInfo;
         private System.Windows.Forms.GroupBox groupBoxPersonInfo;
-        private System.Windows.Forms.Button buttonPersonInfoListSelect;
+        private System.Windows.Forms.Button buttonPersonInfoSelect;
         private System.Windows.Forms.Button buttonPersonInfoDelete;
         private System.Windows.Forms.Button buttonPersonInfoUpdate;
         private System.Windows.Forms.Label labelPersonInfoList;
@@ -998,10 +999,10 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonItemTypeSave;
         private System.Windows.Forms.Label labelItemTypeDescription;
         private System.Windows.Forms.TextBox textBoxItemTypeDescription;
-        private System.Windows.Forms.GroupBox groupBoxItemsStatus;
-        private System.Windows.Forms.Button buttonItemsStatusSelect;
-        private System.Windows.Forms.Button buttonItemsStatusSave;
-        private System.Windows.Forms.Label labelItemsStatusNew;
+        private System.Windows.Forms.GroupBox groupBoxItemStatus;
+        private System.Windows.Forms.Button buttonItemStatusSelect;
+        private System.Windows.Forms.Button buttonItemStatusSave;
+        private System.Windows.Forms.Label labelItemStatusName;
         private System.Windows.Forms.TextBox textBoxItemStatusName;
         private System.Windows.Forms.Button buttonItemTypeUpdate;
         private System.Windows.Forms.Button buttonItemTypeDelete;
@@ -1014,15 +1015,15 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.TextBox textBoxItemStatusDescription;
         private System.Windows.Forms.Label labelItemTypeList;
         private System.Windows.Forms.TextBox textBoxItemTypeName;
-        private System.Windows.Forms.ComboBox comboBoxOrderItemType;
-        private System.Windows.Forms.Label labelOrderItemType;
+        private System.Windows.Forms.ComboBox comboBoxOrdersItemType;
+        private System.Windows.Forms.Label labelOrdersItemType;
         private System.Windows.Forms.Label labelItemsId;
         private System.Windows.Forms.Label labelItemTypeId;
         private System.Windows.Forms.Label labelItemStatusId;
         private System.Windows.Forms.Label labelPersonInfoId;
         private System.Windows.Forms.ListBox listBoxOrdersList;
         private System.Windows.Forms.Label labelOrdersList;
-        private System.Windows.Forms.Button buttonOrderSave;
+        private System.Windows.Forms.Button buttonOrdersSave;
         private System.Windows.Forms.Label labelOrdersId;
         private System.Windows.Forms.Button buttonOrdersUpdate;
         private System.Windows.Forms.Button buttonOrdersDelete;

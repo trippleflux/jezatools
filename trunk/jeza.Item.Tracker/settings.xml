@@ -2,27 +2,80 @@
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Languages>
     <Language Culture="sl-SI">
-      <TabItems TabPageItems="Izdelki">
-        <GroupBoxItemsType>Tip</GroupBoxItemsType>
-        <LabelItemsTypeExisting>Obstojeci</LabelItemsTypeExisting>
-        <LabelItemsTypeNew>Nov</LabelItemsTypeNew>
-        <ButtonItemsTypeSelect>Izberi</ButtonItemsTypeSelect>
-        <ButtonItemsTypeSave>Shrani</ButtonItemsTypeSave>
-        <GroupBoxItemsStatus>Status</GroupBoxItemsStatus>
-        <LabelItemsStatusExisting>Obsotjeci</LabelItemsStatusExisting>
-        <LabelItemsStatusNew>Nov</LabelItemsStatusNew>
-        <ButtonItemsStatusSelect>Izberi</ButtonItemsStatusSelect>
-        <ButtonItemsStatusSave>Shrani</ButtonItemsStatusSave>
+      <TabOrders Name="Narocila">
+        <LabelOrdersPersonInfo>Naročnik</LabelOrdersPersonInfo>
+        <LabelOrdersItemType>Tip izdelka</LabelOrdersItemType>
+        <LabelOrdersItem>Izdelek</LabelOrdersItem>
+        <LabelOrdersItemStatus>Status naročila</LabelOrdersItemStatus>
+        <LabelOrdersItemCount>Število izdelkov</LabelOrdersItemCount>
+        <LabelOrdersPrice>Cena izdelka</LabelOrdersPrice>
+        <LabelOrdersTax>Davek</LabelOrdersTax>
+        <LabelOrdersPostage>Poštnina</LabelOrdersPostage>
+        <LabelOrdersLegalEntity>Pravna oseba</LabelOrdersLegalEntity>
+        <LabelOrdersPicture>Slika</LabelOrdersPicture>
+        <LabelOrdersList>Seznam</LabelOrdersList>
+        <ButtonOrdersSum>Vsota</ButtonOrdersSum>
+        <ButtonOrdersSelect>Izberi</ButtonOrdersSelect>
+        <ButtonOrdersSave>Shrani</ButtonOrdersSave>
+        <ButtonOrdersNew>Nov</ButtonOrdersNew>
+        <ButtonOrdersUpdate>Posodobi</ButtonOrdersUpdate>
+        <ButtonOrdersDelete>Izbriši</ButtonOrdersDelete>
+      </TabOrders>
+      <TabItems Name="Izdelki">
         <GroupBoxItems>Izdelki</GroupBoxItems>
-        <LabelItemsList>Izdelki</LabelItemsList>
-        <ButtonItemsSelect>Izberi</ButtonItemsSelect>
-        <LabelItemsNew>Izdelek</LabelItemsNew>
-        <LabelItemsItemType>Tip</LabelItemsItemType>
+        <LabelItemsName>Ime</LabelItemsName>
+        <LabelItemsDescription>Opis</LabelItemsDescription>
+        <LabelItemsType>Tip</LabelItemsType>
         <LabelItemsImage>Slika</LabelItemsImage>
+        <LabelItemsList>Seznam</LabelItemsList>
+        <ButtonItemsPictureBoxSelect>Izberi sliko</ButtonItemsPictureBoxSelect>
+        <ButtonItemsSelect>Izberi</ButtonItemsSelect>
         <ButtonItemsSave>Shrani</ButtonItemsSave>
-        <ButtonItemsPictureBoxSelect>Izberi</ButtonItemsPictureBoxSelect>
+        <ButtonItemsNew>Nov</ButtonItemsNew>
+        <ButtonItemsUpdate>Posodobi</ButtonItemsUpdate>
+        <ButtonItemsDelete>Izbriši</ButtonItemsDelete>
       </TabItems>
-      <TabOrders Name="Narocila" />
+      <TabItemTypes Name="Tipi izdelkov">
+        <GroupBoxItemType>Tipi izdelkov</GroupBoxItemType>
+        <LabelItemTypeName>Ime</LabelItemTypeName>
+        <LabelItemTypeDescription>Opis</LabelItemTypeDescription>
+        <LabelItemTypeList>Seznam</LabelItemTypeList>
+        <ButtonItemTypeListSelect>Izberi</ButtonItemTypeListSelect>
+        <ButtonItemTypeListSave>Shrani</ButtonItemTypeListSave>
+        <ButtonItemTypeListNew>Nov</ButtonItemTypeListNew>
+        <ButtonItemTypeListUpdate>Posodobi</ButtonItemTypeListUpdate>
+        <ButtonItemTypeListDelete>Izbriši</ButtonItemTypeListDelete>
+      </TabItemTypes>
+      <TabItemStatus Name="Status naročila">
+        <GroupBoxItemsStatus>Status naročila</GroupBoxItemsStatus>
+        <LabelItemsStatusName>Ime</LabelItemsStatusName>
+        <LabelItemStatusDescription>Opis</LabelItemStatusDescription>
+        <LabelItemStatusList>Seznam</LabelItemStatusList>
+        <ButtonItemStatusSelect>Izberi</ButtonItemStatusSelect>
+        <ButtonItemStatusSave>Shrani</ButtonItemStatusSave>
+        <ButtonItemStatusNew>Nov</ButtonItemStatusNew>
+        <ButtonItemStatusUpdate>Posodobi</ButtonItemStatusUpdate>
+        <ButtonItemStatusDelete>Izbriši</ButtonItemStatusDelete>
+      </TabItemStatus>
+      <TabPersonInfo Name="Naročniki">
+        <LabelPersonInfoName>Ime</LabelPersonInfoName>
+        <LabelPersonInfoSurName>Priimek</LabelPersonInfoSurName>
+        <LabelPersonInfoNickName>Vzdevek</LabelPersonInfoNickName>
+        <LabelPersonInfoDescription>Opis</LabelPersonInfoDescription>
+        <LabelPersonInfoAddress>Naslov</LabelPersonInfoAddress>
+        <LabelPersonInfoCity>Mesto/Kraj</LabelPersonInfoCity>
+        <LabelPersonInfoPostNumber>Poštna številka</LabelPersonInfoPostNumber>
+        <LabelPersonInfoEmail>Email</LabelPersonInfoEmail>
+        <LabelPersonInfoTelephone>Telefon</LabelPersonInfoTelephone>
+        <LabelPersonInfoTelephoneMobile>Mobilni telefon</LabelPersonInfoTelephoneMobile>
+        <LabelPersonInfoFax>Telefaks</LabelPersonInfoFax>
+        <LabelPersonInfoList>Seznam</LabelPersonInfoList>
+        <ButtonPersonInfoSelect>Izberi</ButtonPersonInfoSelect>
+        <ButtonPersonInfoSave>Shrani</ButtonPersonInfoSave>
+        <ButtonPersonInfoNew>Nov</ButtonPersonInfoNew>
+        <ButtonPersonInfoUpdate>Posodobi</ButtonPersonInfoUpdate>
+        <ButtonPersonInfoDelete>Izbriši</ButtonPersonInfoDelete>
+      </TabPersonInfo>
       <TabReports Name="Statistika" />
     </Language>
   </Languages>
