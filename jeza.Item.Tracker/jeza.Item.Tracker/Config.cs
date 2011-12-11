@@ -47,7 +47,12 @@ namespace jeza.Item.Tracker
 
         public static string DataSource
         {
-            get { return GetKeyValue("DataSource"); }
+            get
+            {
+                string path = System.IO.Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().Location);
+                return String.Format(@"Data Source={0}\jeza.Item.Tracker.s3db", path);
+            }
         }
     }
 }

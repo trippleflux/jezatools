@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Net.Mime;
 using System.Text;
 using System.Xml.Serialization;
+using jeza.Item.Tracker.Settings;
 using NLog;
 
 namespace jeza.Item.Tracker
@@ -24,32 +24,90 @@ namespace jeza.Item.Tracker
             Language languageSlovenian = new Language
                                          {
                                              Culture = "sl-SI",
-                                             TabItems = new TabItems
-                                                        {
-                                                            TabPageItems = "Izdelki",
-                                                            GroupBoxItemsType = "Tip",
-                                                            LabelItemsTypeExisting = "Obstojeci",
-                                                            ButtonItemsTypeSelect = "Izberi",
-                                                            LabelItemsTypeNew = "Nov",
-                                                            ButtonItemsTypeSave = "Shrani",
-                                                            GroupBoxItemsStatus = "Status",
-                                                            LabelItemsStatusExisting = "Obsotjeci",
-                                                            LabelItemsStatusNew = "Nov",
-                                                            ButtonItemsStatusSelect = "Izberi",
-                                                            ButtonItemsStatusSave = "Shrani",
-                                                            GroupBoxItems = "Izdelki",
-                                                            LabelItemsList = "Izdelki",
-                                                            ButtonItemsSelect = "Izberi",
-                                                            LabelItemsNew = "Izdelek",
-                                                            ButtonItemsSave = "Shrani",
-                                                            LabelItemsItemType = "Tip",
-                                                            ButtonItemsPictureBoxSelect = "Izberi",
-                                                            LabelItemsImage = "Slika",
-                                                        },
                                              TabOrders = new TabOrders
                                                          {
                                                              Name = "Narocila",
+                                                             LabelOrdersPersonInfo = "Naročnik",
+                                                             LabelOrdersItemType = "Tip izdelka",
+                                                             LabelOrdersItem = "Izdelek",
+                                                             LabelOrdersItemStatus = "Status naročila",
+                                                             LabelOrdersItemCount = "Število izdelkov",
+                                                             LabelOrdersPrice = "Cena izdelka",
+                                                             LabelOrdersPostage = "Poštnina",
+                                                             LabelOrdersTax = "Davek",
+                                                             LabelOrdersLegalEntity = "Pravna oseba",
+                                                             LabelOrdersPicture = "Slika",
+                                                             LabelOrdersList = "Seznam",
+                                                             ButtonOrdersSum = "Vsota",
+                                                             ButtonOrdersSelect = "Izberi",
+                                                             ButtonOrdersSave = "Shrani",
+                                                             ButtonOrdersNew = "Nov",
+                                                             ButtonOrdersUpdate = "Posodobi",
+                                                             ButtonOrdersDelete = "Izbriši",
                                                          },
+                                             TabItems = new TabItems
+                                                        {
+                                                            Name = "Izdelki",
+                                                            GroupBoxItems = "Izdelki",
+                                                            LabelItemsName = "Ime",
+                                                            LabelItemsDescription = "Opis",
+                                                            LabelItemsType = "Tip",
+                                                            LabelItemsImage = "Slika",
+                                                            LabelItemsList = "Seznam",
+                                                            ButtonItemsPictureBoxSelect = "Izberi sliko",
+                                                            ButtonItemsSelect = "Izberi",
+                                                            ButtonItemsSave = "Shrani",
+                                                            ButtonItemsNew = "Nov",
+                                                            ButtonItemsUpdate = "Posodobi",
+                                                            ButtonItemsDelete = "Izbriši",
+                                                        },
+                                             TabItemTypes = new TabItemTypes
+                                                            {
+                                                                Name = "Tipi izdelkov",
+                                                                GroupBoxItemType = "Tipi izdelkov",
+                                                                LabelItemTypeName = "Ime",
+                                                                LabelItemTypeDescription = "Opis",
+                                                                LabelItemTypeList = "Seznam",
+                                                                ButtonItemTypeListSelect = "Izberi",
+                                                                ButtonItemTypeListSave = "Shrani",
+                                                                ButtonItemTypeListNew = "Nov",
+                                                                ButtonItemTypeListUpdate = "Posodobi",
+                                                                ButtonItemTypeListDelete = "Izbriši",
+                                                            },
+                                             TabItemStatus = new TabItemStatus
+                                                             {
+                                                                 Name = "Status naročila",
+                                                                 GroupBoxItemsStatus = "Status naročila",
+                                                                 LabelItemsStatusName = "Ime",
+                                                                 LabelItemStatusDescription = "Opis",
+                                                                 LabelItemStatusList = "Seznam",
+                                                                 ButtonItemStatusSelect = "Izberi",
+                                                                 ButtonItemStatusSave = "Shrani",
+                                                                 ButtonItemStatusNew = "Nov",
+                                                                 ButtonItemStatusUpdate = "Posodobi",
+                                                                 ButtonItemStatusDelete = "Izbriši",
+                                                             },
+                                             TabPersonInfo = new TabPersonInfo
+                                                             {
+                                                                 Name = "Naročniki",
+                                                                 LabelPersonInfoName = "Ime",
+                                                                 LabelPersonInfoSurName = "Priimek",
+                                                                 LabelPersonInfoNickName = "Vzdevek",
+                                                                 LabelPersonInfoDescription = "Opis",
+                                                                 LabelPersonInfoAddress = "Naslov",
+                                                                 LabelPersonInfoPostNumber = "Poštna številka",
+                                                                 LabelPersonInfoCity = "Mesto/Kraj",
+                                                                 LabelPersonInfoEmail = "Email",
+                                                                 LabelPersonInfoFax = "Telefaks",
+                                                                 LabelPersonInfoTelephone = "Telefon",
+                                                                 LabelPersonInfoTelephoneMobile = "Mobilni telefon",
+                                                                 LabelPersonInfoList = "Seznam",
+                                                                 ButtonPersonInfoSelect = "Izberi",
+                                                                 ButtonPersonInfoSave = "Shrani",
+                                                                 ButtonPersonInfoNew = "Nov",
+                                                                 ButtonPersonInfoUpdate = "Posodobi",
+                                                                 ButtonPersonInfoDelete = "Izbriši",
+                                                             },
                                              TabReports = new TabReports
                                                           {
                                                               Name = "Statistika",
