@@ -19,17 +19,18 @@ namespace jeza.Item.Tracker.Gui
         public Gui()
         {
             InitializeComponent();
-            FillLanguage();
             FillItemTypes();
             FillItemStatus();
             FillItems();
             FillPersonInfo();
             FillOrders();
+            FillLanguage();
         }
 
         private void FillLanguage()
         {
-            Settings.Settings settings = Misc.Deserialize(new Settings.Settings(), "settings.xml");
+            XmlSerialization xmlSerialization = new XmlSerialization();
+            Settings.Settings settings = xmlSerialization.Deserialize(new Settings.Settings(), "settings.xml");
             string setting = ConfigurationManager.AppSettings["language"];
             language = settings.Languages.Find(l => l.Culture.Equals(setting)) ?? Misc.GetLanguageSlovenian();
             //Orders
@@ -97,7 +98,7 @@ namespace jeza.Item.Tracker.Gui
             labelPersonInfoEmail.Text = tabPersonInfo.LabelPersonInfoEmail;
             labelPersonInfoTelephone.Text = tabPersonInfo.LabelPersonInfoTelephone;
             labelPersonInfoTelephoneMobile.Text = tabPersonInfo.LabelPersonInfoTelephoneMobile;
-            labelPersonInfoTelephoneMobile.Text = tabPersonInfo.LabelPersonInfoFax;
+            labelPersonInfoFax.Text = tabPersonInfo.LabelPersonInfoFax;
             labelPersonInfoList.Text = tabPersonInfo.LabelPersonInfoList;
             buttonPersonInfoSelect.Text = tabPersonInfo.ButtonPersonInfoSelect;
             buttonPersonInfoSave.Text = tabPersonInfo.ButtonPersonInfoSave;
@@ -154,7 +155,7 @@ namespace jeza.Item.Tracker.Gui
             Logger.Info("Fill Item Types...");
             comboBoxOrdersItemType.Items.Clear();
             comboBoxItemsType.Items.Clear();
-            listBoxItemTypeList.Items.Clear();
+            //listBoxItemTypeList.Items.Clear();
             List<ItemType> itemTypes = dataBase.ItemTypeGetAll();
             if (itemTypes == null)
             {
@@ -169,7 +170,8 @@ namespace jeza.Item.Tracker.Gui
             comboBoxItemsType.Items.AddRange(itemTypes.ToArray());
             comboBoxItemsType.SelectedItem = comboBoxItemsType.Items[0];
             //item type tab
-            listBoxItemTypeList.Items.AddRange(itemTypes.ToArray());
+            //listBoxItemTypeList.Items.AddRange(itemTypes.ToArray());
+            dataGridViewItemType.DataSource = itemTypes;
         }
 
         private void FillItemStatus()
@@ -357,37 +359,6 @@ namespace jeza.Item.Tracker.Gui
                     ShowPicture(item, pictureBoxItems);
                     DisableItemsSaveButton();
                     SetItemId(item.Id);
-                }
-                else
-                {
-                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
-        }
-
-        private void ButtonItemTypeListSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            Logger.Info("Select item type...");
-            try
-            {
-                ItemType selectedItem = (ItemType) listBoxItemTypeList.SelectedItem;
-                if (selectedItem != null)
-                {
-                    ItemType itemType = dataBase.ItemTypeGet(selectedItem.Id);
-                    if (itemType == null)
-                    {
-                        return;
-                    }
-                    textBoxItemTypeName.Text = itemType.Name;
-                    textBoxItemTypeDescription.Text = itemType.Description;
-                    DisableItemTypeSaveButton();
-                    SetItemTypeId(itemType.Id);
                 }
                 else
                 {
@@ -1356,6 +1327,67 @@ namespace jeza.Item.Tracker.Gui
                 return;
             }
             ShowPicture(selectedItem, pictureBoxOrders);
+        }
+
+        private void buttonBankSelect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonBankSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonBankUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonBankDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataGridViewItemTypeSelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (dataGridView.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            try
+            {
+                List<ItemType> list = (List<ItemType>) dataGridViewItemType.DataSource;
+                if (list == null)
+                {
+                    Logger.Warn("Failed to get itemTypes binded to the control 'dataGridViewItemType'.");
+                    return;
+                }
+                Logger.Info("Selected ItemType changed...");
+                ItemType selectedItem = (ItemType)dataGridViewItemType.SelectedRows[0].DataBoundItem;
+                if (selectedItem != null)
+                {
+                    ItemType itemType = list.Find(t => t.Id == selectedItem.Id);
+                    if (itemType == null)
+                    {
+                        return;
+                    }
+                    Logger.Info("Selected ItemType: {0}", itemType.ToString());
+                    textBoxItemTypeName.Text = itemType.Name;
+                    textBoxItemTypeDescription.Text = itemType.Description;
+                    //DisableItemTypeSaveButton();
+                    SetItemTypeId(itemType.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
         }
     }
 }

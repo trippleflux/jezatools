@@ -34,10 +34,13 @@ namespace jeza.Item.Tracker.Gui
         /// <param name="language1"></param>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gui));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
             this.groupBoxOrders = new System.Windows.Forms.GroupBox();
+            this.comboBoxOrersBank = new System.Windows.Forms.ComboBox();
+            this.labelOrdersBank = new System.Windows.Forms.Label();
             this.buttonOrdersSum = new System.Windows.Forms.Button();
             this.labelOrdersSumNumber = new System.Windows.Forms.Label();
             this.labelOrdersId = new System.Windows.Forms.Label();
@@ -87,13 +90,15 @@ namespace jeza.Item.Tracker.Gui
             this.labelItemsList = new System.Windows.Forms.Label();
             this.tabPageItemType = new System.Windows.Forms.TabPage();
             this.groupBoxItemType = new System.Windows.Forms.GroupBox();
+            this.dataGridViewItemType = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemTypeId = new System.Windows.Forms.Label();
             this.labelItemTypeList = new System.Windows.Forms.Label();
             this.textBoxItemTypeName = new System.Windows.Forms.TextBox();
             this.buttonItemTypeUpdate = new System.Windows.Forms.Button();
             this.buttonItemTypeDelete = new System.Windows.Forms.Button();
-            this.listBoxItemTypeList = new System.Windows.Forms.ListBox();
-            this.buttonItemTypeListSelect = new System.Windows.Forms.Button();
             this.labelItemTypeName = new System.Windows.Forms.Label();
             this.buttonItemTypeSave = new System.Windows.Forms.Button();
             this.labelItemTypeDescription = new System.Windows.Forms.Label();
@@ -144,6 +149,19 @@ namespace jeza.Item.Tracker.Gui
             this.labelPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.groupBoxReports = new System.Windows.Forms.GroupBox();
+            this.tabPageBank = new System.Windows.Forms.TabPage();
+            this.groupBoxBank = new System.Windows.Forms.GroupBox();
+            this.labelBankId = new System.Windows.Forms.Label();
+            this.labelBankList = new System.Windows.Forms.Label();
+            this.labelBankAccountNumber = new System.Windows.Forms.Label();
+            this.textBoxBankAccountNumber = new System.Windows.Forms.TextBox();
+            this.buttonBankUpdate = new System.Windows.Forms.Button();
+            this.buttonBankDelete = new System.Windows.Forms.Button();
+            this.listBoxBankList = new System.Windows.Forms.ListBox();
+            this.buttonBankSelect = new System.Windows.Forms.Button();
+            this.buttonBankSave = new System.Windows.Forms.Button();
+            this.labelBankName = new System.Windows.Forms.Label();
+            this.textBoxBankName = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.groupBoxOrders.SuspendLayout();
@@ -153,11 +171,15 @@ namespace jeza.Item.Tracker.Gui
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).BeginInit();
             this.tabPageItemType.SuspendLayout();
             this.groupBoxItemType.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).BeginInit();
             this.tabPageItemStatus.SuspendLayout();
             this.groupBoxItemStatus.SuspendLayout();
             this.tabPagePersonInfo.SuspendLayout();
             this.groupBoxPersonInfo.SuspendLayout();
             this.tabPageReports.SuspendLayout();
+            this.tabPageBank.SuspendLayout();
+            this.groupBoxBank.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -168,6 +190,7 @@ namespace jeza.Item.Tracker.Gui
             this.tabControl.Controls.Add(this.tabPageItemStatus);
             this.tabControl.Controls.Add(this.tabPagePersonInfo);
             this.tabControl.Controls.Add(this.tabPageReports);
+            this.tabControl.Controls.Add(this.tabPageBank);
             resources.ApplyResources(this.tabControl, "tabControl");
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -181,6 +204,8 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxOrders
             // 
+            this.groupBoxOrders.Controls.Add(this.comboBoxOrersBank);
+            this.groupBoxOrders.Controls.Add(this.labelOrdersBank);
             this.groupBoxOrders.Controls.Add(this.buttonOrdersSum);
             this.groupBoxOrders.Controls.Add(this.labelOrdersSumNumber);
             this.groupBoxOrders.Controls.Add(this.labelOrdersId);
@@ -213,6 +238,17 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxOrders, "groupBoxOrders");
             this.groupBoxOrders.Name = "groupBoxOrders";
             this.groupBoxOrders.TabStop = false;
+            // 
+            // comboBoxOrersBank
+            // 
+            resources.ApplyResources(this.comboBoxOrersBank, "comboBoxOrersBank");
+            this.comboBoxOrersBank.FormattingEnabled = true;
+            this.comboBoxOrersBank.Name = "comboBoxOrersBank";
+            // 
+            // labelOrdersBank
+            // 
+            resources.ApplyResources(this.labelOrdersBank, "labelOrdersBank");
+            this.labelOrdersBank.Name = "labelOrdersBank";
             // 
             // buttonOrdersSum
             // 
@@ -509,13 +545,12 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxItemType
             // 
+            this.groupBoxItemType.Controls.Add(this.dataGridViewItemType);
             this.groupBoxItemType.Controls.Add(this.labelItemTypeId);
             this.groupBoxItemType.Controls.Add(this.labelItemTypeList);
             this.groupBoxItemType.Controls.Add(this.textBoxItemTypeName);
             this.groupBoxItemType.Controls.Add(this.buttonItemTypeUpdate);
             this.groupBoxItemType.Controls.Add(this.buttonItemTypeDelete);
-            this.groupBoxItemType.Controls.Add(this.listBoxItemTypeList);
-            this.groupBoxItemType.Controls.Add(this.buttonItemTypeListSelect);
             this.groupBoxItemType.Controls.Add(this.labelItemTypeName);
             this.groupBoxItemType.Controls.Add(this.buttonItemTypeSave);
             this.groupBoxItemType.Controls.Add(this.labelItemTypeDescription);
@@ -523,6 +558,42 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxItemType, "groupBoxItemType");
             this.groupBoxItemType.Name = "groupBoxItemType";
             this.groupBoxItemType.TabStop = false;
+            // 
+            // dataGridViewItemType
+            // 
+            this.dataGridViewItemType.AllowUserToAddRows = false;
+            this.dataGridViewItemType.AllowUserToDeleteRows = false;
+            this.dataGridViewItemType.AutoGenerateColumns = false;
+            this.dataGridViewItemType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewItemType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn,
+            this.descriptionDataGridViewTextBoxColumn});
+            this.dataGridViewItemType.DataSource = this.itemTypeBindingSource;
+            resources.ApplyResources(this.dataGridViewItemType, "dataGridViewItemType");
+            this.dataGridViewItemType.MultiSelect = false;
+            this.dataGridViewItemType.Name = "dataGridViewItemType";
+            this.dataGridViewItemType.ReadOnly = true;
+            this.dataGridViewItemType.SelectionChanged += new System.EventHandler(this.DataGridViewItemTypeSelectionChanged);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            resources.ApplyResources(this.nameDataGridViewTextBoxColumn, "nameDataGridViewTextBoxColumn");
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            resources.ApplyResources(this.descriptionDataGridViewTextBoxColumn, "descriptionDataGridViewTextBoxColumn");
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // itemTypeBindingSource
+            // 
+            this.itemTypeBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemType);
             // 
             // labelItemTypeId
             // 
@@ -552,19 +623,6 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemTypeDelete.Name = "buttonItemTypeDelete";
             this.buttonItemTypeDelete.UseVisualStyleBackColor = true;
             this.buttonItemTypeDelete.Click += new System.EventHandler(this.ButtonItemTypeDeleteClick);
-            // 
-            // listBoxItemTypeList
-            // 
-            this.listBoxItemTypeList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxItemTypeList, "listBoxItemTypeList");
-            this.listBoxItemTypeList.Name = "listBoxItemTypeList";
-            // 
-            // buttonItemTypeListSelect
-            // 
-            resources.ApplyResources(this.buttonItemTypeListSelect, "buttonItemTypeListSelect");
-            this.buttonItemTypeListSelect.Name = "buttonItemTypeListSelect";
-            this.buttonItemTypeListSelect.UseVisualStyleBackColor = true;
-            this.buttonItemTypeListSelect.Click += new System.EventHandler(this.ButtonItemTypeListSelectClick);
             // 
             // labelItemTypeName
             // 
@@ -885,6 +943,94 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxReports.Name = "groupBoxReports";
             this.groupBoxReports.TabStop = false;
             // 
+            // tabPageBank
+            // 
+            this.tabPageBank.Controls.Add(this.groupBoxBank);
+            resources.ApplyResources(this.tabPageBank, "tabPageBank");
+            this.tabPageBank.Name = "tabPageBank";
+            this.tabPageBank.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxBank
+            // 
+            this.groupBoxBank.Controls.Add(this.labelBankId);
+            this.groupBoxBank.Controls.Add(this.labelBankList);
+            this.groupBoxBank.Controls.Add(this.labelBankAccountNumber);
+            this.groupBoxBank.Controls.Add(this.textBoxBankAccountNumber);
+            this.groupBoxBank.Controls.Add(this.buttonBankUpdate);
+            this.groupBoxBank.Controls.Add(this.buttonBankDelete);
+            this.groupBoxBank.Controls.Add(this.listBoxBankList);
+            this.groupBoxBank.Controls.Add(this.buttonBankSelect);
+            this.groupBoxBank.Controls.Add(this.buttonBankSave);
+            this.groupBoxBank.Controls.Add(this.labelBankName);
+            this.groupBoxBank.Controls.Add(this.textBoxBankName);
+            resources.ApplyResources(this.groupBoxBank, "groupBoxBank");
+            this.groupBoxBank.Name = "groupBoxBank";
+            this.groupBoxBank.TabStop = false;
+            // 
+            // labelBankId
+            // 
+            resources.ApplyResources(this.labelBankId, "labelBankId");
+            this.labelBankId.Name = "labelBankId";
+            // 
+            // labelBankList
+            // 
+            resources.ApplyResources(this.labelBankList, "labelBankList");
+            this.labelBankList.Name = "labelBankList";
+            // 
+            // labelBankAccountNumber
+            // 
+            resources.ApplyResources(this.labelBankAccountNumber, "labelBankAccountNumber");
+            this.labelBankAccountNumber.Name = "labelBankAccountNumber";
+            // 
+            // textBoxBankAccountNumber
+            // 
+            resources.ApplyResources(this.textBoxBankAccountNumber, "textBoxBankAccountNumber");
+            this.textBoxBankAccountNumber.Name = "textBoxBankAccountNumber";
+            // 
+            // buttonBankUpdate
+            // 
+            resources.ApplyResources(this.buttonBankUpdate, "buttonBankUpdate");
+            this.buttonBankUpdate.Name = "buttonBankUpdate";
+            this.buttonBankUpdate.UseVisualStyleBackColor = true;
+            this.buttonBankUpdate.Click += new System.EventHandler(this.buttonBankUpdate_Click);
+            // 
+            // buttonBankDelete
+            // 
+            resources.ApplyResources(this.buttonBankDelete, "buttonBankDelete");
+            this.buttonBankDelete.Name = "buttonBankDelete";
+            this.buttonBankDelete.UseVisualStyleBackColor = true;
+            this.buttonBankDelete.Click += new System.EventHandler(this.buttonBankDelete_Click);
+            // 
+            // listBoxBankList
+            // 
+            this.listBoxBankList.FormattingEnabled = true;
+            resources.ApplyResources(this.listBoxBankList, "listBoxBankList");
+            this.listBoxBankList.Name = "listBoxBankList";
+            // 
+            // buttonBankSelect
+            // 
+            resources.ApplyResources(this.buttonBankSelect, "buttonBankSelect");
+            this.buttonBankSelect.Name = "buttonBankSelect";
+            this.buttonBankSelect.UseVisualStyleBackColor = true;
+            this.buttonBankSelect.Click += new System.EventHandler(this.buttonBankSelect_Click);
+            // 
+            // buttonBankSave
+            // 
+            resources.ApplyResources(this.buttonBankSave, "buttonBankSave");
+            this.buttonBankSave.Name = "buttonBankSave";
+            this.buttonBankSave.UseVisualStyleBackColor = true;
+            this.buttonBankSave.Click += new System.EventHandler(this.buttonBankSave_Click);
+            // 
+            // labelBankName
+            // 
+            resources.ApplyResources(this.labelBankName, "labelBankName");
+            this.labelBankName.Name = "labelBankName";
+            // 
+            // textBoxBankName
+            // 
+            resources.ApplyResources(this.textBoxBankName, "textBoxBankName");
+            this.textBoxBankName.Name = "textBoxBankName";
+            // 
             // Gui
             // 
             resources.ApplyResources(this, "$this");
@@ -907,6 +1053,8 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemType.ResumeLayout(false);
             this.groupBoxItemType.ResumeLayout(false);
             this.groupBoxItemType.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).EndInit();
             this.tabPageItemStatus.ResumeLayout(false);
             this.tabPageItemStatus.PerformLayout();
             this.groupBoxItemStatus.ResumeLayout(false);
@@ -915,6 +1063,9 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxPersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.PerformLayout();
             this.tabPageReports.ResumeLayout(false);
+            this.tabPageBank.ResumeLayout(false);
+            this.groupBoxBank.ResumeLayout(false);
+            this.groupBoxBank.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -994,7 +1145,6 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonItemsUpdate;
         private System.Windows.Forms.Button buttonItemsDelete;
         private System.Windows.Forms.GroupBox groupBoxItemType;
-        private System.Windows.Forms.Button buttonItemTypeListSelect;
         private System.Windows.Forms.Label labelItemTypeName;
         private System.Windows.Forms.Button buttonItemTypeSave;
         private System.Windows.Forms.Label labelItemTypeDescription;
@@ -1006,7 +1156,6 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.TextBox textBoxItemStatusName;
         private System.Windows.Forms.Button buttonItemTypeUpdate;
         private System.Windows.Forms.Button buttonItemTypeDelete;
-        private System.Windows.Forms.ListBox listBoxItemTypeList;
         private System.Windows.Forms.Button buttonItemStatusUpdate;
         private System.Windows.Forms.Button buttonItemStatusDelete;
         private System.Windows.Forms.ListBox listBoxItemStatusList;
@@ -1030,6 +1179,25 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonOrdersSum;
         private System.Windows.Forms.Label labelOrdersSumNumber;
         private System.Windows.Forms.GroupBox groupBoxReports;
+        private System.Windows.Forms.TabPage tabPageBank;
+        private System.Windows.Forms.GroupBox groupBoxBank;
+        private System.Windows.Forms.Label labelBankId;
+        private System.Windows.Forms.Label labelBankList;
+        private System.Windows.Forms.Label labelBankAccountNumber;
+        private System.Windows.Forms.TextBox textBoxBankAccountNumber;
+        private System.Windows.Forms.Button buttonBankUpdate;
+        private System.Windows.Forms.Button buttonBankDelete;
+        private System.Windows.Forms.ListBox listBoxBankList;
+        private System.Windows.Forms.Button buttonBankSelect;
+        private System.Windows.Forms.Button buttonBankSave;
+        private System.Windows.Forms.Label labelBankName;
+        private System.Windows.Forms.TextBox textBoxBankName;
+        private System.Windows.Forms.ComboBox comboBoxOrersBank;
+        private System.Windows.Forms.Label labelOrdersBank;
+        private System.Windows.Forms.DataGridView dataGridViewItemType;
+        private System.Windows.Forms.BindingSource itemTypeBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
     }
 }
 

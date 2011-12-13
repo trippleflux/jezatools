@@ -2,7 +2,7 @@ using System.Xml.Serialization;
 
 namespace jeza.Item.Tracker.Settings
 {
-    public class TabItemStatus
+    public class TabBank
     {
         [XmlAttribute]
         public string Name { get; set; }

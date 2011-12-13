@@ -14,13 +14,15 @@ namespace jeza.Item.Tracker.Tests
                                     {
                                         Languages = new List<Language> {Misc.GetLanguageSlovenian()},
                                     };
-            Misc.Serialize(settings, FileName);
+            XmlSerialization xmlSerialization = new XmlSerialization();
+            xmlSerialization.Serialize(settings, FileName);
         }
 
         [Test]
         public void DeserializeSettings()
         {
-            Settings.Settings settings = Misc.Deserialize(new Settings.Settings(), FileName);
+            XmlSerialization xmlSerialization = new XmlSerialization();
+            Settings.Settings settings = xmlSerialization.Deserialize(new Settings.Settings(), FileName);
             Assert.IsNotNull(settings);
         }
 
