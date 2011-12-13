@@ -105,9 +105,10 @@ namespace jeza.Item.Tracker.Tests
             ItemStatus itemStatusGet = dataBase.ItemStatusGet(itemStatusName);
             Assert.IsNotNull(itemStatusGet);
             string personInfoName = Guid.NewGuid().ToString();
-            PersonInfo personInfo = new PersonInfo {Name = personInfoName};
+            string personInfoSurName = Guid.NewGuid().ToString();
+            PersonInfo personInfo = new PersonInfo { Name = personInfoName, SurName = personInfoSurName,};
             dataBase.PersonInfoInsert(personInfo);
-            PersonInfo personInfoGet = dataBase.PersonInfoGet(personInfoName);
+            PersonInfo personInfoGet = dataBase.PersonInfoGet(personInfoName, personInfoSurName);
             Assert.IsNotNull(personInfoGet);
             Order order = new Order
                           {
@@ -145,10 +146,9 @@ namespace jeza.Item.Tracker.Tests
             List<Order> orders = dataBase.OrderGetByItemId(1);
             Assert.IsNotNull(orders);
             Assert.AreEqual(1, orders.Count);
-            orders = dataBase.OrderGetById(orders[0].Id);
-            Assert.IsNotNull(orders);
-            Assert.AreEqual(1, orders.Count);
-            Assert.AreEqual(true, orders[0].LegalEntity);
+            Order orderGetById = dataBase.OrderGetById(orders[0].Id);
+            Assert.IsNotNull(orderGetById);
+            Assert.AreEqual(true, orderGetById.LegalEntity);
         }
 
         [Test]

@@ -39,6 +39,8 @@ namespace jeza.Item.Tracker.Gui
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
             this.groupBoxOrders = new System.Windows.Forms.GroupBox();
+            this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
+            this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxOrersBank = new System.Windows.Forms.ComboBox();
             this.labelOrdersBank = new System.Windows.Forms.Label();
             this.buttonOrdersSum = new System.Windows.Forms.Button();
@@ -47,13 +49,11 @@ namespace jeza.Item.Tracker.Gui
             this.buttonOrdersUpdate = new System.Windows.Forms.Button();
             this.buttonOrdersDelete = new System.Windows.Forms.Button();
             this.buttonOrdersSave = new System.Windows.Forms.Button();
-            this.listBoxOrdersList = new System.Windows.Forms.ListBox();
             this.labelOrdersList = new System.Windows.Forms.Label();
             this.comboBoxOrdersItemType = new System.Windows.Forms.ComboBox();
             this.labelOrdersItemType = new System.Windows.Forms.Label();
             this.comboBoxOrdersPersonInfo = new System.Windows.Forms.ComboBox();
             this.labelOrdersPersonInfo = new System.Windows.Forms.Label();
-            this.buttonOrdersSelect = new System.Windows.Forms.Button();
             this.textBoxOrdersPostage = new System.Windows.Forms.TextBox();
             this.labelOrdersPostage = new System.Windows.Forms.Label();
             this.comboBoxOrdersItemStatus = new System.Windows.Forms.ComboBox();
@@ -72,6 +72,11 @@ namespace jeza.Item.Tracker.Gui
             this.pictureBoxOrders = new System.Windows.Forms.PictureBox();
             this.tabPageItems = new System.Windows.Forms.TabPage();
             this.groupBoxItems = new System.Windows.Forms.GroupBox();
+            this.dataGridViewItems = new System.Windows.Forms.DataGridView();
+            this.columnItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemItemTypeId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemsId = new System.Windows.Forms.Label();
             this.buttonItemsUpdate = new System.Windows.Forms.Button();
             this.buttonItemsDelete = new System.Windows.Forms.Button();
@@ -80,10 +85,8 @@ namespace jeza.Item.Tracker.Gui
             this.labelItemsImage = new System.Windows.Forms.Label();
             this.buttonItemsPictureBoxSelect = new System.Windows.Forms.Button();
             this.pictureBoxItems = new System.Windows.Forms.PictureBox();
-            this.buttonItemsSelect = new System.Windows.Forms.Button();
             this.labelItemsType = new System.Windows.Forms.Label();
             this.comboBoxItemsType = new System.Windows.Forms.ComboBox();
-            this.listBoxItemsList = new System.Windows.Forms.ListBox();
             this.buttonItemsSave = new System.Windows.Forms.Button();
             this.labelItemsName = new System.Windows.Forms.Label();
             this.textBoxItemsName = new System.Windows.Forms.TextBox();
@@ -91,8 +94,8 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemType = new System.Windows.Forms.TabPage();
             this.groupBoxItemType = new System.Windows.Forms.GroupBox();
             this.dataGridViewItemType = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemTypeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.itemTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemTypeId = new System.Windows.Forms.Label();
             this.labelItemTypeList = new System.Windows.Forms.Label();
@@ -105,25 +108,32 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxItemTypeDescription = new System.Windows.Forms.TextBox();
             this.tabPageItemStatus = new System.Windows.Forms.TabPage();
             this.groupBoxItemStatus = new System.Windows.Forms.GroupBox();
+            this.dataGridViewItemStatus = new System.Windows.Forms.DataGridView();
+            this.columnItemStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemStatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemStatusId = new System.Windows.Forms.Label();
             this.labelItemStatusList = new System.Windows.Forms.Label();
             this.labelItemStatusDescription = new System.Windows.Forms.Label();
             this.textBoxItemStatusDescription = new System.Windows.Forms.TextBox();
             this.buttonItemStatusUpdate = new System.Windows.Forms.Button();
             this.buttonItemStatusDelete = new System.Windows.Forms.Button();
-            this.listBoxItemStatusList = new System.Windows.Forms.ListBox();
-            this.buttonItemStatusSelect = new System.Windows.Forms.Button();
             this.buttonItemStatusSave = new System.Windows.Forms.Button();
             this.labelItemStatusName = new System.Windows.Forms.Label();
             this.textBoxItemStatusName = new System.Windows.Forms.TextBox();
             this.tabPagePersonInfo = new System.Windows.Forms.TabPage();
             this.groupBoxPersonInfo = new System.Windows.Forms.GroupBox();
+            this.dataGridViewPersonInfo = new System.Windows.Forms.DataGridView();
+            this.columnPersonInfoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnPersonInfoSurName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnPersonInfoNickName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnPersonInfoAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnPersonInfoEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelPersonInfoId = new System.Windows.Forms.Label();
-            this.buttonPersonInfoSelect = new System.Windows.Forms.Button();
             this.buttonPersonInfoDelete = new System.Windows.Forms.Button();
             this.buttonPersonInfoUpdate = new System.Windows.Forms.Button();
             this.labelPersonInfoList = new System.Windows.Forms.Label();
-            this.listBoxPersonInfoList = new System.Windows.Forms.ListBox();
             this.buttonPersonInfoSave = new System.Windows.Forms.Button();
             this.textBoxPersonInfoFaxNumber = new System.Windows.Forms.TextBox();
             this.labelPersonInfoFax = new System.Windows.Forms.Label();
@@ -151,23 +161,34 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxReports = new System.Windows.Forms.GroupBox();
             this.tabPageBank = new System.Windows.Forms.TabPage();
             this.groupBoxBank = new System.Windows.Forms.GroupBox();
+            this.textBoxBankOwner = new System.Windows.Forms.TextBox();
+            this.labelBankOwner = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.labelBankId = new System.Windows.Forms.Label();
             this.labelBankList = new System.Windows.Forms.Label();
             this.labelBankAccountNumber = new System.Windows.Forms.Label();
             this.textBoxBankAccountNumber = new System.Windows.Forms.TextBox();
             this.buttonBankUpdate = new System.Windows.Forms.Button();
             this.buttonBankDelete = new System.Windows.Forms.Button();
-            this.listBoxBankList = new System.Windows.Forms.ListBox();
-            this.buttonBankSelect = new System.Windows.Forms.Button();
             this.buttonBankSave = new System.Windows.Forms.Button();
             this.labelBankName = new System.Windows.Forms.Label();
             this.textBoxBankName = new System.Windows.Forms.TextBox();
+            this.columnOrdersPersonInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersItemStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersLegalEntity = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.groupBoxOrders.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).BeginInit();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).BeginInit();
             this.tabPageItemType.SuspendLayout();
             this.groupBoxItemType.SuspendLayout();
@@ -175,11 +196,16 @@ namespace jeza.Item.Tracker.Gui
             ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).BeginInit();
             this.tabPageItemStatus.SuspendLayout();
             this.groupBoxItemStatus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).BeginInit();
             this.tabPagePersonInfo.SuspendLayout();
             this.groupBoxPersonInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).BeginInit();
             this.tabPageReports.SuspendLayout();
             this.tabPageBank.SuspendLayout();
             this.groupBoxBank.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -204,6 +230,7 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxOrders
             // 
+            this.groupBoxOrders.Controls.Add(this.dataGridViewOrders);
             this.groupBoxOrders.Controls.Add(this.comboBoxOrersBank);
             this.groupBoxOrders.Controls.Add(this.labelOrdersBank);
             this.groupBoxOrders.Controls.Add(this.buttonOrdersSum);
@@ -212,13 +239,11 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxOrders.Controls.Add(this.buttonOrdersUpdate);
             this.groupBoxOrders.Controls.Add(this.buttonOrdersDelete);
             this.groupBoxOrders.Controls.Add(this.buttonOrdersSave);
-            this.groupBoxOrders.Controls.Add(this.listBoxOrdersList);
             this.groupBoxOrders.Controls.Add(this.labelOrdersList);
             this.groupBoxOrders.Controls.Add(this.comboBoxOrdersItemType);
             this.groupBoxOrders.Controls.Add(this.labelOrdersItemType);
             this.groupBoxOrders.Controls.Add(this.comboBoxOrdersPersonInfo);
             this.groupBoxOrders.Controls.Add(this.labelOrdersPersonInfo);
-            this.groupBoxOrders.Controls.Add(this.buttonOrdersSelect);
             this.groupBoxOrders.Controls.Add(this.textBoxOrdersPostage);
             this.groupBoxOrders.Controls.Add(this.labelOrdersPostage);
             this.groupBoxOrders.Controls.Add(this.comboBoxOrdersItemStatus);
@@ -238,6 +263,30 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxOrders, "groupBoxOrders");
             this.groupBoxOrders.Name = "groupBoxOrders";
             this.groupBoxOrders.TabStop = false;
+            // 
+            // dataGridViewOrders
+            // 
+            this.dataGridViewOrders.AllowUserToAddRows = false;
+            this.dataGridViewOrders.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewOrders, "dataGridViewOrders");
+            this.dataGridViewOrders.AutoGenerateColumns = false;
+            this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnOrdersPersonInfo,
+            this.columnOrdersItemStatus,
+            this.columnOrdersItem,
+            this.columnOrdersCount,
+            this.columnOrdersPrice,
+            this.columnOrdersLegalEntity});
+            this.dataGridViewOrders.DataSource = this.orderBindingSource;
+            this.dataGridViewOrders.MultiSelect = false;
+            this.dataGridViewOrders.Name = "dataGridViewOrders";
+            this.dataGridViewOrders.ReadOnly = true;
+            this.dataGridViewOrders.SelectionChanged += new System.EventHandler(this.DataGridViewOrdersSelectionChanged);
+            // 
+            // orderBindingSource
+            // 
+            this.orderBindingSource.DataSource = typeof(jeza.Item.Tracker.Order);
             // 
             // comboBoxOrersBank
             // 
@@ -288,12 +337,6 @@ namespace jeza.Item.Tracker.Gui
             this.buttonOrdersSave.UseVisualStyleBackColor = true;
             this.buttonOrdersSave.Click += new System.EventHandler(this.ButtonOrderSaveClick);
             // 
-            // listBoxOrdersList
-            // 
-            this.listBoxOrdersList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxOrdersList, "listBoxOrdersList");
-            this.listBoxOrdersList.Name = "listBoxOrdersList";
-            // 
             // labelOrdersList
             // 
             resources.ApplyResources(this.labelOrdersList, "labelOrdersList");
@@ -321,13 +364,6 @@ namespace jeza.Item.Tracker.Gui
             // 
             resources.ApplyResources(this.labelOrdersPersonInfo, "labelOrdersPersonInfo");
             this.labelOrdersPersonInfo.Name = "labelOrdersPersonInfo";
-            // 
-            // buttonOrdersSelect
-            // 
-            resources.ApplyResources(this.buttonOrdersSelect, "buttonOrdersSelect");
-            this.buttonOrdersSelect.Name = "buttonOrdersSelect";
-            this.buttonOrdersSelect.UseVisualStyleBackColor = true;
-            this.buttonOrdersSelect.Click += new System.EventHandler(this.ButtonOrderSelectClick);
             // 
             // textBoxOrdersPostage
             // 
@@ -423,6 +459,7 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxItems
             // 
+            this.groupBoxItems.Controls.Add(this.dataGridViewItems);
             this.groupBoxItems.Controls.Add(this.labelItemsId);
             this.groupBoxItems.Controls.Add(this.buttonItemsUpdate);
             this.groupBoxItems.Controls.Add(this.buttonItemsDelete);
@@ -431,10 +468,8 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxItems.Controls.Add(this.labelItemsImage);
             this.groupBoxItems.Controls.Add(this.buttonItemsPictureBoxSelect);
             this.groupBoxItems.Controls.Add(this.pictureBoxItems);
-            this.groupBoxItems.Controls.Add(this.buttonItemsSelect);
             this.groupBoxItems.Controls.Add(this.labelItemsType);
             this.groupBoxItems.Controls.Add(this.comboBoxItemsType);
-            this.groupBoxItems.Controls.Add(this.listBoxItemsList);
             this.groupBoxItems.Controls.Add(this.buttonItemsSave);
             this.groupBoxItems.Controls.Add(this.labelItemsName);
             this.groupBoxItems.Controls.Add(this.textBoxItemsName);
@@ -442,6 +477,51 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxItems, "groupBoxItems");
             this.groupBoxItems.Name = "groupBoxItems";
             this.groupBoxItems.TabStop = false;
+            // 
+            // dataGridViewItems
+            // 
+            this.dataGridViewItems.AllowUserToAddRows = false;
+            this.dataGridViewItems.AllowUserToDeleteRows = false;
+            this.dataGridViewItems.AutoGenerateColumns = false;
+            this.dataGridViewItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnItemName,
+            this.columnItemDescription,
+            this.columnItemItemTypeId});
+            this.dataGridViewItems.DataSource = this.itemBindingSource;
+            resources.ApplyResources(this.dataGridViewItems, "dataGridViewItems");
+            this.dataGridViewItems.MultiSelect = false;
+            this.dataGridViewItems.Name = "dataGridViewItems";
+            this.dataGridViewItems.ReadOnly = true;
+            this.dataGridViewItems.SelectionChanged += new System.EventHandler(this.DataGridViewItemsSelectionChanged);
+            // 
+            // columnItemName
+            // 
+            this.columnItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemName, "columnItemName");
+            this.columnItemName.Name = "columnItemName";
+            this.columnItemName.ReadOnly = true;
+            // 
+            // columnItemDescription
+            // 
+            this.columnItemDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemDescription, "columnItemDescription");
+            this.columnItemDescription.Name = "columnItemDescription";
+            this.columnItemDescription.ReadOnly = true;
+            // 
+            // columnItemItemTypeId
+            // 
+            this.columnItemItemTypeId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemItemTypeId.DataPropertyName = "ItemTypeId";
+            resources.ApplyResources(this.columnItemItemTypeId, "columnItemItemTypeId");
+            this.columnItemItemTypeId.Name = "columnItemItemTypeId";
+            this.columnItemItemTypeId.ReadOnly = true;
+            // 
+            // itemBindingSource
+            // 
+            this.itemBindingSource.DataSource = typeof(jeza.Item.Tracker.Item);
             // 
             // labelItemsId
             // 
@@ -490,13 +570,6 @@ namespace jeza.Item.Tracker.Gui
             this.pictureBoxItems.Name = "pictureBoxItems";
             this.pictureBoxItems.TabStop = false;
             // 
-            // buttonItemsSelect
-            // 
-            resources.ApplyResources(this.buttonItemsSelect, "buttonItemsSelect");
-            this.buttonItemsSelect.Name = "buttonItemsSelect";
-            this.buttonItemsSelect.UseVisualStyleBackColor = true;
-            this.buttonItemsSelect.Click += new System.EventHandler(this.ButtonItemsSelectClick);
-            // 
             // labelItemsType
             // 
             resources.ApplyResources(this.labelItemsType, "labelItemsType");
@@ -507,12 +580,6 @@ namespace jeza.Item.Tracker.Gui
             this.comboBoxItemsType.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxItemsType, "comboBoxItemsType");
             this.comboBoxItemsType.Name = "comboBoxItemsType";
-            // 
-            // listBoxItemsList
-            // 
-            this.listBoxItemsList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxItemsList, "listBoxItemsList");
-            this.listBoxItemsList.Name = "listBoxItemsList";
             // 
             // buttonItemsSave
             // 
@@ -563,33 +630,33 @@ namespace jeza.Item.Tracker.Gui
             // 
             this.dataGridViewItemType.AllowUserToAddRows = false;
             this.dataGridViewItemType.AllowUserToDeleteRows = false;
+            resources.ApplyResources(this.dataGridViewItemType, "dataGridViewItemType");
             this.dataGridViewItemType.AutoGenerateColumns = false;
             this.dataGridViewItemType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewItemType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
-            this.descriptionDataGridViewTextBoxColumn});
+            this.columnItemTypeName,
+            this.columnItemTypeDescription});
             this.dataGridViewItemType.DataSource = this.itemTypeBindingSource;
-            resources.ApplyResources(this.dataGridViewItemType, "dataGridViewItemType");
             this.dataGridViewItemType.MultiSelect = false;
             this.dataGridViewItemType.Name = "dataGridViewItemType";
             this.dataGridViewItemType.ReadOnly = true;
             this.dataGridViewItemType.SelectionChanged += new System.EventHandler(this.DataGridViewItemTypeSelectionChanged);
             // 
-            // nameDataGridViewTextBoxColumn
+            // columnItemTypeName
             // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            resources.ApplyResources(this.nameDataGridViewTextBoxColumn, "nameDataGridViewTextBoxColumn");
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.columnItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemTypeName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemTypeName, "columnItemTypeName");
+            this.columnItemTypeName.Name = "columnItemTypeName";
+            this.columnItemTypeName.ReadOnly = true;
             // 
-            // descriptionDataGridViewTextBoxColumn
+            // columnItemTypeDescription
             // 
-            this.descriptionDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            resources.ApplyResources(this.descriptionDataGridViewTextBoxColumn, "descriptionDataGridViewTextBoxColumn");
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.columnItemTypeDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemTypeDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemTypeDescription, "columnItemTypeDescription");
+            this.columnItemTypeDescription.Name = "columnItemTypeDescription";
+            this.columnItemTypeDescription.ReadOnly = true;
             // 
             // itemTypeBindingSource
             // 
@@ -655,20 +722,55 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxItemStatus
             // 
-            resources.ApplyResources(this.groupBoxItemStatus, "groupBoxItemStatus");
+            this.groupBoxItemStatus.Controls.Add(this.dataGridViewItemStatus);
             this.groupBoxItemStatus.Controls.Add(this.labelItemStatusId);
             this.groupBoxItemStatus.Controls.Add(this.labelItemStatusList);
             this.groupBoxItemStatus.Controls.Add(this.labelItemStatusDescription);
             this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusDescription);
             this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusUpdate);
             this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusDelete);
-            this.groupBoxItemStatus.Controls.Add(this.listBoxItemStatusList);
-            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusSelect);
             this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusSave);
             this.groupBoxItemStatus.Controls.Add(this.labelItemStatusName);
             this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusName);
+            resources.ApplyResources(this.groupBoxItemStatus, "groupBoxItemStatus");
             this.groupBoxItemStatus.Name = "groupBoxItemStatus";
             this.groupBoxItemStatus.TabStop = false;
+            // 
+            // dataGridViewItemStatus
+            // 
+            this.dataGridViewItemStatus.AllowUserToAddRows = false;
+            this.dataGridViewItemStatus.AllowUserToDeleteRows = false;
+            this.dataGridViewItemStatus.AutoGenerateColumns = false;
+            this.dataGridViewItemStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewItemStatus.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnItemStatusName,
+            this.columnItemStatusDescription});
+            this.dataGridViewItemStatus.DataSource = this.itemStatusBindingSource;
+            resources.ApplyResources(this.dataGridViewItemStatus, "dataGridViewItemStatus");
+            this.dataGridViewItemStatus.MultiSelect = false;
+            this.dataGridViewItemStatus.Name = "dataGridViewItemStatus";
+            this.dataGridViewItemStatus.ReadOnly = true;
+            this.dataGridViewItemStatus.SelectionChanged += new System.EventHandler(this.DataGridViewItemStatusSelectionChanged);
+            // 
+            // columnItemStatusName
+            // 
+            this.columnItemStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemStatusName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemStatusName, "columnItemStatusName");
+            this.columnItemStatusName.Name = "columnItemStatusName";
+            this.columnItemStatusName.ReadOnly = true;
+            // 
+            // columnItemStatusDescription
+            // 
+            this.columnItemStatusDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemStatusDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemStatusDescription, "columnItemStatusDescription");
+            this.columnItemStatusDescription.Name = "columnItemStatusDescription";
+            this.columnItemStatusDescription.ReadOnly = true;
+            // 
+            // itemStatusBindingSource
+            // 
+            this.itemStatusBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemStatus);
             // 
             // labelItemStatusId
             // 
@@ -704,19 +806,6 @@ namespace jeza.Item.Tracker.Gui
             this.buttonItemStatusDelete.UseVisualStyleBackColor = true;
             this.buttonItemStatusDelete.Click += new System.EventHandler(this.ButtonItemStatusDeleteClick);
             // 
-            // listBoxItemStatusList
-            // 
-            this.listBoxItemStatusList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxItemStatusList, "listBoxItemStatusList");
-            this.listBoxItemStatusList.Name = "listBoxItemStatusList";
-            // 
-            // buttonItemStatusSelect
-            // 
-            resources.ApplyResources(this.buttonItemStatusSelect, "buttonItemStatusSelect");
-            this.buttonItemStatusSelect.Name = "buttonItemStatusSelect";
-            this.buttonItemStatusSelect.UseVisualStyleBackColor = true;
-            this.buttonItemStatusSelect.Click += new System.EventHandler(this.ButtonItemsStatusSelectClick);
-            // 
             // buttonItemStatusSave
             // 
             resources.ApplyResources(this.buttonItemStatusSave, "buttonItemStatusSave");
@@ -743,12 +832,11 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxPersonInfo
             // 
+            this.groupBoxPersonInfo.Controls.Add(this.dataGridViewPersonInfo);
             this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoId);
-            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoSelect);
             this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoDelete);
             this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoUpdate);
             this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoList);
-            this.groupBoxPersonInfo.Controls.Add(this.listBoxPersonInfoList);
             this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoSave);
             this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoFaxNumber);
             this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoFax);
@@ -776,17 +864,73 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxPersonInfo.Name = "groupBoxPersonInfo";
             this.groupBoxPersonInfo.TabStop = false;
             // 
+            // dataGridViewPersonInfo
+            // 
+            this.dataGridViewPersonInfo.AllowUserToAddRows = false;
+            this.dataGridViewPersonInfo.AllowUserToDeleteRows = false;
+            this.dataGridViewPersonInfo.AutoGenerateColumns = false;
+            this.dataGridViewPersonInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPersonInfo.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnPersonInfoName,
+            this.columnPersonInfoSurName,
+            this.columnPersonInfoNickName,
+            this.columnPersonInfoAddress,
+            this.columnPersonInfoEmail});
+            this.dataGridViewPersonInfo.DataSource = this.personInfoBindingSource;
+            resources.ApplyResources(this.dataGridViewPersonInfo, "dataGridViewPersonInfo");
+            this.dataGridViewPersonInfo.MultiSelect = false;
+            this.dataGridViewPersonInfo.Name = "dataGridViewPersonInfo";
+            this.dataGridViewPersonInfo.ReadOnly = true;
+            this.dataGridViewPersonInfo.SelectionChanged += new System.EventHandler(this.DataGridViewPersonInfoSelectionChanged);
+            // 
+            // columnPersonInfoName
+            // 
+            this.columnPersonInfoName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnPersonInfoName, "columnPersonInfoName");
+            this.columnPersonInfoName.Name = "columnPersonInfoName";
+            this.columnPersonInfoName.ReadOnly = true;
+            // 
+            // columnPersonInfoSurName
+            // 
+            this.columnPersonInfoSurName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoSurName.DataPropertyName = "SurName";
+            resources.ApplyResources(this.columnPersonInfoSurName, "columnPersonInfoSurName");
+            this.columnPersonInfoSurName.Name = "columnPersonInfoSurName";
+            this.columnPersonInfoSurName.ReadOnly = true;
+            // 
+            // columnPersonInfoNickName
+            // 
+            this.columnPersonInfoNickName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoNickName.DataPropertyName = "NickName";
+            resources.ApplyResources(this.columnPersonInfoNickName, "columnPersonInfoNickName");
+            this.columnPersonInfoNickName.Name = "columnPersonInfoNickName";
+            this.columnPersonInfoNickName.ReadOnly = true;
+            // 
+            // columnPersonInfoAddress
+            // 
+            this.columnPersonInfoAddress.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoAddress.DataPropertyName = "Address";
+            resources.ApplyResources(this.columnPersonInfoAddress, "columnPersonInfoAddress");
+            this.columnPersonInfoAddress.Name = "columnPersonInfoAddress";
+            this.columnPersonInfoAddress.ReadOnly = true;
+            // 
+            // columnPersonInfoEmail
+            // 
+            this.columnPersonInfoEmail.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoEmail.DataPropertyName = "Email";
+            resources.ApplyResources(this.columnPersonInfoEmail, "columnPersonInfoEmail");
+            this.columnPersonInfoEmail.Name = "columnPersonInfoEmail";
+            this.columnPersonInfoEmail.ReadOnly = true;
+            // 
+            // personInfoBindingSource
+            // 
+            this.personInfoBindingSource.DataSource = typeof(jeza.Item.Tracker.PersonInfo);
+            // 
             // labelPersonInfoId
             // 
             resources.ApplyResources(this.labelPersonInfoId, "labelPersonInfoId");
             this.labelPersonInfoId.Name = "labelPersonInfoId";
-            // 
-            // buttonPersonInfoSelect
-            // 
-            resources.ApplyResources(this.buttonPersonInfoSelect, "buttonPersonInfoSelect");
-            this.buttonPersonInfoSelect.Name = "buttonPersonInfoSelect";
-            this.buttonPersonInfoSelect.UseVisualStyleBackColor = true;
-            this.buttonPersonInfoSelect.Click += new System.EventHandler(this.ButtonPersonInfoListSelectClick);
             // 
             // buttonPersonInfoDelete
             // 
@@ -806,12 +950,6 @@ namespace jeza.Item.Tracker.Gui
             // 
             resources.ApplyResources(this.labelPersonInfoList, "labelPersonInfoList");
             this.labelPersonInfoList.Name = "labelPersonInfoList";
-            // 
-            // listBoxPersonInfoList
-            // 
-            this.listBoxPersonInfoList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxPersonInfoList, "listBoxPersonInfoList");
-            this.listBoxPersonInfoList.Name = "listBoxPersonInfoList";
             // 
             // buttonPersonInfoSave
             // 
@@ -952,20 +1090,41 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxBank
             // 
+            this.groupBoxBank.Controls.Add(this.textBoxBankOwner);
+            this.groupBoxBank.Controls.Add(this.labelBankOwner);
+            this.groupBoxBank.Controls.Add(this.dataGridView1);
             this.groupBoxBank.Controls.Add(this.labelBankId);
             this.groupBoxBank.Controls.Add(this.labelBankList);
             this.groupBoxBank.Controls.Add(this.labelBankAccountNumber);
             this.groupBoxBank.Controls.Add(this.textBoxBankAccountNumber);
             this.groupBoxBank.Controls.Add(this.buttonBankUpdate);
             this.groupBoxBank.Controls.Add(this.buttonBankDelete);
-            this.groupBoxBank.Controls.Add(this.listBoxBankList);
-            this.groupBoxBank.Controls.Add(this.buttonBankSelect);
             this.groupBoxBank.Controls.Add(this.buttonBankSave);
             this.groupBoxBank.Controls.Add(this.labelBankName);
             this.groupBoxBank.Controls.Add(this.textBoxBankName);
             resources.ApplyResources(this.groupBoxBank, "groupBoxBank");
             this.groupBoxBank.Name = "groupBoxBank";
             this.groupBoxBank.TabStop = false;
+            // 
+            // textBoxBankOwner
+            // 
+            resources.ApplyResources(this.textBoxBankOwner, "textBoxBankOwner");
+            this.textBoxBankOwner.Name = "textBoxBankOwner";
+            // 
+            // labelBankOwner
+            // 
+            resources.ApplyResources(this.labelBankOwner, "labelBankOwner");
+            this.labelBankOwner.Name = "labelBankOwner";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(this.dataGridView1, "dataGridView1");
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             // 
             // labelBankId
             // 
@@ -1001,19 +1160,6 @@ namespace jeza.Item.Tracker.Gui
             this.buttonBankDelete.UseVisualStyleBackColor = true;
             this.buttonBankDelete.Click += new System.EventHandler(this.buttonBankDelete_Click);
             // 
-            // listBoxBankList
-            // 
-            this.listBoxBankList.FormattingEnabled = true;
-            resources.ApplyResources(this.listBoxBankList, "listBoxBankList");
-            this.listBoxBankList.Name = "listBoxBankList";
-            // 
-            // buttonBankSelect
-            // 
-            resources.ApplyResources(this.buttonBankSelect, "buttonBankSelect");
-            this.buttonBankSelect.Name = "buttonBankSelect";
-            this.buttonBankSelect.UseVisualStyleBackColor = true;
-            this.buttonBankSelect.Click += new System.EventHandler(this.buttonBankSelect_Click);
-            // 
             // buttonBankSave
             // 
             resources.ApplyResources(this.buttonBankSave, "buttonBankSave");
@@ -1031,6 +1177,53 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.textBoxBankName, "textBoxBankName");
             this.textBoxBankName.Name = "textBoxBankName";
             // 
+            // columnOrdersPersonInfo
+            // 
+            this.columnOrdersPersonInfo.DataPropertyName = "PersonInfoText";
+            resources.ApplyResources(this.columnOrdersPersonInfo, "columnOrdersPersonInfo");
+            this.columnOrdersPersonInfo.Name = "columnOrdersPersonInfo";
+            this.columnOrdersPersonInfo.ReadOnly = true;
+            // 
+            // columnOrdersItemStatus
+            // 
+            this.columnOrdersItemStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersItemStatus.DataPropertyName = "ItemStatusId";
+            resources.ApplyResources(this.columnOrdersItemStatus, "columnOrdersItemStatus");
+            this.columnOrdersItemStatus.Name = "columnOrdersItemStatus";
+            this.columnOrdersItemStatus.ReadOnly = true;
+            // 
+            // columnOrdersItem
+            // 
+            this.columnOrdersItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersItem.DataPropertyName = "ItemText";
+            resources.ApplyResources(this.columnOrdersItem, "columnOrdersItem");
+            this.columnOrdersItem.Name = "columnOrdersItem";
+            this.columnOrdersItem.ReadOnly = true;
+            // 
+            // columnOrdersCount
+            // 
+            this.columnOrdersCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersCount.DataPropertyName = "Count";
+            resources.ApplyResources(this.columnOrdersCount, "columnOrdersCount");
+            this.columnOrdersCount.Name = "columnOrdersCount";
+            this.columnOrdersCount.ReadOnly = true;
+            // 
+            // columnOrdersPrice
+            // 
+            this.columnOrdersPrice.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersPrice.DataPropertyName = "Price";
+            resources.ApplyResources(this.columnOrdersPrice, "columnOrdersPrice");
+            this.columnOrdersPrice.Name = "columnOrdersPrice";
+            this.columnOrdersPrice.ReadOnly = true;
+            // 
+            // columnOrdersLegalEntity
+            // 
+            this.columnOrdersLegalEntity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersLegalEntity.DataPropertyName = "LegalEntity";
+            resources.ApplyResources(this.columnOrdersLegalEntity, "columnOrdersLegalEntity");
+            this.columnOrdersLegalEntity.Name = "columnOrdersLegalEntity";
+            this.columnOrdersLegalEntity.ReadOnly = true;
+            // 
             // Gui
             // 
             resources.ApplyResources(this, "$this");
@@ -1045,10 +1238,14 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageOrders.ResumeLayout(false);
             this.groupBoxOrders.ResumeLayout(false);
             this.groupBoxOrders.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).EndInit();
             this.tabPageItems.ResumeLayout(false);
             this.groupBoxItems.ResumeLayout(false);
             this.groupBoxItems.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).EndInit();
             this.tabPageItemType.ResumeLayout(false);
             this.groupBoxItemType.ResumeLayout(false);
@@ -1056,16 +1253,20 @@ namespace jeza.Item.Tracker.Gui
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).EndInit();
             this.tabPageItemStatus.ResumeLayout(false);
-            this.tabPageItemStatus.PerformLayout();
             this.groupBoxItemStatus.ResumeLayout(false);
             this.groupBoxItemStatus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).EndInit();
             this.tabPagePersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).EndInit();
             this.tabPageReports.ResumeLayout(false);
             this.tabPageBank.ResumeLayout(false);
             this.groupBoxBank.ResumeLayout(false);
             this.groupBoxBank.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1079,46 +1280,22 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Label labelItemsName;
         private System.Windows.Forms.TextBox textBoxItemsName;
         private System.Windows.Forms.Label labelItemsList;
-        private System.Windows.Forms.ListBox listBoxItemsList;
         private System.Windows.Forms.TabPage tabPageOrders;
         private System.Windows.Forms.TabPage tabPageReports;
-        private System.Windows.Forms.Label labelOrdersLegalEntity;
-        private System.Windows.Forms.CheckBox checkBoxOrdersLegalEntity;
-        private System.Windows.Forms.GroupBox groupBoxOrders;
-        private System.Windows.Forms.ComboBox comboBoxOrdersPersonInfo;
-        private System.Windows.Forms.Label labelOrdersPersonInfo;
-        private System.Windows.Forms.Button buttonItemsSelect;
         private System.Windows.Forms.Label labelItemsType;
         private System.Windows.Forms.ComboBox comboBoxItemsType;
         private System.Windows.Forms.Button buttonItemsPictureBoxSelect;
         private System.Windows.Forms.PictureBox pictureBoxItems;
         private System.Windows.Forms.Label labelItemsImage;
-        private System.Windows.Forms.PictureBox pictureBoxOrders;
-        private System.Windows.Forms.ComboBox comboBoxOrdersItemStatus;
-        private System.Windows.Forms.Label labelOrdersItemStatus;
-        private System.Windows.Forms.TextBox textBoxOrdersTax;
-        private System.Windows.Forms.Label labelOrdersTax;
-        private System.Windows.Forms.TextBox textBoxOrdersPrice;
-        private System.Windows.Forms.Label labelOrdersPrice;
-        private System.Windows.Forms.TextBox textBoxOrdersItemCount;
-        private System.Windows.Forms.Label labelOrdersItemCount;
-        private System.Windows.Forms.Label labelOrdersPicture;
-        private System.Windows.Forms.ComboBox comboBoxOrdersItem;
-        private System.Windows.Forms.Label labelOrdersItem;
-        private System.Windows.Forms.TextBox textBoxOrdersPostage;
-        private System.Windows.Forms.Label labelOrdersPostage;
-        private System.Windows.Forms.Button buttonOrdersSelect;
         private System.Windows.Forms.Label labelItemsDescription;
         private System.Windows.Forms.TextBox textBoxItemsDescription;
         private System.Windows.Forms.TabPage tabPageItemType;
         private System.Windows.Forms.TabPage tabPageItemStatus;
         private System.Windows.Forms.TabPage tabPagePersonInfo;
         private System.Windows.Forms.GroupBox groupBoxPersonInfo;
-        private System.Windows.Forms.Button buttonPersonInfoSelect;
         private System.Windows.Forms.Button buttonPersonInfoDelete;
         private System.Windows.Forms.Button buttonPersonInfoUpdate;
         private System.Windows.Forms.Label labelPersonInfoList;
-        private System.Windows.Forms.ListBox listBoxPersonInfoList;
         private System.Windows.Forms.Button buttonPersonInfoSave;
         private System.Windows.Forms.TextBox textBoxPersonInfoFaxNumber;
         private System.Windows.Forms.Label labelPersonInfoFax;
@@ -1150,7 +1327,6 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Label labelItemTypeDescription;
         private System.Windows.Forms.TextBox textBoxItemTypeDescription;
         private System.Windows.Forms.GroupBox groupBoxItemStatus;
-        private System.Windows.Forms.Button buttonItemStatusSelect;
         private System.Windows.Forms.Button buttonItemStatusSave;
         private System.Windows.Forms.Label labelItemStatusName;
         private System.Windows.Forms.TextBox textBoxItemStatusName;
@@ -1158,26 +1334,15 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.Button buttonItemTypeDelete;
         private System.Windows.Forms.Button buttonItemStatusUpdate;
         private System.Windows.Forms.Button buttonItemStatusDelete;
-        private System.Windows.Forms.ListBox listBoxItemStatusList;
         private System.Windows.Forms.Label labelItemStatusList;
         private System.Windows.Forms.Label labelItemStatusDescription;
         private System.Windows.Forms.TextBox textBoxItemStatusDescription;
         private System.Windows.Forms.Label labelItemTypeList;
         private System.Windows.Forms.TextBox textBoxItemTypeName;
-        private System.Windows.Forms.ComboBox comboBoxOrdersItemType;
-        private System.Windows.Forms.Label labelOrdersItemType;
         private System.Windows.Forms.Label labelItemsId;
         private System.Windows.Forms.Label labelItemTypeId;
         private System.Windows.Forms.Label labelItemStatusId;
         private System.Windows.Forms.Label labelPersonInfoId;
-        private System.Windows.Forms.ListBox listBoxOrdersList;
-        private System.Windows.Forms.Label labelOrdersList;
-        private System.Windows.Forms.Button buttonOrdersSave;
-        private System.Windows.Forms.Label labelOrdersId;
-        private System.Windows.Forms.Button buttonOrdersUpdate;
-        private System.Windows.Forms.Button buttonOrdersDelete;
-        private System.Windows.Forms.Button buttonOrdersSum;
-        private System.Windows.Forms.Label labelOrdersSumNumber;
         private System.Windows.Forms.GroupBox groupBoxReports;
         private System.Windows.Forms.TabPage tabPageBank;
         private System.Windows.Forms.GroupBox groupBoxBank;
@@ -1187,17 +1352,70 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.TextBox textBoxBankAccountNumber;
         private System.Windows.Forms.Button buttonBankUpdate;
         private System.Windows.Forms.Button buttonBankDelete;
-        private System.Windows.Forms.ListBox listBoxBankList;
-        private System.Windows.Forms.Button buttonBankSelect;
         private System.Windows.Forms.Button buttonBankSave;
         private System.Windows.Forms.Label labelBankName;
         private System.Windows.Forms.TextBox textBoxBankName;
-        private System.Windows.Forms.ComboBox comboBoxOrersBank;
-        private System.Windows.Forms.Label labelOrdersBank;
         private System.Windows.Forms.DataGridView dataGridViewItemType;
         private System.Windows.Forms.BindingSource itemTypeBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource orderBindingSource;
+        private System.Windows.Forms.DataGridView dataGridViewItems;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemDescription;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemItemTypeId;
+        private System.Windows.Forms.BindingSource itemBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemTypeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemTypeDescription;
+        private System.Windows.Forms.DataGridView dataGridViewItemStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemStatusName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnItemStatusDescription;
+        private System.Windows.Forms.BindingSource itemStatusBindingSource;
+        private System.Windows.Forms.DataGridView dataGridViewPersonInfo;
+        private System.Windows.Forms.BindingSource personInfoBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnPersonInfoName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnPersonInfoSurName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnPersonInfoNickName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnPersonInfoAddress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnPersonInfoEmail;
+        private System.Windows.Forms.GroupBox groupBoxOrders;
+        private System.Windows.Forms.DataGridView dataGridViewOrders;
+        private System.Windows.Forms.ComboBox comboBoxOrersBank;
+        private System.Windows.Forms.Label labelOrdersBank;
+        private System.Windows.Forms.Button buttonOrdersSum;
+        private System.Windows.Forms.Label labelOrdersSumNumber;
+        private System.Windows.Forms.Label labelOrdersId;
+        private System.Windows.Forms.Button buttonOrdersUpdate;
+        private System.Windows.Forms.Button buttonOrdersDelete;
+        private System.Windows.Forms.Button buttonOrdersSave;
+        private System.Windows.Forms.Label labelOrdersList;
+        private System.Windows.Forms.ComboBox comboBoxOrdersItemType;
+        private System.Windows.Forms.Label labelOrdersItemType;
+        private System.Windows.Forms.ComboBox comboBoxOrdersPersonInfo;
+        private System.Windows.Forms.Label labelOrdersPersonInfo;
+        private System.Windows.Forms.TextBox textBoxOrdersPostage;
+        private System.Windows.Forms.Label labelOrdersPostage;
+        private System.Windows.Forms.ComboBox comboBoxOrdersItemStatus;
+        private System.Windows.Forms.CheckBox checkBoxOrdersLegalEntity;
+        private System.Windows.Forms.Label labelOrdersItemStatus;
+        private System.Windows.Forms.Label labelOrdersLegalEntity;
+        private System.Windows.Forms.TextBox textBoxOrdersTax;
+        private System.Windows.Forms.Label labelOrdersTax;
+        private System.Windows.Forms.TextBox textBoxOrdersPrice;
+        private System.Windows.Forms.Label labelOrdersPrice;
+        private System.Windows.Forms.TextBox textBoxOrdersItemCount;
+        private System.Windows.Forms.Label labelOrdersItemCount;
+        private System.Windows.Forms.Label labelOrdersPicture;
+        private System.Windows.Forms.ComboBox comboBoxOrdersItem;
+        private System.Windows.Forms.Label labelOrdersItem;
+        private System.Windows.Forms.PictureBox pictureBoxOrders;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textBoxBankOwner;
+        private System.Windows.Forms.Label labelBankOwner;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnOrdersPersonInfo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnOrdersItemStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnOrdersItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnOrdersCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnOrdersPrice;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn columnOrdersLegalEntity;
     }
 }
 

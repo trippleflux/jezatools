@@ -569,10 +569,11 @@ namespace jeza.Item.Tracker
             return null;
         }
 
-        public List<Order> OrderGetById(int orderId)
+        public Order OrderGetById(int orderId)
         {
             string commandText = String.Format("{0} WHERE Id = {1}", SelectTextOrders, orderId);
-            return OrderGetAll(commandText);
+            List<Order> orderGetAll = OrderGetAll(commandText);
+            return orderGetAll[0];
         }
 
         public List<Order> OrderGetByItemId(int itemId)
@@ -646,12 +647,12 @@ namespace jeza.Item.Tracker
             return PersonInfoSelect(commandText);
         }
 
-        public PersonInfo PersonInfoGet(string personInfoName)
+        public PersonInfo PersonInfoGet(string personInfoName, string personInfoSurname)
         {
             string commandText =
                 String.Format(
-                    @"SELECT Id, Name, SurName, NickName, Description, Address, PostNumber, City, Email, Telephone, TelephoneMobile, Fax FROM PersonInfo WHERE name = '{0}'",
-                    personInfoName);
+                    @"SELECT Id, Name, SurName, NickName, Description, Address, PostNumber, City, Email, Telephone, TelephoneMobile, Fax FROM PersonInfo WHERE name = '{0}' AND SurName = '{1}'",
+                    personInfoName, personInfoSurname);
             Log.Debug("PersonInfoGet: {0}", commandText);
             return PersonInfoSelect(commandText);
         }

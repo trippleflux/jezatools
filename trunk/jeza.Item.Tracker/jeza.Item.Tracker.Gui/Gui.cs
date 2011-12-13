@@ -48,7 +48,6 @@ namespace jeza.Item.Tracker.Gui
             labelOrdersPicture.Text = tabOrders.LabelOrdersPicture;
             labelOrdersList.Text = tabOrders.LabelOrdersList;
             buttonOrdersSum.Text = tabOrders.ButtonOrdersSum;
-            buttonOrdersSelect.Text = tabOrders.ButtonOrdersSelect;
             buttonOrdersSave.Text = tabOrders.ButtonOrdersSave;
             buttonOrdersUpdate.Text = tabOrders.ButtonOrdersUpdate;
             buttonOrdersDelete.Text = tabOrders.ButtonOrdersDelete;
@@ -61,7 +60,6 @@ namespace jeza.Item.Tracker.Gui
             labelItemsImage.Text = tabItems.LabelItemsImage;
             labelItemsList.Text = tabItems.LabelItemsList;
             buttonItemsPictureBoxSelect.Text = tabItems.ButtonItemsPictureBoxSelect;
-            buttonItemsSelect.Text = tabItems.ButtonItemsSelect;
             buttonItemsSave.Text = tabItems.ButtonItemsSave;
             buttonItemsUpdate.Text = tabItems.ButtonItemsUpdate;
             buttonItemsDelete.Text = tabItems.ButtonItemsDelete;
@@ -71,7 +69,6 @@ namespace jeza.Item.Tracker.Gui
             labelItemTypeName.Text = tabItemTypes.LabelItemTypeName;
             labelItemTypeDescription.Text = tabItemTypes.LabelItemTypeDescription;
             labelItemTypeList.Text = tabItemTypes.LabelItemTypeList;
-            buttonItemTypeListSelect.Text = tabItemTypes.ButtonItemTypeListSelect;
             buttonItemTypeSave.Text = tabItemTypes.ButtonItemTypeListSave;
             buttonItemTypeUpdate.Text = tabItemTypes.ButtonItemTypeListUpdate;
             buttonItemTypeDelete.Text = tabItemTypes.ButtonItemTypeListDelete;
@@ -81,7 +78,6 @@ namespace jeza.Item.Tracker.Gui
             labelItemStatusName.Text = tabItemStatus.LabelItemsStatusName;
             labelItemStatusDescription.Text = tabItemStatus.LabelItemStatusDescription;
             labelItemStatusList.Text = tabItemStatus.LabelItemStatusList;
-            buttonItemStatusSelect.Text = tabItemStatus.ButtonItemStatusSelect;
             buttonItemStatusSave.Text = tabItemStatus.ButtonItemStatusSave;
             buttonItemStatusUpdate.Text = tabItemStatus.ButtonItemStatusUpdate;
             buttonItemStatusDelete.Text = tabItemStatus.ButtonItemStatusDelete;
@@ -100,7 +96,6 @@ namespace jeza.Item.Tracker.Gui
             labelPersonInfoTelephoneMobile.Text = tabPersonInfo.LabelPersonInfoTelephoneMobile;
             labelPersonInfoFax.Text = tabPersonInfo.LabelPersonInfoFax;
             labelPersonInfoList.Text = tabPersonInfo.LabelPersonInfoList;
-            buttonPersonInfoSelect.Text = tabPersonInfo.ButtonPersonInfoSelect;
             buttonPersonInfoSave.Text = tabPersonInfo.ButtonPersonInfoSave;
             buttonPersonInfoUpdate.Text = tabPersonInfo.ButtonPersonInfoUpdate;
             buttonPersonInfoDelete.Text = tabPersonInfo.ButtonPersonInfoDelete;
@@ -111,21 +106,19 @@ namespace jeza.Item.Tracker.Gui
         private void FillOrders()
         {
             Logger.Debug("Fill orders");
-            listBoxOrdersList.Items.Clear();
             List<Order> list = dataBase.OrderGetAll();
             if (list == null)
             {
                 return;
             }
             //Order tab
-            listBoxOrdersList.Items.AddRange(list.ToArray());
+            dataGridViewOrders.DataSource = list;
         }
 
         private void FillPersonInfo()
         {
             Logger.Debug("Fill person info");
             comboBoxOrdersPersonInfo.Items.Clear();
-            listBoxPersonInfoList.Items.Clear();
             List<PersonInfo> list = dataBase.PersonInfoGetAll();
             if (list == null)
             {
@@ -135,19 +128,18 @@ namespace jeza.Item.Tracker.Gui
             comboBoxOrdersPersonInfo.Items.AddRange(list.ToArray());
             comboBoxOrdersPersonInfo.SelectedItem = comboBoxOrdersPersonInfo.Items[0];
             //PersonInfo tab
-            listBoxPersonInfoList.Items.AddRange(list.ToArray());
+            dataGridViewPersonInfo.DataSource = list;
         }
 
         private void FillItems()
         {
             Logger.Debug("Fill Items");
-            listBoxItemsList.Items.Clear();
             List<Item> items = dataBase.ItemGetAll(@"SELECT Id, Name, Description, ItemType, Image FROM Item");
             if (items == null)
             {
                 return;
             }
-            listBoxItemsList.Items.AddRange(items.ToArray());
+            dataGridViewItems.DataSource = items;
         }
 
         private void FillItemTypes()
@@ -178,7 +170,6 @@ namespace jeza.Item.Tracker.Gui
         {
             Logger.Debug("Fill Item Status");
             comboBoxOrdersItemStatus.Items.Clear();
-            listBoxItemStatusList.Items.Clear();
             List<ItemStatus> list = dataBase.ItemStatusGetAll();
             if (list == null)
             {
@@ -188,13 +179,18 @@ namespace jeza.Item.Tracker.Gui
             comboBoxOrdersItemStatus.Items.AddRange(list.ToArray());
             comboBoxOrdersItemStatus.SelectedItem = comboBoxOrdersItemStatus.Items[0];
             //Item Status tab
-            listBoxItemStatusList.Items.AddRange(list.ToArray());
+            dataGridViewItemStatus.DataSource = list;
         }
 
         private void ButtonItemsSaveClick
             (object sender,
              EventArgs e)
         {
+            if (buttonItemsSave.Text == language.TabItems.ButtonItemsNew)
+            {
+                ClearItems();
+                return;
+            }
             Logger.Info("Save item...");
             try
             {
@@ -202,8 +198,8 @@ namespace jeza.Item.Tracker.Gui
                 {
                     Item item = new Item
                                 {
-                                    Name = textBoxItemsName.Text,
-                                    Description = textBoxItemsDescription.Text
+                                    Name = textBoxItemsName.Text.Trim(),
+                                    Description = textBoxItemsDescription.Text.Trim(),
                                 };
                     Item existingItem = dataBase.ItemGet(item.Name);
                     if (existingItem != null)
@@ -236,11 +232,7 @@ namespace jeza.Item.Tracker.Gui
                     else
                     {
                         FillItems();
-                        EnableItemsSaveButton();
-                        textBoxItemsName.Text = String.Empty;
-                        textBoxItemsDescription.Text = String.Empty;
-                        pictureBoxItems.Image = new Bitmap(1, 1);
-                        SetItemId(-1);
+                        ClearItems();
                     }
                 }
                 else
@@ -255,10 +247,25 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
+        private void ClearItems()
+        {
+            Logger.Debug("ClearItems");
+            EnableItemsSaveButton();
+            textBoxItemsName.Text = String.Empty;
+            textBoxItemsDescription.Text = String.Empty;
+            pictureBoxItems.Image = new Bitmap(1, 1);
+            SetItemId(-1);
+        }
+
         private void ButtonItemTypeSaveClick
             (object sender,
              EventArgs e)
         {
+            if(buttonItemTypeSave.Text == language.TabItemTypes.ButtonItemTypeListNew)
+            {
+                ClearItemType();
+                return;
+            }
             Logger.Info("Save item type...");
             try
             {
@@ -272,28 +279,31 @@ namespace jeza.Item.Tracker.Gui
                     ItemType existingItemType = dataBase.ItemTypeGet(itemType.Name);
                     if (existingItemType != null)
                     {
-                        MessageBox.Show(@"ItemType with that name already exists!", @"Warn", MessageBoxButtons.OK,
+                        const string text = @"ItemType with that name already exists!";
+                        Logger.Warn(text);
+                        MessageBox.Show(text, @"Warn", MessageBoxButtons.OK,
                                         MessageBoxIcon.Stop);
                         return;
                     }
                     int rowsUpdated = dataBase.ItemTypeInsert(itemType);
                     if (rowsUpdated < 1)
                     {
-                        MessageBox.Show(@"Failed to insert Item type!", @"Error", MessageBoxButtons.OK,
+                        const string text = @"Failed to insert Item type!";
+                        Logger.Error(text);
+                        MessageBox.Show(text, @"Error", MessageBoxButtons.OK,
                                         MessageBoxIcon.Error);
                     }
                     else
                     {
                         FillItemTypes();
-                        EnableItemTypeSaveButton();
-                        textBoxItemTypeName.Text = String.Empty;
-                        textBoxItemTypeDescription.Text = String.Empty;
-                        SetItemTypeId(-1);
+                        ClearItemType();
                     }
                 }
                 else
                 {
-                    MessageBox.Show(@"Insert ItemType Name!", @"Info", MessageBoxButtons.OK,
+                    const string text = @"Insert ItemType Name!";
+                    Logger.Info(text);
+                    MessageBox.Show(text, @"Info", MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                 }
             }
@@ -301,6 +311,15 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
+        }
+
+        private void ClearItemType()
+        {
+            Logger.Debug("ClearItemType");
+            EnableItemTypeSaveButton();
+            textBoxItemTypeName.Text = String.Empty;
+            textBoxItemTypeDescription.Text = String.Empty;
+            SetItemTypeId(-1);
         }
 
         private static void ShowError(Exception exception)
@@ -327,42 +346,6 @@ namespace jeza.Item.Tracker.Gui
                     Bitmap bitmap = new Bitmap(open.FileName);
                     pictureBoxItems.Image = bitmap;
                     Logger.Debug("Selected image is '{0}'", open.FileName);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
-        }
-
-        private void ButtonItemsSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            Logger.Info("Select item...");
-            try
-            {
-                Item selectedItem = (Item) listBoxItemsList.SelectedItem;
-                if (selectedItem != null)
-                {
-                    Item item = dataBase.ItemGet(selectedItem.Id);
-                    if (item == null)
-                    {
-                        return;
-                    }
-                    textBoxItemsName.Text = item.Name;
-                    textBoxItemsDescription.Text = item.Description;
-                    ItemType itemType = (from ItemType t in comboBoxItemsType.Items
-                                         where t.Id == item.ItemTypeId
-                                         select t).FirstOrDefault();
-                    comboBoxItemsType.SelectedItem = itemType;
-                    ShowPicture(item, pictureBoxItems);
-                    DisableItemsSaveButton();
-                    SetItemId(item.Id);
-                }
-                else
-                {
-                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception exception)
@@ -400,6 +383,11 @@ namespace jeza.Item.Tracker.Gui
             (object sender,
              EventArgs e)
         {
+            if (buttonItemStatusSave.Text == language.TabItemStatus.ButtonItemStatusNew)
+            {
+                ClearItemStatus();
+                return;
+            }
             Logger.Info("Save item status...");
             try
             {
@@ -407,8 +395,8 @@ namespace jeza.Item.Tracker.Gui
                 {
                     ItemStatus itemStatus = new ItemStatus
                                             {
-                                                Name = textBoxItemStatusName.Text,
-                                                Description = textBoxItemStatusDescription.Text
+                                                Name = textBoxItemStatusName.Text.Trim(),
+                                                Description = textBoxItemStatusDescription.Text.Trim(),
                                             };
                     ItemStatus existingItemStatus = dataBase.ItemStatusGet(itemStatus.Name);
                     if (existingItemStatus != null)
@@ -426,15 +414,12 @@ namespace jeza.Item.Tracker.Gui
                     else
                     {
                         FillItemStatus();
-                        EnableItemStatusSaveButton();
-                        textBoxItemStatusName.Text = String.Empty;
-                        textBoxItemStatusDescription.Text = String.Empty;
-                        SetItemStatusId(-1);
+                        ClearItemStatus();
                     }
                 }
                 else
                 {
-                    MessageBox.Show(@"Insert ItemType Name!", @"Info", MessageBoxButtons.OK,
+                    MessageBox.Show(@"Insert ItemStatus Name!", @"Info", MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                 }
             }
@@ -442,6 +427,15 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
+        }
+
+        private void ClearItemStatus()
+        {
+            Logger.Debug("ClearItemStatus");
+            textBoxItemStatusName.Text = String.Empty;
+            textBoxItemStatusDescription.Text = String.Empty;
+            SetItemStatusId(-1);
+            EnableItemStatusSaveButton();
         }
 
         private void ButtonItemStatusUpdateClick
@@ -466,17 +460,14 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
-                    textBoxItemStatusName.Text = String.Empty;
-                    textBoxItemStatusDescription.Text = String.Empty;
-                    SetItemStatusId(-1);
-                    EnableItemStatusSaveButton();
+                    ClearItemStatus();
                 }
                 FillItemStatus();
             }
             else
             {
-                MessageBox.Show(@"Failed to update Item Status!", @"Error", MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                MessageBox.Show(@"Select Item Status!", @"Info", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
             }
         }
 
@@ -496,48 +487,14 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
-                    textBoxItemStatusName.Text = String.Empty;
-                    textBoxItemStatusDescription.Text = String.Empty;
-                    SetItemStatusId(-1);
-                    EnableItemStatusSaveButton();
+                    ClearItemStatus();
                 }
                 FillItemStatus();
             }
             else
             {
-                MessageBox.Show(@"Failed to delete Item Status!", @"Error", MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            }
-        }
-
-        private void ButtonItemsStatusSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            Logger.Info("Select item status...");
-            try
-            {
-                ItemStatus selectedItemStatus = (ItemStatus) listBoxItemStatusList.SelectedItem;
-                if (selectedItemStatus != null)
-                {
-                    ItemStatus itemStatus = dataBase.ItemStatusGet(selectedItemStatus.Id);
-                    if (itemStatus == null)
-                    {
-                        return;
-                    }
-                    textBoxItemStatusName.Text = itemStatus.Name;
-                    textBoxItemStatusDescription.Text = itemStatus.Description;
-                    DisableItemStatusSaveButton();
-                    SetItemStatusId(itemStatus.Id);
-                }
-                else
-                {
-                    MessageBox.Show(@"Select an Item Status!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
+                MessageBox.Show(@"Select Item Status!", @"Info", MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
             }
         }
 
@@ -578,11 +535,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
-                    textBoxItemsName.Text = String.Empty;
-                    textBoxItemsDescription.Text = String.Empty;
-                    pictureBoxItems.Image = new Bitmap(1, 1);
-                    SetItemId(-1);
-                    EnableItemsSaveButton();
+                    ClearItems();
                 }
                 FillItems();
             }
@@ -655,35 +608,35 @@ namespace jeza.Item.Tracker.Gui
 
         private void ChangePersonInfoButtonStatus(bool enabled)
         {
-            buttonPersonInfoSave.Text = enabled ? "Save" : "New";
+            buttonPersonInfoSave.Text = enabled ? language.TabPersonInfo.ButtonPersonInfoSave : language.TabPersonInfo.ButtonPersonInfoNew;
             buttonPersonInfoUpdate.Enabled = !enabled;
             buttonPersonInfoDelete.Enabled = !enabled;
         }
 
         private void ChangeItemStatusButtonStatus(bool enabled)
         {
-            buttonItemStatusSave.Text = enabled ? "Save" : "New";
+            buttonItemStatusSave.Text = enabled ? language.TabItemStatus.ButtonItemStatusSave : language.TabItemStatus.ButtonItemStatusNew;
             buttonItemStatusUpdate.Enabled = !enabled;
             buttonItemStatusDelete.Enabled = !enabled;
         }
 
         private void ChangeItemsButtonStatus(bool enabled)
         {
-            buttonItemsSave.Text = enabled ? "Save" : "New";
+            buttonItemsSave.Text = enabled ? language.TabItems.ButtonItemsSave : language.TabItems.ButtonItemsNew;
             buttonItemsUpdate.Enabled = !enabled;
             buttonItemsDelete.Enabled = !enabled;
         }
 
         private void ChangeItemTypeButtonStatus(bool enabled)
         {
-            buttonItemTypeSave.Text = enabled ? "Save" : "New";
+            buttonItemTypeSave.Text = enabled ? language.TabItemTypes.ButtonItemTypeListSave : language.TabItemTypes.ButtonItemTypeListNew;
             buttonItemTypeUpdate.Enabled = !enabled;
             buttonItemTypeDelete.Enabled = !enabled;
         }
 
         private void ChangeOrdersButtonStatus(bool enabled)
         {
-            buttonOrdersSave.Text = enabled ? "Save" : "New";
+            buttonOrdersSave.Text = enabled ? language.TabOrders.ButtonOrdersSave : language.TabOrders.ButtonOrdersNew;
             buttonOrdersUpdate.Enabled = !enabled;
             buttonOrdersDelete.Enabled = !enabled;
         }
@@ -704,11 +657,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
-                    textBoxItemsName.Text = String.Empty;
-                    textBoxItemsDescription.Text = String.Empty;
-                    pictureBoxItems.Image = new Bitmap(1, 1);
-                    SetItemId(-1);
-                    EnableItemsSaveButton();
+                    ClearItems();
                 }
                 FillItems();
             }
@@ -741,10 +690,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
-                    textBoxItemTypeName.Text = String.Empty;
-                    textBoxItemTypeDescription.Text = String.Empty;
-                    SetItemTypeId(-1);
-                    EnableItemTypeSaveButton();
+                    ClearItemType();
                 }
                 FillItemTypes();
             }
@@ -763,18 +709,15 @@ namespace jeza.Item.Tracker.Gui
             int itemTypeId = Misc.String2Number(labelItemTypeId.Text);
             if (itemTypeId > -1)
             {
-                int rowsUpdated = dataBase.ItemTypeDelete(itemTypeId);
-                if (rowsUpdated < 1)
+                int rowsDeleted = dataBase.ItemTypeDelete(itemTypeId);
+                if (rowsDeleted < 1)
                 {
                     MessageBox.Show(@"Failed to delete ItemType!", @"Error", MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
                 }
                 else
                 {
-                    textBoxItemTypeName.Text = String.Empty;
-                    textBoxItemTypeDescription.Text = String.Empty;
-                    SetItemTypeId(-1);
-                    EnableItemTypeSaveButton();
+                    ClearItemType();
                 }
                 FillItemTypes();
             }
@@ -785,61 +728,30 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void ButtonPersonInfoListSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            try
-            {
-                PersonInfo selectedItem = (PersonInfo) listBoxPersonInfoList.SelectedItem;
-                if (selectedItem != null)
-                {
-                    PersonInfo personInfo = dataBase.PersonInfoGet(selectedItem.Id);
-                    if (personInfo == null)
-                    {
-                        Logger.Warn("Failed to get person info for id={0}", selectedItem.Id);
-                        return;
-                    }
-                    textBoxPersonInfoName.Text = personInfo.Name;
-                    textBoxPersonInfoSurName.Text = personInfo.SurName;
-                    textBoxPersonInfoNickName.Text = personInfo.NickName;
-                    textBoxPersonInfoDescription.Text = personInfo.Description;
-                    textBoxPersonInfoAddress.Text = personInfo.Address;
-                    textBoxPersonInfoPopstNumber.Text = personInfo.PostNumber.ToString();
-                    textBoxPersonInfoCity.Text = personInfo.City;
-                    textBoxPersonInfoEmail.Text = personInfo.Email;
-                    textBoxPersonInfoTelephone.Text = personInfo.Telephone;
-                    textBoxPersonInfoTelephoneMobile.Text = personInfo.TelephoneMobile;
-                    textBoxPersonInfoFaxNumber.Text = personInfo.Fax;
-                    SetPersonInfoId(personInfo.Id);
-                    DisablePersonInfoSaveButton();
-                }
-                else
-                {
-                    MessageBox.Show(@"Select an Person!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
-        }
-
         private void ButtonPersonInfoSaveClick
             (object sender,
              EventArgs e)
         {
+            if (buttonPersonInfoSave.Text == language.TabPersonInfo.ButtonPersonInfoNew)
+            {
+                ClearPersonInfoTextBoxes();
+                return;
+            }
             try
             {
                 string name = textBoxPersonInfoName.Text.Trim();
+                string surName = textBoxPersonInfoSurName.Text.Trim();
                 if (name.Length > 1)
                 {
-                    PersonInfo personInfoExisting = dataBase.PersonInfoGet(name);
+                    PersonInfo personInfoExisting = dataBase.PersonInfoGet(name, surName);
                     if (personInfoExisting != null)
                     {
-                        MessageBox.Show(@"PersonInfo with that name already exists!", @"Warn", MessageBoxButtons.OK,
-                                        MessageBoxIcon.Stop);
-                        return;
+                        DialogResult dialogResult = MessageBox.Show(@"PersonInfo with that name already exists! Do you wanna save it anyway?", @"Question", MessageBoxButtons.YesNo,
+                                                                    MessageBoxIcon.Question);
+                        if(dialogResult == DialogResult.No)
+                        {
+                            return;
+                        }
                     }
                     PersonInfo personInfo = GetPersonInfo();
                     int rowsInserted = dataBase.PersonInfoInsert(personInfo);
@@ -852,7 +764,6 @@ namespace jeza.Item.Tracker.Gui
                     {
                         FillPersonInfo();
                         ClearPersonInfoTextBoxes();
-                        EnablePersonInfoSaveButton();
                     }
                 }
                 else
@@ -886,6 +797,7 @@ namespace jeza.Item.Tracker.Gui
 
         private void ClearPersonInfoTextBoxes()
         {
+            Logger.Debug("ClearPersonInfoTextBoxes");
             textBoxPersonInfoName.Text = String.Empty;
             textBoxPersonInfoSurName.Text = String.Empty;
             textBoxPersonInfoNickName.Text = String.Empty;
@@ -897,6 +809,8 @@ namespace jeza.Item.Tracker.Gui
             textBoxPersonInfoTelephone.Text = String.Empty;
             textBoxPersonInfoTelephoneMobile.Text = String.Empty;
             textBoxPersonInfoFaxNumber.Text = String.Empty;
+            EnablePersonInfoSaveButton();
+            SetPersonInfoId(-1);
         }
 
         private void ButtonPersonInfoUpdateClick
@@ -918,8 +832,6 @@ namespace jeza.Item.Tracker.Gui
                 else
                 {
                     ClearPersonInfoTextBoxes();
-                    SetPersonInfoId(-1);
-                    EnablePersonInfoSaveButton();
                 }
                 FillPersonInfo();
             }
@@ -947,8 +859,6 @@ namespace jeza.Item.Tracker.Gui
                 else
                 {
                     ClearPersonInfoTextBoxes();
-                    SetPersonInfoId(-1);
-                    EnablePersonInfoSaveButton();
                 }
                 FillPersonInfo();
             }
@@ -989,57 +899,6 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void ButtonOrderSelectClick
-            (object sender,
-             EventArgs e)
-        {
-            Logger.Info("Order select...");
-            try
-            {
-                Order selectedItem = (Order) listBoxOrdersList.SelectedItem;
-                if (selectedItem != null)
-                {
-                    List<Order> list = dataBase.OrderGetById(selectedItem.Id);
-                    if (list == null)
-                    {
-                        return;
-                    }
-                    Order order = list[0];
-                    comboBoxOrdersPersonInfo.SelectedItem = (from PersonInfo p in comboBoxOrdersPersonInfo.Items
-                                                             where p.Id == order.PersonInfoId
-                                                             select p).FirstOrDefault();
-                    Item item = dataBase.ItemGet(order.ItemId);
-                    ItemType itemType = (from ItemType t in comboBoxOrdersItemType.Items
-                                         where t.Id == item.ItemTypeId
-                                         select t).FirstOrDefault();
-                    comboBoxOrdersItemType.SelectedItem = itemType;
-                    FillOrderItems(itemType);
-                    comboBoxOrdersItem.SelectedItem = (from Item i in comboBoxOrdersItem.Items
-                                                       where i.Id == order.ItemId
-                                                       select i).FirstOrDefault();
-                    comboBoxOrdersItemStatus.SelectedItem = (from ItemStatus s in comboBoxOrdersItemStatus.Items
-                                                             where s.Id == order.ItemStatusId
-                                                             select s).FirstOrDefault();
-                    textBoxOrdersItemCount.Text = order.Count.ToString();
-                    textBoxOrdersPrice.Text = order.Price;
-                    textBoxOrdersPostage.Text = order.Postage;
-                    textBoxOrdersTax.Text = order.Tax;
-                    checkBoxOrdersLegalEntity.Checked = order.LegalEntity;
-                    ShowPicture(item, pictureBoxOrders);
-                    DisableOrdersSaveButton();
-                    SetOrderId(selectedItem.Id);
-                }
-                else
-                {
-                    MessageBox.Show(@"Select an order!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception exception)
-            {
-                ShowError(exception);
-            }
-        }
-
         private static void ShowPicture
             (Item item,
              PictureBox pictureBox)
@@ -1068,52 +927,71 @@ namespace jeza.Item.Tracker.Gui
             (object sender,
              EventArgs e)
         {
+            if (buttonOrdersSave.Text == language.TabOrders.ButtonOrdersNew)
+            {
+                ClearOrdersTextBoxes();
+                return;
+            }
             Logger.Info("Order save...");
             try
             {
                 Item selectedItem = (Item) comboBoxOrdersItem.SelectedItem;
                 if (selectedItem == null)
                 {
-                    Logger.Error("Failed to get Item!");
+                    const string text = "Failed to get Item!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 ItemStatus selectedItemStatus = (ItemStatus) comboBoxOrdersItemStatus.SelectedItem;
                 if (selectedItemStatus == null)
                 {
-                    Logger.Error("Failed to get ItemStatus!");
+                    const string text = "Failed to get ItemStatus!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 PersonInfo selectedPersonInfo = (PersonInfo) comboBoxOrdersPersonInfo.SelectedItem;
                 if (selectedPersonInfo == null)
                 {
-                    Logger.Error("Failed to get PersonInfo!");
+                    const string text = "Failed to get PersonInfo!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 string count = textBoxOrdersItemCount.Text.Trim();
                 if (count.Length < 1)
                 {
-                    MessageBox.Show(@"Specify number of items!", @"Info", MessageBoxButtons.OK,
+                    const string text = @"Specify number of items!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Info", MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                     return;
                 }
                 string priceBox = textBoxOrdersPrice.Text.Trim();
                 if (priceBox.Length < 1)
                 {
-                    MessageBox.Show(@"Specify price!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    const string text = @"Specify price!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 decimal price = Misc.String2Decimal(priceBox);
                 string postageTextBox = textBoxOrdersPostage.Text.Trim();
                 if (postageTextBox.Length < 1)
                 {
-                    MessageBox.Show(@"Specify postage!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    const string text = @"Specify postage!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 decimal postage = Misc.String2Decimal(postageTextBox);
                 string tax = textBoxOrdersTax.Text.Trim();
                 if (tax.Length < 1)
                 {
-                    MessageBox.Show(@"Specify tax!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    const string text = @"Specify tax!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 Order order = new Order
@@ -1130,12 +1008,13 @@ namespace jeza.Item.Tracker.Gui
                 int rowsInserted = dataBase.OrderInsert(order);
                 if (rowsInserted != 1)
                 {
-                    MessageBox.Show(@"Failed to insert Order!", @"Error", MessageBoxButtons.OK,
+                    const string text = @"Failed to insert Order!";
+                    Logger.Error(text);
+                    MessageBox.Show(text, @"Error", MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
                 }
                 FillOrders();
                 ClearOrdersTextBoxes();
-                EnableOrdersSaveButton();
             }
             catch (Exception exception)
             {
@@ -1222,8 +1101,6 @@ namespace jeza.Item.Tracker.Gui
                 else
                 {
                     ClearOrdersTextBoxes();
-                    SetOrderId(-1);
-                    EnableOrdersSaveButton();
                 }
                 FillOrders();
             }
@@ -1252,8 +1129,6 @@ namespace jeza.Item.Tracker.Gui
                 else
                 {
                     ClearOrdersTextBoxes();
-                    SetOrderId(-1);
-                    EnableOrdersSaveButton();
                 }
                 FillOrders();
             }
@@ -1266,10 +1141,13 @@ namespace jeza.Item.Tracker.Gui
 
         private void ClearOrdersTextBoxes()
         {
+            Logger.Debug("ClearOrdersTextBoxes");
             textBoxOrdersItemCount.Text = @"1";
             textBoxOrdersPrice.Text = String.Empty;
             textBoxOrdersPostage.Text = @"0";
             textBoxOrdersTax.Text = @"0";
+            SetOrderId(-1); 
+            EnableOrdersSaveButton();
         }
 
         private int GetOrderId()
@@ -1376,12 +1254,208 @@ namespace jeza.Item.Tracker.Gui
                     Logger.Info("Selected ItemType: {0}", itemType.ToString());
                     textBoxItemTypeName.Text = itemType.Name;
                     textBoxItemTypeDescription.Text = itemType.Description;
-                    //DisableItemTypeSaveButton();
+                    DisableItemTypeSaveButton();
                     SetItemTypeId(itemType.Id);
                 }
                 else
                 {
                     MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void DataGridViewItemsSelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (dataGridView.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            List<Item> list = (List<Item>)dataGridViewItems.DataSource;
+            if (list == null)
+            {
+                Logger.Warn("Failed to get Items binded to the control 'dataGridViewItems'.");
+                return;
+            }
+            Logger.Info("Selected itemchanged...");
+            try
+            {
+                Item selectedItem = (Item)dataGridViewItems.SelectedRows[0].DataBoundItem;
+                if (selectedItem != null)
+                {
+                    Item item = list.Find(i => i.ItemTypeId == selectedItem.Id);
+                    if (item == null)
+                    {
+                        return;
+                    }
+                    textBoxItemsName.Text = item.Name;
+                    textBoxItemsDescription.Text = item.Description;
+                    ItemType itemType = (from ItemType t in comboBoxItemsType.Items
+                                         where t.Id == item.ItemTypeId
+                                         select t).FirstOrDefault();
+                    comboBoxItemsType.SelectedItem = itemType;
+                    ShowPicture(item, pictureBoxItems);
+                    DisableItemsSaveButton();
+                    SetItemId(item.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+
+        }
+
+        private void DataGridViewItemStatusSelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (dataGridView.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            List<ItemStatus> list = (List<ItemStatus>)dataGridViewItemStatus.DataSource;
+            if (list == null)
+            {
+                Logger.Warn("Failed to get ItemStatus binded to the control 'dataGridViewItemStatus'.");
+                return;
+            }
+            Logger.Info("Selected item status changed...");
+            try
+            {
+                ItemStatus selectedItemStatus = (ItemStatus) dataGridViewItemStatus.SelectedRows[0].DataBoundItem;
+                if (selectedItemStatus != null)
+                {
+                    ItemStatus itemStatus = list.Find(s => s.Id == selectedItemStatus.Id);
+                    if (itemStatus == null)
+                    {
+                        return;
+                    }
+                    textBoxItemStatusName.Text = itemStatus.Name;
+                    textBoxItemStatusDescription.Text = itemStatus.Description;
+                    DisableItemStatusSaveButton();
+                    SetItemStatusId(itemStatus.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Item Status!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void DataGridViewPersonInfoSelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (dataGridView.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            List<PersonInfo> list = (List<PersonInfo>)dataGridViewPersonInfo.DataSource;
+            if (list == null)
+            {
+                Logger.Warn("Failed to get personInfo binded to the control 'dataGridViewPersonInfo'.");
+                return;
+            }
+            try
+            {
+                Logger.Info("Selected PersonInfo changed...");
+                PersonInfo selectedItem = (PersonInfo)dataGridViewPersonInfo.SelectedRows[0].DataBoundItem;
+                if (selectedItem != null)
+                {
+                    PersonInfo personInfo = list.Find(p => p.Id == selectedItem.Id);
+                    if (personInfo == null)
+                    {
+                        Logger.Warn("Failed to get person info for id={0}", selectedItem.Id);
+                        return;
+                    }
+                    textBoxPersonInfoName.Text = personInfo.Name;
+                    textBoxPersonInfoSurName.Text = personInfo.SurName;
+                    textBoxPersonInfoNickName.Text = personInfo.NickName;
+                    textBoxPersonInfoDescription.Text = personInfo.Description;
+                    textBoxPersonInfoAddress.Text = personInfo.Address;
+                    textBoxPersonInfoPopstNumber.Text = personInfo.PostNumber.ToString();
+                    textBoxPersonInfoCity.Text = personInfo.City;
+                    textBoxPersonInfoEmail.Text = personInfo.Email;
+                    textBoxPersonInfoTelephone.Text = personInfo.Telephone;
+                    textBoxPersonInfoTelephoneMobile.Text = personInfo.TelephoneMobile;
+                    textBoxPersonInfoFaxNumber.Text = personInfo.Fax;
+                    SetPersonInfoId(personInfo.Id);
+                    DisablePersonInfoSaveButton();
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an Person!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+
+        }
+
+        private void DataGridViewOrdersSelectionChanged(object sender, EventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView)sender;
+            if (dataGridView.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            List<Order> list = (List<Order>)dataGridViewOrders.DataSource;
+            if (list == null)
+            {
+                Logger.Warn("Failed to get orders binded to the control 'dataGridViewOrders'.");
+                return;
+            }
+            Logger.Info("Selected Order changed...");
+            try
+            {
+                Order selectedItem = (Order)dataGridViewOrders.SelectedRows[0].DataBoundItem;
+                if (selectedItem != null)
+                {
+                    Order order = list.Find(o => o.Id == selectedItem.Id);
+                    if (order == null)
+                    {
+                        return;
+                    }
+                    comboBoxOrdersPersonInfo.SelectedItem = (from PersonInfo p in comboBoxOrdersPersonInfo.Items
+                                                             where p.Id == order.PersonInfoId
+                                                             select p).FirstOrDefault();
+                    Item item = dataBase.ItemGet(order.ItemId);
+                    ItemType itemType = (from ItemType t in comboBoxOrdersItemType.Items
+                                         where t.Id == item.ItemTypeId
+                                         select t).FirstOrDefault();
+                    comboBoxOrdersItemType.SelectedItem = itemType;
+                    FillOrderItems(itemType);
+                    comboBoxOrdersItem.SelectedItem = (from Item i in comboBoxOrdersItem.Items
+                                                       where i.Id == order.ItemId
+                                                       select i).FirstOrDefault();
+                    comboBoxOrdersItemStatus.SelectedItem = (from ItemStatus s in comboBoxOrdersItemStatus.Items
+                                                             where s.Id == order.ItemStatusId
+                                                             select s).FirstOrDefault();
+                    textBoxOrdersItemCount.Text = order.Count.ToString();
+                    textBoxOrdersPrice.Text = order.Price;
+                    textBoxOrdersPostage.Text = order.Postage;
+                    textBoxOrdersTax.Text = order.Tax;
+                    checkBoxOrdersLegalEntity.Checked = order.LegalEntity;
+                    ShowPicture(item, pictureBoxOrders);
+                    DisableOrdersSaveButton();
+                    SetOrderId(selectedItem.Id);
+                }
+                else
+                {
+                    MessageBox.Show(@"Select an order!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception exception)

@@ -99,7 +99,11 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\jeza.Item.Tracker.Item.datasource" />
+    <None Include="Properties\DataSources\jeza.Item.Tracker.ItemStatus.datasource" />
     <None Include="Properties\DataSources\jeza.Item.Tracker.ItemType.datasource" />
+    <None Include="Properties\DataSources\jeza.Item.Tracker.Order.datasource" />
+    <None Include="Properties\DataSources\jeza.Item.Tracker.PersonInfo.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
