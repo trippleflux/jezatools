@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Text;
 using NLog;
 
 namespace jeza.Item.Tracker
@@ -12,7 +13,9 @@ namespace jeza.Item.Tracker
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
         private readonly SQLiteConnection sqLiteConnection = new SQLiteConnection();
-        const string SelectTextOrders = @"SELECT Id, ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, DateTime, Tax FROM Orders";
+
+        private const string SelectTextOrders =
+            @"SELECT Id, ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, DateTime, Tax FROM Orders";
 
         public DataBase()
         {
@@ -110,6 +113,43 @@ namespace jeza.Item.Tracker
             string commandText = @"SELECT Id, Name, Description, ItemType, Image FROM Item WHERE ItemType = " +
                                  itemTypeId;
             return ItemGetAll(commandText);
+        }
+
+        public List<Item> ItemGetAll()
+        {
+            const string commandText =
+                @"SELECT i.Id, i.Name, i.Description, i.ItemType, i.Image, t.Name AS ItemName FROM Item i, ItemType t WHERE t.Id = i.ItemType";
+            Log.Debug("ItemGetAll: '{0}'", commandText);
+            try
+            {
+                DataTable dataTable = GetDataTable(commandText);
+                DataRowCollection dataRowCollection = dataTable.Rows;
+                if (dataRowCollection.Count > 0)
+                {
+                    List<Item> items = new List<Item>();
+                    foreach (DataRow dataRow in dataRowCollection)
+                    {
+                        object[] itemArray = dataRow.ItemArray;
+                        Item item = new Item
+                                    {
+                                        Id = Misc.String2Number(itemArray[0].ToString()),
+                                        Name = itemArray[1].ToString(),
+                                        Description = itemArray[2].ToString(),
+                                        ItemTypeId = Misc.String2Number(itemArray[3].ToString()),
+                                        Image = Encoding.UTF8.GetBytes(itemArray[4].ToString()),
+                                        ItemTypeName = itemArray[5].ToString(),
+                                    };
+                        Log.Debug("have item: '{0}'", item.FormatItem());
+                        items.Add(item);
+                    }
+                    return items;
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString());
+            }
+            return null;
         }
 
         public List<Item> ItemGetAll(string commandText)
@@ -520,51 +560,59 @@ namespace jeza.Item.Tracker
             {
                 return (from DataRow dataRow in dataRowCollection
                         select dataRow.ItemArray
-                            into itemArray
-                            select new Order
-                            {
-                                Id = Misc.String2Number(itemArray[0].ToString()),
-                                ItemId = Misc.String2Number(itemArray[1].ToString()),
-                                Count = Misc.String2Number(itemArray[2].ToString()),
-                                Price = itemArray[3].ToString(),
-                                Postage = itemArray[4].ToString(),
-                                ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
-                                PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
-                                LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
-                                DateTime = itemArray[8].ToString(),
-                                Tax = itemArray[9].ToString(),
-                                //PersonInfoText = itemArray[10].ToString(),
-                            }).ToList();
+                        into itemArray
+                        select new Order
+                               {
+                                   Id = Misc.String2Number(itemArray[0].ToString()),
+                                   ItemId = Misc.String2Number(itemArray[1].ToString()),
+                                   Count = Misc.String2Number(itemArray[2].ToString()),
+                                   Price = itemArray[3].ToString(),
+                                   Postage = itemArray[4].ToString(),
+                                   ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
+                                   PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
+                                   LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
+                                   DateTime = itemArray[8].ToString(),
+                                   Tax = itemArray[9].ToString(),
+                                   //PersonInfoText = itemArray[10].ToString(),
+                               }).ToList();
             }
             return null;
         }
 
         public List<Order> OrderGetAll()
         {
-            const string commandText = @"SELECT o.Id, o.ItemId, o.Count, o.Price, o.Postage, o.ItemStatus, o.PersonInfoId, o.LegalEntity, o.DateTime, o.Tax, p.Name, p.SurName, p.NickName, i.Name FROM Orders o, PersonInfo p, Item i WHERE o.PersonInfoId = p.Id";
+            const string commandText =
+                @"SELECT o.Id, o.ItemId, o.Count, o.Price, o.Postage, o.ItemStatus, o.PersonInfoId, o.LegalEntity, o.DateTime, o.Tax, p.Name, p.SurName, p.NickName, i.Name, s.Name FROM Orders o, PersonInfo p, Item i, ItemStatus s WHERE o.PersonInfoId = p.Id AND o.ItemId = i.Id AND o.ItemStatus = s.Id";
             Log.Debug("OrderGetAll");
             DataTable dataTable = GetDataTable(commandText);
             DataRowCollection dataRowCollection = dataTable.Rows;
             if (dataRowCollection.Count > 0)
             {
-                return (from DataRow dataRow in dataRowCollection
-                        select dataRow.ItemArray
-                            into itemArray
-                            select new Order
-                            {
-                                Id = Misc.String2Number(itemArray[0].ToString()),
-                                ItemId = Misc.String2Number(itemArray[1].ToString()),
-                                Count = Misc.String2Number(itemArray[2].ToString()),
-                                Price = itemArray[3].ToString(),
-                                Postage = itemArray[4].ToString(),
-                                ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
-                                PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
-                                LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
-                                DateTime = itemArray[8].ToString(),
-                                Tax = itemArray[9].ToString(),
-                                PersonInfoText = String.Format("{0}, {1} - [{2}]", itemArray[10], itemArray[11], itemArray[12]),
-                                ItemText = itemArray[13].ToString(),
-                            }).ToList();
+                List<Order> orders = new List<Order>();
+                foreach (DataRow dataRow in dataRowCollection)
+                {
+                    object[] itemArray = dataRow.ItemArray;
+                    Order order = new Order
+                                  {
+                                      Id = Misc.String2Number(itemArray[0].ToString()),
+                                      ItemId = Misc.String2Number(itemArray[1].ToString()),
+                                      Count = Misc.String2Number(itemArray[2].ToString()),
+                                      Price = itemArray[3].ToString(),
+                                      Postage = itemArray[4].ToString(),
+                                      ItemStatusId= Misc.String2Number(itemArray[5].ToString()),
+                                      PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
+                                      LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
+                                      DateTime = itemArray[8].ToString(),
+                                      Tax = itemArray[9].ToString(),
+                                      PersonInfoText =
+                                          String.Format("{0}, {1} - [{2}]", itemArray[10], itemArray[11], itemArray[12]),
+                                      ItemText = itemArray[13].ToString(),
+                                      ItemStatusText = itemArray[14].ToString(),
+                                  };
+                    Log.Debug("have order: '{0}'", order.Format());
+                    orders.Add(order);
+                }
+                return orders;
             }
             return null;
         }
@@ -604,7 +652,9 @@ namespace jeza.Item.Tracker
         {
             try
             {
-                string commandText = @"UPDATE Orders SET ItemId = @itemId, Count = @count, Price = @price, Postage = @postage, ItemStatus = @itemStatusId, PersonInfoId = @personInfoId, LegalEntity = @legalEntity, Tax = @tax WHERE Id = " + order.Id;
+                string commandText =
+                    @"UPDATE Orders SET ItemId = @itemId, Count = @count, Price = @price, Postage = @postage, ItemStatus = @itemStatusId, PersonInfoId = @personInfoId, LegalEntity = @legalEntity, Tax = @tax WHERE Id = " +
+                    order.Id;
                 Log.Debug("OrderUpdate: [{0}], Order={1}", commandText, order.Format());
                 using (sqLiteConnection)
                 {
@@ -647,7 +697,9 @@ namespace jeza.Item.Tracker
             return PersonInfoSelect(commandText);
         }
 
-        public PersonInfo PersonInfoGet(string personInfoName, string personInfoSurname)
+        public PersonInfo PersonInfoGet
+            (string personInfoName,
+             string personInfoSurname)
         {
             string commandText =
                 String.Format(

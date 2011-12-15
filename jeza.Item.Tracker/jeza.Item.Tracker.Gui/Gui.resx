@@ -121,27 +121,45 @@
   <data name="dataGridViewOrders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
-  <data name="columnOrdersPersonInfo.HeaderText" xml:space="preserve">
-    <value>PersonInfoText</value>
+  <metadata name="columnOrdersDateTime.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="columnOrdersDateTime.HeaderText" xml:space="preserve">
+    <value>DateTime</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="columnOrdersDateTime.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="columnOrdersPersonInfo.HeaderText" xml:space="preserve">
+    <value>PersonInfo</value>
+  </data>
   <data name="columnOrdersPersonInfo.Width" type="System.Int32, mscorlib">
-    <value>400</value>
+    <value>300</value>
   </data>
   <data name="columnOrdersItemStatus.HeaderText" xml:space="preserve">
-    <value>ItemStatusId</value>
+    <value>ItemStatus</value>
   </data>
   <data name="columnOrdersItem.HeaderText" xml:space="preserve">
-    <value>ItemText</value>
+    <value>Item</value>
   </data>
   <data name="columnOrdersCount.HeaderText" xml:space="preserve">
     <value>Count</value>
   </data>
-  <data name="columnOrdersPrice.HeaderText" xml:space="preserve">
+  <data name="columnOrdersCount.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="columnOrdersPriceTotal.HeaderText" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="columnOrdersPriceTotal.Width" type="System.Int32, mscorlib">
+    <value>50</value>
   </data>
   <data name="columnOrdersLegalEntity.HeaderText" xml:space="preserve">
     <value>LegalEntity</value>
+  </data>
+  <data name="columnOrdersLegalEntity.Width" type="System.Int32, mscorlib">
+    <value>70</value>
   </data>
   <metadata name="orderBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>681, 17</value>
@@ -1020,11 +1038,11 @@
   <data name="columnItemDescription.HeaderText" xml:space="preserve">
     <value>Description</value>
   </data>
-  <metadata name="columnItemItemTypeId.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="columnItemItemTypeName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="columnItemItemTypeId.HeaderText" xml:space="preserve">
-    <value>ItemTypeId</value>
+  <data name="columnItemItemTypeName.HeaderText" xml:space="preserve">
+    <value>ItemType</value>
   </data>
   <metadata name="itemBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>186, 17</value>
@@ -2192,6 +2210,12 @@
   </metadata>
   <data name="columnPersonInfoAddress.HeaderText" xml:space="preserve">
     <value>Address</value>
+  </data>
+  <metadata name="columnPersonInfoCity.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="columnPersonInfoCity.HeaderText" xml:space="preserve">
+    <value>City</value>
   </data>
   <metadata name="columnPersonInfoEmail.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -3456,6 +3480,42 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Item Tracker</value>
   </data>
+  <data name="&gt;&gt;columnItemItemTypeName.Name" xml:space="preserve">
+    <value>columnItemItemTypeName</value>
+  </data>
+  <data name="&gt;&gt;columnItemItemTypeName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoSurName.Name" xml:space="preserve">
+    <value>columnPersonInfoSurName</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoSurName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoNickName.Name" xml:space="preserve">
+    <value>columnPersonInfoNickName</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoNickName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoAddress.Name" xml:space="preserve">
+    <value>columnPersonInfoAddress</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoAddress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoCity.Name" xml:space="preserve">
+    <value>columnPersonInfoCity</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoCity.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoEmail.Name" xml:space="preserve">
+    <value>columnPersonInfoEmail</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoEmail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;orderBindingSource.Name" xml:space="preserve">
     <value>orderBindingSource</value>
   </data>
@@ -3472,12 +3532,6 @@
     <value>columnItemDescription</value>
   </data>
   <data name="&gt;&gt;columnItemDescription.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnItemItemTypeId.Name" xml:space="preserve">
-    <value>columnItemItemTypeId</value>
-  </data>
-  <data name="&gt;&gt;columnItemItemTypeId.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;itemBindingSource.Name" xml:space="preserve">
@@ -3528,35 +3582,17 @@
   <data name="&gt;&gt;columnPersonInfoName.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;columnPersonInfoSurName.Name" xml:space="preserve">
-    <value>columnPersonInfoSurName</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoSurName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoNickName.Name" xml:space="preserve">
-    <value>columnPersonInfoNickName</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoNickName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoAddress.Name" xml:space="preserve">
-    <value>columnPersonInfoAddress</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoAddress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoEmail.Name" xml:space="preserve">
-    <value>columnPersonInfoEmail</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoEmail.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;personInfoBindingSource.Name" xml:space="preserve">
     <value>personInfoBindingSource</value>
   </data>
   <data name="&gt;&gt;personInfoBindingSource.Type" xml:space="preserve">
     <value>System.Windows.Forms.BindingSource, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnOrdersDateTime.Name" xml:space="preserve">
+    <value>columnOrdersDateTime</value>
+  </data>
+  <data name="&gt;&gt;columnOrdersDateTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;columnOrdersPersonInfo.Name" xml:space="preserve">
     <value>columnOrdersPersonInfo</value>
@@ -3582,10 +3618,10 @@
   <data name="&gt;&gt;columnOrdersCount.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;columnOrdersPrice.Name" xml:space="preserve">
-    <value>columnOrdersPrice</value>
+  <data name="&gt;&gt;columnOrdersPriceTotal.Name" xml:space="preserve">
+    <value>columnOrdersPriceTotal</value>
   </data>
-  <data name="&gt;&gt;columnOrdersPrice.Type" xml:space="preserve">
+  <data name="&gt;&gt;columnOrdersPriceTotal.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;columnOrdersLegalEntity.Name" xml:space="preserve">

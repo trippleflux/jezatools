@@ -170,31 +170,15 @@ namespace jeza.Item.Tracker
         /// <returns><c>0</c> if input string was not a number.</returns>
         public static decimal String2Decimal(string input)
         {
+            Logger.Debug("String2Decimal: '{0}'", input);
             int length = input.Length;
             if (length < 1)
             {
                 return 0;
             }
-            //StringBuilder sb = new StringBuilder();
-            //const char dot = '.';
-            //const char coma = ',';
-            //if (input[0] == dot || input[0] == coma)
-            //{
-            //    sb.Append("0");
-            //}
-            //for (int c = 0; c < length; c++)
-            //{
-            //    if (input[c] == dot || input[c] == coma)
-            //    {
-            //        sb.Append(coma);
-            //    }
-            //    else if (Char.IsNumber(input[c]))
-            //    {
-            //        sb.Append(input[c]);
-            //    }
-            //}
             decimal parsedValue;
-            bool tryParse = decimal.TryParse(input, NumberStyles.Any, CultureInfo.CurrentCulture, out parsedValue);
+            bool tryParse = decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out parsedValue);
+            Logger.Debug("parsedValue='{0}'", parsedValue);
             return tryParse ? parsedValue : 0;
         }
 
