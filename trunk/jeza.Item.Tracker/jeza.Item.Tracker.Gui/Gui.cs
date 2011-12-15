@@ -134,7 +134,8 @@ namespace jeza.Item.Tracker.Gui
         private void FillItems()
         {
             Logger.Debug("Fill Items");
-            List<Item> items = dataBase.ItemGetAll(@"SELECT Id, Name, Description, ItemType, Image FROM Item");
+            //List<Item> items = dataBase.ItemGetAll(@"SELECT Id, Name, Description, ItemType, Image FROM Item");
+            List<Item> items = dataBase.ItemGetAll();
             if (items == null)
             {
                 return;
@@ -887,6 +888,7 @@ namespace jeza.Item.Tracker.Gui
         private void FillOrderItems(ItemType selectedItemType)
         {
             comboBoxOrdersItem.Items.Clear();
+            comboBoxOrdersItem.Text = String.Empty;
             List<Item> items = dataBase.ItemGetByType(selectedItemType.Id);
             if (items.Count > 0)
             {
@@ -919,7 +921,7 @@ namespace jeza.Item.Tracker.Gui
             }
             catch (Exception exception)
             {
-                Logger.Error("Failed to show picture on Orders! \r\n{0}", exception.ToString());
+                Logger.Error("Failed to show picture! \r\n{0}", exception.ToString());
             }
         }
 
@@ -1243,15 +1245,10 @@ namespace jeza.Item.Tracker.Gui
                     return;
                 }
                 Logger.Info("Selected ItemType changed...");
-                ItemType selectedItem = (ItemType)dataGridViewItemType.SelectedRows[0].DataBoundItem;
-                if (selectedItem != null)
+                ItemType itemType = (ItemType)dataGridViewItemType.SelectedRows[0].DataBoundItem;
+                if (itemType != null)
                 {
-                    ItemType itemType = list.Find(t => t.Id == selectedItem.Id);
-                    if (itemType == null)
-                    {
-                        return;
-                    }
-                    Logger.Info("Selected ItemType: {0}", itemType.ToString());
+                    Logger.Info("Selected ItemType: {0}", itemType.Format());
                     textBoxItemTypeName.Text = itemType.Name;
                     textBoxItemTypeDescription.Text = itemType.Description;
                     DisableItemTypeSaveButton();
@@ -1259,6 +1256,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
+                    Logger.Debug("ItemType not selected");
                     MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1281,29 +1279,30 @@ namespace jeza.Item.Tracker.Gui
                 Logger.Warn("Failed to get Items binded to the control 'dataGridViewItems'.");
                 return;
             }
-            Logger.Info("Selected itemchanged...");
+            Logger.Info("Selected item changed...");
             try
             {
                 Item selectedItem = (Item)dataGridViewItems.SelectedRows[0].DataBoundItem;
                 if (selectedItem != null)
                 {
-                    Item item = list.Find(i => i.ItemTypeId == selectedItem.Id);
-                    if (item == null)
+                    Logger.Info("Selected item: '{0}'", selectedItem.FormatItem());
+                    Item item = dataBase.ItemGet(selectedItem.Id);
+                    if (item != null)
                     {
-                        return;
+                        textBoxItemsName.Text = item.Name;
+                        textBoxItemsDescription.Text = item.Description;
+                        ItemType itemType = (from ItemType t in comboBoxItemsType.Items
+                                             where t.Id == item.ItemTypeId
+                                             select t).FirstOrDefault();
+                        comboBoxItemsType.SelectedItem = itemType;
+                        ShowPicture(item, pictureBoxItems);
+                        DisableItemsSaveButton();
+                        SetItemId(selectedItem.Id);
                     }
-                    textBoxItemsName.Text = item.Name;
-                    textBoxItemsDescription.Text = item.Description;
-                    ItemType itemType = (from ItemType t in comboBoxItemsType.Items
-                                         where t.Id == item.ItemTypeId
-                                         select t).FirstOrDefault();
-                    comboBoxItemsType.SelectedItem = itemType;
-                    ShowPicture(item, pictureBoxItems);
-                    DisableItemsSaveButton();
-                    SetItemId(item.Id);
                 }
                 else
                 {
+                    Logger.Debug("Item not selected");
                     MessageBox.Show(@"Select an Item!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1311,7 +1310,6 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
-
         }
 
         private void DataGridViewItemStatusSelectionChanged(object sender, EventArgs e)
@@ -1330,14 +1328,10 @@ namespace jeza.Item.Tracker.Gui
             Logger.Info("Selected item status changed...");
             try
             {
-                ItemStatus selectedItemStatus = (ItemStatus) dataGridViewItemStatus.SelectedRows[0].DataBoundItem;
-                if (selectedItemStatus != null)
+                ItemStatus itemStatus = (ItemStatus) dataGridViewItemStatus.SelectedRows[0].DataBoundItem;
+                if (itemStatus != null)
                 {
-                    ItemStatus itemStatus = list.Find(s => s.Id == selectedItemStatus.Id);
-                    if (itemStatus == null)
-                    {
-                        return;
-                    }
+                    Logger.Info("Selected item status: '{0}'", itemStatus.FormatItemStatus()); 
                     textBoxItemStatusName.Text = itemStatus.Name;
                     textBoxItemStatusDescription.Text = itemStatus.Description;
                     DisableItemStatusSaveButton();
@@ -1345,6 +1339,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
+                    Logger.Debug("Item Status was not selected."); 
                     MessageBox.Show(@"Select an Item Status!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1370,15 +1365,10 @@ namespace jeza.Item.Tracker.Gui
             try
             {
                 Logger.Info("Selected PersonInfo changed...");
-                PersonInfo selectedItem = (PersonInfo)dataGridViewPersonInfo.SelectedRows[0].DataBoundItem;
-                if (selectedItem != null)
+                PersonInfo personInfo = (PersonInfo)dataGridViewPersonInfo.SelectedRows[0].DataBoundItem;
+                if (personInfo != null)
                 {
-                    PersonInfo personInfo = list.Find(p => p.Id == selectedItem.Id);
-                    if (personInfo == null)
-                    {
-                        Logger.Warn("Failed to get person info for id={0}", selectedItem.Id);
-                        return;
-                    }
+                    Logger.Info("Selected PersonInfo : '{0}'", personInfo.Format());
                     textBoxPersonInfoName.Text = personInfo.Name;
                     textBoxPersonInfoSurName.Text = personInfo.SurName;
                     textBoxPersonInfoNickName.Text = personInfo.NickName;
@@ -1395,6 +1385,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
+                    Logger.Debug("PersonInfo was not selected.");
                     MessageBox.Show(@"Select an Person!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1421,29 +1412,53 @@ namespace jeza.Item.Tracker.Gui
             Logger.Info("Selected Order changed...");
             try
             {
-                Order selectedItem = (Order)dataGridViewOrders.SelectedRows[0].DataBoundItem;
-                if (selectedItem != null)
+                Order order = (Order)dataGridViewOrders.SelectedRows[0].DataBoundItem;
+                if (order != null)
                 {
-                    Order order = list.Find(o => o.Id == selectedItem.Id);
-                    if (order == null)
-                    {
-                        return;
-                    }
+                    Logger.Info("Selected Order : '{0}'", order.Format());
                     comboBoxOrdersPersonInfo.SelectedItem = (from PersonInfo p in comboBoxOrdersPersonInfo.Items
                                                              where p.Id == order.PersonInfoId
                                                              select p).FirstOrDefault();
                     Item item = dataBase.ItemGet(order.ItemId);
-                    ItemType itemType = (from ItemType t in comboBoxOrdersItemType.Items
-                                         where t.Id == item.ItemTypeId
-                                         select t).FirstOrDefault();
-                    comboBoxOrdersItemType.SelectedItem = itemType;
-                    FillOrderItems(itemType);
-                    comboBoxOrdersItem.SelectedItem = (from Item i in comboBoxOrdersItem.Items
-                                                       where i.Id == order.ItemId
-                                                       select i).FirstOrDefault();
-                    comboBoxOrdersItemStatus.SelectedItem = (from ItemStatus s in comboBoxOrdersItemStatus.Items
-                                                             where s.Id == order.ItemStatusId
-                                                             select s).FirstOrDefault();
+                    if (item == null)
+                    {
+                        Logger.Warn("Failed to get Item!");
+                    }
+                    else
+                    {
+                        ItemType itemType = (from ItemType t in comboBoxOrdersItemType.Items
+                                             where t.Id == item.ItemTypeId
+                                             select t).FirstOrDefault();
+                        if (itemType == null)
+                        {
+                            Logger.Warn("Failed to get ItemType!");
+                            comboBoxOrdersItemType.SelectedItem = String.Empty;
+                        }
+                        else
+                        {
+                            comboBoxOrdersItemType.SelectedItem = itemType;
+                            FillOrderItems(itemType);
+                            if (comboBoxOrdersItem.Items.Count > 0)
+                            {
+                                Item itm = (from Item i in comboBoxOrdersItem.Items
+                                            where i.Id == order.ItemId
+                                            select i).FirstOrDefault();
+                                comboBoxOrdersItem.Text = itm.Name;
+                            }
+                        }
+                    }
+                    ItemStatus itemStatus = (from ItemStatus s in comboBoxOrdersItemStatus.Items
+                                                 where s.Id == order.ItemStatusId
+                                                 select s).FirstOrDefault();
+                    if (itemStatus == null)
+                    {
+                        Logger.Warn("Failed to get ItemStatus!");
+                        comboBoxOrdersItemStatus.Text = String.Empty;
+                    }
+                    else
+                    {
+                        comboBoxOrdersItemStatus.Text = itemStatus.Name;
+                    }
                     textBoxOrdersItemCount.Text = order.Count.ToString();
                     textBoxOrdersPrice.Text = order.Price;
                     textBoxOrdersPostage.Text = order.Postage;
@@ -1451,10 +1466,11 @@ namespace jeza.Item.Tracker.Gui
                     checkBoxOrdersLegalEntity.Checked = order.LegalEntity;
                     ShowPicture(item, pictureBoxOrders);
                     DisableOrdersSaveButton();
-                    SetOrderId(selectedItem.Id);
+                    SetOrderId(order.Id);
                 }
                 else
                 {
+                    Logger.Debug("Order was not selected!");
                     MessageBox.Show(@"Select an order!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
