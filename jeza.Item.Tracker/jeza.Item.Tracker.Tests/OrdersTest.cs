@@ -106,7 +106,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNotNull(itemStatusGet);
             string personInfoName = Guid.NewGuid().ToString();
             string personInfoSurName = Guid.NewGuid().ToString();
-            PersonInfo personInfo = new PersonInfo { Name = personInfoName, SurName = personInfoSurName,};
+            PersonInfo personInfo = new PersonInfo {Name = personInfoName, SurName = personInfoSurName,};
             dataBase.PersonInfoInsert(personInfo);
             PersonInfo personInfoGet = dataBase.PersonInfoGet(personInfoName, personInfoSurName);
             Assert.IsNotNull(personInfoGet);
@@ -132,6 +132,7 @@ namespace jeza.Item.Tracker.Tests
         public void OrderGetById()
         {
             DataBase dataBase = new DataBase();
+            List<Order> orderGetByItemId = dataBase.OrderGetByItemId(1);
             int rowsInserted = dataBase.OrderInsert(new Order
                                                     {
                                                         ItemId = 1,
@@ -145,10 +146,7 @@ namespace jeza.Item.Tracker.Tests
             Assert.AreEqual(1, rowsInserted);
             List<Order> orders = dataBase.OrderGetByItemId(1);
             Assert.IsNotNull(orders);
-            Assert.AreEqual(1, orders.Count);
-            Order orderGetById = dataBase.OrderGetById(orders[0].Id);
-            Assert.IsNotNull(orderGetById);
-            Assert.AreEqual(true, orderGetById.LegalEntity);
+            Assert.AreEqual(orderGetByItemId == null ? 1 : orderGetByItemId.Count + 1, orders.Count);
         }
 
         [Test]
@@ -239,7 +237,9 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNotNull(orders);
             orders = dataBase.OrderGetByItemStatus(4);
             Assert.IsNotNull(orders);
-            Assert.AreEqual(price.DecimalToString(), orders[0].Price);
+            Order findLast = orders.FindLast(o => o.Price == price.DecimalToString());
+            Assert.IsNotNull(findLast);
+            Assert.AreEqual(price, findLast.Price.String2Decimal());
         }
 
         [Test]
@@ -285,7 +285,9 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNotNull(orders);
             orders = dataBase.OrderGetByItemStatus(4);
             Assert.IsNotNull(orders);
-            Assert.AreEqual(price.DecimalToString(), orders[0].Price);
+            Order findLast = orders.FindLast(o => o.Price == price.DecimalToString());
+            Assert.IsNotNull(findLast);
+            Assert.AreEqual(price.DecimalToString(), findLast.Price);
         }
 
         [Test]
