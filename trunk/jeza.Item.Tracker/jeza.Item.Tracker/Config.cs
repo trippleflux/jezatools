@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Reflection;
 using NLog;
 
 namespace jeza.Item.Tracker
@@ -14,8 +15,9 @@ namespace jeza.Item.Tracker
         /// <param name="keyName">Name of the key.</param>
         /// <param name="defaultValue">The default value.</param>
         /// <returns>Key value or <see cref="defaultValue"/></returns>
-        public static string GetKeyValue(string keyName,
-                                         string defaultValue)
+        public static string GetKeyValue
+            (string keyName,
+             string defaultValue)
         {
             return GetKeyValue(keyName) ?? defaultValue;
         }
@@ -49,9 +51,22 @@ namespace jeza.Item.Tracker
         {
             get
             {
-                string path = System.IO.Path.GetDirectoryName(
-                    System.Reflection.Assembly.GetExecutingAssembly().Location);
-                return String.Format(@"Data Source={0}\jeza.Item.Tracker.s3db", path);
+                try
+                {
+                    Assembly executingAssembly = Assembly.GetExecutingAssembly();
+                    string pathGetExecutingAssembly = System.IO.Path.GetDirectoryName(executingAssembly.CodeBase);
+                    if (pathGetExecutingAssembly != null)
+                    {
+                        pathGetExecutingAssembly = pathGetExecutingAssembly.Replace("file:\\\\", "");
+                        pathGetExecutingAssembly = pathGetExecutingAssembly.Replace("file:\\", "");
+                    }
+                    return String.Format(@"Data Source={0}\jeza.Item.Tracker.s3db", pathGetExecutingAssembly);
+                }
+                catch (Exception exception)
+                {
+                    Log.Error(exception);
+                    throw;
+                }
             }
         }
     }

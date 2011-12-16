@@ -168,16 +168,24 @@ namespace jeza.Item.Tracker
         /// </summary>
         /// <param name="input">Input string.</param>
         /// <returns><c>0</c> if input string was not a number.</returns>
-        public static decimal String2Decimal(string input)
+        public static decimal String2Decimal(this string input)
         {
-            Logger.Debug("String2Decimal: '{0}'", input);
+            NumberFormatInfo numberFormatInfo = NumberFormatInfo.CurrentInfo;
+            string decimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
+            if (decimalSeparator != ".")
+            {
+                numberFormatInfo.NumberDecimalSeparator = ".";
+            }
+            Logger.Debug("String2Decimal: '{0}', NumberFormatInfo.CurrentInfo.NumberDecimalSeparator='{1}'", input, decimalSeparator);
             int length = input.Length;
             if (length < 1)
             {
                 return 0;
             }
+            input = input.Replace(",", ".");
+            Logger.Debug("input='{0}'", input);
             decimal parsedValue;
-            bool tryParse = decimal.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out parsedValue);
+            bool tryParse = decimal.TryParse(input, NumberStyles.Any, numberFormatInfo, out parsedValue);
             Logger.Debug("parsedValue='{0}'", parsedValue);
             return tryParse ? parsedValue : 0;
         }

@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{33F29621-477C-4E4C-92D4-BD2D925259AC}"
 	ProjectSection(SolutionItems) = preProject
 		AssemblyFileInfo.cs = AssemblyFileInfo.cs
+		build.cmd = build.cmd
 		jeza.Item.Tracker.s3db = jeza.Item.Tracker.s3db
 		jeza.Item.Tracker.vsmdi = jeza.Item.Tracker.vsmdi
 		Local.testsettings = Local.testsettings

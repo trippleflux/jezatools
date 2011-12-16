@@ -558,23 +558,28 @@ namespace jeza.Item.Tracker
             DataRowCollection dataRowCollection = dataTable.Rows;
             if (dataRowCollection.Count > 0)
             {
-                return (from DataRow dataRow in dataRowCollection
-                        select dataRow.ItemArray
-                        into itemArray
-                        select new Order
-                               {
-                                   Id = Misc.String2Number(itemArray[0].ToString()),
-                                   ItemId = Misc.String2Number(itemArray[1].ToString()),
-                                   Count = Misc.String2Number(itemArray[2].ToString()),
-                                   Price = itemArray[3].ToString(),
-                                   Postage = itemArray[4].ToString(),
-                                   ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
-                                   PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
-                                   LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
-                                   DateTime = itemArray[8].ToString(),
-                                   Tax = itemArray[9].ToString(),
-                                   //PersonInfoText = itemArray[10].ToString(),
-                               }).ToList();
+                List<Order> orders = new List<Order>();
+                foreach (DataRow dataRow in dataRowCollection)
+                {
+                    object[] itemArray = dataRow.ItemArray;
+                    Order order = new Order
+                                  {
+                                      Id = Misc.String2Number(itemArray[0].ToString()),
+                                      ItemId = Misc.String2Number(itemArray[1].ToString()),
+                                      Count = Misc.String2Number(itemArray[2].ToString()),
+                                      Price = itemArray[3].ToString(),
+                                      Postage = itemArray[4].ToString(),
+                                      ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
+                                      PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
+                                      LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
+                                      DateTime = itemArray[8].ToString(),
+                                      Tax = itemArray[9].ToString(),
+                                      //PersonInfoText = itemArray[10].ToString(),
+                                  };
+                    Log.Debug("Have order: '{0}'", order.Format());
+                    orders.Add(order);
+                }
+                return orders;
             }
             return null;
         }
