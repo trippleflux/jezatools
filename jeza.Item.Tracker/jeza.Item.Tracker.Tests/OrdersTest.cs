@@ -337,15 +337,5 @@ namespace jeza.Item.Tracker.Tests
             Assert.IsNotNull(list);
             Assert.IsTrue(list.Count > 0);
         }
-
-        [Test]
-        public void DecimalToString()
-        {
-            Assert.AreEqual("1.000", 1M.DecimalToString());
-            Assert.AreEqual("1.000", 1.00M.DecimalToString());
-            Assert.AreEqual("1.234", 1.234M.DecimalToString());
-            Assert.AreEqual("1000.000", 1000.000M.DecimalToString());
-            Assert.AreEqual("1.000", 1.0M.DecimalToString());
-        }
     }
 }

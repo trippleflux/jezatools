@@ -3483,6 +3483,9 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1254, 622</value>
   </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Item Tracker</value>
   </data>
@@ -3490,6 +3493,42 @@
     <value>columnOrdersDateTime</value>
   </data>
   <data name="&gt;&gt;columnOrdersDateTime.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnItemItemTypeName.Name" xml:space="preserve">
+    <value>columnItemItemTypeName</value>
+  </data>
+  <data name="&gt;&gt;columnItemItemTypeName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoSurName.Name" xml:space="preserve">
+    <value>columnPersonInfoSurName</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoSurName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoNickName.Name" xml:space="preserve">
+    <value>columnPersonInfoNickName</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoNickName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoAddress.Name" xml:space="preserve">
+    <value>columnPersonInfoAddress</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoAddress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoCity.Name" xml:space="preserve">
+    <value>columnPersonInfoCity</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoCity.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoEmail.Name" xml:space="preserve">
+    <value>columnPersonInfoEmail</value>
+  </data>
+  <data name="&gt;&gt;columnPersonInfoEmail.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;columnOrdersPersonInfo.Name" xml:space="preserve">
@@ -3546,12 +3585,6 @@
   <data name="&gt;&gt;columnItemDescription.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;columnItemItemTypeName.Name" xml:space="preserve">
-    <value>columnItemItemTypeName</value>
-  </data>
-  <data name="&gt;&gt;columnItemItemTypeName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;itemBindingSource.Name" xml:space="preserve">
     <value>itemBindingSource</value>
   </data>
@@ -3598,36 +3631,6 @@
     <value>columnPersonInfoName</value>
   </data>
   <data name="&gt;&gt;columnPersonInfoName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoSurName.Name" xml:space="preserve">
-    <value>columnPersonInfoSurName</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoSurName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoNickName.Name" xml:space="preserve">
-    <value>columnPersonInfoNickName</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoNickName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoAddress.Name" xml:space="preserve">
-    <value>columnPersonInfoAddress</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoAddress.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoCity.Name" xml:space="preserve">
-    <value>columnPersonInfoCity</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoCity.Type" xml:space="preserve">
-    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoEmail.Name" xml:space="preserve">
-    <value>columnPersonInfoEmail</value>
-  </data>
-  <data name="&gt;&gt;columnPersonInfoEmail.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;personInfoBindingSource.Name" xml:space="preserve">
