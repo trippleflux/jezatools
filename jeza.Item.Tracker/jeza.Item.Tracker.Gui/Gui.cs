@@ -23,6 +23,7 @@ namespace jeza.Item.Tracker.Gui
             FillItemStatus();
             FillItems();
             FillPersonInfo();
+            FillBank();
             FillOrders();
             FillLanguage();
         }
@@ -101,6 +102,32 @@ namespace jeza.Item.Tracker.Gui
             buttonPersonInfoDelete.Text = tabPersonInfo.ButtonPersonInfoDelete;
             //Reports
             tabPageReports.Text = language.TabReports.Name;
+            //Bank
+            TabBank tabBank = language.TabBank;
+            tabPageBank.Text = tabBank.Name;
+            labelBankName.Text = tabBank.LabelBankName;
+            labelBankOwner.Text = tabBank.LabelBankOwner;
+            labelBankAccountNumber.Text = tabBank.LabelBankAccountNumber;
+            labelBankList.Text = tabBank.LabelBankList;
+            buttonBankSave.Text = tabBank.ButtonBankSave;
+            buttonBankDelete.Text = tabBank.ButtonBankDelete;
+            buttonBankUpdate.Text = tabBank.ButtonBankUpdate;
+        }
+
+        private void FillBank()
+        {
+            Logger.Debug("Fill bank");
+            List<Bank> list = dataBase.BankGetAll();
+            comboBoxOrdersBank.Items.Clear();
+            if (list == null)
+            {
+                return;
+            }
+            //Bank tab
+            dataGridViewBank.DataSource = list;
+            //Order tab
+            comboBoxOrdersBank.Items.AddRange(list.ToArray());
+            comboBoxOrdersBank.SelectedItem = comboBoxOrdersBank.Items[0];
         }
 
         private void FillOrders()
@@ -262,7 +289,7 @@ namespace jeza.Item.Tracker.Gui
             (object sender,
              EventArgs e)
         {
-            if(buttonItemTypeSave.Text == language.TabItemTypes.ButtonItemTypeListNew)
+            if (buttonItemTypeSave.Text == language.TabItemTypes.ButtonItemTypeListNew)
             {
                 ClearItemType();
                 return;
@@ -380,6 +407,11 @@ namespace jeza.Item.Tracker.Gui
             labelOrdersId.Text = orderId.ToString();
         }
 
+        private void SetBankId(int bankId)
+        {
+            labelBankId.Text = bankId.ToString();
+        }
+
         private void ButtonItemsStatusSaveClick
             (object sender,
              EventArgs e)
@@ -437,6 +469,16 @@ namespace jeza.Item.Tracker.Gui
             textBoxItemStatusDescription.Text = String.Empty;
             SetItemStatusId(-1);
             EnableItemStatusSaveButton();
+        }
+
+        private void ClearBank()
+        {
+            Logger.Debug("ClearBank");
+            textBoxBankAccountNumber.Text = String.Empty;
+            textBoxBankName.Text = String.Empty;
+            textBoxBankOwner.Text = String.Empty;
+            SetBankId(-1);
+            EnableBankSaveButton();
         }
 
         private void ButtonItemStatusUpdateClick
@@ -583,6 +625,18 @@ namespace jeza.Item.Tracker.Gui
             ChangeOrdersButtonStatus(false);
         }
 
+        private void EnableBankSaveButton()
+        {
+            Logger.Info("EnableBankSaveButton");
+            ChangeBankButtonStatus(true);
+        }
+
+        private void DisableBankSaveButton()
+        {
+            Logger.Info("DisableBankSaveButton");
+            ChangeBankButtonStatus(false);
+        }
+
         private void EnableItemTypeSaveButton()
         {
             Logger.Info("EnableItemTypeSaveButton");
@@ -609,14 +663,18 @@ namespace jeza.Item.Tracker.Gui
 
         private void ChangePersonInfoButtonStatus(bool enabled)
         {
-            buttonPersonInfoSave.Text = enabled ? language.TabPersonInfo.ButtonPersonInfoSave : language.TabPersonInfo.ButtonPersonInfoNew;
+            buttonPersonInfoSave.Text = enabled
+                                            ? language.TabPersonInfo.ButtonPersonInfoSave
+                                            : language.TabPersonInfo.ButtonPersonInfoNew;
             buttonPersonInfoUpdate.Enabled = !enabled;
             buttonPersonInfoDelete.Enabled = !enabled;
         }
 
         private void ChangeItemStatusButtonStatus(bool enabled)
         {
-            buttonItemStatusSave.Text = enabled ? language.TabItemStatus.ButtonItemStatusSave : language.TabItemStatus.ButtonItemStatusNew;
+            buttonItemStatusSave.Text = enabled
+                                            ? language.TabItemStatus.ButtonItemStatusSave
+                                            : language.TabItemStatus.ButtonItemStatusNew;
             buttonItemStatusUpdate.Enabled = !enabled;
             buttonItemStatusDelete.Enabled = !enabled;
         }
@@ -630,7 +688,9 @@ namespace jeza.Item.Tracker.Gui
 
         private void ChangeItemTypeButtonStatus(bool enabled)
         {
-            buttonItemTypeSave.Text = enabled ? language.TabItemTypes.ButtonItemTypeListSave : language.TabItemTypes.ButtonItemTypeListNew;
+            buttonItemTypeSave.Text = enabled
+                                          ? language.TabItemTypes.ButtonItemTypeListSave
+                                          : language.TabItemTypes.ButtonItemTypeListNew;
             buttonItemTypeUpdate.Enabled = !enabled;
             buttonItemTypeDelete.Enabled = !enabled;
         }
@@ -640,6 +700,13 @@ namespace jeza.Item.Tracker.Gui
             buttonOrdersSave.Text = enabled ? language.TabOrders.ButtonOrdersSave : language.TabOrders.ButtonOrdersNew;
             buttonOrdersUpdate.Enabled = !enabled;
             buttonOrdersDelete.Enabled = !enabled;
+        }
+
+        private void ChangeBankButtonStatus(bool enabled)
+        {
+            buttonBankSave.Text = enabled ? language.TabBank.ButtonBankSave : language.TabBank.ButtonBankNew;
+            buttonBankUpdate.Enabled = !enabled;
+            buttonBankDelete.Enabled = !enabled;
         }
 
         private void ButtonItemsDeleteClick
@@ -747,9 +814,11 @@ namespace jeza.Item.Tracker.Gui
                     PersonInfo personInfoExisting = dataBase.PersonInfoGet(name, surName);
                     if (personInfoExisting != null)
                     {
-                        DialogResult dialogResult = MessageBox.Show(@"PersonInfo with that name already exists! Do you wanna save it anyway?", @"Question", MessageBoxButtons.YesNo,
-                                                                    MessageBoxIcon.Question);
-                        if(dialogResult == DialogResult.No)
+                        DialogResult dialogResult =
+                            MessageBox.Show(@"PersonInfo with that name already exists! Do you wanna save it anyway?",
+                                            @"Question", MessageBoxButtons.YesNo,
+                                            MessageBoxIcon.Question);
+                        if (dialogResult == DialogResult.No)
                         {
                             return;
                         }
@@ -961,6 +1030,7 @@ namespace jeza.Item.Tracker.Gui
                     MessageBox.Show(text, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                Bank selectedBank = (Bank) comboBoxOrdersBank.SelectedItem ?? new Bank {Id = -1,};
                 string count = textBoxOrdersItemCount.Text.Trim();
                 if (count.Length < 1)
                 {
@@ -978,7 +1048,7 @@ namespace jeza.Item.Tracker.Gui
                     MessageBox.Show(text, @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                decimal price = Misc.String2Decimal(priceBox);
+                decimal price = priceBox.String2Decimal();
                 string postageTextBox = textBoxOrdersPostage.Text.Trim();
                 if (postageTextBox.Length < 1)
                 {
@@ -987,7 +1057,7 @@ namespace jeza.Item.Tracker.Gui
                     MessageBox.Show(text, @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                decimal postage = Misc.String2Decimal(postageTextBox);
+                decimal postage = postageTextBox.String2Decimal();
                 string tax = textBoxOrdersTax.Text.Trim();
                 if (tax.Length < 1)
                 {
@@ -1006,6 +1076,7 @@ namespace jeza.Item.Tracker.Gui
                                   Postage = postage.DecimalToString(),
                                   Price = price.DecimalToString(),
                                   Tax = tax,
+                                  BankId = selectedBank.Id,
                               };
                 int rowsInserted = dataBase.OrderInsert(order);
                 if (rowsInserted != 1)
@@ -1068,20 +1139,21 @@ namespace jeza.Item.Tracker.Gui
                     MessageBox.Show(@"Specify price!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                decimal price = Misc.String2Decimal(priceBox);
+                decimal price = priceBox.String2Decimal();
                 string postageTextBox = textBoxOrdersPostage.Text.Trim();
                 if (postageTextBox.Length < 1)
                 {
                     MessageBox.Show(@"Specify postage!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                decimal postage = Misc.String2Decimal(postageTextBox);
+                decimal postage = postageTextBox.String2Decimal();
                 string tax = textBoxOrdersTax.Text.Trim();
                 if (tax.Length < 1)
                 {
                     MessageBox.Show(@"Specify tax!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+                Bank selectedBank = (Bank) comboBoxOrdersBank.SelectedItem ?? new Bank {Id = -1,};
                 Order order = new Order
                               {
                                   Id = orderId,
@@ -1093,6 +1165,7 @@ namespace jeza.Item.Tracker.Gui
                                   Postage = postage.DecimalToString(),
                                   Price = price.DecimalToString(),
                                   Tax = tax,
+                                  BankId = selectedBank.Id,
                               };
                 int rowsUpdated = dataBase.OrderUpdate(order);
                 if (rowsUpdated < 1)
@@ -1148,7 +1221,7 @@ namespace jeza.Item.Tracker.Gui
             textBoxOrdersPrice.Text = String.Empty;
             textBoxOrdersPostage.Text = @"0";
             textBoxOrdersTax.Text = @"0";
-            SetOrderId(-1); 
+            SetOrderId(-1);
             EnableOrdersSaveButton();
         }
 
@@ -1174,14 +1247,14 @@ namespace jeza.Item.Tracker.Gui
                 MessageBox.Show(@"Specify price!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            decimal price = Misc.String2Decimal(priceBox);
+            decimal price = priceBox.String2Decimal();
             string postageTextBox = textBoxOrdersPostage.Text.Trim();
             if (postageTextBox.Length < 1)
             {
                 MessageBox.Show(@"Specify postage!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            decimal postage = Misc.String2Decimal(postageTextBox);
+            decimal postage = postageTextBox.String2Decimal();
             //string tax = GetTax();
             try
             {
@@ -1209,29 +1282,11 @@ namespace jeza.Item.Tracker.Gui
             ShowPicture(selectedItem, pictureBoxOrders);
         }
 
-        private void buttonBankSelect_Click(object sender, EventArgs e)
+        private void DataGridViewItemTypeSelectionChanged
+            (object sender,
+             EventArgs e)
         {
-
-        }
-
-        private void buttonBankSave_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonBankUpdate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonBankDelete_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DataGridViewItemTypeSelectionChanged(object sender, EventArgs e)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
+            DataGridView dataGridView = (DataGridView) sender;
             if (dataGridView.SelectedRows.Count < 1)
             {
                 return;
@@ -1245,7 +1300,7 @@ namespace jeza.Item.Tracker.Gui
                     return;
                 }
                 Logger.Info("Selected ItemType changed...");
-                ItemType itemType = (ItemType)dataGridViewItemType.SelectedRows[0].DataBoundItem;
+                ItemType itemType = (ItemType) dataGridViewItemType.SelectedRows[0].DataBoundItem;
                 if (itemType != null)
                 {
                     Logger.Info("Selected ItemType: {0}", itemType.Format());
@@ -1266,14 +1321,16 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void DataGridViewItemsSelectionChanged(object sender, EventArgs e)
+        private void DataGridViewItemsSelectionChanged
+            (object sender,
+             EventArgs e)
         {
-            DataGridView dataGridView = (DataGridView)sender;
+            DataGridView dataGridView = (DataGridView) sender;
             if (dataGridView.SelectedRows.Count < 1)
             {
                 return;
             }
-            List<Item> list = (List<Item>)dataGridViewItems.DataSource;
+            List<Item> list = (List<Item>) dataGridViewItems.DataSource;
             if (list == null)
             {
                 Logger.Warn("Failed to get Items binded to the control 'dataGridViewItems'.");
@@ -1282,10 +1339,10 @@ namespace jeza.Item.Tracker.Gui
             Logger.Info("Selected item changed...");
             try
             {
-                Item selectedItem = (Item)dataGridViewItems.SelectedRows[0].DataBoundItem;
+                Item selectedItem = (Item) dataGridViewItems.SelectedRows[0].DataBoundItem;
                 if (selectedItem != null)
                 {
-                    Logger.Info("Selected item: '{0}'", selectedItem.FormatItem());
+                    Logger.Info("Selected item: '{0}'", selectedItem.Format());
                     Item item = dataBase.ItemGet(selectedItem.Id);
                     if (item != null)
                     {
@@ -1312,14 +1369,16 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void DataGridViewItemStatusSelectionChanged(object sender, EventArgs e)
+        private void DataGridViewItemStatusSelectionChanged
+            (object sender,
+             EventArgs e)
         {
-            DataGridView dataGridView = (DataGridView)sender;
+            DataGridView dataGridView = (DataGridView) sender;
             if (dataGridView.SelectedRows.Count < 1)
             {
                 return;
             }
-            List<ItemStatus> list = (List<ItemStatus>)dataGridViewItemStatus.DataSource;
+            List<ItemStatus> list = (List<ItemStatus>) dataGridViewItemStatus.DataSource;
             if (list == null)
             {
                 Logger.Warn("Failed to get ItemStatus binded to the control 'dataGridViewItemStatus'.");
@@ -1331,7 +1390,7 @@ namespace jeza.Item.Tracker.Gui
                 ItemStatus itemStatus = (ItemStatus) dataGridViewItemStatus.SelectedRows[0].DataBoundItem;
                 if (itemStatus != null)
                 {
-                    Logger.Info("Selected item status: '{0}'", itemStatus.FormatItemStatus()); 
+                    Logger.Info("Selected item status: '{0}'", itemStatus.FormatItemStatus());
                     textBoxItemStatusName.Text = itemStatus.Name;
                     textBoxItemStatusDescription.Text = itemStatus.Description;
                     DisableItemStatusSaveButton();
@@ -1339,7 +1398,7 @@ namespace jeza.Item.Tracker.Gui
                 }
                 else
                 {
-                    Logger.Debug("Item Status was not selected."); 
+                    Logger.Debug("Item Status was not selected.");
                     MessageBox.Show(@"Select an Item Status!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -1349,14 +1408,16 @@ namespace jeza.Item.Tracker.Gui
             }
         }
 
-        private void DataGridViewPersonInfoSelectionChanged(object sender, EventArgs e)
+        private void DataGridViewPersonInfoSelectionChanged
+            (object sender,
+             EventArgs e)
         {
-            DataGridView dataGridView = (DataGridView)sender;
+            DataGridView dataGridView = (DataGridView) sender;
             if (dataGridView.SelectedRows.Count < 1)
             {
                 return;
             }
-            List<PersonInfo> list = (List<PersonInfo>)dataGridViewPersonInfo.DataSource;
+            List<PersonInfo> list = (List<PersonInfo>) dataGridViewPersonInfo.DataSource;
             if (list == null)
             {
                 Logger.Warn("Failed to get personInfo binded to the control 'dataGridViewPersonInfo'.");
@@ -1365,7 +1426,7 @@ namespace jeza.Item.Tracker.Gui
             try
             {
                 Logger.Info("Selected PersonInfo changed...");
-                PersonInfo personInfo = (PersonInfo)dataGridViewPersonInfo.SelectedRows[0].DataBoundItem;
+                PersonInfo personInfo = (PersonInfo) dataGridViewPersonInfo.SelectedRows[0].DataBoundItem;
                 if (personInfo != null)
                 {
                     Logger.Info("Selected PersonInfo : '{0}'", personInfo.Format());
@@ -1393,17 +1454,18 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
-
         }
 
-        private void DataGridViewOrdersSelectionChanged(object sender, EventArgs e)
+        private void DataGridViewOrdersSelectionChanged
+            (object sender,
+             EventArgs e)
         {
-            DataGridView dataGridView = (DataGridView)sender;
+            DataGridView dataGridView = (DataGridView) sender;
             if (dataGridView.SelectedRows.Count < 1)
             {
                 return;
             }
-            List<Order> list = (List<Order>)dataGridViewOrders.DataSource;
+            List<Order> list = (List<Order>) dataGridViewOrders.DataSource;
             if (list == null)
             {
                 Logger.Warn("Failed to get orders binded to the control 'dataGridViewOrders'.");
@@ -1412,7 +1474,7 @@ namespace jeza.Item.Tracker.Gui
             Logger.Info("Selected Order changed...");
             try
             {
-                Order order = (Order)dataGridViewOrders.SelectedRows[0].DataBoundItem;
+                Order order = (Order) dataGridViewOrders.SelectedRows[0].DataBoundItem;
                 if (order != null)
                 {
                     Logger.Info("Selected Order : '{0}'", order.Format());
@@ -1448,8 +1510,8 @@ namespace jeza.Item.Tracker.Gui
                         }
                     }
                     ItemStatus itemStatus = (from ItemStatus s in comboBoxOrdersItemStatus.Items
-                                                 where s.Id == order.ItemStatusId
-                                                 select s).FirstOrDefault();
+                                             where s.Id == order.ItemStatusId
+                                             select s).FirstOrDefault();
                     if (itemStatus == null)
                     {
                         Logger.Warn("Failed to get ItemStatus!");
@@ -1457,7 +1519,21 @@ namespace jeza.Item.Tracker.Gui
                     }
                     else
                     {
+                        comboBoxOrdersItemStatus.SelectedItem = itemStatus;
                         comboBoxOrdersItemStatus.Text = itemStatus.Name;
+                    }
+                    Bank bank = (from Bank b in comboBoxOrdersBank.Items
+                                             where b.Id == order.BankId
+                                             select b).FirstOrDefault();
+                    if (bank == null)
+                    {
+                        Logger.Warn("Failed to get Bank!");
+                        comboBoxOrdersBank.Text = String.Empty;
+                    }
+                    else
+                    {
+                        comboBoxOrdersBank.SelectedItem = bank;
+                        comboBoxOrdersBank.Text = bank.ToString();
                     }
                     textBoxOrdersItemCount.Text = order.Count.ToString();
                     textBoxOrdersPrice.Text = order.Price;
@@ -1473,6 +1549,169 @@ namespace jeza.Item.Tracker.Gui
                     Logger.Debug("Order was not selected!");
                     MessageBox.Show(@"Select an order!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void DataGridViewBankSelectionChanged
+            (object sender,
+             EventArgs e)
+        {
+            DataGridView dataGridView = (DataGridView) sender;
+            if (dataGridView.SelectedRows.Count < 1)
+            {
+                return;
+            }
+            List<Bank> list = (List<Bank>) dataGridViewBank.DataSource;
+            if (list == null)
+            {
+                Logger.Warn("Failed to get orders binded to the control 'dataGridViewBank'.");
+                return;
+            }
+            Logger.Info("Selected Bank changed...");
+            try
+            {
+                Bank bank = (Bank) dataGridViewBank.SelectedRows[0].DataBoundItem;
+                if (bank != null)
+                {
+                    Logger.Info("Selected Bank : '{0}'", bank.Format());
+                    textBoxBankName.Text = bank.Name;
+                    textBoxBankOwner.Text = bank.Owner;
+                    textBoxBankAccountNumber.Text = bank.AccountNumber;
+                    DisableBankSaveButton();
+                    SetBankId(bank.Id);
+                }
+                else
+                {
+                    Logger.Debug("Bank was not selected!");
+                    MessageBox.Show(@"Select an bank!", @"Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonBankSaveClick
+            (object sender,
+             EventArgs e)
+        {
+            if (buttonBankSave.Text == language.TabBank.ButtonBankNew)
+            {
+                ClearBank();
+                return;
+            }
+            Logger.Info("Save bank...");
+            try
+            {
+                if (textBoxBankName.Text.Length > 1)
+                {
+                    Bank bank = new Bank
+                                {
+                                    Name = textBoxBankName.Text.Trim(),
+                                    Owner = textBoxBankOwner.Text.Trim(),
+                                    AccountNumber = textBoxBankAccountNumber.Text.Trim(),
+                                };
+                    bool insertBank = false;
+                    List<Bank> bankGet = dataBase.BankGet(bank.Owner);
+                    if (bankGet == null)
+                    {
+                        insertBank = true;
+                    }
+                    if (!insertBank)
+                    {
+                        List<Bank> findAll =
+                            bankGet.FindAll(b => b.Name == bank.Name && b.AccountNumber == bank.AccountNumber);
+                        if (findAll.Count < 1)
+                        {
+                            insertBank = true;
+                        }
+                    }
+                    if (insertBank)
+                    {
+                        int rowsInserted = dataBase.BankInsert(bank);
+                        if (rowsInserted < 1)
+                        {
+                            MessageBox.Show(@"Failed to insert Bank!", @"Error", MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                            Logger.Error("Failed to insert Bank!");
+                            return;
+                        }
+                        FillBank();
+                        ClearBank();
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(@"Insert ItemStatus Name!", @"Info", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonBankUpdateClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Update bank...");
+            try
+            {
+                int bankId = Misc.String2Number(labelBankId.Text);
+                Bank bank = new Bank
+                            {
+                                Id = bankId,
+                                Name = textBoxBankName.Text.Trim(),
+                                Owner = textBoxBankOwner.Text.Trim(),
+                                AccountNumber = textBoxBankAccountNumber.Text.Trim(),
+                            };
+                int rowsUpdated = dataBase.BankUpdate(bank);
+                if (rowsUpdated < 1)
+                {
+                    const string message = @"Failed to update bank!";
+                    Logger.Error(message);
+                    MessageBox.Show(message, @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    return;
+                }
+                ClearBank();
+            }
+            catch (Exception exception)
+            {
+                ShowError(exception);
+            }
+        }
+
+        private void ButtonBankDeleteClick
+            (object sender,
+             EventArgs e)
+        {
+            Logger.Info("Delete bank...");
+            try
+            {
+                if (labelBankId.Text == @"-1")
+                {
+                    return;
+                }
+                int bankId = Misc.String2Number(labelBankId.Text);
+                int rowsDeleted = dataBase.BankDelete(bankId);
+                if (rowsDeleted < 1)
+                {
+                    const string message = @"Failed to remove bank!";
+                    Logger.Error(message);
+                    MessageBox.Show(message, @"Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    return;
+                }
+                ClearBank();
             }
             catch (Exception exception)
             {

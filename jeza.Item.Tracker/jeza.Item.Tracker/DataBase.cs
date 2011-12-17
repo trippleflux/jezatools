@@ -15,7 +15,7 @@ namespace jeza.Item.Tracker
         private readonly SQLiteConnection sqLiteConnection = new SQLiteConnection();
 
         private const string SelectTextOrders =
-            @"SELECT Id, ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, DateTime, Tax FROM Orders";
+            @"SELECT Id, ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, DateTime, Tax, BankId FROM Orders";
 
         public DataBase()
         {
@@ -89,6 +89,114 @@ namespace jeza.Item.Tracker
             }
         }
 
+        public int BankDelete(int bankId)
+        {
+            string commandText = String.Format(@"DELETE FROM Bank WHERE Id = {0}", bankId);
+            return ExecuteNonQuery(commandText);
+        }
+
+        public Bank BankGet(int bankId)
+        {
+            string commandText = @"SELECT Id, Name, Owner, AccountNumber FROM Bank WHERE Id = " + bankId;
+            return BankGetAll(commandText) == null ? null : BankGetAll(commandText)[0];
+        }
+
+        public List<Bank> BankGet(string owner)
+        {
+            string commandText = String.Format(@"SELECT Id, Name, Owner, AccountNumber FROM Bank WHERE Owner = '{0}'",
+                                               owner);
+            return BankGetAll(commandText);
+        }
+
+        public List<Bank> BankGetAll()
+        {
+            const string commandText = @"SELECT Id, Name, Owner, AccountNumber FROM Bank";
+            return BankGetAll(commandText);
+        }
+
+        public List<Bank> BankGetAll(string commandText)
+        {
+            Log.Debug("BankGetAll: '{0}'", commandText);
+            DataTable dataTable = GetDataTable(commandText);
+            DataRowCollection dataRowCollection = dataTable.Rows;
+            if (dataRowCollection.Count > 0)
+            {
+                List<Bank> list = new List<Bank>();
+                foreach (DataRow dataRow in dataRowCollection)
+                {
+                    object[] itemArray = dataRow.ItemArray;
+                    Bank bank = new Bank
+                                {
+                                    Id = Misc.String2Number(itemArray[0].ToString()),
+                                    Name = itemArray[1].ToString(),
+                                    Owner = itemArray[2].ToString(),
+                                    AccountNumber = itemArray[3].ToString(),
+                                };
+                    Log.Debug("Have bank: '{0}'", bank.Format());
+                    list.Add(bank);
+                }
+                return list;
+            }
+            return null;
+        }
+
+        public int BankInsert(Bank bank)
+        {
+            try
+            {
+                const string commandText =
+                    @"INSERT INTO Bank (Name, Owner, AccountNumber) VALUES(@name, @owner, @accountNumber)";
+                Log.Debug("BankInsert: [{0}], Bank={1}", commandText, bank.Format());
+                using (sqLiteConnection)
+                {
+                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
+                    {
+                        sqLiteConnection.Open();
+                        sqLiteCommand.Parameters.AddWithValue("@name", bank.Name);
+                        sqLiteCommand.Parameters.AddWithValue("@owner", bank.Owner);
+                        sqLiteCommand.Parameters.AddWithValue("@accountNumber", bank.AccountNumber);
+                        int rowsInserted = sqLiteCommand.ExecuteNonQuery();
+                        sqLiteConnection.Close();
+                        return rowsInserted;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString);
+                return 0;
+            }
+        }
+
+        public int BankUpdate(Bank bank)
+        {
+            try
+            {
+                string commandText =
+                    @"UPDATE Bank SET Name = @name, Owner = @owner, AccountNumber = @accountNumber WHERE Id = " +
+                    bank.Id;
+                Log.Debug("BankUpdate: [{0}], Bank={1}", commandText, bank.Format());
+                using (sqLiteConnection)
+                {
+                    using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
+                    {
+                        sqLiteConnection.Open();
+                        sqLiteCommand.Parameters.AddWithValue("@name", bank.Name);
+                        sqLiteCommand.Parameters.AddWithValue("@owner", bank.Owner);
+                        sqLiteCommand.Parameters.AddWithValue("@accountNumber", bank.AccountNumber);
+                        int rowsUpdated = sqLiteCommand.ExecuteNonQuery();
+                        sqLiteConnection.Close();
+                        return rowsUpdated;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Error(exception.ToString);
+                return 0;
+            }
+        }
+
         public int ItemDelete(int itemId)
         {
             string commandText = String.Format(@"DELETE FROM Item WHERE Id = {0}", itemId);
@@ -139,7 +247,7 @@ namespace jeza.Item.Tracker
                                         Image = Encoding.UTF8.GetBytes(itemArray[4].ToString()),
                                         ItemTypeName = itemArray[5].ToString(),
                                     };
-                        Log.Debug("have item: '{0}'", item.FormatItem());
+                        Log.Debug("have item: '{0}'", item.Format());
                         items.Add(item);
                     }
                     return items;
@@ -179,7 +287,7 @@ namespace jeza.Item.Tracker
                                         Image = bytes
                                     };
                         items.Add(item);
-                        Log.Debug("FoundItem: {0}", item.FormatItem());
+                        Log.Debug("FoundItem: {0}", item.Format());
                     }
                     reader.Close();
                     sqLiteConnection.Close();
@@ -198,7 +306,7 @@ namespace jeza.Item.Tracker
             {
                 const string commandText =
                     @"INSERT INTO Item (Name, Description, ItemType, Image) VALUES(@name, @description, @itemType, @image)";
-                Log.Debug("ItemInsert: [{0}], Item={1}", commandText, item.FormatItem());
+                Log.Debug("ItemInsert: [{0}], Item={1}", commandText, item.Format());
                 using (sqLiteConnection)
                 {
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
@@ -246,7 +354,7 @@ namespace jeza.Item.Tracker
                                         ItemTypeId = itemTypeId,
                                         Image = bytes
                                     };
-                        Log.Debug("FoundItem: {0}", item.FormatItem());
+                        Log.Debug("FoundItem: {0}", item.Format());
                         return item;
                     }
                     reader.Close();
@@ -485,7 +593,7 @@ namespace jeza.Item.Tracker
                 string commandText =
                     @"UPDATE Item SET Name = @name, Description = @description, ItemType = itemType, Image = @image WHERE Id = " +
                     item.Id;
-                Log.Debug("ItemUpdate: [{0}], Item={1}", commandText, item.FormatItem());
+                Log.Debug("ItemUpdate: [{0}], Item={1}", commandText, item.Format());
                 using (sqLiteConnection)
                 {
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(commandText, sqLiteConnection))
@@ -539,7 +647,7 @@ namespace jeza.Item.Tracker
         {
             string insertCommand =
                 String.Format(
-                    @"INSERT INTO Orders ( ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, Tax) VALUES({0}, {1}, '{2}', '{3}', {4}, {5}, {6}, '{7}')",
+                    @"INSERT INTO Orders ( ItemId, Count, Price, Postage, ItemStatus, PersonInfoId, LegalEntity, Tax, BankId) VALUES({0}, {1}, '{2}', '{3}', {4}, {5}, {6}, '{7}', {8})",
                     order.ItemId,
                     order.Count,
                     order.Price,
@@ -547,7 +655,8 @@ namespace jeza.Item.Tracker
                     order.ItemStatusId,
                     order.PersonInfoId,
                     order.LegalEntity ? 1 : 0,
-                    order.Tax ?? "0");
+                    order.Tax ?? "0",
+                    order.BankId);
             return ExecuteNonQuery(insertCommand);
         }
 
@@ -574,7 +683,7 @@ namespace jeza.Item.Tracker
                                       LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
                                       DateTime = itemArray[8].ToString(),
                                       Tax = itemArray[9].ToString(),
-                                      //PersonInfoText = itemArray[10].ToString(),
+                                      BankId = Misc.String2Number(itemArray[10].ToString()),
                                   };
                     Log.Debug("Have order: '{0}'", order.Format());
                     orders.Add(order);
@@ -587,7 +696,7 @@ namespace jeza.Item.Tracker
         public List<Order> OrderGetAll()
         {
             const string commandText =
-                @"SELECT o.Id, o.ItemId, o.Count, o.Price, o.Postage, o.ItemStatus, o.PersonInfoId, o.LegalEntity, o.DateTime, o.Tax, p.Name, p.SurName, p.NickName, i.Name, s.Name FROM Orders o, PersonInfo p, Item i, ItemStatus s WHERE o.PersonInfoId = p.Id AND o.ItemId = i.Id AND o.ItemStatus = s.Id";
+                @"SELECT o.Id, o.ItemId, o.Count, o.Price, o.Postage, o.ItemStatus, o.PersonInfoId, o.LegalEntity, o.DateTime, o.Tax, p.Name, p.SurName, p.NickName, i.Name, s.Name, o.BankId FROM Orders o, PersonInfo p, Item i, ItemStatus s WHERE o.PersonInfoId = p.Id AND o.ItemId = i.Id AND o.ItemStatus = s.Id";
             Log.Debug("OrderGetAll");
             DataTable dataTable = GetDataTable(commandText);
             DataRowCollection dataRowCollection = dataTable.Rows;
@@ -604,7 +713,7 @@ namespace jeza.Item.Tracker
                                       Count = Misc.String2Number(itemArray[2].ToString()),
                                       Price = itemArray[3].ToString(),
                                       Postage = itemArray[4].ToString(),
-                                      ItemStatusId= Misc.String2Number(itemArray[5].ToString()),
+                                      ItemStatusId = Misc.String2Number(itemArray[5].ToString()),
                                       PersonInfoId = Misc.String2Number(itemArray[6].ToString()),
                                       LegalEntity = Misc.String2Number(itemArray[7].ToString()) > 0 ? true : false,
                                       DateTime = itemArray[8].ToString(),
@@ -613,6 +722,7 @@ namespace jeza.Item.Tracker
                                           String.Format("{0}, {1} - [{2}]", itemArray[10], itemArray[11], itemArray[12]),
                                       ItemText = itemArray[13].ToString(),
                                       ItemStatusText = itemArray[14].ToString(),
+                                      BankId = Misc.String2Number(itemArray[15].ToString()),
                                   };
                     Log.Debug("have order: '{0}'", order.Format());
                     orders.Add(order);
@@ -658,7 +768,7 @@ namespace jeza.Item.Tracker
             try
             {
                 string commandText =
-                    @"UPDATE Orders SET ItemId = @itemId, Count = @count, Price = @price, Postage = @postage, ItemStatus = @itemStatusId, PersonInfoId = @personInfoId, LegalEntity = @legalEntity, Tax = @tax WHERE Id = " +
+                    @"UPDATE Orders SET ItemId = @itemId, Count = @count, Price = @price, Postage = @postage, ItemStatus = @itemStatusId, PersonInfoId = @personInfoId, LegalEntity = @legalEntity, Tax = @tax, BankId = @bankId WHERE Id = " +
                     order.Id;
                 Log.Debug("OrderUpdate: [{0}], Order={1}", commandText, order.Format());
                 using (sqLiteConnection)
@@ -674,6 +784,7 @@ namespace jeza.Item.Tracker
                         sqLiteCommand.Parameters.AddWithValue("@personInfoId", order.PersonInfoId);
                         sqLiteCommand.Parameters.AddWithValue("@legalEntity", order.LegalEntity);
                         sqLiteCommand.Parameters.AddWithValue("@tax", order.Tax ?? "0");
+                        sqLiteCommand.Parameters.AddWithValue("@bankId", order.BankId);
                         int rowsUpdated = sqLiteCommand.ExecuteNonQuery();
                         sqLiteConnection.Close();
                         return rowsUpdated;
@@ -827,11 +938,6 @@ namespace jeza.Item.Tracker
                 Log.Error(exception.ToString);
                 return 0;
             }
-        }
-
-        public int StoreInsert()
-        {
-            throw new NotImplementedException();
         }
     }
 }

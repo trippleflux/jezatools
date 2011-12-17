@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Languages>
     <Language Culture="sl-SI">
       <TabOrders Name="Narocila">
@@ -77,6 +77,16 @@
         <ButtonPersonInfoDelete>Izbriši</ButtonPersonInfoDelete>
       </TabPersonInfo>
       <TabReports Name="Statistika" />
+      <TabBank Name="Banka">
+        <LabelBankName>Ime</LabelBankName>
+        <LabelBankOwner>Lastnik</LabelBankOwner>
+        <LabelBankAccountNumber>Račun</LabelBankAccountNumber>
+        <LabelBankList>Seznam</LabelBankList>
+        <ButtonBankSave>Shrani</ButtonBankSave>
+        <ButtonBankNew>Nov</ButtonBankNew>
+        <ButtonBankUpdate>Posodobi</ButtonBankUpdate>
+        <ButtonBankDelete>Zbriši</ButtonBankDelete>
+      </TabBank>
     </Language>
   </Languages>
 </Settings>

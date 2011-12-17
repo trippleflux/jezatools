@@ -54,6 +54,7 @@
     <Compile Include="..\AssemblyFileInfo.cs">
       <Link>AssemblyFileInfo.cs</Link>
     </Compile>
+    <Compile Include="BankTests.cs" />
     <Compile Include="DataBaseTests.cs" />
     <Compile Include="OrdersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

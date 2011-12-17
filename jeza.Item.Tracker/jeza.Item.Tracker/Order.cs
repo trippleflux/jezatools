@@ -20,6 +20,7 @@ namespace jeza.Item.Tracker
         public bool LegalEntity { get; set; }
         public string DateTime { get; set; }
         public string Tax { get; set; }
+        public int BankId { get; set; }
 
         public string PriceTotal
         {
@@ -27,7 +28,7 @@ namespace jeza.Item.Tracker
             {
                 try
                 {
-                    decimal totalSum = (Count*Misc.String2Decimal(Price));
+                    decimal totalSum = (Count*Price.String2Decimal());
                     return totalSum.ToString();
                 }
                 catch (Exception exception)
@@ -42,9 +43,9 @@ namespace jeza.Item.Tracker
         {
             return
                 string.Format(
-                    "[Id: {0}, ItemId: {1}, ItemText: {10}, Count: {2}, Price: {3}, Postage: {4}, ItemStatusText: {5}, PersonInfoId: {6}, PersonInfoText: {11}, LegalEntity: {7}, DateTime: {8}, Tax: {9}]",
+                    "[Id: {0}, ItemId: {1}, ItemText: {10}, Count: {2}, Price: {3}, Postage: {4}, ItemStatusText: {5}, PersonInfoId: {6}, PersonInfoText: {11}, LegalEntity: {7}, DateTime: {8}, Tax: {9}, BankId: {12}]",
                     Id, ItemId, Count, Price, Postage, ItemStatusText, PersonInfoId, LegalEntity, DateTime, Tax,
-                    ItemText, PersonInfoText);
+                    ItemText, PersonInfoText, BankId);
         }
 
         public override string ToString()
