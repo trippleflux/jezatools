@@ -11,9 +11,9 @@ namespace jeza.Item.Tracker.Tests
         public void SerializeSettings()
         {
             Settings.Settings settings = new Settings.Settings
-                                    {
-                                        Languages = new List<Language> {Misc.GetLanguageSlovenian()},
-                                    };
+                                         {
+                                             Languages = new List<Language> {Misc.GetLanguageSlovenian()},
+                                         };
             XmlSerialization xmlSerialization = new XmlSerialization();
             xmlSerialization.Serialize(settings, FileName);
         }
@@ -29,14 +29,26 @@ namespace jeza.Item.Tracker.Tests
         [Test]
         public void String2Decimal()
         {
-            Assert.AreEqual(0M, Misc.String2Decimal("0"));
-            Assert.AreEqual(0M, Misc.String2Decimal("0.0"));
-            Assert.AreEqual(0.1M, Misc.String2Decimal("0,1"));
-            Assert.AreEqual(0.1M, Misc.String2Decimal("0.1"));
-            Assert.AreEqual(0.123M, Misc.String2Decimal("0,123"));
-            Assert.AreEqual(0.123M, Misc.String2Decimal("0.123"));
-            Assert.AreEqual(10.123M, Misc.String2Decimal("10.123"));
-            Assert.AreEqual(10.123M, Misc.String2Decimal("10,123"));
+            Assert.AreEqual(0M, "0".String2Decimal());
+            Assert.AreEqual(0M, "0.0".String2Decimal());
+            Assert.AreEqual(0.1M, "0,1".String2Decimal());
+            Assert.AreEqual(0.1M, "0.1".String2Decimal());
+            Assert.AreEqual(0.123M, "0,123".String2Decimal());
+            Assert.AreEqual(0.123M, "0.123".String2Decimal());
+            Assert.AreEqual(10.123M, "10.123".String2Decimal());
+            Assert.AreEqual(10.123M, "10,123".String2Decimal());
+        }
+
+        [Test]
+        public void DecimalToString()
+        {
+            Assert.AreEqual("0.000", 0M.DecimalToString());
+            Assert.AreEqual("0.123", 0.123M.DecimalToString());
+            Assert.AreEqual("1.000", 1M.DecimalToString());
+            Assert.AreEqual("1.000", 1.00M.DecimalToString());
+            Assert.AreEqual("1.234", 1.234M.DecimalToString());
+            Assert.AreEqual("1000.000", 1000.000M.DecimalToString());
+            Assert.AreEqual("1.000", 1.0M.DecimalToString());
         }
 
         private const string FileName = "..\\..\\..\\settings.xml";

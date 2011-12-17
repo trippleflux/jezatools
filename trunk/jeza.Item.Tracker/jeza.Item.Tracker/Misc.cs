@@ -12,10 +12,13 @@ namespace jeza.Item.Tracker
     public static class Misc
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private const string NumberDecimalSeparator = ".";
 
         public static string DecimalToString(this decimal number)
         {
-            return String.Format("{0:0.000}", number);
+            NumberFormatInfo numberFormatInfo = GetNumberFormatInfo();
+            string decimalToString = String.Format(numberFormatInfo, "{0:0.000}", number);
+            return decimalToString;
         }
 
         public static Language GetLanguageSlovenian()
@@ -182,26 +185,36 @@ namespace jeza.Item.Tracker
         /// <returns><c>0</c> if input string was not a number.</returns>
         public static decimal String2Decimal(this string input)
         {
-            CultureInfo installedUiCulture = CultureInfo.InstalledUICulture;
-            NumberFormatInfo numberFormatInfo = (NumberFormatInfo) installedUiCulture.NumberFormat.Clone();
-            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
-            const string numberDecimalSeparator = ".";
-            if (decimalSeparator != numberDecimalSeparator)
+            Logger.Debug("String2Decimal: '{0}'", input);
+            try
             {
-                numberFormatInfo.NumberDecimalSeparator = numberDecimalSeparator;
+                NumberFormatInfo numberFormatInfo = GetNumberFormatInfo();
+                Logger.Debug("String2Decimal: '{0}', NumberDecimalSeparator='{1}'", input,
+                             numberFormatInfo.NumberDecimalSeparator);
+                int length = input.Length;
+                if (length < 1)
+                {
+                    return 0M;
+                }
+                input = input.Replace(",", NumberDecimalSeparator);
+                Logger.Debug("String2Decimal: input='{0}'", input);
+                decimal parsedValue;
+                bool tryParse = decimal.TryParse(input, NumberStyles.Any, numberFormatInfo, out parsedValue);
+                Logger.Debug("parsedValue='{0}'", parsedValue);
+                return tryParse ? parsedValue : 0;
             }
-            Logger.Debug("String2Decimal: '{0}', NumberDecimalSeparator='{1}'", input, decimalSeparator);
-            int length = input.Length;
-            if (length < 1)
+            catch (Exception exception)
             {
-                return 0;
+                Logger.Error(exception);
+                return 0M;
             }
-            input = input.Replace(",", numberDecimalSeparator);
-            Logger.Debug("input='{0}'", input);
-            decimal parsedValue;
-            bool tryParse = decimal.TryParse(input, NumberStyles.Any, numberFormatInfo, out parsedValue);
-            Logger.Debug("parsedValue='{0}'", parsedValue);
-            return tryParse ? parsedValue : 0;
+        }
+
+        private static NumberFormatInfo GetNumberFormatInfo()
+        {
+            NumberFormatInfo numberFormatInfo = (NumberFormatInfo) CultureInfo.CurrentCulture.NumberFormat.Clone();
+            numberFormatInfo.NumberDecimalSeparator = NumberDecimalSeparator;
+            return numberFormatInfo;
         }
 
         /// <summary>

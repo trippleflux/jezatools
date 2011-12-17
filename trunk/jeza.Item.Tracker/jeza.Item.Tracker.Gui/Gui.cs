@@ -30,88 +30,95 @@ namespace jeza.Item.Tracker.Gui
 
         private void FillLanguage()
         {
-            XmlSerialization xmlSerialization = new XmlSerialization();
-            Settings.Settings settings = xmlSerialization.Deserialize(new Settings.Settings(), "settings.xml");
-            string setting = ConfigurationManager.AppSettings["language"];
-            language = settings.Languages.Find(l => l.Culture.Equals(setting)) ?? Misc.GetLanguageSlovenian();
-            //Orders
-            TabOrders tabOrders = language.TabOrders;
-            tabPageOrders.Text = tabOrders.Name;
-            labelOrdersPersonInfo.Text = tabOrders.LabelOrdersPersonInfo;
-            labelOrdersItemType.Text = tabOrders.LabelOrdersItemType;
-            labelOrdersItem.Text = tabOrders.LabelOrdersItem;
-            labelOrdersItemStatus.Text = tabOrders.LabelOrdersItemStatus;
-            labelOrdersItemCount.Text = tabOrders.LabelOrdersItemCount;
-            labelOrdersPrice.Text = tabOrders.LabelOrdersPrice;
-            labelOrdersPostage.Text = tabOrders.LabelOrdersPostage;
-            labelOrdersTax.Text = tabOrders.LabelOrdersTax;
-            labelOrdersLegalEntity.Text = tabOrders.LabelOrdersLegalEntity;
-            labelOrdersPicture.Text = tabOrders.LabelOrdersPicture;
-            labelOrdersList.Text = tabOrders.LabelOrdersList;
-            buttonOrdersSum.Text = tabOrders.ButtonOrdersSum;
-            buttonOrdersSave.Text = tabOrders.ButtonOrdersSave;
-            buttonOrdersUpdate.Text = tabOrders.ButtonOrdersUpdate;
-            buttonOrdersDelete.Text = tabOrders.ButtonOrdersDelete;
-            //Items
-            TabItems tabItems = language.TabItems;
-            tabPageItems.Text = tabItems.Name;
-            labelItemsName.Text = tabItems.LabelItemsName;
-            labelItemsDescription.Text = tabItems.LabelItemsDescription;
-            labelItemsType.Text = tabItems.LabelItemsType;
-            labelItemsImage.Text = tabItems.LabelItemsImage;
-            labelItemsList.Text = tabItems.LabelItemsList;
-            buttonItemsPictureBoxSelect.Text = tabItems.ButtonItemsPictureBoxSelect;
-            buttonItemsSave.Text = tabItems.ButtonItemsSave;
-            buttonItemsUpdate.Text = tabItems.ButtonItemsUpdate;
-            buttonItemsDelete.Text = tabItems.ButtonItemsDelete;
-            //Item Type
-            TabItemTypes tabItemTypes = language.TabItemTypes;
-            tabPageItemType.Text = tabItemTypes.Name;
-            labelItemTypeName.Text = tabItemTypes.LabelItemTypeName;
-            labelItemTypeDescription.Text = tabItemTypes.LabelItemTypeDescription;
-            labelItemTypeList.Text = tabItemTypes.LabelItemTypeList;
-            buttonItemTypeSave.Text = tabItemTypes.ButtonItemTypeListSave;
-            buttonItemTypeUpdate.Text = tabItemTypes.ButtonItemTypeListUpdate;
-            buttonItemTypeDelete.Text = tabItemTypes.ButtonItemTypeListDelete;
-            //Item Status
-            TabItemStatus tabItemStatus = language.TabItemStatus;
-            tabPageItemStatus.Text = tabItemStatus.Name;
-            labelItemStatusName.Text = tabItemStatus.LabelItemsStatusName;
-            labelItemStatusDescription.Text = tabItemStatus.LabelItemStatusDescription;
-            labelItemStatusList.Text = tabItemStatus.LabelItemStatusList;
-            buttonItemStatusSave.Text = tabItemStatus.ButtonItemStatusSave;
-            buttonItemStatusUpdate.Text = tabItemStatus.ButtonItemStatusUpdate;
-            buttonItemStatusDelete.Text = tabItemStatus.ButtonItemStatusDelete;
-            //Person Info
-            TabPersonInfo tabPersonInfo = language.TabPersonInfo;
-            tabPagePersonInfo.Text = tabPersonInfo.Name;
-            labelPersonInfoName.Text = tabPersonInfo.LabelPersonInfoName;
-            labelPersonInfoSurName.Text = tabPersonInfo.LabelPersonInfoSurName;
-            labelPersonInfoNickName.Text = tabPersonInfo.LabelPersonInfoNickName;
-            labelPersonInfoDescription.Text = tabPersonInfo.LabelPersonInfoDescription;
-            labelPersonInfoAddress.Text = tabPersonInfo.LabelPersonInfoAddress;
-            labelPersonInfoCity.Text = tabPersonInfo.LabelPersonInfoCity;
-            labelPersonInfoPostNumber.Text = tabPersonInfo.LabelPersonInfoPostNumber;
-            labelPersonInfoEmail.Text = tabPersonInfo.LabelPersonInfoEmail;
-            labelPersonInfoTelephone.Text = tabPersonInfo.LabelPersonInfoTelephone;
-            labelPersonInfoTelephoneMobile.Text = tabPersonInfo.LabelPersonInfoTelephoneMobile;
-            labelPersonInfoFax.Text = tabPersonInfo.LabelPersonInfoFax;
-            labelPersonInfoList.Text = tabPersonInfo.LabelPersonInfoList;
-            buttonPersonInfoSave.Text = tabPersonInfo.ButtonPersonInfoSave;
-            buttonPersonInfoUpdate.Text = tabPersonInfo.ButtonPersonInfoUpdate;
-            buttonPersonInfoDelete.Text = tabPersonInfo.ButtonPersonInfoDelete;
-            //Reports
-            tabPageReports.Text = language.TabReports.Name;
-            //Bank
-            TabBank tabBank = language.TabBank;
-            tabPageBank.Text = tabBank.Name;
-            labelBankName.Text = tabBank.LabelBankName;
-            labelBankOwner.Text = tabBank.LabelBankOwner;
-            labelBankAccountNumber.Text = tabBank.LabelBankAccountNumber;
-            labelBankList.Text = tabBank.LabelBankList;
-            buttonBankSave.Text = tabBank.ButtonBankSave;
-            buttonBankDelete.Text = tabBank.ButtonBankDelete;
-            buttonBankUpdate.Text = tabBank.ButtonBankUpdate;
+            try
+            {
+                XmlSerialization xmlSerialization = new XmlSerialization();
+                Settings.Settings settings = xmlSerialization.Deserialize(new Settings.Settings(), "settings.xml");
+                string setting = ConfigurationManager.AppSettings["language"];
+                language = settings.Languages.Find(l => l.Culture.Equals(setting)) ?? Misc.GetLanguageSlovenian();
+                //Orders
+                TabOrders tabOrders = language.TabOrders;
+                tabPageOrders.Text = tabOrders.Name;
+                labelOrdersPersonInfo.Text = tabOrders.LabelOrdersPersonInfo;
+                labelOrdersItemType.Text = tabOrders.LabelOrdersItemType;
+                labelOrdersItem.Text = tabOrders.LabelOrdersItem;
+                labelOrdersItemStatus.Text = tabOrders.LabelOrdersItemStatus;
+                labelOrdersItemCount.Text = tabOrders.LabelOrdersItemCount;
+                labelOrdersPrice.Text = tabOrders.LabelOrdersPrice;
+                labelOrdersPostage.Text = tabOrders.LabelOrdersPostage;
+                labelOrdersTax.Text = tabOrders.LabelOrdersTax;
+                labelOrdersLegalEntity.Text = tabOrders.LabelOrdersLegalEntity;
+                labelOrdersPicture.Text = tabOrders.LabelOrdersPicture;
+                labelOrdersList.Text = tabOrders.LabelOrdersList;
+                buttonOrdersSum.Text = tabOrders.ButtonOrdersSum;
+                buttonOrdersSave.Text = tabOrders.ButtonOrdersSave;
+                buttonOrdersUpdate.Text = tabOrders.ButtonOrdersUpdate;
+                buttonOrdersDelete.Text = tabOrders.ButtonOrdersDelete;
+                //Items
+                TabItems tabItems = language.TabItems;
+                tabPageItems.Text = tabItems.Name;
+                labelItemsName.Text = tabItems.LabelItemsName;
+                labelItemsDescription.Text = tabItems.LabelItemsDescription;
+                labelItemsType.Text = tabItems.LabelItemsType;
+                labelItemsImage.Text = tabItems.LabelItemsImage;
+                labelItemsList.Text = tabItems.LabelItemsList;
+                buttonItemsPictureBoxSelect.Text = tabItems.ButtonItemsPictureBoxSelect;
+                buttonItemsSave.Text = tabItems.ButtonItemsSave;
+                buttonItemsUpdate.Text = tabItems.ButtonItemsUpdate;
+                buttonItemsDelete.Text = tabItems.ButtonItemsDelete;
+                //Item Type
+                TabItemTypes tabItemTypes = language.TabItemTypes;
+                tabPageItemType.Text = tabItemTypes.Name;
+                labelItemTypeName.Text = tabItemTypes.LabelItemTypeName;
+                labelItemTypeDescription.Text = tabItemTypes.LabelItemTypeDescription;
+                labelItemTypeList.Text = tabItemTypes.LabelItemTypeList;
+                buttonItemTypeSave.Text = tabItemTypes.ButtonItemTypeListSave;
+                buttonItemTypeUpdate.Text = tabItemTypes.ButtonItemTypeListUpdate;
+                buttonItemTypeDelete.Text = tabItemTypes.ButtonItemTypeListDelete;
+                //Item Status
+                TabItemStatus tabItemStatus = language.TabItemStatus;
+                tabPageItemStatus.Text = tabItemStatus.Name;
+                labelItemStatusName.Text = tabItemStatus.LabelItemsStatusName;
+                labelItemStatusDescription.Text = tabItemStatus.LabelItemStatusDescription;
+                labelItemStatusList.Text = tabItemStatus.LabelItemStatusList;
+                buttonItemStatusSave.Text = tabItemStatus.ButtonItemStatusSave;
+                buttonItemStatusUpdate.Text = tabItemStatus.ButtonItemStatusUpdate;
+                buttonItemStatusDelete.Text = tabItemStatus.ButtonItemStatusDelete;
+                //Person Info
+                TabPersonInfo tabPersonInfo = language.TabPersonInfo;
+                tabPagePersonInfo.Text = tabPersonInfo.Name;
+                labelPersonInfoName.Text = tabPersonInfo.LabelPersonInfoName;
+                labelPersonInfoSurName.Text = tabPersonInfo.LabelPersonInfoSurName;
+                labelPersonInfoNickName.Text = tabPersonInfo.LabelPersonInfoNickName;
+                labelPersonInfoDescription.Text = tabPersonInfo.LabelPersonInfoDescription;
+                labelPersonInfoAddress.Text = tabPersonInfo.LabelPersonInfoAddress;
+                labelPersonInfoCity.Text = tabPersonInfo.LabelPersonInfoCity;
+                labelPersonInfoPostNumber.Text = tabPersonInfo.LabelPersonInfoPostNumber;
+                labelPersonInfoEmail.Text = tabPersonInfo.LabelPersonInfoEmail;
+                labelPersonInfoTelephone.Text = tabPersonInfo.LabelPersonInfoTelephone;
+                labelPersonInfoTelephoneMobile.Text = tabPersonInfo.LabelPersonInfoTelephoneMobile;
+                labelPersonInfoFax.Text = tabPersonInfo.LabelPersonInfoFax;
+                labelPersonInfoList.Text = tabPersonInfo.LabelPersonInfoList;
+                buttonPersonInfoSave.Text = tabPersonInfo.ButtonPersonInfoSave;
+                buttonPersonInfoUpdate.Text = tabPersonInfo.ButtonPersonInfoUpdate;
+                buttonPersonInfoDelete.Text = tabPersonInfo.ButtonPersonInfoDelete;
+                //Reports
+                tabPageReports.Text = language.TabReports.Name;
+                //Bank
+                TabBank tabBank = language.TabBank;
+                tabPageBank.Text = tabBank.Name;
+                labelBankName.Text = tabBank.LabelBankName;
+                labelBankOwner.Text = tabBank.LabelBankOwner;
+                labelBankAccountNumber.Text = tabBank.LabelBankAccountNumber;
+                labelBankList.Text = tabBank.LabelBankList;
+                buttonBankSave.Text = tabBank.ButtonBankSave;
+                buttonBankDelete.Text = tabBank.ButtonBankDelete;
+                buttonBankUpdate.Text = tabBank.ButtonBankUpdate;
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception);
+            }
         }
 
         private void FillBank()

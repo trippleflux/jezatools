@@ -41,13 +41,6 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxOrders = new System.Windows.Forms.GroupBox();
             this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
             this.columnOrdersDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersPersonInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersItemStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersPriceTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersLegalEntity = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxOrdersBank = new System.Windows.Forms.ComboBox();
             this.labelOrdersBank = new System.Windows.Forms.Label();
             this.buttonOrdersSum = new System.Windows.Forms.Button();
@@ -80,10 +73,7 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItems = new System.Windows.Forms.TabPage();
             this.groupBoxItems = new System.Windows.Forms.GroupBox();
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
-            this.columnItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnItemDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnItemItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemsId = new System.Windows.Forms.Label();
             this.buttonItemsUpdate = new System.Windows.Forms.Button();
             this.buttonItemsDelete = new System.Windows.Forms.Button();
@@ -101,9 +91,6 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemType = new System.Windows.Forms.TabPage();
             this.groupBoxItemType = new System.Windows.Forms.GroupBox();
             this.dataGridViewItemType = new System.Windows.Forms.DataGridView();
-            this.columnItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnItemTypeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemTypeId = new System.Windows.Forms.Label();
             this.labelItemTypeList = new System.Windows.Forms.Label();
             this.textBoxItemTypeName = new System.Windows.Forms.TextBox();
@@ -116,9 +103,6 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemStatus = new System.Windows.Forms.TabPage();
             this.groupBoxItemStatus = new System.Windows.Forms.GroupBox();
             this.dataGridViewItemStatus = new System.Windows.Forms.DataGridView();
-            this.columnItemStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnItemStatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelItemStatusId = new System.Windows.Forms.Label();
             this.labelItemStatusList = new System.Windows.Forms.Label();
             this.labelItemStatusDescription = new System.Windows.Forms.Label();
@@ -131,13 +115,11 @@ namespace jeza.Item.Tracker.Gui
             this.tabPagePersonInfo = new System.Windows.Forms.TabPage();
             this.groupBoxPersonInfo = new System.Windows.Forms.GroupBox();
             this.dataGridViewPersonInfo = new System.Windows.Forms.DataGridView();
-            this.columnPersonInfoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoSurName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoNickName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoCity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.personInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelPersonInfoId = new System.Windows.Forms.Label();
             this.buttonPersonInfoDelete = new System.Windows.Forms.Button();
             this.buttonPersonInfoUpdate = new System.Windows.Forms.Button();
@@ -172,10 +154,6 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxBankOwner = new System.Windows.Forms.TextBox();
             this.labelBankOwner = new System.Windows.Forms.Label();
             this.dataGridViewBank = new System.Windows.Forms.DataGridView();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bankBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelBankId = new System.Windows.Forms.Label();
             this.labelBankList = new System.Windows.Forms.Label();
             this.labelBankAccountNumber = new System.Windows.Forms.Label();
@@ -185,33 +163,55 @@ namespace jeza.Item.Tracker.Gui
             this.buttonBankSave = new System.Windows.Forms.Button();
             this.labelBankName = new System.Windows.Forms.Label();
             this.textBoxBankName = new System.Windows.Forms.TextBox();
+            this.columnOrdersPersonInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersItemStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersPriceTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersLegalEntity = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemTypeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnItemStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemStatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.columnPersonInfoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.groupBoxOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).BeginInit();
             this.tabPageItems.SuspendLayout();
             this.groupBoxItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).BeginInit();
             this.tabPageItemType.SuspendLayout();
             this.groupBoxItemType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).BeginInit();
             this.tabPageItemStatus.SuspendLayout();
             this.groupBoxItemStatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).BeginInit();
             this.tabPagePersonInfo.SuspendLayout();
             this.groupBoxPersonInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).BeginInit();
             this.tabPageReports.SuspendLayout();
             this.tabPageBank.SuspendLayout();
             this.groupBoxBank.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -298,54 +298,6 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.columnOrdersDateTime, "columnOrdersDateTime");
             this.columnOrdersDateTime.Name = "columnOrdersDateTime";
             this.columnOrdersDateTime.ReadOnly = true;
-            // 
-            // columnOrdersPersonInfo
-            // 
-            this.columnOrdersPersonInfo.DataPropertyName = "PersonInfoText";
-            resources.ApplyResources(this.columnOrdersPersonInfo, "columnOrdersPersonInfo");
-            this.columnOrdersPersonInfo.Name = "columnOrdersPersonInfo";
-            this.columnOrdersPersonInfo.ReadOnly = true;
-            // 
-            // columnOrdersItemStatus
-            // 
-            this.columnOrdersItemStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnOrdersItemStatus.DataPropertyName = "ItemStatusText";
-            resources.ApplyResources(this.columnOrdersItemStatus, "columnOrdersItemStatus");
-            this.columnOrdersItemStatus.Name = "columnOrdersItemStatus";
-            this.columnOrdersItemStatus.ReadOnly = true;
-            // 
-            // columnOrdersItem
-            // 
-            this.columnOrdersItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnOrdersItem.DataPropertyName = "ItemText";
-            resources.ApplyResources(this.columnOrdersItem, "columnOrdersItem");
-            this.columnOrdersItem.Name = "columnOrdersItem";
-            this.columnOrdersItem.ReadOnly = true;
-            // 
-            // columnOrdersCount
-            // 
-            this.columnOrdersCount.DataPropertyName = "Count";
-            resources.ApplyResources(this.columnOrdersCount, "columnOrdersCount");
-            this.columnOrdersCount.Name = "columnOrdersCount";
-            this.columnOrdersCount.ReadOnly = true;
-            // 
-            // columnOrdersPriceTotal
-            // 
-            this.columnOrdersPriceTotal.DataPropertyName = "PriceTotal";
-            resources.ApplyResources(this.columnOrdersPriceTotal, "columnOrdersPriceTotal");
-            this.columnOrdersPriceTotal.Name = "columnOrdersPriceTotal";
-            this.columnOrdersPriceTotal.ReadOnly = true;
-            // 
-            // columnOrdersLegalEntity
-            // 
-            this.columnOrdersLegalEntity.DataPropertyName = "LegalEntity";
-            resources.ApplyResources(this.columnOrdersLegalEntity, "columnOrdersLegalEntity");
-            this.columnOrdersLegalEntity.Name = "columnOrdersLegalEntity";
-            this.columnOrdersLegalEntity.ReadOnly = true;
-            // 
-            // orderBindingSource
-            // 
-            this.orderBindingSource.DataSource = typeof(jeza.Item.Tracker.Order);
             // 
             // comboBoxOrdersBank
             // 
@@ -554,22 +506,6 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItems.ReadOnly = true;
             this.dataGridViewItems.SelectionChanged += new System.EventHandler(this.DataGridViewItemsSelectionChanged);
             // 
-            // columnItemName
-            // 
-            this.columnItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnItemName, "columnItemName");
-            this.columnItemName.Name = "columnItemName";
-            this.columnItemName.ReadOnly = true;
-            // 
-            // columnItemDescription
-            // 
-            this.columnItemDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemDescription.DataPropertyName = "Description";
-            resources.ApplyResources(this.columnItemDescription, "columnItemDescription");
-            this.columnItemDescription.Name = "columnItemDescription";
-            this.columnItemDescription.ReadOnly = true;
-            // 
             // columnItemItemTypeName
             // 
             this.columnItemItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -577,10 +513,6 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.columnItemItemTypeName, "columnItemItemTypeName");
             this.columnItemItemTypeName.Name = "columnItemItemTypeName";
             this.columnItemItemTypeName.ReadOnly = true;
-            // 
-            // itemBindingSource
-            // 
-            this.itemBindingSource.DataSource = typeof(jeza.Item.Tracker.Item);
             // 
             // labelItemsId
             // 
@@ -701,26 +633,6 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItemType.ReadOnly = true;
             this.dataGridViewItemType.SelectionChanged += new System.EventHandler(this.DataGridViewItemTypeSelectionChanged);
             // 
-            // columnItemTypeName
-            // 
-            this.columnItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemTypeName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnItemTypeName, "columnItemTypeName");
-            this.columnItemTypeName.Name = "columnItemTypeName";
-            this.columnItemTypeName.ReadOnly = true;
-            // 
-            // columnItemTypeDescription
-            // 
-            this.columnItemTypeDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemTypeDescription.DataPropertyName = "Description";
-            resources.ApplyResources(this.columnItemTypeDescription, "columnItemTypeDescription");
-            this.columnItemTypeDescription.Name = "columnItemTypeDescription";
-            this.columnItemTypeDescription.ReadOnly = true;
-            // 
-            // itemTypeBindingSource
-            // 
-            this.itemTypeBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemType);
-            // 
             // labelItemTypeId
             // 
             resources.ApplyResources(this.labelItemTypeId, "labelItemTypeId");
@@ -810,26 +722,6 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItemStatus.Name = "dataGridViewItemStatus";
             this.dataGridViewItemStatus.ReadOnly = true;
             this.dataGridViewItemStatus.SelectionChanged += new System.EventHandler(this.DataGridViewItemStatusSelectionChanged);
-            // 
-            // columnItemStatusName
-            // 
-            this.columnItemStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemStatusName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnItemStatusName, "columnItemStatusName");
-            this.columnItemStatusName.Name = "columnItemStatusName";
-            this.columnItemStatusName.ReadOnly = true;
-            // 
-            // columnItemStatusDescription
-            // 
-            this.columnItemStatusDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemStatusDescription.DataPropertyName = "Description";
-            resources.ApplyResources(this.columnItemStatusDescription, "columnItemStatusDescription");
-            this.columnItemStatusDescription.Name = "columnItemStatusDescription";
-            this.columnItemStatusDescription.ReadOnly = true;
-            // 
-            // itemStatusBindingSource
-            // 
-            this.itemStatusBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemStatus);
             // 
             // labelItemStatusId
             // 
@@ -943,14 +835,6 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewPersonInfo.ReadOnly = true;
             this.dataGridViewPersonInfo.SelectionChanged += new System.EventHandler(this.DataGridViewPersonInfoSelectionChanged);
             // 
-            // columnPersonInfoName
-            // 
-            this.columnPersonInfoName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnPersonInfoName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnPersonInfoName, "columnPersonInfoName");
-            this.columnPersonInfoName.Name = "columnPersonInfoName";
-            this.columnPersonInfoName.ReadOnly = true;
-            // 
             // columnPersonInfoSurName
             // 
             this.columnPersonInfoSurName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -989,10 +873,6 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.columnPersonInfoEmail, "columnPersonInfoEmail");
             this.columnPersonInfoEmail.Name = "columnPersonInfoEmail";
             this.columnPersonInfoEmail.ReadOnly = true;
-            // 
-            // personInfoBindingSource
-            // 
-            this.personInfoBindingSource.DataSource = typeof(jeza.Item.Tracker.PersonInfo);
             // 
             // labelPersonInfoId
             // 
@@ -1200,34 +1080,6 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewBank.ReadOnly = true;
             this.dataGridViewBank.SelectionChanged += new System.EventHandler(this.DataGridViewBankSelectionChanged);
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            resources.ApplyResources(this.nameDataGridViewTextBoxColumn, "nameDataGridViewTextBoxColumn");
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ownerDataGridViewTextBoxColumn
-            // 
-            this.ownerDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ownerDataGridViewTextBoxColumn.DataPropertyName = "Owner";
-            resources.ApplyResources(this.ownerDataGridViewTextBoxColumn, "ownerDataGridViewTextBoxColumn");
-            this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
-            this.ownerDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // accountNumberDataGridViewTextBoxColumn
-            // 
-            this.accountNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.accountNumberDataGridViewTextBoxColumn.DataPropertyName = "AccountNumber";
-            resources.ApplyResources(this.accountNumberDataGridViewTextBoxColumn, "accountNumberDataGridViewTextBoxColumn");
-            this.accountNumberDataGridViewTextBoxColumn.Name = "accountNumberDataGridViewTextBoxColumn";
-            this.accountNumberDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // bankBindingSource
-            // 
-            this.bankBindingSource.DataSource = typeof(jeza.Item.Tracker.Bank);
-            // 
             // labelBankId
             // 
             resources.ApplyResources(this.labelBankId, "labelBankId");
@@ -1279,6 +1131,154 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.textBoxBankName, "textBoxBankName");
             this.textBoxBankName.Name = "textBoxBankName";
             // 
+            // columnOrdersPersonInfo
+            // 
+            this.columnOrdersPersonInfo.DataPropertyName = "PersonInfoText";
+            resources.ApplyResources(this.columnOrdersPersonInfo, "columnOrdersPersonInfo");
+            this.columnOrdersPersonInfo.Name = "columnOrdersPersonInfo";
+            this.columnOrdersPersonInfo.ReadOnly = true;
+            // 
+            // columnOrdersItemStatus
+            // 
+            this.columnOrdersItemStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersItemStatus.DataPropertyName = "ItemStatusText";
+            resources.ApplyResources(this.columnOrdersItemStatus, "columnOrdersItemStatus");
+            this.columnOrdersItemStatus.Name = "columnOrdersItemStatus";
+            this.columnOrdersItemStatus.ReadOnly = true;
+            // 
+            // columnOrdersItem
+            // 
+            this.columnOrdersItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersItem.DataPropertyName = "ItemText";
+            resources.ApplyResources(this.columnOrdersItem, "columnOrdersItem");
+            this.columnOrdersItem.Name = "columnOrdersItem";
+            this.columnOrdersItem.ReadOnly = true;
+            // 
+            // columnOrdersCount
+            // 
+            this.columnOrdersCount.DataPropertyName = "Count";
+            resources.ApplyResources(this.columnOrdersCount, "columnOrdersCount");
+            this.columnOrdersCount.Name = "columnOrdersCount";
+            this.columnOrdersCount.ReadOnly = true;
+            // 
+            // columnOrdersPriceTotal
+            // 
+            this.columnOrdersPriceTotal.DataPropertyName = "PriceTotal";
+            resources.ApplyResources(this.columnOrdersPriceTotal, "columnOrdersPriceTotal");
+            this.columnOrdersPriceTotal.Name = "columnOrdersPriceTotal";
+            this.columnOrdersPriceTotal.ReadOnly = true;
+            // 
+            // columnOrdersLegalEntity
+            // 
+            this.columnOrdersLegalEntity.DataPropertyName = "LegalEntity";
+            resources.ApplyResources(this.columnOrdersLegalEntity, "columnOrdersLegalEntity");
+            this.columnOrdersLegalEntity.Name = "columnOrdersLegalEntity";
+            this.columnOrdersLegalEntity.ReadOnly = true;
+            // 
+            // orderBindingSource
+            // 
+            this.orderBindingSource.DataSource = typeof(jeza.Item.Tracker.Order);
+            // 
+            // columnItemName
+            // 
+            this.columnItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemName, "columnItemName");
+            this.columnItemName.Name = "columnItemName";
+            this.columnItemName.ReadOnly = true;
+            // 
+            // columnItemDescription
+            // 
+            this.columnItemDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemDescription, "columnItemDescription");
+            this.columnItemDescription.Name = "columnItemDescription";
+            this.columnItemDescription.ReadOnly = true;
+            // 
+            // itemBindingSource
+            // 
+            this.itemBindingSource.DataSource = typeof(jeza.Item.Tracker.Item);
+            // 
+            // columnItemTypeName
+            // 
+            this.columnItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemTypeName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemTypeName, "columnItemTypeName");
+            this.columnItemTypeName.Name = "columnItemTypeName";
+            this.columnItemTypeName.ReadOnly = true;
+            // 
+            // columnItemTypeDescription
+            // 
+            this.columnItemTypeDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemTypeDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemTypeDescription, "columnItemTypeDescription");
+            this.columnItemTypeDescription.Name = "columnItemTypeDescription";
+            this.columnItemTypeDescription.ReadOnly = true;
+            // 
+            // itemTypeBindingSource
+            // 
+            this.itemTypeBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemType);
+            // 
+            // columnItemStatusName
+            // 
+            this.columnItemStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemStatusName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemStatusName, "columnItemStatusName");
+            this.columnItemStatusName.Name = "columnItemStatusName";
+            this.columnItemStatusName.ReadOnly = true;
+            // 
+            // columnItemStatusDescription
+            // 
+            this.columnItemStatusDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemStatusDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemStatusDescription, "columnItemStatusDescription");
+            this.columnItemStatusDescription.Name = "columnItemStatusDescription";
+            this.columnItemStatusDescription.ReadOnly = true;
+            // 
+            // itemStatusBindingSource
+            // 
+            this.itemStatusBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemStatus);
+            // 
+            // columnPersonInfoName
+            // 
+            this.columnPersonInfoName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnPersonInfoName, "columnPersonInfoName");
+            this.columnPersonInfoName.Name = "columnPersonInfoName";
+            this.columnPersonInfoName.ReadOnly = true;
+            // 
+            // personInfoBindingSource
+            // 
+            this.personInfoBindingSource.DataSource = typeof(jeza.Item.Tracker.PersonInfo);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            resources.ApplyResources(this.nameDataGridViewTextBoxColumn, "nameDataGridViewTextBoxColumn");
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ownerDataGridViewTextBoxColumn
+            // 
+            this.ownerDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ownerDataGridViewTextBoxColumn.DataPropertyName = "Owner";
+            resources.ApplyResources(this.ownerDataGridViewTextBoxColumn, "ownerDataGridViewTextBoxColumn");
+            this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
+            this.ownerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // accountNumberDataGridViewTextBoxColumn
+            // 
+            this.accountNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.accountNumberDataGridViewTextBoxColumn.DataPropertyName = "AccountNumber";
+            resources.ApplyResources(this.accountNumberDataGridViewTextBoxColumn, "accountNumberDataGridViewTextBoxColumn");
+            this.accountNumberDataGridViewTextBoxColumn.Name = "accountNumberDataGridViewTextBoxColumn";
+            this.accountNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bankBindingSource
+            // 
+            this.bankBindingSource.DataSource = typeof(jeza.Item.Tracker.Bank);
+            // 
             // Gui
             // 
             resources.ApplyResources(this, "$this");
@@ -1294,34 +1294,34 @@ namespace jeza.Item.Tracker.Gui
             this.groupBoxOrders.ResumeLayout(false);
             this.groupBoxOrders.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).EndInit();
             this.tabPageItems.ResumeLayout(false);
             this.groupBoxItems.ResumeLayout(false);
             this.groupBoxItems.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).EndInit();
             this.tabPageItemType.ResumeLayout(false);
             this.groupBoxItemType.ResumeLayout(false);
             this.groupBoxItemType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).EndInit();
             this.tabPageItemStatus.ResumeLayout(false);
             this.groupBoxItemStatus.ResumeLayout(false);
             this.groupBoxItemStatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).EndInit();
             this.tabPagePersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).EndInit();
             this.tabPageReports.ResumeLayout(false);
             this.tabPageBank.ResumeLayout(false);
             this.groupBoxBank.ResumeLayout(false);
             this.groupBoxBank.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).EndInit();
             this.ResumeLayout(false);
 
