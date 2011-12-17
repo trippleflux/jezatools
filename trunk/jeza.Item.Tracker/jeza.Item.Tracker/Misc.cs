@@ -111,6 +111,18 @@ namespace jeza.Item.Tracker
                                                           {
                                                               Name = "Statistika",
                                                           },
+                                             TabBank = new TabBank
+                                                       {
+                                                           Name = "Banka",
+                                                           LabelBankName = "Ime",
+                                                           LabelBankAccountNumber = "Račun",
+                                                           LabelBankOwner = "Lastnik",
+                                                           LabelBankList = "Seznam",
+                                                           ButtonBankNew = "Nov",
+                                                           ButtonBankSave = "Shrani",
+                                                           ButtonBankUpdate = "Posodobi",
+                                                           ButtonBankDelete = "Zbriši",
+                                                       }
                                          };
             return languageSlovenian;
         }
@@ -170,19 +182,21 @@ namespace jeza.Item.Tracker
         /// <returns><c>0</c> if input string was not a number.</returns>
         public static decimal String2Decimal(this string input)
         {
-            NumberFormatInfo numberFormatInfo = NumberFormatInfo.CurrentInfo;
-            string decimalSeparator = NumberFormatInfo.CurrentInfo.NumberDecimalSeparator;
-            if (decimalSeparator != ".")
+            CultureInfo installedUiCulture = CultureInfo.InstalledUICulture;
+            NumberFormatInfo numberFormatInfo = (NumberFormatInfo) installedUiCulture.NumberFormat.Clone();
+            string decimalSeparator = numberFormatInfo.NumberDecimalSeparator;
+            const string numberDecimalSeparator = ".";
+            if (decimalSeparator != numberDecimalSeparator)
             {
-                numberFormatInfo.NumberDecimalSeparator = ".";
+                numberFormatInfo.NumberDecimalSeparator = numberDecimalSeparator;
             }
-            Logger.Debug("String2Decimal: '{0}', NumberFormatInfo.CurrentInfo.NumberDecimalSeparator='{1}'", input, decimalSeparator);
+            Logger.Debug("String2Decimal: '{0}', NumberDecimalSeparator='{1}'", input, decimalSeparator);
             int length = input.Length;
             if (length < 1)
             {
                 return 0;
             }
-            input = input.Replace(",", ".");
+            input = input.Replace(",", numberDecimalSeparator);
             Logger.Debug("input='{0}'", input);
             decimal parsedValue;
             bool tryParse = decimal.TryParse(input, NumberStyles.Any, numberFormatInfo, out parsedValue);

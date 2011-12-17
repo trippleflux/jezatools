@@ -10,7 +10,7 @@ namespace jeza.Item.Tracker
         public string ImageLocation { get; set; }
         public string ItemTypeName { get; set; }
 
-        public string FormatItem()
+        public string Format()
         {
             return string.Format(
                 "[Id: {0}, ItemType: [{1}]-{6}, Name: {2}, Description: {3}, Image: {4}, ImageLocation: {5}]", Id, ItemTypeId,

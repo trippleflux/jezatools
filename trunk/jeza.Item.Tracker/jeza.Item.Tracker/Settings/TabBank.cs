@@ -8,30 +8,30 @@ namespace jeza.Item.Tracker.Settings
         public string Name { get; set; }
 
         [XmlElement]
-        public string GroupBoxItemsStatus { get; set; }
+        public string GroupBoxBank { get; set; }
 
         [XmlElement]
-        public string LabelItemsStatusName { get; set; }
+        public string LabelBankName { get; set; }
 
         [XmlElement]
-        public string LabelItemStatusDescription { get; set; }
+        public string LabelBankOwner { get; set; }
 
         [XmlElement]
-        public string LabelItemStatusList { get; set; }
+        public string LabelBankAccountNumber { get; set; }
 
         [XmlElement]
-        public string ButtonItemStatusSelect { get; set; }
+        public string LabelBankList { get; set; }
 
         [XmlElement]
-        public string ButtonItemStatusSave { get; set; }
+        public string ButtonBankSave { get; set; }
 
         [XmlElement]
-        public string ButtonItemStatusNew { get; set; }
+        public string ButtonBankNew { get; set; }
 
         [XmlElement]
-        public string ButtonItemStatusUpdate { get; set; }
+        public string ButtonBankUpdate { get; set; }
 
         [XmlElement]
-        public string ButtonItemStatusDelete { get; set; }
+        public string ButtonBankDelete { get; set; }
     }
 }

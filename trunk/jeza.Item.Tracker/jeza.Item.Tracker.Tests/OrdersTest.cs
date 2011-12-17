@@ -119,6 +119,7 @@ namespace jeza.Item.Tracker.Tests
                               PersonInfoId = personInfoGet.Id,
                               Postage = 0M.DecimalToString(),
                               Price = 1M.DecimalToString(),
+                              BankId = -1,
                           };
             int rowsInserted = dataBase.OrderInsert(order);
             Assert.AreEqual(1, rowsInserted);

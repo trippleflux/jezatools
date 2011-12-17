@@ -24,5 +24,8 @@ namespace jeza.Item.Tracker.Settings
 
         [XmlElement]
         public TabReports TabReports { get; set; }
+
+        [XmlElement]
+        public TabBank TabBank { get; set; }
     }
 }

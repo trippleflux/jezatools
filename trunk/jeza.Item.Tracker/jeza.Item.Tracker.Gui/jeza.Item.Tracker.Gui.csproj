@@ -96,6 +96,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\jeza.Item.Tracker.Bank.datasource" />
     <None Include="Properties\DataSources\jeza.Item.Tracker.Item.datasource" />
     <None Include="Properties\DataSources\jeza.Item.Tracker.ItemStatus.datasource" />
     <None Include="Properties\DataSources\jeza.Item.Tracker.ItemType.datasource" />
