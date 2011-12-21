@@ -11,6 +11,9 @@
           <xs:complexType>
             <xs:sequence>
 
+              <xs:element name="logFormat" minOccurs="0" maxOccurs="unbounded" type="xs:string">
+              </xs:element>
+              
               <xs:element name="regExpressionInclude" minOccurs="0" maxOccurs="unbounded" type="xs:string">
               </xs:element>
 
@@ -39,7 +42,13 @@
               <xs:element name="source" minOccurs="1" maxOccurs="1" type="xs:string">
               </xs:element>
 
+              <xs:element name="sourceVirtual" minOccurs="0" maxOccurs="1" type="xs:string">
+              </xs:element>
+
               <xs:element name="destination" minOccurs="1" maxOccurs="1" type="xs:string">
+              </xs:element>
+
+              <xs:element name="destinationVirtual" minOccurs="0" maxOccurs="1" type="xs:string">
               </xs:element>
 
               <xs:element name="action" minOccurs="1" maxOccurs="1">

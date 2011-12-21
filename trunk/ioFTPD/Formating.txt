@@ -152,3 +152,8 @@ FormatRequestTask:
 {2}		UserName
 {3}		CodeNewLine	
 {4}		Groupname
+
+FormatArchive:
+{0}		ReleaseName
+{1}		SourceVirtual
+{2}		DestinationVirtual

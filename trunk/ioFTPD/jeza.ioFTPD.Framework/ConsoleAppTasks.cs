@@ -606,11 +606,13 @@ namespace jeza.ioFTPD.Framework
                 case ArchiveType.Copy:
                 {
                     CopySourceFolders(archiveTask, directoryInfo);
+                    UpdateDupeDb(archiveTask, directoryInfo);
                     break;
                 }
                 case ArchiveType.Move:
                 {
                     CopySourceFolders(archiveTask, directoryInfo);
+                    UpdateDupeDb(archiveTask, directoryInfo);
                     if (!sameRoot)
                     {
                         DeleteFolder(directoryInfo, true);
@@ -627,6 +629,30 @@ namespace jeza.ioFTPD.Framework
                     throw new NotSupportedException();
                 }
             }
+            if (!String.IsNullOrEmpty(archiveTask.LogFormat))
+            {
+                Output output = new Output(archiveTask);
+                string formatArchive = output.FormatArchive(archiveTask.LogFormat, directoryInfo);
+                Log.IoFtpd(formatArchive);
+                Log.Internal(formatArchive);
+            }
+        }
+
+        private static void UpdateDupeDb(ArchiveTask archiveTask,
+                                         DirectoryInfo directoryInfo)
+        {
+            if (!Config.UpdateDupe)
+            {
+                return;
+            }
+            Log.Debug("Updating DUPEDB with '{0}'", Config.DataSourceDupeUpdateCommand);
+            Log.Debug("DUPEDB : '{0}'", Config.DataSourceDupe);
+            string releaseName = directoryInfo.Name;
+            string realPath = directoryInfo.FullName;
+            string virtualPath = String.Format("{0}/{1}", archiveTask.DestinationVirtual, releaseName);
+            Log.Debug("releaseName='{0}', realPath='{1}', virtualPath='{2}'", releaseName, realPath, virtualPath);
+            int rowsUpdated = DataBase.Update(String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath));
+            Log.Debug("{0} rows updated.", rowsUpdated);
         }
 
         private static void DeleteFolder(DirectoryInfo directoryInfo,
@@ -635,15 +661,6 @@ namespace jeza.ioFTPD.Framework
             Log.Debug("Deleting '{0}'", directoryInfo.FullName);
             directoryInfo.FullName.KickUsersFromDirectory();
             directoryInfo.FullName.RemoveFolder(recursive);
-            //try
-            //{
-            //    directoryInfo.Delete(recursive);
-            //}
-            //catch (Exception exception)
-            //{
-            //    Log.Debug(exception.ToString());
-            //    throw;
-            //}
         }
 
         private static void CopySourceFolders(ArchiveTask archiveTask,

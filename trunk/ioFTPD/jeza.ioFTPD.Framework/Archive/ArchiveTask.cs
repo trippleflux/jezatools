@@ -44,11 +44,25 @@ namespace jeza.ioFTPD.Framework.Archive
         public string Source { get; set; }
 
         /// <summary>
+        /// Gets or sets the source virtual folder for archiving.
+        /// </summary>
+        /// <value>The source.</value>
+        [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskSourceVirtual)]
+        public string SourceVirtual { get; set; }
+
+        /// <summary>
         /// Gets or sets the destination folder where to move folders if <see cref="ArchiveType"/> is set to Move.
         /// </summary>
         /// <value>The destination.</value>
         [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskDestination)]
         public string Destination { get; set; }
+
+        /// <summary>
+        /// Gets or sets the destination virtual folder where to move folders if <see cref="ArchiveType"/> is set to Move.
+        /// </summary>
+        /// <value>The destination.</value>
+        [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskDestinationVirtual)]
+        public string DestinationVirtual { get; set; }
 
         /// <summary>
         /// Gets or sets the action <see cref="ArchiveActionAttribute"/>.
@@ -57,9 +71,15 @@ namespace jeza.ioFTPD.Framework.Archive
         [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskAction)]
         public ArchiveAction Action { get; set; }
 
+        /// <summary>
+        /// String to log for MIRC anounce.
+        /// </summary>
+        [XmlElement(ElementName = Constants.XmlElementNameArchiveTaskLogFormat)]
+        public string LogFormat { get; set; }
+
         public override string ToString()
         {
-            return string.Format("ArchiveType: {0}, ArchiveStatus: {1}, Source: '{2}', Destination: '{3}', Action: {4}", ArchiveType, ArchiveStatus, Source, Destination, Action);
+            return string.Format("ArchiveType: {0}, ArchiveStatus: {1}, Source: '{2}', Destination: '{3}', Action: {4}, LogFormat: '{5}'", ArchiveType, ArchiveStatus, Source, Destination, Action, LogFormat);
         }
     }
 }
