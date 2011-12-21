@@ -12,10 +12,13 @@
     </action>
   </task>
   <task>
+    <logFormat>ARCHIVE: &quot;Archive&quot; &quot;Moving {0} from {1} to {2}&quot;</logFormat>
     <status>Enabled</status>
     <actionType>Move</actionType>
     <source>E:\\temp\\TestFiles</source>
+    <sourceVirtual>/temp/TestFiles/</sourceVirtual>
     <destination>E:\\temp\\archive</destination>
+    <destinationVirtual>/archive/</destinationVirtual>
     <action id="TotalFolderUsedSpace">
       <value>12345000</value>
       <minFolderAction>2</minFolderAction>
@@ -32,7 +35,7 @@
     </action>
   </task>
   <task>
-    <status>Enabled</status>
+    <status>Disabled</status>
     <actionType>Copy</actionType>
     <source>D:\\temp</source>
     <destination>D:\\oldhdd</destination>

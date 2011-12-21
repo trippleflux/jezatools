@@ -15,11 +15,14 @@ namespace jeza.ioFTPD.Framework
         public const string XmlElementNameArchiveTaskRegExExclude = "regExpressionExclude";
         public const string XmlElementNameArchiveTaskRegExInclude = "regExpressionInclude";
         public const string XmlElementNameArchiveTaskSource = "source";
+        public const string XmlElementNameArchiveTaskSourceVirtual = "sourceVirtual";
         public const string XmlElementNameArchiveTaskDestination = "destination";
+        public const string XmlElementNameArchiveTaskDestinationVirtual = "destinationVirtual";
         public const string XmlElementNameArchiveTaskAction = "action";
         public const string XmlElementNameArchiveTaskActionId = "id";
         public const string XmlElementNameArchiveTaskActionValue = "value";
         public const string XmlElementNameArchiveTaskActionMinFolder = "minFolderAction";
+        public const string XmlElementNameArchiveTaskLogFormat = "logFormat";
 
         public const string XmlElementNameWeeklyTask = "weeklyTask";
         public const string XmlElementNameWeeklyTaskStatus = "status";

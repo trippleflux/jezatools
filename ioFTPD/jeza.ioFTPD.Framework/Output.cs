@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using jeza.ioFTPD.Framework.Archive;
 using jeza.ioFTPD.Framework.ioFTPD;
 using jeza.ioFTPD.Framework.Manager;
 using TagLib;
+using File = TagLib.File;
 
 namespace jeza.ioFTPD.Framework
 {
@@ -30,6 +33,11 @@ namespace jeza.ioFTPD.Framework
         public Output(Race race)
         {
             this.race = race;
+        }
+
+        public Output(ArchiveTask archiveTask)
+        {
+            this.archiveTask = archiveTask;
         }
 
         public Output WriteLine(string line)
@@ -507,6 +515,19 @@ namespace jeza.ioFTPD.Framework
             return sb.ToString().TrimEnd(separator);
         }
 
+        public string FormatArchive(string line,
+                                    DirectoryInfo directoryInfo)
+        {
+            string formatArchive = MinimumLength(line) || archiveTask == null || directoryInfo == null
+                                     ? line
+                                     : String.Format(new MyFormat(), line
+                                                     , directoryInfo.Name // {0}
+                                                     , archiveTask.SourceVirtual ?? "" // {1}
+                                                     , archiveTask.DestinationVirtual ?? ""); // {2}
+            Log.Debug("FormatArchive: " + formatArchive);
+            return formatArchive;
+        }
+
         public string FormatCrc32(string line)
         {
             string formatCrc32 = MinimumLength(line) || rescanStatsData == null || rescanStats == null
@@ -590,5 +611,6 @@ namespace jeza.ioFTPD.Framework
         private readonly Race race;
         private readonly RescanStatsData rescanStatsData;
         private readonly RescanStats rescanStats;
+        private readonly ArchiveTask archiveTask;
     }
 }
