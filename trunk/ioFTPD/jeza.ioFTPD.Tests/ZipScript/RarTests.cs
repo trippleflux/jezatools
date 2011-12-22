@@ -12,6 +12,13 @@ namespace jeza.ioFTPD.Tests.ZipScript
     [TestFixture]
     public class RarTests : ZipScriptBase
     {
+        [Test]
+        public void ExecuteResceneInfo()
+        {
+            int exitCode = Extensions.StartProcess(Config.ResceneInfoExecutable, " " + ArgsSfv[1] + " -o \"..\\..\\TestFiles\\Rar\" -y");
+            Assert.AreEqual(0, exitCode);
+        }
+
         /// <summary>
         /// completes the race with RAR extension.
         /// </summary>

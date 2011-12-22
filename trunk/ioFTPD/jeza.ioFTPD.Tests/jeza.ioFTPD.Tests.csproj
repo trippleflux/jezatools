@@ -76,6 +76,7 @@
     <Compile Include="MiscTests.cs" />
     <Compile Include="OutputTests.cs" />
     <Compile Include="Rescan\RescanTests.cs" />
+    <Compile Include="SharpComressTests.cs" />
     <Compile Include="Trial\ManagingTrials.cs" />
     <Compile Include="ZipScript\DeleteTests.cs" />
     <Compile Include="ZipScript\AudioTests.cs" />

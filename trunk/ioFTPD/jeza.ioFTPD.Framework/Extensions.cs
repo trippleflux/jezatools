@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -10,8 +11,11 @@ using System.Xml.Serialization;
 using jeza.ioFTPD.Framework.Archive;
 using jeza.ioFTPD.Framework.Json;
 using jeza.ioFTPD.Framework.Manager;
+using SharpCompress.Archive;
+using SharpCompress.Common;
 using TagLib;
-using File = TagLib.File;
+using File = System.IO.File;
+using FileTagLib = TagLib.File;
 
 namespace jeza.ioFTPD.Framework
 {
@@ -20,6 +24,105 @@ namespace jeza.ioFTPD.Framework
     /// </summary>
     public static class Extensions
     {
+        public static int StartProcess(string executable,
+                                       string arguments)
+        {
+            Log.Debug("StartProcess '{0}' with arguments '{1}'", executable, arguments);
+            try
+            {
+                // Prepare the process to run
+                ProcessStartInfo start = new ProcessStartInfo
+                                         {
+                                             // Enter in the command line arguments, everything you would enter after the executable name itself
+                                             Arguments = arguments,
+                                             // Enter the executable to run, including the complete path
+                                             FileName = executable,
+                                             // Do you want to show a console window?
+                                             WindowStyle = ProcessWindowStyle.Hidden,
+                                             CreateNoWindow = true,
+                                         };
+                // Run the external process & wait for it to finish
+                using (Process proc = Process.Start(start))
+                {
+                    proc.WaitForExit();
+                    // Retrieve the app's exit code
+                    int exitCode = proc.ExitCode;
+                    Log.Debug("exitCode = '{0}'", exitCode);
+                    return exitCode;
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Try to extract specified filename.
+        /// </summary>
+        /// <param name="fileName"></param>
+        public static void ExtractArchive(this string fileName)
+        {
+            Log.Debug("ExtractArchive: '{0}'", fileName);
+            try
+            {
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+                if (!fileInfo.Exists)
+                {
+                    return;
+                }
+                string destinationDirectory = fileInfo.DirectoryName;
+                Log.Debug("Extracting to '{0}'", destinationDirectory);
+                ArchiveFactory.WriteToDirectory(fileName, destinationDirectory, ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Extract specified filename from archive based on file extension.
+        /// </summary>
+        /// <param name="fileName">Archive file</param>
+        /// <param name="fileExtension">specified extension</param>
+        public static bool ExtractFromArchive(this string fileName,
+                                              string fileExtension)
+        {
+            Log.Debug("Extracting '{0}' from '{1}'", fileExtension, fileName);
+            bool extensionFound = false;
+            try
+            {
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+                if (!fileInfo.Exists)
+                {
+                    return false;
+                }
+                IArchive archive = ArchiveFactory.Open(fileInfo);
+                foreach (IArchiveEntry archiveEntry in archive.Entries)
+                {
+                    if (!archiveEntry.IsDirectory)
+                    {
+                        string filePath = archiveEntry.FilePath;
+                        if (filePath.IsCorrectExtesion(fileExtension))
+                        {
+                            string destinationFileName = fileInfo.DirectoryName;
+                            Log.Debug("Extracting '{0}' from '{1}' to '{2}'", filePath, fileName, destinationFileName);
+                            archiveEntry.WriteToFile(Misc.PathCombine(destinationFileName, filePath), ExtractOptions.ExtractFullPath | ExtractOptions.Overwrite);
+                            extensionFound = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.ToString());
+            }
+            return extensionFound;
+        }
+
         public static string GetImdbId(string url)
         {
             string imdbId = String.Empty;
@@ -90,7 +193,8 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="recursive">true to remove directories, subdirectories, and files in path; otherwise, false</param>
-        public static void RemoveFolder(this string path, bool recursive=false)
+        public static void RemoveFolder(this string path,
+                                        bool recursive = false)
         {
             try
             {
@@ -132,17 +236,17 @@ namespace jeza.ioFTPD.Framework
         /// <returns></returns>
         public static bool FileExists(this string fullName)
         {
-            return System.IO.File.Exists(fullName);
+            return File.Exists(fullName);
         }
 
-        public static File GetMp3Info(string uploadFile)
+        public static FileTagLib GetMp3Info(string uploadFile)
         {
             try
             {
-                if (System.IO.File.Exists(uploadFile) && !String.IsNullOrEmpty(uploadFile))
+                if (File.Exists(uploadFile) && !String.IsNullOrEmpty(uploadFile))
                 {
                     Log.Debug("GetMp3Info: " + uploadFile);
-                    File file = File.Create(uploadFile);
+                    FileTagLib file = FileTagLib.Create(uploadFile);
                     if (file != null)
                     {
                         return file;
@@ -246,7 +350,7 @@ namespace jeza.ioFTPD.Framework
                                        string fileName,
                                        string defaultNamespace)
         {
-            if (System.IO.File.Exists(fileName))
+            if (File.Exists(fileName))
             {
                 using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
                 {
@@ -384,7 +488,7 @@ namespace jeza.ioFTPD.Framework
             fileInfo.DeleteFoldersThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
             Output output = new Output(race);
             bool isAudioRace = race.IsAudioRace;
-            File audioInfo = isAudioRace ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
+            FileTagLib audioInfo = isAudioRace ? GetMp3Info(race.CurrentRaceData.UploadFile) : null;
             TagManager tagManager = new TagManager(race);
             if (!deletingFile)
             {
@@ -438,13 +542,18 @@ namespace jeza.ioFTPD.Framework
             }
             else
             {
-                FileInfo.Create0ByteFile(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, race.CurrentRaceData.FileName + Config.FileExtensionMissing));
+                FileInfo.Create0ByteFile(
+                    Misc.PathCombine(race.CurrentRaceData.DirectoryPath, race.CurrentRaceData.FileName + Config.FileExtensionMissing));
             }
             if (race.IsRaceComplete)
             {
                 fileInfo.DeleteFilesThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
                 fileInfo.DeleteFoldersThatStartsWith(race.CurrentRaceData.DirectoryPath, Config.TagCleanUpString);
-                tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(isAudioRace ? Config.TagCompleteMp3 : Config.TagComplete, audioInfo));
+                tagManager.CreateTag(
+                    race.CurrentRaceData.DirectoryPath,
+                    output.Format(isAudioRace
+                                      ? Config.TagCompleteMp3
+                                      : Config.TagComplete, audioInfo));
                 tagManager.DeleteSymlink(race.CurrentRaceData.DirectoryParent, output.Format(Config.TagIncompleteLink));
 
                 if (Config.WriteStatsToMesasageFileWhenComplete)
@@ -455,6 +564,29 @@ namespace jeza.ioFTPD.Framework
                 if (isAudioRace)
                 {
                     SortAudio(race, audioInfo);
+                }
+                bool extractRarOnComplete = race.VirtualPathMatch(Config.ExtractRarOnComplete);
+                if (extractRarOnComplete)
+                {
+                    DirectoryInfo directoryInfo = new DirectoryInfo(race.CurrentRaceData.DirectoryPath);
+                    System.IO.FileInfo[] filesRar = directoryInfo.GetFiles("*.rar", SearchOption.TopDirectoryOnly);
+                    if(filesRar.Length > 0)
+                    {
+                        if (Config.UseResceneInfoOnRarComplete)
+                        {
+                            System.IO.FileInfo[] sfvFiles = directoryInfo.GetFiles("*.sfv");
+                            if (sfvFiles.Length > 0)
+                            {
+                                Log.Debug("Executing Rescene.Info");
+                                StartProcess(
+                                    Config.ResceneInfoExecutable, 
+                                    String.Format(" \"{0}\" -o \"{1}\" -y", sfvFiles[0].FullName, race.CurrentRaceData.DirectoryPath));
+                            }
+                        }
+                        Console.Write("!buffer off\n");
+                        Console.Write("!detach 0\n");
+                        filesRar[0].FullName.ExtractArchive();
+                    }
                 }
             }
             else
@@ -502,16 +634,16 @@ namespace jeza.ioFTPD.Framework
 
         private static void SkipCreationOfMessageFile(Race race,
                                                       bool isMp3Race,
-                                                      File mp3Info)
+                                                      FileTagLib mp3Info)
         {
-            if (!race.SkipPath(Config.SkipPathMessageFile))
+            if (!race.VirtualPathMatch(Config.SkipPathMessageFile))
             {
                 WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
             }
         }
 
         public static void SortAudio(Race race,
-                                     File mp3Info)
+                                     FileTagLib mp3Info)
         {
             if (mp3Info != null)
             {
@@ -597,10 +729,10 @@ namespace jeza.ioFTPD.Framework
         /// </summary>
         /// <param name="race">The race.</param>
         /// <param name="isMp3Race">if set to <c>true</c> [is MP3 race].</param>
-        /// <param name="mp3Info"><see cref="File"/></param>
+        /// <param name="mp3Info"><see cref="FileTagLib"/></param>
         public static void WriteStatsToMesasageFile(Race race,
                                                     bool isMp3Race,
-                                                    File mp3Info)
+                                                    FileTagLib mp3Info)
         {
             MessageMutex.WaitOne();
             Log.Debug("WriteStatsToMesasageFile");
@@ -736,6 +868,12 @@ namespace jeza.ioFTPD.Framework
                 fileExtension = fileExtension.Substring(1);
             }
             return input.IndexOf(fileExtension, StringComparison.InvariantCultureIgnoreCase) > -1;
+        }
+
+        public static bool IsCorrectExtesion(this string fileName,
+                                             string extension)
+        {
+            return fileName.ToLowerInvariant().EndsWith(extension);
         }
     }
 }

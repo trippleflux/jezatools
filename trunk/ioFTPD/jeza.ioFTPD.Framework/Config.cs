@@ -55,6 +55,21 @@ namespace jeza.ioFTPD.Framework
         public const string DefaultNamespace = "http://jeza.ioFTPD.Tools/XMLSchema.xsd";
         public const string DefaultNamespaceTrialQuota = "http://jeza.ioFTPD.Tools/TrialQuotaSchema.xsd";
 
+        public static bool UseResceneInfoOnRarComplete
+        {
+            get { return Misc.String2Boolean(GetKeyValue("UseResceneInfoOnRarComplete")); }
+        }
+
+        public static string ResceneInfoExecutable
+        {
+            get { return GetKeyValue("ResceneInfoExecutable"); }
+        }
+
+        public static string ExtractRarOnComplete
+        {
+            get { return GetKeyValue("ExtractRarOnComplete"); }
+        }
+
         public static bool UpdateDupe
         {
             get { return Misc.String2Boolean(GetKeyValue("UpdateDupe")); }

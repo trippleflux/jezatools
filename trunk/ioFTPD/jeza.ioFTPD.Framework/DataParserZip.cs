@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using ICSharpCode.SharpZipLib.Zip;
-
-namespace jeza.ioFTPD.Framework
+﻿namespace jeza.ioFTPD.Framework
 {
     public class DataParserZip : IDataParser
     {
@@ -14,7 +10,7 @@ namespace jeza.ioFTPD.Framework
         public void Parse()
         {
             ExtractDiz();
-            if(!race.IsValid)
+            if (!race.IsValid)
             {
                 return;
             }
@@ -44,30 +40,10 @@ namespace jeza.ioFTPD.Framework
                 Log.Debug("Race file exists...");
                 return;
             }
-            bool dizFound = false;
-            using (ZipInputStream zipInputStream = new ZipInputStream(File.OpenRead(race.CurrentRaceData.UploadFile)))
+            bool dizFound = race.CurrentRaceData.UploadFile.ExtractFromArchive(".diz");
+            if (Config.ExtractNfoFromZip)
             {
-                ZipEntry theEntry;
-                while ((theEntry = zipInputStream.GetNextEntry()) != null)
-                {
-                    if (theEntry.IsFile)
-                    {
-                        Log.Debug("ZipEntry: '{0}'", theEntry.Name);
-                        string fileName = Path.GetFileName(theEntry.Name);
-                        if (fileName != String.Empty)
-                        {
-                            if (IsCorrectExtesion(fileName, ".diz"))
-                            {
-                                dizFound = true;
-                                ExtractFile(zipInputStream, theEntry);
-                            }
-                            if (IsCorrectExtesion(fileName, ".nfo") && Config.ExtractNfoFromZip)
-                            {
-                                ExtractFile(zipInputStream, theEntry);
-                            }
-                        }
-                    }
-                }
+                race.CurrentRaceData.UploadFile.ExtractFromArchive(".nfo");
             }
             if (dizFound)
             {
@@ -83,32 +59,6 @@ namespace jeza.ioFTPD.Framework
                 .Client(Config.ClientHead)
                 .Client(Config.ClientFileNameNoDiz)
                 .Client(Config.ClientFoot);
-        }
-
-        private void ExtractFile(Stream zipInputStream, ZipEntry theEntry)
-        {
-            Log.Debug("Extracting File : {0}", theEntry.Name);
-            using (FileStream streamWriter = File.Create(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, theEntry.Name)))
-            {
-                byte[] data = new byte[2048];
-                while (true)
-                {
-                    int size = zipInputStream.Read(data, 0, data.Length);
-                    if (size > 0)
-                    {
-                        streamWriter.Write(data, 0, size);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        private static bool IsCorrectExtesion(string fileName, string extension)
-        {
-            return fileName.ToLowerInvariant().EndsWith(extension);
         }
 
         private readonly Race race;

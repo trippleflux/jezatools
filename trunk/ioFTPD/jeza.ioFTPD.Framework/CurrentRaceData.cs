@@ -6,7 +6,13 @@ namespace jeza.ioFTPD.Framework
         public string FileName { get; set; }
         public string FileNameWithoutExtension { get; set; }
         public long FileSize { get; set; }
+        /// <summary>
+        /// Release name
+        /// </summary>
         public string DirectoryName { get; set; }
+        /// <summary>
+        /// Full path to race directory.
+        /// </summary>
         public string DirectoryPath { get; set; }
         public RaceType RaceType { get; set; }
         public string UploadCrc { get; set; }
