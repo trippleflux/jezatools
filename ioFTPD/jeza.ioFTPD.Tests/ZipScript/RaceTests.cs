@@ -16,7 +16,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
         {
             Race race = new Race(ArgsRarPart1);
             race.ParseUpload();
-            Assert.IsFalse(race.SkipPath(Config.SkipPath), "race.SkipPath");
+            Assert.IsFalse(race.VirtualPathMatch(Config.SkipPath), "race.SkipPath");
         }
 
         [Test]

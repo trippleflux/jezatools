@@ -1,4 +1,20 @@
 ========================================================================================================================
+From 4.6.49.613 to 4.6.50.614
+
+In jeza.ioFTPD.ZsipScript.exe.config add
+    <!-- http://rescene.info/index.htm -->
+    <add key="UseResceneInfoOnRarComplete" value="true"/>
+    <!-- Rescene.Info Executable -->
+    <add key="ResceneInfoExecutable" value="E:\\0day\\archive\\srr.1.2\\srr.exe"/>
+    <!-- Extract release in those directories -->
+    <add key="ExtractRarOnComplete" value="/movies/ /series/"/>
+    
+Replace all *.dll and *.exe files in 'jeza.ioFTPD.ZipScript'
+Delete 'ICSharpCode.SharpZipLib.dll'
+
+========================================================================================================================
+
+========================================================================================================================
 From 4.6.48.605 to 4.6.49.613
 
 In jeza.ioFTPD.Archive.exe.config add

@@ -153,7 +153,7 @@ namespace jeza.ioFTPD.Framework
 
         private bool SkipCheck()
         {
-            if (SpeedTest() || SkipPath(Config.SkipPath) || SkipFileExtension())
+            if (SpeedTest() || VirtualPathMatch(Config.SkipPath) || SkipFileExtension())
             {
                 if (!IsRaceTypeDelete())
                 {
@@ -203,7 +203,7 @@ namespace jeza.ioFTPD.Framework
             return false;
         }
 
-        public bool SkipPath(string skipPathConfig)
+        public bool VirtualPathMatch(string skipPathConfig)
         {
             IsValid = true;
             if (CurrentRaceData != null)
