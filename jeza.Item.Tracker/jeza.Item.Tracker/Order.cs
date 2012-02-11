@@ -50,9 +50,11 @@ namespace jeza.Item.Tracker
 
         public override string ToString()
         {
+            //return
+            //    string.Format("{0} / {1} / [Count:{2}] / [{3} {4}]", PersonInfoText, ItemText, Count, Price,
+            //                  System.Configuration.ConfigurationManager.AppSettings["defaultCurrency"]);
             return
-                string.Format("{0} / {1} / [Count:{2}] / [{3} {4}]", PersonInfoText, ItemText, Count, Price,
-                              System.Configuration.ConfigurationManager.AppSettings["defaultCurrency"]);
+                string.Format("{0} : {1}", PersonInfoText, ItemText);
         }
     }
 }
