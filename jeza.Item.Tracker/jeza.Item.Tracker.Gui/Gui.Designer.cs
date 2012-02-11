@@ -1,4 +1,5 @@
 using System.Configuration;
+using System.Drawing;
 using jeza.Item.Tracker.Settings;
 
 namespace jeza.Item.Tracker.Gui
@@ -38,9 +39,17 @@ namespace jeza.Item.Tracker.Gui
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gui));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageOrders = new System.Windows.Forms.TabPage();
-            this.groupBoxOrders = new System.Windows.Forms.GroupBox();
+            this.groupBoxOrdersList = new System.Windows.Forms.GroupBox();
             this.dataGridViewOrders = new System.Windows.Forms.DataGridView();
             this.columnOrdersDateTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersPersonInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersItemStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersPriceTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnOrdersLegalEntity = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBoxOrders = new System.Windows.Forms.GroupBox();
             this.comboBoxOrdersBank = new System.Windows.Forms.ComboBox();
             this.labelOrdersBank = new System.Windows.Forms.Label();
             this.buttonOrdersSum = new System.Windows.Forms.Button();
@@ -70,9 +79,13 @@ namespace jeza.Item.Tracker.Gui
             this.labelOrdersItem = new System.Windows.Forms.Label();
             this.pictureBoxOrders = new System.Windows.Forms.PictureBox();
             this.tabPageItems = new System.Windows.Forms.TabPage();
-            this.groupBoxItems = new System.Windows.Forms.GroupBox();
+            this.groupBoxItemsList = new System.Windows.Forms.GroupBox();
             this.dataGridViewItems = new System.Windows.Forms.DataGridView();
+            this.columnItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnItemItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBoxItems = new System.Windows.Forms.GroupBox();
             this.labelItemsId = new System.Windows.Forms.Label();
             this.buttonItemsUpdate = new System.Windows.Forms.Button();
             this.buttonItemsDelete = new System.Windows.Forms.Button();
@@ -86,8 +99,12 @@ namespace jeza.Item.Tracker.Gui
             this.labelItemsName = new System.Windows.Forms.Label();
             this.textBoxItemsName = new System.Windows.Forms.TextBox();
             this.tabPageItemType = new System.Windows.Forms.TabPage();
-            this.groupBoxItemType = new System.Windows.Forms.GroupBox();
+            this.groupBoxItemTypeList = new System.Windows.Forms.GroupBox();
             this.dataGridViewItemType = new System.Windows.Forms.DataGridView();
+            this.columnItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemTypeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBoxItemType = new System.Windows.Forms.GroupBox();
             this.labelItemTypeId = new System.Windows.Forms.Label();
             this.textBoxItemTypeName = new System.Windows.Forms.TextBox();
             this.buttonItemTypeUpdate = new System.Windows.Forms.Button();
@@ -97,8 +114,12 @@ namespace jeza.Item.Tracker.Gui
             this.labelItemTypeDescription = new System.Windows.Forms.Label();
             this.textBoxItemTypeDescription = new System.Windows.Forms.TextBox();
             this.tabPageItemStatus = new System.Windows.Forms.TabPage();
-            this.groupBoxItemStatus = new System.Windows.Forms.GroupBox();
+            this.groupBoxStatusList = new System.Windows.Forms.GroupBox();
             this.dataGridViewItemStatus = new System.Windows.Forms.DataGridView();
+            this.columnItemStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnItemStatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.itemStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBoxItemStatus = new System.Windows.Forms.GroupBox();
             this.labelItemStatusId = new System.Windows.Forms.Label();
             this.labelItemStatusList = new System.Windows.Forms.Label();
             this.labelItemStatusDescription = new System.Windows.Forms.Label();
@@ -109,13 +130,16 @@ namespace jeza.Item.Tracker.Gui
             this.labelItemStatusName = new System.Windows.Forms.Label();
             this.textBoxItemStatusName = new System.Windows.Forms.TextBox();
             this.tabPagePersonInfo = new System.Windows.Forms.TabPage();
-            this.groupBoxPersonInfo = new System.Windows.Forms.GroupBox();
+            this.groupBoxPersonInfoList = new System.Windows.Forms.GroupBox();
             this.dataGridViewPersonInfo = new System.Windows.Forms.DataGridView();
+            this.columnPersonInfoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoSurName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoNickName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoAddress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoCity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPersonInfoEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.personInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBoxPersonInfo = new System.Windows.Forms.GroupBox();
             this.labelPersonInfoId = new System.Windows.Forms.Label();
             this.buttonPersonInfoDelete = new System.Windows.Forms.Button();
             this.buttonPersonInfoUpdate = new System.Windows.Forms.Button();
@@ -143,12 +167,18 @@ namespace jeza.Item.Tracker.Gui
             this.textBoxPersonInfoName = new System.Windows.Forms.TextBox();
             this.labelPersonInfoName = new System.Windows.Forms.Label();
             this.tabPageReports = new System.Windows.Forms.TabPage();
+            this.groupBoxReportsList = new System.Windows.Forms.GroupBox();
             this.groupBoxReports = new System.Windows.Forms.GroupBox();
             this.tabPageBank = new System.Windows.Forms.TabPage();
+            this.groupBoxBankList = new System.Windows.Forms.GroupBox();
+            this.dataGridViewBank = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bankBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBoxBank = new System.Windows.Forms.GroupBox();
             this.textBoxBankOwner = new System.Windows.Forms.TextBox();
             this.labelBankOwner = new System.Windows.Forms.Label();
-            this.dataGridViewBank = new System.Windows.Forms.DataGridView();
             this.labelBankId = new System.Windows.Forms.Label();
             this.labelBankList = new System.Windows.Forms.Label();
             this.labelBankAccountNumber = new System.Windows.Forms.Label();
@@ -158,76 +188,59 @@ namespace jeza.Item.Tracker.Gui
             this.buttonBankSave = new System.Windows.Forms.Button();
             this.labelBankName = new System.Windows.Forms.Label();
             this.textBoxBankName = new System.Windows.Forms.TextBox();
-            this.groupBoxOrdersList = new System.Windows.Forms.GroupBox();
-            this.groupBoxItemsList = new System.Windows.Forms.GroupBox();
-            this.groupBoxItemTypeList = new System.Windows.Forms.GroupBox();
-            this.groupBoxPersonInfoList = new System.Windows.Forms.GroupBox();
-            this.groupBoxReportsList = new System.Windows.Forms.GroupBox();
-            this.groupBoxBankList = new System.Windows.Forms.GroupBox();
-            this.groupBoxStatusList = new System.Windows.Forms.GroupBox();
             this.tabPageExport = new System.Windows.Forms.TabPage();
             this.groupBoxExportList = new System.Windows.Forms.GroupBox();
+            this.pagePreviewExport = new PdfSharp.Forms.PagePreview();
+            this.toolBarExport = new System.Windows.Forms.ToolBar();
+            this.toolBarButtonExportSmaller = new System.Windows.Forms.ToolBarButton();
+            this.toolBarButtonExportLarger = new System.Windows.Forms.ToolBarButton();
+            this.toolBarButtonExportSeparator = new System.Windows.Forms.ToolBarButton();
+            this.toolBarButtonExportPrint = new System.Windows.Forms.ToolBarButton();
+            this.toolBarButtonExportPdf = new System.Windows.Forms.ToolBarButton();
+            this.toolBarButtonEXportEmail = new System.Windows.Forms.ToolBarButton();
             this.groupBoxExport = new System.Windows.Forms.GroupBox();
+            this.textBoxExportWork = new System.Windows.Forms.TextBox();
+            this.labelExportWork = new System.Windows.Forms.Label();
             this.comboBoxExportErders = new System.Windows.Forms.ComboBox();
             this.labelExportOrders = new System.Windows.Forms.Label();
-            this.columnOrdersPersonInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersItemStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersItem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersPriceTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnOrdersLegalEntity = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.orderBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnItemDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnItemTypeDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemTypeBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnItemStatusName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.columnItemStatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.itemStatusBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.columnPersonInfoName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.personInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ownerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bankBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonExportPreview = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
-            this.groupBoxOrders.SuspendLayout();
+            this.groupBoxOrdersList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
+            this.groupBoxOrders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).BeginInit();
             this.tabPageItems.SuspendLayout();
-            this.groupBoxItems.SuspendLayout();
+            this.groupBoxItemsList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
+            this.groupBoxItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).BeginInit();
             this.tabPageItemType.SuspendLayout();
-            this.groupBoxItemType.SuspendLayout();
+            this.groupBoxItemTypeList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).BeginInit();
+            this.groupBoxItemType.SuspendLayout();
             this.tabPageItemStatus.SuspendLayout();
-            this.groupBoxItemStatus.SuspendLayout();
+            this.groupBoxStatusList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).BeginInit();
+            this.groupBoxItemStatus.SuspendLayout();
             this.tabPagePersonInfo.SuspendLayout();
-            this.groupBoxPersonInfo.SuspendLayout();
+            this.groupBoxPersonInfoList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).BeginInit();
+            this.groupBoxPersonInfo.SuspendLayout();
             this.tabPageReports.SuspendLayout();
             this.tabPageBank.SuspendLayout();
-            this.groupBoxBank.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).BeginInit();
-            this.groupBoxOrdersList.SuspendLayout();
-            this.groupBoxItemsList.SuspendLayout();
-            this.groupBoxItemTypeList.SuspendLayout();
-            this.groupBoxPersonInfoList.SuspendLayout();
             this.groupBoxBankList.SuspendLayout();
-            this.groupBoxStatusList.SuspendLayout();
-            this.tabPageExport.SuspendLayout();
-            this.groupBoxExport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).BeginInit();
+            this.groupBoxBank.SuspendLayout();
+            this.tabPageExport.SuspendLayout();
+            this.groupBoxExportList.SuspendLayout();
+            this.groupBoxExport.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -251,6 +264,89 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.tabPageOrders, "tabPageOrders");
             this.tabPageOrders.Name = "tabPageOrders";
             this.tabPageOrders.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxOrdersList
+            // 
+            this.groupBoxOrdersList.Controls.Add(this.dataGridViewOrders);
+            resources.ApplyResources(this.groupBoxOrdersList, "groupBoxOrdersList");
+            this.groupBoxOrdersList.Name = "groupBoxOrdersList";
+            this.groupBoxOrdersList.TabStop = false;
+            // 
+            // dataGridViewOrders
+            // 
+            this.dataGridViewOrders.AllowUserToAddRows = false;
+            this.dataGridViewOrders.AllowUserToDeleteRows = false;
+            this.dataGridViewOrders.AutoGenerateColumns = false;
+            this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnOrdersDateTime,
+            this.columnOrdersPersonInfo,
+            this.columnOrdersItemStatus,
+            this.columnOrdersItem,
+            this.columnOrdersCount,
+            this.columnOrdersPriceTotal,
+            this.columnOrdersLegalEntity});
+            this.dataGridViewOrders.DataSource = this.orderBindingSource;
+            resources.ApplyResources(this.dataGridViewOrders, "dataGridViewOrders");
+            this.dataGridViewOrders.MultiSelect = false;
+            this.dataGridViewOrders.Name = "dataGridViewOrders";
+            this.dataGridViewOrders.ReadOnly = true;
+            this.dataGridViewOrders.SelectionChanged += new System.EventHandler(this.DataGridViewOrdersSelectionChanged);
+            // 
+            // columnOrdersDateTime
+            // 
+            this.columnOrdersDateTime.DataPropertyName = "DateTime";
+            resources.ApplyResources(this.columnOrdersDateTime, "columnOrdersDateTime");
+            this.columnOrdersDateTime.Name = "columnOrdersDateTime";
+            this.columnOrdersDateTime.ReadOnly = true;
+            // 
+            // columnOrdersPersonInfo
+            // 
+            this.columnOrdersPersonInfo.DataPropertyName = "PersonInfoText";
+            resources.ApplyResources(this.columnOrdersPersonInfo, "columnOrdersPersonInfo");
+            this.columnOrdersPersonInfo.Name = "columnOrdersPersonInfo";
+            this.columnOrdersPersonInfo.ReadOnly = true;
+            // 
+            // columnOrdersItemStatus
+            // 
+            this.columnOrdersItemStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersItemStatus.DataPropertyName = "ItemStatusText";
+            resources.ApplyResources(this.columnOrdersItemStatus, "columnOrdersItemStatus");
+            this.columnOrdersItemStatus.Name = "columnOrdersItemStatus";
+            this.columnOrdersItemStatus.ReadOnly = true;
+            // 
+            // columnOrdersItem
+            // 
+            this.columnOrdersItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnOrdersItem.DataPropertyName = "ItemText";
+            resources.ApplyResources(this.columnOrdersItem, "columnOrdersItem");
+            this.columnOrdersItem.Name = "columnOrdersItem";
+            this.columnOrdersItem.ReadOnly = true;
+            // 
+            // columnOrdersCount
+            // 
+            this.columnOrdersCount.DataPropertyName = "Count";
+            resources.ApplyResources(this.columnOrdersCount, "columnOrdersCount");
+            this.columnOrdersCount.Name = "columnOrdersCount";
+            this.columnOrdersCount.ReadOnly = true;
+            // 
+            // columnOrdersPriceTotal
+            // 
+            this.columnOrdersPriceTotal.DataPropertyName = "PriceTotal";
+            resources.ApplyResources(this.columnOrdersPriceTotal, "columnOrdersPriceTotal");
+            this.columnOrdersPriceTotal.Name = "columnOrdersPriceTotal";
+            this.columnOrdersPriceTotal.ReadOnly = true;
+            // 
+            // columnOrdersLegalEntity
+            // 
+            this.columnOrdersLegalEntity.DataPropertyName = "LegalEntity";
+            resources.ApplyResources(this.columnOrdersLegalEntity, "columnOrdersLegalEntity");
+            this.columnOrdersLegalEntity.Name = "columnOrdersLegalEntity";
+            this.columnOrdersLegalEntity.ReadOnly = true;
+            // 
+            // orderBindingSource
+            // 
+            this.orderBindingSource.DataSource = typeof(jeza.Item.Tracker.Order);
             // 
             // groupBoxOrders
             // 
@@ -285,34 +381,6 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxOrders, "groupBoxOrders");
             this.groupBoxOrders.Name = "groupBoxOrders";
             this.groupBoxOrders.TabStop = false;
-            // 
-            // dataGridViewOrders
-            // 
-            this.dataGridViewOrders.AllowUserToAddRows = false;
-            this.dataGridViewOrders.AllowUserToDeleteRows = false;
-            this.dataGridViewOrders.AutoGenerateColumns = false;
-            this.dataGridViewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOrders.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.columnOrdersDateTime,
-            this.columnOrdersPersonInfo,
-            this.columnOrdersItemStatus,
-            this.columnOrdersItem,
-            this.columnOrdersCount,
-            this.columnOrdersPriceTotal,
-            this.columnOrdersLegalEntity});
-            this.dataGridViewOrders.DataSource = this.orderBindingSource;
-            resources.ApplyResources(this.dataGridViewOrders, "dataGridViewOrders");
-            this.dataGridViewOrders.MultiSelect = false;
-            this.dataGridViewOrders.Name = "dataGridViewOrders";
-            this.dataGridViewOrders.ReadOnly = true;
-            this.dataGridViewOrders.SelectionChanged += new System.EventHandler(this.DataGridViewOrdersSelectionChanged);
-            // 
-            // columnOrdersDateTime
-            // 
-            this.columnOrdersDateTime.DataPropertyName = "DateTime";
-            resources.ApplyResources(this.columnOrdersDateTime, "columnOrdersDateTime");
-            this.columnOrdersDateTime.Name = "columnOrdersDateTime";
-            this.columnOrdersDateTime.ReadOnly = true;
             // 
             // comboBoxOrdersBank
             // 
@@ -479,23 +547,12 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItems.Name = "tabPageItems";
             this.tabPageItems.UseVisualStyleBackColor = true;
             // 
-            // groupBoxItems
+            // groupBoxItemsList
             // 
-            this.groupBoxItems.Controls.Add(this.labelItemsId);
-            this.groupBoxItems.Controls.Add(this.buttonItemsUpdate);
-            this.groupBoxItems.Controls.Add(this.buttonItemsDelete);
-            this.groupBoxItems.Controls.Add(this.labelItemsDescription);
-            this.groupBoxItems.Controls.Add(this.textBoxItemsDescription);
-            this.groupBoxItems.Controls.Add(this.buttonItemsPictureBoxSelect);
-            this.groupBoxItems.Controls.Add(this.pictureBoxItems);
-            this.groupBoxItems.Controls.Add(this.labelItemsType);
-            this.groupBoxItems.Controls.Add(this.comboBoxItemsType);
-            this.groupBoxItems.Controls.Add(this.buttonItemsSave);
-            this.groupBoxItems.Controls.Add(this.labelItemsName);
-            this.groupBoxItems.Controls.Add(this.textBoxItemsName);
-            resources.ApplyResources(this.groupBoxItems, "groupBoxItems");
-            this.groupBoxItems.Name = "groupBoxItems";
-            this.groupBoxItems.TabStop = false;
+            this.groupBoxItemsList.Controls.Add(this.dataGridViewItems);
+            resources.ApplyResources(this.groupBoxItemsList, "groupBoxItemsList");
+            this.groupBoxItemsList.Name = "groupBoxItemsList";
+            this.groupBoxItemsList.TabStop = false;
             // 
             // dataGridViewItems
             // 
@@ -514,6 +571,22 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItems.ReadOnly = true;
             this.dataGridViewItems.SelectionChanged += new System.EventHandler(this.DataGridViewItemsSelectionChanged);
             // 
+            // columnItemName
+            // 
+            this.columnItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemName, "columnItemName");
+            this.columnItemName.Name = "columnItemName";
+            this.columnItemName.ReadOnly = true;
+            // 
+            // columnItemDescription
+            // 
+            this.columnItemDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemDescription, "columnItemDescription");
+            this.columnItemDescription.Name = "columnItemDescription";
+            this.columnItemDescription.ReadOnly = true;
+            // 
             // columnItemItemTypeName
             // 
             this.columnItemItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -521,6 +594,28 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.columnItemItemTypeName, "columnItemItemTypeName");
             this.columnItemItemTypeName.Name = "columnItemItemTypeName";
             this.columnItemItemTypeName.ReadOnly = true;
+            // 
+            // itemBindingSource
+            // 
+            this.itemBindingSource.DataSource = typeof(jeza.Item.Tracker.Item);
+            // 
+            // groupBoxItems
+            // 
+            this.groupBoxItems.Controls.Add(this.labelItemsId);
+            this.groupBoxItems.Controls.Add(this.buttonItemsUpdate);
+            this.groupBoxItems.Controls.Add(this.buttonItemsDelete);
+            this.groupBoxItems.Controls.Add(this.labelItemsDescription);
+            this.groupBoxItems.Controls.Add(this.textBoxItemsDescription);
+            this.groupBoxItems.Controls.Add(this.buttonItemsPictureBoxSelect);
+            this.groupBoxItems.Controls.Add(this.pictureBoxItems);
+            this.groupBoxItems.Controls.Add(this.labelItemsType);
+            this.groupBoxItems.Controls.Add(this.comboBoxItemsType);
+            this.groupBoxItems.Controls.Add(this.buttonItemsSave);
+            this.groupBoxItems.Controls.Add(this.labelItemsName);
+            this.groupBoxItems.Controls.Add(this.textBoxItemsName);
+            resources.ApplyResources(this.groupBoxItems, "groupBoxItems");
+            this.groupBoxItems.Name = "groupBoxItems";
+            this.groupBoxItems.TabStop = false;
             // 
             // labelItemsId
             // 
@@ -600,19 +695,12 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemType.Name = "tabPageItemType";
             this.tabPageItemType.UseVisualStyleBackColor = true;
             // 
-            // groupBoxItemType
+            // groupBoxItemTypeList
             // 
-            this.groupBoxItemType.Controls.Add(this.labelItemTypeId);
-            this.groupBoxItemType.Controls.Add(this.textBoxItemTypeName);
-            this.groupBoxItemType.Controls.Add(this.buttonItemTypeUpdate);
-            this.groupBoxItemType.Controls.Add(this.buttonItemTypeDelete);
-            this.groupBoxItemType.Controls.Add(this.labelItemTypeName);
-            this.groupBoxItemType.Controls.Add(this.buttonItemTypeSave);
-            this.groupBoxItemType.Controls.Add(this.labelItemTypeDescription);
-            this.groupBoxItemType.Controls.Add(this.textBoxItemTypeDescription);
-            resources.ApplyResources(this.groupBoxItemType, "groupBoxItemType");
-            this.groupBoxItemType.Name = "groupBoxItemType";
-            this.groupBoxItemType.TabStop = false;
+            this.groupBoxItemTypeList.Controls.Add(this.dataGridViewItemType);
+            resources.ApplyResources(this.groupBoxItemTypeList, "groupBoxItemTypeList");
+            this.groupBoxItemTypeList.Name = "groupBoxItemTypeList";
+            this.groupBoxItemTypeList.TabStop = false;
             // 
             // dataGridViewItemType
             // 
@@ -629,6 +717,40 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItemType.Name = "dataGridViewItemType";
             this.dataGridViewItemType.ReadOnly = true;
             this.dataGridViewItemType.SelectionChanged += new System.EventHandler(this.DataGridViewItemTypeSelectionChanged);
+            // 
+            // columnItemTypeName
+            // 
+            this.columnItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemTypeName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemTypeName, "columnItemTypeName");
+            this.columnItemTypeName.Name = "columnItemTypeName";
+            this.columnItemTypeName.ReadOnly = true;
+            // 
+            // columnItemTypeDescription
+            // 
+            this.columnItemTypeDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemTypeDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemTypeDescription, "columnItemTypeDescription");
+            this.columnItemTypeDescription.Name = "columnItemTypeDescription";
+            this.columnItemTypeDescription.ReadOnly = true;
+            // 
+            // itemTypeBindingSource
+            // 
+            this.itemTypeBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemType);
+            // 
+            // groupBoxItemType
+            // 
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeId);
+            this.groupBoxItemType.Controls.Add(this.textBoxItemTypeName);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeUpdate);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeDelete);
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeName);
+            this.groupBoxItemType.Controls.Add(this.buttonItemTypeSave);
+            this.groupBoxItemType.Controls.Add(this.labelItemTypeDescription);
+            this.groupBoxItemType.Controls.Add(this.textBoxItemTypeDescription);
+            resources.ApplyResources(this.groupBoxItemType, "groupBoxItemType");
+            this.groupBoxItemType.Name = "groupBoxItemType";
+            this.groupBoxItemType.TabStop = false;
             // 
             // labelItemTypeId
             // 
@@ -684,20 +806,12 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageItemStatus.Name = "tabPageItemStatus";
             this.tabPageItemStatus.UseVisualStyleBackColor = true;
             // 
-            // groupBoxItemStatus
+            // groupBoxStatusList
             // 
-            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusId);
-            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusList);
-            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusDescription);
-            this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusDescription);
-            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusUpdate);
-            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusDelete);
-            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusSave);
-            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusName);
-            this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusName);
-            resources.ApplyResources(this.groupBoxItemStatus, "groupBoxItemStatus");
-            this.groupBoxItemStatus.Name = "groupBoxItemStatus";
-            this.groupBoxItemStatus.TabStop = false;
+            this.groupBoxStatusList.Controls.Add(this.dataGridViewItemStatus);
+            resources.ApplyResources(this.groupBoxStatusList, "groupBoxStatusList");
+            this.groupBoxStatusList.Name = "groupBoxStatusList";
+            this.groupBoxStatusList.TabStop = false;
             // 
             // dataGridViewItemStatus
             // 
@@ -714,6 +828,41 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItemStatus.Name = "dataGridViewItemStatus";
             this.dataGridViewItemStatus.ReadOnly = true;
             this.dataGridViewItemStatus.SelectionChanged += new System.EventHandler(this.DataGridViewItemStatusSelectionChanged);
+            // 
+            // columnItemStatusName
+            // 
+            this.columnItemStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemStatusName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnItemStatusName, "columnItemStatusName");
+            this.columnItemStatusName.Name = "columnItemStatusName";
+            this.columnItemStatusName.ReadOnly = true;
+            // 
+            // columnItemStatusDescription
+            // 
+            this.columnItemStatusDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnItemStatusDescription.DataPropertyName = "Description";
+            resources.ApplyResources(this.columnItemStatusDescription, "columnItemStatusDescription");
+            this.columnItemStatusDescription.Name = "columnItemStatusDescription";
+            this.columnItemStatusDescription.ReadOnly = true;
+            // 
+            // itemStatusBindingSource
+            // 
+            this.itemStatusBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemStatus);
+            // 
+            // groupBoxItemStatus
+            // 
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusId);
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusList);
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusDescription);
+            this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusDescription);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusUpdate);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusDelete);
+            this.groupBoxItemStatus.Controls.Add(this.buttonItemStatusSave);
+            this.groupBoxItemStatus.Controls.Add(this.labelItemStatusName);
+            this.groupBoxItemStatus.Controls.Add(this.textBoxItemStatusName);
+            resources.ApplyResources(this.groupBoxItemStatus, "groupBoxItemStatus");
+            this.groupBoxItemStatus.Name = "groupBoxItemStatus";
+            this.groupBoxItemStatus.TabStop = false;
             // 
             // labelItemStatusId
             // 
@@ -774,37 +923,12 @@ namespace jeza.Item.Tracker.Gui
             this.tabPagePersonInfo.Name = "tabPagePersonInfo";
             this.tabPagePersonInfo.UseVisualStyleBackColor = true;
             // 
-            // groupBoxPersonInfo
+            // groupBoxPersonInfoList
             // 
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoId);
-            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoDelete);
-            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoUpdate);
-            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoSave);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoFaxNumber);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoFax);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoTelephoneMobile);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoTelephoneMobile);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoTelephone);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoTelephone);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoEmail);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoEmail);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoPopstNumber);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoPostNumber);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoCity);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoCity);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoAddress);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoAddress);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoDescription);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoDescription);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoNickName);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoNickName);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoSurName);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoSurName);
-            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoName);
-            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoName);
-            resources.ApplyResources(this.groupBoxPersonInfo, "groupBoxPersonInfo");
-            this.groupBoxPersonInfo.Name = "groupBoxPersonInfo";
-            this.groupBoxPersonInfo.TabStop = false;
+            this.groupBoxPersonInfoList.Controls.Add(this.dataGridViewPersonInfo);
+            resources.ApplyResources(this.groupBoxPersonInfoList, "groupBoxPersonInfoList");
+            this.groupBoxPersonInfoList.Name = "groupBoxPersonInfoList";
+            this.groupBoxPersonInfoList.TabStop = false;
             // 
             // dataGridViewPersonInfo
             // 
@@ -825,6 +949,14 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewPersonInfo.Name = "dataGridViewPersonInfo";
             this.dataGridViewPersonInfo.ReadOnly = true;
             this.dataGridViewPersonInfo.SelectionChanged += new System.EventHandler(this.DataGridViewPersonInfoSelectionChanged);
+            // 
+            // columnPersonInfoName
+            // 
+            this.columnPersonInfoName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPersonInfoName.DataPropertyName = "Name";
+            resources.ApplyResources(this.columnPersonInfoName, "columnPersonInfoName");
+            this.columnPersonInfoName.Name = "columnPersonInfoName";
+            this.columnPersonInfoName.ReadOnly = true;
             // 
             // columnPersonInfoSurName
             // 
@@ -864,6 +996,42 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.columnPersonInfoEmail, "columnPersonInfoEmail");
             this.columnPersonInfoEmail.Name = "columnPersonInfoEmail";
             this.columnPersonInfoEmail.ReadOnly = true;
+            // 
+            // personInfoBindingSource
+            // 
+            this.personInfoBindingSource.DataSource = typeof(jeza.Item.Tracker.PersonInfo);
+            // 
+            // groupBoxPersonInfo
+            // 
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoId);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoDelete);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoUpdate);
+            this.groupBoxPersonInfo.Controls.Add(this.buttonPersonInfoSave);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoFaxNumber);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoFax);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoTelephoneMobile);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoTelephoneMobile);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoTelephone);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoTelephone);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoEmail);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoEmail);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoPopstNumber);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoPostNumber);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoCity);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoCity);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoAddress);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoAddress);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoDescription);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoDescription);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoNickName);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoNickName);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoSurName);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoSurName);
+            this.groupBoxPersonInfo.Controls.Add(this.textBoxPersonInfoName);
+            this.groupBoxPersonInfo.Controls.Add(this.labelPersonInfoName);
+            resources.ApplyResources(this.groupBoxPersonInfo, "groupBoxPersonInfo");
+            this.groupBoxPersonInfo.Name = "groupBoxPersonInfo";
+            this.groupBoxPersonInfo.TabStop = false;
             // 
             // labelPersonInfoId
             // 
@@ -1009,6 +1177,12 @@ namespace jeza.Item.Tracker.Gui
             this.tabPageReports.Name = "tabPageReports";
             this.tabPageReports.UseVisualStyleBackColor = true;
             // 
+            // groupBoxReportsList
+            // 
+            resources.ApplyResources(this.groupBoxReportsList, "groupBoxReportsList");
+            this.groupBoxReportsList.Name = "groupBoxReportsList";
+            this.groupBoxReportsList.TabStop = false;
+            // 
             // groupBoxReports
             // 
             resources.ApplyResources(this.groupBoxReports, "groupBoxReports");
@@ -1022,6 +1196,58 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.tabPageBank, "tabPageBank");
             this.tabPageBank.Name = "tabPageBank";
             this.tabPageBank.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxBankList
+            // 
+            this.groupBoxBankList.Controls.Add(this.dataGridViewBank);
+            resources.ApplyResources(this.groupBoxBankList, "groupBoxBankList");
+            this.groupBoxBankList.Name = "groupBoxBankList";
+            this.groupBoxBankList.TabStop = false;
+            // 
+            // dataGridViewBank
+            // 
+            this.dataGridViewBank.AllowUserToAddRows = false;
+            this.dataGridViewBank.AllowUserToDeleteRows = false;
+            this.dataGridViewBank.AutoGenerateColumns = false;
+            this.dataGridViewBank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewBank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn,
+            this.ownerDataGridViewTextBoxColumn,
+            this.accountNumberDataGridViewTextBoxColumn});
+            this.dataGridViewBank.DataSource = this.bankBindingSource;
+            resources.ApplyResources(this.dataGridViewBank, "dataGridViewBank");
+            this.dataGridViewBank.MultiSelect = false;
+            this.dataGridViewBank.Name = "dataGridViewBank";
+            this.dataGridViewBank.ReadOnly = true;
+            this.dataGridViewBank.SelectionChanged += new System.EventHandler(this.DataGridViewBankSelectionChanged);
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            resources.ApplyResources(this.nameDataGridViewTextBoxColumn, "nameDataGridViewTextBoxColumn");
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ownerDataGridViewTextBoxColumn
+            // 
+            this.ownerDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ownerDataGridViewTextBoxColumn.DataPropertyName = "Owner";
+            resources.ApplyResources(this.ownerDataGridViewTextBoxColumn, "ownerDataGridViewTextBoxColumn");
+            this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
+            this.ownerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // accountNumberDataGridViewTextBoxColumn
+            // 
+            this.accountNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.accountNumberDataGridViewTextBoxColumn.DataPropertyName = "AccountNumber";
+            resources.ApplyResources(this.accountNumberDataGridViewTextBoxColumn, "accountNumberDataGridViewTextBoxColumn");
+            this.accountNumberDataGridViewTextBoxColumn.Name = "accountNumberDataGridViewTextBoxColumn";
+            this.accountNumberDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bankBindingSource
+            // 
+            this.bankBindingSource.DataSource = typeof(jeza.Item.Tracker.Bank);
             // 
             // groupBoxBank
             // 
@@ -1049,23 +1275,6 @@ namespace jeza.Item.Tracker.Gui
             // 
             resources.ApplyResources(this.labelBankOwner, "labelBankOwner");
             this.labelBankOwner.Name = "labelBankOwner";
-            // 
-            // dataGridViewBank
-            // 
-            this.dataGridViewBank.AllowUserToAddRows = false;
-            this.dataGridViewBank.AllowUserToDeleteRows = false;
-            this.dataGridViewBank.AutoGenerateColumns = false;
-            this.dataGridViewBank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewBank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
-            this.ownerDataGridViewTextBoxColumn,
-            this.accountNumberDataGridViewTextBoxColumn});
-            this.dataGridViewBank.DataSource = this.bankBindingSource;
-            resources.ApplyResources(this.dataGridViewBank, "dataGridViewBank");
-            this.dataGridViewBank.MultiSelect = false;
-            this.dataGridViewBank.Name = "dataGridViewBank";
-            this.dataGridViewBank.ReadOnly = true;
-            this.dataGridViewBank.SelectionChanged += new System.EventHandler(this.DataGridViewBankSelectionChanged);
             // 
             // labelBankId
             // 
@@ -1118,54 +1327,6 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.textBoxBankName, "textBoxBankName");
             this.textBoxBankName.Name = "textBoxBankName";
             // 
-            // groupBoxOrdersList
-            // 
-            this.groupBoxOrdersList.Controls.Add(this.dataGridViewOrders);
-            resources.ApplyResources(this.groupBoxOrdersList, "groupBoxOrdersList");
-            this.groupBoxOrdersList.Name = "groupBoxOrdersList";
-            this.groupBoxOrdersList.TabStop = false;
-            // 
-            // groupBoxItemsList
-            // 
-            this.groupBoxItemsList.Controls.Add(this.dataGridViewItems);
-            resources.ApplyResources(this.groupBoxItemsList, "groupBoxItemsList");
-            this.groupBoxItemsList.Name = "groupBoxItemsList";
-            this.groupBoxItemsList.TabStop = false;
-            // 
-            // groupBoxItemTypeList
-            // 
-            this.groupBoxItemTypeList.Controls.Add(this.dataGridViewItemType);
-            resources.ApplyResources(this.groupBoxItemTypeList, "groupBoxItemTypeList");
-            this.groupBoxItemTypeList.Name = "groupBoxItemTypeList";
-            this.groupBoxItemTypeList.TabStop = false;
-            // 
-            // groupBoxPersonInfoList
-            // 
-            this.groupBoxPersonInfoList.Controls.Add(this.dataGridViewPersonInfo);
-            resources.ApplyResources(this.groupBoxPersonInfoList, "groupBoxPersonInfoList");
-            this.groupBoxPersonInfoList.Name = "groupBoxPersonInfoList";
-            this.groupBoxPersonInfoList.TabStop = false;
-            // 
-            // groupBoxReportsList
-            // 
-            resources.ApplyResources(this.groupBoxReportsList, "groupBoxReportsList");
-            this.groupBoxReportsList.Name = "groupBoxReportsList";
-            this.groupBoxReportsList.TabStop = false;
-            // 
-            // groupBoxBankList
-            // 
-            this.groupBoxBankList.Controls.Add(this.dataGridViewBank);
-            resources.ApplyResources(this.groupBoxBankList, "groupBoxBankList");
-            this.groupBoxBankList.Name = "groupBoxBankList";
-            this.groupBoxBankList.TabStop = false;
-            // 
-            // groupBoxStatusList
-            // 
-            this.groupBoxStatusList.Controls.Add(this.dataGridViewItemStatus);
-            resources.ApplyResources(this.groupBoxStatusList, "groupBoxStatusList");
-            this.groupBoxStatusList.Name = "groupBoxStatusList";
-            this.groupBoxStatusList.TabStop = false;
-            // 
             // tabPageExport
             // 
             this.tabPageExport.Controls.Add(this.groupBoxExportList);
@@ -1176,17 +1337,85 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxExportList
             // 
+            this.groupBoxExportList.Controls.Add(this.pagePreviewExport);
+            this.groupBoxExportList.Controls.Add(this.toolBarExport);
             resources.ApplyResources(this.groupBoxExportList, "groupBoxExportList");
             this.groupBoxExportList.Name = "groupBoxExportList";
             this.groupBoxExportList.TabStop = false;
             // 
+            // pagePreviewExport
+            // 
+            this.pagePreviewExport.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pagePreviewExport.DesktopColor = System.Drawing.SystemColors.ControlDark;
+            resources.ApplyResources(this.pagePreviewExport, "pagePreviewExport");
+            this.pagePreviewExport.Name = "pagePreviewExport";
+            this.pagePreviewExport.PageColor = System.Drawing.Color.GhostWhite;
+            this.pagePreviewExport.PageSize = ((PdfSharp.Drawing.XSize)(resources.GetObject("pagePreviewExport.PageSize")));
+            this.pagePreviewExport.PageSizeF = new System.Drawing.Size(595, 842);
+            this.pagePreviewExport.ZoomPercent = 46;
+            // 
+            // toolBarExport
+            // 
+            this.toolBarExport.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
+            this.toolBarButtonExportSmaller,
+            this.toolBarButtonExportLarger,
+            this.toolBarButtonExportSeparator,
+            this.toolBarButtonExportPrint,
+            this.toolBarButtonExportPdf,
+            this.toolBarButtonEXportEmail});
+            resources.ApplyResources(this.toolBarExport, "toolBarExport");
+            this.toolBarExport.Name = "toolBarExport";
+            // 
+            // toolBarButtonExportSmaller
+            // 
+            this.toolBarButtonExportSmaller.Name = "toolBarButtonExportSmaller";
+            resources.ApplyResources(this.toolBarButtonExportSmaller, "toolBarButtonExportSmaller");
+            // 
+            // toolBarButtonExportLarger
+            // 
+            this.toolBarButtonExportLarger.Name = "toolBarButtonExportLarger";
+            resources.ApplyResources(this.toolBarButtonExportLarger, "toolBarButtonExportLarger");
+            // 
+            // toolBarButtonExportSeparator
+            // 
+            this.toolBarButtonExportSeparator.Name = "toolBarButtonExportSeparator";
+            this.toolBarButtonExportSeparator.Style = System.Windows.Forms.ToolBarButtonStyle.Separator;
+            // 
+            // toolBarButtonExportPrint
+            // 
+            this.toolBarButtonExportPrint.Name = "toolBarButtonExportPrint";
+            resources.ApplyResources(this.toolBarButtonExportPrint, "toolBarButtonExportPrint");
+            // 
+            // toolBarButtonExportPdf
+            // 
+            this.toolBarButtonExportPdf.Name = "toolBarButtonExportPdf";
+            resources.ApplyResources(this.toolBarButtonExportPdf, "toolBarButtonExportPdf");
+            // 
+            // toolBarButtonEXportEmail
+            // 
+            this.toolBarButtonEXportEmail.Name = "toolBarButtonEXportEmail";
+            resources.ApplyResources(this.toolBarButtonEXportEmail, "toolBarButtonEXportEmail");
+            // 
             // groupBoxExport
             // 
+            this.groupBoxExport.Controls.Add(this.buttonExportPreview);
+            this.groupBoxExport.Controls.Add(this.textBoxExportWork);
+            this.groupBoxExport.Controls.Add(this.labelExportWork);
             this.groupBoxExport.Controls.Add(this.comboBoxExportErders);
             this.groupBoxExport.Controls.Add(this.labelExportOrders);
             resources.ApplyResources(this.groupBoxExport, "groupBoxExport");
             this.groupBoxExport.Name = "groupBoxExport";
             this.groupBoxExport.TabStop = false;
+            // 
+            // textBoxExportWork
+            // 
+            resources.ApplyResources(this.textBoxExportWork, "textBoxExportWork");
+            this.textBoxExportWork.Name = "textBoxExportWork";
+            // 
+            // labelExportWork
+            // 
+            resources.ApplyResources(this.labelExportWork, "labelExportWork");
+            this.labelExportWork.Name = "labelExportWork";
             // 
             // comboBoxExportErders
             // 
@@ -1199,153 +1428,12 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelExportOrders, "labelExportOrders");
             this.labelExportOrders.Name = "labelExportOrders";
             // 
-            // columnOrdersPersonInfo
+            // buttonExportPreview
             // 
-            this.columnOrdersPersonInfo.DataPropertyName = "PersonInfoText";
-            resources.ApplyResources(this.columnOrdersPersonInfo, "columnOrdersPersonInfo");
-            this.columnOrdersPersonInfo.Name = "columnOrdersPersonInfo";
-            this.columnOrdersPersonInfo.ReadOnly = true;
-            // 
-            // columnOrdersItemStatus
-            // 
-            this.columnOrdersItemStatus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnOrdersItemStatus.DataPropertyName = "ItemStatusText";
-            resources.ApplyResources(this.columnOrdersItemStatus, "columnOrdersItemStatus");
-            this.columnOrdersItemStatus.Name = "columnOrdersItemStatus";
-            this.columnOrdersItemStatus.ReadOnly = true;
-            // 
-            // columnOrdersItem
-            // 
-            this.columnOrdersItem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnOrdersItem.DataPropertyName = "ItemText";
-            resources.ApplyResources(this.columnOrdersItem, "columnOrdersItem");
-            this.columnOrdersItem.Name = "columnOrdersItem";
-            this.columnOrdersItem.ReadOnly = true;
-            // 
-            // columnOrdersCount
-            // 
-            this.columnOrdersCount.DataPropertyName = "Count";
-            resources.ApplyResources(this.columnOrdersCount, "columnOrdersCount");
-            this.columnOrdersCount.Name = "columnOrdersCount";
-            this.columnOrdersCount.ReadOnly = true;
-            // 
-            // columnOrdersPriceTotal
-            // 
-            this.columnOrdersPriceTotal.DataPropertyName = "PriceTotal";
-            resources.ApplyResources(this.columnOrdersPriceTotal, "columnOrdersPriceTotal");
-            this.columnOrdersPriceTotal.Name = "columnOrdersPriceTotal";
-            this.columnOrdersPriceTotal.ReadOnly = true;
-            // 
-            // columnOrdersLegalEntity
-            // 
-            this.columnOrdersLegalEntity.DataPropertyName = "LegalEntity";
-            resources.ApplyResources(this.columnOrdersLegalEntity, "columnOrdersLegalEntity");
-            this.columnOrdersLegalEntity.Name = "columnOrdersLegalEntity";
-            this.columnOrdersLegalEntity.ReadOnly = true;
-            // 
-            // orderBindingSource
-            // 
-            this.orderBindingSource.DataSource = typeof(jeza.Item.Tracker.Order);
-            // 
-            // columnItemName
-            // 
-            this.columnItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnItemName, "columnItemName");
-            this.columnItemName.Name = "columnItemName";
-            this.columnItemName.ReadOnly = true;
-            // 
-            // columnItemDescription
-            // 
-            this.columnItemDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemDescription.DataPropertyName = "Description";
-            resources.ApplyResources(this.columnItemDescription, "columnItemDescription");
-            this.columnItemDescription.Name = "columnItemDescription";
-            this.columnItemDescription.ReadOnly = true;
-            // 
-            // itemBindingSource
-            // 
-            this.itemBindingSource.DataSource = typeof(jeza.Item.Tracker.Item);
-            // 
-            // columnItemTypeName
-            // 
-            this.columnItemTypeName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemTypeName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnItemTypeName, "columnItemTypeName");
-            this.columnItemTypeName.Name = "columnItemTypeName";
-            this.columnItemTypeName.ReadOnly = true;
-            // 
-            // columnItemTypeDescription
-            // 
-            this.columnItemTypeDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemTypeDescription.DataPropertyName = "Description";
-            resources.ApplyResources(this.columnItemTypeDescription, "columnItemTypeDescription");
-            this.columnItemTypeDescription.Name = "columnItemTypeDescription";
-            this.columnItemTypeDescription.ReadOnly = true;
-            // 
-            // itemTypeBindingSource
-            // 
-            this.itemTypeBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemType);
-            // 
-            // columnItemStatusName
-            // 
-            this.columnItemStatusName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemStatusName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnItemStatusName, "columnItemStatusName");
-            this.columnItemStatusName.Name = "columnItemStatusName";
-            this.columnItemStatusName.ReadOnly = true;
-            // 
-            // columnItemStatusDescription
-            // 
-            this.columnItemStatusDescription.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnItemStatusDescription.DataPropertyName = "Description";
-            resources.ApplyResources(this.columnItemStatusDescription, "columnItemStatusDescription");
-            this.columnItemStatusDescription.Name = "columnItemStatusDescription";
-            this.columnItemStatusDescription.ReadOnly = true;
-            // 
-            // itemStatusBindingSource
-            // 
-            this.itemStatusBindingSource.DataSource = typeof(jeza.Item.Tracker.ItemStatus);
-            // 
-            // columnPersonInfoName
-            // 
-            this.columnPersonInfoName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnPersonInfoName.DataPropertyName = "Name";
-            resources.ApplyResources(this.columnPersonInfoName, "columnPersonInfoName");
-            this.columnPersonInfoName.Name = "columnPersonInfoName";
-            this.columnPersonInfoName.ReadOnly = true;
-            // 
-            // personInfoBindingSource
-            // 
-            this.personInfoBindingSource.DataSource = typeof(jeza.Item.Tracker.PersonInfo);
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            resources.ApplyResources(this.nameDataGridViewTextBoxColumn, "nameDataGridViewTextBoxColumn");
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ownerDataGridViewTextBoxColumn
-            // 
-            this.ownerDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ownerDataGridViewTextBoxColumn.DataPropertyName = "Owner";
-            resources.ApplyResources(this.ownerDataGridViewTextBoxColumn, "ownerDataGridViewTextBoxColumn");
-            this.ownerDataGridViewTextBoxColumn.Name = "ownerDataGridViewTextBoxColumn";
-            this.ownerDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // accountNumberDataGridViewTextBoxColumn
-            // 
-            this.accountNumberDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.accountNumberDataGridViewTextBoxColumn.DataPropertyName = "AccountNumber";
-            resources.ApplyResources(this.accountNumberDataGridViewTextBoxColumn, "accountNumberDataGridViewTextBoxColumn");
-            this.accountNumberDataGridViewTextBoxColumn.Name = "accountNumberDataGridViewTextBoxColumn";
-            this.accountNumberDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // bankBindingSource
-            // 
-            this.bankBindingSource.DataSource = typeof(jeza.Item.Tracker.Bank);
+            resources.ApplyResources(this.buttonExportPreview, "buttonExportPreview");
+            this.buttonExportPreview.Name = "buttonExportPreview";
+            this.buttonExportPreview.UseVisualStyleBackColor = true;
+            this.buttonExportPreview.Click += new System.EventHandler(ButtonExportPreviewClick);
             // 
             // Gui
             // 
@@ -1356,47 +1444,49 @@ namespace jeza.Item.Tracker.Gui
             this.Name = "Gui";
             this.tabControl.ResumeLayout(false);
             this.tabPageOrders.ResumeLayout(false);
+            this.groupBoxOrdersList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
             this.groupBoxOrders.ResumeLayout(false);
             this.groupBoxOrders.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOrders)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).EndInit();
             this.tabPageItems.ResumeLayout(false);
+            this.groupBoxItemsList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
             this.groupBoxItems.ResumeLayout(false);
             this.groupBoxItems.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxItems)).EndInit();
             this.tabPageItemType.ResumeLayout(false);
+            this.groupBoxItemTypeList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).EndInit();
             this.groupBoxItemType.ResumeLayout(false);
             this.groupBoxItemType.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemType)).EndInit();
             this.tabPageItemStatus.ResumeLayout(false);
+            this.groupBoxStatusList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).EndInit();
             this.groupBoxItemStatus.ResumeLayout(false);
             this.groupBoxItemStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemStatus)).EndInit();
             this.tabPagePersonInfo.ResumeLayout(false);
+            this.groupBoxPersonInfoList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).EndInit();
             this.groupBoxPersonInfo.ResumeLayout(false);
             this.groupBoxPersonInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPersonInfo)).EndInit();
             this.tabPageReports.ResumeLayout(false);
             this.tabPageBank.ResumeLayout(false);
+            this.groupBoxBankList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).EndInit();
             this.groupBoxBank.ResumeLayout(false);
             this.groupBoxBank.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBank)).EndInit();
-            this.groupBoxOrdersList.ResumeLayout(false);
-            this.groupBoxItemsList.ResumeLayout(false);
-            this.groupBoxItemTypeList.ResumeLayout(false);
-            this.groupBoxPersonInfoList.ResumeLayout(false);
-            this.groupBoxBankList.ResumeLayout(false);
-            this.groupBoxStatusList.ResumeLayout(false);
             this.tabPageExport.ResumeLayout(false);
+            this.groupBoxExportList.ResumeLayout(false);
+            this.groupBoxExportList.PerformLayout();
             this.groupBoxExport.ResumeLayout(false);
             this.groupBoxExport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.orderBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemTypeBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.itemStatusBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.personInfoBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bankBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1559,6 +1649,18 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.GroupBox groupBoxExport;
         private System.Windows.Forms.ComboBox comboBoxExportErders;
         private System.Windows.Forms.Label labelExportOrders;
+        private System.Windows.Forms.TextBox textBoxExportWork;
+        private System.Windows.Forms.Label labelExportWork;
+        private PdfSharp.Forms.PagePreview pagePreviewExport;
+        private System.Windows.Forms.ToolBar toolBarExport;
+        private System.Windows.Forms.ToolBarButton toolBarButtonExportSmaller;
+        private System.Windows.Forms.ToolBarButton toolBarButtonExportLarger;
+        private System.Windows.Forms.ToolBarButton toolBarButtonExportSeparator;
+        private System.Windows.Forms.ToolBarButton toolBarButtonExportPrint;
+        private System.Windows.Forms.ToolBarButton toolBarButtonExportPdf;
+        private System.Windows.Forms.ToolBarButton toolBarButtonEXportEmail;
+        private System.Windows.Forms.Button buttonExportPreview;
+        private Renderer renderer;
     }
 }
 
