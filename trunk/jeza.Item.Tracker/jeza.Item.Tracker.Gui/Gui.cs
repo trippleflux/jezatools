@@ -49,7 +49,8 @@ namespace jeza.Item.Tracker.Gui
                 labelOrdersTax.Text = tabOrders.LabelOrdersTax;
                 labelOrdersLegalEntity.Text = tabOrders.LabelOrdersLegalEntity;
                 labelOrdersPicture.Text = tabOrders.LabelOrdersPicture;
-                labelOrdersList.Text = tabOrders.LabelOrdersList;
+                //groupBoxOrders.Text = tabOrders.
+                groupBoxOrdersList.Text = tabOrders.LabelOrdersList;
                 buttonOrdersSum.Text = tabOrders.ButtonOrdersSum;
                 buttonOrdersSave.Text = tabOrders.ButtonOrdersSave;
                 buttonOrdersUpdate.Text = tabOrders.ButtonOrdersUpdate;
@@ -60,8 +61,8 @@ namespace jeza.Item.Tracker.Gui
                 labelItemsName.Text = tabItems.LabelItemsName;
                 labelItemsDescription.Text = tabItems.LabelItemsDescription;
                 labelItemsType.Text = tabItems.LabelItemsType;
-                labelItemsImage.Text = tabItems.LabelItemsImage;
-                labelItemsList.Text = tabItems.LabelItemsList;
+                //labelItemsImage.Text = tabItems.LabelItemsImage;
+                groupBoxItemsList.Text = tabItems.LabelItemsList;
                 buttonItemsPictureBoxSelect.Text = tabItems.ButtonItemsPictureBoxSelect;
                 buttonItemsSave.Text = tabItems.ButtonItemsSave;
                 buttonItemsUpdate.Text = tabItems.ButtonItemsUpdate;
@@ -71,7 +72,7 @@ namespace jeza.Item.Tracker.Gui
                 tabPageItemType.Text = tabItemTypes.Name;
                 labelItemTypeName.Text = tabItemTypes.LabelItemTypeName;
                 labelItemTypeDescription.Text = tabItemTypes.LabelItemTypeDescription;
-                labelItemTypeList.Text = tabItemTypes.LabelItemTypeList;
+                groupBoxItemTypeList.Text = tabItemTypes.LabelItemTypeList;
                 buttonItemTypeSave.Text = tabItemTypes.ButtonItemTypeListSave;
                 buttonItemTypeUpdate.Text = tabItemTypes.ButtonItemTypeListUpdate;
                 buttonItemTypeDelete.Text = tabItemTypes.ButtonItemTypeListDelete;
@@ -98,7 +99,7 @@ namespace jeza.Item.Tracker.Gui
                 labelPersonInfoTelephone.Text = tabPersonInfo.LabelPersonInfoTelephone;
                 labelPersonInfoTelephoneMobile.Text = tabPersonInfo.LabelPersonInfoTelephoneMobile;
                 labelPersonInfoFax.Text = tabPersonInfo.LabelPersonInfoFax;
-                labelPersonInfoList.Text = tabPersonInfo.LabelPersonInfoList;
+                groupBoxPersonInfoList.Text = tabPersonInfo.LabelPersonInfoList;
                 buttonPersonInfoSave.Text = tabPersonInfo.ButtonPersonInfoSave;
                 buttonPersonInfoUpdate.Text = tabPersonInfo.ButtonPersonInfoUpdate;
                 buttonPersonInfoDelete.Text = tabPersonInfo.ButtonPersonInfoDelete;
@@ -140,6 +141,7 @@ namespace jeza.Item.Tracker.Gui
         private void FillOrders()
         {
             Logger.Debug("Fill orders");
+            comboBoxExportErders.Items.Clear();
             List<Order> list = dataBase.OrderGetAll();
             if (list == null)
             {
@@ -147,6 +149,9 @@ namespace jeza.Item.Tracker.Gui
             }
             //Order tab
             dataGridViewOrders.DataSource = list;
+            //export tab
+            comboBoxExportErders.Items.AddRange(list.ToArray());
+            comboBoxExportErders.SelectedItem = comboBoxExportErders.Items[0];
         }
 
         private void FillPersonInfo()
