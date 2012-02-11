@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 using jeza.Item.Tracker.Settings;
 using NLog;
+using PdfSharp;
+using PdfSharp.Forms;
 
 namespace jeza.Item.Tracker.Gui
 {
@@ -19,6 +21,10 @@ namespace jeza.Item.Tracker.Gui
         public Gui()
         {
             InitializeComponent();
+            
+            this.pagePreviewExport.PageSize = PageSizeConverter.ToSize(PageSize.A4);
+            renderer = new Renderer();
+
             FillItemTypes();
             FillItemStatus();
             FillItems();
@@ -1729,6 +1735,22 @@ namespace jeza.Item.Tracker.Gui
             {
                 ShowError(exception);
             }
+        }
+
+        public PagePreview.RenderEvent RenderEvent
+        {
+            get { return this.renderEvent; }
+            set
+            {
+                this.pagePreviewExport.SetRenderEvent(value);
+                this.renderEvent = value;
+            }
+        }
+        PagePreview.RenderEvent renderEvent;
+
+        private void ButtonExportPreviewClick(object sender, EventArgs e)
+        {
+            RenderEvent = new PagePreview.RenderEvent(renderer.Render);
         }
     }
 }
