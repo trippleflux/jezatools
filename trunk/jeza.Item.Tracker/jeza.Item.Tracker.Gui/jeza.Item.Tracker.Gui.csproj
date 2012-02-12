@@ -50,6 +50,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Equin.ApplicationFramework.BindingListView">
+      <HintPath>..\packages\Equin.ApplicationFramework\Equin.ApplicationFramework.BindingListView.dll</HintPath>
+    </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
@@ -144,7 +147,13 @@
       <Link>settings.xml</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Adobe-PDF-Document-icon.png" />
+    <Content Include="Images\Mail-icon.png" />
+    <Content Include="Images\Printer-2-icon.png" />
+    <Content Include="Images\zoom-in-icon.png" />
+    <Content Include="Images\zoom-out-icon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
