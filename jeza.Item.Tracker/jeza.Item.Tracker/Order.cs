@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using NLog;
 
 namespace jeza.Item.Tracker
@@ -21,6 +22,7 @@ namespace jeza.Item.Tracker
         public string DateTime { get; set; }
         public string Tax { get; set; }
         public int BankId { get; set; }
+        public List<Item> Items { get; set; }
 
         public string PriceTotal
         {

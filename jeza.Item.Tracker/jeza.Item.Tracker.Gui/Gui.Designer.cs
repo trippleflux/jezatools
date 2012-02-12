@@ -86,6 +86,8 @@ namespace jeza.Item.Tracker.Gui
             this.columnItemItemTypeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.itemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBoxItems = new System.Windows.Forms.GroupBox();
+            this.textBoxItemsPrice = new System.Windows.Forms.TextBox();
+            this.labelItemsPrice = new System.Windows.Forms.Label();
             this.labelItemsId = new System.Windows.Forms.Label();
             this.buttonItemsUpdate = new System.Windows.Forms.Button();
             this.buttonItemsDelete = new System.Windows.Forms.Button();
@@ -198,12 +200,14 @@ namespace jeza.Item.Tracker.Gui
             this.toolBarButtonExportPrint = new System.Windows.Forms.ToolBarButton();
             this.toolBarButtonExportPdf = new System.Windows.Forms.ToolBarButton();
             this.toolBarButtonEXportEmail = new System.Windows.Forms.ToolBarButton();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.groupBoxExport = new System.Windows.Forms.GroupBox();
+            this.buttonExportPreview = new System.Windows.Forms.Button();
             this.textBoxExportWork = new System.Windows.Forms.TextBox();
             this.labelExportWork = new System.Windows.Forms.Label();
             this.comboBoxExportErders = new System.Windows.Forms.ComboBox();
             this.labelExportOrders = new System.Windows.Forms.Label();
-            this.buttonExportPreview = new System.Windows.Forms.Button();
+            this.textBoxItemsFilter = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabPageOrders.SuspendLayout();
             this.groupBoxOrdersList.SuspendLayout();
@@ -550,6 +554,7 @@ namespace jeza.Item.Tracker.Gui
             // groupBoxItemsList
             // 
             this.groupBoxItemsList.Controls.Add(this.dataGridViewItems);
+            this.groupBoxItemsList.Controls.Add(this.textBoxItemsFilter);
             resources.ApplyResources(this.groupBoxItemsList, "groupBoxItemsList");
             this.groupBoxItemsList.Name = "groupBoxItemsList";
             this.groupBoxItemsList.TabStop = false;
@@ -569,6 +574,7 @@ namespace jeza.Item.Tracker.Gui
             this.dataGridViewItems.MultiSelect = false;
             this.dataGridViewItems.Name = "dataGridViewItems";
             this.dataGridViewItems.ReadOnly = true;
+            this.dataGridViewItems.StandardTab = true;
             this.dataGridViewItems.SelectionChanged += new System.EventHandler(this.DataGridViewItemsSelectionChanged);
             // 
             // columnItemName
@@ -601,6 +607,8 @@ namespace jeza.Item.Tracker.Gui
             // 
             // groupBoxItems
             // 
+            this.groupBoxItems.Controls.Add(this.textBoxItemsPrice);
+            this.groupBoxItems.Controls.Add(this.labelItemsPrice);
             this.groupBoxItems.Controls.Add(this.labelItemsId);
             this.groupBoxItems.Controls.Add(this.buttonItemsUpdate);
             this.groupBoxItems.Controls.Add(this.buttonItemsDelete);
@@ -616,6 +624,16 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxItems, "groupBoxItems");
             this.groupBoxItems.Name = "groupBoxItems";
             this.groupBoxItems.TabStop = false;
+            // 
+            // textBoxItemsPrice
+            // 
+            resources.ApplyResources(this.textBoxItemsPrice, "textBoxItemsPrice");
+            this.textBoxItemsPrice.Name = "textBoxItemsPrice";
+            // 
+            // labelItemsPrice
+            // 
+            resources.ApplyResources(this.labelItemsPrice, "labelItemsPrice");
+            this.labelItemsPrice.Name = "labelItemsPrice";
             // 
             // labelItemsId
             // 
@@ -1352,7 +1370,8 @@ namespace jeza.Item.Tracker.Gui
             this.pagePreviewExport.PageColor = System.Drawing.Color.GhostWhite;
             this.pagePreviewExport.PageSize = ((PdfSharp.Drawing.XSize)(resources.GetObject("pagePreviewExport.PageSize")));
             this.pagePreviewExport.PageSizeF = new System.Drawing.Size(595, 842);
-            this.pagePreviewExport.ZoomPercent = 46;
+            this.pagePreviewExport.Zoom = PdfSharp.Forms.Zoom.Percent100;
+            this.pagePreviewExport.ZoomPercent = 100;
             // 
             // toolBarExport
             // 
@@ -1364,17 +1383,18 @@ namespace jeza.Item.Tracker.Gui
             this.toolBarButtonExportPdf,
             this.toolBarButtonEXportEmail});
             resources.ApplyResources(this.toolBarExport, "toolBarExport");
+            this.toolBarExport.ImageList = this.imageList;
             this.toolBarExport.Name = "toolBarExport";
             // 
             // toolBarButtonExportSmaller
             // 
-            this.toolBarButtonExportSmaller.Name = "toolBarButtonExportSmaller";
             resources.ApplyResources(this.toolBarButtonExportSmaller, "toolBarButtonExportSmaller");
+            this.toolBarButtonExportSmaller.Name = "toolBarButtonExportSmaller";
             // 
             // toolBarButtonExportLarger
             // 
-            this.toolBarButtonExportLarger.Name = "toolBarButtonExportLarger";
             resources.ApplyResources(this.toolBarButtonExportLarger, "toolBarButtonExportLarger");
+            this.toolBarButtonExportLarger.Name = "toolBarButtonExportLarger";
             // 
             // toolBarButtonExportSeparator
             // 
@@ -1383,18 +1403,28 @@ namespace jeza.Item.Tracker.Gui
             // 
             // toolBarButtonExportPrint
             // 
-            this.toolBarButtonExportPrint.Name = "toolBarButtonExportPrint";
             resources.ApplyResources(this.toolBarButtonExportPrint, "toolBarButtonExportPrint");
+            this.toolBarButtonExportPrint.Name = "toolBarButtonExportPrint";
             // 
             // toolBarButtonExportPdf
             // 
-            this.toolBarButtonExportPdf.Name = "toolBarButtonExportPdf";
             resources.ApplyResources(this.toolBarButtonExportPdf, "toolBarButtonExportPdf");
+            this.toolBarButtonExportPdf.Name = "toolBarButtonExportPdf";
             // 
             // toolBarButtonEXportEmail
             // 
-            this.toolBarButtonEXportEmail.Name = "toolBarButtonEXportEmail";
             resources.ApplyResources(this.toolBarButtonEXportEmail, "toolBarButtonEXportEmail");
+            this.toolBarButtonEXportEmail.Name = "toolBarButtonEXportEmail";
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "Printer-2-icon.png");
+            this.imageList.Images.SetKeyName(1, "Mail-icon.png");
+            this.imageList.Images.SetKeyName(2, "Adobe-PDF-Document-icon.png");
+            this.imageList.Images.SetKeyName(3, "zoom-in-icon.png");
+            this.imageList.Images.SetKeyName(4, "zoom-out-icon.png");
             // 
             // groupBoxExport
             // 
@@ -1406,6 +1436,13 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.groupBoxExport, "groupBoxExport");
             this.groupBoxExport.Name = "groupBoxExport";
             this.groupBoxExport.TabStop = false;
+            // 
+            // buttonExportPreview
+            // 
+            resources.ApplyResources(this.buttonExportPreview, "buttonExportPreview");
+            this.buttonExportPreview.Name = "buttonExportPreview";
+            this.buttonExportPreview.UseVisualStyleBackColor = true;
+            this.buttonExportPreview.Click += new System.EventHandler(this.ButtonExportPreviewClick);
             // 
             // textBoxExportWork
             // 
@@ -1428,12 +1465,10 @@ namespace jeza.Item.Tracker.Gui
             resources.ApplyResources(this.labelExportOrders, "labelExportOrders");
             this.labelExportOrders.Name = "labelExportOrders";
             // 
-            // buttonExportPreview
+            // textBoxItemsFilter
             // 
-            resources.ApplyResources(this.buttonExportPreview, "buttonExportPreview");
-            this.buttonExportPreview.Name = "buttonExportPreview";
-            this.buttonExportPreview.UseVisualStyleBackColor = true;
-            this.buttonExportPreview.Click += new System.EventHandler(ButtonExportPreviewClick);
+            resources.ApplyResources(this.textBoxItemsFilter, "textBoxItemsFilter");
+            this.textBoxItemsFilter.Name = "textBoxItemsFilter";
             // 
             // Gui
             // 
@@ -1452,6 +1487,7 @@ namespace jeza.Item.Tracker.Gui
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxOrders)).EndInit();
             this.tabPageItems.ResumeLayout(false);
             this.groupBoxItemsList.ResumeLayout(false);
+            this.groupBoxItemsList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemBindingSource)).EndInit();
             this.groupBoxItems.ResumeLayout(false);
@@ -1661,6 +1697,10 @@ namespace jeza.Item.Tracker.Gui
         private System.Windows.Forms.ToolBarButton toolBarButtonEXportEmail;
         private System.Windows.Forms.Button buttonExportPreview;
         private Renderer renderer;
+        private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.TextBox textBoxItemsPrice;
+        private System.Windows.Forms.Label labelItemsPrice;
+        private System.Windows.Forms.TextBox textBoxItemsFilter;
     }
 }
 

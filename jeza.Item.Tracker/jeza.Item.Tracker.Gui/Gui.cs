@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Equin.ApplicationFramework;
 using jeza.Item.Tracker.Settings;
 using NLog;
 using PdfSharp;
@@ -22,7 +23,7 @@ namespace jeza.Item.Tracker.Gui
         {
             InitializeComponent();
             
-            this.pagePreviewExport.PageSize = PageSizeConverter.ToSize(PageSize.A4);
+            pagePreviewExport.PageSize = PageSizeConverter.ToSize(PageSize.A4);
             renderer = new Renderer();
 
             FillItemTypes();
@@ -179,13 +180,17 @@ namespace jeza.Item.Tracker.Gui
         private void FillItems()
         {
             Logger.Debug("Fill Items");
-            //List<Item> items = dataBase.ItemGetAll(@"SELECT Id, Name, Description, ItemType, Image FROM Item");
             List<Item> items = dataBase.ItemGetAll();
             if (items == null)
             {
                 return;
             }
-            dataGridViewItems.DataSource = items;
+            BindingListView<Item> view = new BindingListView<Item>(items);
+            dataGridViewItems.DataSource = view;
+            textBoxItemsFilter.TextChanged += delegate
+                                              {
+                                                  view.ApplyFilter(item => item.Name.Contains(textBoxItemsFilter.Text));
+                                              };
         }
 
         private void FillItemTypes()
@@ -246,6 +251,7 @@ namespace jeza.Item.Tracker.Gui
                                 {
                                     Name = textBoxItemsName.Text.Trim(),
                                     Description = textBoxItemsDescription.Text.Trim(),
+                                    Price = textBoxItemsPrice.Text.Trim().String2Decimal(),
                                 };
                     Item existingItem = dataBase.ItemGet(item.Name);
                     if (existingItem != null)
@@ -299,6 +305,7 @@ namespace jeza.Item.Tracker.Gui
             EnableItemsSaveButton();
             textBoxItemsName.Text = String.Empty;
             textBoxItemsDescription.Text = String.Empty;
+            textBoxItemsPrice.Text = String.Empty;
             pictureBoxItems.Image = new Bitmap(1, 1);
             SetItemId(-1);
         }
@@ -571,7 +578,8 @@ namespace jeza.Item.Tracker.Gui
                             {
                                 Id = itemId,
                                 Name = textBoxItemsName.Text,
-                                Description = textBoxItemsDescription.Text
+                                Description = textBoxItemsDescription.Text,
+                                Price = textBoxItemsPrice.Text.Trim().String2Decimal(),
                             };
                 ItemType selectedItem = (ItemType) comboBoxItemsType.SelectedItem;
                 if (selectedItem != null)
@@ -1298,6 +1306,7 @@ namespace jeza.Item.Tracker.Gui
                 return;
             }
             ShowPicture(selectedItem, pictureBoxOrders);
+            textBoxOrdersPrice.Text = selectedItem.Price.ToString();
         }
 
         private void DataGridViewItemTypeSelectionChanged
@@ -1348,7 +1357,7 @@ namespace jeza.Item.Tracker.Gui
             {
                 return;
             }
-            List<Item> list = (List<Item>) dataGridViewItems.DataSource;
+            BindingListView<Item> list = (BindingListView<Item>)dataGridViewItems.DataSource;
             if (list == null)
             {
                 Logger.Warn("Failed to get Items binded to the control 'dataGridViewItems'.");
@@ -1357,7 +1366,8 @@ namespace jeza.Item.Tracker.Gui
             Logger.Info("Selected item changed...");
             try
             {
-                Item selectedItem = (Item) dataGridViewItems.SelectedRows[0].DataBoundItem;
+                //http://blw.sourceforge.net/
+                Item selectedItem = ((ObjectView<Item>) dataGridViewItems.SelectedRows[0].DataBoundItem).Object;
                 if (selectedItem != null)
                 {
                     Logger.Info("Selected item: '{0}'", selectedItem.Format());
@@ -1739,11 +1749,11 @@ namespace jeza.Item.Tracker.Gui
 
         public PagePreview.RenderEvent RenderEvent
         {
-            get { return this.renderEvent; }
+            get { return renderEvent; }
             set
             {
-                this.pagePreviewExport.SetRenderEvent(value);
-                this.renderEvent = value;
+                pagePreviewExport.SetRenderEvent(value);
+                renderEvent = value;
             }
         }
         PagePreview.RenderEvent renderEvent;
