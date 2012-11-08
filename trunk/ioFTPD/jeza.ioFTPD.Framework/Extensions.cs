@@ -8,22 +8,24 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Xml.Serialization;
-using jeza.ioFTPD.Framework.Archive;
-using jeza.ioFTPD.Framework.Json;
-using jeza.ioFTPD.Framework.Manager;
 using SharpCompress.Archive;
 using SharpCompress.Common;
 using TagLib;
+using jeza.ioFTPD.Framework.Archive;
+using jeza.ioFTPD.Framework.Json;
+using jeza.ioFTPD.Framework.Manager;
 using File = System.IO.File;
 using FileTagLib = TagLib.File;
 
 namespace jeza.ioFTPD.Framework
 {
     /// <summary>
-    /// 
     /// </summary>
     public static class Extensions
     {
+        private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
+        private static readonly Mutex RaceMutex = new Mutex(false, "raceMutex");
+
         public static int StartProcess(string executable,
                                        string arguments)
         {
@@ -59,9 +61,9 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Try to extract specified filename.
+        ///   Try to extract specified filename.
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName"> </param>
         public static void ExtractArchive(this string fileName)
         {
             Log.Debug("ExtractArchive: '{0}'", fileName);
@@ -83,10 +85,10 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Extract specified filename from archive based on file extension.
+        ///   Extract specified filename from archive based on file extension.
         /// </summary>
-        /// <param name="fileName">Archive file</param>
-        /// <param name="fileExtension">specified extension</param>
+        /// <param name="fileName"> Archive file </param>
+        /// <param name="fileExtension"> specified extension </param>
         public static bool ExtractFromArchive(this string fileName,
                                               string fileExtension)
         {
@@ -143,11 +145,11 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Gets the imdb response for specified event name.
+        ///   Gets the imdb response for specified event name.
         /// </summary>
-        /// <param name="searchString">The event name.</param>
-        /// <returns></returns>
-        public static dynamic GetImdbResponseForEventName(string searchString)
+        /// <param name="searchString"> The event name. </param>
+        /// <returns> </returns>
+        public static Dictionary<string, object> GetImdbResponseForEventName(string searchString)
         {
             Log.Debug("GetImdbResponseForEventName: '{0}'", searchString);
             string what = searchString.Trim().Replace(" ", "%20");
@@ -156,18 +158,18 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Gets the imdb response for event id.
+        ///   Gets the imdb response for event id.
         /// </summary>
-        /// <param name="eventId">The event id.</param>
-        /// <returns></returns>
-        public static dynamic GetImdbResponseForEventId(string eventId)
+        /// <param name="eventId"> The event id. </param>
+        /// <returns> </returns>
+        public static Dictionary<string, object> GetImdbResponseForEventId(string eventId)
         {
             Log.Debug("GetImdbResponseForEventId: '{0}'", eventId);
             string htmlUri = "http://www.imdbapi.com/?i=" + eventId;
             return GetImdbInfo(htmlUri);
         }
 
-        private static object GetImdbInfo(string htmlUri)
+        private static Dictionary<string, object> GetImdbInfo(string htmlUri)
         {
             Log.Debug("GetImdbInfo: '{0}'", htmlUri);
             WebRequest requestHtml = WebRequest.Create(htmlUri);
@@ -184,15 +186,16 @@ namespace jeza.ioFTPD.Framework
 
             JsonParser jsonParser = new JsonParser {CamelizeProperties = true};
             dynamic output = jsonParser.Parse(stringResponse);
+            Dictionary<string, object> thisDict = output.ThisDict;
             //{"Response":"Parse Error"}
-            return output;
+            return thisDict;
         }
 
         /// <summary>
-        /// Removes the folder.
+        ///   Removes the folder.
         /// </summary>
-        /// <param name="path">The path.</param>
-        /// <param name="recursive">true to remove directories, subdirectories, and files in path; otherwise, false</param>
+        /// <param name="path"> The path. </param>
+        /// <param name="recursive"> true to remove directories, subdirectories, and files in path; otherwise, false </param>
         public static void RemoveFolder(this string path,
                                         bool recursive = false)
         {
@@ -211,29 +214,29 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Kicks the users from directory.
+        ///   Kicks the users from directory.
         /// </summary>
-        /// <param name="fullName">The full name.</param>
+        /// <param name="fullName"> The full name. </param>
         public static void KickUsersFromDirectory(this string fullName)
         {
             Console.WriteLine("!unlock " + fullName + "\\*");
         }
 
         /// <summary>
-        /// Determines whether the given path refers to an existing directory on disk.
+        ///   Determines whether the given path refers to an existing directory on disk.
         /// </summary>
-        /// <param name="fullName">The full name.</param>
-        /// <returns></returns>
+        /// <param name="fullName"> The full name. </param>
+        /// <returns> </returns>
         public static bool DirectoryExists(this string fullName)
         {
             return Directory.Exists(fullName);
         }
 
         /// <summary>
-        /// Determines whether the specified file exists.
+        ///   Determines whether the specified file exists.
         /// </summary>
-        /// <param name="fullName">The full name.</param>
-        /// <returns></returns>
+        /// <param name="fullName"> The full name. </param>
+        /// <returns> </returns>
         public static bool FileExists(this string fullName)
         {
             return File.Exists(fullName);
@@ -265,11 +268,11 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Copies source directory to destination directory.
+        ///   Copies source directory to destination directory.
         /// </summary>
-        /// <param name="sourceDirectory">The source.</param>
-        /// <param name="destinationDirectory">The dest directory.</param>
-        /// <param name="recursive">if set to <c>true</c> do it recursive for all subdirectories.</param>
+        /// <param name="sourceDirectory"> The source. </param>
+        /// <param name="destinationDirectory"> The dest directory. </param>
+        /// <param name="recursive"> if set to <c>true</c> do it recursive for all subdirectories. </param>
         public static void CopyTo(this DirectoryInfo sourceDirectory,
                                   DirectoryInfo destinationDirectory,
                                   bool recursive)
@@ -322,11 +325,11 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// String Formats the submited input arguments.
+        ///   String Formats the submited input arguments.
         /// </summary>
-        /// <param name="data">The data.</param>
-        /// <param name="args">The args.</param>
-        /// <returns></returns>
+        /// <param name="data"> The data. </param>
+        /// <param name="args"> The args. </param>
+        /// <returns> </returns>
         public static string FormatArgs(this IData data,
                                         string[] args)
         {
@@ -339,13 +342,13 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Deserializes the specified XML object.
+        ///   Deserializes the specified XML object.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="xmlObject">The XML object.</param>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="defaultNamespace">The default namespace.</param>
-        /// <returns></returns>
+        /// <typeparam name="T"> </typeparam>
+        /// <param name="xmlObject"> The XML object. </param>
+        /// <param name="fileName"> Name of the file. </param>
+        /// <param name="defaultNamespace"> The default namespace. </param>
+        /// <returns> </returns>
         public static T Deserialize<T>(T xmlObject,
                                        string fileName,
                                        string defaultNamespace)
@@ -363,9 +366,9 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Reads the race data.
+        ///   Reads the race data.
         /// </summary>
-        /// <param name="race">The race.</param>
+        /// <param name="race"> The race. </param>
         public static void ReadRaceData(Race race)
         {
             race.ClearRaceStats();
@@ -413,9 +416,9 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Updates the race data.
+        ///   Updates the race data.
         /// </summary>
-        /// <param name="race">The race.</param>
+        /// <param name="race"> The race. </param>
         public static void UpdateRaceData(Race race)
         {
             Log.Debug("UpdateRaceData");
@@ -476,10 +479,35 @@ namespace jeza.ioFTPD.Framework
             RaceMutex.ReleaseMutex();
         }
 
+        public static string GetKeyValue(this Dictionary<string, object> imdbInfo,
+                                         string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                return "";
+            }
+            try
+            {
+                object value;
+                bool tryGetValue = imdbInfo.TryGetValue(key, out value);
+                if (tryGetValue)
+                {
+                    return value.ToString();
+                }
+                return "";
+            }
+            catch (Exception exception)
+            {
+                Log.Debug(exception.Message);
+                Log.Debug(exception.StackTrace);
+                return "";
+            }
+        }
+
         /// <summary>
-        /// Processes with the race data (Client output, complete/incompletetags creating/deletion...).
+        ///   Processes with the race data (Client output, complete/incompletetags creating/deletion...).
         /// </summary>
-        /// <param name="race">The race.</param>
+        /// <param name="race"> The race. </param>
         public static void ProcessRaceData(Race race)
         {
             FileInfo fileInfo = new FileInfo();
@@ -570,7 +598,7 @@ namespace jeza.ioFTPD.Framework
                 {
                     DirectoryInfo directoryInfo = new DirectoryInfo(race.CurrentRaceData.DirectoryPath);
                     System.IO.FileInfo[] filesRar = directoryInfo.GetFiles("*.rar", SearchOption.TopDirectoryOnly);
-                    if(filesRar.Length > 0)
+                    if (filesRar.Length > 0)
                     {
                         if (Config.UseResceneInfoOnRarComplete)
                         {
@@ -579,13 +607,13 @@ namespace jeza.ioFTPD.Framework
                             {
                                 Log.Debug("Executing Rescene.Info");
                                 StartProcess(
-                                    Config.ResceneInfoExecutable, 
-                                    String.Format(" \"{0}\" -o \"{1}\" -y", sfvFiles[0].FullName, race.CurrentRaceData.DirectoryPath));
+                                    Config.ResceneInfoExecutable,
+                                    String.Format(" \"{0}\" -o \"{1}\" -y", sfvFiles [0].FullName, race.CurrentRaceData.DirectoryPath));
                             }
                         }
                         Console.Write("!buffer off\n");
                         Console.Write("!detach 0\n");
-                        filesRar[0].FullName.ExtractArchive();
+                        filesRar [0].FullName.ExtractArchive();
                     }
                 }
             }
@@ -725,11 +753,11 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Writes the stats to ioFTPD message file <see cref="Config.FileNameIoFtpdMessage"/>.
+        ///   Writes the stats to ioFTPD message file <see cref="Config.FileNameIoFtpdMessage" /> .
         /// </summary>
-        /// <param name="race">The race.</param>
-        /// <param name="isMp3Race">if set to <c>true</c> [is MP3 race].</param>
-        /// <param name="mp3Info"><see cref="FileTagLib"/></param>
+        /// <param name="race"> The race. </param>
+        /// <param name="isMp3Race"> if set to <c>true</c> [is MP3 race]. </param>
+        /// <param name="mp3Info"> <see cref="FileTagLib" /> </param>
         public static void WriteStatsToMesasageFile(Race race,
                                                     bool isMp3Race,
                                                     FileTagLib mp3Info)
@@ -761,9 +789,6 @@ namespace jeza.ioFTPD.Framework
             MessageMutex.ReleaseMutex();
         }
 
-        private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
-        private static readonly Mutex RaceMutex = new Mutex(false, "raceMutex");
-
         public static UInt64 GetFolderSize(this DirectoryInfo directoryInfo)
         {
             return (UInt64) directoryInfo.GetFiles("*", SearchOption.AllDirectories).Sum(fi => fi.Length);
@@ -776,11 +801,11 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Gets the folder count.
+        ///   Gets the folder count.
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="archiveTask"><see cref="ArchiveTask"/>.</param>
-        /// <returns></returns>
+        /// <param name="source"> The source. </param>
+        /// <param name="archiveTask"> <see cref="ArchiveTask" /> . </param>
+        /// <returns> </returns>
         public static List<DirectoryInfo> GetFolders(this DirectoryInfo source,
                                                      ArchiveTask archiveTask)
         {
@@ -823,20 +848,20 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Format the time span to hh:mm:ss
+        ///   Format the time span to hh:mm:ss
         /// </summary>
-        /// <param name="timeSpan"><see cref="TimeSpan"/></param>
-        /// <returns><see cref="TimeSpan"/> formated as HH:MM:SS</returns>
+        /// <param name="timeSpan"> <see cref="TimeSpan" /> </param>
+        /// <returns> <see cref="TimeSpan" /> formated as HH:MM:SS </returns>
         public static string FormatTimeSpan(this TimeSpan timeSpan)
         {
             return String.Format("{0:00}:{1:00}:{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
         }
 
         /// <summary>
-        /// Format size.
+        ///   Format size.
         /// </summary>
-        /// <param name="bytes">total bytes.</param>
-        /// <returns>Formated size like 123 MB, 123kB, ...</returns>
+        /// <param name="bytes"> total bytes. </param>
+        /// <returns> Formated size like 123 MB, 123kB, ... </returns>
         public static string FormatSize(this UInt64 bytes)
         {
             UInt64 formatedSize = bytes;
@@ -851,11 +876,11 @@ namespace jeza.ioFTPD.Framework
         }
 
         /// <summary>
-        /// Checks if <see cref="fileExtension"/> is in <see cref="input"/>
+        ///   Checks if <see cref="fileExtension" /> is in <see cref="input" />
         /// </summary>
-        /// <param name="input">input string</param>
-        /// <param name="fileExtension">file extension</param>
-        /// <returns><c>true</c> if <see cref="input"/> contains <see cref="fileExtension"/></returns>
+        /// <param name="input"> input string </param>
+        /// <param name="fileExtension"> file extension </param>
+        /// <returns> <c>true</c> if <see cref="input" /> contains <see cref="fileExtension" /> </returns>
         public static bool StringContainsFileExt(this string input,
                                                  string fileExtension)
         {

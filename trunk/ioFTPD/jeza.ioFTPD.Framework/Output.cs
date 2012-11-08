@@ -378,9 +378,9 @@ namespace jeza.ioFTPD.Framework
 
         public string FormatImdb
             (string line,
-             dynamic imdbInfo)
+             Dictionary<string, object> imdbInfo)
         {
-            string formatImdb = MinimumLength(line) || imdbInfo == null || race == null
+            string formatImdb = MinimumLength(line) || imdbInfo.Count < 1 || race == null
                                     ? line
                                     : String.Format(new MyFormat(), line
                                                     , race.CurrentRaceData == null ? "" : race.CurrentRaceData.FileName ?? "" // {0}
@@ -388,20 +388,20 @@ namespace jeza.ioFTPD.Framework
                                                     , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UserName ?? "" // {2}
                                                     , race.CurrentRaceData == null ? "" : race.CurrentRaceData.GroupName ?? "" // {3}
                                                     , race.CurrentRaceData == null ? "" : race.CurrentRaceData.UploadVirtualPath ?? "" // {4}
-                                                    , imdbInfo.Title ?? "" // {5}
-                                                    , imdbInfo.Year ?? "" // {6}
-                                                    , imdbInfo.Rated ?? "" // {7}
-                                                    , imdbInfo.Released ?? "" // {8}
-                                                    , imdbInfo.Genre ?? "" // {9}
-                                                    , imdbInfo.Director ?? "" // {10}
-                                                    , imdbInfo.Writer ?? "" // {11}
-                                                    , imdbInfo.Actors ?? "" // {12}
-                                                    , imdbInfo.Plot ?? "" // {13}
-                                                    , imdbInfo.Poster ?? "" // {14}
-                                                    , imdbInfo.Runtime ?? "" // {15}
-                                                    , imdbInfo.Rating ?? "" // {16}
-                                                    , imdbInfo.Votes ?? "" // {17}
-                                                    , imdbInfo.Id ?? "" // {18}
+                                                    , imdbInfo.GetKeyValue("Title") ?? "" // {5}
+                                                    , imdbInfo.GetKeyValue("Year") ?? "" // {6}
+                                                    , imdbInfo.GetKeyValue("Rated") ?? "" // {7}
+                                                    , imdbInfo.GetKeyValue("Released") ?? "" // {8}
+                                                    , imdbInfo.GetKeyValue("Genre") ?? "" // {9}
+                                                    , imdbInfo.GetKeyValue("Director") ?? "" // {10}
+                                                    , imdbInfo.GetKeyValue("Writer") ?? "" // {11}
+                                                    , imdbInfo.GetKeyValue("Actors") ?? "" // {12}
+                                                    , imdbInfo.GetKeyValue("Plot") ?? "" // {13}
+                                                    , imdbInfo.GetKeyValue("Poster") ?? "" // {14}
+                                                    , imdbInfo.GetKeyValue("Runtime") ?? "" // {15}
+                                                    , imdbInfo.GetKeyValue("Rating") ?? "" // {16}
+                                                    , imdbInfo.GetKeyValue("Votes") ?? "" // {17}
+                                                    , imdbInfo.GetKeyValue("Id") ?? "" // {18}
                                                     , Constants.CodeIrcColor // {19}
                                                     , Constants.CodeIrcBold // {20}
                                                     , Constants.CodeIrcUnderline // {21}
