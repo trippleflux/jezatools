@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -81,7 +82,7 @@ namespace jeza.ioFTPD.Framework
             {
                 return;
             }
-            dynamic imdbResponse = Extensions.GetImdbResponseForEventId(imdbId);
+            Dictionary<string, object> imdbResponse = Extensions.GetImdbResponseForEventId(imdbId);
             if (Config.LogToIoFtpdUpdateImdb)
             {
                 Log.IoFtpd(output.FormatImdb(Config.LogLineIoFtpdUpdateImdb, imdbResponse));
