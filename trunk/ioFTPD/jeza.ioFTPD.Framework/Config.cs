@@ -1030,14 +1030,14 @@ namespace jeza.ioFTPD.Framework
             get { return Misc.String2Boolean(GetKeyValue("AddDizToMessageFile", "false")); }
         }
 
-        public static string ClientImdbInfoHead
+        public static string MessageImdbInfoHead
         {
-            get { return GetKeyValue("ClientImdbInfoHead", " iMDB iNFO "); }
+            get { return GetKeyValue("MessageImdbInfoHead", " iMDB iNFO "); }
         }
 
-        public static string ClientImdbInfo
+        public static string MessageImdbInfo
         {
-            get { return GetKeyValue("ClientImdbInfo", " 'ClientImdbInfo' is missing!!! "); }
+            get { return GetKeyValue("MessageImdbInfo", " 'MessageImdbInfo' is missing!!! "); }
         }
 
         public static bool AddImdbInfoToMessageFile

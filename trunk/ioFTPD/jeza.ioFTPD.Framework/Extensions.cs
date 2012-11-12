@@ -757,7 +757,7 @@ namespace jeza.ioFTPD.Framework
             {
                 return;
             }
-            if (!race.VirtualPathMatch(Config.SkipPathMessageFile))
+            if (race.VirtualPathMatch(Config.SkipPathMessageFile))
             {
                 return;
             }
@@ -810,8 +810,8 @@ namespace jeza.ioFTPD.Framework
                                                 if (!string.IsNullOrEmpty(imdbId))
                                                 {
                                                     Dictionary<string, object> imdbResponseForEventId = GetImdbResponseForEventId(imdbId);
-                                                    textWriter.WriteLine(output.Format(Config.ClientImdbInfoHead));
-                                                    textWriter.WriteLine(output.FormatImdb(Config.ClientImdbInfo, imdbResponseForEventId));
+                                                    textWriter.WriteLine(output.Format(Config.MessageImdbInfoHead));
+                                                    textWriter.WriteLine(output.FormatImdb(Config.MessageImdbInfo, imdbResponseForEventId));
                                                 }
                                             }
                                         }

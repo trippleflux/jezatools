@@ -10,13 +10,13 @@ namespace jeza.ioFTPD.Framework
 {
     public static class Log
     {
-        [Conditional("DEBUG")]
+        //[Conditional("DEBUG")]
         public static void Debug(string line)
         {
             Debug(line, null);
         }
 
-        [Conditional("DEBUG")]
+        //[Conditional("DEBUG")]
         public static void Debug(string line,
                                  params object[] args)
         {
@@ -45,10 +45,6 @@ namespace jeza.ioFTPD.Framework
                     return;
                 }
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
-                if (!fileInfo.Exists)
-                {
-                    return;
-                }
                 LogMutex.WaitOne();
                 using (FileStream stream = new FileStream(fileInfo.FullName,
                                                           FileMode.Append,
