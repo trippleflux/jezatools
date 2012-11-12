@@ -95,11 +95,16 @@ namespace jeza.ioFTPD.Framework
 
         private static bool IsImdbUrl(string line)
         {
-            return line.IndexOf(".imdb.") > -1;
+            return line.IndexOf(".imdb.", StringComparison.InvariantCultureIgnoreCase) > -1;
         }
 
         private readonly Race race;
         private static readonly Mutex RaceMutex = new Mutex(false, "nfoMutex");
         private string imdbUrl;
+
+        public string ImdbUrl
+        {
+            get { return imdbUrl; }
+        }
     }
 }

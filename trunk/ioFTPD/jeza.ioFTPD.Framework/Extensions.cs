@@ -24,6 +24,7 @@ namespace jeza.ioFTPD.Framework
     public static class Extensions
     {
         private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
+        private static readonly Mutex DizMutex = new Mutex(false, "dizMutex");
         private static readonly Mutex RaceMutex = new Mutex(false, "raceMutex");
 
         public static int StartProcess(string executable,
@@ -586,7 +587,7 @@ namespace jeza.ioFTPD.Framework
 
                 if (Config.WriteStatsToMesasageFileWhenComplete)
                 {
-                    SkipCreationOfMessageFile(race, isAudioRace, audioInfo);
+                    race.WriteToMesasageFile(isAudioRace, audioInfo);
                 }
                 output.LogCompleteStats();
                 if (isAudioRace)
@@ -622,7 +623,7 @@ namespace jeza.ioFTPD.Framework
                 tagManager.CreateTag(race.CurrentRaceData.DirectoryPath, output.Format(Config.TagIncomplete));
                 if (Config.WriteStatsToMesasageFileWhenRace)
                 {
-                    SkipCreationOfMessageFile(race, isAudioRace, audioInfo);
+                    race.WriteToMesasageFile(isAudioRace, audioInfo);
                 }
                 if (race.TotalFilesUploaded == 1)
                 {
@@ -658,16 +659,6 @@ namespace jeza.ioFTPD.Framework
             UpdateRaceData(race);
             KickUsersFromDirectory(race.CurrentRaceData.DirectoryPath);
             Misc.ChangeVfs(race.CurrentRaceData.DirectoryPath, 444, race.CurrentRaceData.Uid, race.CurrentRaceData.Gid);
-        }
-
-        private static void SkipCreationOfMessageFile(Race race,
-                                                      bool isMp3Race,
-                                                      FileTagLib mp3Info)
-        {
-            if (!race.VirtualPathMatch(Config.SkipPathMessageFile))
-            {
-                WriteStatsToMesasageFile(race, isMp3Race, mp3Info);
-            }
         }
 
         public static void SortAudio(Race race,
@@ -758,12 +749,20 @@ namespace jeza.ioFTPD.Framework
         /// <param name="race"> The race. </param>
         /// <param name="isMp3Race"> if set to <c>true</c> [is MP3 race]. </param>
         /// <param name="mp3Info"> <see cref="FileTagLib" /> </param>
-        public static void WriteStatsToMesasageFile(Race race,
+        public static void WriteToMesasageFile(this Race race,
                                                     bool isMp3Race,
                                                     FileTagLib mp3Info)
         {
+            if (race == null)
+            {
+                return;
+            }
+            if (!race.VirtualPathMatch(Config.SkipPathMessageFile))
+            {
+                return;
+            }
             MessageMutex.WaitOne();
-            Log.Debug("WriteStatsToMesasageFile");
+            Log.Debug("WriteToMesasageFile");
             System.IO.FileInfo fileInfo =
                 new System.IO.FileInfo(Misc.PathCombine(race.CurrentRaceData.DirectoryPath, Config.FileNameIoFtpdMessage));
             using (FileStream fileStream = new FileStream(fileInfo.FullName,
@@ -779,14 +778,95 @@ namespace jeza.ioFTPD.Framework
                         textWriter.WriteLine(output.Format(Config.MessageMp3InfoHead, mp3Info));
                         textWriter.WriteLine(output.Format(Config.MessageMp3Info, mp3Info));
                     }
+                    else
+                    {
+                        if (race.CurrentRaceData.RaceType == RaceType.Default)
+                        {
+                            if (race.IsRaceComplete)
+                            {
+                                if (Config.AddImdbInfoToMessageFile)
+                                {
+                                    string directoryPath = race.CurrentRaceData.DirectoryPath;
+                                    DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+                                    System.IO.FileInfo[] fileInfos = directoryInfo.GetFiles("*.nfo", SearchOption.TopDirectoryOnly);
+                                    if (fileInfos.Any())
+                                    {
+                                        System.IO.FileInfo firstOrDefault = fileInfos.FirstOrDefault();
+                                        if (firstOrDefault != null)
+                                        {
+                                            Race raceImdb = new Race
+                                            {
+                                                CurrentRaceData = new CurrentRaceData
+                                                {
+                                                    UploadFile = firstOrDefault.FullName,
+                                                },
+                                            };
+                                            DataParserNfo dataParserNfo = new DataParserNfo(raceImdb);
+                                            dataParserNfo.Parse();
+                                            string imdbUrl = dataParserNfo.ImdbUrl;
+                                            if (!string.IsNullOrEmpty(imdbUrl))
+                                            {
+                                                string imdbId = GetImdbId(imdbUrl);
+                                                if (!string.IsNullOrEmpty(imdbId))
+                                                {
+                                                    Dictionary<string, object> imdbResponseForEventId = GetImdbResponseForEventId(imdbId);
+                                                    textWriter.WriteLine(output.Format(Config.ClientImdbInfoHead));
+                                                    textWriter.WriteLine(output.FormatImdb(Config.ClientImdbInfo, imdbResponseForEventId));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     textWriter.WriteLine(output.Format(Config.MessageStatsUsersHead));
                     textWriter.Write(output.MessageStatsUsers(Config.MessageStatsUsers, Config.MaxNumberOfUserStats));
                     textWriter.WriteLine(output.Format(Config.MessageStatsGroupsHead));
                     textWriter.Write(output.MessageStatsGroups(Config.MessageStatsGroups, Config.MaxNumberOfGroupStats));
                     textWriter.WriteLine(output.Format(Config.MessageFoot));
+                    
+                    if (race.CurrentRaceData.RaceType == RaceType.Zip)
+                    {
+                        if (Config.AddDizToMessageFile)
+                        {
+                            if (race.IsRaceComplete)
+                            {
+                                string directoryPath = race.CurrentRaceData.DirectoryPath;
+                                DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+                                System.IO.FileInfo[] fileInfos = directoryInfo.GetFiles("*.diz", SearchOption.TopDirectoryOnly);
+                                if (fileInfos.Any())
+                                {
+                                    System.IO.FileInfo firstOrDefault = fileInfos.FirstOrDefault();
+                                    string content = firstOrDefault.ReadContent();
+                                    textWriter.WriteLine(content);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             MessageMutex.ReleaseMutex();
+        }
+
+        private static string ReadContent(this System.IO.FileInfo fileInfo)
+        {
+            string content = "";
+            if (fileInfo == null)
+            {
+                return content;
+            }
+            if (!fileInfo.Exists)
+            {
+                return content;
+            }
+            DizMutex.WaitOne();
+            using (TextReader textReader = new StreamReader(fileInfo.FullName))
+            {
+                content = textReader.ReadToEnd();
+            }
+            DizMutex.ReleaseMutex();
+            return content;
         }
 
         public static UInt64 GetFolderSize(this DirectoryInfo directoryInfo)

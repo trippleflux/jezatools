@@ -16,12 +16,12 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Tools for ioFTPD")]
 [assembly: AssemblyCompany("JezaSoft")]
 [assembly: AssemblyProduct("jeza.ioFTPD.Tools")]
-[assembly: AssemblyCopyright("Copyright JezaSoft 2011")]
+[assembly: AssemblyCopyright("Copyright JezaSoft 2012")]
 [assembly: AssemblyConfiguration("Release")]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: Guid("d038566a-1937-478a-b5c5-b79c4afb253d")]
-[assembly: AssemblyVersion("4.6.50.615")]
-[assembly: AssemblyFileVersion("4.6.50.615")]
+[assembly: AssemblyVersion("4.6.50.621")]
+[assembly: AssemblyFileVersion("4.6.50.621")]
 
 

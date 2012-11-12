@@ -11,6 +11,10 @@ namespace jeza.ioFTPD.Framework
 {
     public class Race : IoEnvironment
     {
+        public Race()
+        {
+        }
+
         public Race(string[] args)
         {
             this.args = args;
