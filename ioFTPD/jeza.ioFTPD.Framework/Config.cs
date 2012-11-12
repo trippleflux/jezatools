@@ -1024,5 +1024,25 @@ namespace jeza.ioFTPD.Framework
         {
             get { return Misc.String2Number(GetKeyValue("TagIncompleteLinkChMod")); }
         }
+
+        public static bool AddDizToMessageFile
+        {
+            get { return Misc.String2Boolean(GetKeyValue("AddDizToMessageFile", "false")); }
+        }
+
+        public static string ClientImdbInfoHead
+        {
+            get { return GetKeyValue("ClientImdbInfoHead", " iMDB iNFO "); }
+        }
+
+        public static string ClientImdbInfo
+        {
+            get { return GetKeyValue("ClientImdbInfo", " 'ClientImdbInfo' is missing!!! "); }
+        }
+
+        public static bool AddImdbInfoToMessageFile
+        {
+            get { return Misc.String2Boolean(GetKeyValue("AddImdbInfoToMessageFile", "false")); }
+        }
     }
 }

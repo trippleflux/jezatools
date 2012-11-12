@@ -16,18 +16,6 @@ namespace jeza.ioFTPD.Framework
             Debug(line, null);
         }
 
-        /// <summary>
-        /// Write debug message to spedified file.
-        /// </summary>
-        /// <param name="line">The line.</param>
-        /// <param name="fileName">Name of the file.</param>
-        [Conditional("DEBUG")]
-        public static void DebugToFile(string line,
-                                       string fileName)
-        {
-            WriteToFile(line, fileName, null);
-        }
-
         [Conditional("DEBUG")]
         public static void Debug(string line,
                                  params object[] args)
@@ -37,7 +25,12 @@ namespace jeza.ioFTPD.Framework
             {
                 path = "";
             }
-            string fileName = Misc.PathCombine(path, Config.FileNameDebug);
+            string fileNameDebug = Config.FileNameDebug;
+            if (string.IsNullOrEmpty(fileNameDebug))
+            {
+                return;
+            }
+            string fileName = Misc.PathCombine(path, fileNameDebug);
             WriteToFile(fileName, line, args);
         }
 
@@ -47,7 +40,15 @@ namespace jeza.ioFTPD.Framework
         {
             try
             {
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    return;
+                }
                 System.IO.FileInfo fileInfo = new System.IO.FileInfo(fileName);
+                if (!fileInfo.Exists)
+                {
+                    return;
+                }
                 LogMutex.WaitOne();
                 using (FileStream stream = new FileStream(fileInfo.FullName,
                                                           FileMode.Append,
