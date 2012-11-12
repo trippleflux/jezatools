@@ -1,12 +1,12 @@
 ========================================================================================================================
-From 4.6.49.613 to 4.6.50.614
+From 4.6.49.614 to 4.6.50.621
 
 In jeza.ioFTPD.ZsipScript.exe.config add
     <add key="AddDizToMessageFile" value="false"/> <!-- Add the .diz content to .ioFTPD.Message file -->
     <add key="AddImdbInfoToMessageFile" value="false"/> <!-- Add the iMDB iNFO content to .ioFTPD.Message file -->
 
-    <add key="ClientImdbInfoHead" value="|----------=[ Movie Info        ]=-----------------------------------------------------------|" />
-    <add key="ClientImdbInfo" value="| Title....: {5,-80:B79}|{19}| Rating...: {16,-80:B79}|{19}| Votes....: {17,-80:B79}|{19}| Year.....: {6,-80:B79}|{19}| Genre....: {9,-80:B79}|{19}| Runtime..: {15,-80:B79}|" />
+    <add key="MessageImdbInfoHead" value="|----------=[ Movie Info        ]=-----------------------------------------------------------|" />
+    <add key="MessageImdbInfo" value="| Title....: {5,-80:B79}|{22}| Rating...: {16,-80:B79}|{22}| Votes....: {17,-80:B79}|{22}| Year.....: {6,-80:B79}|{22}| Genre....: {9,-80:B79}|{22}| Runtime..: {15,-80:B79}|" />
     
 Replace all *.dll and *.exe files in 'jeza.ioFTPD.ZipScript'
 
