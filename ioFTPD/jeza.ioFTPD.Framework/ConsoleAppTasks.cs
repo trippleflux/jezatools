@@ -641,18 +641,27 @@ namespace jeza.ioFTPD.Framework
         private static void UpdateDupeDb(ArchiveTask archiveTask,
                                          DirectoryInfo directoryInfo)
         {
-            if (!Config.UpdateDupe)
+            try
             {
-                return;
+                if (!Config.UpdateDupe)
+                {
+                    Log.Debug("Failed to get 'Config.UpdateDupe' configuration! ");
+                    return;
+                }
+                Log.Debug("Updating DUPEDB with '{0}'", Config.DataSourceDupeUpdateCommand);
+                Log.Debug("DUPEDB : '{0}'", Config.DataSourceDupe);
+                string releaseName = directoryInfo.Name;
+                string realPath = directoryInfo.FullName;
+                string virtualPath = String.Format("{0}/{1}", archiveTask.DestinationVirtual, releaseName);
+                Log.Debug("releaseName='{0}', realPath='{1}', virtualPath='{2}'", releaseName, realPath, virtualPath);
+                int rowsUpdated = DataBase.Update(String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath));
+                Log.Debug("{0} rows updated.", rowsUpdated);
             }
-            Log.Debug("Updating DUPEDB with '{0}'", Config.DataSourceDupeUpdateCommand);
-            Log.Debug("DUPEDB : '{0}'", Config.DataSourceDupe);
-            string releaseName = directoryInfo.Name;
-            string realPath = directoryInfo.FullName;
-            string virtualPath = String.Format("{0}/{1}", archiveTask.DestinationVirtual, releaseName);
-            Log.Debug("releaseName='{0}', realPath='{1}', virtualPath='{2}'", releaseName, realPath, virtualPath);
-            int rowsUpdated = DataBase.Update(String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath));
-            Log.Debug("{0} rows updated.", rowsUpdated);
+            catch (Exception exception)
+            {
+                Log.Debug("Failed to update DupeDB! {0}", exception.Message);
+                Log.Debug("{0}", exception.StackTrace);
+            }
         }
 
         private static void DeleteFolder(DirectoryInfo directoryInfo,
