@@ -2,7 +2,7 @@
 using System.IO;
 using jeza.ioFTPD.Framework;
 using jeza.ioFTPD.Framework.Archive;
-using MbUnit.Framework;
+using NUnit.Framework;
 
 namespace jeza.ioFTPD.Tests.Archive
 {

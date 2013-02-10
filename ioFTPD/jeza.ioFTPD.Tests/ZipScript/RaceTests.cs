@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 
 #endregion
 
@@ -46,8 +46,8 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Race race = new Race(ArgsRarPart1);
             race.ParseUpload();
             Assert.AreEqual("Rar", race.CurrentRaceData.DirectoryName, "DirectoryName");
-            Assert.EndsWith(race.CurrentRaceData.DirectoryPath, @"\TestFiles\Rar", "DirectoryPath");
-            Assert.EndsWith(race.CurrentRaceData.DirectoryParent, @"\TestFiles", "DirectoryParent");
+            Assert.That(race.CurrentRaceData.DirectoryPath.EndsWith(@"\TestFiles\Rar"), "DirectoryPath");
+            Assert.That(race.CurrentRaceData.DirectoryParent.EndsWith(@"\TestFiles"), "DirectoryParent");
             Assert.AreEqual(".rar", race.CurrentRaceData.FileExtension, "FileExtension");
             Assert.AreEqual("infected.part1.rar", race.CurrentRaceData.FileName, "FileName");
             Assert.AreEqual(5000, race.CurrentRaceData.FileSize, "FileSize");
@@ -121,9 +121,11 @@ namespace jeza.ioFTPD.Tests.ZipScript
             Assert.AreEqual (3, race.GetUserStats ().Count, "GetUserStats");
             Assert.AreEqual(2, race.GetGroupStats().Count, "GetGroupStats");
             List<RaceStatsUsers> statsUsers = race.GetUserStats();
-            Assert.Sorted(statsUsers, SortOrder.Decreasing);
+            Assert.That(statsUsers, Is.Ordered.Descending);
+            //Assert.Sorted(statsUsers, SortOrder.Decreasing);
             List<RaceStatsGroups> statsGroups = race.GetGroupStats ();
-            Assert.Sorted(statsGroups, SortOrder.Decreasing);
+            Assert.That(statsGroups, Is.Ordered.Descending);
+            //Assert.Sorted(statsGroups, SortOrder.Decreasing);
             //Console
             foreach (RaceStatsUsers raceStatsUser in statsUsers)
             {

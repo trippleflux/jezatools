@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 using TagLib;
 using TagLib.Mpeg;
 using File=System.IO.File;

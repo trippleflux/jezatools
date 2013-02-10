@@ -1,4 +1,4 @@
-using MbUnit.Framework;
+using NUnit.Framework;
 
 namespace jeza.ioFTPD.Tests.ZipScript
 {
@@ -6,17 +6,17 @@ namespace jeza.ioFTPD.Tests.ZipScript
     public class NfoTests : ZipScriptBase
     {
         [Test]
-        public void UploadNfoFileWithImdbLink()
-        {
-            CleanTestFilesOutput();
-            UploadNfoFile01();
-        }
-
-        [Test]
         public void UploadNfoFile()
         {
             CleanTestFilesOutput();
             UploadNfoFile02();
+        }
+
+        [Test]
+        public void UploadNfoFileWithImdbLink()
+        {
+            CleanTestFilesOutput();
+            UploadNfoFile01();
         }
     }
 }

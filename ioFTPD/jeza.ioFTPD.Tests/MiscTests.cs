@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using jeza.ioFTPD.Framework;
 using jeza.ioFTPD.Framework.Json;
-using MbUnit.Framework;
+using NUnit.Framework;
 using TheMovieDb;
 
 namespace jeza.ioFTPD.Tests
@@ -46,6 +46,7 @@ namespace jeza.ioFTPD.Tests
         }
 
         [Test]
+        [Ignore]
         public void JsonGet()
         {
             dynamic output = Extensions.GetImdbResponseForEventName("true grit");

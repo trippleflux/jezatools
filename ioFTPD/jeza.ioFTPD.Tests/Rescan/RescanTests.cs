@@ -1,4 +1,4 @@
-﻿using MbUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace jeza.ioFTPD.Tests.Rescan
 {
