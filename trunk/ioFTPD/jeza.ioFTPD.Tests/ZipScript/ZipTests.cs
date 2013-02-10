@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 using FileInfo = System.IO.FileInfo;
 
 namespace jeza.ioFTPD.Tests.ZipScript

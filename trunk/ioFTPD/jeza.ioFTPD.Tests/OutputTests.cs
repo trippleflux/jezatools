@@ -2,7 +2,7 @@
 using System;
 using System.Text;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 using TagLib;
 
 #endregion

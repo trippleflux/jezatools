@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 using FileInfo=System.IO.FileInfo;
 
 #endregion
@@ -13,6 +13,7 @@ namespace jeza.ioFTPD.Tests.ZipScript
     public class RarTests : ZipScriptBase
     {
         [Test]
+        [Ignore]
         public void ExecuteResceneInfo()
         {
             int exitCode = Extensions.StartProcess(Config.ResceneInfoExecutable, " " + ArgsSfv[1] + " -o \"..\\..\\TestFiles\\Rar\" -y");
@@ -23,7 +24,8 @@ namespace jeza.ioFTPD.Tests.ZipScript
         /// completes the race with RAR extension.
         /// </summary>
         [Test]
-        public void RaceRar ()
+        [Ignore]
+        public void RaceRar()
         {
             CleanTestFilesOutput ();
             UploadSfvFile ();

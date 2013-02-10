@@ -1,6 +1,6 @@
 using System.IO;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 
 namespace jeza.ioFTPD.Tests.Media
 {

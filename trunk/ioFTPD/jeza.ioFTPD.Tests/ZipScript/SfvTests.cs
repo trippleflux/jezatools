@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 using FileInfo=System.IO.FileInfo;
 
 #endregion

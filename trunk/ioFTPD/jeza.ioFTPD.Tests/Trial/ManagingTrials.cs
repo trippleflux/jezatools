@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using jeza.ioFTPD.Framework;
-using MbUnit.Framework;
+using NUnit.Framework;
 
 namespace jeza.ioFTPD.Tests.Trial
 {
