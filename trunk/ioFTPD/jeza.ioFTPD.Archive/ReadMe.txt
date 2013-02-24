@@ -46,6 +46,20 @@ action
 		minFolderAction	Number
 regExpressionExclude	Regular expression for excluding specified folders
 regExpressionInclude	Regular expression for including only specified folders
+
+============================================================================================================
+************************************************************************************************************
+============================================================================================================
+DataSourceDupeUpdateCommand
+{0} : releaseName
+{1} : realPath (full path + releasename)
+{2} : virtualPath (full virtual path + releasename)
+{3} : DestinationVirtual (from config)
+{4} : Destination (from config)
+{5} : SourceVirtual (from config)
+{6} : Source (from config)
+{7} : realpath (without releasename)
+
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------
