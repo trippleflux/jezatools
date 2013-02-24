@@ -113,7 +113,7 @@ namespace jeza.ioFTPD.Framework
                     using (StreamWriter streamWriter = new StreamWriter(stream))
                     {
                         DateTime dt = new DateTime(DateTime.Now.Ticks);
-                        string line = dt.ToString("[yyyy-MM-dd HH:mm:ss] ") + message;
+                        string line = dt.ToString("yyyy-MM-dd HH:mm:ss ") + message;
                         streamWriter.WriteLine(line);
                     }
                 }

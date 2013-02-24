@@ -654,7 +654,7 @@ namespace jeza.ioFTPD.Framework
                 string realPath = directoryInfo.FullName;
                 string virtualPath = String.Format("{0}/{1}", archiveTask.DestinationVirtual, releaseName);
                 Log.Debug("releaseName='{0}', realPath='{1}', virtualPath='{2}'", releaseName, realPath, virtualPath);
-                int rowsUpdated = DataBase.Update(String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath));
+                int rowsUpdated = DataBase.Update(String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath, archiveTask.DestinationVirtual, archiveTask.Destination, archiveTask.SourceVirtual, archiveTask.Source, directoryInfo.Parent));
                 Log.Debug("{0} rows updated.", rowsUpdated);
             }
             catch (Exception exception)
