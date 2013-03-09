@@ -13,6 +13,14 @@ namespace jeza.ioFTPD.Framework
 {
     public class ConsoleAppTasks
     {
+        private const string DefaultNamespace = Config.DefaultNamespace;
+        private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
+        private static bool sameRoot;
+        private readonly string[] args;
+        private readonly string configurationFile = Config.GetKeyValue("FileNameConfiguration");
+        private string configurationFileName = "testConfig.xml";
+        private TaskConfiguration taskConfiguration;
+
         public ConsoleAppTasks()
         {
         }
@@ -20,6 +28,12 @@ namespace jeza.ioFTPD.Framework
         public ConsoleAppTasks(string[] args)
         {
             this.args = args;
+        }
+
+        public TaskConfiguration TaskConfiguration
+        {
+            get { return taskConfiguration; }
+            set { taskConfiguration = value; }
         }
 
         public void ParseConfig()
@@ -95,7 +109,7 @@ namespace jeza.ioFTPD.Framework
         {
             string releaseName = args [1].Trim();
             int rows = DataBase.ExecuteNonQuery(String.Format("DELETE FROM Folders WHERE ReleaseName = '{0}'", releaseName));
-            Output output = new Output();
+            var output = new Output();
             output.Client(rows > 0
                               ? String.Format(Config.ClientDupeRemove, releaseName)
                               : String.Format(Config.ClientDupeRemoveNotFound, releaseName));
@@ -105,7 +119,7 @@ namespace jeza.ioFTPD.Framework
         {
             string releaseName = args [1].Trim();
             List<DataBaseDupe> dupes = DataBase.SelectFromDupeAll(String.Format("SELECT * FROM Folders WHERE ReleaseName like '%{0}%'", releaseName));
-            Output output = new Output();
+            var output = new Output();
             output.Client(output.FormatNone(Config.ClientDupeListHead));
             if (dupes != null)
             {
@@ -119,7 +133,7 @@ namespace jeza.ioFTPD.Framework
 
         private bool ExecuteDupeNewDirTask()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(args [1]);
+            var directoryInfo = new DirectoryInfo(args [1]);
             string releaseName = directoryInfo.Name;
             DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(String.Format("SELECT * FROM Folders WHERE ReleaseName = '{0}'", releaseName));
             if (dataBaseDupe == null)
@@ -137,7 +151,7 @@ namespace jeza.ioFTPD.Framework
                 return false;
             }
             Log.Debug("New dir is a dupe of '{0}'", dataBaseDupe.ToString());
-            Output output = new Output();
+            var output = new Output();
             output.Client(output.FormatDupe(Config.ClientDupeNewDir, dataBaseDupe));
             if (Config.LogToIoFtpdDupe)
             {
@@ -152,7 +166,7 @@ namespace jeza.ioFTPD.Framework
 
         private bool ExecuteDupeDelDirTask()
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(args [1]);
+            var directoryInfo = new DirectoryInfo(args [1]);
             string releaseName = directoryInfo.Name;
             DataBaseDupe dataBaseDupe = DataBase.SelectFromDupe(String.Format("SELECT * FROM Folders WHERE ReleaseName = '{0}'", releaseName));
             if (dataBaseDupe == null)
@@ -185,14 +199,14 @@ namespace jeza.ioFTPD.Framework
                 string request = Misc.PathCombine(Config.RequestFolder, Config.RequestPrefix + requestName);
                 string creator = IoEnvironment.GetUserName();
                 string groupname = IoEnvironment.GetGroupName();
-                DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-                RequestTask requestTask = new RequestTask
-                                          {
-                                              Username = creator,
-                                              Groupname = groupname,
-                                              DateAdded = dateTime,
-                                              Name = requestName,
-                                          };
+                var dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                var requestTask = new RequestTask
+                                  {
+                                      Username = creator,
+                                      Groupname = groupname,
+                                      DateAdded = dateTime,
+                                      Name = requestName,
+                                  };
                 if (taskConfiguration.RequestTasks != null)
                 {
                     List<RequestTask> requestTasks = taskConfiguration.RequestTasks.ToList();
@@ -208,12 +222,12 @@ namespace jeza.ioFTPD.Framework
                         }
                         if (Config.LogToIoFtpdRequest)
                         {
-                            Output output = new Output();
+                            var output = new Output();
                             Log.IoFtpd(output.FormatRequestTask(Config.LogLineIoFtpdRequest, requestTask));
                         }
                         if (Config.LogToInternalRequest)
                         {
-                            Output output = new Output();
+                            var output = new Output();
                             Log.Internal(output.FormatRequestTask(Config.LogLineInternalRequest, requestTask));
                         }
                     }
@@ -247,12 +261,12 @@ namespace jeza.ioFTPD.Framework
                     SaveConfiguration();
                     if (Config.LogToIoFtpdRequestDeleted)
                     {
-                        Output output = new Output();
+                        var output = new Output();
                         Log.IoFtpd(output.FormatRequestTask(Config.LogLineIoFtpdRequestDeleted, requestTask));
                     }
                     if (Config.LogToInternalRequestDeleted)
                     {
-                        Output output = new Output();
+                        var output = new Output();
                         Log.Internal(output.FormatRequestTask(Config.LogLineInternalRequestDeleted, requestTask));
                     }
                 }
@@ -281,12 +295,12 @@ namespace jeza.ioFTPD.Framework
                     SaveConfiguration();
                     if (Config.LogToIoFtpdRequestFilled)
                     {
-                        Output output = new Output();
+                        var output = new Output();
                         Log.IoFtpd(output.FormatRequestTask(Config.LogLineIoFtpdRequestFilled, requestTask));
                     }
                     if (Config.LogToInternalRequestFilled)
                     {
-                        Output output = new Output();
+                        var output = new Output();
                         Log.Internal(output.FormatRequestTask(Config.LogLineInternalRequestFilled, requestTask));
                     }
                 }
@@ -296,7 +310,6 @@ namespace jeza.ioFTPD.Framework
                     Directory.Move(request, Misc.PathCombine(Config.RequestFolder, Config.RequestFilled + requestName));
                 }
                 OutputRequestList();
-                return;
             }
         }
 
@@ -310,11 +323,11 @@ namespace jeza.ioFTPD.Framework
         {
             MessageMutex.WaitOne();
             Log.Debug("WriteToMesasageFile");
-            System.IO.FileInfo fileInfo = new System.IO.FileInfo(Config.RequestFileMessage);
-            using (FileStream fileStream = new FileStream(fileInfo.FullName,
-                                                          FileMode.OpenOrCreate,
-                                                          FileAccess.ReadWrite,
-                                                          FileShare.None))
+            var fileInfo = new System.IO.FileInfo(Config.RequestFileMessage);
+            using (var fileStream = new FileStream(fileInfo.FullName,
+                                                   FileMode.OpenOrCreate,
+                                                   FileAccess.ReadWrite,
+                                                   FileShare.None))
             {
                 using (TextWriter textWriter = new StreamWriter(fileStream))
                 {
@@ -326,8 +339,8 @@ namespace jeza.ioFTPD.Framework
 
         private void OutputRequestList()
         {
-            StringBuilder sb = new StringBuilder();
-            Output output = new Output();
+            var sb = new StringBuilder();
+            var output = new Output();
             string head = output.FormatNone(Config.ClientRequestHead);
             output.Client(head);
             sb.AppendLine(head);
@@ -362,20 +375,20 @@ namespace jeza.ioFTPD.Framework
                         OutputWeeklyTaskList();
                     }
                     string username = args [2];
-                    UInt64 amount = (UInt64) Misc.String2Number(args [3]);
+                    var amount = (UInt64) Misc.String2Number(args [3]);
                     string creator = IoEnvironment.GetUserName();
-                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
-                    WeeklyTask newWeeklyTask = new WeeklyTask
-                                               {
-                                                   Creator = creator,
-                                                   Uid = 0, //TODO: get UID from username
-                                                   Credits = amount,
-                                                   Username = username,
-                                                   WeeklyTaskStatus = WeeklyTaskStatus.Enabled,
-                                                   Notes = amount.FormatSize() + " From " + creator,
-                                                   DateTimeStart = dateTime,
-                                                   DateTimeStop = dateTime.AddYears(1),
-                                               };
+                    var dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    var newWeeklyTask = new WeeklyTask
+                                        {
+                                            Creator = creator,
+                                            Uid = 0, //TODO: get UID from username
+                                            Credits = amount,
+                                            Username = username,
+                                            WeeklyTaskStatus = WeeklyTaskStatus.Enabled,
+                                            Notes = amount.FormatSize() + " From " + creator,
+                                            DateTimeStart = dateTime,
+                                            DateTimeStop = dateTime.AddYears(1),
+                                        };
                     List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
                     weeklyTasks.Add(newWeeklyTask);
                     taskConfiguration.WeeklyTasks = weeklyTasks.ToArray();
@@ -402,7 +415,7 @@ namespace jeza.ioFTPD.Framework
                 case Constants.WeeklyCheck:
                 {
                     List<WeeklyTask> weeklyTasks = taskConfiguration.WeeklyTasks.ToList();
-                    DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                    var dateTime = new DateTime(DateTime.UtcNow.Ticks);
                     foreach (WeeklyTask weeklyTask in weeklyTasks.Where(weeklyTask => weeklyTask.WeeklyTaskStatus == WeeklyTaskStatus.Enabled))
                     {
                         if (weeklyTask.DateTimeStop < dateTime)
@@ -427,7 +440,7 @@ namespace jeza.ioFTPD.Framework
 
         private void OutputWeeklyTaskList()
         {
-            Output output = new Output();
+            var output = new Output();
             foreach (WeeklyTask weeklyTask in taskConfiguration.WeeklyTasks)
             {
                 output.Client(output.FormatWeeklyTask(Config.ClientWeeklyList, weeklyTask));
@@ -500,7 +513,7 @@ namespace jeza.ioFTPD.Framework
                         {
                             foreach (DirectoryInfo directoryInfo in sourceFolders)
                             {
-                                DateTime dateTime = new DateTime(DateTime.UtcNow.Ticks);
+                                var dateTime = new DateTime(DateTime.UtcNow.Ticks);
                                 DateTime creationTimeUtc = directoryInfo.CreationTimeUtc;
                                 TimeSpan timeSpan = dateTime - creationTimeUtc;
                                 if ((UInt64) timeSpan.Days > task.Action.Value)
@@ -631,7 +644,7 @@ namespace jeza.ioFTPD.Framework
             }
             if (!String.IsNullOrEmpty(archiveTask.LogFormat))
             {
-                Output output = new Output(archiveTask);
+                var output = new Output(archiveTask);
                 string formatArchive = output.FormatArchive(archiveTask.LogFormat, directoryInfo);
                 Log.IoFtpd(formatArchive);
                 Log.Internal(formatArchive);
@@ -643,6 +656,7 @@ namespace jeza.ioFTPD.Framework
         {
             try
             {
+                Log.Debug("archiveTask : {0}", archiveTask.ToString());
                 if (!Config.UpdateDupe)
                 {
                     Log.Debug("Failed to get 'Config.UpdateDupe' configuration! ");
@@ -654,8 +668,17 @@ namespace jeza.ioFTPD.Framework
                 string realPath = directoryInfo.FullName;
                 string virtualPath = String.Format("{0}/{1}", archiveTask.DestinationVirtual, releaseName);
                 Log.Debug("releaseName='{0}', realPath='{1}', virtualPath='{2}'", releaseName, realPath, virtualPath);
-                int rowsUpdated = DataBase.Update(String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath, archiveTask.DestinationVirtual, archiveTask.Destination, archiveTask.SourceVirtual, archiveTask.Source, directoryInfo.Parent));
-                Log.Debug("{0} rows updated.", rowsUpdated);
+                DirectoryInfo parent = directoryInfo.Parent;
+                if (parent != null)
+                {
+                    string command = String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath, archiveTask.DestinationVirtual, archiveTask.Destination, archiveTask.SourceVirtual, archiveTask.Source, parent.FullName);
+                    int rowsUpdated = DataBase.Update(command);
+                    Log.Debug("{0} rows updated.", rowsUpdated);
+                }
+                else
+                {
+                    Log.Debug("Failed to get parent Directory from {0}!", directoryInfo.FullName);
+                }
             }
             catch (Exception exception)
             {
@@ -675,7 +698,7 @@ namespace jeza.ioFTPD.Framework
         private static void CopySourceFolders(ArchiveTask archiveTask,
                                               DirectoryInfo sourceDirectory)
         {
-            DirectoryInfo destinationDirectory = new DirectoryInfo(archiveTask.Destination);
+            var destinationDirectory = new DirectoryInfo(archiveTask.Destination);
             Log.Debug("Source Folder     : '{0}'", sourceDirectory.FullName);
             Log.Debug("Destination Folder: '{0}'", destinationDirectory.FullName);
             sameRoot = false;
@@ -702,20 +725,5 @@ namespace jeza.ioFTPD.Framework
                 File.Move(destinationFileName, backupDestination);
             }
         }
-
-        private TaskConfiguration taskConfiguration;
-
-        public TaskConfiguration TaskConfiguration
-        {
-            get { return taskConfiguration; }
-            set { taskConfiguration = value; }
-        }
-
-        private readonly string configurationFile = Config.GetKeyValue("FileNameConfiguration");
-        private readonly string[] args;
-        private string configurationFileName = "testConfig.xml";
-        private static readonly Mutex MessageMutex = new Mutex(false, "messageMutex");
-        private static bool sameRoot;
-        private const string DefaultNamespace = Config.DefaultNamespace;
     }
 }
