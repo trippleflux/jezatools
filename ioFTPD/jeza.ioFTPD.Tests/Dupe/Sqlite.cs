@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using jeza.ioFTPD.Framework;
+using System.IO;
 using NUnit.Framework;
+using jeza.ioFTPD.Framework;
+using jeza.ioFTPD.Framework.Archive;
 
 namespace jeza.ioFTPD.Tests.Dupe
 {
@@ -43,17 +45,6 @@ namespace jeza.ioFTPD.Tests.Dupe
         /// Find all records.
         /// </summary>
         [Test]
-        public void SelectEverything()
-        {
-            const string commandText = @"SELECT * FROM Folders";
-            List<DataBaseDupe> dupes = DataBase.SelectFromDupeAll(commandText);
-            Assert.IsNotNull(dupes);
-        }
-
-        /// <summary>
-        /// Find all records.
-        /// </summary>
-        [Test]
         public void SelectAll()
         {
             string releasename = Guid.NewGuid().ToString();
@@ -79,6 +70,49 @@ namespace jeza.ioFTPD.Tests.Dupe
             commandText = String.Format(@"SELECT * FROM Folders WHERE ReleaseName like '%{0}%'", releasename);
             List<DataBaseDupe> dupes = DataBase.SelectFromDupeAll(commandText);
             Assert.AreEqual(3, dupes.Count);
+        }
+
+        /// <summary>
+        /// Find all records.
+        /// </summary>
+        [Test]
+        public void SelectEverything()
+        {
+            const string commandText = @"SELECT * FROM Folders";
+            List<DataBaseDupe> dupes = DataBase.SelectFromDupeAll(commandText);
+            Assert.IsNotNull(dupes);
+        }
+
+        /// <summary>
+        /// Update DUPE
+        /// </summary>
+        [Test]
+        public void UpdateDupe()
+        {
+            string releaseName = Guid.NewGuid().ToString();
+            string realPath = string.Format("c:\\temp\\{0}", releaseName);
+            string virtualPath = string.Format("/temp/{0}", releaseName);
+            string commandText = String.Format(@"INSERT INTO Folders (UserName, GroupName, ReleaseName, PathReal, PathVirtual) VALUES('jeza', 'group', '{0}', '{1}', '{2}')", releaseName, realPath, virtualPath);
+            int numberOfRows = DataBase.Insert(commandText);
+            Assert.AreEqual(1, numberOfRows);
+            var directoryInfo = new DirectoryInfo(realPath);
+            if (!directoryInfo.Exists)
+            {
+                directoryInfo.Create();
+            }
+
+            var archiveTask = new ArchiveTask
+                              {
+                                  DestinationVirtual = "/temp/dest/",
+                                  Destination = "c:\\temp\\dest\\",
+                                  SourceVirtual = "/temp",
+                                  Source = "c:\\temp\\",
+                              };
+            DirectoryInfo parent = directoryInfo.Parent;
+            Assert.IsNotNull(parent);
+            string command = String.Format(Config.DataSourceDupeUpdateCommand, releaseName, realPath, virtualPath, archiveTask.DestinationVirtual, archiveTask.Destination, archiveTask.SourceVirtual, archiveTask.Source, parent.FullName);
+            int rowsUpdated = DataBase.Update(command);
+            Assert.AreEqual(1, rowsUpdated);
         }
 
         /// <summary>
