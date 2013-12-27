@@ -63,6 +63,7 @@
     <Compile Include="Dupe\Sqlite.cs" />
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="FileFolderTests.cs" />
+    <Compile Include="Manager\SharedMemoryManagerTests.cs" />
     <Compile Include="Manager\ManagerConfiguration.cs" />
     <Compile Include="Manager\Request.cs" />
     <Compile Include="Manager\Weekly.cs" />

@@ -81,6 +81,7 @@
     <Compile Include="DataBase.cs" />
     <Compile Include="DataBaseDupe.cs" />
     <Compile Include="DataParserNfo.cs" />
+    <Compile Include="ioFTPD\SharedMemoryManager.cs" />
     <Compile Include="ioFTPD\UploadStats.cs" />
     <Compile Include="ioFTPD\UserFile.cs" />
     <Compile Include="Json\JsonObject.cs" />
