@@ -6,14 +6,32 @@ namespace jeza.ioFTPD.Tests.Manager
     [TestFixture]
     public class SharedMemoryManagerTests
     {
+        private static SharedMemoryManager sharedMemoryManager;
+        private const string IoftpdMessagewindow = "ioFTPD::MessageWindow";
+
+        private static void FindWindowForTest()
+        {
+            sharedMemoryManager = new SharedMemoryManager(IoftpdMessagewindow);
+            bool isWindowThere = sharedMemoryManager.IsWindowThere;
+            Assert.IsTrue(isWindowThere, string.Format("'{0}' was not found!", IoftpdMessagewindow));
+        }
+
         [Test]
         [Ignore]
-        public void FindWindow()
+        public void SharedAllocate()
         {
-            const string ioftpdMessagewindow = "ioFTPD::MessageWindow";
-            SharedMemoryManager sharedMemoryManager = new SharedMemoryManager(ioftpdMessagewindow);
-            bool isWindowThere = sharedMemoryManager.IsWindowThere;
-            Assert.IsTrue(isWindowThere, string.Format("'{0}' was not found!", ioftpdMessagewindow));
+            FindWindowForTest();
+            LPALLOCATION lpallocation = sharedMemoryManager.SharedAllocate(4096);
+            Assert.IsNotNull(lpallocation);
+        }
+
+        [Test]
+        [Ignore]
+        public void UID2Name()
+        {
+            FindWindowForTest();
+            string uid2Name = sharedMemoryManager.UID2Name(0);
+            Assert.IsNotNull(uid2Name);
         }
     }
 }
