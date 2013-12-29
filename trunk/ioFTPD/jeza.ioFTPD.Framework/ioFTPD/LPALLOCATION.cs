@@ -16,7 +16,8 @@ DWORD			dwBytes;
 
 } ALLOCATION, * LPALLOCATION;
  */
-        internal LPDC_MESSAGE lpMessage;
+        //internal LPDC_MESSAGE lpMessage;
+        internal IntPtr lpMessage;
         internal IntPtr lpMemory;
         internal IntPtr hDaemon;
         internal IntPtr hObject;
