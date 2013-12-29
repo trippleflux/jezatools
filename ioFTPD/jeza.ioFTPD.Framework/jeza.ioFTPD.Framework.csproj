@@ -119,6 +119,7 @@
     <Compile Include="ioFTPD\LPDC_MESSAGE.cs" />
     <Compile Include="ioFTPD\LPDC_NAMEID.cs" />
     <Compile Include="ioFTPD\LPLOCALDATA.cs" />
+    <Compile Include="ioFTPD\SECURITY_ATTRIBUTES.cs" />
     <Compile Include="ioFTPD\SharedMemoryManager.cs" />
     <Compile Include="ioFTPD\UploadStats.cs" />
     <Compile Include="ioFTPD\UserFile.cs" />

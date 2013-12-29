@@ -1,5 +1,8 @@
+using System;
+
 namespace jeza.ioFTPD.Framework.ioFTPD
 {
+    [Flags]
     internal enum FileMapProtection
     {
         PageReadonly = 0x02,

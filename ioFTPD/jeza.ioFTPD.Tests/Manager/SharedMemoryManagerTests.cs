@@ -30,7 +30,7 @@ namespace jeza.ioFTPD.Tests.Manager
         public void UID2Name()
         {
             FindWindowForTest();
-            string uid2Name = sharedMemoryManager.UID2Name(0);
+            string uid2Name = sharedMemoryManager.UID2Name(1);
             Assert.IsNotNull(uid2Name);
         }
     }
