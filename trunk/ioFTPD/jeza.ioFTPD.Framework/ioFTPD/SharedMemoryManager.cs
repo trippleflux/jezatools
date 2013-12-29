@@ -10,8 +10,24 @@ namespace jeza.ioFTPD.Framework.ioFTPD
         private const int WM_USER = 0x0400;
         private const int WM_SHMEM = (WM_USER + 101);
         private const int MAX_NAME = 64;
+        private const int WM_DATACOPY_SHELLALLOC = WM_USER + 19;
         private const int WM_DATACOPY_FILEMAP = (WM_USER + 21);
         private const int WM_DATACOPY_FREE = (WM_USER + 20);
+
+        private const UInt32 STANDARD_RIGHTS_REQUIRED = 0x000F0000;
+        private const UInt32 SECTION_QUERY = 0x0001;
+        private const UInt32 SECTION_MAP_WRITE = 0x0002;
+        private const UInt32 SECTION_MAP_READ = 0x0004;
+        private const UInt32 SECTION_MAP_EXECUTE = 0x0008;
+        private const UInt32 SECTION_EXTEND_SIZE = 0x0010;
+
+        private const UInt32 SECTION_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | SECTION_QUERY |
+                                                   SECTION_MAP_WRITE |
+                                                   SECTION_MAP_READ |
+                                                   SECTION_MAP_EXECUTE |
+                                                   SECTION_EXTEND_SIZE);
+
+        private const UInt32 FILE_MAP_ALL_ACCESS = SECTION_ALL_ACCESS;
 
         private const int MAX_PATH = 260;
 
@@ -79,12 +95,12 @@ namespace jeza.ioFTPD.Framework.ioFTPD
                 {
                     throw new Exception("Failed to CreateFileMapping!");
                 }
-                FileMapAccess dwDesiredAccess = //FileMapAccess.FileMapExecute |
-                                                //FileMapAccess.FileMapAllAccess |
-                                                FileMapAccess.FileMapCopy |
+                FileMapAccess dwDesiredAccess = FileMapAccess.FileMapCopy |
                                                 FileMapAccess.FileMapWrite |
-                                                FileMapAccess.FileMapRead;
-                pt_lpdcMessage = MapViewOfFile(hObject, dwDesiredAccess, 0, 0, dwBytes);
+                                                FileMapAccess.FileMapRead |
+                                                FileMapAccess.FileMapExecute |
+                                                FileMapAccess.FileMapExtendSize;
+                pt_lpdcMessage = MapViewOfFile(hObject, FILE_MAP_ALL_ACCESS, 0, 0, dwBytes);
                 if (pt_lpdcMessage == IntPtr.Zero)
                 {
                     CloseEventHandle(hEvent);
@@ -141,19 +157,31 @@ namespace jeza.ioFTPD.Framework.ioFTPD
             int sizeOf_LPDC_NAMEID = Marshal.SizeOf(typeof (LPDC_NAMEID));
             uint dwBytes = (uint) (sizeOf_LPDC_NAMEID + (MAX_PATH * 2));
             LPALLOCATION lpallocation = SharedAllocate(dwBytes);
+            string uid2Name = string.Empty;
             try
             {
                 if (lpallocation.hDaemon == IntPtr.Zero)
                 {
-                    return "error";
+                    return uid2Name;
                 }
                 LPDC_NAMEID lpdcNameid = new LPDC_NAMEID();
                 lpdcNameid.Id = uid;
-                IntPtr varPtr = VarPtr(lpdcNameid);
-                MoveMemory(lpallocation.lpMemory, varPtr, (int)dwBytes);
+                IntPtr varPtr_LPDC_NAMEID = VarPtr(lpdcNameid);
+                IntPtr varPtr_LPALLOCATION_LPDC_NAMEID = VarPtr(lpallocation.lpMemory);
+
+                MoveMemory(varPtr_LPALLOCATION_LPDC_NAMEID, varPtr_LPDC_NAMEID, sizeOf_LPDC_NAMEID);
+
                 uint queryDaemon = QueryDaemon(DC_UID_TO_USER, lpallocation, 3000);
-                MoveMemory(varPtr, lpallocation.lpMemory, (int)dwBytes);
-                return Marshal.PtrToStringAnsi(lpdcNameid.tszName);
+                if (queryDaemon == 0)
+                {
+                    MoveMemory(varPtr_LPDC_NAMEID, varPtr_LPALLOCATION_LPDC_NAMEID, sizeOf_LPDC_NAMEID);
+                    LPDC_NAMEID ptrToStructure = (LPDC_NAMEID) Marshal.PtrToStructure(varPtr_LPDC_NAMEID, typeof (LPDC_NAMEID));
+                    string ptrToStringAnsi = Marshal.PtrToStringAnsi(ptrToStructure.tszName);
+                    string ptrToStringAuto = Marshal.PtrToStringAuto(ptrToStructure.tszName);
+                    string ptrToStringUni = Marshal.PtrToStringUni(ptrToStructure.tszName);
+                    return ptrToStringAnsi;
+                }
+                return uid2Name;
             }
             catch (Exception exception)
             {
@@ -163,7 +191,7 @@ namespace jeza.ioFTPD.Framework.ioFTPD
             {
                 SharedFree(lpallocation);
             }
-            return "empty";
+            return uid2Name;
         }
 
         private static void CloseEventHandle(IntPtr hEvent)
@@ -201,6 +229,15 @@ namespace jeza.ioFTPD.Framework.ioFTPD
             uint dwMaximumSizeLow,
             [MarshalAs(UnmanagedType.LPTStr)] string lpName);
 
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        private static extern IntPtr CreateFileMapping(
+            IntPtr hFile,
+            IntPtr lpFileMappingAttributes,
+            UInt32 flProtect,
+            uint dwMaximumSizeHigh,
+            uint dwMaximumSizeLow,
+            [MarshalAs(UnmanagedType.LPTStr)] string lpName);
+
         [DllImport("User32.Dll")]
         private static extern IntPtr FindWindow(string lpClassName,
                                                 string lpWindowName);
@@ -227,6 +264,14 @@ namespace jeza.ioFTPD.Framework.ioFTPD
             uint dwFileOffsetLow,
             uint dwNumberOfBytesToMap);
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr MapViewOfFile(
+            IntPtr hFileMappingObject,
+            UInt32 dwDesiredAccess,
+            UInt32 dwFileOffsetHigh,
+            UInt32 dwFileOffsetLow,
+            UInt32 dwNumberOfBytesToMap);
+
         [DllImport("Kernel32.dll", EntryPoint = "RtlMoveMemory", SetLastError = false)]
         private static extern void MoveMemory(IntPtr dest,
                                               IntPtr src,
@@ -242,6 +287,13 @@ namespace jeza.ioFTPD.Framework.ioFTPD
                                               IntPtr src,
                                               int size);
 
+        [return: MarshalAs(UnmanagedType.Bool)]
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool PostMessage(IntPtr hWnd,
+                                               uint Msg,
+                                               IntPtr wParam,
+                                               IntPtr lParam);
+
         [DllImport("User32.Dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd,
                                                  UInt32 msg,
@@ -251,10 +303,11 @@ namespace jeza.ioFTPD.Framework.ioFTPD
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern bool UnmapViewOfFile(IntPtr lpBaseAddress);
 
-        private static IntPtr VarPtr(object e)
+        private static IntPtr VarPtr<T>(T e)
         {
+            IntPtr gc = Marshal.AllocHGlobal(Marshal.SizeOf(typeof (T)));
             GCHandle GC = GCHandle.Alloc(e, GCHandleType.Pinned);
-            IntPtr gc = GC.AddrOfPinnedObject();
+            gc = GC.AddrOfPinnedObject();
             GC.Free();
             return gc;
         }
@@ -312,23 +365,31 @@ namespace jeza.ioFTPD.Framework.ioFTPD
                                    LPALLOCATION lpallocation,
                                    int dwTimeOut)
         {
+            if (lpallocation.hEvent == IntPtr.Zero)
+            {
+                throw new Exception("QueryDaemon : Event no initialized!");
+            }
             LPDC_MESSAGE lpdcMessage = new LPDC_MESSAGE();
             int sizeOf_LPDC_MESSAGE = Marshal.SizeOf(typeof (LPDC_MESSAGE));
             IntPtr varPtr_LPDC_MESSAGE = VarPtr(lpdcMessage);
-            //IntPtr varPtr_LPALLOCATION_LPDC_MESSAGE = VarPtr(lpallocation.lpMessage);
-            IntPtr varPtr_LPALLOCATION_LPDC_MESSAGE = lpallocation.lpMessage;
+            IntPtr varPtr_LPALLOCATION_LPDC_MESSAGE = VarPtr(lpallocation.lpMessage);
+
             MoveMemory(varPtr_LPDC_MESSAGE, varPtr_LPALLOCATION_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
-            //MoveMemory(varPtr_LPDC_MESSAGE, varPtr_LPALLOCATION_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
-            lpdcMessage.dwIdentifier = dwIdentifier;
+            LPDC_MESSAGE ptrToStructure = (LPDC_MESSAGE) Marshal.PtrToStructure(varPtr_LPDC_MESSAGE, typeof (LPDC_MESSAGE));
+            ptrToStructure.dwIdentifier = dwIdentifier;
+            varPtr_LPDC_MESSAGE = VarPtr(ptrToStructure);
+
             MoveMemory(varPtr_LPALLOCATION_LPDC_MESSAGE, varPtr_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
-            //MoveMemory(varPtr_LPALLOCATION_LPDC_MESSAGE, varPtr_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
 
-            IntPtr hRemote = SendMessage(m_ioFtpdWindow, WM_SHMEM, IntPtr.Zero, lpallocation.hDaemon);
-
-            WaitForSingleObject(lpallocation.hEvent, dwTimeOut);
-            MoveMemory(varPtr_LPDC_MESSAGE, varPtr_LPALLOCATION_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
-            //MoveMemory(varPtr_LPDC_MESSAGE, varPtr_LPALLOCATION_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
-            return lpdcMessage.dwReturn;
+            bool postMessage = PostMessage(m_ioFtpdWindow, WM_SHMEM, IntPtr.Zero, lpallocation.hDaemon);
+            if (postMessage)
+            {
+                WaitForSingleObject(lpallocation.hEvent, dwTimeOut);
+                MoveMemory(varPtr_LPDC_MESSAGE, varPtr_LPALLOCATION_LPDC_MESSAGE, sizeOf_LPDC_MESSAGE);
+                ptrToStructure = (LPDC_MESSAGE) Marshal.PtrToStructure(varPtr_LPDC_MESSAGE, typeof (LPDC_MESSAGE));
+                return ptrToStructure.dwReturn;
+            }
+            throw new Exception("QueryDaemon : PostMessage failed! dwIdentifier=" + dwIdentifier);
         }
     }
 }

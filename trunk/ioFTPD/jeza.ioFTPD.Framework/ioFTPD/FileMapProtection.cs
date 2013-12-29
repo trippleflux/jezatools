@@ -3,7 +3,7 @@ using System;
 namespace jeza.ioFTPD.Framework.ioFTPD
 {
     [Flags]
-    internal enum FileMapProtection
+    internal enum FileMapProtection : uint
     {
         PageReadonly = 0x02,
         PageReadWrite = 0x04,
